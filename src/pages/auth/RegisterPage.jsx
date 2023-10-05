@@ -16,11 +16,10 @@ import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
 
 const RegisterPage = () => {
   const brokerOption = useSelector((state) => state.brokerList.brokerOption);
-
   const { formik, loading } = useRegisterForm();
 
   const handleClick = () => {
-    history('/register');
+    history('/login');
   };
 
   return (

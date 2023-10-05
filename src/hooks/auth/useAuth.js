@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { login, register, application } from '../../api/auth/auth-api';
+import { login, register, application, verification } from '../../api/auth/auth-api';
 
 export const useLogin = ({ onSuccess }) => {
   const history = useNavigate();
@@ -32,7 +32,7 @@ export const useRegister = ({ onSuccess }) => {
     {
       onSuccess: (data, variables, context) => {
         toast.success('Registration Successful');
-        history.push('/login');
+        history(`/verification/${data?.id}`);
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
@@ -48,6 +48,25 @@ export const useApplication = ({ onSuccess }) => {
   return useMutation(
     ['login'],
     ({ email, submissionNo }) => application(email, submissionNo),
+    {
+      onSuccess: (data, variables, context) => {
+        toast.success('status fetched Successfully');
+        history('dashboard');
+        onSuccess && onSuccess(data, variables, context);
+      },
+      onError: (err, _variables, _context) => {
+        toast.error(err.message);
+      },
+    }
+  );
+};
+
+export const useVerification = ({ onSuccess }) => {
+  const history = useNavigate();
+
+  return useMutation(
+    ['verification'],
+    ({ id, otp }) => verification(id, otp),
     {
       onSuccess: (data, variables, context) => {
         toast.success('status fetched Successfully');

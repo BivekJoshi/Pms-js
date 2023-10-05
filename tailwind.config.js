@@ -54,6 +54,7 @@ export default {
           surfaceContainerLowest: '#ffffff',
           surfaceDim: '#dbd9dd',
           surfaceBright: '#fbf8fd',
+          verification: "#d9d9d9"
         },
         dark: {
           primary: '#b1c5ff',

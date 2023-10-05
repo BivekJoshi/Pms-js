@@ -18,7 +18,7 @@ export default function AppRoutes() {
             <Route path='/login' element={<LoginPage />} />
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/application/status' element={<ApplicationPage />} />
-            <Route path='/verification' element={<Verification />} />
+            <Route path='/verification/:id' element={<Verification />} />
           </Route>
         </Routes>
       </Suspense>

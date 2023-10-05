@@ -16,10 +16,17 @@ export const register = async (email, brokerNo, nepseCode, mobileNo) => {
     nepseCode,
     mobileNo,
   });
+  console.log({"hello there": data});
   return data;
+  
 };
 
 export const application = async (email, submissionNo) => {
   const { data } = await axiosInstance.get(`/public/register/rejected?email=${email}&submissionNo=${submissionNo}`);
+  return data;
+};
+
+export const verification = async (id, otp) => {  
+  const { data } = await axiosInstance.get(`/public/register/${id}/${otp}`);
   return data;
 };
