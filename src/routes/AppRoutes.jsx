@@ -1,5 +1,5 @@
-import React, { Suspense, useEffect, useState } from 'react';
-import { Routes, Route, HashRouter, Navigate } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));
@@ -12,29 +12,15 @@ const ApplicationPage = React.lazy(() =>
 const Verification = React.lazy(() => import('../pages/auth/Verification'));
 
 export default function AppRoutes() {
-  const [token, setToken] = useState(localStorage.token);
-  console.log('🚀 ~ file: AppRoutes.jsx:16 ~ AppRoutes ~ token:', token);
-
-  useEffect(() => {
-    setToken(localStorage.token);
-  }, []);
   return (
     <HashRouter hashType='slash'>
       <Suspense fallback={<Spinner />}>
         <Routes>
-          <Route
-            path='/'
-            exact
-            element={token ? <Navigate to='/login' /> : <LoginLayout />}
-          >
-            <Route path='/login' exact element={<LoginPage />} />
-            <Route path='/register' exact element={<RegisterPage />} />
-            <Route
-              path='/application/status'
-              exact
-              element={<ApplicationPage />}
-            />
-            <Route path='/verification' exact element={<Verification />} />
+          <Route path='/' element={<LoginLayout />}>
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/register' element={<RegisterPage />} />
+            <Route path='/application/status' element={<ApplicationPage />} />
+            <Route path='/verification' element={<Verification />} />
           </Route>
         </Routes>
       </Suspense>

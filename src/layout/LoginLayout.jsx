@@ -1,12 +1,20 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Background from '../assets/left.png';
 import Logo from '../assets/logo.png';
 import Curved from '../assets/curves--.png';
 import Bear from '../assets/bear--.png';
 
 const LoginLayout = () => {
+  const [token, setToken] = useState(localStorage.token);
+  const navigate = useNavigate();
+  useEffect(() => {
+    setToken(localStorage.token);
+    if (!token) {
+      navigate('/login');
+    }
+  }, []);
   return (
     <Box
       display='grid'
