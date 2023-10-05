@@ -73,16 +73,16 @@ const ApplicationPage = () => {
           />
           <TextField
             required
-            value={formik.values.submissionNumber}
+            value={formik.values.submissionNo}
             onChange={formik.handleChange}
             error={
-              formik.touched.submissionNumber &&
-              Boolean(formik.errors.submissionNumber)
+              formik.touched.submissionNo &&
+              Boolean(formik.errors.submissionNo)
             }
             helperText={
-              formik.touched.submissionNumber && formik.errors.submissionNumber
+              formik.touched.submissionNo && formik.errors.submissionNo
             }
-            name='submissionNumber'
+            name='submissionNo'
             label='Enter your Submission number'
             fullWidth
             variant='outlined'

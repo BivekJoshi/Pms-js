@@ -27,6 +27,6 @@ export const application = async (email, submissionNo) => {
 };
 
 export const verification = async (id, otp) => {  
-  const { data } = await axiosInstance.get(`/public/register/${id}/${otp}`);
+  const { data } = await axiosInstance.post(`/public/register/${id}/${otp}`);
   return data;
 };

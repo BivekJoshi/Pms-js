@@ -6,16 +6,20 @@ import { useVerificationForm } from '../../form/auth/verification/useVerificatio
 import OtpInput from 'react-otp-input';
 import { LoadingButton } from '@mui/lab';
 import { useParams } from 'react-router-dom';
+import { useVerification } from '../../hooks/auth/useAuth';
 
 const Verification = () => {
   const [otp, setOtp] = useState('');
   const { id } = useParams();
-  console.log(id);
   
   const {
-    formik,
+    handleVerification,
     loading,
-  } = useVerificationForm(id);
+  } = useVerificationForm();
+
+  const handleSubmit = () => {
+    handleVerification({ id, otp }); // Pass id and otp to handleVerification
+  };
 
   const handleClick = () => {
     console.log("resend code")
@@ -36,7 +40,7 @@ const Verification = () => {
       <TimerOutlinedIcon /><Timer />
       <LoadingButton
             fullWidth
-            onClick={() => formik.submitForm()}
+            onClick={handleSubmit}
             variant='contained'
             loading={loading}
             sx={{
