@@ -11,7 +11,7 @@ import CheckStatus from '../../assets/checkStatus.png';
 import Bear from '../../assets/bull--.png';
 
 const LoginPage = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const brokerOption = useSelector((state) => state.brokerList.brokerOption);
 
   const {
@@ -23,7 +23,7 @@ const LoginPage = () => {
   } = useLoginForm();
 
   const handleClick = () => {
-    history('/register');
+    navigate('/register');
   };
 
   return (
@@ -149,25 +149,23 @@ const LoginPage = () => {
               >
                 <Checkbox defaultChecked sx={{ padding: '0' }} />
                 <div className='bodySmall ' fontSize='12px'>
-                  Remaimber me
+                  Remember me
                 </div>
               </Grid>
               <div className='bodySmall'>Forgot password?</div>
             </Grid>
-            <Button
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                border: '1px solid purple',
-                width: '7rem',
-                gap: '.5rem',
-                padding: '4px',
-              }}
-              size='small'
-            >
-              <img src={CheckStatus} alt='CheckStatus' />
-              Check status
-            </Button>
+            <Grid>
+              <Button
+                component='label'
+                variant='outlined'
+                color='info'
+                sx={{ color: '#000000', textTransform: 'none' }}
+                startIcon={<img src={CheckStatus} alt='CheckStatus' />}
+                onClick={() => navigate('/application/status')}
+              >
+                Check Status
+              </Button>
+            </Grid>
           </Grid>
           <LoadingButton
             className='titleMedium '
