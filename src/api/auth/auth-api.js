@@ -30,3 +30,14 @@ export const verification = async (id, otp) => {
   const { data } = await axiosInstance.post(`/public/register/${id}/${otp}`);
   return data;
 };
+
+export const resendVerification = async (id, otp) => {  
+  const { data } = await axiosInstance.post(`/public/register/${id}/${otp}`);
+  return data;
+};
+
+
+export const resetPassword = async (id) => {  
+  const { data } = await axiosInstance.post(`/public/register/${id}`);
+  return data;
+};

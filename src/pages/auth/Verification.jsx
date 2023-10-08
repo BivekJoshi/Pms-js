@@ -2,28 +2,19 @@ import Timer from '../../components/timer/Timer';
 import { Box, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
-import { useVerificationForm } from '../../form/auth/verification/useVerificationForm';
+import { useResendVerificationForm, useVerificationForm } from '../../form/auth/verification/useVerificationForm';
 import OtpInput from 'react-otp-input';
 import { LoadingButton } from '@mui/lab';
 import { useParams } from 'react-router-dom';
-import { useVerification } from '../../hooks/auth/useAuth';
 
 const Verification = () => {
   const [otp, setOtp] = useState('');
   const { id } = useParams();
-  
-  const {
-    handleVerification,
-    loading,
-  } = useVerificationForm();
 
-  const handleSubmit = () => {
-    handleVerification({ id, otp }); // Pass id and otp to handleVerification
-  };
-
-  const handleClick = () => {
-    console.log("resend code")
-  };
+  const {handleVerification, loading} = useVerificationForm();
+  const {handleResendVerification} = useResendVerificationForm();
+  const handleSubmit = () => {handleVerification({ id, otp })};
+  const handleClick = () => {handleResendVerification({ id })};
   
   return (
     <div>

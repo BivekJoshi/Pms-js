@@ -4,7 +4,7 @@ const initialState = {
 
 const brokerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_BROKER_OPTION':
+    case "SET_BROKER_OPTION":
       return {
         ...state,
         brokerOption: action.payload,

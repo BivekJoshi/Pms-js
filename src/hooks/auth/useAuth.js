@@ -1,16 +1,20 @@
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { login, register, application, verification } from '../../api/auth/auth-api';
+import { login, register, application, verification, resendVerification, resetPassword } from '../../api/auth/auth-api';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const useLogin = ({ onSuccess }) => {
   const history = useNavigate();
+  const dispatch = useDispatch();
+  const brokerOption = useSelector((state) => state.auth)
 
   return useMutation(
     ['login'],
     ({ email, brokerNo, password }) => login(email, brokerNo, password),
     {
       onSuccess: (data, variables, context) => {
+        localStorage.setItem('authToken', data?.auth);
         toast.success('Login Successful');
         history('dashboard');
         onSuccess && onSuccess(data, variables, context);
@@ -71,6 +75,45 @@ export const useVerification = ({ onSuccess }) => {
       onSuccess: (data, variables, context) => {
         toast.success('status fetched Successfully');
         history('dashboard');
+        onSuccess && onSuccess(data, variables, context);
+      },
+      onError: (err, _variables, _context) => {
+        toast.error(err.message);
+      },
+    }
+  );
+};
+
+export const useResendVerification = ({ onSuccess }) => {
+  const history = useNavigate();
+
+  return useMutation(
+    ['verification'],
+    ({ id }) => resendVerification(id),
+    {
+      onSuccess: (data, variables, context) => {
+        toast.success('code re-send Successfully');
+        history('login');
+        onSuccess && onSuccess(data, variables, context);
+      },
+      onError: (err, _variables, _context) => {
+        toast.error(err.message);
+      },
+    }
+  );
+}
+
+export const useResetPassword = ({ onSuccess }) => {
+  const history = useNavigate();
+
+  return useMutation(
+    ['register'],
+    ({ oldPassword, newPassword, rePassword }) =>
+      resetPassword(oldPassword, newPassword, rePassword),
+    {
+      onSuccess: (data, variables, context) => {
+        toast.success('Registration Successful');
+        history(`/login`);
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {

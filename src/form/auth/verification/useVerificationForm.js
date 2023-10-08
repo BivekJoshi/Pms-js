@@ -44,7 +44,7 @@
 
 import { useState } from 'react';
 import { useFormik } from 'formik';
-import { useVerification } from '../../../hooks/auth/useAuth';
+import { useResendVerification, useVerification } from '../../../hooks/auth/useAuth';
 import { verificationSchema } from './verificationValidationSchema';
 
 export const useVerificationForm = () => { // Remove id and otp parameters
@@ -79,6 +79,40 @@ export const useVerificationForm = () => { // Remove id and otp parameters
     handleVerification,
     formik,
     loading,
+    handleMouseDownPassword,
+  };
+};
+
+export const useResendVerificationForm = () => { // Remove id and otp parameters
+  const [load, setLoad] = useState(false);
+  const { mutate } = useResendVerification({});
+
+  const formik = useFormik({
+    initialValues: {
+      id: '',
+    },
+    onSubmit: (values) => {
+      setLoad(true);
+      handleResendVerification(values);
+    },
+  });
+
+  const handleResendVerification = (values) => {
+    const { id } = values;
+    mutate(
+      { id },
+      { onSettled: () => setLoad(false) }
+    );
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  return {
+    handleResendVerification,
+    formik,
+    load,
     handleMouseDownPassword,
   };
 };
