@@ -1,9 +1,9 @@
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import React from 'react';
+import CustomTable from '../../components/customTable/CustomTable';
 
 const Dashboard = () => {
   const theme = useTheme();
-  console.log('🚀 ~ file: Dashboard.jsx:6 ~ Dashboard ~ theme:', theme);
 
   return (
     <Box>
@@ -27,6 +27,7 @@ const Dashboard = () => {
           <Box>ok</Box>
         </Grid>
       </Grid>
+      <CustomTable />
     </Box>
   );
 };
