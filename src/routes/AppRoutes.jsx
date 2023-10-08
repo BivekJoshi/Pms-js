@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
+import ApplicationMessage from '../pages/auth/ApplicationMessage';
 
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));
@@ -23,6 +24,7 @@ export default function AppRoutes() {
             <Route path='/register' element={<RegisterPage />} />
             <Route path='/application/status' element={<ApplicationPage />} />
             <Route path='/verification' element={<Verification />} />
+            <Route path='/application/status/message' element={<ApplicationMessage />} />
           </Route>
           <Route path='/' element={<AppLayout />}>
             <Route path='dashboard' element={<Dashboard />} />

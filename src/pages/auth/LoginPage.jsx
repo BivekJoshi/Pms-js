@@ -32,7 +32,7 @@ const LoginPage = () => {
       boxShadow="0 4px 8px 3px rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3)"
       width={{ xs: "90%", sm: "80%" }}
       bgcolor="#fdf8fd"
-      borderRadius="9px"
+      borderRadius="32px"
       position="relative"
       alignSelf="center"
     >
