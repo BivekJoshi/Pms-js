@@ -16,7 +16,6 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const history = useNavigate();
-
   const brokerOption = useSelector((state) => state.brokerList.brokerOption);
 
   const {
