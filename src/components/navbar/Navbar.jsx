@@ -24,6 +24,7 @@ import FlexBetween from "../flexBetween/FlexBetween";
 import { useDispatch } from "react-redux";
 // import { TOGGLE_THEME } from '../../redux/reducers/themeReducer';
 import logo from "../../assets/logo.png";
+import NavabarProfile from "./NavabarProfile";
 
 const navItems = [
   {
@@ -76,7 +77,7 @@ const Navbar = () => {
         {/* RIGHT side */}
         <img src={logo} alt="Logo" style={{ width: "104px", height: "36px" }} />
 
-        <div style={{ display: "flex", alignItems: "center", gap: "6rem" }}>
+        <div style={{ display: "flex", alignItems: "center" }}>
           {/* Middle SIDE */}
           <FlexBetween>
             {navItems.map((items) => (
@@ -86,7 +87,7 @@ const Navbar = () => {
                     onClick={() => handleActiveClick(items?.id)}
                     sx={{
                       cursor: "pointer",
-                      color: isActive === items.id ? "blue" : "black",
+                      color: isActive === items.id ? theme.palette.text.main : theme.palette.text.main,
                       fontWeight: isActive === items.id ? "bold" : "normal",
                     }}
                     variant="h6"
@@ -115,7 +116,7 @@ const Navbar = () => {
             gap="3rem"
             p="0.1rem 1.5rem"
           >
-            <InputBase placeholder="Search..." />
+            <InputBase placeholder="Company name or symbol..." />
             <IconButton>
               <Search />
             </IconButton>
@@ -134,7 +135,7 @@ const Navbar = () => {
             </IconButton>
 
             <FlexBetween>
-              <Button
+              {/* <Button
                 onClick={handleClick}
                 sx={{
                   display: "flex",
@@ -143,17 +144,8 @@ const Navbar = () => {
                   textTransform: "none",
                   gap: "1rem",
                 }}
-              >
-                {/* <Box
-                component='img'
-                alt='profile'
-                src={profileImage}
-                height='32px'
-                width='32px'
-                borderRadius='50%'
-                sx={{ objectFit: 'cover' }}
-              /> */}
-                <Box textAlign="left">
+              > */}
+                {/* <Box textAlign="left">
                   <Typography
                     fontWeight="bold"
                     fontSize="0.85rem"
@@ -161,11 +153,12 @@ const Navbar = () => {
                   >
                     User
                   </Typography>
-                </Box>
-                <ArrowDropDownOutlined
+                </Box> */}
+                <NavabarProfile />
+                {/* <ArrowDropDownOutlined
                   sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
-                />
-              </Button>
+                /> */}
+              {/* </Button> */}
               <Menu
                 anchorEl={anchorEl}
                 open={isOpen}
