@@ -4,21 +4,25 @@ import React, { useState } from "react";
 import TimerOutlinedIcon from "@mui/icons-material/TimerOutlined";
 import OtpInput from "react-otp-input";
 import { LoadingButton } from "@mui/lab";
-// import {
-//   useResendVerificationForm,
-//   useVerificationForm,
-// } from "../../form/auth/verification/useVerificationForm";
+import {
+  useResendVerificationForm,
+  useVerificationForm,
+} from "../../form/auth/verification/useVerificationForm";
 import { useParams } from "react-router";
 import Varification from "../../assets/varification.png";
 
 const Verification = () => {
-  // const [otp, setOtp] = useState('');
-  // const { id } = useParams();
+  const [otp, setOtp] = useState("");
+  const { id } = useParams();
 
-  // const {handleVerification, loading} = useVerificationForm();
-  // const {handleResendVerification} = useResendVerificationForm();
-  // const handleSubmit = () => {handleVerification({ id, otp })};
-  // const handleClick = () => {handleResendVerification({ id })};
+  const { handleVerification, loading } = useVerificationForm();
+  const { handleResendVerification } = useResendVerificationForm();
+  const handleSubmit = () => {
+    handleVerification({ id, otp });
+  };
+  const handleClick = () => {
+    handleResendVerification({ id });
+  };
   return (
     <Box
       position="relative"
@@ -52,11 +56,14 @@ const Verification = () => {
           </div>
           <Grid maxWidth="320px">
             <OtpInput
-              // value={otp}
-              // onChange={setOtp}
+              value={otp}
+              onChange={setOtp}
               numInputs={6}
-              renderSeparator={<span>-</span>}
-              renderInput={(props) => <input {...props} />}
+              renderSeparator={<span>&nbsp; &nbsp;</span>}
+              renderInput={(props) => (
+                <input {...props} className="bg-light-verification " />
+              )}
+              isInputNum={true}
               inputStyle={{
                 border: "1px solid transparent",
                 borderRadius: "8px",
@@ -87,9 +94,9 @@ const Verification = () => {
 
         <LoadingButton
           fullWidth
-          // onClick={handleSubmit}
+          onClick={handleSubmit}
           variant="contained"
-          // loading={loading}
+          loading={loading}
           sx={{
             mt: 2,
             mb: 2,
@@ -107,7 +114,7 @@ const Verification = () => {
             Not received your code?
             <span
               style={{ color: "#3838d0", cursor: "pointer" }}
-              // onClick={handleClick}
+              onClick={handleClick}
             >
               Resend Code
             </span>
