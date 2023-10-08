@@ -18,14 +18,9 @@ axiosInstance.interceptors.request.use(
     try {
       const authDataString = localStorage.getItem('auth');
       const authData = JSON.parse(authDataString);
-      let token = authData.authToken;
+      let token = authData?.authToken;
       if (token) {
-        if (!checkIfExpired(token)) {
-          config.headers.Authorization = `Bearer ${localStorage.token}`;
-        } else {
-          store.dispatch({ type: 'LOGOUT' });
-          logout();
-        }
+        config.headers.Authorization = `Bearer ${token}`;
       }
       return config;
     } catch (err) {
@@ -59,20 +54,20 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-const checkIfExpired = (token) => {
-  if (token && jwt.decode(token)) {
-    const decoded = jwt.decode(token);
-    const exp = decoded.exp;
-    const iat = decoded.iat;
-    const now = new Date();
-    if (now.getTime() > exp * 1000) {
-      return true;
-    }
-    if (now.getTime() < iat * 10 - 60000) {
-      alert('Wrong System Time \n Please correct your system time');
-      return true;
-    }
-    return false;
-  }
-  return true;
-};
+// const checkIfExpired = (token) => {
+//   if (token && jwt.decode(token)) {
+//     const decoded = jwt.decode(token);
+//     const exp = decoded.exp;
+//     const iat = decoded.iat;
+//     const now = new Date();
+//     if (now.getTime() > exp * 1000) {
+//       return true;
+//     }
+//     if (now.getTime() < iat * 10 - 60000) {
+//       alert('Wrong System Time \n Please correct your system time');
+//       return true;
+//     }
+//     return false;
+//   }
+//   return true;
+// };
