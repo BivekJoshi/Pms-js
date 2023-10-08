@@ -11,7 +11,7 @@ const Spinner = () => {
         alignItems: 'center',
       }}
     >
-      <div className='spinner'></div>;
+      <div className='spinner'></div>
     </div>
   );
 };

@@ -1,8 +1,8 @@
 // color design tokens export
 export const tokensDark = {
   grey: {
-    0: '#ffffff',
-    10: '#f6f6f6',
+    0: '#EBEDEF',
+    10: '#ffffff',
     50: '#f0f0f0',
     100: '#e0e0e0',
     200: '#c2c2c2',
@@ -105,8 +105,8 @@ export const themeSettings = (mode) => {
               main: tokensDark.background[100],
             },
             text: {
-              main: tokensDark.grey[50]
-            }
+              main: tokensDark.grey[0],
+            },
           }
         : {
             // palette values for light mode
@@ -126,7 +126,7 @@ export const themeSettings = (mode) => {
             },
             neutral: {
               ...tokensLight.grey,
-              main: tokensDark.grey[500],
+              main: tokensDark.grey[10],
             },
             background: {
               default: tokensDark.grey[0],

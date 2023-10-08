@@ -1,4 +1,4 @@
 export const logout = () => {
-  localStorage.removeItem('token');
+  localStorage.removeItem('auth');
   window.location.reload();
 };
