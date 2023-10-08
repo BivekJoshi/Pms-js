@@ -19,6 +19,7 @@ import {
   useTheme,
   List,
   ListItem,
+  Drawer,
 } from '@mui/material';
 import FlexBetween from '../flexBetween/FlexBetween';
 import { useDispatch } from 'react-redux';
@@ -70,6 +71,21 @@ const Navbar = () => {
   };
   const handleActiveClick = (id) => {
     setIsActive(id);
+  };
+
+  const [state, setState] = React.useState({
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
   };
 
   return (
@@ -130,16 +146,28 @@ const Navbar = () => {
           </FlexBetween>
 
           <FlexBetween gap='1.5rem'>
-            <IconButton onClick={() => handleToggleTheme()}>
-              {theme.palette.mode === 'dark' ? (
-                <DarkModeOutlined sx={{ fontSize: '25px' }} />
+            {/* <IconButton onClick={() => handleToggleTheme()}>
+              {theme.palette.mode === "dark" ? (
+                <DarkModeOutlined sx={{ fontSize: "25px" }} />
               ) : (
                 <LightModeOutlined sx={{ fontSize: '25px' }} />
               )}
-            </IconButton>
-            <IconButton>
-              <SettingsOutlined sx={{ fontSize: '25px' }} />
-            </IconButton>
+            </IconButton> */}
+
+            <div>
+              <React.Fragment>
+                <IconButton onClick={toggleDrawer('right', true)}>
+                  <SettingsOutlined sx={{ fontSize: '25px' }} />
+                </IconButton>
+                <Drawer
+                  anchor='right'
+                  open={state['right']}
+                  onClose={toggleDrawer('right', false)}
+                >
+                  <DarkModeSetting onClose={toggleDrawer('right', false)} />
+                </Drawer>
+              </React.Fragment>
+            </div>
 
             <FlexBetween>
               <Button
