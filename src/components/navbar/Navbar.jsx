@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import {
-  LightModeOutlined,
-  DarkModeOutlined,
   Search,
   SettingsOutlined,
   ArrowDropDownOutlined,
 } from '@mui/icons-material';
+import DarkModeSetting from '../Setting/DarkModeSetting';
 import {
   AppBar,
   Button,
