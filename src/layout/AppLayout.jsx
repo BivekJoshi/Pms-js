@@ -1,4 +1,9 @@
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import {
+  Container,
+  CssBaseline,
+  ThemeProvider,
+  createTheme,
+} from '@mui/material';
 import ErrorBoundary from '../components/ErrorBoundary';
 import Navbar from '../components/navbar/Navbar';
 
@@ -18,7 +23,9 @@ const AppLayout = () => {
           <header>
             <Navbar />
           </header>
-          <Outlet />
+          <Container fixed>
+            <Outlet />
+          </Container>
         </ThemeProvider>
       </ErrorBoundary>
     </>
