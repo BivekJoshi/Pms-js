@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const history = useNavigate();
+
   const brokerOption = useSelector((state) => state.brokerList.brokerOption);
 
   const {
@@ -32,13 +33,8 @@ const LoginPage = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          padding: '2rem 2rem',
-        }}
-      >
-        <Box
-          className='mb-2'
+      <div>
+        <div
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -46,18 +42,26 @@ const LoginPage = () => {
           }}
         >
           <Typography
+            sx={{
+              fontFamily: 'DM Sans, sans-serif',
+              fontWeight: 700,
+              fontSize: '1.5rem',
+            }}
             color='#875923'
-            style={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700' }}
-            variant='h6'
           >
             Log In
           </Typography>
-          <Typography variant='p'>your account to continue</Typography>
-        </Box>
+          <Typography variant='body2' color='#1e1e1e'>
+            Your account to continue
+          </Typography>
+        </div>
         <Box
           component='form'
           noValidate
-          sx={{ mt: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
         >
           <TextField
             id='brokerNo'
@@ -71,6 +75,7 @@ const LoginPage = () => {
             error={formik.touched.brokerNo && Boolean(formik.errors.brokerNo)}
             helperText={formik.touched.brokerNo && formik.errors.brokerNo}
             variant='outlined'
+            sx={{ color: '#000' }}
           >
             {brokerOption?.map((option) => (
               <MenuItem key={option?.id} value={option?.id}>
@@ -115,7 +120,7 @@ const LoginPage = () => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
             type={showValues.showPassword ? 'text' : 'password'}
-            sx={{ minWidth: '10vw', mt: 1 }}
+            sx={{ minWidth: '10vw' }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>
@@ -142,28 +147,22 @@ const LoginPage = () => {
             variant='contained'
             loading={loading}
             sx={{
-              mt: 2,
-              mb: 2,
               textTransform: 'none',
               fontWeight: 600,
-              background: '#6750a4',
             }}
           >
             Login
           </LoadingButton>
         </Box>
         <Box sx={{ textAlign: 'center' }}>
-          <Typography variant='p'>
-            Don't have an account?
-            <span
-              style={{ color: '#3838d0', cursor: 'pointer' }}
-              onClick={handleClick}
-            >
+          <Typography variant='body2'>
+            Don't have an account?{' '}
+            <span style={{ cursor: 'pointer' }} onClick={handleClick}>
               Sign Up
             </span>
           </Typography>
         </Box>
-      </Box>
+      </div>
     </>
   );
 };
