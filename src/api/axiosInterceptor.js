@@ -37,10 +37,12 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
+    console.log('🚀 ~ file: axiosInterceptor.js:40 ~ response:', response);
     store.dispatch({ type: 'HTTP_SET', payload: false });
     return response;
   },
   (error) => {
+    console.log('🚀 ~ file: axiosInterceptor.js:44 ~ error:', error);
     store.dispatch({ type: 'HTTP_SET', payload: false });
 
     const { status } = error?.response;

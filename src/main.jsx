@@ -7,7 +7,6 @@ import store from './redux/store';
 import { Toaster } from 'react-hot-toast';
 import App from './App';
 
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

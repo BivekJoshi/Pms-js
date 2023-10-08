@@ -5,6 +5,7 @@ import Spinner from '../components/spinner/Spinner';
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
+const WatchList = React.lazy(() => import('../pages/watchlist/WatchList'));
 
 const LoginPage = React.lazy(() => import('../pages/auth/LoginPage'));
 const RegisterPage = React.lazy(() => import('../pages/auth/RegisterPage'));
@@ -26,6 +27,7 @@ export default function AppRoutes() {
           </Route>
           <Route path='/' element={<AppLayout />}>
             <Route path='dashboard' element={<Dashboard />} />
+            <Route path='watchlist' element={<WatchList />} />
           </Route>
         </Routes>
       </Suspense>
