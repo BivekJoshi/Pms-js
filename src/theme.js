@@ -52,6 +52,9 @@ export const tokensDark = {
     800: '#0d6d10', // Manually adjusted
     900: '#076b0a', // Manually adjusted
   },
+  background: {
+    100: '#ebedef',
+  }
 };
 
 // function that reverses the color palette
@@ -95,6 +98,7 @@ export const themeSettings = (mode) => {
             background: {
               default: tokensDark.primary[600],
               alt: tokensDark.primary[500],
+              main: tokensDark.background[100],
             },
             text: {
               main: tokensDark.grey[50]
@@ -119,6 +123,7 @@ export const themeSettings = (mode) => {
             background: {
               default: tokensDark.grey[0],
               alt: tokensDark.grey[50],
+              main: tokensDark.background[100],
             },
             text: {
               main: tokensDark.grey[500]

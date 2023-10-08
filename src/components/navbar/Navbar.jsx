@@ -122,7 +122,7 @@ const Navbar = () => {
             </IconButton>
           </FlexBetween>
 
-          <FlexBetween gap="1.5rem">
+          <FlexBetween>
             <IconButton onClick={() => handleToggleTheme()}>
               {theme.palette.mode === "dark" ? (
                 <DarkModeOutlined sx={{ fontSize: "25px" }} />
