@@ -27,7 +27,7 @@ const Dashboard = () => {
           <Box>ok</Box>
         </Grid>
       </Grid>
-      <CustomTable />
+      {/* <CustomTable /> */}
     </Box>
   );
 };
