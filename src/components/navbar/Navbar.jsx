@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   LightModeOutlined,
   DarkModeOutlined,
   Search,
   SettingsOutlined,
   ArrowDropDownOutlined,
-} from '@mui/icons-material';
+} from "@mui/icons-material";
 import {
   AppBar,
   Button,
@@ -17,67 +17,134 @@ import {
   Menu,
   MenuItem,
   useTheme,
-} from '@mui/material';
-import FlexBetween from '../flexBetween/FlexBetween';
-import { useDispatch } from 'react-redux';
+  List,
+  ListItem,
+} from "@mui/material";
+import FlexBetween from "../flexBetween/FlexBetween";
+import { useDispatch } from "react-redux";
 // import { TOGGLE_THEME } from '../../redux/reducers/themeReducer';
+import logo from "../../assets/logo.png";
+
+const navItems = [
+  {
+    id: 1,
+    item: "Home",
+  },
+  {
+    id: 2,
+    item: "Portfolio",
+  },
+  {
+    id: 3,
+    item: "Watchlist",
+  },
+  {
+    id: 4,
+    item: "Alert",
+  },
+  {
+    id: 5,
+    item: "Research",
+  },
+];
+
 const Navbar = () => {
   const dispatch = useDispatch();
   const theme = useTheme();
-
+  const [isActive, setIsActive] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpen = Boolean(anchorEl);
+
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
   const handleToggleTheme = () => {
-    dispatch({ type: 'TOGGLE_THEME' });
+    dispatch({ type: "TOGGLE_THEME" });
   };
+  const handleActiveClick = (id) => {
+    setIsActive(id);
+  };
+
   return (
     <AppBar
       sx={{
-        position: 'static',
-        background: 'none',
-        boxShadow: 'none',
+        position: "static",
+        background: "none",
+        boxShadow: "none",
       }}
     >
-      <Toolbar>
-        <FlexBetween
-          backgroundColor={theme.palette.background.alt}
-          borderRadius='9px'
-          gap='3rem'
-          p='0.1rem 1.5rem'
-        >
-          <InputBase placeholder='Search...' />
-          <IconButton>
-            <Search />
-          </IconButton>
-        </FlexBetween>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        {/* RIGHT side */}
+        <img src={logo} alt="Logo" style={{ width: "104px", height: "36px" }} />
 
-        {/* RIGHT SIDE */}
-        <FlexBetween gap='1.5rem'>
-          <IconButton onClick={() => handleToggleTheme()}>
-            {theme.palette.mode === 'dark' ? (
-              <DarkModeOutlined sx={{ fontSize: '25px' }} />
-            ) : (
-              <LightModeOutlined sx={{ fontSize: '25px' }} />
-            )}
-          </IconButton>
-          <IconButton>
-            <SettingsOutlined sx={{ fontSize: '25px' }} />
-          </IconButton>
-
+        <div style={{ display: "flex", alignItems: "center", gap: "6rem" }}>
+          {/* Middle SIDE */}
           <FlexBetween>
-            <Button
-              onClick={handleClick}
-              sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                textTransform: 'none',
-                gap: '1rem',
-              }}
-            >
-              {/* <Box
+            {navItems.map((items) => (
+              <List key={items?.id} sx={{ position: "relative" }}>
+                <ListItem sx={{ position: "relative" }}>
+                  <Typography
+                    onClick={() => handleActiveClick(items?.id)}
+                    sx={{
+                      cursor: "pointer",
+                      color: isActive === items.id ? "blue" : "black",
+                      fontWeight: isActive === items.id ? "bold" : "normal",
+                    }}
+                    variant="h6"
+                  >
+                    {items?.item}
+                    {isActive === items.id && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          width: "50%",
+                          height: "0.1rem",
+                          background: "blue",
+                        }}
+                      ></div>
+                    )}
+                  </Typography>
+                </ListItem>
+              </List>
+            ))}
+          </FlexBetween>
+
+          {/* RIGHT SIDE */}
+          <FlexBetween
+            backgroundColor={theme.palette.background.alt}
+            borderRadius="9px"
+            gap="3rem"
+            p="0.1rem 1.5rem"
+          >
+            <InputBase placeholder="Search..." />
+            <IconButton>
+              <Search />
+            </IconButton>
+          </FlexBetween>
+
+          <FlexBetween gap="1.5rem">
+            <IconButton onClick={() => handleToggleTheme()}>
+              {theme.palette.mode === "dark" ? (
+                <DarkModeOutlined sx={{ fontSize: "25px" }} />
+              ) : (
+                <LightModeOutlined sx={{ fontSize: "25px" }} />
+              )}
+            </IconButton>
+            <IconButton>
+              <SettingsOutlined sx={{ fontSize: "25px" }} />
+            </IconButton>
+
+            <FlexBetween>
+              <Button
+                onClick={handleClick}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  textTransform: "none",
+                  gap: "1rem",
+                }}
+              >
+                {/* <Box
                 component='img'
                 alt='profile'
                 src={profileImage}
@@ -86,29 +153,30 @@ const Navbar = () => {
                 borderRadius='50%'
                 sx={{ objectFit: 'cover' }}
               /> */}
-              <Box textAlign='left'>
-                <Typography
-                  fontWeight='bold'
-                  fontSize='0.85rem'
-                  sx={{ color: theme.palette.secondary[100] }}
-                >
-                  User
-                </Typography>
-              </Box>
-              <ArrowDropDownOutlined
-                sx={{ color: theme.palette.secondary[300], fontSize: '25px' }}
-              />
-            </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={isOpen}
-              onClose={handleClose}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-            >
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
-            </Menu>
+                <Box textAlign="left">
+                  <Typography
+                    fontWeight="bold"
+                    fontSize="0.85rem"
+                    sx={{ color: theme.palette.secondary[100] }}
+                  >
+                    User
+                  </Typography>
+                </Box>
+                <ArrowDropDownOutlined
+                  sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
+                />
+              </Button>
+              <Menu
+                anchorEl={anchorEl}
+                open={isOpen}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+              >
+                <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              </Menu>
+            </FlexBetween>
           </FlexBetween>
-        </FlexBetween>
+        </div>
       </Toolbar>
     </AppBar>
   );
