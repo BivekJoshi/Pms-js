@@ -12,7 +12,6 @@ export const useLogin = ({ onSuccess }) => {
     ({ email, brokerNo, password }) => login(email, brokerNo, password),
     {
       onSuccess: (data, variables, context) => {
-        localStorage.setItem('authToken', data?.auth);
         toast.success('Login Successful');
         dispatch({ type: 'USER_LOGIN', payload: data.data });
         window.localStorage.setItem(
@@ -75,40 +74,32 @@ export const useApplication = ({ onSuccess }) => {
 export const useVerification = ({ onSuccess }) => {
   const history = useNavigate();
 
-  return useMutation(
-    ['verification'],
-    ({ id, otp }) => verification(id, otp),
-    {
-      onSuccess: (data, variables, context) => {
-        toast.success('status fetched Successfully');
-        history('dashboard');
-        onSuccess && onSuccess(data, variables, context);
-      },
-      onError: (err, _variables, _context) => {
-        toast.error(err.message);
-      },
-    }
-  );
+  return useMutation(['verification'], ({ id, otp }) => verification(id, otp), {
+    onSuccess: (data, variables, context) => {
+      toast.success('status fetched Successfully');
+      history('dashboard');
+      onSuccess && onSuccess(data, variables, context);
+    },
+    onError: (err, _variables, _context) => {
+      toast.error(err.message);
+    },
+  });
 };
 
 export const useResendVerification = ({ onSuccess }) => {
   const history = useNavigate();
 
-  return useMutation(
-    ['verification'],
-    ({ id }) => resendVerification(id),
-    {
-      onSuccess: (data, variables, context) => {
-        toast.success('code re-send Successfully');
-        history('login');
-        onSuccess && onSuccess(data, variables, context);
-      },
-      onError: (err, _variables, _context) => {
-        toast.error(err.message);
-      },
-    }
-  );
-}
+  return useMutation(['verification'], ({ id }) => resendVerification(id), {
+    onSuccess: (data, variables, context) => {
+      toast.success('code re-send Successfully');
+      history('login');
+      onSuccess && onSuccess(data, variables, context);
+    },
+    onError: (err, _variables, _context) => {
+      toast.error(err.message);
+    },
+  });
+};
 
 export const useResetPassword = ({ onSuccess }) => {
   const history = useNavigate();
