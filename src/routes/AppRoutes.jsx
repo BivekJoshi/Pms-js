@@ -1,6 +1,8 @@
 import React, { Suspense } from 'react';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
+import ApplicationMessage from '../pages/auth/ApplicationMessage';
+import ResetPasswordPage from '../pages/auth/ResetPasswordPage';
 
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));

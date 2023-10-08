@@ -11,8 +11,6 @@ body{
 
 }
 
-
-
 .ioginImg {
     max-width: 120% !important;
   }
@@ -21,5 +19,63 @@ body{
     .ioginImg {
       max-width: 100% !important;
     }
+  }
+  
+  .displayLarge {
+    font-family: DM Sans;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+  }
+  
+  .title1624 {
+    font-family: DM Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 150% */
+    letter-spacing: 0.15px;
+  }
+  .titleMedium {
+    font-family: DM Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+  }
+  .bodyMedium {
+    font-family: DM Sans;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: 0.25px;
+  }
+  .bodySmall {
+    font-family: DM Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px; /* 133.333% */
+    letter-spacing: 0.4px;
+  }
+  
+  .headlineMedium {
+    font-family: Roboto;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 36px;
+  }
+  
+  .labelMedium {
+    font-family: DM Sans;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 133.333% */
+    letter-spacing: 0.5px;
   }
   

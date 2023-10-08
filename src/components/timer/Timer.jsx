@@ -16,7 +16,7 @@ const Timer = () => {
   }, []);
 
   return (
-    <div style={{ fontSize: "1.2rem", fontWeight: "bold"}}>
+    <div style={{ fontSize: "1rem", fontWeight: "bold"}}>
       <Timecode time={duration - time} />
     </div>
   );
