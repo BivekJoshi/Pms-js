@@ -7,10 +7,15 @@ import Curved from '../assets/curves--.png';
 import Bear from '../assets/bear--.png';
 
 const LoginLayout = () => {
-  const [token, setToken] = useState(localStorage.token);
+  const authDataString = localStorage.getItem('auth');
+  const authData = JSON.parse(authDataString);
+  let authToken = authData?.authToken;
+  const [token, setToken] = useState(authToken);
+  console.log('🚀 ~ file: LoginLayout.jsx:14 ~ LoginLayout ~ token:', token);
+
   const navigate = useNavigate();
   useEffect(() => {
-    setToken(localStorage.token);
+    setToken(authToken);
     if (!token) {
       navigate('/login');
     }

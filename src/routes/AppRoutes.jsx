@@ -20,10 +20,10 @@ export default function AppRoutes() {
       <Suspense fallback={<Spinner />}>
         <Routes>
           <Route path='/' element={<LoginLayout />}>
-            <Route path='/login' element={<LoginPage />} />
-            <Route path='/register' element={<RegisterPage />} />
-            <Route path='/application/status' element={<ApplicationPage />} />
-            <Route path='/verification' element={<Verification />} />
+            <Route path='login' element={<LoginPage />} />
+            <Route path='register' element={<RegisterPage />} />
+            <Route path='application/status' element={<ApplicationPage />} />
+            <Route path='verification' element={<Verification />} />
           </Route>
           <Route path='/' element={<AppLayout />}>
             <Route path='dashboard' element={<Dashboard />} />
