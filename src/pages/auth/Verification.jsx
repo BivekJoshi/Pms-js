@@ -25,6 +25,8 @@ const Verification = () => {
   };
   return (
     <Box
+    className="paddingOuter"
+
       position="relative"
       alignSelf="center"
       padding={{ xs: "20px", sm: "96px 22px" }}

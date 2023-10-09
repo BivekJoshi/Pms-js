@@ -22,6 +22,7 @@ const ApplicationPage = () => {
 
   return (
     <Box
+      className="paddingOuter"
       position="relative"
       alignSelf="center"
       padding={{ xs: "0 20px 20px 20px", md: "50px 22px 96px 22px" }}
@@ -30,13 +31,13 @@ const ApplicationPage = () => {
       bgcolor="#fdf8fd"
       borderRadius="32px"
     >
-      <Grid padding={{ sm: "2rem", xs: "0" }}>
+      <Grid padding={{ sm: "2rem", xs: "0" }} className="paddingOuterLayer">
         <Grid
           display="flex"
           justifyContent="center"
           paddingBottom={{ lg: "2rem", md: "1rem", xs: ".25rem" }}
         >
-          <img src={AppStatus} alt="appstatus.png" />
+          <img src={AppStatus} alt="appstatus.png" className="registerImg" />
         </Grid>
 
         <Grid
@@ -80,8 +81,7 @@ const ApplicationPage = () => {
             value={formik.values.submissionNo}
             onChange={formik.handleChange}
             error={
-              formik.touched.submissionNo &&
-              Boolean(formik.errors.submissionNo)
+              formik.touched.submissionNo && Boolean(formik.errors.submissionNo)
             }
             helperText={
               formik.touched.submissionNo && formik.errors.submissionNo
