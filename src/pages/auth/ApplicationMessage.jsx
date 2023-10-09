@@ -4,13 +4,13 @@ import {  useNavigate } from "react-router-dom";
 import StatusSuccess from "../../assets/statusSuccess.png";
 import Success from "../../assets/success.png";
 import Pending from "../../assets/pending.png";
+import { useApplicationForm } from "../../form/auth/application/useApplicationForm";
 
 const ApplicationMessage = () => {
-  // const { formik, loading } = useApplicationForm();
+  const { formik, loading } = useApplicationForm();
   const history = useNavigate();
 
   const handleClick = () => {
-    console.log("hiii");
     history("/login");
   };
   return (
@@ -25,7 +25,7 @@ const ApplicationMessage = () => {
       textAlign="center"
       borderRadius="32px"
     >
-      <h3 className="headlineMedium">Message Status</h3>
+      <h3 className="headlineMedium" style={{margin:"0"}}>Message Status</h3>
 
       {/* status verified */}
       {/* <Grid style={{ textAlign: "-webkit-center" }}>
@@ -52,7 +52,7 @@ const ApplicationMessage = () => {
         </div>
       </Grid> */}
 
-      {/* Success State */}
+      {/* Approved State */}
       {/* <Grid style={{ textAlign: "-webkit-center" }}>
         <img
           src={Success}
@@ -84,7 +84,7 @@ const ApplicationMessage = () => {
         <img
           src={Pending}
           alt="Status Success"
-          width="50%"
+          // width="50%"
           style={{ alignSelf: "center" }}
         />
         <div className="bodyMedium">

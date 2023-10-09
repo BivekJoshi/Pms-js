@@ -34,9 +34,11 @@ const AppLayout = () => {
           <header>
             <Navbar />
           </header>
-          <Container fixed>
+          {/* <Container fixed> */}
+          <section style={{ margin: '0px 32px' }}>
             <Outlet />
-          </Container>
+          </section>
+          {/* </Container> */}
         </ThemeProvider>
       </ErrorBoundary>
     </>
