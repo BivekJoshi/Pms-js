@@ -28,6 +28,7 @@ const LoginPage = () => {
 
   return (
     <Box
+      className='paddingOuter'
       padding={{ xs: '20px', sm: '96px 22px' }}
       boxShadow='0 4px 8px 3px rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3)'
       width={{ xs: '90%', sm: '80%' }}
@@ -41,7 +42,7 @@ const LoginPage = () => {
         alt='bear--.png'
         style={{ position: 'absolute', left: '140px', top: '80px' }}
       />
-      <Grid padding={{ sm: '2rem', xs: '0' }}>
+      <Grid padding={{ sm: '2rem', xs: '0' }} className='paddingOuterLayer'>
         <Grid
           display='flex'
           flexDirection='column'
@@ -79,7 +80,7 @@ const LoginPage = () => {
           </TextField>
           <TextField
             required
-            value={formik.values.email}
+            value={formik.values.email.trim()}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
@@ -103,7 +104,7 @@ const LoginPage = () => {
             name='password'
             autoComplete='current-password'
             fullWidth
-            value={formik.values.password}
+            value={formik.values.password.trimEnd()}
             onChange={formik.handleChange}
             onKeyPress={(ev) => {
               if (ev.key === 'Enter') {
@@ -147,12 +148,18 @@ const LoginPage = () => {
                 justifyContent='space-between'
                 alignItems='center'
               >
-                <Checkbox sx={{ padding: '0' }} />
+                <Checkbox defaultChecked sx={{ padding: '0' }} />
                 <div className='bodySmall ' fontSize='12px'>
                   Remember me
                 </div>
               </Grid>
-              <div className='bodySmall'>Forgot password?</div>
+              <div
+                className='bodySmall'
+                onClick={() => navigate('/reset/password')}
+                style={{ color: '#3838D0', cursor: 'pointer' }}
+              >
+                Forgot password?
+              </div>
             </Grid>
             <Grid>
               <Button
@@ -178,7 +185,6 @@ const LoginPage = () => {
             }}
           >
             <div className='titleMedium ' style={{ margin: '.25rem 0' }}>
-              {' '}
               Login
             </div>
           </LoadingButton>

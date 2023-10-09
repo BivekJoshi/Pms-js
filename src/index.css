@@ -20,6 +20,20 @@ body{
       max-width: 100% !important;
     }
   }
+  @media (max-height: 750px) {
+    .paddingOuter {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    }
+    .paddingOuterLayer {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    }
+
+    .registerImg {
+     width: 25% !important;
+    }
+  }
   
   .displayLarge {
     font-family: DM Sans;

@@ -16,11 +16,12 @@ const RegisterPage = () => {
   const { formik, loading } = useRegisterForm();
 
   const handleClick = () => {
-    history('/login');
+    history("/login");
   };
 
   return (
     <Box
+      className="paddingOuter"
       position="relative"
       alignSelf="center"
       padding={{ xs: "0 20px 20px 20px", md: "50px 22px 96px 22px" }}
@@ -29,13 +30,14 @@ const RegisterPage = () => {
       bgcolor="#fdf8fd"
       borderRadius="32px"
     >
-      <Grid padding={{ sm: "2rem", xs: "0" }}>
+      <Grid padding={{ sm: "2rem", xs: "0" }} className="paddingOuterLayer">
         <Grid
+          className="paddingOuter"
           display="flex"
           justifyContent="center"
           paddingBottom={{ lg: "2rem", md: "1rem", xs: ".25rem" }}
         >
-          <img src={SignUpPage} alt="SignUpPage" />
+          <img src={SignUpPage} alt="SignUpPage" className="registerImg" />
         </Grid>
         <Grid
           display="flex"
@@ -53,7 +55,7 @@ const RegisterPage = () => {
           noValidate
           display="flex"
           flexDirection="column"
-          gap={{lg:"1.25rem", md:".5rem", xs:"1.5rem"}}
+          gap={{ lg: "1.25rem", md: ".5rem", xs: "1.5rem" }}
         >
           <TextField
             id="brokerNo"
@@ -62,7 +64,7 @@ const RegisterPage = () => {
             label="Select Broker"
             placeholder="Choose Broker No."
             fullWidth
-            value={formik.values.brokerNo}
+            value={formik.values.brokerNo.trim()}
             onChange={formik.handleChange}
             error={formik.touched.brokerNo && Boolean(formik.errors.brokerNo)}
             helperText={formik.touched.brokerNo && formik.errors.brokerNo}
@@ -76,7 +78,7 @@ const RegisterPage = () => {
           </TextField>
           <TextField
             required
-            value={formik.values.nepseCode}
+            value={formik.values.nepseCode.trim()}
             onChange={formik.handleChange}
             error={formik.touched.nepseCode && Boolean(formik.errors.nepseCode)}
             helperText={formik.touched.nepseCode && formik.errors.nepseCode}
@@ -95,7 +97,7 @@ const RegisterPage = () => {
           />
           <TextField
             required
-            value={formik.values.email}
+            value={formik.values.email.trim()}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
@@ -115,7 +117,7 @@ const RegisterPage = () => {
           />
           <TextField
             required
-            value={formik.values.mobileNo}
+            value={formik.values.mobileNo.trim()}
             onChange={formik.handleChange}
             error={formik.touched.mobileNo && Boolean(formik.errors.mobileNo)}
             helperText={formik.touched.mobileNo && formik.errors.mobileNo}
@@ -143,11 +145,14 @@ const RegisterPage = () => {
               background: "#6750a4",
             }}
           >
-            <div className="titleMedium" style={{margin:".25rem 0"}}> Sign Up</div>
+            <div className="titleMedium" style={{ margin: ".25rem 0" }}>
+              {" "}
+              Sign Up
+            </div>
           </LoadingButton>
         </Grid>
         <Grid style={{ textAlign: "center" }} marginTop=".5rem">
-          <div className="bodySmall " >
+          <div className="bodySmall ">
             Already have an account?{" "}
             <span
               className="labelMedium"

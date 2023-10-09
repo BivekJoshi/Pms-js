@@ -1,69 +1,75 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
-import {
-  Box,
-  MenuItem,
-  InputAdornment,
-  IconButton,
-  Typography,
-} from '@mui/material';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import { LoadingButton } from '@mui/lab';
-import { useSelector } from 'react-redux';
-import { useRegisterForm } from '../../form/auth/register/useRegisterForm';
-import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
-import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
-import { useResetPasswordForm } from '../../form/auth/reset-password/useResetPasswordForm';
+import React from "react";
+import { Grid, TextField } from "@mui/material";
+import { Box, MenuItem, InputAdornment, Typography } from "@mui/material";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import { LoadingButton } from "@mui/lab";
+import { useSelector } from "react-redux";
+import { useRegisterForm } from "../../form/auth/register/useRegisterForm";
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
+import { useResetPasswordForm } from "../../form/auth/reset-password/useResetPasswordForm";
+import ResetPaassword from "../../assets/reset-Paassword.png";
+import { useNavigate } from "react-router-dom";
 
 const ResetPasswordPage = () => {
   const brokerOption = useSelector((state) => state.brokerList.brokerOption);
   const { formik, loading } = useResetPasswordForm();
+  const history = useNavigate()
 
   const handleClick = () => {
-    history('/login');
+    history("/login");
   };
 
   return (
-    <>
-      <Box
-        sx={{
-          padding: '2rem 2rem',
-        }}
-      >
-        <Box
-          className='mb-2'
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-          }}
+    <Box
+      className="paddingOuter"
+      padding={{ xs: "0 20px 20px 20px", md: "50px 22px 96px 22px" }}
+      boxShadow="0 4px 8px 3px rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3)"
+      width={{ xs: "90%", sm: "80%" }}
+      bgcolor="#fdf8fd"
+      borderRadius="32px"
+      position="relative"
+      alignSelf="center"
+      // height="100%"
+    >
+      <Grid padding={{ sm: "2rem", xs: "0" }} className="paddingOuterLayer">
+        <Grid
+          display="flex"
+          justifyContent="center"
+          paddingBottom={{ lg: "2rem", md: "1rem", xs: ".25rem" }}
+          className="paddingOuterLayer"
         >
-          <Typography
-            color='#875923'
-            style={{ fontFamily: 'DM Sans, sans-serif', fontWeight: '700' }}
-            variant='h6'
-          >
+          <img src={ResetPaassword} alt="reset-Paassword.png"  className="registerImg" />
+        </Grid>
+        <Grid
+          display="flex"
+          flexDirection="column"
+          alignItems="start"
+          paddingBottom="2.5rem"
+          className="paddingOuterLayer"
+        >
+          <div style={{ color: "#875923" }} className="displayLarge">
             Reset Password
-          </Typography>
-          <Typography variant='p'>Please provide the number & email</Typography>
-        </Box>
-        <Box
-          component='form'
+          </div>
+          <div className="title1624">Please provide the number & email</div>
+        </Grid>
+        <Grid
+          component="form"
           noValidate
-          sx={{ mt: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}
+          sx={{ mt: 1, display: "flex", flexDirection: "column", gap: "1rem" }}
         >
           <TextField
-            id='brokerNo'
+            id="brokerNo"
             select
-            name='brokerNo'
-            label='Select Broker'
-            placeholder='Choose Broker No.'
+            name="brokerNo"
+            label="Select Broker"
+            placeholder="Choose Broker No."
             fullWidth
             value={formik.values.brokerNo}
             onChange={formik.handleChange}
             error={formik.touched.brokerNo && Boolean(formik.errors.brokerNo)}
             helperText={formik.touched.brokerNo && formik.errors.brokerNo}
-            variant='outlined'
+            variant="outlined"
           >
             {brokerOption?.map((option) => (
               <MenuItem key={option?.id} value={option?.id}>
@@ -77,14 +83,14 @@ const ResetPasswordPage = () => {
             onChange={formik.handleChange}
             error={formik.touched.nepseCode && Boolean(formik.errors.nepseCode)}
             helperText={formik.touched.nepseCode && formik.errors.nepseCode}
-            name='nepseCode'
-            label='Enter NEPSE Code'
+            name="nepseCode"
+            label="Enter NEPSE Code"
             fullWidth
-            variant='outlined'
-            type='text'
+            variant="outlined"
+            type="text"
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position="end">
                   <PermIdentityOutlinedIcon />
                 </InputAdornment>
               ),
@@ -96,15 +102,15 @@ const ResetPasswordPage = () => {
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-            name='email'
-            autoComplete='username'
-            label='E-mail'
+            name="email"
+            autoComplete="username"
+            label="E-mail"
             fullWidth
-            variant='outlined'
-            type='text'
+            variant="outlined"
+            type="text"
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position="end">
                   <MailOutlineIcon />
                 </InputAdornment>
               ),
@@ -116,14 +122,14 @@ const ResetPasswordPage = () => {
             onChange={formik.handleChange}
             error={formik.touched.mobileNo && Boolean(formik.errors.mobileNo)}
             helperText={formik.touched.mobileNo && formik.errors.mobileNo}
-            name='mobileNo'
-            label='Enter your number'
+            name="mobileNo"
+            label="Enter your number"
             fullWidth
-            variant='outlined'
-            type='number'
+            variant="outlined"
+            type="number"
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position="end">
                   <CallOutlinedIcon />
                 </InputAdornment>
               ),
@@ -133,32 +139,33 @@ const ResetPasswordPage = () => {
           <LoadingButton
             fullWidth
             onClick={() => formik.submitForm()}
-            variant='contained'
+            variant="contained"
             loading={loading}
             sx={{
               mt: 2,
               mb: 2,
-              textTransform: 'none',
+              textTransform: "none",
               fontWeight: 600,
-              background: '#6750a4',
+              background: "#6750a4",
             }}
           >
             Contunue
           </LoadingButton>
-        </Box>
-        <Box style={{ textAlign: 'center' }}>
-          <Typography variant='p'>
-            Already have an account?{' '}
+        </Grid>
+        <Grid sx={{ textAlign: "center" }} marginTop=".5rem">
+          <div className="bodySmall ">
+            Already have an account?{" "}
             <span
-              style={{ color: '#3838d0', cursor: 'pointer' }}
+              className="labelMedium"
+              style={{ color: "#3838d0", cursor: "pointer" }}
               onClick={handleClick}
             >
               Sign In
             </span>
-          </Typography>
-        </Box>
-      </Box>
-    </>
+          </div>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 
