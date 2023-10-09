@@ -17,6 +17,7 @@ const Verification = () => {
 
   const { handleVerification, loading } = useVerificationForm();
   const { handleResendVerification } = useResendVerificationForm();
+  
   const handleSubmit = () => {
     handleVerification({ id, otp });
   };
@@ -25,8 +26,7 @@ const Verification = () => {
   };
   return (
     <Box
-    className="paddingOuter"
-
+      className="paddingOuter"
       position="relative"
       alignSelf="center"
       padding={{ xs: "20px", sm: "96px 22px" }}

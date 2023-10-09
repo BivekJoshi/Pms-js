@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { login, register, application } from '../../api/auth/auth-api';
+import { login, register, application, verification } from '../../api/auth/auth-api';
 import { useDispatch } from 'react-redux';
 
 export const useLogin = ({ onSuccess }) => {
@@ -65,7 +65,11 @@ export const useApplication = ({ onSuccess }) => {
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
-        toast.error(err.message);
+        if(err.message === "Request failed with status code 406"){
+          toast.success("Success")
+          history("/status/message")
+        }
+        // toast.error(err.message);
       },
     }
   );

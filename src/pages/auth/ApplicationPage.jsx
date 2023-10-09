@@ -17,7 +17,7 @@ const ApplicationPage = () => {
   const history = useNavigate();
 
   const handleClick = () => {
-    history("/verification");
+    history("/login");
   };
 
   return (
@@ -58,7 +58,7 @@ const ApplicationPage = () => {
         >
           <TextField
             required
-            value={formik.values.email}
+            value={formik.values.email.trim()}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}

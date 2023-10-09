@@ -64,7 +64,7 @@ const RegisterPage = () => {
             label="Select Broker"
             placeholder="Choose Broker No."
             fullWidth
-            value={formik.values.brokerNo}
+            value={formik.values.brokerNo.trim()}
             onChange={formik.handleChange}
             error={formik.touched.brokerNo && Boolean(formik.errors.brokerNo)}
             helperText={formik.touched.brokerNo && formik.errors.brokerNo}
@@ -78,7 +78,7 @@ const RegisterPage = () => {
           </TextField>
           <TextField
             required
-            value={formik.values.nepseCode}
+            value={formik.values.nepseCode.trim()}
             onChange={formik.handleChange}
             error={formik.touched.nepseCode && Boolean(formik.errors.nepseCode)}
             helperText={formik.touched.nepseCode && formik.errors.nepseCode}
@@ -97,7 +97,7 @@ const RegisterPage = () => {
           />
           <TextField
             required
-            value={formik.values.email}
+            value={formik.values.email.trim()}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
@@ -117,7 +117,7 @@ const RegisterPage = () => {
           />
           <TextField
             required
-            value={formik.values.mobileNo}
+            value={formik.values.mobileNo.trim()}
             onChange={formik.handleChange}
             error={formik.touched.mobileNo && Boolean(formik.errors.mobileNo)}
             helperText={formik.touched.mobileNo && formik.errors.mobileNo}
