@@ -22,7 +22,7 @@ const LoginLayout = () => {
       localStorage.removeItem('auth');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [token]);
 
   return (
     <Box
