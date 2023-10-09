@@ -147,7 +147,7 @@ const LoginPage = () => {
                 justifyContent='space-between'
                 alignItems='center'
               >
-                <Checkbox defaultChecked sx={{ padding: '0' }} />
+                <Checkbox sx={{ padding: '0' }} />
                 <div className='bodySmall ' fontSize='12px'>
                   Remember me
                 </div>
