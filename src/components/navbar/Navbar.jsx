@@ -26,6 +26,7 @@ import { useDispatch } from 'react-redux';
 import logo from '../../assets/logo.png';
 import { logout } from '../../utility/logout';
 import { useNavigate } from 'react-router';
+import NavabarProfile from './NavabarProfile';
 
 const navItems = [
   {
