@@ -80,7 +80,7 @@ const LoginPage = () => {
           </TextField>
           <TextField
             required
-            value={formik.values.email.trim()}
+            value={formik.values.email}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
@@ -107,7 +107,7 @@ const LoginPage = () => {
             name='password'
             autoComplete='current-password'
             fullWidth
-            value={formik.values.password.trimEnd()}
+            value={formik.values.password}
             onChange={formik.handleChange}
             onKeyPress={(ev) => {
               if (ev.key === 'Enter') {
