@@ -52,6 +52,9 @@ export const tokensDark = {
     800: '#0d6d10', // Manually adjusted
     900: '#076b0a', // Manually adjusted
   },
+  background: {
+    100: '#ebedef',
+  }
 };
 
 // function that reverses the color palette
@@ -88,6 +91,10 @@ export const themeSettings = (mode) => {
               ...tokensDark.secondary,
               main: tokensDark.secondary[300],
             },
+            tertiary: {
+              ...tokensDark.tertiary,
+              main: tokensDark.tertiary[700],
+            },
             neutral: {
               ...tokensDark.grey,
               main: tokensDark.grey[500],
@@ -95,6 +102,7 @@ export const themeSettings = (mode) => {
             background: {
               default: tokensDark.primary[600],
               alt: tokensDark.primary[500],
+              main: tokensDark.background[100],
             },
             text: {
               main: tokensDark.grey[0],
@@ -112,6 +120,10 @@ export const themeSettings = (mode) => {
               main: tokensDark.secondary[600],
               light: tokensDark.secondary[700],
             },
+            tertiary: {
+              ...tokensDark.tertiary,
+              main: tokensDark.tertiary[700],
+            },
             neutral: {
               ...tokensLight.grey,
               main: tokensDark.grey[10],
@@ -119,7 +131,11 @@ export const themeSettings = (mode) => {
             background: {
               default: tokensDark.grey[0],
               alt: tokensDark.grey[50],
+              main: tokensDark.background[100],
             },
+            text: {
+              main: tokensDark.grey[500]
+            }
           }),
     },
     typography: {

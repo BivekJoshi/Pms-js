@@ -5,6 +5,11 @@ import Spinner from '../components/spinner/Spinner';
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));
 const Dashboard = React.lazy(() => import('../pages/dashboard/Dashboard'));
+const Profile = React.lazy(() => import('../pages/profile/Profile'));
+const Alert = React.lazy(() => import('../pages/alert/Alert'));
+const Portfolio = React.lazy(() => import('../pages/portfolio/Portfolio'));
+const Research = React.lazy(() => import('../pages/research/Research'));
+
 const WatchList = React.lazy(() => import('../pages/watchlist/WatchList'));
 
 const LoginPage = React.lazy(() => import('../pages/auth/LoginPage'));
@@ -31,6 +36,10 @@ export default function AppRoutes() {
           <Route path='/' element={<AppLayout />}>
             <Route path='dashboard' element={<Dashboard />} />
             <Route path='watchlist' element={<WatchList />} />
+            <Route path='research' element={<Research />} />
+            <Route path='portfolio' element={<Portfolio />} />
+            <Route path='alert' element={<Alert />} />
+            <Route path='profile' element={<Profile />} />
           </Route>
         </Routes>
       </Suspense>
