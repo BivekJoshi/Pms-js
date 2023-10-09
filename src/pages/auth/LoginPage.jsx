@@ -104,7 +104,7 @@ const LoginPage = () => {
             name="password"
             autoComplete="current-password"
             fullWidth
-            value={formik.values.password}
+            value={formik.values.password.trimEnd()}
             onChange={formik.handleChange}
             onKeyPress={(ev) => {
               if (ev.key === "Enter") {
