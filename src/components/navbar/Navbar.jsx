@@ -93,7 +93,7 @@ const Navbar = () => {
         {/* RIGHT side */}
         <img src={logo} alt='Logo' style={{ width: '104px', height: '36px' }} />
 
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        {/* <div style={{ display: 'flex', alignItems: 'center' }}>
           {/* Middle SIDE */}
           <FlexBetween>
             {navItems.map((items) => (
@@ -167,7 +167,6 @@ const Navbar = () => {
 
             <NavabarProfile />
           </FlexBetween>
-        </div>
       </Toolbar>
     </AppBar>
   );

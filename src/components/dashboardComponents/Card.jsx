@@ -1,7 +1,7 @@
 import { Typography, useTheme } from "@mui/material";
 import React from "react";
 
-const Card = ({ title, price, gain, loss, tGain, tLoss, investment, date }) => {
+const Card = ({ data }) => {
   const theme = useTheme();
 
   const style = {
@@ -20,38 +20,38 @@ const Card = ({ title, price, gain, loss, tGain, tLoss, investment, date }) => {
       }}
     >
       <Typography variant="h2" sx={{ fontWeight: "700", mb: "1rem" }}>
-        {title}
+        {data?.title}
       </Typography>
-      <Typography variant="p">Rs. {price} (Total Share Capital)</Typography>
+      <Typography variant="p">Rs. {data?.price} (Total Share Capital)</Typography>
       <div>
         Day Gain :
         <Typography variant="p" sx={style}>
-          {gain}
+          {data?.gain}
         </Typography>{" "}
       </div>
       <div sx={{ fontWeight: "400" }}>
         Day Loss:
         <Typography variant="p" sx={{ color: "red" }}>
-          {loss}
+          {data?.loss}
         </Typography>
       </div>
       <div>
         Total Gain :
         <Typography variant="p" sx={style}>
-          {tGain}
+          {data?.tGain}
         </Typography>
       </div>
       <div sx={{ fontWeight: "400" }}>
         Total Loss :
         <Typography variant="p" sx={{ color: "red" }}>
-          {tLoss}
+          {data?.tLoss}
         </Typography>
       </div>
       <div>
-        Total Investment : <Typography variant="p"> {investment} </Typography>
+        Total Investment : <Typography variant="p"> {data?.investment} </Typography>
       </div>
       <div>
-        As of Tue : <Typography variant="p"> {date} </Typography>
+        As of Tue : <Typography variant="p"> {data?.date} </Typography>
       </div>
     </div>
   );
