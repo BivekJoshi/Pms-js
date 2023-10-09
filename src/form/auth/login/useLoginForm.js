@@ -25,8 +25,10 @@ export const useLoginForm = () => {
 
   const handleLogin = (values) => {
     const { email, brokerNo, password } = values;
+
+    const trimmedPassword = password.trim();
     mutate(
-      { email, brokerNo, password },
+      { email, brokerNo, password: trimmedPassword },
       { onSettled: () => setLoading(false) }
     );
   };

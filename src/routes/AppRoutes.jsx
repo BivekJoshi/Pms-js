@@ -1,8 +1,6 @@
 import React, { Suspense } from 'react';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
-import ApplicationMessage from '../pages/auth/ApplicationMessage';
-import ResetPasswordPage from '../pages/auth/ResetPasswordPage';
 
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));
@@ -20,6 +18,8 @@ const ApplicationPage = React.lazy(() =>
   import('../pages/auth/ApplicationPage')
 );
 const Verification = React.lazy(() => import('../pages/auth/Verification'));
+const ResetPasswordPage = React.lazy(() => import('../pages/auth/ResetPasswordPage'));
+const ApplicationMessage = React.lazy(() => import( '../pages/auth/ApplicationMessage'));
 
 export default function AppRoutes() {
   return (
@@ -30,7 +30,9 @@ export default function AppRoutes() {
             <Route path='login' element={<LoginPage />} />
             <Route path='register' element={<RegisterPage />} />
             <Route path='application/status' element={<ApplicationPage />} />
-            <Route path='verification' element={<Verification />} />
+            <Route path='verification/:id' element={<Verification />} />
+            <Route path='reset/password' element={<ResetPasswordPage />} />
+            <Route path='status/message' element={<ApplicationMessage />} />
           </Route>
           <Route path='/' element={<AppLayout />}>
             <Route path='dashboard' element={<Dashboard />} />

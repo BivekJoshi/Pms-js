@@ -28,6 +28,7 @@ const LoginPage = () => {
 
   return (
     <Box
+      className='paddingOuter'
       padding={{ xs: '20px', sm: '96px 22px' }}
       boxShadow='0 4px 8px 3px rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3)'
       width={{ xs: '90%', sm: '80%' }}
@@ -41,7 +42,7 @@ const LoginPage = () => {
         alt='bear--.png'
         style={{ position: 'absolute', left: '140px', top: '80px' }}
       />
-      <Grid padding={{ sm: '2rem', xs: '0' }}>
+      <Grid padding={{ sm: '2rem', xs: '0' }} className='paddingOuterLayer'>
         <Grid
           display='flex'
           flexDirection='column'
@@ -89,6 +90,9 @@ const LoginPage = () => {
             fullWidth
             variant='outlined'
             type='text'
+            InputLabelProps={{
+              shrink: formik.values.email,
+            }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>
@@ -152,7 +156,13 @@ const LoginPage = () => {
                   Remember me
                 </div>
               </Grid>
-              <div className='bodySmall'>Forgot password?</div>
+              <div
+                className='bodySmall'
+                onClick={() => navigate('/reset/password')}
+                style={{ color: '#3838D0', cursor: 'pointer' }}
+              >
+                Forgot password?
+              </div>
             </Grid>
             <Grid>
               <Button
@@ -178,7 +188,6 @@ const LoginPage = () => {
             }}
           >
             <div className='titleMedium ' style={{ margin: '.25rem 0' }}>
-              {' '}
               Login
             </div>
           </LoadingButton>
