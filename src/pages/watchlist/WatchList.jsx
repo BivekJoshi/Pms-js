@@ -11,7 +11,6 @@ import {
   Grid,
   Modal,
   TextField,
-  Typography,
 } from '@mui/material';
 
 import WatchListMasterField from '../../form/formComponent/watchlist/WatchListMasterField';
@@ -19,7 +18,6 @@ import { useState } from 'react';
 import WatchTable from './WatchTable';
 import { useWatchListDetailForm } from '../../hooks/watchList/useWatchListForm/useWatchListDetailForm';
 import toast from 'react-hot-toast';
-import { useTheme } from '@emotion/react';
 
 const style = {
   position: 'absolute',
@@ -34,19 +32,14 @@ const style = {
 };
 
 const WatchList = () => {
-  const theme = useTheme();
-
   const [watchlist, setWatchList] = useState();
-  const [open, setOpen] = useState(false);
-
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
-  const { data: listedCompanies } = useGetListedCompanies();
 
-  const { formik } = useWatchListDetailForm(watchlist);
-  
+  const { data: listedCompanies } = useGetListedCompanies();
+  const { formik } = useWatchListDetailForm();
+  const [selectedSymbol, setSelectedSymbol] = useState('');
+
   const handleFormSubmit = () => {
-    formik.setFieldValue("script", selectedSymbol);
-    formik.setFieldValue("id", watchlist);
     formik.handleSubmit();
 
     if (!formik.isValid) {
@@ -60,7 +53,14 @@ const WatchList = () => {
       symbolsArray.push({ index: key, ...listedCompanies[key] });
     }
   }
+
   const symbols = symbolsArray.map((item) => item.symbol);
+
+  // console.log(symbols);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <div>
@@ -70,26 +70,19 @@ const WatchList = () => {
         justifyContent='flex-end'
         alignItems='center'
       >
-        <Button
-          variant='contained'
-          onClick={() => setOpen(true)}
-          sx={{
-            backgroundColor: '#401686',
-            color: '#fff',
-          }}
-        >
+        <Button variant='contained' onClick={handleOpen}>
           Create New watchlist
         </Button>
       </Grid>
 
       <Modal
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          <WatchListMasterField onClose={() => setOpen(false)} />
+          <WatchListMasterField onClose={handleClose} />
         </Box>
       </Modal>
 
@@ -99,29 +92,14 @@ const WatchList = () => {
           display: 'flex',
           width: 'cover',
           height: '84px',
-          backgroundColor: theme.palette.background.alt,
+          backgroundColor: '#fff',
           padding: '16px',
           justifyContent: 'space-between',
           alignItems: 'center',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            gap: '.3rem',
-          }}
-        >
-          <Typography
-            variant='h4'
-            style={{
-              color: theme.palette.text.light,
-              fontWeight: '800',
-            }}
-          >
-            Watchlist:
-          </Typography>
+        <div>
+          Watchlist:
           {!loadingname &&
             watchListName.map((name) => (
               <Chip
@@ -132,57 +110,40 @@ const WatchList = () => {
                   backgroundColor:
                     watchlist === name?.id ? '#329EF4' : '#EBEBEB',
                   color: watchlist === name?.id ? 'white' : 'initial',
-                  margin: '2px',
                 }}
                 onClick={() => setWatchList(name?.id)}
               />
             ))}
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-          <Typography
-            variant='h6'
-            style={{
-              color: theme.palette.text.light,
+        NEPSE CODE:
+        <div style={{ width: '300px' }}>
+          <Autocomplete
+            id='script'
+            disabled={!watchlist}
+            name='script'
+            options={symbols}
+            value={selectedSymbol}
+            onChange={(event, newValue) => {
+              setSelectedSymbol(newValue);
             }}
-          >
-            NEPSE CODE:
-          </Typography>
-          <div style={{ width: '300px' }}>
-            <Autocomplete
-              name='script'
-              disabled={!watchlist}
-              options={symbols}
-              value={selectedSymbol || formik?.values?.script}
-              onChange={(event, newValue) => {
-                if (newValue != null) {
-                  formik.setFieldValue('script', newValue);
-                  setSelectedSymbol(newValue);
-                }
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label='Nepse Code'
-                  variant='outlined'
-                  error={formik.touched.script && Boolean(formik.errors.script)}
-                  helperText={formik.touched.script && formik.errors.script}
-                  autoFocus
-                  size='small'
-                  value={formik.values.script}
-                  // InputLabelProps={{ shrink: true }}
-                />
-              )}
-            />
-          </div>
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label='Nepse Code'
+                variant='outlined'
+                error={formik.touched.script && Boolean(formik.errors.script)}
+                helperText={formik.touched.script && formik.errors.script}
+                autoFocus
+                InputLabelProps={{ shrink: true }}
+              />
+            )}
+          />
         </div>
         <div>
           <Button
             variant='contained'
             disabled={!watchlist}
-            sx={{
-              backgroundColor: '#401686',
-              color: '#fff',
-            }}
+            sx={{ width: '18px', height: '28px' }}
             onClick={handleFormSubmit}
           >
             +Add
