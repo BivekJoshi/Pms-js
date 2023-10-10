@@ -32,7 +32,6 @@ export default class ErrorBoundary extends Component {
       // You can render any custom fallback UI
       // window.location.assign(contextPath() + '/index.html');
       window.location.assign(contextPath() + '#/login');
-
       // return <Page500></Page500>
       // return <></>;
     }
