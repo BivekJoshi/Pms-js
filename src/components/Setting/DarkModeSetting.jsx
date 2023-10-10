@@ -14,7 +14,6 @@ const DarkModeSetting = ({onClose}) => {
   const handleModeClick = (mode) => {
     dispatch({ type: "TOGGLE_THEME" });
   };
-  
 
   return (
     <div style={{ width: 290, padding: "0rem" }}>
@@ -57,7 +56,7 @@ const DarkModeSetting = ({onClose}) => {
               justifyContent: "center",
               cursor: "pointer",
               padding: "10px",
-              // backgroundColor: selectedMode === "light" ? theme.palette.common : "red",
+              backgroundColor: selectedMode === "light" ?? theme.palette.commons,
             }}
             onClick={() => handleModeClick("light")}
           >

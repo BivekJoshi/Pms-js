@@ -151,7 +151,6 @@ const Navbar = () => {
             </IconButton> */}
 
             <div>
-              <React.Fragment>
                 <IconButton onClick={toggleDrawer('right', true)}>
                   <SettingsOutlined sx={{ fontSize: '25px' }} />
                 </IconButton>
@@ -162,7 +161,6 @@ const Navbar = () => {
                 >
                   <DarkModeSetting onClose={toggleDrawer('right', false)} />
                 </Drawer>
-              </React.Fragment>
             </div>
 
             <NavabarProfile />
