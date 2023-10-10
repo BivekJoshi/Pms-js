@@ -48,7 +48,7 @@ const RegisterPage = () => {
           <div style={{ color: "#875923" }} className="displayLarge">
             Sign Up
           </div>
-          <div className="title1624">your account to continue</div>
+          <div className="titleMedium">your account to continue</div>
         </Grid>
         <Grid
           component="form"

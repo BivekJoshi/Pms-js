@@ -1,95 +1,108 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,100;1,9..40,200;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100;0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;0,9..40,900;0,9..40,1000;1,9..40,100;1,9..40,200;1,9..40,300;1,9..40,400;1,9..40,500;1,9..40,600;1,9..40,700;1,9..40,800;1,9..40,900;1,9..40,1000&display=swap");
 
 html,
-body{
-
+body {
   height: 100%;
   width: 100%;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   margin: 0 !important;
   padding: 0 !important;
-
 }
 
 .ioginImg {
-    max-width: 120% !important;
+  max-width: 120% !important;
+}
+
+@media (max-width: 599px) {
+  .ioginImg {
+    max-width: 100% !important;
   }
-  
-  @media (max-width: 599px) {
-    .ioginImg {
-      max-width: 100% !important;
-    }
-  }
-  @media (max-height: 750px) {
-    .paddingOuter {
+}
+@media (max-height: 750px) {
+  .paddingOuter {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
-    }
-    .paddingOuterLayer {
+  }
+  .paddingOuterLayer {
     padding-top: 10px !important;
     padding-bottom: 10px !important;
-    }
+  }
 
-    .registerImg {
-     width: 25% !important;
-    }
+  .registerImg {
+    width: 25% !important;
   }
-  
-  .displayLarge {
-    font-family: DM Sans;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 40px;
-  }
-  
-  .title1624 {
-    font-family: DM Sans;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 24px; /* 150% */
-    letter-spacing: 0.15px;
-  }
-  .titleMedium {
-    font-family: DM Sans;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: 0.15px;
-  }
-  .bodyMedium {
-    font-family: DM Sans;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px; /* 142.857% */
-    letter-spacing: 0.25px;
-  }
-  .bodySmall {
-    font-family: DM Sans;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 16px; /* 133.333% */
-    letter-spacing: 0.4px;
-  }
-  
-  .headlineMedium {
-    font-family: Roboto;
-    font-size: 28px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 36px;
-  }
-  
-  .labelMedium {
-    font-family: DM Sans;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px; /* 133.333% */
-    letter-spacing: 0.5px;
-  }
-  
+}
+
+.displayLarge {
+  font-family: DM Sans;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px;
+}
+.headlineMedium {
+  font-family: Roboto;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px;
+}
+.titleLarge {
+  font-family: DM Sans;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+}
+.titleMedium {
+  font-family: DM Sans;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.15px;
+}
+.bodyMedium {
+  font-family: DM Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: 0.25px;
+}
+.bodySmall {
+  font-family: DM Sans;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.4px;
+}
+.labelMedium {
+  font-family: DM Sans;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 133.333% */
+  letter-spacing: 0.5px;
+}
+.profileIcon {
+  display: flex;
+  padding: 12px 0px;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+}
+.profilePageItem{
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.profileItem{
+  padding: 10px 20px;
+  border-bottom: 1px solid #CCC;
+  font-weight: 400 !important;
+  line-height: 1.55 !important;
+}

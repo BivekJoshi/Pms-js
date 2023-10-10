@@ -87,6 +87,7 @@ const Navbar = () => {
         position: 'static',
         background: theme.palette.background.light,
         boxShadow: 'none',
+        color:"black"
       }}
     >
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
