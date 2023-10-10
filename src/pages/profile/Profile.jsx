@@ -26,9 +26,9 @@ const Profile = () => {
       >
         <Grid display="flex" flexDirection="column" gap="24px" width="344px">
           <Grid
+           style={{ background: theme.palette.background.light }}
             display="flex"
             flexDirection="row"
-            bgcolor={theme.palette.background.alt}
             color={theme.palette.text.main}
             alignItems="center"
             gap="2rem"

@@ -8,7 +8,6 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
-import FlexBetween from "../flexBetween/FlexBetween";
 
 const cardItems = [
   {
@@ -52,7 +51,7 @@ const CustomCard = ({ items, activeId, onClick }) => {
       style={{
         display: "flex",
         gap: "0.1rem",
-        color: theme.palette.text.light,
+        color: theme.palette.text.main,
       }}
     >
       {items.map((item) => (
@@ -66,13 +65,13 @@ const CustomCard = ({ items, activeId, onClick }) => {
                 : item?.id === items[items.length - 1]?.id
                 ? "0 1rem 1rem 0"
                 : "0",
-            background:
-              activeId === item?.id ? theme.palette.background.alt : "white",
-            color: activeId === item?.id ? "white" : "black",
+            background: activeId === item?.id ? theme.palette.background.light : "white",
+            color: activeId === item?.id ? theme.palette.text.main : "black",
             fontWeight: activeId === item?.id ? "bold" : "normal",
+            transform: activeId === item?.id ? "scale(1.1)" : "scale(1)",
             ":hover": {
               background:
-                activeId === item?.id ? theme.palette.background.alt : "white",
+                activeId === item?.id ? theme.palette.background.light : "white",
               transform: "scale(1.1)",
             },
           }}
@@ -109,7 +108,7 @@ const CardInfo = () => {
         style={{
           display: "flex",
           gap: "0.1rem",
-          color: theme.palette.text.light,
+          color: theme.palette.text.main,
           marginTop: "1.6rem",
         }}
       >
@@ -123,21 +122,21 @@ const CardInfo = () => {
       <div
         style={{
           marginTop: "1rem",
-          background: theme.palette.background.main,
-          color: theme.palette.text.light,
+          background: theme.palette.background.light,
+          color: theme.palette.text.main,
           padding: "1rem 2.2rem",
         }}
       >
         <Typography
           variant="h3"
-          style={{ borderBottom: `2px solid ${theme.palette.text.main}`, color: "black" }}
+          style={{ borderBottom: `2px solid ${theme.palette.text.main}`, color: theme.palette.text.main }}
         >
           Realized Gain/Loss
         </Typography>
         <Box sx={{ marginTop: "1rem", textAlign: "right" }}>
           <Typography variant="h5">0 of 1 in Profit</Typography>
         </Box>
-        <div style={{ position: "relative", color: "black" }}>
+        <div style={{ position: "relative", color: theme.palette.text.main }}>
           <Typography variant="h5" sx={{textAlign: "right"}}>0 of 0%</Typography>
           <div
             style={{
