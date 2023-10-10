@@ -9,7 +9,7 @@ export const useWatchListDetailForm = (watchlist) => {
     initialValues: {
       script: '',
     },
-    // validationSchema: watchlistDetailSchema,
+    validationSchema: watchlistDetailSchema,
     onSubmit: (values) => {
       handleRegister(values);
     },
