@@ -26,7 +26,7 @@ export const tokensDark = {
     700: '#141937',
     800: '#0d1025',
     900: '#070812',
-    1000: '#401686',
+    1000: '#0000FF',
   },
   secondary: {
     // Yellow
@@ -53,6 +53,9 @@ export const tokensDark = {
     800: '#0d6d10', // Manually adjusted
     900: '#076b0a', // Manually adjusted
   },
+  background: {
+    100: '#ebedef',
+  },
 };
 
 // function that reverses the color palette
@@ -70,110 +73,195 @@ function reverseTokens(tokensDark) {
   });
   return reversedTokens;
 }
-export const tokensLight = reverseTokens(tokensDark);
 
 // mui theme settings
-export const themeSettings = (mode) => {
-  return {
-    palette: {
-      mode: mode,
-      ...(mode === 'dark'
-        ? {
-            // palette values for dark mode
-            primary: {
-              ...tokensDark.primary,
-              main: tokensDark.primary[400],
-              light: tokensDark.primary[400],
-            },
-            secondary: {
-              ...tokensDark.secondary,
-              main: tokensDark.secondary[300],
-            },
-            tertiary: {
-              ...tokensDark.tertiary,
-              main: tokensDark.tertiary[700],
-            },
-            neutral: {
-              ...tokensDark.grey,
-              main: tokensDark.grey[500],
-            },
-            background: {
-              default: tokensDark.primary[600],
-              // alt: tokensDark.primary[500],
-              alt: tokensDark.primary[1000],
-              light: tokensDark.primary[700],
-              main: tokensDark.grey[10],
-            },
-            text: {
-              main: tokensDark.grey[0],
-              light: tokensDark.grey[900],
-            },
-          }
-        : {
-            // palette values for light mode
-            primary: {
-              ...tokensLight.primary,
-              main: tokensDark.grey[50],
-              light: tokensDark.grey[100],
-            },
-            secondary: {
-              ...tokensLight.secondary,
-              main: tokensDark.secondary[600],
-              light: tokensDark.secondary[700],
-            },
-            tertiary: {
-              ...tokensDark.tertiary,
-              main: tokensDark.tertiary[700],
-            },
-            neutral: {
-              ...tokensLight.grey,
-              main: tokensDark.grey[10],
-            },
-            background: {
-              default: tokensDark.grey[0],
-              // alt: tokensDark.grey[50],
-              alt: tokensDark.primary[1000],
-              light: tokensDark.grey[10],
-              main: tokensDark.grey[10],
-            },
-            text: {
-              main: tokensDark.grey[500],
-              light: tokensDark.grey[900],
+export const themeSettings = (mode, data) => {
+  if (data) {
+    let tokensLight = reverseTokens(data);
+    return {
+      palette: {
+        mode: mode,
+        ...(mode === 'dark'
+          ? {
+              // palette values for dark mode
+              primary: {
+                ...tokensDark.primary,
+                main: tokensDark.primary[400],
+                light: tokensDark.primary[400],
+              },
+              secondary: {
+                ...tokensDark.secondary,
+                main: tokensDark.secondary[300],
+              },
+              tertiary: {
+                ...tokensDark.tertiary,
+                main: tokensDark.tertiary[700],
+              },
+              neutral: {
+                ...tokensDark.grey,
+                main: tokensDark.grey[500],
+              },
+              background: {
+                default: tokensDark.primary[600],
+                alt: tokensDark.primary[500],
+                main: tokensDark.background[100],
+              },
+              text: {
+                main: tokensDark.grey[0],
+              },
             }
-          }),
-    },
-    typography: {
-      fontFamily: ['DM Sans', 'sans-serif'].join(','),
-      fontSize: 12,
-      h1: {
-        fontFamily: ['DM Sans', 'sans-serif'].join(','),
-        fontSize: 40,
+          : {
+              // palette values for light mode
+              primary: {
+                ...tokensLight.primary,
+                main: tokensDark.grey[50],
+                light: tokensDark.grey[100],
+              },
+              secondary: {
+                ...tokensLight.secondary,
+                main: tokensDark.secondary[600],
+                light: tokensDark.secondary[700],
+              },
+              tertiary: {
+                ...tokensDark.tertiary,
+                main: tokensDark.tertiary[700],
+              },
+              neutral: {
+                ...tokensLight.grey,
+                main: tokensDark.grey[10],
+              },
+              background: {
+                default: tokensDark.grey[0],
+                alt: tokensDark.grey[50],
+                main: tokensDark.grey[100],
+              },
+              text: {
+                main: tokensDark.grey[500],
+              },
+            }),
       },
-      h2: {
+      typography: {
         fontFamily: ['DM Sans', 'sans-serif'].join(','),
-        fontSize: 32,
+        fontSize: 12,
+        h1: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 40,
+        },
+        h2: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 32,
+        },
+        h3: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 24,
+        },
+        h4: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 20,
+        },
+        h5: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 16,
+        },
+        h6: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 14,
+        },
       },
-      h3: {
+    };
+  } else {
+    let tokensLight = reverseTokens(tokensDark);
+
+    return {
+      palette: {
+        mode: mode,
+        ...(mode === 'dark'
+          ? {
+              // palette values for dark mode
+              primary: {
+                ...tokensDark.primary,
+                main: tokensDark.primary[400],
+                light: tokensDark.primary[400],
+              },
+              secondary: {
+                ...tokensDark.secondary,
+                main: tokensDark.secondary[300],
+              },
+              tertiary: {
+                ...tokensDark.tertiary,
+                main: tokensDark.tertiary[700],
+              },
+              neutral: {
+                ...tokensDark.grey,
+                main: tokensDark.grey[500],
+              },
+              background: {
+                default: tokensDark.primary[600],
+                alt: tokensDark.primary[500],
+                main: tokensDark.background[100],
+              },
+              text: {
+                main: tokensDark.grey[0],
+              },
+            }
+          : {
+              // palette values for light mode
+              primary: {
+                ...tokensLight.primary,
+                main: tokensDark.grey[50],
+                light: tokensDark.grey[100],
+              },
+              secondary: {
+                ...tokensLight.secondary,
+                main: tokensDark.secondary[600],
+                light: tokensDark.secondary[700],
+              },
+              tertiary: {
+                ...tokensDark.tertiary,
+                main: tokensDark.tertiary[700],
+              },
+              neutral: {
+                ...tokensLight.grey,
+                main: tokensDark.grey[10],
+              },
+              background: {
+                default: tokensDark.grey[0],
+                alt: tokensDark.grey[50],
+                main: tokensDark.grey[100],
+              },
+              text: {
+                main: tokensDark.grey[500],
+              },
+            }),
+      },
+      typography: {
         fontFamily: ['DM Sans', 'sans-serif'].join(','),
-        fontSize: 24,
+        fontSize: 12,
+        h1: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 40,
+        },
+        h2: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 32,
+        },
+        h3: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 24,
+        },
+        h4: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 20,
+        },
+        h5: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 16,
+        },
+        h6: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 14,
+        },
       },
-      h4: {
-        fontFamily: ['DM Sans', 'sans-serif'].join(','),
-        fontSize: 22,
-      },
-      h5: {
-        fontFamily: ['DM Sans', 'sans-serif'].join(','),
-        fontSize: 20,
-      },
-      h6: {
-        fontFamily: ['DM Sans', 'sans-serif'].join(','),
-        fontSize: 16,
-      },
-      h7: {
-        fontFamily: ['DM Sans', 'sans-serif'].join(','),
-        fontSize: 14,
-      },
-      
-    },
-  };
+    };
+  }
 };
