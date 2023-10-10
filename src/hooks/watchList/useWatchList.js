@@ -64,7 +64,7 @@ export const useAddWatchListDetail = ({ onSuccess }) => {
       onSuccess: (data, variables, context) => {
         toast.success("Succesfully added WatchList Detail");
         onSuccess && onSuccess(data, variables, context);
-        queryClient.invalidateQueries("getWatchListName");
+        queryClient.invalidateQueries("getWatchListDataById");
       },
       onError: (err, _variables, _context) => {
         toast.error(`error: ${err.message}`);

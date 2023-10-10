@@ -40,6 +40,9 @@ const WatchList = () => {
   const [selectedSymbol, setSelectedSymbol] = useState("");
 
   const handleFormSubmit = () => {
+    formik.setFieldValue("script", selectedSymbol);
+    formik.setFieldValue("id", watchlist);
+
     formik.handleSubmit();
 
     if (formik.isValid) {
