@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PieChart = () => {
+const PieChartDash = () => {
     return (
         <div>
             PieChart
@@ -8,4 +8,4 @@ const PieChart = () => {
     );
 };
 
-export default PieChart;
+export default PieChartDash;

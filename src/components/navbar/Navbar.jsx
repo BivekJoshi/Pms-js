@@ -66,17 +66,17 @@ const Navbar = () => {
   return (
     <AppBar
       sx={{
-        position: "static",
-        background: "none",
-        boxShadow: "none",
-        color: "black",
+        position: 'static',
+        background: theme.palette.background.light,
+        boxShadow: 'none',
+        color:"black"
       }}
     >
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         {/* RIGHT side */}
         <img src={logo} alt="Logo" style={{ width: "104px", height: "36px" }} />
 
-        <div style={{ display: "flex", alignItems: "center" }}>
+        {/* <div style={{ display: 'flex', alignItems: 'center' }}>
           {/* Middle SIDE */}
           <FlexBetween>
             {navItems.map((items) => (
@@ -113,10 +113,10 @@ const Navbar = () => {
 
           {/* RIGHT SIDE */}
           <FlexBetween
-            backgroundColor={theme.palette.background.alt}
-            borderRadius="9px"
-            gap="3rem"
-            p="0.1rem 1.5rem"
+            backgroundColor={theme.palette.background.light}
+            borderRadius='9px'
+            gap='3rem'
+            p='0.1rem 1.5rem'
           >
             <InputBase placeholder="Company name or symbol..." />
             <IconButton>
@@ -150,7 +150,6 @@ const Navbar = () => {
 
             <NavabarProfile />
           </FlexBetween>
-        </div>
       </Toolbar>
     </AppBar>
   );
