@@ -85,8 +85,9 @@ const Navbar = () => {
     <AppBar
       sx={{
         position: 'static',
-        background: 'none',
+        background: 'white',
         boxShadow: 'none',
+        color:"black"
       }}
     >
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>

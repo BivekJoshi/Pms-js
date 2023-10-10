@@ -49,7 +49,7 @@ const ApplicationPage = () => {
           <div style={{ color: "#875923" }} className="displayLarge">
             Application Status
           </div>
-          <div className="title1624">view your status</div>
+          <div className="titleMedium">view your status</div>
         </Grid>
         <Grid
           component="form"

@@ -28,7 +28,7 @@ const AppLayout = () => {
   }, []);
   return (
     <>
-      <ErrorBoundary>
+      {/* <ErrorBoundary> */}
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <header>
@@ -40,7 +40,7 @@ const AppLayout = () => {
           </section>
           {/* </Container> */}
         </ThemeProvider>
-      </ErrorBoundary>
+      {/* </ErrorBoundary> */}
     </>
   );
 };
