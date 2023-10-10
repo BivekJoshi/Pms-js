@@ -4,8 +4,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import { useDispatch } from "react-redux";
+import { useTheme } from "@emotion/react";
 
 const DarkModeSetting = ({onClose}) => {
+  const theme=useTheme();
+  console.log(theme);
   const dispatch = useDispatch();
   const [selectedMode, setSelectedMode] = useState("light");
 
@@ -26,7 +29,7 @@ const DarkModeSetting = ({onClose}) => {
         <Typography variant="h5" gutterBottom>
           Setting
         </Typography>
-        <CloseIcon onClick={onClose}/>
+        <CloseIcon onClick={onClose} sx={{cursor:"pointer"}}/>
       </div>
       <Divider />
       <div style={{ padding: "1rem" }}>
@@ -46,20 +49,20 @@ const DarkModeSetting = ({onClose}) => {
         >
           <Grid
             item
-            xs={4}
+            xs={6}
             style={{
               display: "flex",
               justifyContent: "center",
               cursor: "pointer",
               padding: "10px",
-              backgroundColor: selectedMode === "light" ? "lightgray" : "white",
+              backgroundColor: selectedMode === "light" ? theme.palette.common : "red",
             }}
             onClick={() => handleModeClick("light")}
           >
             <WbSunnyIcon />
             <Typography>Light</Typography>
           </Grid>
-          <Grid
+          {/* <Grid
             item
             xs={4}
             style={{
@@ -72,10 +75,10 @@ const DarkModeSetting = ({onClose}) => {
             onClick={() => handleModeClick("system")}
           >
             <Typography>System</Typography>
-          </Grid>
+          </Grid> */}
           <Grid
             item
-            xs={4}
+            xs={6}
             style={{
               display: "flex",
               justifyContent: "center",
