@@ -26,10 +26,11 @@ const Profile = () => {
       >
         <Grid display="flex" flexDirection="column" gap="24px" width="344px">
           <Grid
+           style={{  }}
             display="flex"
             flexDirection="row"
-            bgcolor={theme.palette.background.alt}
             color={theme.palette.text.main}
+            background= {theme.palette.background.alt}
             alignItems="center"
             gap="2rem"
             height="136px"

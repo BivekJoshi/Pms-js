@@ -43,9 +43,10 @@ const WatchList = () => {
   const { data: listedCompanies } = useGetListedCompanies();
 
   const { formik } = useWatchListDetailForm(watchlist);
-  const [selectedSymbol, setSelectedSymbol] = useState(formik.values.script);
-
+  
   const handleFormSubmit = () => {
+    formik.setFieldValue("script", selectedSymbol);
+    formik.setFieldValue("id", watchlist);
     formik.handleSubmit();
 
     if (!formik.isValid) {

@@ -12,50 +12,58 @@ const Card = ({ data }) => {
 
   return (
     <>
-    <Box
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        background: theme.palette.background.main,
-        padding: "1.5rem  2rem",
-      }}
-    >
-      <Typography variant="h2" style={{ color: theme.palette.text.light, fontWeight: "800", marginBottom: "1rem" }}>
-        {data?.title}
-      </Typography>
-      <Typography variant="p" style={style}>
-        Rs. {data?.price} (Total Share Capital)
-      </Typography>
-      <Box sx={style}>
-        Day Gain :<Typography variant="p">{data?.gain}</Typography>
-      </Box>
-      <Box sx={style}>
-        Day Loss:
-        <Typography variant="p" sx={{ color: "red" }}>
-          {data?.loss}
+      <Box
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          padding: "1.5rem  2rem",
+          background: theme.palette.background.light,
+          color: theme.palette.text.main,
+        }}
+      >
+        <Typography
+          variant="h2"
+          style={{
+            color: theme.palette.text.light,
+            fontWeight: "800",
+            marginBottom: "1rem",
+          }}
+        >
+          {data?.title}
         </Typography>
-      </Box>
-      <Box sx={style}>
-        Total Gain :
-        <Typography variant="p" sx={style}>
-          {data?.tGain}
+        <Typography variant="p" style={style}>
+          Rs. {data?.price} (Total Share Capital)
         </Typography>
+        <Box sx={style}>
+          Day Gain :<Typography variant="p">{data?.gain}</Typography>
+        </Box>
+        <Box sx={style}>
+          Day Loss:
+          <Typography variant="p" sx={{ color: "red" }}>
+            {data?.loss}
+          </Typography>
+        </Box>
+        <Box sx={style}>
+          Total Gain :
+          <Typography variant="p" sx={style}>
+            {data?.tGain}
+          </Typography>
+        </Box>
+        <Box sx={style}>
+          Total Loss :
+          <Typography variant="p" sx={{ color: "red" }}>
+            {data?.tLoss}
+          </Typography>
+        </Box>
+        <Box sx={style}>
+          Total Investment :{" "}
+          <Typography variant="p"> {data?.investment} </Typography>
+        </Box>
+        <Box sx={style}>
+          As of Tue : <Typography variant="p"> {data?.date} </Typography>
+        </Box>
       </Box>
-      <Box sx={style}>
-        Total Loss :
-        <Typography variant="p" sx={{ color: "red" }}>
-          {data?.tLoss}
-        </Typography>
-      </Box>
-      <Box sx={style}>
-        Total Investment :{" "}
-        <Typography variant="p"> {data?.investment} </Typography>
-      </Box>
-      <Box sx={style}>
-        As of Tue : <Typography variant="p"> {data?.date} </Typography>
-      </Box>
-    </Box>
-  </>
+    </>
   );
 };
 

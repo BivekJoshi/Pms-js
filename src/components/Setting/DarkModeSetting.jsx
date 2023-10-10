@@ -59,22 +59,8 @@ const DarkModeSetting = ({ onClose }) => {
             onClick={() => handleModeClick('light')}
           >
             <WbSunnyIcon />
-            <Typography>Light</Typography>
+            <Typography variant="h6" >Light</Typography>
           </Grid>
-          {/* <Grid
-            item
-            xs={4}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              cursor: "pointer",
-              padding: "10px",
-              backgroundColor: selectedMode === "hello" ? "lightgray" : "white",
-            }}
-            onClick={() => handleModeClick("system")}
-          >
-            <Typography>System</Typography>
-          </Grid> */}
           <Grid
             item
             xs={6}
@@ -88,7 +74,7 @@ const DarkModeSetting = ({ onClose }) => {
             onClick={() => handleModeClick('dark')}
           >
             <DarkModeIcon />
-            <Typography>Dark</Typography>
+            <Typography variant="h6">Dark</Typography>
           </Grid>
         </Grid>
       </div>

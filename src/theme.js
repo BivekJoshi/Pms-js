@@ -104,6 +104,7 @@ export const themeSettings = (mode, data) => {
               background: {
                 default: tokensDark.primary[600],
                 alt: tokensDark.primary[500],
+                light: tokensDark.primary[500],
                 main: tokensDark.background[100],
                 button: tokensDark.background[1000]
               },
@@ -135,6 +136,7 @@ export const themeSettings = (mode, data) => {
                 default: tokensDark.grey[0],
                 alt: tokensDark.grey[50],
                 main: tokensDark.grey[100],
+                light: tokensDark.grey[10],
               },
               text: {
                 main: tokensDark.grey[500],

@@ -13,14 +13,18 @@ import {
 
 const LineChartDash = ({ data }) => {
   const theme = useTheme();
-  
+
   return (
-    <div style={{ padding: "1rem 2rem", background: theme.palette.background.main }}>
+    <div
+      style={{
+        padding: "1rem 2rem",
+        background: theme.palette.background.light,
+        color: theme.palette.text.main,
+      }}
+    >
       {/* total share capital total investment */}
       <div style={{ marginBottom: "0.6rem" }}>
-        <Typography variant="h4">
-          Recent Holding Chart
-        </Typography>
+        <Typography variant="h4">Recent Holding Chart</Typography>
       </div>
       <ResponsiveContainer width="100%" height={200}>
         <LineChart

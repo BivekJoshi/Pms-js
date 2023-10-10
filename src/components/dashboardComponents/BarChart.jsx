@@ -6,7 +6,7 @@ const BarChartDash = ({ data }) => {
   const theme = useTheme();
 
     return (
-       <div style={{ padding: "2rem 0rem", background: theme.palette.background.main }}>
+       <div style={{ padding: "2rem 0rem", background: theme.palette.background.light }}>
          <ResponsiveContainer width="100%" height={300}>
         <BarChart
           data={data}
