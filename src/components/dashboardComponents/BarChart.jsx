@@ -1,9 +1,13 @@
+import { useTheme } from '@mui/material';
 import React from 'react';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const BarChartDash = ({ data }) => {
+  const theme = useTheme();
+
     return (
-        <ResponsiveContainer width="100%" height={300}>
+       <div style={{ padding: "2rem 0rem", background: theme.palette.background.main }}>
+         <ResponsiveContainer width="100%" height={300}>
         <BarChart
           data={data}
           margin={{
@@ -18,10 +22,11 @@ const BarChartDash = ({ data }) => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="pv" fill="#8884d8" />
-          <Bar dataKey="uv" fill="#82ca9d" />
+          <Bar dataKey="Selling Price" fill="#8884d8" />
+          <Bar dataKey="Cost Price" fill="#82ca9d" />
         </BarChart>
       </ResponsiveContainer>
+       </div>
     );
 };
 

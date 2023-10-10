@@ -85,7 +85,7 @@ const Navbar = () => {
     <AppBar
       sx={{
         position: 'static',
-        background: 'none',
+        background: theme.palette.background.light,
         boxShadow: 'none',
       }}
     >
@@ -130,7 +130,7 @@ const Navbar = () => {
 
           {/* RIGHT SIDE */}
           <FlexBetween
-            backgroundColor={theme.palette.background.alt}
+            backgroundColor={theme.palette.background.light}
             borderRadius='9px'
             gap='3rem'
             p='0.1rem 1.5rem'
