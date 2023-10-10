@@ -122,7 +122,7 @@ const WatchList = () => {
             id="script"
             name="script"
             options={symbols}
-            value="symbol"
+            value={symbols}
             renderInput={(params) => (
               <TextField
                 {...params}
