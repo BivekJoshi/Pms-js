@@ -5,7 +5,7 @@ const watchlistMasterSchema = Yup.object().shape({
 });
 
 const watchlistDetailSchema = Yup.object().shape({
-  // script: Yup.string().required("Please Select Nepse code"),
+  script: Yup.string().required("Please Select Nepse code"),
 });
 
 export { watchlistMasterSchema, watchlistDetailSchema };
