@@ -162,7 +162,7 @@ const WatchList = () => {
                   autoFocus
                   size="small"
                   value={formik.values.script}
-                  InputLabelProps={{ shrink: true }}
+                  // InputLabelProps={{ shrink: true }}
                 />
               )}
             />
