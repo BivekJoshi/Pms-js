@@ -8,7 +8,6 @@ import { useTheme } from "@emotion/react";
 
 const DarkModeSetting = ({onClose}) => {
   const theme=useTheme();
-  console.log(theme);
   const dispatch = useDispatch();
   const [selectedMode, setSelectedMode] = useState("light");
 
@@ -40,7 +39,7 @@ const DarkModeSetting = ({onClose}) => {
           container
           spacing={0}
           sx={{
-            border: "1px solid grey",
+            
             borderRadius: "5px",
             display: "flex",
             justifyContent: "space-between",
@@ -51,31 +50,20 @@ const DarkModeSetting = ({onClose}) => {
             item
             xs={6}
             style={{
+               border: "1px solid grey",
+               color: theme.palette.text.main,
+               background: theme.palette.background.alt,
               display: "flex",
               justifyContent: "center",
               cursor: "pointer",
               padding: "10px",
-              backgroundColor: selectedMode === "light" ? theme.palette.common : "red",
+              // backgroundColor: selectedMode === "light" ? theme.palette.common : "red",
             }}
             onClick={() => handleModeClick("light")}
           >
             <WbSunnyIcon />
-            <Typography>Light</Typography>
+            <Typography variant="h6" >Light</Typography>
           </Grid>
-          {/* <Grid
-            item
-            xs={4}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              cursor: "pointer",
-              padding: "10px",
-              backgroundColor: selectedMode === "hello" ? "lightgray" : "white",
-            }}
-            onClick={() => handleModeClick("system")}
-          >
-            <Typography>System</Typography>
-          </Grid> */}
           <Grid
             item
             xs={6}
@@ -89,7 +77,7 @@ const DarkModeSetting = ({onClose}) => {
             onClick={() => handleModeClick("dark")}
           >
             <DarkModeIcon />
-            <Typography>Dark</Typography>
+            <Typography variant="h6">Dark</Typography>
           </Grid>
         </Grid>
       </div>
