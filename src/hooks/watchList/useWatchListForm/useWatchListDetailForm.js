@@ -1,12 +1,13 @@
 import { useFormik } from "formik";
-import { useAddWatchListDetail } from "../../useWatchList";
-import { watchlistDetailSchema } from "../watchListSchema";
+import { watchlistDetailSchema } from "./watchListSchema";
+import { useAddWatchListDetail } from "../useWatchList";
 
-export const useWatchListDetailForm = () => {
+export const useWatchListDetailForm = (watchlist) => {
   const { mutate } = useAddWatchListDetail({});
   const formik = useFormik({
     initialValues: {
-      script: "",
+      id: watchlist,
+      script: "NEP",
     },
     validationSchema: watchlistDetailSchema,
     onSubmit: (values) => {
@@ -15,8 +16,8 @@ export const useWatchListDetailForm = () => {
   });
 
   const handleRegister = (values) => {
-    const { script } = values;
-    mutate({ script });
+    const { id, script } = values;
+    mutate({ id, script });
   };
 
   return {

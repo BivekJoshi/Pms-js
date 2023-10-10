@@ -1,25 +1,23 @@
 import React from "react";
 import {
-  useGetWatchListDataById,
+  useGetListedCompanies,
   useGetWatchListName,
 } from "../../hooks/watchList/useWatchList";
 import {
+  Autocomplete,
   Box,
   Button,
   Chip,
   Grid,
-  IconButton,
-  InputAdornment,
-  InputBase,
   Modal,
-  OutlinedInput,
   TextField,
-  Typography,
 } from "@mui/material";
-import MaterialReactTable from "material-react-table";
-import { useMemo } from "react";
-import { Search } from "@mui/icons-material";
+
 import WatchListMasterField from "../../form/formComponent/watchlist/WatchListMasterField";
+import { useState } from "react";
+import WatchTable from "./WatchTable";
+import { useWatchListDetailForm } from "../../hooks/watchList/useWatchListForm/useWatchListDetailForm";
+import toast from "react-hot-toast";
 
 const style = {
   position: "absolute",
@@ -34,72 +32,36 @@ const style = {
 };
 
 const WatchList = () => {
+  const [watchlist, setWatchList] = useState();
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
-  const { data: watchListDataById, isLoading } = useGetWatchListDataById();
+
+  const { data: listedCompanies } = useGetListedCompanies();
+  const { formik } = useWatchListDetailForm(watchlist);
+
+  const handleFormSubmit = () => {
+    formik.handleSubmit();
+
+    if (formik.isValid) {
+    } else {
+      toast.error("Please make sure you have filled the form correctly");
+    }
+  };
+
+  const symbolsArray = [];
+  for (const key in listedCompanies) {
+    if (Object.hasOwnProperty.call(listedCompanies, key)) {
+      symbolsArray.push({ index: key, ...listedCompanies[key] });
+    }
+  }
+
+  const symbols = symbolsArray.map((item) => item.symbol);
+
+  // console.log(symbols);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const columns = useMemo(
-    () => [
-      {
-        accessorKey: "symbol",
-        header: "Symbol",
-        size: 150,
-        sortable: false,
-      },
-      {
-        accessorKey: "change",
-        header: "Change Percent (%)",
-        size: 150,
-        sortable: false,
-      },
-      {
-        accessorKey: "open",
-        header: "Open (Rs)",
-        size: 150,
-        sortable: false,
-      },
-      {
-        accessorKey: "close",
-        header: "Close (Rs)",
-        size: 150,
-        sortable: false,
-      },
-      {
-        accessorKey: "ltp",
-        header: "LTP",
-        size: 150,
-        sortable: false,
-      },
-      {
-        accessorKey: "volume",
-        header: "Volume",
-        size: 150,
-        sortable: false,
-      },
-      {
-        accessorKey: "high",
-        header: "High (Rs)",
-        size: 150,
-        sortable: false,
-      },
-      {
-        accessorKey: "low",
-        header: "Low (rs)",
-        size: 150,
-        sortable: false,
-      },
-      {
-        accessorKey: "change",
-        header: "Change (Rs)",
-        size: 150,
-        sortable: false,
-      },
-    ],
-    []
-  );
   return (
     <div>
       <Grid
@@ -137,7 +99,6 @@ const WatchList = () => {
         }}
       >
         <div>
-          {" "}
           Watchlist:
           {!loadingname &&
             watchListName.map((name) => (
@@ -145,51 +106,45 @@ const WatchList = () => {
                 label={name?.watchlistName}
                 className="custom-chip"
                 key={name?.id}
+                style={{
+                  backgroundColor:
+                  watchlist === name?.id ? "#329EF4" : "#EBEBEB",
+                  color: watchlist === name?.id ? "white" : "initial",
+                }}
+                onClick={() =>  setWatchList(name?.id)}
               />
             ))}
         </div>
-        <div>
-          <OutlinedInput
-            id="outlined-adornment-weight"
-            endAdornment={
-              <InputAdornment position="end">
-                <Search />
-              </InputAdornment>
-            }
-            aria-describedby="outlined-weight-helper-text"
-            inputProps={{
-              "aria-label": "weight",
-            }}
+        
+        NEPSE CODE:
+        <div style={{ width: '300px' }}>
+          <Autocomplete
+            id="symbol-autocomplete"
+            options={symbols}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Nepse Code"
+                variant="outlined"
+                autoFocus
+                InputLabelProps={{ shrink: true }}
+              />
+            )}
           />
         </div>
         <div>
-          <Button variant="contained" sx={{ width: "18px", height: "28px" }}>
+          <Button
+            variant="contained"
+            sx={{ width: "18px", height: "28px" }}
+            onClick={handleFormSubmit}
+          >
             +Add
           </Button>
         </div>
       </Box>
       <br />
 
-      {!isLoading && (
-        <MaterialReactTable
-          columns={columns}
-          data={watchListDataById}
-          isLoading={isLoading}
-          enableColumnActions={false}
-          enableColumnFilters={false}
-          enableSorting={false}
-          enableBottomToolbar={false}
-          enableTopToolbar={false}
-          muiTableBodyRowProps={{ hover: false }}
-          muiTableHeadCellProps={{
-            sx: {
-              backgroundColor: "#401686",
-              borderRadius: "8px 0 0 0",
-              color: "#fff",
-            },
-          }}
-        />
-      )}
+      <WatchTable watchid={watchlist} />
     </div>
   );
 };

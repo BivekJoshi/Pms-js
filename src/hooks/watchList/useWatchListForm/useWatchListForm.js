@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
-import { watchlistMasterSchema } from "../watchListSchema";
-import { useAddWatchListMaster } from "../../useWatchList";
+import { watchlistMasterSchema } from "./watchListSchema";
+import { useAddWatchListMaster } from "../useWatchList";
 
 export const useWatchListForm = () => {
   const { mutate } = useAddWatchListMaster({});

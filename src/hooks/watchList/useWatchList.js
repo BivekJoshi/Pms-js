@@ -4,6 +4,7 @@ import {
   addWatchListMaster,
   getWatchListDataById,
   getWatchListName,
+  getWatchListedCompanies,
 } from "../../api/watchlist/watchlist-api";
 import toast from "react-hot-toast";
 
@@ -17,13 +18,23 @@ export const useGetWatchListName = () => {
 };
 
 /*________________________GET WATCHLIST DATA BY ID_____________________________________*/
-export const useGetWatchListDataById = () => {
-  return useQuery(["getWatchListDataById"], () => getWatchListDataById(), {
-    // cacheTime: 10000,
+export const useGetWatchListDataById = (id) => {
+  return useQuery(["getWatchListDataById",id], () => getWatchListDataById(id), {
+    cacheTime: 10000,
     refetchInterval: false,
     refetchOnWindowFocus: false,
   });
 };
+
+/*________________________GET WATCHLIST DATA BY ID_____________________________________*/
+export const useGetListedCompanies = () => {
+  return useQuery(["getWatchListedCompanies"], () => getWatchListedCompanies(), {
+    cacheTime: 10000,
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+  });
+};
+
 /*________________________POST WATCHLIST MASTER_____________________________________*/
 export const useAddWatchListMaster = ({ onSuccess }) => {
   const queryClient = useQueryClient();

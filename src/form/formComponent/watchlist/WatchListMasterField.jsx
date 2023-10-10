@@ -1,6 +1,6 @@
 import { Button, Grid, TextField } from "@mui/material";
 import React from "react";
-import { useWatchListForm } from "../../../hooks/watchList/useWatchListForm/watchListMasterForm/useWatchListForm";
+import { useWatchListForm } from "../../../hooks/watchList/useWatchListForm/useWatchListForm";
 
 const WatchListMasterField = ({onClose}) => {
   const { formik } = useWatchListForm();
