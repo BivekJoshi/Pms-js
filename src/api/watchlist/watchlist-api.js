@@ -12,8 +12,6 @@ export const getWatchListDataById = async (id) => {
   let response;
   if (id) {
     response = await axiosInstance.get(`/app-user/watchlist-data/${id}`);
-  } else {
-    response = await axiosInstance.get(`/app-user/watchlist-data/1`); //need to change this 
   }
   return response;
 };
