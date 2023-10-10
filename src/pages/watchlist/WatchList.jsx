@@ -134,7 +134,7 @@ const WatchList = () => {
                 error={formik.touched.script && Boolean(formik.errors.script)}
                 helperText={formik.touched.script && formik.errors.script}
                 autoFocus
-                InputLabelProps={{ shrink: true }}
+                // InputLabelProps={{ shrink: true }}
               />
             )}
           />
