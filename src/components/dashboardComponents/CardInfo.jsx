@@ -136,7 +136,7 @@ const CardInfo = () => {
         <Box sx={{ marginTop: "1rem", textAlign: "right" }}>
           <Typography variant="h5">0 of 1 in Profit</Typography>
         </Box>
-        <div style={{ position: "relative", color: theme.palette.text.main }}>
+        <div style={{ position: "relative", color: "black" }}>
           <Typography variant="h5" sx={{textAlign: "right"}}>0 of 0%</Typography>
           <div
             style={{
