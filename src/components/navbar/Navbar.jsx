@@ -85,7 +85,7 @@ const Navbar = () => {
     <AppBar
       sx={{
         position: 'static',
-        background: 'none',
+        background: theme.palette.background.light,
         boxShadow: 'none',
       }}
     >
@@ -93,7 +93,7 @@ const Navbar = () => {
         {/* RIGHT side */}
         <img src={logo} alt='Logo' style={{ width: '104px', height: '36px' }} />
 
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        {/* <div style={{ display: 'flex', alignItems: 'center' }}>
           {/* Middle SIDE */}
           <FlexBetween>
             {navItems.map((items) => (
@@ -130,7 +130,7 @@ const Navbar = () => {
 
           {/* RIGHT SIDE */}
           <FlexBetween
-            backgroundColor={theme.palette.background.alt}
+            backgroundColor={theme.palette.background.light}
             borderRadius='9px'
             gap='3rem'
             p='0.1rem 1.5rem'
@@ -167,7 +167,6 @@ const Navbar = () => {
 
             <NavabarProfile />
           </FlexBetween>
-        </div>
       </Toolbar>
     </AppBar>
   );

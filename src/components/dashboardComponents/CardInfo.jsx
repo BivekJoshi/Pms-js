@@ -1,10 +1,19 @@
-import { Button } from "@mui/material";
-import React from "react";
+import {
+  Box,
+  Button,
+  Card,
+  List,
+  ListItem,
+  Typography,
+  useTheme,
+} from "@mui/material";
+import React, { useState } from "react";
+import FlexBetween from "../flexBetween/FlexBetween";
 
-const cardInfo = [
+const cardItems = [
   {
     id: 1,
-    item: "Profit/Loss",
+    item: "Profit / Loss",
   },
   {
     id: 2,
@@ -16,7 +25,7 @@ const cardInfo = [
   },
   {
     id: 4,
-    item: "Sell",
+    item: "Buy",
   },
   {
     id: 5,
@@ -24,13 +33,129 @@ const cardInfo = [
   },
 ];
 
-const CardInfo = () => {
+const cardRealise = [
+  {
+    id: 1,
+    item: "Realized",
+  },
+  {
+    id: 2,
+    item: "Unrealized",
+  },
+];
+
+const CustomCard = ({ items, activeId, onClick }) => {
+  const theme = useTheme();
+
   return (
-    <div sx={{ background: "white" }}>
-      {cardInfo.map((items) => (
-        <Button variant="primary">{items?.item}</Button>
+    <div
+      style={{
+        display: "flex",
+        gap: "0.1rem",
+        color: theme.palette.text.light,
+      }}
+    >
+      {items.map((item) => (
+        <Button
+          variant="primary"
+          key={item?.id}
+          sx={{
+            borderRadius:
+              item?.id === items[0]?.id
+                ? "1rem 0 0 1rem"
+                : item?.id === items[items.length - 1]?.id
+                ? "0 1rem 1rem 0"
+                : "0",
+            background:
+              activeId === item?.id ? theme.palette.background.alt : "white",
+            color: activeId === item?.id ? "white" : "black",
+            fontWeight: activeId === item?.id ? "bold" : "normal",
+            ":hover": {
+              background:
+                activeId === item?.id ? theme.palette.background.alt : "white",
+              transform: "scale(1.1)",
+            },
+          }}
+          onClick={() => onClick(item?.id)}
+        >
+          {item?.item}
+        </Button>
       ))}
     </div>
+  );
+};
+
+const CardInfo = () => {
+  const theme = useTheme();
+  const [isActive, setIsActive] = useState(null);
+  const [active, setActive] = useState(null);
+
+  const handleActiveClick = (id) => {
+    setIsActive(id);
+  };
+
+  const handleRealiseClick = (id) => {
+    setActive(id);
+  };
+  return (
+    <>
+      <CustomCard
+        items={cardItems}
+        activeId={isActive}
+        onClick={handleActiveClick}
+      />
+
+      <div
+        style={{
+          display: "flex",
+          gap: "0.1rem",
+          color: theme.palette.text.light,
+          marginTop: "1.6rem",
+        }}
+      >
+        <CustomCard
+          items={cardRealise}
+          activeId={active}
+          onClick={handleRealiseClick}
+        />
+      </div>
+
+      <div
+        style={{
+          marginTop: "1rem",
+          background: theme.palette.background.main,
+          color: theme.palette.text.light,
+          padding: "1rem 2.2rem",
+        }}
+      >
+        <Typography
+          variant="h3"
+          style={{ borderBottom: `2px solid ${theme.palette.text.main}`, color: "black" }}
+        >
+          Realized Gain/Loss
+        </Typography>
+        <Box sx={{ marginTop: "1rem", textAlign: "right" }}>
+          <Typography variant="h5">0 of 1 in Profit</Typography>
+        </Box>
+        <div style={{ position: "relative", color: "black" }}>
+          <Typography variant="h5" sx={{textAlign: "right"}}>0 of 0%</Typography>
+          <div
+            style={{
+              position: "absolute",
+              width: "50%",
+              height: "0.1rem",
+              background: theme.palette.text.main,
+              right: 0,
+            }}
+          ></div>
+        </div>
+
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <Typography style={{ border: `1px solid ${theme.palette.text.main}`, maxWidth: "fit-content", padding: "0.2rem 0.4rem" }} variant="h5">Investment XXXX</Typography>
+          <Typography style={{ border: `1px solid ${theme.palette.text.main}`, maxWidth: "fit-content", padding: "0.2rem 0.4rem" }} variant="h5">Capital Gain XXXX</Typography>
+        </Box>
+      </div>
+    </>
   );
 };
 

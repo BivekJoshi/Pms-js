@@ -36,7 +36,8 @@ const WatchList = () => {
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
 
   const { data: listedCompanies } = useGetListedCompanies();
-  const { formik } = useWatchListDetailForm(watchlist);
+  const { formik } = useWatchListDetailForm();
+  const [selectedSymbol, setSelectedSymbol] = useState("");
 
   const handleFormSubmit = () => {
     formik.handleSubmit();
@@ -108,33 +109,30 @@ const WatchList = () => {
                 key={name?.id}
                 style={{
                   backgroundColor:
-                  watchlist === name?.id ? "#329EF4" : "#EBEBEB",
+                    watchlist === name?.id ? "#329EF4" : "#EBEBEB",
                   color: watchlist === name?.id ? "white" : "initial",
                 }}
-                onClick={() =>  setWatchList(name?.id)}
+                onClick={() => setWatchList(name?.id)}
               />
             ))}
         </div>
-        
         NEPSE CODE:
-        <div style={{ width: '300px' }}>
+        <div style={{ width: "300px" }}>
           <Autocomplete
             id="script"
             name="script"
             options={symbols}
-            value={symbols}
+            value={selectedSymbol} 
+            onChange={(event, newValue) => {
+              setSelectedSymbol(newValue); 
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}
                 label="Nepse Code"
                 variant="outlined"
-                error={
-                  formik.touched.script &&
-                  Boolean(formik.errors.script)
-                }
-                helperText={
-                  formik.touched.script && formik.errors.script
-                }
+                error={formik.touched.script && Boolean(formik.errors.script)}
+                helperText={formik.touched.script && formik.errors.script}
                 autoFocus
                 InputLabelProps={{ shrink: true }}
               />
