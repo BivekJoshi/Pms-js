@@ -86,99 +86,100 @@ const Navbar = () => {
     <AppBar
       sx={{
         position: "static",
-        background: "none",
+        background: theme.palette.background.light,
         boxShadow: "none",
+        color: "black",
       }}
     >
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <img src={logo} alt="Logo" style={{ width: "104px", height: "36px" }} />
 
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <FlexBetween>
-            {navItems.map((items) => (
-              <List
-                key={items?.id}
-                sx={{
-                  position: "relative",
-                  display: { sm: "none", md: "block", xs: "none" }, // Hide on small screens
-                }}
-              >
-                <ListItem sx={{ position: "relative" }}>
-                  <Typography
-                    onClick={() => handleActiveClick(items?.id, items?.path)}
-                    sx={{
-                      cursor: "pointer",
-                      color:
-                        isActive === items.id
-                          ? theme.palette.text.main
-                          : theme.palette.text.main,
-                      fontWeight: isActive === items.id ? "bold" : "normal",
-                    }}
-                    variant="h6"
-                  >
-                    {items?.item}
-                    {isActive === items.id && (
-                      <div
-                        style={{
-                          position: "absolute",
-                          width: "50%",
-                          height: "0.1rem",
-                          background: "blue",
-                        }}
-                      ></div>
-                    )}
-                  </Typography>
-                </ListItem>
-              </List>
-            ))}
-          </FlexBetween>
-
-          <FlexBetween
-            backgroundColor={theme.palette.background.alt}
-            borderRadius="9px"
-            gap="3rem"
-            p="0.1rem 1.5rem"
-            sx={{
-              display: { sm: "none", md: "block", xs: "none" }, // Hide on small screens
-            }}
-          >
-            <InputBase placeholder="Company name or symbol..." />
-            <IconButton>
-              <Search />
-            </IconButton>
-          </FlexBetween>
-
-          <FlexBetween gap="1.5rem">
-            <div>
-              <React.Fragment>
-                <IconButton onClick={toggleDrawer("right", true)}>
-                  <SettingsOutlined sx={{ fontSize: "25px" }} />
-                </IconButton>
-                <Drawer
-                  anchor="right"
-                  open={state["right"]}
-                  onClose={toggleDrawer("right", false)}
-                >
-                  <DarkModeSetting onClose={toggleDrawer("right", false)} />
-                </Drawer>
-              </React.Fragment>
-            </div>
-
-            <NavabarProfile />
-
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              onClick={toggleMenu}
+        {/* <div style={{ display: 'flex', alignItems: 'center' }}>
+          {/* Middle SIDE */}
+        <FlexBetween>
+          {navItems.map((items) => (
+            <List
+              key={items?.id}
               sx={{
-                display: { sm: "block", md: "none",xs:"block" }, // Show on small screens
+                position: "relative",
+                display: { sm: "none", md: "block", xs: "none" }, // Hide on small screens
               }}
             >
-              <MenuIcon />
-            </IconButton>
-          </FlexBetween>
-        </div>
+              <ListItem sx={{ position: "relative" }}>
+                <Typography
+                  onClick={() => handleActiveClick(items?.id, items?.path)}
+                  sx={{
+                    cursor: "pointer",
+                    color:
+                      isActive === items.id
+                        ? theme.palette.text.main
+                        : theme.palette.text.main,
+                    fontWeight: isActive === items.id ? "bold" : "normal",
+                  }}
+                  variant="h6"
+                >
+                  {items?.item}
+                  {isActive === items.id && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        width: "50%",
+                        height: "0.1rem",
+                        background: "blue",
+                      }}
+                    ></div>
+                  )}
+                </Typography>
+              </ListItem>
+            </List>
+          ))}
+        </FlexBetween>
+
+        <FlexBetween
+          backgroundColor={theme.palette.background.alt}
+          borderRadius="9px"
+          gap="3rem"
+          p="0.1rem 1.5rem"
+          sx={{
+            display: { sm: "none", md: "block", xs: "none" }, // Hide on small screens
+          }}
+        >
+          <InputBase placeholder="Company name or symbol..." />
+          <IconButton>
+            <Search />
+          </IconButton>
+        </FlexBetween>
+
+        <FlexBetween gap="1.5rem">
+          <div>
+            <React.Fragment>
+              <IconButton onClick={toggleDrawer("right", true)}>
+                <SettingsOutlined sx={{ fontSize: "25px" }} />
+              </IconButton>
+              <Drawer
+                anchor="right"
+                open={state["right"]}
+                onClose={toggleDrawer("right", false)}
+              >
+                <DarkModeSetting onClose={toggleDrawer("right", false)} />
+              </Drawer>
+            </React.Fragment>
+          </div>
+
+          <NavabarProfile />
+
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={toggleMenu}
+            sx={{
+              display: { sm: "block", md: "none", xs: "block" }, // Show on small screens
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+        </FlexBetween>
       </Toolbar>
 
       <ResponsiveNavMenu

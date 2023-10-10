@@ -51,7 +51,7 @@ const ResetPasswordPage = () => {
           <div style={{ color: "#875923" }} className="displayLarge">
             Reset Password
           </div>
-          <div className="title1624">Please provide the number & email</div>
+          <div className="titleMedium">Please provide the number & email</div>
         </Grid>
         <Grid
           component="form"
