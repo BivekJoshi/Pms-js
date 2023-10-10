@@ -27,9 +27,11 @@ body {
     padding-top: 10px !important;
     padding-bottom: 10px !important;
   }
-
   .registerImg {
     width: 25% !important;
+  }
+  .profileWidth {
+    width: 40% !important;
   }
 }
 

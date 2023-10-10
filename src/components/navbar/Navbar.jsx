@@ -2,31 +2,25 @@ import React, { useState } from 'react';
 import {
   Search,
   SettingsOutlined,
-  ArrowDropDownOutlined,
+  Menu as MenuIcon,
 } from '@mui/icons-material';
 import DarkModeSetting from '../Setting/DarkModeSetting';
 import {
   AppBar,
-  Button,
-  Box,
   Typography,
   IconButton,
   InputBase,
   Toolbar,
-  Menu,
-  MenuItem,
   useTheme,
   List,
   ListItem,
   Drawer,
 } from '@mui/material';
 import FlexBetween from '../flexBetween/FlexBetween';
-import { useDispatch } from 'react-redux';
-// import { TOGGLE_THEME } from '../../redux/reducers/themeReducer';
 import logo from '../../assets/logo.png';
-import { logout } from '../../utility/logout';
 import { useNavigate } from 'react-router';
 import NavabarProfile from './NavabarProfile';
+import ResponsiveNavMenu from './ResponsiveMenu';
 
 const navItems = [
   {
@@ -59,15 +53,18 @@ const navItems = [
 const Navbar = () => {
   const theme = useTheme();
   const [isActive, setIsActive] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleActiveClick = (id, path) => {
     setIsActive(id);
     navigate(`${path}`);
+    if (isMenuOpen) setIsMenuOpen(false);
   };
 
   const [state, setState] = React.useState({
     right: false,
+    drawerOpen: false,
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
@@ -81,94 +78,124 @@ const Navbar = () => {
     setState({ ...state, [anchor]: open });
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen((val) => !val);
+  };
+
   return (
     <AppBar
       sx={{
         position: 'static',
         background: theme.palette.background.light,
         boxShadow: 'none',
-        color:"black"
+        color: 'black',
       }}
     >
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        {/* RIGHT side */}
-        <img src={logo} alt='Logo' style={{ width: '104px', height: '36px' }} />
+        <img
+          src={logo}
+          alt='Logo'
+          width='104px'
+          height='36px'
+          style={{ cursor: 'pointer' }}
+          onClick={() => navigate('/dashboard')}
+        />
 
         {/* <div style={{ display: 'flex', alignItems: 'center' }}>
           {/* Middle SIDE */}
-          <FlexBetween>
-            {navItems.map((items) => (
-              <List key={items?.id} sx={{ position: 'relative' }}>
-                <ListItem sx={{ position: 'relative' }}>
-                  <Typography
-                    onClick={() => handleActiveClick(items?.id, items?.path)}
-                    sx={{
-                      cursor: 'pointer',
-                      color:
-                        isActive === items.id
-                          ? theme.palette.text.main
-                          : theme.palette.text.main,
-                      fontWeight: isActive === items.id ? 'bold' : 'normal',
-                    }}
-                    variant='h6'
-                  >
-                    {items?.item}
-                    {isActive === items.id && (
-                      <div
-                        style={{
-                          position: 'absolute',
-                          width: '50%',
-                          height: '0.1rem',
-                          background: 'blue',
-                        }}
-                      ></div>
-                    )}
-                  </Typography>
-                </ListItem>
-              </List>
-            ))}
-          </FlexBetween>
-
-          {/* RIGHT SIDE */}
-          <FlexBetween
-            backgroundColor={theme.palette.background.light}
-            borderRadius='9px'
-            gap='3rem'
-            p='0.1rem 1.5rem'
-          >
-            <InputBase placeholder='Company name or symbol...' />
-            <IconButton>
-              <Search />
-            </IconButton>
-          </FlexBetween>
-
-          <FlexBetween gap='1.5rem'>
-            {/* <IconButton onClick={() => handleToggleTheme()}>
-              {theme.palette.mode === "dark" ? (
-                <DarkModeOutlined sx={{ fontSize: "25px" }} />
-              ) : (
-                <LightModeOutlined sx={{ fontSize: '25px' }} />
-              )}
-            </IconButton> */}
-
-            <div>
-              <React.Fragment>
-                <IconButton onClick={toggleDrawer('right', true)}>
-                  <SettingsOutlined sx={{ fontSize: '25px' }} />
-                </IconButton>
-                <Drawer
-                  anchor='right'
-                  open={state['right']}
-                  onClose={toggleDrawer('right', false)}
+        <FlexBetween>
+          {navItems.map((items) => (
+            <List
+              key={items?.id}
+              sx={{
+                position: 'relative',
+                display: { sm: 'none', md: 'block', xs: 'none' }, // Hide on small screens
+              }}
+            >
+              <ListItem sx={{ position: 'relative' }}>
+                <Typography
+                  onClick={() => handleActiveClick(items?.id, items?.path)}
+                  sx={{
+                    cursor: 'pointer',
+                    color:
+                      isActive === items.id
+                        ? theme.palette.text.main
+                        : theme.palette.text.main,
+                    fontWeight: isActive === items.id ? 'bold' : 'normal',
+                  }}
+                  variant='h6'
                 >
-                  <DarkModeSetting onClose={toggleDrawer('right', false)} />
-                </Drawer>
-              </React.Fragment>
-            </div>
+                  {items?.item}
+                  {isActive === items.id && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        width: '50%',
+                        height: '0.1rem',
+                        background: 'blue',
+                      }}
+                    ></div>
+                  )}
+                </Typography>
+              </ListItem>
+            </List>
+          ))}
+        </FlexBetween>
 
-            <NavabarProfile />
-          </FlexBetween>
+        <FlexBetween
+          backgroundColor={theme.palette.background.alt}
+          borderRadius='9px'
+          gap='3rem'
+          p='0.1rem 1.5rem'
+          sx={{
+            display: { sm: 'none', md: 'block', xs: 'none' }, // Hide on small screens
+          }}
+        >
+          <InputBase placeholder='Company name or symbol...' />
+          <IconButton>
+            <Search />
+          </IconButton>
+        </FlexBetween>
+
+        <FlexBetween gap='1.5rem'>
+          <div>
+            <React.Fragment>
+              <IconButton onClick={toggleDrawer('right', true)}>
+                <SettingsOutlined sx={{ fontSize: '25px' }} />
+              </IconButton>
+              <Drawer
+                anchor='right'
+                open={state['right']}
+                onClose={toggleDrawer('right', false)}
+              >
+                <DarkModeSetting onClose={toggleDrawer('right', false)} />
+              </Drawer>
+            </React.Fragment>
+          </div>
+
+          <NavabarProfile />
+
+          <IconButton
+            edge='start'
+            color='inherit'
+            aria-label='menu'
+            onClick={toggleMenu}
+            sx={{
+              display: { sm: 'block', md: 'none', xs: 'block' }, // Show on small screens
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+        </FlexBetween>
       </Toolbar>
+
+      <ResponsiveNavMenu
+        isActive={isActive}
+        isMenuOpen={isMenuOpen}
+        navItem={navItems}
+        handleActiveClick={(id, path) => handleActiveClick(id, path)}
+        handleToggle={(val) => setIsMenuOpen(val)}
+      />
     </AppBar>
   );
 };

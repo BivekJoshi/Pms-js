@@ -1,7 +1,10 @@
 import {
+  Chip,
   Container,
   CssBaseline,
+  Grid,
   ThemeProvider,
+  Typography,
   createTheme,
 } from '@mui/material';
 import ErrorBoundary from '../components/ErrorBoundary';
@@ -13,6 +16,7 @@ import { themeSettings } from './../theme';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useGetTheme } from '../hooks/brokerTheme/useBrokerTheme';
 import Spinner from '../components/spinner/Spinner';
+import Footer from '../components/footer/Footer';
 
 const AppLayout = () => {
   const dispatch = useDispatch();
@@ -47,17 +51,18 @@ const AppLayout = () => {
   return (
     <>
       {/* <ErrorBoundary> */}
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <header>
-            <Navbar />
-          </header>
-          {/* <Container fixed> */}
-          <section style={{ margin: '0px 32px' }}>
-            <Outlet />
-          </section>
-          {/* </Container> */}
-        </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <header>
+          <Navbar />
+        </header>
+        {/* <Container fixed> */}
+        <section style={{ margin: '0px 32px', minHeight: '94dvh' }}>
+          <Outlet />
+        </section>
+        {/* </Container> */}
+        <Footer />
+      </ThemeProvider>
       {/* </ErrorBoundary> */}
     </>
   );
