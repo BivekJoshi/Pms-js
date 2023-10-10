@@ -1,5 +1,12 @@
 import React from 'react';
-import { TextField, IconButton, Checkbox, Button } from '@mui/material';
+import {
+  TextField,
+  IconButton,
+  Checkbox,
+  Button,
+  CircularProgress,
+  Typography,
+} from '@mui/material';
 import { Grid, Box, MenuItem, InputAdornment } from '@mui/material';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -13,6 +20,7 @@ import Bear from '../../assets/bull--.png';
 const LoginPage = () => {
   const navigate = useNavigate();
   const brokerOption = useSelector((state) => state.brokerList.brokerOption);
+  const isLoading = useSelector((state) => state.brokerList.processing);
 
   const {
     formik,
@@ -52,7 +60,7 @@ const LoginPage = () => {
           <div style={{ color: '#875923' }} className='displayLarge'>
             Log In
           </div>
-          <div className='title1624'>your account to continue</div>
+          <div className='titleMedium'>your account to continue</div>
         </Grid>
         <Grid
           component='form'
@@ -72,12 +80,20 @@ const LoginPage = () => {
             helperText={formik.touched.brokerNo && formik.errors.brokerNo}
             variant='outlined'
           >
-            {brokerOption?.map((option) => (
-              <MenuItem key={option?.id} value={option?.id}>
-                {option?.name}
+            {isLoading ? (
+              <MenuItem disabled>
+                <CircularProgress size={24} />
+                <Typography sx={{ ml: 2 }}>Loading Broker List</Typography>
               </MenuItem>
-            ))}
+            ) : (
+              brokerOption?.map((option) => (
+                <MenuItem key={option?.id} value={option?.id}>
+                  {option?.name}
+                </MenuItem>
+              ))
+            )}
           </TextField>
+
           <TextField
             required
             value={formik.values.email}

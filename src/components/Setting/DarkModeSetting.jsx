@@ -1,47 +1,47 @@
-import { Divider, Grid, Typography } from "@mui/material";
-import React, { useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import { useDispatch } from "react-redux";
-import { useTheme } from "@emotion/react";
+import { Divider, Grid, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import CloseIcon from '@mui/icons-material/Close';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import { useDispatch } from 'react-redux';
+import { useTheme } from '@emotion/react';
 
-const DarkModeSetting = ({onClose}) => {
-  const theme=useTheme();
+const DarkModeSetting = ({ onClose }) => {
+  const theme = useTheme();
   const dispatch = useDispatch();
-  const [selectedMode, setSelectedMode] = useState("light");
+  const [selectedMode, setSelectedMode] = useState('light');
 
   const handleModeClick = (mode) => {
-    dispatch({ type: "TOGGLE_THEME" });
+    dispatch({ type: 'TOGGLE_THEME' });
   };
 
   return (
-    <div style={{ width: 290, padding: "0rem" }}>
+    <div style={{ width: 290, padding: '0rem' }}>
       <div
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "1rem",
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '1rem',
         }}
       >
-        <Typography variant="h5" gutterBottom>
+        <Typography variant='h5' gutterBottom>
           Setting
         </Typography>
-        <CloseIcon onClick={onClose} sx={{cursor:"pointer"}}/>
+        <CloseIcon onClick={onClose} sx={{ cursor: 'pointer' }} />
       </div>
       <Divider />
-      <div style={{ padding: "1rem" }}>
-        <Typography variant="button" display="block" gutterBottom>
+      <div style={{ padding: '1rem' }}>
+        <Typography variant='button' display='block' gutterBottom>
           MODE
         </Typography>
         <Grid
           container
           spacing={0}
           sx={{
-            
-            borderRadius: "5px",
-            display: "flex",
-            justifyContent: "space-between",
+            border: '1px solid grey',
+            borderRadius: '5px',
+            display: 'flex',
+            justifyContent: 'space-between',
             // alignItems:"center"
           }}
         >
@@ -49,16 +49,14 @@ const DarkModeSetting = ({onClose}) => {
             item
             xs={6}
             style={{
-               border: "1px solid grey",
-               color: theme.palette.text.main,
-               background: theme.palette.background.alt,
-              display: "flex",
-              justifyContent: "center",
-              cursor: "pointer",
-              padding: "10px",
-              backgroundColor: selectedMode === "light" ?? theme.palette.commons,
+              display: 'flex',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              padding: '10px',
+              backgroundColor:
+                selectedMode === 'light' ? theme.palette.common : 'red',
             }}
-            onClick={() => handleModeClick("light")}
+            onClick={() => handleModeClick('light')}
           >
             <WbSunnyIcon />
             <Typography variant="h6" >Light</Typography>
@@ -67,13 +65,13 @@ const DarkModeSetting = ({onClose}) => {
             item
             xs={6}
             style={{
-              display: "flex",
-              justifyContent: "center",
-              cursor: "pointer",
-              padding: "10px",
-              backgroundColor: selectedMode === "dark" ? "lightgray" : "white",
+              display: 'flex',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              padding: '10px',
+              backgroundColor: selectedMode === 'dark' ? 'white' : '#8e8888',
             }}
-            onClick={() => handleModeClick("dark")}
+            onClick={() => handleModeClick('dark')}
           >
             <DarkModeIcon />
             <Typography variant="h6">Dark</Typography>
