@@ -3,10 +3,12 @@ import MaterialReactTable from 'material-react-table';
 import { useMemo } from 'react';
 import { useGetWatchListDataById } from '../../hooks/watchList/useWatchList';
 import CustomTable from '../../components/customTable/CustomTable';
+import { Box, useTheme } from '@mui/material';
 
 const WatchTable = (watchid) => {
   const id = watchid.watchid;
   const { data: watchListDataById, isLoading } = useGetWatchListDataById(id);
+  const theme = useTheme();
 
   const columns = useMemo(
     () => [
@@ -93,7 +95,13 @@ const WatchTable = (watchid) => {
           isLoading={isLoading}
         />
       ) : (
-        <p>Data not found</p>
+        <Box
+          sx={{
+            width: "cover",
+            height: "84px",
+            backgroundColor: theme.palette.background.alt,
+          }}
+        />
       )}
     </div>
   );

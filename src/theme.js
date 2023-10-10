@@ -26,7 +26,7 @@ export const tokensDark = {
     700: '#141937',
     800: '#0d1025',
     900: '#070812',
-    1000: '#0000FF',
+    1000: '#401686',
   },
   secondary: {
     // Yellow
@@ -106,6 +106,7 @@ export const themeSettings = (mode, data) => {
                 alt: tokensDark.primary[500],
                 light: tokensDark.primary[500],
                 main: tokensDark.background[100],
+                button: tokensDark.background[1000]
               },
               text: {
                 main: tokensDark.grey[0],
