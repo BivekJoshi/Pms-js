@@ -33,13 +33,15 @@ const style = {
 
 const WatchList = () => {
   const [watchlist, setWatchList] = useState();
-  const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
-
-  const { data: listedCompanies } = useGetListedCompanies();
-  const { formik } = useWatchListDetailForm();
   const [selectedSymbol, setSelectedSymbol] = useState("");
 
+  const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
+  const { data: listedCompanies } = useGetListedCompanies();
+  const { formik } = useWatchListDetailForm({watchlist});
+  
   const handleFormSubmit = () => {
+    formik.setFieldValue("script", selectedSymbol);
+    formik.setFieldValue("id", watchlist);
     formik.handleSubmit();
 
     if (formik.isValid) {
@@ -56,8 +58,6 @@ const WatchList = () => {
   }
 
   const symbols = symbolsArray.map((item) => item.symbol);
-
-  // console.log(symbols);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
