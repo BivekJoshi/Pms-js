@@ -3,11 +3,12 @@ import { watchlistDetailSchema } from "./watchListSchema";
 import { useAddWatchListDetail } from "../useWatchList";
 
 export const useWatchListDetailForm = (watchlist) => {
+    console.log(watchlist,"watchlist");
   const { mutate } = useAddWatchListDetail({});
   const formik = useFormik({
     initialValues: {
       id: watchlist,
-      script: "NEP",
+      script: "",
     },
     validationSchema: watchlistDetailSchema,
     onSubmit: (values) => {

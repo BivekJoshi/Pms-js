@@ -119,13 +119,22 @@ const WatchList = () => {
         NEPSE CODE:
         <div style={{ width: '300px' }}>
           <Autocomplete
-            id="symbol-autocomplete"
+            id="script"
+            name="script"
             options={symbols}
+            value="symbol"
             renderInput={(params) => (
               <TextField
                 {...params}
                 label="Nepse Code"
                 variant="outlined"
+                error={
+                  formik.touched.script &&
+                  Boolean(formik.errors.script)
+                }
+                helperText={
+                  formik.touched.script && formik.errors.script
+                }
                 autoFocus
                 InputLabelProps={{ shrink: true }}
               />
