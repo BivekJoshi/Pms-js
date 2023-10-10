@@ -83,7 +83,7 @@ const DarkModeSetting = ({ onClose }) => {
               justifyContent: 'center',
               cursor: 'pointer',
               padding: '10px',
-              backgroundColor: selectedMode === 'dark' ? 'lightgray' : 'white',
+              backgroundColor: selectedMode === 'dark' ? 'white' : '#8e8888',
             }}
             onClick={() => handleModeClick('dark')}
           >

@@ -62,6 +62,7 @@ const Profile = () => {
                   height: "20px",
                   color: "black",
                 }}
+                
               >
                 Basic
               </Button>
@@ -127,7 +128,7 @@ const Profile = () => {
               </Grid>
               <Grid className="profileIcon">
                 <img src={Update} alt="UpdateProfile" />
-                <Typography variant="h7">Update Profile</Typography>
+                <Typography variant="h7">Privacy Policy</Typography>
               </Grid>
             </Grid>
           </Grid>
