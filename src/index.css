@@ -108,3 +108,11 @@ body {
   font-weight: 400 !important;
   line-height: 1.55 !important;
 }
+
+.css-1hdcydv-MuiButtonBase-root-MuiTab-root{
+  opacity: 1 !important;
+}
+
+.css-heg063-MuiTabs-flexContainer{
+  flex-direction: column !important;
+}
