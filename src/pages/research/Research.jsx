@@ -3,10 +3,12 @@ import toast from 'react-hot-toast';
 import { ACCOUNT_TRANSACTION } from '../../api/urls/urls';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../../redux/actions/genericData';
+import CustomTable from '../../components/customTable/CustomTable';
 
 const Research = () => {
   const dispatch = useDispatch();
   const tableData = useSelector((store) => store?.generic);
+  console.log(tableData)
 
   const filterMenuItem = [
     {
@@ -52,7 +54,13 @@ const Research = () => {
   return (
     <div>
       <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
-      {/* <UserTransactionTable /> */}
+     
+      <CustomTable
+      title='Transaction Report'
+      // columns={columns}
+      // data={}
+      // isLoading={isLoading}
+       />
     </div>
   );
 };
