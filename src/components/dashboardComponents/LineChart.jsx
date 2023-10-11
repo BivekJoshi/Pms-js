@@ -1,4 +1,4 @@
-import { Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import React from "react";
 import {
   LineChart,
@@ -13,14 +13,18 @@ import {
 
 const LineChartDash = ({ data }) => {
   const theme = useTheme();
-  
+
   return (
-    <div style={{ padding: "1rem 2rem", background: theme.palette.background.main }}>
+    <Box
+      color={theme.palette.text.main}
+      bgcolor={theme.palette.background.alt}
+      style={{
+        padding: "1rem 2rem",
+      }}
+    >
       {/* total share capital total investment */}
       <div style={{ marginBottom: "0.6rem" }}>
-        <Typography variant="h4">
-          Recent Holding Chart
-        </Typography>
+        <Typography variant="h4">Recent Holding Chart</Typography>
       </div>
       <ResponsiveContainer width="100%" height={200}>
         <LineChart
@@ -49,7 +53,7 @@ const LineChartDash = ({ data }) => {
           <Line type="monotone" dataKey="Total investment" stroke="#82ca9d" />
         </LineChart>
       </ResponsiveContainer>
-    </div>
+    </Box>
   );
 };
 

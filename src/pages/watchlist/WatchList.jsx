@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 import {
   useGetListedCompanies,
   useGetWatchListName,
-} from "../../hooks/watchList/useWatchList";
+} from '../../hooks/watchList/useWatchList';
 import {
   Autocomplete,
   Box,
@@ -11,35 +11,33 @@ import {
   Grid,
   TextField,
   Typography,
-} from "@mui/material";
+  useTheme,
+  useThemeProps,
+} from '@mui/material';
 
 import WatchListMasterField from "../../form/formComponent/watchlist/WatchListMasterField";
 import { useState } from "react";
 import WatchTable from "./WatchTable";
 import { useWatchListDetailForm } from "../../hooks/watchList/useWatchListForm/useWatchListDetailForm";
 import toast from "react-hot-toast";
-import { useTheme } from "@emotion/react";
 import FormModal from "../../components/formModal/FormModal";
 
 
 const WatchList = () => {
   const theme = useTheme();
-
   const [watchlist, setWatchList] = useState();
   const [open, setOpen] = useState(false);
 
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
   const { data: listedCompanies } = useGetListedCompanies();
-
   const { formik } = useWatchListDetailForm(watchlist);
   const [selectedSymbol, setSelectedSymbol] = useState(formik.values.script);
 
   const handleFormSubmit = () => {
     formik.handleSubmit();
 
-    if (formik.isValid) {
-    } else {
-      toast.error("Please make sure you have filled the form correctly");
+    if (!formik.isValid) {
+      toast.error('Please make sure you have filled the form correctly');
     }
   };
 
@@ -55,9 +53,9 @@ const WatchList = () => {
     <div>
       <Grid
         container
-        direction="row"
-        justifyContent="flex-end"
-        alignItems="center"
+        direction='row'
+        justifyContent='flex-end'
+        alignItems='center'
       >
         <Button
           variant="contained"
@@ -80,13 +78,13 @@ const WatchList = () => {
       <br />
       <Box
         sx={{
-          display: "flex",
-          width: "cover",
-          height: "84px",
+          display: 'flex',
+          width: 'cover',
+          height: '84px',
           backgroundColor: theme.palette.background.alt,
-          padding: "16px",
-          justifyContent: "space-between",
-          alignItems: "center",
+          padding: '16px',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}
       >
         <div
@@ -110,12 +108,12 @@ const WatchList = () => {
             watchListName.map((name) => (
               <Chip
                 label={name?.watchlistName}
-                className="custom-chip"
+                className='custom-chip'
                 key={name?.id}
                 style={{
                   backgroundColor:
-                    watchlist === name?.id ? "#329EF4" : "#EBEBEB",
-                  color: watchlist === name?.id ? "white" : "initial",
+                    watchlist === name?.id ? '#329EF4' : '#EBEBEB',
+                  color: watchlist === name?.id ? 'white' : 'initial',
                   margin: "2px",
                 }}
                 onClick={() => setWatchList(name?.id)}
@@ -155,15 +153,14 @@ const WatchList = () => {
                 />
               )}
             />
-          </div>
         </div>
+        </div>
+
         <div>
           <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "#401686",
-              color: "#fff",
-            }}
+            variant='contained'
+            disabled={!watchlist}
+            sx={{backgroundColor: "#401686", color: "#fff"}}
             onClick={handleFormSubmit}
           >
             +Add

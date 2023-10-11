@@ -28,8 +28,8 @@ const Profile = () => {
           <Grid
             display="flex"
             flexDirection="row"
-            bgcolor={theme.palette.background.alt}
             color={theme.palette.text.main}
+            bgcolor= {theme.palette.background.alt}
             alignItems="center"
             gap="2rem"
             height="136px"
