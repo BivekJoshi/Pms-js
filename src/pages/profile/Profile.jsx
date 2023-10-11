@@ -26,11 +26,10 @@ const Profile = () => {
       >
         <Grid display="flex" flexDirection="column" gap="24px" width="344px">
           <Grid
-           style={{ color: theme.palette.text.main, background: theme.palette.background.light }}
             display="flex"
             flexDirection="row"
-            // color={theme.palette.text.main}
-            // background= {theme.palette.background.alt}
+            color={theme.palette.text.main}
+            bgcolor= {theme.palette.background.alt}
             alignItems="center"
             gap="2rem"
             height="136px"
@@ -70,9 +69,8 @@ const Profile = () => {
             </Grid>
           </Grid>
           <Grid
-          style={{background: theme.palette.background.light}}
             p="24px"
-            // bgcolor={theme.palette.background.alt}
+            bgcolor={theme.palette.background.alt}
             display="flex"
             flexDirection="column"
             gap="20px"
@@ -142,9 +140,8 @@ const Profile = () => {
           gap="50px"
         >
           <Grid
-          style={{background: theme.palette.background.light}}
             display="flex"
-            // bgcolor={theme.palette.background.alt}
+            bgcolor={theme.palette.background.alt}
             p="16px"
             width="100%"
           >
@@ -196,13 +193,12 @@ const Profile = () => {
             </Grid>
           </Grid>
           <Grid display="flex" gap="30px" flexDirection="column" width="100%">
-            <Typography style={{ color: theme.palette.text.main }} fontWeight="500" variant="h5">
+            <Typography fontWeight="500" variant="h5">
               Bank Details
             </Typography>
             <Grid
-            style={{background: theme.palette.background.light}}
               display="flex"
-              // bgcolor={theme.palette.background.alt}
+              bgcolor={theme.palette.background.alt}
               p="16px"
               width="100%"
             >

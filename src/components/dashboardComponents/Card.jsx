@@ -13,12 +13,12 @@ const Card = ({ data }) => {
   return (
     <>
       <Box
+      bgcolor= {theme.palette.background.alt}
+      color={theme.palette.text.main}
         style={{
           display: "flex",
           flexDirection: "column",
           padding: "1.5rem  2rem",
-          background: theme.palette.background.light,
-          color: theme.palette.text.main,
         }}
       >
         <Typography

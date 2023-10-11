@@ -98,7 +98,7 @@ const Navbar = () => {
     <AppBar
       style={{
         position: "static",
-        background: theme.palette.background.light,
+        background: theme.palette.background.alt,
         boxShadow: "none",
         color: "black",
       }}
