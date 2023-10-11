@@ -8,7 +8,7 @@ import CustomTable from '../../components/customTable/CustomTable';
 const Research = () => {
   const dispatch = useDispatch();
   const tableData = useSelector((store) => store?.generic);
-  console.log(tableData)
+  console.log(tableData);
 
   const filterMenuItem = [
     {
@@ -26,6 +26,7 @@ const Research = () => {
       required: true,
       md: 4,
       sm: 12,
+      max: new Date().toISOString().slice(0, 10),
     },
   ];
 
@@ -36,10 +37,7 @@ const Research = () => {
     const epochDateTo = formValues.dateTo
       ? new Date(formValues.dateTo).getTime() / 1000
       : null;
-    console.log(
-      '🚀 ~ file: Research.jsx:35 ~ handleSearch ~ epochDateTo:',
-      epochDateTo
-    );
+
     try {
       dispatch(
         fetchData(
@@ -54,13 +52,13 @@ const Research = () => {
   return (
     <div>
       <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
-     
+
       <CustomTable
-      title='Transaction Report'
-      // columns={columns}
-      // data={}
-      // isLoading={isLoading}
-       />
+        title='Transaction Report'
+        // columns={columns}
+        // data={}
+        // isLoading={isLoading}
+      />
     </div>
   );
 };
