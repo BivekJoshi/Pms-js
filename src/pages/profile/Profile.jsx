@@ -1,6 +1,8 @@
-import React from "react";
-import { Box, Button, Chip, Grid, Typography, useTheme } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Button, Grid, Tab, Typography } from "@mui/material";
+import { Tabs, useTheme } from "@mui/material";
 import profile from "../../assets/profilePicture.png";
+import Camera from "../../assets/camera.png";
 import UpdateProfile from "../../assets/UpdateProfile.png";
 import Notification from "../../assets/Notification.png";
 import Subscription from "../../assets/Subscription.png";
@@ -11,19 +13,28 @@ import Statement from "../../assets/Statement.png";
 import Payment from "../../assets/Payment.png";
 import Terms from "../../assets/Terms.png";
 import Update from "../../assets/Update.png";
-import Camera from "../../assets/camera.png";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+import ProfileInfo from "./ProfileTab/ProfileInfo";
+import ForgetPassword from "./ProfileTab/ForgetPassword";
 
 const Profile = () => {
   const theme = useTheme();
+  const [value, setValue] = useState(1);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+    console.log(newValue);
+  };
+
   return (
-    <Box>
-      <Box
-        display="grid"
-        gridTemplateColumns="2fr 7fr"
-        gap="4rem"
-        mt="2rem"
-        color={theme.palette.text.main}
-      >
+    <Box
+      display="grid"
+      gridTemplateColumns="2fr 7fr"
+      gap="4rem"
+      mt="2rem"
+      color={theme.palette.text.main}
+    >
+      <TabContext value={value}>
         <Grid display="flex" flexDirection="column" gap="24px" width="344px">
           <Grid
             display="flex"
@@ -62,7 +73,6 @@ const Profile = () => {
                   height: "20px",
                   color: "black",
                 }}
-                
               >
                 Basic
               </Button>
@@ -75,185 +85,208 @@ const Profile = () => {
             flexDirection="column"
             gap="20px"
             borderRadius="8px"
+            width="100%"
           >
-            <Grid>
+            <Grid display="flex" flexDirection="column">
               <Typography variant="h4" p="12px 0">
                 General
               </Typography>
-              <Grid className="profileIcon">
-                <img src={UpdateProfile} alt="UpdateProfile" />
-                <Typography variant="h7">Update Profile</Typography>
-              </Grid>
-              <Grid className="profileIcon">
-                <img src={Notification} alt="UpdateProfile" />
-                <Typography variant="h7">Notification Configuration</Typography>
-              </Grid>
-              <Grid className="profileIcon">
-                <img src={Subscription} alt="UpdateProfile" />
-                <Typography variant="h7">Subscription</Typography>
-              </Grid>
-              <Grid className="profileIcon">
-                <img src={Security} alt="UpdateProfile" />
-                <Typography variant="h7">Change Password</Typography>
-              </Grid>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+                sx={{ display: "flex", flexDirection: "column" }}
+                orientation="vertical"
+              >
+                <Tab
+                  label={
+                    <Grid className="profileIcon">
+                      <img src={UpdateProfile} alt="UpdateProfile" />
+                      <Typography variant="h7">Update Profile</Typography>
+                    </Grid>
+                  }
+                  value="1"
+                  style={{
+                    color: theme.palette.text.main,
+                    height: "0",
+                    alignItems: "flex-start",
+                    paddingLeft: "0",
+                  }}
+                />
+                <Tab
+                  label={
+                    <Grid className="profileIcon">
+                      <img src={Notification} alt="UpdateProfile" />
+                      <Typography variant="h7">
+                        Notification Configuration
+                      </Typography>
+                    </Grid>
+                  }
+                  value="2"
+                  style={{
+                    color: theme.palette.text.main,
+                    height: "0",
+                    alignItems: "flex-start",
+                    paddingLeft: "0",
+                  }}
+                />
+                <Tab
+                  label={
+                    <Grid className="profileIcon">
+                      <img src={Subscription} alt="UpdateProfile" />
+                      <Typography variant="h7">Subscription</Typography>
+                    </Grid>
+                  }
+                  value="3"
+                  style={{
+                    color: theme.palette.text.main,
+                    height: "0",
+                    alignItems: "flex-start",
+                    paddingLeft: "0",
+                  }}
+                />
+                <Tab
+                  label={
+                    <Grid className="profileIcon">
+                      <img src={Security} alt="UpdateProfile" />
+                      <Typography variant="h7">Change Password</Typography>
+                    </Grid>
+                  }
+                  value="4"
+                  style={{
+                    color: theme.palette.text.main,
+                    height: "0",
+                    alignItems: "flex-start",
+                    paddingLeft: "0",
+                  }}
+                />
+              </Tabs>
             </Grid>
-            <Grid>
+            <Grid display="flex" flexDirection="column">
               <Typography variant="h4" p="12px 0">
                 Activities
               </Typography>
-              <Grid className="profileIcon">
-                <img src={Transaction} alt="UpdateProfile" />
-                <Typography variant="h7">Transaction</Typography>
-              </Grid>
-              <Grid className="profileIcon">
-                <img src={Bill} alt="UpdateProfile" />
-                <Typography variant="h7">Bill</Typography>
-              </Grid>
-              <Grid className="profileIcon">
-                <img src={Statement} alt="UpdateProfile" />
-                <Typography variant="h7">Statement</Typography>
-              </Grid>
-              <Grid className="profileIcon">
-                <img src={Payment} alt="UpdateProfile" />
-                <Typography variant="h7">Receipt/Payment</Typography>
-              </Grid>
+              <Tabs
+                value={value}
+                orientation="vertical"
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+                sx={{ display: "flex", flexDirection: "column" }}
+              >
+                <Tab
+                  label={
+                    <Grid className="profileIcon">
+                      <img src={Transaction} alt="UpdateProfile" />
+                      <Typography variant="h7">Transaction</Typography>
+                    </Grid>
+                  }
+                  value="5"
+                  style={{
+                    color: theme.palette.text.main,
+                    height: "0",
+                    alignItems: "flex-start",
+                    paddingLeft: "0",
+                  }}
+                />
+                <Tab
+                  label={
+                    <Grid className="profileIcon">
+                      <img src={Bill} alt="UpdateProfile" />
+                      <Typography variant="h7">Bill</Typography>
+                    </Grid>
+                  }
+                  value="6"
+                  style={{
+                    color: theme.palette.text.main,
+                    height: "0",
+                    alignItems: "flex-start",
+                    paddingLeft: "0",
+                  }}
+                />
+                <Tab
+                  label={
+                    <Grid className="profileIcon">
+                      <img src={Statement} alt="UpdateProfile" />
+                      <Typography variant="h7">Statement</Typography>
+                    </Grid>
+                  }
+                  value="7"
+                  style={{
+                    color: theme.palette.text.main,
+                    height: "0",
+                    alignItems: "flex-start",
+                    paddingLeft: "0",
+                  }}
+                />
+                <Tab
+                  label={
+                    <Grid className="profileIcon">
+                      <img src={Payment} alt="UpdateProfile" />
+                      <Typography variant="h7">Receipt/Payment</Typography>
+                    </Grid>
+                  }
+                  value="8"
+                  style={{
+                    color: theme.palette.text.main,
+                    height: "0",
+                    alignItems: "flex-start",
+                    paddingLeft: "0",
+                  }}
+                />
+              </Tabs>
             </Grid>
             <Grid>
               <Typography variant="h4" p="12px 0">
                 More
               </Typography>
-              <Grid className="profileIcon">
-                <img src={Terms} alt="UpdateProfile" />
-                <Typography variant="h7">Terms & Conditions </Typography>
-              </Grid>
-              <Grid className="profileIcon">
-                <img src={Update} alt="UpdateProfile" />
-                <Typography variant="h7">Privacy Policy</Typography>
-              </Grid>
+              <Tabs
+                value={value}
+                orientation="vertical"
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+                sx={{ display: "flex", flexDirection: "column" }}
+              >
+                <Tab
+                  label={
+                    <Grid className="profileIcon">
+                      <img src={Terms} alt="UpdateProfile" />
+                      <Typography variant="h7">Terms & Conditions</Typography>
+                    </Grid>
+                  }
+                  value="9"
+                  style={{
+                    color: theme.palette.text.main,
+                    height: "0",
+                    alignItems: "flex-start",
+                    paddingLeft: "0",
+                  }}
+                />
+                <Tab
+                  label={
+                    <Grid className="profileIcon">
+                      <img src={Update} alt="UpdateProfile" />
+                      <Typography variant="h7">Privacy Policy</Typography>
+                    </Grid>
+                  }
+                  value="10"
+                  style={{
+                    color: theme.palette.text.main,
+                    height: "0",
+                    alignItems: "flex-start",
+                    paddingLeft: "0",
+                  }}
+                />
+              </Tabs>
             </Grid>
           </Grid>
         </Grid>
-        <Grid
-          display="inline-flex"
-          flexDirection="column"
-          alignItems="flex-start"
-          gap="50px"
-        >
-          <Grid
-            display="flex"
-            bgcolor={theme.palette.background.alt}
-            p="16px"
-            width="100%"
-          >
-            <Grid
-              display="flex"
-              flexDirection="column"
-              gap="18px"
-              width="20%"
-              className="profileWidth"
-            >
-              <Typography className="profilePageItem" variant="h6">
-                Name <span>:</span>
-              </Typography>
-              <Typography className="profilePageItem" variant="h6">
-                Mobile Number <span>:</span>
-              </Typography>
-              <Typography className="profilePageItem" variant="h6">
-                E-Mail <span>:</span>
-              </Typography>
-              <Typography className="profilePageItem" variant="h6">
-                Depositary participation <span>:</span>
-              </Typography>
-              <Typography className="profilePageItem" variant="h6">
-                Demat Number <span>:</span>
-              </Typography>
-              <Typography className="profilePageItem" variant="h6">
-                NEPSE code <span>:</span>
-              </Typography>
-            </Grid>
-            <Grid display="flex" flexDirection="column" gap="18px" width="100%">
-              <Typography className="profileItem" variant="h6">
-                Bipin Joshi
-              </Typography>
-              <Typography className="profileItem" variant="h6">
-                +977 980000000
-              </Typography>
-              <Typography className="profileItem" variant="h6">
-                Bipin Joshi
-              </Typography>
-              <Typography className="profileItem" variant="h6">
-                Secured Security Limited [11600]
-              </Typography>
-              <Typography className="profileItem" variant="h6">
-                0972837461837465
-              </Typography>
-              <Typography className="profileItem" variant="h6">
-                0972837461837465
-              </Typography>
-            </Grid>
-          </Grid>
-          <Grid display="flex" gap="30px" flexDirection="column" width="100%">
-            <Typography fontWeight="500" variant="h5">
-              Bank Details
-            </Typography>
-            <Grid
-              display="flex"
-              bgcolor={theme.palette.background.alt}
-              p="16px"
-              width="100%"
-            >
-              <Grid
-                display="flex"
-                flexDirection="column"
-                gap="18px"
-                width="20%"
-                className="profileWidth"
-              >
-                <Typography className="profilePageItem" variant="h6">
-                  Bank Name <span>:</span>
-                </Typography>
-                <Typography className="profilePageItem" variant="h6">
-                  Account Number <span>:</span>
-                </Typography>
-                <Typography className="profilePageItem" variant="h6">
-                  Verify Status <span>:</span>
-                </Typography>
-              </Grid>
-              <Grid
-                display="flex"
-                flexDirection="column"
-                gap="18px"
-                width="100%"
-              >
-                <Typography className="profileItem" variant="h6">
-                  NIC Aisa Bank Pvt Ltd
-                </Typography>
-                <Typography className="profileItem" variant="h6">
-                  0972837461837465
-                </Typography>
-                <Typography className="profileItem" variant="h6">
-                  Verified
-                </Typography>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Box>
-      {/* <Grid
-      width="100%"
-        display="flex"
-        // p="0px 48px"
-        height="63px"
-        gap="22px"
-        alignItems="center"
-        justifyContent="space-between"
-        bgcolor={theme.palette.background.alt}
-      >
-        <Typography variant="h7">
-          DG TRADE © DIGIHUB | Sumeru Securities Pvt. Ltd.
-        </Typography>
-        <Chip label="Version : 1.0" sx={{ fontSize: "13px" }} />
-      </Grid> */}
+        <TabPanel value="1">
+          <ProfileInfo />
+        </TabPanel>
+        <TabPanel value="4">
+          <ForgetPassword />
+        </TabPanel>
+      </TabContext>
     </Box>
   );
 };

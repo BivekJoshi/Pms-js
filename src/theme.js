@@ -157,13 +157,17 @@ export const themeSettings = (mode, data) => {
         },
         h4: {
           fontFamily: ['DM Sans', 'sans-serif'].join(','),
-          fontSize: 20,
+          fontSize: 22,
         },
         h5: {
           fontFamily: ['DM Sans', 'sans-serif'].join(','),
-          fontSize: 16,
+          fontSize: 20,
         },
         h6: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 16,
+        },
+        h7: {
           fontFamily: ['DM Sans', 'sans-serif'].join(','),
           fontSize: 14,
         },
@@ -251,13 +255,17 @@ export const themeSettings = (mode, data) => {
         },
         h4: {
           fontFamily: ['DM Sans', 'sans-serif'].join(','),
-          fontSize: 20,
+          fontSize: 22,
         },
         h5: {
           fontFamily: ['DM Sans', 'sans-serif'].join(','),
-          fontSize: 16,
+          fontSize: 20,
         },
         h6: {
+          fontFamily: ['DM Sans', 'sans-serif'].join(','),
+          fontSize: 16,
+        },
+        h7: {
           fontFamily: ['DM Sans', 'sans-serif'].join(','),
           fontSize: 14,
         },
