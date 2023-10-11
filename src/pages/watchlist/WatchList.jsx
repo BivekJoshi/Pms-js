@@ -9,7 +9,6 @@ import {
   Button,
   Chip,
   Grid,
-  Modal,
   TextField,
   Typography,
 } from "@mui/material";
@@ -20,25 +19,14 @@ import WatchTable from "./WatchTable";
 import { useWatchListDetailForm } from "../../hooks/watchList/useWatchListForm/useWatchListDetailForm";
 import toast from "react-hot-toast";
 import { useTheme } from "@emotion/react";
+import FormModal from "../../components/formModal/FormModal";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
 
 const WatchList = () => {
   const theme = useTheme();
 
   const [watchlist, setWatchList] = useState();
   const [open, setOpen] = useState(false);
-
 
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
   const { data: listedCompanies } = useGetListedCompanies();
@@ -73,27 +61,22 @@ const WatchList = () => {
       >
         <Button
           variant="contained"
-          onClick={()=>setOpen(true)}
+          onClick={() => setOpen(true)}
           sx={{
             backgroundColor: "#401686",
             color: "#fff",
+            marginTop:"1rem"
           }}
         >
           Create New watchlist
         </Button>
       </Grid>
 
-      <Modal
+      <FormModal
         open={open}
         onClose={() => setOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <WatchListMasterField onClose={() => setOpen(false)} />
-        </Box>
-      </Modal>
-
+        formComponent={<WatchListMasterField onClose={() => setOpen(false)} />}
+      />
       <br />
       <Box
         sx={{
@@ -106,7 +89,14 @@ const WatchList = () => {
           alignItems: "center",
         }}
       >
-        <div style={{ display: "flex", flexWrap: "wrap" ,alignItems:"center",gap:".3rem"}}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: ".3rem",
+          }}
+        >
           <Typography
             variant="h4"
             style={{
@@ -132,7 +122,7 @@ const WatchList = () => {
               />
             ))}
         </div>
-        <div style={{ display: "flex" ,alignItems:"center",gap:"2rem"}}>
+        <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
           <Typography
             variant="h6"
             style={{
@@ -155,14 +145,13 @@ const WatchList = () => {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Nepse Code"
+                  label="Script"
                   variant="outlined"
                   error={formik.touched.script && Boolean(formik.errors.script)}
                   helperText={formik.touched.script && formik.errors.script}
                   autoFocus
                   size="small"
                   value={formik.values.script}
-                  // InputLabelProps={{ shrink: true }}
                 />
               )}
             />
