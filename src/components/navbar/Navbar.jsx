@@ -96,7 +96,7 @@ const Navbar = () => {
 
   return (
     <AppBar
-      sx={{
+      style={{
         position: "static",
         background: theme.palette.background.light,
         boxShadow: "none",
