@@ -1,6 +1,12 @@
 import { useTheme } from "@emotion/react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Checkbox, FormControlLabel, Grid, IconButton } from "@mui/material";
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  IconButton,
+} from "@mui/material";
 import { InputAdornment, TextField, Typography } from "@mui/material";
 import React from "react";
 
@@ -181,6 +187,38 @@ const ForgetPassword = () => {
               label="Number"
             />
           </Grid>
+        </Grid>
+        <Grid
+          display="flex"
+          flexDirection="row"
+          justifyContent="flex-end"
+          gap="1rem"
+        >
+          <Button
+            variant="outlined"
+            // color="purple"
+            sx={{
+              bgcolor: "white",
+              color:
+                // theme.palette.mode === "dark"?
+                "purple",
+              // : theme.palette.text.main,
+              fontWeight: "800",
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            sx={{
+              bgcolor: "purple",
+              color:
+                theme.palette.mode === "dark"
+                  ? theme.palette.text.main
+                  : "white",
+            }}
+          >
+            save
+          </Button>
         </Grid>
       </Grid>
     </Grid>

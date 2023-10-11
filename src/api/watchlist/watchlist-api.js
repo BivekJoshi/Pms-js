@@ -1,5 +1,12 @@
 import { axiosInstance } from "../axiosInterceptor";
 
+/*________________________GET Profile Detail_____________________________________*/
+export const getProfileDetail = async () => {
+  const res = await axiosInstance.get("/app-user");
+  // console.log('🚀 ~ file: watchlist-api.js:5 ~ getWatchListName ~ data:', data);
+  return res.data;
+};
+
 /*________________________GET WATCHLIST MASTER DATA_____________________________________*/
 export const getWatchListName = async () => {
   const res = await axiosInstance.get("/app-user/watchlist-master-data");
@@ -13,7 +20,7 @@ export const getWatchListDataById = async (id) => {
   if (id) {
     response = await axiosInstance.get(`/app-user/watchlist-data/${id}`);
   } else {
-    response = await axiosInstance.get(`/app-user/watchlist-data/1`); //need to change this 
+    response = await axiosInstance.get(`/app-user/watchlist-data/1`); //need to change this
   }
   return response;
 };

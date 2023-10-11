@@ -1,10 +1,12 @@
 import { useTheme } from "@emotion/react";
 import { Grid, Typography } from "@mui/material";
 import React from "react";
+import { useGetProfileDetail } from "../../../hooks/watchList/useWatchList";
 
 const ProfileInfo = () => {
   const theme = useTheme();
-  
+  const { data: profileData } = useGetProfileDetail();
+  console.log(profileData);
 
   return (
     <Grid
@@ -48,22 +50,22 @@ const ProfileInfo = () => {
         </Grid>
         <Grid display="flex" flexDirection="column" gap="18px" width="100%">
           <Typography className="profileItem" variant="h6">
-            Bipin Joshi
+            {profileData?.clientName}
           </Typography>
           <Typography className="profileItem" variant="h6">
-            +977 980000000
+            {profileData?.mobileNo}
           </Typography>
           <Typography className="profileItem" variant="h6">
-            Bipin Joshi
+            {profileData?.email}
           </Typography>
           <Typography className="profileItem" variant="h6">
             Secured Security Limited [11600]
           </Typography>
           <Typography className="profileItem" variant="h6">
-            0972837461837465
+          {profileData?.dematNo}
           </Typography>
           <Typography className="profileItem" variant="h6">
-            0972837461837465
+          {profileData?.nepseCode}
           </Typography>
         </Grid>
       </Grid>
@@ -96,10 +98,10 @@ const ProfileInfo = () => {
           </Grid>
           <Grid display="flex" flexDirection="column" gap="18px" width="100%">
             <Typography className="profileItem" variant="h6">
-              NIC Aisa Bank Pvt Ltd
+            {profileData?.bankName}
             </Typography>
             <Typography className="profileItem" variant="h6">
-              0972837461837465
+            {profileData?.accountNo}
             </Typography>
             <Typography className="profileItem" variant="h6">
               Verified

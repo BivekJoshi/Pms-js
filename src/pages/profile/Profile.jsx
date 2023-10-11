@@ -13,17 +13,15 @@ import Statement from "../../assets/Statement.png";
 import Payment from "../../assets/Payment.png";
 import Terms from "../../assets/Terms.png";
 import Update from "../../assets/Update.png";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
+import { TabContext, TabPanel } from "@mui/lab";
 import ProfileInfo from "./ProfileTab/ProfileInfo";
 import ForgetPassword from "./ProfileTab/ForgetPassword";
 
 const Profile = () => {
   const theme = useTheme();
   const [value, setValue] = useState(1);
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log(newValue);
   };
 
   return (
