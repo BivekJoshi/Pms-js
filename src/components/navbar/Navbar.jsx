@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Search,
   SettingsOutlined,
   Menu as MenuIcon,
-} from "@mui/icons-material";
-import DarkModeSetting from "../Setting/DarkModeSetting";
+} from '@mui/icons-material';
+import DarkModeSetting from '../Setting/DarkModeSetting';
 import {
   AppBar,
   Typography,
@@ -17,39 +17,39 @@ import {
   Drawer,
   TextField,
   Autocomplete,
-} from "@mui/material";
-import FlexBetween from "../flexBetween/FlexBetween";
-import logo from "../../assets/logo.png";
-import { useNavigate } from "react-router";
-import NavabarProfile from "./NavabarProfile";
-import ResponsiveNavMenu from "./ResponsiveMenu";
-import { useGetListedCompanies } from "../../hooks/watchList/useWatchList";
+} from '@mui/material';
+import FlexBetween from '../flexBetween/FlexBetween';
+import logo from '../../assets/logo.png';
+import { useNavigate } from 'react-router';
+import NavabarProfile from './NavabarProfile';
+import ResponsiveNavMenu from './ResponsiveMenu';
+import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
 
 const navItems = [
   {
     id: 1,
-    item: "Home",
-    path: "/dashboard",
+    item: 'Home',
+    path: '/dashboard',
   },
   {
     id: 2,
-    item: "Portfolio",
-    path: "/portfolio",
+    item: 'Portfolio',
+    path: '/portfolio',
   },
   {
     id: 3,
-    item: "Watchlist",
-    path: "/watchlist",
+    item: 'Watchlist',
+    path: '/watchlist',
   },
   {
     id: 4,
-    item: "Alert",
-    path: "/alert",
+    item: 'Alert',
+    path: '/alert',
   },
   {
     id: 5,
-    item: "Research",
-    path: "research",
+    item: 'Research',
+    path: 'research',
   },
 ];
 
@@ -73,8 +73,8 @@ const Navbar = () => {
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
     ) {
       return;
     }
@@ -97,20 +97,20 @@ const Navbar = () => {
   return (
     <AppBar
       style={{
-        position: "static",
+        position: 'static',
         background: theme.palette.background.alt,
-        boxShadow: "none",
-        color: "black",
+        boxShadow: 'none',
+        color: 'black',
       }}
     >
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <img
           src={logo}
-          alt="Logo"
-          width="104px"
-          height="36px"
-          style={{ cursor: "pointer" }}
-          onClick={() => navigate("/dashboard")}
+          alt='Logo'
+          width='104px'
+          height='36px'
+          style={{ cursor: 'pointer' }}
+          onClick={() => navigate('/dashboard')}
         />
 
         {/* <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -120,31 +120,31 @@ const Navbar = () => {
             <List
               key={items?.id}
               sx={{
-                position: "relative",
-                display: { sm: "none", md: "block", xs: "none" }, // Hide on small screens
+                position: 'relative',
+                display: { sm: 'none', md: 'block', xs: 'none' }, // Hide on small screens
               }}
             >
-              <ListItem sx={{ position: "relative" }}>
+              <ListItem sx={{ position: 'relative' }}>
                 <Typography
                   onClick={() => handleActiveClick(items?.id, items?.path)}
                   sx={{
-                    cursor: "pointer",
+                    cursor: 'pointer',
                     color:
                       isActive === items.id
                         ? theme.palette.text.main
                         : theme.palette.text.main,
-                    fontWeight: isActive === items.id ? "bold" : "normal",
+                    fontWeight: isActive === items.id ? 'bold' : 'normal',
                   }}
-                  variant="h6"
+                  variant='h6'
                 >
                   {items?.item}
                   {isActive === items.id && (
                     <div
                       style={{
-                        position: "absolute",
-                        width: "50%",
-                        height: "0.1rem",
-                        background: "blue",
+                        position: 'absolute',
+                        width: '50%',
+                        height: '0.1rem',
+                        background: 'blue',
                       }}
                     ></div>
                   )}
@@ -155,33 +155,33 @@ const Navbar = () => {
         </FlexBetween>
 
         <Autocomplete
-          name="script"
+          name='script'
           options={symbols}
           renderInput={(params) => (
             <TextField
               {...params}
-              placeholder="Company name or symbol"
-              variant="outlined"
+              placeholder='Company name or symbol'
+              variant='outlined'
               autoFocus
-              size="small"
+              size='small'
               InputLabelProps={{ shrink: true }}
-              sx={{width:"300px"}}
+              sx={{ width: '300px' }}
             />
           )}
         />
 
-        <FlexBetween gap="1.5rem">
+        <FlexBetween gap='12px'>
           <div>
             <React.Fragment>
-              <IconButton onClick={toggleDrawer("right", true)}>
-                <SettingsOutlined sx={{ fontSize: "25px" }} />
+              <IconButton onClick={toggleDrawer('right', true)}>
+                <SettingsOutlined sx={{ fontSize: '25px' }} />
               </IconButton>
               <Drawer
-                anchor="right"
-                open={state["right"]}
-                onClose={toggleDrawer("right", false)}
+                anchor='right'
+                open={state['right']}
+                onClose={toggleDrawer('right', false)}
               >
-                <DarkModeSetting onClose={toggleDrawer("right", false)} />
+                <DarkModeSetting onClose={toggleDrawer('right', false)} />
               </Drawer>
             </React.Fragment>
           </div>
@@ -189,12 +189,12 @@ const Navbar = () => {
           <NavabarProfile />
 
           <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
+            edge='start'
+            color='inherit'
+            aria-label='menu'
             onClick={toggleMenu}
             sx={{
-              display: { sm: "block", md: "none", xs: "block" }, // Show on small screens
+              display: { sm: 'block', md: 'none', xs: 'block' }, // Show on small screens
             }}
           >
             <MenuIcon />

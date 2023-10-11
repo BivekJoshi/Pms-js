@@ -24,6 +24,9 @@ const NewFilter = ({ inputField, searchCallBack }) => {
                     <CustomDatePicker
                       name={element?.name}
                       label={element?.label}
+                      min={element?.min}
+                      max={element?.max}
+                      required={element?.required}
                     />
                   ) : (
                     <TextField name={element?.name} label={element?.label} />

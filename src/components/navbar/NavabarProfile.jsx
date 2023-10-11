@@ -16,35 +16,28 @@ import { logout } from '../../utility/logout';
 import { useNavigate } from 'react-router-dom';
 
 const NavabarProfile = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [anchorEl, setAnchorEl] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = () => {
+    setAnchorEl(true);
   };
 
   const handleLogout = () => {
-    setAnchorEl(null);
+    setAnchorEl(false);
     dispatch({ type: 'LOGOUT' });
     logout();
     navigate('/login');
   };
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorEl(!setAnchorEl);
   };
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
       <Tooltip title='Account settings'>
-        <IconButton
-          onClick={handleClick}
-          size='small'
-          sx={{ ml: 2 }}
-          aria-controls={open ? 'account-menu' : undefined}
-          aria-haspopup='true'
-          aria-expanded={open ? 'true' : undefined}
-        >
+        <IconButton onClick={handleClick} size='small'>
           <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
         </IconButton>
       </Tooltip>
@@ -52,7 +45,7 @@ const NavabarProfile = () => {
       <Menu
         anchorEl={anchorEl}
         id='account-menu'
-        open={open}
+        open={Boolean(anchorEl)}
         onClose={handleClose}
         onClick={handleClose}
         PaperProps={{
@@ -60,12 +53,11 @@ const NavabarProfile = () => {
           sx: {
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
+            mt: 5.5,
+            ml: -3,
             '& .MuiAvatar-root': {
               width: 32,
               height: 32,
-              ml: -0.5,
-              mr: 1,
             },
             '&:before': {
               content: '""',
@@ -82,12 +74,12 @@ const NavabarProfile = () => {
           },
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
       >
         <MenuItem
           onClick={() => {
-            setAnchorEl(null);
-            navigate('/profile');
+            handleClose(); // Close the menu
+            navigate('/profile'); // Navigate to the '/profile' URL
           }}
         >
           <ListItemAvatar>

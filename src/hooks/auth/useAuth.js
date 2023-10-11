@@ -29,13 +29,16 @@ export const useLogin = ({ onSuccess }) => {
           })
         );
 
-        if (data?.data?.user?.tempPasswordStatus) {
-          toast.loading('Please change password to continue');
-          history('/reset/password');
-        } else {
-          history('/dashboard');
-          toast.success('Login Successful');
-        }
+        history('/dashboard');
+        toast.success('Login Successful');
+
+        // if (data?.data?.user?.tempPasswordStatus) {
+        //   toast.loading('Please change password to continue');
+        //   history('/reset/password');
+        // } else {
+        //   history('/dashboard');
+        //   toast.success('Login Successful');
+        // }
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
