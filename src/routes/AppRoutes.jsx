@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
 import Spinner from "../components/spinner/Spinner";
+import ProfileTesting from "../pages/profile/ProfileTesting";
 
 const LoginLayout = React.lazy(() => import("../layout/LoginLayout"));
 const AppLayout = React.lazy(() => import("../layout/AppLayout"));
