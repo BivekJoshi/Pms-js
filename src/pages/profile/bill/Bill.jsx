@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import NewFilter from "../../../components/newFilter/NewFilter";
 import CustomTable from "../../../components/customTable/CustomTable";
 import toast from "react-hot-toast";
-import { SHARE_TRANSACTION } from "../../../api/urls/urls";
+import { Bill_TRANSACTION } from "../../../api/urls/urls";
 import { fetchData } from "../../../redux/actions/transactionData";
 import { Box } from "@mui/material";
 
-const Transactions = () => {
+const Bill = () => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
   const tableData = useSelector((store) => store?.generic?.data?.content);
@@ -23,8 +23,8 @@ const Transactions = () => {
     },
     {
       id: 2,
-      accessorKey: "transactionNo",
-      header: "Transaction Number",
+      accessorKey: "billNo",
+      header: "Bill Number",
       size: 120,
       sortable: false,
     },
@@ -45,15 +45,15 @@ const Transactions = () => {
 
     {
       id: 5,
-      accessorKey: "quantity",
-      header: "Quantity",
+      accessorKey: "buyQty",
+      header: "Buy Quantity",
       size: 100,
       sortable: false,
     },
     {
       id: 6,
-      accessorKey: "rate",
-      header: "Rate",
+      accessorKey: "sellQty",
+      header: "Sell Quantity",
       size: 100,
       sortable: false,
     },
@@ -61,6 +61,13 @@ const Transactions = () => {
       id: 7,
       accessorKey: "amount",
       header: "Amount",
+      size: 100,
+      sortable: false,
+    },
+    {
+      id: 8,
+      accessorKey: "rate",
+      header: "Rate",
       size: 100,
       sortable: false,
     },
@@ -98,7 +105,7 @@ const Transactions = () => {
       try {
         dispatch(
           fetchData(
-            SHARE_TRANSACTION +
+            Bill_TRANSACTION +
               `?pageNumber=0&dateFrom=${epochDateFrom}&dateTo=${epochDateTo}`
           )
         );
@@ -106,7 +113,7 @@ const Transactions = () => {
         toast.error(error);
       }
     } else {
-      toast.error("Please provide both date values...");
+        toast.error("Please provide both date values...")
     }
   };
 
@@ -116,7 +123,7 @@ const Transactions = () => {
       <Box marginTop={2}>
         {tableShow ? (
           <CustomTable
-            title="Transaction Report"
+            title="Bill Report"
             columns={columns}
             isLoading={isLoading}
             data={tableData}
@@ -127,4 +134,4 @@ const Transactions = () => {
   );
 };
 
-export default Transactions;
+export default Bill;
