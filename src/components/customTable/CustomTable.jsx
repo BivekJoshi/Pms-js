@@ -13,7 +13,7 @@ const CustomTable = (props) => {
 
   return (
     <MaterialReactTable
-      columns={props?.columns}
+      columns={props?.columns || []}
       data={props?.data || []}
       isLoading={props?.isLoading}
       enableRowNumbers

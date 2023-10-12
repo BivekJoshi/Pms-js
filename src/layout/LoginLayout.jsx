@@ -451,7 +451,20 @@ const LoginLayout = () => {
           alt='RightPick'
           style={{ position: 'absolute', width: '100vw' }}
         />
-        <Outlet />
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100%',
+          }}
+          data-aos='fade-right'
+          data-aos-offset='300'
+          data-aos-easing='ease-in-sine'
+        >
+          <Outlet />
+        </div>
       </Grid>
     </Box>
   );
