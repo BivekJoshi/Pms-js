@@ -1,17 +1,17 @@
 import React from "react";
-import { Grid, TextField } from "@mui/material";
-import { Box, MenuItem, InputAdornment } from "@mui/material";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import { Grid, TextField, IconButton } from "@mui/material";
+import { Box, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { LoadingButton } from "@mui/lab";
-import { useSelector } from "react-redux";
-import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
 import ResetPaassword from "../../assets/reset-Paassword.png";
-import { useNavigate } from "react-router-dom";
-import { useResetPasswordForm } from "../../form/auth/reset-password/useResetPasswordForm";
+import { useNavigate, useParams } from "react-router-dom";
+import { useChangePasswordForm } from "../../form/auth/reset-password/useResetPasswordForm";
+import Checkbox from '@mui/material/Checkbox';
 
-const ResetPasswordPage = () => {
-  const brokerOption = useSelector((state) => state.brokerList.brokerOption);
-  const { formik, loading } = useResetPasswordForm();
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+const ChangePasswordPage = () => {
+  const { id } = useParams();
+  const { formik, loading, showValues, handleClickShowPassword, handleMouseDownPassword } = useChangePasswordForm(id);
   const history = useNavigate();
 
   const handleClick = () => {
@@ -50,7 +50,7 @@ const ResetPasswordPage = () => {
           className="paddingOuterLayer"
         >
           <div style={{ color: "#875923" }} className="displayLarge">
-            Reset Password
+            Set New Password
           </div>
           <div className="titleMedium">Please provide the number & email</div>
         </Grid>
@@ -60,60 +60,79 @@ const ResetPasswordPage = () => {
           sx={{ mt: 1, display: "flex", flexDirection: "column", gap: "1rem" }}
         >
           <TextField
-            id="brokerNo"
-            select
-            name="brokerNo"
-            label="Select Broker"
-            placeholder="Choose Broker No."
-            fullWidth
-            value={formik.values.brokerNo}
-            onChange={formik.handleChange}
-            error={formik.touched.brokerNo && Boolean(formik.errors.brokerNo)}
-            helperText={formik.touched.brokerNo && formik.errors.brokerNo}
-            variant="outlined"
-          >
-            {brokerOption?.map((option) => (
-              <MenuItem key={option?.id} value={option?.id}>
-                {option?.name}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
             required
-            value={formik.values.nepseCode}
+            value={formik.values.newPassword}
             onChange={formik.handleChange}
-            error={formik.touched.nepseCode && Boolean(formik.errors.nepseCode)}
-            helperText={formik.touched.nepseCode && formik.errors.nepseCode}
-            name="nepseCode"
-            label="Enter NEPSE Code"
+            error={
+              formik.touched.newPassword && Boolean(formik.errors.newPassword)
+            }
+            helperText={formik.touched.newPassword && formik.errors.newPassword}
+            name="newPassword"
+            autoComplete="username"
+            label="New password"
             fullWidth
             variant="outlined"
-            type="text"
+            type={showValues.showPassword ? 'text' : 'password'}
             InputProps={{
               endAdornment: (
-                <InputAdornment position="end">
-                  <PermIdentityOutlinedIcon />
+                <InputAdornment position='end'>
+                  <IconButton
+                    aria-label='toggle password visibility'
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge='end'
+                  >
+                    {showValues.showPassword ? (
+                      <VisibilityOff />
+                    ) : (
+                      <Visibility />
+                    )}
+                  </IconButton>
                 </InputAdornment>
               ),
             }}
           />
+          <Grid container>
+            Must have one: 
+          <Checkbox {...label} /> Uppercase
+          <Checkbox {...label} /> Lowecase
+          <Checkbox {...label} /> Character
+          <Checkbox {...label} /> Number
+
+          </Grid>
           <TextField
             required
-            value={formik.values.email}
+            value={formik.values.confirmPassword}
             onChange={formik.handleChange}
-            error={formik.touched.email && Boolean(formik.errors.email)}
-            helperText={formik.touched.email && formik.errors.email}
-            name="email"
+            error={
+              formik.touched.confirmPassword &&
+              Boolean(formik.errors.confirmPassword)
+            }
+            helperText={
+              formik.touched.confirmPassword && formik.errors.confirmPassword
+            }
+            name="confirmPassword"
             autoComplete="username"
-            label="E-mail"
+            label="Re-enter password"
             fullWidth
             variant="outlined"
-            type="text"
+            type={showValues.showPassword ? 'text' : 'password'}
             InputProps={{
               endAdornment: (
-                <InputAdornment position="end">
-                  <MailOutlineIcon />
-                </InputAdornment>
+                <InputAdornment position='end'>
+                <IconButton
+                  aria-label='toggle password visibility'
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge='end'
+                >
+                  {showValues.showPassword ? (
+                    <VisibilityOff />
+                  ) : (
+                    <Visibility />
+                  )}
+                </IconButton>
+              </InputAdornment>
               ),
             }}
           />
@@ -151,4 +170,4 @@ const ResetPasswordPage = () => {
   );
 };
 
-export default ResetPasswordPage;
+export default ChangePasswordPage;
