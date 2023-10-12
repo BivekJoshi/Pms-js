@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import {
   useGetListedCompanies,
   useGetWatchListName,
-} from '../../hooks/watchList/useWatchList';
+} from "../../hooks/watchList/useWatchList";
 import {
   Autocomplete,
   Box,
@@ -13,22 +13,22 @@ import {
   TextField,
   Typography,
   useTheme,
-} from '@mui/material';
+} from "@mui/material";
 
-import WatchListMasterField from '../../form/formComponent/watchlist/WatchListMasterField';
-import { useState } from 'react';
-import WatchTable from './WatchTable';
-import { useWatchListDetailForm } from '../../hooks/watchList/useWatchListForm/useWatchListDetailForm';
-import toast from 'react-hot-toast';
+import WatchListMasterField from "../../form/formComponent/watchlist/WatchListMasterField";
+import { useState } from "react";
+import WatchTable from "./WatchTable";
+import { useWatchListDetailForm } from "../../hooks/watchList/useWatchListForm/useWatchListDetailForm";
+import toast from "react-hot-toast";
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
@@ -47,7 +47,7 @@ const WatchList = () => {
     formik.handleSubmit();
 
     if (!formik.isValid) {
-      toast.error('Please make sure you have filled the form correctly');
+      toast.error("Please make sure you have filled the form correctly");
     }
   };
 
@@ -63,14 +63,14 @@ const WatchList = () => {
     <div>
       <Grid
         container
-        direction='row'
-        justifyContent='flex-end'
-        alignItems='center'
+        direction="row"
+        justifyContent="flex-end"
+        alignItems="center"
       >
         <Button
-        variant='contained'
-        onClick={() => setOpen(true)}
-        sx={{backgroundColor: "#401686", color: "#fff"}}
+          variant="contained"
+          onClick={() => setOpen(true)}
+          sx={{ backgroundColor: "#401686", color: "#fff" }}
         >
           Create New watchlist
         </Button>
@@ -79,8 +79,8 @@ const WatchList = () => {
       <Modal
         open={open}
         onClose={() => setOpen(false)}
-        aria-labelledby='modal-modal-title'
-        aria-describedby='modal-modal-description'
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <WatchListMasterField onClose={() => setOpen(false)} />
@@ -90,33 +90,40 @@ const WatchList = () => {
       <br />
       <Box
         sx={{
-          display: 'flex',
-          width: 'cover',
-          height: '84px',
+          display: "flex",
+          width: "cover",
+          height: "84px",
           backgroundColor: theme.palette.background.alt,
-          padding: '16px',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          padding: "16px",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        <div style={{ display: "flex", flexWrap: "wrap" ,alignItems:"center",gap:".3rem"}}>
-        <Typography
-        variant="h4"
-        style={{color: theme.palette.text.light, fontWeight: "800"}}
->
-Watchlist:
-</Typography>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: ".3rem",
+          }}
+        >
+          <Typography
+            variant="h4"
+            style={{ color: theme.palette.text.light, fontWeight: "800" }}
+          >
+            Watchlist:
+          </Typography>
 
           {!loadingname &&
             watchListName.map((name) => (
               <Chip
                 label={name?.watchlistName}
-                className='custom-chip'
+                className="custom-chip"
                 key={name?.id}
                 style={{
                   backgroundColor:
-                    watchlist === name?.id ? '#329EF4' : '#EBEBEB',
-                  color: watchlist === name?.id ? 'white' : 'initial',
+                    watchlist === name?.id ? "#329EF4" : "#EBEBEB",
+                  color: watchlist === name?.id ? "white" : "initial",
                   margin: "2px",
                 }}
                 onClick={() => setWatchList(name?.id)}
@@ -124,17 +131,13 @@ Watchlist:
             ))}
         </div>
 
-        <div style={{ display: "flex" ,alignItems:"center",gap:"2rem"}}>
+        <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+          <Typography variant="h6" style={{ color: theme.palette.text.light }}>
+            NEPSE CODE:
+          </Typography>
 
-<Typography
-  variant="h6"
-  style={{color: theme.palette.text.light}}
->
-        NEPSE CODE:
-        </Typography>
-
-        <div style={{ width: '300px' }}>
-          <Autocomplete
+          <div style={{ width: "300px" }}>
+            <Autocomplete
               name="script"
               options={symbols}
               value={selectedSymbol || formik?.values?.script}
@@ -157,14 +160,14 @@ Watchlist:
                 />
               )}
             />
-        </div>
+          </div>
         </div>
 
         <div>
           <Button
-            variant='contained'
+            variant="contained"
             disabled={!watchlist}
-            sx={{backgroundColor: "#401686", color: "#fff"}}
+            sx={{ backgroundColor: "#401686", color: "#fff" }}
             onClick={handleFormSubmit}
           >
             +Add
