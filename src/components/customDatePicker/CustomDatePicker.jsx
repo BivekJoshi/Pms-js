@@ -1,26 +1,31 @@
 import React from 'react';
-import { TextField } from '@mui/material';
-import { useField } from 'formik';
+import { useField, useFormikContext } from 'formik';
+import { DatePicker } from '@mui/x-date-pickers';
+import dayjs from 'dayjs';
 
-function CustomDatePicker({ name, label }) {
+function CustomDatePicker({ name, label, min, max, required }) {
+  console.log(
+    '🚀 ~ file: CustomDatePicker.jsx:7 ~ CustomDatePicker ~ max:',
+    max
+  );
+  const { setFieldValue } = useFormikContext();
   const [field] = useField(name);
 
-  const handleDateChange = (event) => {
-    field.onChange(event);
-    field.onBlur(event);
+  const handleDateChange = (date) => {
+    setFieldValue(name, date);
   };
 
   return (
     <div key={name}>
-      <TextField
-        {...field}
-        type='date'
-        InputLabelProps={{ shrink: true }}
-        required
-        fullWidth
+      <DatePicker
+        name={name}
+        sx={{ width: '100%' }}
         label={label}
+        value={field.value || null}
         onChange={handleDateChange}
-        value={field.value || ''} // Ensure field.value is defined, or set a default value
+        // minDate={dayjs(min)}
+        maxDate={dayjs(max)}
+        required={required}
       />
     </div>
   );

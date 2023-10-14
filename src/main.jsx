@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { Toaster } from 'react-hot-toast';
 import App from './App';
-
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -22,7 +23,9 @@ root.render(
   <QueryClientProvider client={queryClient} contextSharing>
     <Provider store={store}>
       <Toaster position='top-right' reverseOrder={false} />
-      <App />
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <App />
+      </LocalizationProvider>
     </Provider>
   </QueryClientProvider>
 );

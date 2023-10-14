@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 import {
   useGetListedCompanies,
   useGetWatchListName,
-} from '../../hooks/watchList/useWatchList';
+} from "../../hooks/watchList/useWatchList";
 import {
   Autocomplete,
   Box,
@@ -39,7 +39,7 @@ const WatchList = () => {
     formik.handleSubmit();
 
     if (!formik.isValid) {
-      toast.error('Please make sure you have filled the form correctly');
+      toast.error("Please make sure you have filled the form correctly");
     }
   };
 
@@ -55,9 +55,9 @@ const WatchList = () => {
     <div>
       <Grid
         container
-        direction='row'
-        justifyContent='flex-end'
-        alignItems='center'
+        direction="row"
+        justifyContent="flex-end"
+        alignItems="center"
       >
         <Button
           variant="contained"
@@ -80,13 +80,13 @@ const WatchList = () => {
       <br />
       <Box
         sx={{
-          display: 'flex',
-          width: 'cover',
-          height: '84px',
+          display: "flex",
+          width: "cover",
+          height: "84px",
           backgroundColor: theme.palette.background.alt,
-          padding: '16px',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          padding: "16px",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
         <div
@@ -110,12 +110,12 @@ const WatchList = () => {
             watchListName.map((name) => (
               <Chip
                 label={name?.watchlistName}
-                className='custom-chip'
+                className="custom-chip"
                 key={name?.id}
                 style={{
                   backgroundColor:
-                    watchlist === name?.id ? '#329EF4' : '#EBEBEB',
-                  color: watchlist === name?.id ? 'white' : 'initial',
+                    watchlist === name?.id ? "#329EF4" : "#EBEBEB",
+                  color: watchlist === name?.id ? "white" : "initial",
                   margin: "2px",
                 }}
                 onClick={() => setWatchList(name?.id)}
@@ -155,14 +155,14 @@ const WatchList = () => {
                 />
               )}
             />
-        </div>
+          </div>
         </div>
 
         <div>
           <Button
-            variant='contained'
+            variant="contained"
             disabled={!watchlist}
-            sx={{backgroundColor: "#401686", color: "#fff"}}
+            sx={{ backgroundColor: "#401686", color: "#fff" }}
             onClick={handleFormSubmit}
           >
             +Add

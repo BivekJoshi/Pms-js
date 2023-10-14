@@ -55,6 +55,7 @@ export const tokensDark = {
   },
   background: {
     100: '#ebedef',
+    10: '#3f1683', // color design for button manually adding
   },
 };
 
@@ -202,6 +203,7 @@ export const themeSettings = (mode, data) => {
               default: tokensDark.primary[600],
               alt: tokensDark.primary[500],
               main: tokensDark.background[100],
+              btn: tokensDark.background[10],
             },
             text: {
               main: tokensDark.grey[0],
@@ -232,6 +234,7 @@ export const themeSettings = (mode, data) => {
               // alt: tokensDark.grey[50],
               alt: tokensDark.grey[10],
               main: tokensDark.grey[100],
+              btn: tokensDark.background[10],
             },
             text: {
               main: tokensDark.grey[500],
