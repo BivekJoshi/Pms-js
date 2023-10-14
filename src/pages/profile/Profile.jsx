@@ -16,6 +16,7 @@ import Update from "../../assets/Update.png";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import ProfileInfo from "./ProfileTab/ProfileInfo";
 import ForgetPassword from "./ProfileTab/ForgetPassword";
+import SubscriptionTab from "./SubscriptionTab/SubscriptionTab";
 
 const Profile = () => {
   const theme = useTheme();
@@ -282,6 +283,9 @@ const Profile = () => {
         </Grid>
         <TabPanel value="1">
           <ProfileInfo />
+        </TabPanel>
+        <TabPanel value ="3">
+          <SubscriptionTab/>
         </TabPanel>
         <TabPanel value="4">
           <ForgetPassword />
