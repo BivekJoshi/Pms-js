@@ -91,7 +91,7 @@ const WatchTable = (watchid) => {
         <CustomTable
           title='Watch List'
           columns={columns}
-          data={watchListDataById.data}
+          data={watchListDataById?.data}
           isLoading={isLoading}
         />
       ) : (
@@ -100,8 +100,13 @@ const WatchTable = (watchid) => {
             width: "cover",
             height: "84px",
             backgroundColor: theme.palette.background.alt,
+            display:"flex",
+            alignItems:"center",
+            justifyContent:"center",
           }}
-        />
+        >
+          No Script Found
+        </Box>
       )}
     </div>
   );

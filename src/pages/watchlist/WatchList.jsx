@@ -30,6 +30,7 @@ const WatchList = () => {
 
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
   const { data: listedCompanies } = useGetListedCompanies();
+  console.log(listedCompanies,"listedCompany");
 
   const { formik } = useWatchListDetailForm(watchlist);
   const [selectedSymbol, setSelectedSymbol] = useState(formik.values.script);
@@ -49,7 +50,7 @@ const WatchList = () => {
       symbolsArray.push({ index: key, ...listedCompanies[key] });
     }
   }
-  const symbols = symbolsArray.map((item) => item.symbol);
+  const symbols = symbolsArray.map((item) => item.companyInfo);
 
   return (
     <div>
