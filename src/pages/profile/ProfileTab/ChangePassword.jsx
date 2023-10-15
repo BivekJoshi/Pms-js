@@ -1,17 +1,19 @@
 import { useTheme } from "@emotion/react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  IconButton,
-} from "@mui/material";
-import { InputAdornment, TextField, Typography } from "@mui/material";
+import { Button, Checkbox, FormControlLabel, IconButton } from "@mui/material";
+import { Grid, InputAdornment, TextField, Typography } from "@mui/material";
 import React from "react";
+import changePasswordForm from "../../../form/auth/change-password/changePasswordForm";
 
-const ForgetPassword = () => {
+const ChangePassword = () => {
   const theme = useTheme();
+  const {
+    formik,
+    handleClickShowPassword,
+    loading,
+    handleMouseDownPassword,
+    showValues,
+  } = changePasswordForm();
 
   return (
     <Grid
@@ -45,33 +47,32 @@ const ForgetPassword = () => {
         <Grid>
           <TextField
             required
-            // value={formik.values.currentPassword}
-            // onChange={formik.handleChange}
-            // error={formik.touched.currentPassword && Boolean(formik.errors.currentPassword)}
-            // helperText={formik.touched.currentPassword && formik.errors.currentPassword}
-            name="currentPassword "
-            autoComplete="Current Password "
-            label="Current Password "
+            value={formik.values.oldPassword}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.oldPassword && Boolean(formik.errors.oldPassword)
+            }
+            helperText={formik.touched.oldPassword && formik.errors.oldPassword}
+            name="oldPassword"
+            autoComplete="old-Password"
+            label="Old Password "
             fullWidth
             variant="outlined"
-            type="text"
-            // InputLabelProps={{
-            //   shrink: formik.values.email,
-            // }}
+            type={showValues.showPassword ? "text" : "password"}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    // onClick={handleClickShowPassword}
-                    // onMouseDown={handleMouseDownPassword}
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
-                    {/* {showValues.showPassword ? ( */}
-                    <VisibilityOff />
-                    {/* ) : (
-              <Visibility /> 
-            )}*/}
+                    {showValues.showPassword ? (
+                      <VisibilityOff />
+                    ) : (
+                      <Visibility />
+                    )}
                   </IconButton>
                 </InputAdornment>
               ),
@@ -80,34 +81,33 @@ const ForgetPassword = () => {
         </Grid>
         <Grid>
           <TextField
-            required
-            // value={formik.values.currentPassword}
-            // onChange={formik.handleChange}
-            // error={formik.touched.currentPassword && Boolean(formik.errors.currentPassword)}
-            // helperText={formik.touched.currentPassword && formik.errors.currentPassword}
-            name="currentPassword "
-            autoComplete="New Password "
-            label="New Password "
-            fullWidth
             variant="outlined"
-            type="text"
-            // InputLabelProps={{
-            //   shrink: formik.values.email,
-            // }}
+            label="New Password"
+            name="newPassword"
+            autoComplete="new-Password "
+            required
+            value={formik.values.newPassword}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.newPassword && Boolean(formik.errors.newPassword)
+            }
+            helperText={formik.touched.newPassword && formik.errors.newPassword}
+            fullWidth
+            type={showValues.showPassword ? "text" : "password"}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    // onClick={handleClickShowPassword}
-                    // onMouseDown={handleMouseDownPassword}
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
-                    {/* {showValues.showPassword ? ( */}
-                    <VisibilityOff />
-                    {/* ) : (
-              <Visibility /> 
-            )} */}
+                    {showValues.showPassword ? (
+                      <VisibilityOff />
+                    ) : (
+                      <Visibility />
+                    )}
                   </IconButton>
                 </InputAdornment>
               ),
@@ -135,34 +135,33 @@ const ForgetPassword = () => {
         </Grid>
         <Grid>
           <TextField
-            required
-            // value={formik.values.currentPassword}
-            // onChange={formik.handleChange}
-            // error={formik.touched.currentPassword && Boolean(formik.errors.currentPassword)}
-            // helperText={formik.touched.currentPassword && formik.errors.currentPassword}
-            name="currentPassword "
-            autoComplete="New Password "
-            label="Re-Type New Password "
-            fullWidth
             variant="outlined"
-            type="text"
-            // InputLabelProps={{
-            //   shrink: formik.values.email,
-            // }}
+            label="Re-Type New Password "
+            name="rePassword "
+            autoComplete="retype-Password "
+            fullWidth
+            required
+            value={formik.values.rePassword}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.rePassword && Boolean(formik.errors.rePassword)
+            }
+            helperText={formik.touched.rePassword && formik.errors.rePassword}
+            type={showValues.showPassword ? "text" : "Password"}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    // onClick={handleClickShowPassword}
-                    // onMouseDown={handleMouseDownPassword}
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
                     edge="end"
                   >
-                    {/* {showValues.showPassword ? ( */}
-                    <VisibilityOff />
-                    {/* ) : (
-              <Visibility /> 
-            )}*/}
+                    {showValues.showPassword ? (
+                      <VisibilityOff />
+                    ) : (
+                      <Visibility />
+                    )}
                   </IconButton>
                 </InputAdornment>
               ),
@@ -209,6 +208,7 @@ const ForgetPassword = () => {
             Cancel
           </Button>
           <Button
+            onClick={() => formik.submitForm()}
             sx={{
               bgcolor: "purple",
               color:
@@ -225,4 +225,4 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+export default ChangePassword;

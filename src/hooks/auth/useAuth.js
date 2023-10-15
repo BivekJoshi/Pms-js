@@ -1,7 +1,7 @@
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { login, register, application, verification } from '../../api/auth/auth-api';
+import { login, register, application, verification, resetPassword } from '../../api/auth/auth-api';
 import { useDispatch } from 'react-redux';
 
 export const useLogin = ({ onSuccess }) => {

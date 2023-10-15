@@ -15,7 +15,7 @@ import Terms from "../../assets/Terms.png";
 import Update from "../../assets/Update.png";
 import { TabContext, TabPanel } from "@mui/lab";
 import ProfileInfo from "./ProfileTab/ProfileInfo";
-import ForgetPassword from "./ProfileTab/ForgetPassword";
+import ChangePassword from "./ProfileTab/ChangePassword";
 
 const Profile = () => {
   const theme = useTheme();
@@ -282,7 +282,7 @@ const Profile = () => {
           <ProfileInfo />
         </TabPanel>
         <TabPanel value="4">
-          <ForgetPassword />
+          <ChangePassword />
         </TabPanel>
       </TabContext>
     </Box>
