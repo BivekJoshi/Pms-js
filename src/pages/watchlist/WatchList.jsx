@@ -9,29 +9,19 @@ import {
   Button,
   Chip,
   Grid,
-  Modal,
   TextField,
   Typography,
   useTheme,
-} from "@mui/material";
+  useThemeProps,
+} from '@mui/material';
 
 import WatchListMasterField from "../../form/formComponent/watchlist/WatchListMasterField";
 import { useState } from "react";
 import WatchTable from "./WatchTable";
 import { useWatchListDetailForm } from "../../hooks/watchList/useWatchListForm/useWatchListDetailForm";
 import toast from "react-hot-toast";
+import FormModal from "../../components/formModal/FormModal";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
 
 const WatchList = () => {
   const theme = useTheme();
@@ -40,6 +30,8 @@ const WatchList = () => {
 
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
   const { data: listedCompanies } = useGetListedCompanies();
+  console.log(listedCompanies,"listedCompany");
+
   const { formik } = useWatchListDetailForm(watchlist);
   const [selectedSymbol, setSelectedSymbol] = useState(formik.values.script);
 
@@ -57,7 +49,7 @@ const WatchList = () => {
       symbolsArray.push({ index: key, ...listedCompanies[key] });
     }
   }
-  const symbols = symbolsArray.map((item) => item.symbol);
+  const symbols = symbolsArray.map((item) => item.companyInfo);
 
   return (
     <div>
@@ -70,23 +62,21 @@ const WatchList = () => {
         <Button
           variant="contained"
           onClick={() => setOpen(true)}
-          sx={{ backgroundColor: "#401686", color: "#fff" }}
+          sx={{
+            backgroundColor: "#401686",
+            color: "#fff",
+            marginTop:"1rem"
+          }}
         >
           Create New watchlist
         </Button>
       </Grid>
 
-      <Modal
+      <FormModal
         open={open}
         onClose={() => setOpen(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <WatchListMasterField onClose={() => setOpen(false)} />
-        </Box>
-      </Modal>
-
+        formComponent={<WatchListMasterField onClose={() => setOpen(false)} />}
+      />
       <br />
       <Box
         sx={{
@@ -109,11 +99,13 @@ const WatchList = () => {
         >
           <Typography
             variant="h4"
-            style={{ color: theme.palette.text.light, fontWeight: "800" }}
+            style={{
+              color: theme.palette.text.light,
+              fontWeight: "800",
+            }}
           >
             Watchlist:
           </Typography>
-
           {!loadingname &&
             watchListName.map((name) => (
               <Chip
@@ -130,12 +122,15 @@ const WatchList = () => {
               />
             ))}
         </div>
-
         <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
-          <Typography variant="h6" style={{ color: theme.palette.text.light }}>
+          <Typography
+            variant="h6"
+            style={{
+              color: theme.palette.text.light,
+            }}
+          >
             NEPSE CODE:
           </Typography>
-
           <div style={{ width: "300px" }}>
             <Autocomplete
               name="script"
@@ -150,7 +145,7 @@ const WatchList = () => {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Nepse Code"
+                  label="Script"
                   variant="outlined"
                   error={formik.touched.script && Boolean(formik.errors.script)}
                   helperText={formik.touched.script && formik.errors.script}

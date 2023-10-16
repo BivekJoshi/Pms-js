@@ -16,6 +16,8 @@ import Update from "../../assets/Update.png";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import ProfileInfo from "./ProfileTab/ProfileInfo";
 import ForgetPassword from "./ProfileTab/ForgetPassword";
+import SubscriptionTab from "./SubscriptionTab/SubscriptionTab";
+import Research from "../research/Research";
 import Transactions from "./transaction/Transactions";
 import Bill from "./bill/Bill";
 import ReceiptPayment from "./receipt-payment/ReceiptPayment";
@@ -290,7 +292,7 @@ const Profile = () => {
           Notification
         </TabPanel>
         <TabPanel value="3">
-          Subscription
+          <SubscriptionTab/>
         </TabPanel>
         <TabPanel value="4">
         <ForgetPassword />
