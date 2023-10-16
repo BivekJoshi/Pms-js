@@ -58,7 +58,7 @@ const AppLayout = () => {
         </header>
         {/* <Container fixed> */}
         <section
-          style={{ margin: '0px 32px', minHeight: '94dvh' }}
+          style={{ margin: '16px', minHeight: '94dvh' }}
           data-aos='fade-right'
         >
           <Outlet />
