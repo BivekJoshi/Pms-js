@@ -22,10 +22,7 @@ AOS.init({
   once: false,
 });
 const root = createRoot(document.getElementById('root'));
-window.localStorage.setItem(
-  'pms-path',
-  'https://dgtrade.dghub.io:8085/pms/api'
-);
+
 root.render(
   <QueryClientProvider client={queryClient} contextSharing>
     <Provider store={store}>
