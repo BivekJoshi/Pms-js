@@ -104,7 +104,7 @@ const ChangePasswordPage = () => {
           flexDirection="column"
           alignItems="start"
           paddingBottom="2.5rem"
-          className="paddingOuterLayer"
+          className="paddingOuterLayer"p
         >
           <div style={{ color: "#875923" }} className="displayLarge">
             Set New Password

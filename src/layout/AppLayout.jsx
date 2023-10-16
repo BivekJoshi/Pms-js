@@ -57,7 +57,10 @@ const AppLayout = () => {
           <Navbar />
         </header>
         {/* <Container fixed> */}
-        <section style={{ margin: '0px 32px', minHeight: '94dvh' }}>
+        <section
+          style={{ padding: '16px', minHeight: '94dvh' }}
+          data-aos='fade-right'
+        >
           <Outlet />
         </section>
         {/* </Container> */}

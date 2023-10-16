@@ -8,6 +8,12 @@ export const getTransactionPortfolio = async () => {
 
 /*________________________GET TRANSACTION PORTFOLIO_____________________________________*/
 export const getUserPortfolio = async () => {
-    const response = await axiosInstance.get(`/app-user/user-portfolio`);
-    return response.data;
-  };
+  const response = await axiosInstance.get(`/app-user/user-portfolio`);
+  return response.data;
+};
+
+/*________________________GET USERINFO_____________________________________*/
+export const getUserInfo = async () => {
+  const response = await axiosInstance.get(`/app-user`);
+  return response.data;
+};

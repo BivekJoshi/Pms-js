@@ -8,6 +8,7 @@ import { Box, useTheme } from '@mui/material';
 const WatchTable = (watchid) => {
   const id = watchid.watchid;
   const { data: watchListDataById, isLoading } = useGetWatchListDataById(id);
+
   const theme = useTheme();
 
   const columns = useMemo(
@@ -91,17 +92,22 @@ const WatchTable = (watchid) => {
         <CustomTable
           title='Watch List'
           columns={columns}
-          data={watchListDataById.data}
+          data={watchListDataById?.data}
           isLoading={isLoading}
         />
       ) : (
         <Box
           sx={{
-            width: "cover",
-            height: "84px",
+            width: 'cover',
+            height: '84px',
             backgroundColor: theme.palette.background.alt,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
-        />
+        >
+          No Script Found
+        </Box>
       )}
     </div>
   );
