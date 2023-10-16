@@ -8,8 +8,8 @@ import Notification from "../../assets/Notification.png";
 import Subscription from "../../assets/Subscription.png";
 import Security from "../../assets/Security.png";
 import Transaction from "../../assets/Transaction.png";
-import Bill from "../../assets/Bill.png";
-import Statement from "../../assets/Statement.png";
+import Bills from "../../assets/Bill.png";
+import Statements from "../../assets/Statement.png";
 import Payment from "../../assets/Payment.png";
 import Terms from "../../assets/Terms.png";
 import Update from "../../assets/Update.png";
@@ -19,22 +19,24 @@ import ForgetPassword from "./ProfileTab/ForgetPassword";
 import SubscriptionTab from "./SubscriptionTab/SubscriptionTab";
 import Research from "../research/Research";
 import Transactions from "./transaction/Transactions";
+import Bill from "./bill/Bill";
+import ReceiptPayment from "./receipt-payment/ReceiptPayment";
+import Statement from "./statement/Statement";
 
 const Profile = () => {
   const theme = useTheme();
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState("1");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log(newValue);
   };
 
   return (
     <Box
       display="grid"
-      gridTemplateColumns="2fr 7fr"
-      gap="4rem"
-      mt="2rem"
+      gridTemplateColumns="2fr 10fr"
+      gap="1rem"
+      mt="1.8rem"
       color={theme.palette.text.main}
     >
       <TabContext value={value}>
@@ -194,7 +196,7 @@ const Profile = () => {
                 <Tab
                   label={
                     <Grid className="profileIcon">
-                      <img src={Bill} alt="UpdateProfile" />
+                      <img src={Bills} alt="UpdateProfile" />
                       <Typography variant="h7">Bill</Typography>
                     </Grid>
                   }
@@ -209,7 +211,7 @@ const Profile = () => {
                 <Tab
                   label={
                     <Grid className="profileIcon">
-                      <img src={Statement} alt="UpdateProfile" />
+                      <img src={Statements} alt="UpdateProfile" />
                       <Typography variant="h7">Statement</Typography>
                     </Grid>
                   }
@@ -286,14 +288,32 @@ const Profile = () => {
         <TabPanel value="1">
           <ProfileInfo />
         </TabPanel>
-        <TabPanel value ="3">
-          <SubscriptionTab/>
+        <TabPanel value="2">
+          Notification
+        </TabPanel>
+        <TabPanel value="3">
+          Subscription
         </TabPanel>
         <TabPanel value="4">
-          <ForgetPassword />
+        <ForgetPassword />
         </TabPanel>
         <TabPanel value="5">
-          <Transactions />
+        <Transactions />
+        </TabPanel>
+        <TabPanel value="6">
+          <Bill />
+        </TabPanel>
+        <TabPanel value="7">
+          <Statement />
+        </TabPanel>
+        <TabPanel value="8">
+         <ReceiptPayment />
+        </TabPanel>
+        <TabPanel value="9">
+         Terms & Conditions
+        </TabPanel>
+        <TabPanel value="10">
+          Privacy & Policy
         </TabPanel>
       </TabContext>
     </Box>

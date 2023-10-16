@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFormik } from "formik";
-import { resetPasswordSchema } from "./resetPasswordValidationSchema";
-import { useResetPassword } from "../../../hooks/auth/useAuth";
+import { changePasswordSchema, resetPasswordSchema } from "./resetPasswordValidationSchema";
+import { useChangePassword, useResetPassword } from "../../../hooks/auth/useAuth";
 
 export const useResetPasswordForm = () => {
   const [loading, setLoading] = useState(false);
@@ -9,9 +9,9 @@ export const useResetPasswordForm = () => {
   const { mutate } = useResetPassword({});
   const formik = useFormik({
     initialValues: {
-      oldPassword: "",
-      newPassword: "",
-      rePassword: "",
+      brokerNo: "",
+      email: "",
+      nepseCode: "",
     },
     validationSchema: resetPasswordSchema,
     onSubmit: (values) => {
@@ -21,9 +21,9 @@ export const useResetPasswordForm = () => {
   });
 
   const handleResetPassword = (values) => {
-    const { oldPassword, newPassword, rePassword } = values;
+    const { brokerNo, email, nepseCode } = values;
     mutate(
-      { oldPassword, newPassword, rePassword },
+      { brokerNo, email, nepseCode },
       { onSettled: () => setLoading(false) }
     );
   };
@@ -37,5 +37,56 @@ export const useResetPasswordForm = () => {
     formik,
     loading,
     handleMouseDownPassword,
+  };
+};
+
+export const useChangePasswordForm = (id) => {
+  const [loading, setLoading] = useState(false);
+  const [showValues, setShowValues] = useState({
+    newPassword: '',
+    confirmPassword: '',
+    showPassword: false,
+  });
+
+  const { mutate } = useChangePassword({id});
+  const formik = useFormik({
+    initialValues: {
+      id: id,
+      newPassword: "",
+      confirmPassword: "",
+    },
+    validationSchema: changePasswordSchema,
+    onSubmit: (values) => {
+      setLoading(true);
+      handleResetPassword(values);
+    },
+  });
+
+  const handleResetPassword = (values) => {
+    const { id, newPassword, confirmPassword } = values;
+    mutate(
+      { id, newPassword, confirmPassword },
+      { onSettled: () => setLoading(false) }
+    );
+  };
+
+  const handleClickShowPassword = () => {
+    setShowValues({
+      ...showValues,
+      showPassword: !showValues.showPassword,
+    });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  return {
+    handleResetPassword,
+    showValues,
+    formik,
+    loading,
+    handleMouseDownPassword,
+    handleClickShowPassword
   };
 };

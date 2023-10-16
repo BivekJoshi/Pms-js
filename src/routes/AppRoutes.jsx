@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
+import ProfileTesting from '../pages/profile/ProfileTesting';
 
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));
@@ -18,8 +19,16 @@ const ApplicationPage = React.lazy(() =>
   import('../pages/auth/ApplicationPage')
 );
 const Verification = React.lazy(() => import('../pages/auth/Verification'));
-const ResetPasswordPage = React.lazy(() => import('../pages/auth/ResetPasswordPage'));
-const ApplicationMessage = React.lazy(() => import( '../pages/auth/ApplicationMessage'));
+const ResetPasswordPage = React.lazy(() =>
+  import('../pages/auth/ResetPasswordPage')
+);
+const ChangePasswordPage = React.lazy(() =>
+  import('../pages/auth/ChangePasswordPage')
+);
+const ApplicationMessage = React.lazy(() =>
+  import('../pages/auth/ApplicationMessage')
+);
+import ErrorPage from './../pages/error-page/ErrorPage';
 
 export default function AppRoutes() {
   return (
@@ -32,6 +41,10 @@ export default function AppRoutes() {
             <Route path='application/status' element={<ApplicationPage />} />
             <Route path='verification/:id' element={<Verification />} />
             <Route path='reset/password' element={<ResetPasswordPage />} />
+            <Route
+              path='pms/api/public/reset-password/:id'
+              element={<ChangePasswordPage />}
+            />
             <Route path='status/message' element={<ApplicationMessage />} />
           </Route>
           <Route path='/' element={<AppLayout />}>
@@ -42,6 +55,7 @@ export default function AppRoutes() {
             <Route path='alert' element={<Alert />} />
             <Route path='profile' element={<Profile />} />
           </Route>
+          <Route path='/error-page' element={<ErrorPage />} />
         </Routes>
       </Suspense>
     </HashRouter>

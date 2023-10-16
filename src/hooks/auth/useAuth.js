@@ -6,7 +6,9 @@ import {
   register,
   application,
   verification,
+  changePassword,
   resetPassword,
+  resendVerification,
 } from '../../api/auth/auth-api';
 import { useDispatch } from 'react-redux';
 
@@ -43,6 +45,7 @@ export const useLogin = ({ onSuccess }) => {
       },
       onError: (err, _variables, _context) => {
         toast.error(err.message);
+        console.log(err)
       },
     }
   );
@@ -126,10 +129,29 @@ export const useResetPassword = ({ onSuccess }) => {
 
   return useMutation(
     ['resetPassword'],
-    (formValues) => resetPassword(formValues),
+    ({brokerNo, email, nepseCode}) => resetPassword(brokerNo, email, nepseCode),
     {
       onSuccess: (data, variables, context) => {
-        toast.success('Registration Successful');
+        toast.success('Code sent to your email successfully');
+        history(`/login`);
+        onSuccess && onSuccess(data, variables, context);
+      },
+      onError: (err, _variables, _context) => {
+        toast.error(err.message);
+      },
+    }
+  );
+};
+
+export const useChangePassword = ({ id, onSuccess }) => {
+  const history = useNavigate();
+
+  return useMutation(
+    ['changePassword'],
+    ({newPassword, confirmPassword}) => changePassword(id, newPassword, confirmPassword),
+    {
+      onSuccess: (data, variables, context) => {
+        toast.success('Password changed successfully');
         history(`/login`);
         onSuccess && onSuccess(data, variables, context);
       },
