@@ -45,6 +45,7 @@ export const useLogin = ({ onSuccess }) => {
       },
       onError: (err, _variables, _context) => {
         toast.error(err.message);
+        console.log(err)
       },
     }
   );
