@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFormik } from "formik";
 import { changePasswordSchema, resetPasswordSchema } from "./resetPasswordValidationSchema";
-import { useChangePassword, useResetPassword } from "../../../hooks/auth/useAuth";
+import { useResetPassword, useVerifyResetPassword } from "../../../hooks/auth/useAuth";
 
 export const useResetPasswordForm = () => {
   const [loading, setLoading] = useState(false);
@@ -40,7 +40,7 @@ export const useResetPasswordForm = () => {
   };
 };
 
-export const useChangePasswordForm = (id) => {
+export const useVerifyResetPasswordForm = (id) => {
   const [loading, setLoading] = useState(false);
   const [showValues, setShowValues] = useState({
     newPassword: '',
@@ -48,7 +48,7 @@ export const useChangePasswordForm = (id) => {
     showPassword: false,
   });
 
-  const { mutate } = useChangePassword({id});
+  const { mutate } = useVerifyResetPassword({id});
   const formik = useFormik({
     initialValues: {
       id: id,

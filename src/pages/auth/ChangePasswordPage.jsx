@@ -1,22 +1,79 @@
 import React from "react";
-import { Grid, TextField, IconButton } from "@mui/material";
+import { Grid, TextField, IconButton, Typography } from "@mui/material";
 import { Box, InputAdornment } from "@mui/material";
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import ResetPaassword from "../../assets/reset-Paassword.png";
 import { useNavigate, useParams } from "react-router-dom";
-import { useChangePasswordForm } from "../../form/auth/reset-password/useResetPasswordForm";
-import Checkbox from '@mui/material/Checkbox';
+import {useVerifyResetPasswordForm} from "../../form/auth/reset-password/useResetPasswordForm";
+import Checkbox from "@mui/material/Checkbox";
+import passwordValidation from "./validation/passwordValidation";
 
-const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+// function Validation(props) {
+//   const label = { inputProps: { "aria-label": "Checkbox demo" } };
+
+//   return (
+//     <>
+//       <div className={props.validated ? "validated" : "not-validated"}>
+//         <Typography variant="p" gutterBottom sx={{ color: "#888888" }}>
+//           {props.validated ? (
+//             <>
+//               <Checkbox {...label} sx={{ color: "green" }} />
+//               {props.message}
+//             </>
+//           ) : (
+//             <>
+//               <Checkbox {...label} sx={{ color: "red" }} />
+//               {props.message}
+//             </>
+//           )}
+//         </Typography>
+//       </div>
+//     </>
+//   );
+// }
+
+function Validation(props) {
+
+  return (
+    <>
+      <div className={props.validated ? "validated" : "not-validated"}>
+        <Typography variant="body1" gutterBottom sx={{ color: props.validated ? "green" : "red" }}>
+          <Checkbox
+          checked={props?.validated}
+           color={props.validated ? "success" : "error"}           
+            />
+          {props.message}
+        </Typography>
+      </div>
+    </>
+  );
+}
+
+
 const ChangePasswordPage = () => {
   const { id } = useParams();
-  const { formik, loading, showValues, handleClickShowPassword, handleMouseDownPassword } = useChangePasswordForm(id);
+  const {
+    formik,
+    loading,
+    showValues,
+    handleClickShowPassword,
+    handleMouseDownPassword,
+  } = useVerifyResetPasswordForm(id);
   const history = useNavigate();
 
   const handleClick = () => {
     history("/login");
   };
+
+  const {
+    lowerValidated,
+    upperValidated,
+    numberValidated,
+    specialValidated,
+    lengthValidated,
+    handleChangeValidation,
+  } = passwordValidation();
 
   return (
     <Box
@@ -62,7 +119,10 @@ const ChangePasswordPage = () => {
           <TextField
             required
             value={formik.values.newPassword}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.handleChange(e);
+              handleChangeValidation(e.target.value);
+            }}
             error={
               formik.touched.newPassword && Boolean(formik.errors.newPassword)
             }
@@ -72,15 +132,15 @@ const ChangePasswordPage = () => {
             label="New password"
             fullWidth
             variant="outlined"
-            type={showValues.showPassword ? 'text' : 'password'}
+            type={showValues.showPassword ? "text" : "password"}
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position="end">
                   <IconButton
-                    aria-label='toggle password visibility'
+                    aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
-                    edge='end'
+                    edge="end"
                   >
                     {showValues.showPassword ? (
                       <VisibilityOff />
@@ -92,13 +152,13 @@ const ChangePasswordPage = () => {
               ),
             }}
           />
-          <Grid container>
-            Must have one: 
-          <Checkbox {...label} /> Uppercase
-          <Checkbox {...label} /> Lowecase
-          <Checkbox {...label} /> Character
-          <Checkbox {...label} /> Number
-
+          <Grid container alignItems="center">
+            Must have one:
+            <Validation validated={lowerValidated} message="Lowercase" />
+            <Validation validated={upperValidated} message="Uppercase" />
+            <Validation validated={numberValidated} message="Number" />
+            <Validation validated={specialValidated} message="Character" />
+            <Validation validated={lengthValidated} message="Length" />
           </Grid>
           <TextField
             required
@@ -116,23 +176,23 @@ const ChangePasswordPage = () => {
             label="Re-enter password"
             fullWidth
             variant="outlined"
-            type={showValues.showPassword ? 'text' : 'password'}
+            type={showValues.showPassword ? "text" : "password"}
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
-                <IconButton
-                  aria-label='toggle password visibility'
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge='end'
-                >
-                  {showValues.showPassword ? (
-                    <VisibilityOff />
-                  ) : (
-                    <Visibility />
-                  )}
-                </IconButton>
-              </InputAdornment>
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showValues.showPassword ? (
+                      <VisibilityOff />
+                    ) : (
+                      <Visibility />
+                    )}
+                  </IconButton>
+                </InputAdornment>
               ),
             }}
           />

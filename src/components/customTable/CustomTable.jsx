@@ -85,10 +85,6 @@ const CustomTable = (props) => {
   const theme = useTheme();
 
   const getRowProps = (row, rowIndex) => {
-    console.log(
-      '🚀 ~ file: CustomTable.jsx:88 ~ getRowProps ~ rowIndex:',
-      rowIndex
-    );
     // Calculate background color based on rowIndex
     const backgroundColor =
       rowIndex % 2 === 0

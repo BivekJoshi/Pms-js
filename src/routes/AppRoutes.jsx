@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
 import Spinner from "../components/spinner/Spinner";
 import ProfileTesting from "../pages/profile/ProfileTesting";
+import Company from "../pages/company/Company";
 
 const LoginLayout = React.lazy(() => import("../layout/LoginLayout"));
 const AppLayout = React.lazy(() => import("../layout/AppLayout"));
@@ -53,6 +54,7 @@ export default function AppRoutes() {
             <Route path="portfolio" element={<Portfolio />} />
             <Route path="alert" element={<Alert />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="company/:id" element={<Company />} />
           </Route>
         </Routes>
       </Suspense>

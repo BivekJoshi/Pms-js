@@ -81,7 +81,6 @@ const ReceiptPayment = () => {
 
 
   const handleSearch = (formValues) => {
-    console.log("formValues",formValues);
     const epochDateFrom = formValues.dateFrom
       ? new Date(formValues.dateFrom).getTime() / 1000
       : null;

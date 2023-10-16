@@ -8,7 +8,6 @@ import CustomTable from '../../components/customTable/CustomTable';
 const Research = () => {
   const dispatch = useDispatch();
   const tableData = useSelector((store) => store?.generic);
-  console.log(tableData);
 
   const filterMenuItem = [
     {
