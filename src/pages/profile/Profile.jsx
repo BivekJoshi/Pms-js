@@ -292,7 +292,7 @@ const Profile = () => {
           Notification
         </TabPanel>
         <TabPanel value="3">
-          Subscription
+          <SubscriptionTab/>
         </TabPanel>
         <TabPanel value="4">
         <ForgetPassword />
