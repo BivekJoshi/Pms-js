@@ -121,7 +121,6 @@ const Profile = () => {
                     alignItems: "flex-start",
                     padding: ".2",
                     backgroundColor: value === "1" ? theme.palette.primary.main : "transparent", 
-                    color: value === "1" ? theme.palette.primary.contrastText : theme.palette.text.main, 
                     borderRadius:".5rem"
                   }}
                 />
@@ -141,7 +140,6 @@ const Profile = () => {
                     alignItems: 'flex-start',
                     padding: ".2",
                     backgroundColor: value === "2" ? theme.palette.primary.main : "transparent", 
-                    color: value === "2" ? theme.palette.primary.contrastText : theme.palette.text.main,
                     borderRadius:".5rem"
                   }}
                 />
@@ -159,7 +157,6 @@ const Profile = () => {
                     alignItems: 'flex-start',
                     padding: ".2",
                     backgroundColor: value === "3" ? theme.palette.primary.main : "transparent", 
-                    color: value === "3" ? theme.palette.primary.contrastText : theme.palette.text.main,
                     borderRadius:".5rem"
                   }}
                 />
@@ -177,7 +174,6 @@ const Profile = () => {
                     alignItems: 'flex-start',
                     padding: ".2",
                     backgroundColor: value === "4" ? theme.palette.primary.main : "transparent", 
-                    color: value === "4" ? theme.palette.primary.contrastText : theme.palette.text.main, 
                     borderRadius:".5rem"
                   }}
                 />
@@ -207,7 +203,6 @@ const Profile = () => {
                     height: '0',
                     alignItems: 'flex-start',
                     backgroundColor: value === "5" ? theme.palette.primary.main : "transparent", 
-                    color: value === "5" ? theme.palette.primary.contrastText : theme.palette.text.main, 
                     borderRadius:".5rem"
                   }}
                 />
@@ -225,7 +220,6 @@ const Profile = () => {
                     alignItems: 'flex-start',
                     padding: ".2",
                     backgroundColor: value === "6" ? theme.palette.primary.main : "transparent", 
-                    color: value === "6" ? theme.palette.primary.contrastText : theme.palette.text.main,
                     borderRadius:".5rem"
                   }}
                 />
@@ -243,7 +237,6 @@ const Profile = () => {
                     alignItems: 'flex-start',
                     padding: ".2",
                     backgroundColor: value === "7" ? theme.palette.primary.main : "transparent", 
-                    color: value === "7" ? theme.palette.primary.contrastText : theme.palette.text.main,
                     borderRadius:".5rem"
                   }}
                 />
@@ -261,7 +254,6 @@ const Profile = () => {
                     alignItems: 'flex-start',
                     padding: ".2",
                     backgroundColor: value === "8" ? theme.palette.primary.main : "transparent", 
-                    color: value === "8" ? theme.palette.primary.contrastText : theme.palette.text.main,
                     borderRadius:".5rem"
                   }}
                 />
@@ -292,7 +284,6 @@ const Profile = () => {
                     alignItems: 'flex-start',
                     padding: ".2",
                     backgroundColor: value === "9" ? theme.palette.primary.main : "transparent", 
-                    color: value === "9" ? theme.palette.primary.contrastText : theme.palette.text.main,
                     borderRadius:".5rem"
                   }}
                 />
@@ -310,7 +301,6 @@ const Profile = () => {
                     alignItems: 'flex-start',
                     padding: ".2",
                     backgroundColor: value === "10" ? theme.palette.primary.main : "transparent", 
-                    color: value === "10" ? theme.palette.primary.contrastText : theme.palette.text.main,
                     borderRadius:".5rem"
                   }}
                 />
