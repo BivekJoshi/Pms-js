@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import { useChangePassword } from "../../../hooks/auth/useChangePassword";
 import { useState } from "react";
+import { changepasswordSchema } from "./changepasswordSchema";
 
 export const useChangePasswordForm = () => {
   const [loading, setLoading] = useState(false);
@@ -17,7 +18,7 @@ export const useChangePasswordForm = () => {
       newPassword: "",
       rePassword: "",
     },
-    // validationSchema: validateSchema,
+    validationSchema: changepasswordSchema,
     onSubmit: (values) => {
       setLoading(true);
       handleRegister(values);

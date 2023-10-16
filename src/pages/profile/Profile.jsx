@@ -22,10 +22,14 @@ import Transactions from "./transaction/Transactions";
 import Bill from "./bill/Bill";
 import ReceiptPayment from "./receipt-payment/ReceiptPayment";
 import Statement from "./statement/Statement";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const theme = useTheme();
   const [value, setValue] = useState("1");
+
+  const userDetail=useSelector((store)=>store.user.details)
+  console.log(userDetail,"Details");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
