@@ -1,5 +1,3 @@
-export 
-
 export const lineData = [
   {
     name: 'ILBS',
