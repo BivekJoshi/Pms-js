@@ -14,7 +14,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../utility/logout';
 import { useNavigate } from 'react-router-dom';
-
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 const NavabarProfile = () => {
   const [anchorEl, setAnchorEl] = useState(false);
 
@@ -37,8 +37,8 @@ const NavabarProfile = () => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
       <Tooltip title='Account settings'>
-        <IconButton onClick={handleClick} size='small'>
-          <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+        <IconButton onClick={handleClick}>
+          <PermIdentityIcon sx={{ width: '24px', height: '24px' }} />
         </IconButton>
       </Tooltip>
 
@@ -78,8 +78,8 @@ const NavabarProfile = () => {
       >
         <MenuItem
           onClick={() => {
-            handleClose(); // Close the menu
-            navigate('/profile'); // Navigate to the '/profile' URL
+            navigate('/profile');
+            handleClose();
           }}
         >
           <ListItemAvatar>

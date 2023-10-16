@@ -17,7 +17,9 @@ import {
   Drawer,
   TextField,
   Autocomplete,
+  Tooltip,
 } from '@mui/material';
+
 import FlexBetween from '../flexBetween/FlexBetween';
 import logo from '../../assets/logo.png';
 import { useNavigate } from 'react-router';
@@ -92,7 +94,7 @@ const Navbar = () => {
       symbolsArray.push({ index: key, ...listedCompanies[key] });
     }
   }
-  const symbols = symbolsArray.map((item) => item.symbol);
+  const symbols = symbolsArray.map((item) => item.companyInfo);
 
   return (
     <AppBar
@@ -173,9 +175,11 @@ const Navbar = () => {
         <FlexBetween gap='12px'>
           <div>
             <React.Fragment>
-              <IconButton onClick={toggleDrawer('right', true)}>
-                <SettingsOutlined sx={{ fontSize: '25px' }} />
-              </IconButton>
+              <Tooltip title='App settings'>
+                <IconButton onClick={toggleDrawer('right', true)}>
+                  <SettingsOutlined sx={{ fontSize: '25px' }} />
+                </IconButton>
+              </Tooltip>
               <Drawer
                 anchor='right'
                 open={state['right']}
