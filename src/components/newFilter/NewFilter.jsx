@@ -1,6 +1,6 @@
-import { Field, Form, Formik } from "formik";
-import React from "react";
-import CustomDatePicker from "../customDatePicker/CustomDatePicker";
+import { Field, Form, Formik } from 'formik';
+import React from 'react';
+import CustomDatePicker from '../customDatePicker/CustomDatePicker';
 import {
   Button,
   FormControl,
@@ -9,28 +9,28 @@ import {
   MenuItem,
   Select,
   TextField,
-} from "@mui/material";
-import InputType from "../inputType/InputType";
+} from '@mui/material';
+import InputType from '../inputType/InputType';
 
 const NewFilter = ({ inputField, searchCallBack }) => {
+  const initialValues = inputField.reduce((acc, item) => {
+    acc[item.name] = '';
+    return acc;
+  }, {});
   return (
     <div>
       <Formik
-        initialValues={{
-          dateFrom: "",
-          dateTo: "",
-          type: "",
-        }}
+        initialValues={initialValues}
         onSubmit={(values) => {
           searchCallBack(values);
         }}
       >
         <Form>
-          <Grid container spacing={2} alignItems={"center"}>
+          <Grid container spacing={2} alignItems={'center'}>
             {inputField?.map((element, index) => {
               return (
                 <Grid item sm={element?.sm} md={element?.md} key={index}>
-                  {element?.type === "date-picker" ? (
+                  {element?.type === 'date-picker' ? (
                     <CustomDatePicker
                       name={element?.name}
                       label={element?.label}
@@ -38,13 +38,13 @@ const NewFilter = ({ inputField, searchCallBack }) => {
                       max={element?.max}
                       required={element?.required}
                     />
-                  ) : element?.type === "input-type" ? (
+                  ) : element?.type === 'input-type' ? (
                     <InputType
-                    name={element?.name}
-                    label={element?.label}
-                    min={element?.min}
-                    max={element?.max}
-                    required={element?.required}
+                      name={element?.name}
+                      label={element?.label}
+                      min={element?.min}
+                      max={element?.max}
+                      required={element?.required}
                     />
                   ) : (
                     <TextField name={element?.name} label={element?.label} />
@@ -53,7 +53,7 @@ const NewFilter = ({ inputField, searchCallBack }) => {
               );
             })}
             <Grid item sm={3}>
-              <Button type="submit" variant="contained">
+              <Button type='submit' variant='contained'>
                 Submit
               </Button>
             </Grid>
