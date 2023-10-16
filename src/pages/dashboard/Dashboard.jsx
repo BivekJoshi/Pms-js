@@ -2,7 +2,7 @@ import { Box, Grid, useTheme } from '@mui/material';
 import React from 'react';
 import Card from '../../components/dashboardComponents/Card';
 import CardInfo from '../../components/dashboardComponents/CardInfo';
-import { barData, lineData, summaryData } from './data';
+import { barData, lineData } from './data';
 import LineChartDash from '../../components/dashboardComponents/LineChart';
 import BarChartDash from '../../components/dashboardComponents/BarChart';
 
@@ -13,7 +13,7 @@ const Dashboard = () => {
     <Grid container spacing={4}>
       <Grid item xs={12} md={4} lg={4} xl={4}>
         {' '}
-        <Card data={summaryData} />{' '}
+        <Card />{' '}
       </Grid>
       <Grid item xs={12} md={8} lg={8} xl={8}>
         {' '}
