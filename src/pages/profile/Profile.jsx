@@ -117,9 +117,12 @@ const Profile = () => {
                   value='1'
                   style={{
                     color: theme.palette.text.main,
-                    height: '0',
-                    alignItems: 'flex-start',
-                    paddingLeft: '0',
+                    height: "0",
+                    alignItems: "flex-start",
+                    padding: ".2",
+                    backgroundColor: value === "1" ? theme.palette.primary.main : "transparent", 
+                    color: value === "1" ? theme.palette.primary.contrastText : theme.palette.text.main, 
+                    borderRadius:".5rem"
                   }}
                 />
                 <Tab
@@ -136,7 +139,10 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    paddingLeft: '0',
+                    padding: ".2",
+                    backgroundColor: value === "2" ? theme.palette.primary.main : "transparent", 
+                    color: value === "2" ? theme.palette.primary.contrastText : theme.palette.text.main,
+                    borderRadius:".5rem"
                   }}
                 />
                 <Tab
@@ -151,7 +157,10 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    paddingLeft: '0',
+                    padding: ".2",
+                    backgroundColor: value === "3" ? theme.palette.primary.main : "transparent", 
+                    color: value === "3" ? theme.palette.primary.contrastText : theme.palette.text.main,
+                    borderRadius:".5rem"
                   }}
                 />
                 <Tab
@@ -166,7 +175,10 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    paddingLeft: '0',
+                    padding: ".2",
+                    backgroundColor: value === "4" ? theme.palette.primary.main : "transparent", 
+                    color: value === "4" ? theme.palette.primary.contrastText : theme.palette.text.main, 
+                    borderRadius:".5rem"
                   }}
                 />
               </Tabs>
@@ -194,7 +206,9 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    paddingLeft: '0',
+                    backgroundColor: value === "5" ? theme.palette.primary.main : "transparent", 
+                    color: value === "5" ? theme.palette.primary.contrastText : theme.palette.text.main, 
+                    borderRadius:".5rem"
                   }}
                 />
                 <Tab
@@ -209,7 +223,10 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    paddingLeft: '0',
+                    padding: ".2",
+                    backgroundColor: value === "6" ? theme.palette.primary.main : "transparent", 
+                    color: value === "6" ? theme.palette.primary.contrastText : theme.palette.text.main,
+                    borderRadius:".5rem"
                   }}
                 />
                 <Tab
@@ -224,7 +241,10 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    paddingLeft: '0',
+                    padding: ".2",
+                    backgroundColor: value === "7" ? theme.palette.primary.main : "transparent", 
+                    color: value === "7" ? theme.palette.primary.contrastText : theme.palette.text.main,
+                    borderRadius:".5rem"
                   }}
                 />
                 <Tab
@@ -239,7 +259,10 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    paddingLeft: '0',
+                    padding: ".2",
+                    backgroundColor: value === "8" ? theme.palette.primary.main : "transparent", 
+                    color: value === "8" ? theme.palette.primary.contrastText : theme.palette.text.main,
+                    borderRadius:".5rem"
                   }}
                 />
               </Tabs>
@@ -267,7 +290,10 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    paddingLeft: '0',
+                    padding: ".2",
+                    backgroundColor: value === "9" ? theme.palette.primary.main : "transparent", 
+                    color: value === "9" ? theme.palette.primary.contrastText : theme.palette.text.main,
+                    borderRadius:".5rem"
                   }}
                 />
                 <Tab
@@ -282,7 +308,10 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    paddingLeft: '0',
+                    padding: ".2",
+                    backgroundColor: value === "10" ? theme.palette.primary.main : "transparent", 
+                    color: value === "10" ? theme.palette.primary.contrastText : theme.palette.text.main,
+                    borderRadius:".5rem"
                   }}
                 />
               </Tabs>

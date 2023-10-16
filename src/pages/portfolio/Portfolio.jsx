@@ -1,11 +1,10 @@
-import React, { useMemo } from 'react';
-import CustomTable from '../../components/customTable/CustomTable';
-import { Box, Grid, Typography, useTheme } from '@mui/material';
+import React, { useMemo } from "react";
+import CustomTable from "../../components/customTable/CustomTable";
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import {
   useGetTransactionPortfolio,
   useGetUserenPortfolio,
-} from '../../hooks/portfolio/usePortfolio';
-import CButton from '../../components/button/CButton';
+} from "../../hooks/portfolio/usePortfolio";
 
 const Portfolio = () => {
   const theme = useTheme();
@@ -15,42 +14,42 @@ const Portfolio = () => {
     () => [
       {
         id: 1,
-        accessorKey: 'script',
-        header: 'Symbol',
+        accessorKey: "script",
+        header: "Symbol",
         size: 100,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: 'quantity',
-        header: 'Quantity',
+        accessorKey: "quantity",
+        header: "Quantity",
         size: 100,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: 'ltp',
-        header: 'LTP',
+        accessorKey: "ltp",
+        header: "LTP",
         size: 100,
         sortable: false,
       },
       {
         id: 4,
-        accessorKey: 'changePercent',
-        header: 'Change Percent',
+        accessorKey: "changePercent",
+        header: "Change Percent",
         size: 100,
         sortable: false,
       },
       {
         id: 5,
-        accessorKey: 'previousClose',
-        header: 'Close',
+        accessorKey: "previousClose",
+        header: "Close",
         size: 100,
         sortable: false,
       },
       {
         id: 6,
-        header: 'Total Gain/Loss',
+        header: "Total Gain/Loss",
         size: 100,
         sortable: false,
       },
@@ -62,7 +61,7 @@ const Portfolio = () => {
       },
       {
         id: 8,
-        header: 'Market Value',
+        header: "Market Value",
         size: 100,
         sortable: false,
         Cell: ({ row }) => {
@@ -97,37 +96,38 @@ const Portfolio = () => {
       <Box
         bgcolor={theme.palette.background.alt}
         style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginBottom: '1rem',
-          padding: '1rem 1rem',
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "1rem",
+          padding: "1rem 1rem",
         }}
       >
         <Box>
-          <Typography variant='h6'>Name: Sagar Pradhan</Typography>
-          <Typography variant='h6'>980000000</Typography>
+          <Typography variant="h6">Name: Sagar Pradhan</Typography>
+          <Typography variant="h6">980000000</Typography>
         </Box>
         <Box>
-          <Typography variant='h6'>Market Value</Typography>
-          <Typography variant='h6'>+ 87422.00</Typography>
+          <Typography variant="h6">Market Value</Typography>
+          <Typography variant="h6">+ 87422.00</Typography>
         </Box>
         <Box>
-          <Typography variant='h6'>Today Change</Typography>
-          <Typography variant='h6'>+ 493.00</Typography>
+          <Typography variant="h6">Today Change</Typography>
+          <Typography variant="h6">+ 493.00</Typography>
         </Box>
         <Box>
-          <Typography variant='h6'>Overall return</Typography>
-          <Typography variant='h6'>+ 50004.43</Typography>
+          <Typography variant="h6">Overall return</Typography>
+          <Typography variant="h6">+ 50004.43</Typography>
         </Box>
-        <CButton
-          title={'Exports'}
-          bgcolor={theme.palette.background.btn}
-          maxWidth={'fit-content'}
-        />
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "#401686", color: "#fff" }}
+        >
+          Export
+        </Button>
       </Box>
       {!isLoading ? (
         <CustomTable
-          title='Portfolio'
+          title="Portfolio"
           columns={columns}
           data={userPorfolioData}
           isLoading={isLoading}
@@ -135,8 +135,8 @@ const Portfolio = () => {
       ) : (
         <Box
           sx={{
-            width: 'cover',
-            height: '84px',
+            width: "cover",
+            height: "84px",
             backgroundColor: theme.palette.background.alt,
           }}
         />
