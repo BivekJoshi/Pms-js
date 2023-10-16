@@ -28,6 +28,7 @@ const ChangePasswordPage = React.lazy(() =>
 const ApplicationMessage = React.lazy(() =>
   import('../pages/auth/ApplicationMessage')
 );
+import ErrorPage from './../pages/error-page/ErrorPage';
 
 export default function AppRoutes() {
   return (
@@ -54,6 +55,7 @@ export default function AppRoutes() {
             <Route path='alert' element={<Alert />} />
             <Route path='profile' element={<Profile />} />
           </Route>
+          <Route path='/error-page' element={<ErrorPage />} />
         </Routes>
       </Suspense>
     </HashRouter>
