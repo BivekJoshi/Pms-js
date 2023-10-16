@@ -74,7 +74,7 @@ const SubscriptionCard = ({ section, index }) => {
             </Typography>
           </div>
         </div>
-        {index !== 1 && (
+        {index !== 0 && (
         <div
             style={{
               display: "flex",
