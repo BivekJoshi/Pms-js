@@ -11,6 +11,7 @@ import {
   resendVerification,
 } from '../../api/auth/auth-api';
 import { useDispatch } from 'react-redux';
+import { getErrorMessage } from '../../utility/getErrorMessage';
 
 export const useLogin = ({ onSuccess }) => {
   const history = useNavigate();
@@ -20,7 +21,6 @@ export const useLogin = ({ onSuccess }) => {
     ({ email, brokerNo, password }) => login(email, brokerNo, password),
     {
       onSuccess: (data, variables, context) => {
-        console.log('🚀 ~ file: useAuth.js:15 ~ useLogin ~ data:', data);
         dispatch({ type: 'USER_LOGIN', payload: data.data });
         window.localStorage.setItem(
           'auth',
@@ -44,8 +44,7 @@ export const useLogin = ({ onSuccess }) => {
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
-        toast.error(err.message);
-        console.log(err)
+        toast.error(getErrorMessage(err));
       },
     }
   );
@@ -129,7 +128,8 @@ export const useResetPassword = ({ onSuccess }) => {
 
   return useMutation(
     ['resetPassword'],
-    ({brokerNo, email, nepseCode}) => resetPassword(brokerNo, email, nepseCode),
+    ({ brokerNo, email, nepseCode }) =>
+      resetPassword(brokerNo, email, nepseCode),
     {
       onSuccess: (data, variables, context) => {
         toast.success('Code sent to your email successfully');
@@ -148,7 +148,8 @@ export const useChangePassword = ({ id, onSuccess }) => {
 
   return useMutation(
     ['changePassword'],
-    ({newPassword, confirmPassword}) => changePassword(id, newPassword, confirmPassword),
+    ({ newPassword, confirmPassword }) =>
+      changePassword(id, newPassword, confirmPassword),
     {
       onSuccess: (data, variables, context) => {
         toast.success('Password changed successfully');
