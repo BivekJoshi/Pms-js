@@ -12,8 +12,18 @@ import { fetchPaginatedTable } from '../../../redux/actions/paginatedTable';
 const ReceiptPayment = () => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
-  const tableData = useSelector((store) => store?.generic?.data?.content);
-  const isLoading = useSelector((store) => store?.generic?.processing);
+  const tableData = useSelector((store) => store?.paginatedTable?.data);
+  console.log(
+    '🚀 ~ file: ReceiptPayment.jsx:16 ~ ReceiptPayment ~ tableData:',
+    tableData
+  );
+  const isLoading = useSelector((store) => store?.paginatedTable?.processing);
+  const totalData = useSelector((store) => store?.paginatedTable?.total);
+  const totalPages = useSelector((store) => store?.paginatedTable?.pages);
+  const currentPage = useSelector((store) => store?.paginatedTable?.page);
+
+  const pageSize = useSelector((store) => store?.paginatedTable?.itemsPerPage);
+
   const [params, setParams] = useState();
   const columns = useMemo(
     () => [
@@ -99,17 +109,16 @@ const ReceiptPayment = () => {
         dateTo,
       };
       setParams(updatedFormValues);
-      setTableShow(true);
       try {
         dispatch(
           fetchPaginatedTable(
             RECEIPT_TRANSACTION,
             updatedFormValues,
             null,
-            'voucherNo',
-            'voucherNo'
+            'unique'
           )
         );
+        setTableShow(true);
       } catch (error) {
         toast.error(error);
       }
@@ -122,28 +131,41 @@ const ReceiptPayment = () => {
     <>
       <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
       <Box marginTop={2}>
-        {tableShow ? (
-          <CustomTable
-            title='Receipt Report'
-            columns={columns}
-            isLoading={isLoading}
-            data={tableData}
-          />
-        ) : null}
-        <CustomPagination
-          page={500}
-          pages={20}
-          handleChangePage={(newPage) => {
-            dispatch(
-              fetchPaginatedTable(
-                RECEIPT_TRANSACTION,
-                params,
-                newPage,
-                'amount'
-              )
-            );
-          }}
-        />
+        {tableShow && (
+          <>
+            <CustomTable
+              title='Receipt Report'
+              columns={columns}
+              isLoading={isLoading}
+              data={Object.values(tableData)}
+              pageSize={pageSize}
+            />
+            <div
+              style={{
+                paddingTop: '16px',
+                display: 'flex',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <CustomPagination
+                pages={totalPages}
+                activePage={currentPage}
+                handleChangePage={(newPage) => {
+                  dispatch(
+                    fetchPaginatedTable(
+                      RECEIPT_TRANSACTION,
+                      params,
+                      newPage,
+                      'unique',
+                      null,
+                      totalData
+                    )
+                  );
+                }}
+              />
+            </div>
+          </>
+        )}
       </Box>
     </>
   );
