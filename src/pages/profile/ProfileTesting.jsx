@@ -1,22 +1,20 @@
-import React, { useState } from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Button, Grid, useTheme } from "@mui/material";
-import profile from "../../assets/profilePicture.png";
-import Camera from "../../assets/camera.png";
+import { Grid, useTheme } from "@mui/material";
 
-function TabPanel(props) {
+function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -28,7 +26,7 @@ function TabPanel(props) {
   );
 }
 
-TabPanel.propTypes = {
+CustomTabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
@@ -36,142 +34,69 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-const ProfileTesting = () => {
+
+const Profile = () => {
+  const [value, setValue] = React.useState(0);
   const theme = useTheme();
-  const [value, setValue] = useState();
-  const [generalValue, setGeneralValue] = useState();
-  const [activitiesValue, setActivitiesValue] = useState();
-  const [moreValue, setMoreValue] = useState();
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <Box
       display="grid"
-      gridTemplateColumns="2fr 7fr"
-      gap="4rem"
-      mt="2rem"
+      gridTemplateColumns="2fr 10fr"
+      gap="1rem"
+      mt="1.8rem"
       color={theme.palette.text.main}
     >
-      <Box display="flex" flexDirection="column" gap="2rem" width="22rem">
-        <Grid
-          display="flex"
-          flexDirection="row"
-          color={theme.palette.text.main}
-          bgcolor={theme.palette.background.alt}
-          alignItems="center"
-          gap="2rem"
-          height="136px"
-          justifyContent="space-evenly"
-          borderRadius="4px"
-          position="relative"
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
+          sx={{ display: "flex", flexDirection: "column" }}
         >
-          <img
-            src={profile}
-            alt="statusSuccess.png"
-            height="135px"
-            width="135px"
-            style={{ borderRadius: "312.5px" }}
+          <Tab
+            label={
+              <Grid className="profileIcon">
+                <img src={UpdateProfile} alt="UpdateProfile" />
+                <Typography variant="h7">Update Profile</Typography>
+              </Grid>
+            }
+            style={{
+              color: theme.palette.text.main,
+              height: "0",
+              alignItems: "flex-start",
+              padding: ".2",
+              backgroundColor:
+                value === "1" ? theme.palette.primary.main : "transparent",
+              borderRadius: ".5rem",
+            }}
+            {...a11yProps(0)}
           />
-          <img
-            src={Camera}
-            alt="Camera"
-            style={{ position: "absolute", bottom: "1rem", left: "3.7rem" }}
-          />
-          <Grid display="flex" flexDirection="column" gap="8px">
-            <Typography variant="h4">Bipeen Joshi</Typography>
-            <Typography variant="h7">Bipeenaa23@gmail.com</Typography>
-            <Typography variant="h7">9876543210</Typography>
-            <Button
-              sx={{
-                bgcolor: "#FFDCBC",
-                border: "1px solid #7A757F",
-                borderRadius: "4px",
-                width: "60px",
-                height: "20px",
-                color: "black",
-              }}
-            >
-              Basic
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid bgcolor={theme.palette.background.alt} p="1rem 2rem">
-          <Grid display="flex" flexDirection="column">
-            <Typography variant="h4">General</Typography>
-            <Tabs
-              orientation="vertical"
-              value={generalValue}
-              onChange={(event, newValue) => setGeneralValue(newValue)}
-              aria-label="General Tabs"
-            >
-              <Tab label="Update Profile" {...a11yProps(0)} />
-              <Tab label="Notification Configuration" {...a11yProps(1)} />
-              <Tab label="Subscription" {...a11yProps(2)} />
-            </Tabs>
-          </Grid>
-
-          <Grid display="flex" flexDirection="column">
-            <Typography variant="h4">Activities</Typography>
-            <Tabs
-              orientation="vertical"
-              value={activitiesValue}
-              onChange={(event, newValue) => setActivitiesValue(newValue)}
-              aria-label="Activities Tabs"
-            >
-              <Tab label="Change Password" {...a11yProps(3)} />
-              <Tab label="Activities" {...a11yProps(4)} />
-              <Tab label="Transaction" {...a11yProps(5)} />
-            </Tabs>
-          </Grid>
-
-          <Grid display="flex" flexDirection="column">
-            <Typography variant="h4">More</Typography>
-            <Tabs
-              orientation="vertical"
-              value={moreValue}
-              onChange={(event, newValue) => setMoreValue(newValue)}
-              aria-label="More Tabs"
-            >
-              <Tab label="Bill" {...a11yProps(6)} />
-              <Tab label="Statement" {...a11yProps(7)} />
-              <Tab label="Receipt/Payment" {...a11yProps(8)} />
-            </Tabs>
-          </Grid>
-        </Grid>
+          <Tab label="Item Two" {...a11yProps(1)} />
+          <Tab label="Item Three" {...a11yProps(2)} />
+        </Tabs>
       </Box>
       <Box>
-        <TabPanel value={generalValue} index={0}>
+        <CustomTabPanel value={value} index={0}>
           Item One
-        </TabPanel>
-        <TabPanel value={generalValue} index={1}>
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
           Item Two
-        </TabPanel>
-        <TabPanel value={generalValue} index={2}>
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={2}>
           Item Three
-        </TabPanel>
-        <TabPanel value={activitiesValue} index={3}>
-          Item Four
-        </TabPanel>
-        <TabPanel value={activitiesValue} index={4}>
-          Item Five
-        </TabPanel>
-        <TabPanel value={activitiesValue} index={5}>
-          Item Six
-        </TabPanel>
-        <TabPanel value={moreValue} index={6}>
-          Item Seven
-        </TabPanel>
-        <TabPanel value={moreValue} index={7}>
-          Item Eight
-        </TabPanel>
-        <TabPanel value={moreValue} index={8}>
-          Item Nine
-        </TabPanel>
+        </CustomTabPanel>
       </Box>
     </Box>
   );
 };
-export default ProfileTesting;
+
+export default Profile;

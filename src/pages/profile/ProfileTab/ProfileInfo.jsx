@@ -1,12 +1,9 @@
 import { useTheme } from "@emotion/react";
 import { Grid, Typography } from "@mui/material";
 import React from "react";
-import { useGetUserInfo } from "../../../hooks/portfolio/usePortfolio";
 
-const ProfileInfo = () => {
+const ProfileInfo = ({data}) => {
   const theme = useTheme();
-  const { data: userInfo, isloading } = useGetUserInfo();
-  console.log(userInfo,"userInfo");
 
   return (
     <Grid
@@ -50,22 +47,22 @@ const ProfileInfo = () => {
         </Grid>
         <Grid display="flex" flexDirection="column" gap="18px" width="100%">
           <Typography className="profileItem" variant="h6">
-            {userInfo?.clientName}
+            {data?.clientName}
           </Typography>
           <Typography className="profileItem" variant="h6">
-            {userInfo?.mobileNo}
+            {data?.mobileNo}
           </Typography>
           <Typography className="profileItem" variant="h6">
-            {userInfo?.mobileNo}
+            {data?.mobileNo}
           </Typography>
           <Typography className="profileItem" variant="h6">
-            {userInfo?.dpName||"-"}
+            {data?.dpName||"-"}
           </Typography>
           <Typography className="profileItem" variant="h6">
-            {userInfo?.dematNo}
+            {data?.dematNo}
           </Typography>
           <Typography className="profileItem" variant="h6">
-            {userInfo?.nepseCode}
+            {data?.nepseCode}
           </Typography>
         </Grid>
       </Grid>
@@ -98,10 +95,10 @@ const ProfileInfo = () => {
           </Grid>
           <Grid display="flex" flexDirection="column" gap="18px" width="100%">
             <Typography className="profileItem" variant="h6">
-              {userInfo?.bankName}
+              {data?.bankName}
             </Typography>
             <Typography className="profileItem" variant="h6">
-              {userInfo?.accountNo}
+              {data?.accountNo}
             </Typography>
             <Typography className="profileItem" variant="h6">
               Verified
