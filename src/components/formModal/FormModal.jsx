@@ -10,7 +10,7 @@ const FormModal = ({ open, onClose, formComponent, sx }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 1400,
     bgcolor: "background.paper",
     border: "1px solid #808080",
     borderRadius: 2,
