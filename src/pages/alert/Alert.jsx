@@ -261,7 +261,7 @@ const Alert = (props) => {
                     >
                       <FormControlLabel
                         control={
-                          <div style={{marginLeft:"10px"}}>
+                          <div style={{ marginLeft: "10px" }}>
                             {" "}
                             <label
                               style={{
@@ -380,7 +380,11 @@ const Alert = (props) => {
           </div>
         </TabPanel>
         <TabPanel value="2">
-          <ManageAlert script={symbols} alertType={alertType} />
+          <ManageAlert
+            script={symbols}
+            alertType={alertType}
+            companyList={symbolsArray}
+          />
         </TabPanel>
       </TabContext>
     </div>

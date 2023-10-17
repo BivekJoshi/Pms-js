@@ -1,6 +1,15 @@
 import React from "react";
 import { MaterialReactTable } from "material-react-table";
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  useTheme,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
+import { Delete, Edit } from "@mui/icons-material";
+import { useCallback } from "react";
 
 const CustomTable = (props) => {
   const theme = useTheme();
@@ -15,6 +24,9 @@ const CustomTable = (props) => {
       props?.onRowClick(row.original);
     }
   };
+  const handleDeleteRow = useCallback((row) => {
+    props.handleDelete(row);
+  }, []);
   return (
     <div data-aos="fade-up">
       <MaterialReactTable
@@ -40,6 +52,24 @@ const CustomTable = (props) => {
         enableSorting={props?.enableSorting}
         enableBottomToolbar={props?.enableBottomToolbar}
         enableTopToolbar={props?.enableTopToolbar}
+        renderRowActions={({ row, table }) => (
+          <Box sx={{ display: "flex", gap: "1rem" }}>
+            {props.edit && (
+              <Tooltip arrow placement="left" title="Edit">
+                <IconButton onClick={() => table.setEditingRow(row)}>
+                  <Edit />
+                </IconButton>
+              </Tooltip>
+            )}
+            {props.delete && (
+              <Tooltip arrow placement="right" title="Delete">
+                <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+                  <Delete />
+                </IconButton>
+              </Tooltip>
+            )}
+          </Box>
+        )}
         muiTableContainerProps={{
           sx: { maxHeight: props?.maxHeight || "600px" },
         }}
@@ -53,7 +83,7 @@ const CustomTable = (props) => {
         // enableRowSelection
         muiTableBodyRowProps={({ row }) => ({
           onClick: () => handleRowClick(row),
-          sx: { cursor: 'pointer' },
+          sx: { cursor: "pointer" },
         })}
         renderTopToolbarCustomActions={() => (
           <Box sx={{ display: "flex", gap: "1rem", p: "4px" }}>

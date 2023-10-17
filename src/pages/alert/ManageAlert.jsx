@@ -7,6 +7,7 @@ import { fetchData } from "../../redux/actions/genericData";
 import CustomTable from "../../components/customTable/CustomTable";
 import { useState } from "react";
 import { useMemo } from "react";
+import { DELETE_DATA } from "../../redux/types/types";
 
 const ManageAlert = (props) => {
   const [tableShow, setTableShow] = useState(false);
@@ -60,27 +61,45 @@ const ManageAlert = (props) => {
   );
   const handleSearch = (formValues) => {
     console.log(formValues);
-    dispatch(fetchData(`/live-market/stock-alert/${formValues.script}`));
+    dispatch(
+      fetchData(
+        `live-market/stock-alerts?script=${formValues.script}&alertType=${formValues.alertType}`
+      )
+    );
     setTableShow(true);
   };
-  const data = tableData ? [{ ...tableData }] : [];
+  const deleteData = () => {
+    dispatch({ type: DELETE_DATA });
+  };
   return (
     <div>
       <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
       <Box marginTop={2}>
-        {tableShow ? (
-          <CustomTable
-            title="Script"
-            enableColumnActions
-            columns={columns}
-            isLoading={isLoading}
-            enableEditing={true}
-            editingMode="row"
-            enableEdit
-            enableDelete
-            data={data}
-          />
-        ) : null}
+        {tableShow
+          ? tableData?.map((d) => {
+              const companyName = props.companyList?.find(
+                (data) => data.id === d.companyId
+              )?.companyInfo;
+              return (
+                <>
+                  <CustomTable
+                    title={companyName}
+                    enableColumnActions
+                    columns={columns}
+                    isLoading={isLoading}
+                    enableEditing={true}
+                    editingMode="row"
+                    enableEdit
+                    enableDelete
+                    data={d.stockAlertResponses}
+                    handleDelete={(data) => console.log(data)}
+                    edit
+                    delete
+                  />
+                </>
+              );
+            })
+          : null}
       </Box>
     </div>
   );
