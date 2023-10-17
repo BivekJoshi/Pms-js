@@ -29,7 +29,6 @@ const Profile = () => {
   const [value, setValue] = useState('1');
 
   const userDetail = useSelector((store) => store.user.details);
-  console.log(userDetail, 'Details');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

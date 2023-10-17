@@ -63,22 +63,14 @@ const PaginatedSelectReducer = (state = initialSate, action) => {
 };
 
 const fetchPaginatedSelectTable = (action) => {
-  console.log(
-    '🚀 ~ file: paginatedTableReducer.js:66 ~ fetchPaginatedSelectTable ~ action:',
-    action
-  );
   var stateClone = { ...initialSate };
   let updatedStateData = {};
   // For Client Upload
   let actualData = action.responseDatakey
-    ? action.payload.data[action.responseDatakey]
+    ? action.payload[action.responseDatakey]
     : action.payload.data
     ? action.payload.data
     : action.payload;
-  console.log(
-    '🚀 ~ file: paginatedTableReducer.js:70 ~ fetchPaginatedSelectTable ~ actualData:',
-    actualData
-  );
 
   updatedStateData = {
     ..._.mapKeys(actualData, action.key),
@@ -91,18 +83,12 @@ const fetchPaginatedSelectTable = (action) => {
     if (remainder > 0) pages = pages + 1;
   }
   stateClone.total = totalNoOfData ? totalNoOfData : action.payload.record;
-  if (action.payload.unmatchBank)
-    stateClone.extras.unmatchBank = action.payload.unmatchBank;
-  if (action.payload.both) stateClone.extras.both = action.payload.both;
+
   stateClone.page = action.page ? action.page : 0;
   stateClone.itemsPerPage = action.payload.pageSize || 1000;
   stateClone.processing = false;
   stateClone.pages = pages;
   stateClone.data = updatedStateData;
-  console.log(
-    '🚀 ~ file: paginatedTableReducer.js:95 ~ fetchPaginatedSelectTable ~ stateClone:',
-    stateClone
-  );
   return stateClone;
 };
 const fetchSummaryPaginationTable = (action) => {

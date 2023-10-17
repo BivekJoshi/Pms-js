@@ -1,20 +1,18 @@
-import React, { useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import NewFilter from "../../../components/newFilter/NewFilter";
-import CustomTable from "../../../components/customTable/CustomTable";
-import toast from "react-hot-toast";
-import {
-  Bill_TRANSACTION,
-} from "../../../api/urls/urls";
-import { fetchData } from "../../../redux/actions/transactionData";
-import { Box, Button, Modal } from "@mui/material";
-import FormModal from "../../../components/formModal/FormModal";
-import BillDetail from "./BillDetail";
+import React, { useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import NewFilter from '../../../components/newFilter/NewFilter';
+import CustomTable from '../../../components/customTable/CustomTable';
+import toast from 'react-hot-toast';
+import { Bill_TRANSACTION } from '../../../api/urls/urls';
+import { fetchData } from '../../../redux/actions/transactionData';
+import { Box, Button, Modal } from '@mui/material';
+import FormModal from '../../../components/formModal/FormModal';
+import BillDetail from './BillDetail';
 
 const Bill = () => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
-  const tableData = useSelector((store) => store?.generic?.data?.content);
+  const tableData = useSelector((store) => store?.generic?.data?.data);
   const isLoading = useSelector((store) => store?.generic?.processing);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
@@ -23,58 +21,58 @@ const Bill = () => {
     () => [
       {
         id: 1,
-        accessorKey: "trDate",
-        header: "Date",
+        accessorKey: 'trDate',
+        header: 'Date',
         size: 100,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: "billNo",
-        header: "Bill Number",
+        accessorKey: 'billNo',
+        header: 'Bill Number',
         size: 120,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: "trType",
-        header: "Transaction Type",
+        accessorKey: 'trType',
+        header: 'Transaction Type',
         size: 100,
         sortable: false,
       },
       {
         id: 4,
-        accessorKey: "script",
-        header: "Script",
+        accessorKey: 'script',
+        header: 'Script',
         size: 100,
         sortable: false,
       },
 
       {
         id: 5,
-        accessorKey: "buyQty",
-        header: "Buy Quantity",
+        accessorKey: 'buyQty',
+        header: 'Buy Quantity',
         size: 100,
         sortable: false,
       },
       {
         id: 6,
-        accessorKey: "sellQty",
-        header: "Sell Quantity",
+        accessorKey: 'sellQty',
+        header: 'Sell Quantity',
         size: 100,
         sortable: false,
       },
       {
         id: 7,
-        accessorKey: "amount",
-        header: "Amount",
+        accessorKey: 'amount',
+        header: 'Amount',
         size: 100,
         sortable: false,
       },
       {
         id: 8,
-        accessorKey: "rate",
-        header: "Rate",
+        accessorKey: 'rate',
+        header: 'Rate',
         size: 100,
         sortable: false,
       },
@@ -84,17 +82,17 @@ const Bill = () => {
 
   const filterMenuItem = [
     {
-      label: "Date From",
-      name: "dateFrom",
-      type: "date-picker",
+      label: 'Date From',
+      name: 'dateFrom',
+      type: 'date-picker',
       required: true,
       md: 4,
       sm: 12,
     },
     {
-      label: "Date To",
-      name: "dateTo",
-      type: "date-picker",
+      label: 'Date To',
+      name: 'dateTo',
+      type: 'date-picker',
       required: true,
       md: 4,
       sm: 12,
@@ -122,13 +120,12 @@ const Bill = () => {
         toast.error(error);
       }
     } else {
-      toast.error("Please provide both date values...");
+      toast.error('Please provide both date values...');
     }
   };
   const handleRowClick = (rowData) => {
     setIsModalOpen(true);
     setSelectedRowData(rowData);
-      
   };
   return (
     <>
@@ -136,7 +133,7 @@ const Bill = () => {
       <Box marginTop={2}>
         {tableShow ? (
           <CustomTable
-            title="Bill Report"
+            title='Bill Report'
             columns={columns}
             isLoading={isLoading}
             data={tableData}
@@ -150,14 +147,14 @@ const Bill = () => {
         formComponent={
           <>
             <BillDetail rowData={selectedRowData} />
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
               <Button
-                variant="contained"
+                variant='contained'
                 onClick={() => {
                   setIsModalOpen(false);
                 }}
                 sx={{ mt: 3, ml: 1 }}
-                color="error"
+                color='error'
               >
                 Close
               </Button>
