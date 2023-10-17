@@ -74,7 +74,6 @@ const Portfolio = () => {
   );
 
   const handleMarketValue = (row) => {
-    // console.log(row?.original)
     const ltp = row?.ltp;
     const quantity = row?.quantity;
     return ltp * quantity;

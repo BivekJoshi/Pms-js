@@ -4,10 +4,6 @@ import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
 function CustomDatePicker({ name, label, min, max, required }) {
-  console.log(
-    '🚀 ~ file: CustomDatePicker.jsx:7 ~ CustomDatePicker ~ max:',
-    max
-  );
   const { setFieldValue } = useFormikContext();
   const [field] = useField(name);
 

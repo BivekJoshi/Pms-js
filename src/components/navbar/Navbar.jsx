@@ -94,7 +94,11 @@ const Navbar = () => {
       symbolsArray.push({ index: key, ...listedCompanies[key] });
     }
   }
-  const symbols = symbolsArray.map((item) => item.companyInfo);
+  const symbols = symbolsArray.map((item) => ({
+    symbol: item?.symbol,
+    companyInfo: item?.companyInfo,
+    id: item?.id,
+  }));
 
   return (
     <AppBar
@@ -159,6 +163,7 @@ const Navbar = () => {
         <Autocomplete
           name='script'
           options={symbols}
+          getOptionLabel={(option) => option?.companyInfo}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -170,6 +175,11 @@ const Navbar = () => {
               sx={{ width: '300px' }}
             />
           )}
+          onChange={(event, value) => {
+            if(value) {
+              navigate(`/company/${value?.id}`)
+            }
+          }}
         />
 
         <FlexBetween gap='12px'>

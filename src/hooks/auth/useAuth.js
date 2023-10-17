@@ -6,9 +6,9 @@ import {
   register,
   application,
   verification,
-  changePassword,
   resetPassword,
   resendVerification,
+  verifyResetPassword,
 } from '../../api/auth/auth-api';
 import { useDispatch } from 'react-redux';
 import { getErrorMessage } from '../../utility/getErrorMessage';
@@ -143,13 +143,12 @@ export const useResetPassword = ({ onSuccess }) => {
   );
 };
 
-export const useChangePassword = ({ id, onSuccess }) => {
+export const useVerifyResetPassword = ({ id, onSuccess }) => {
   const history = useNavigate();
 
   return useMutation(
     ['changePassword'],
-    ({ newPassword, confirmPassword }) =>
-      changePassword(id, newPassword, confirmPassword),
+    ({newPassword, confirmPassword}) => verifyResetPassword(id, newPassword, confirmPassword),
     {
       onSuccess: (data, variables, context) => {
         toast.success('Password changed successfully');
