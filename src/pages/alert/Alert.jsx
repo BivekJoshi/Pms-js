@@ -250,37 +250,56 @@ const Alert = (props) => {
                   />
                 </Grid>
                 <Grid item xs={12} sm={12} md={4} lg={2} className="d-flex ">
-                  <label
-                    style={{
-                      color: theme.palette.text.light,
-                      fontWeight: "400",
-                      marginRight: "15px",
-                    }}
-                  >
-                    Buy
-                  </label>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={formik.values?.alertFor === "SELL"}
-                        onChange={(e) => {
-                          formik.setFieldValue(
-                            "alertFor",
-                            e.target.checked ? "SELL" : "BUY"
-                          );
-                        }}
-                        name="alertFor"
+                  <FormControl component="fieldset">
+                    <label>Alert For</label>
+                    <FormGroup
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      <FormControlLabel
+                        control={
+                          <div style={{marginLeft:"10px"}}>
+                            {" "}
+                            <label
+                              style={{
+                                color: theme.palette.text.light,
+                                fontWeight: "400",
+                                marginRight: "20px",
+                              }}
+                            >
+                              Buy
+                            </label>
+                            <FormControlLabel
+                              control={
+                                <Switch
+                                  checked={formik.values?.alertFor === "SELL"}
+                                  onChange={(e) => {
+                                    formik.setFieldValue(
+                                      "alertFor",
+                                      e.target.checked ? "SELL" : "BUY"
+                                    );
+                                  }}
+                                  name="alertFor"
+                                />
+                              }
+                            />
+                            <label
+                              style={{
+                                color: theme.palette.text.light,
+                                fontWeight: "400",
+                                marginRight: "15px",
+                              }}
+                            >
+                              Sell
+                            </label>
+                          </div>
+                        }
                       />
-                    }
-                  />
-                  <label
-                    style={{
-                      color: theme.palette.text.light,
-                      fontWeight: "400",
-                    }}
-                  >
-                    Sell
-                  </label>
+                    </FormGroup>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6} lg={6} className="d-flex ">
                   <FormControl component="fieldset">
@@ -361,7 +380,7 @@ const Alert = (props) => {
           </div>
         </TabPanel>
         <TabPanel value="2">
-          <ManageAlert />
+          <ManageAlert script={symbols} alertType={alertType} />
         </TabPanel>
       </TabContext>
     </div>
