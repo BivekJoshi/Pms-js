@@ -47,14 +47,14 @@ export default function AppRoutes() {
             />
             <Route path='status/message' element={<ApplicationMessage />} />
           </Route>
-          <Route path="/" element={<AppLayout />}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="watchlist" element={<WatchList />} />
-            <Route path="research" element={<Research />} />
-            <Route path="portfolio" element={<Portfolio />} />
-            <Route path="alert" element={<Alert />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="company/:id" element={<Company />} />
+          <Route path='/' element={<AppLayout />}>
+            <Route path='dashboard' element={<Dashboard />} />
+            <Route path='watchlist' element={<WatchList />} />
+            <Route path='research' element={<Research />} />
+            <Route path='portfolio' element={<Portfolio />} />
+            <Route path='alert' element={<Alert />} />
+            <Route path='profile' element={<Profile />} />
+            <Route path='company/:script' element={<Company />} />
           </Route>
           <Route path='/error-page' element={<ErrorPage />} />
         </Routes>

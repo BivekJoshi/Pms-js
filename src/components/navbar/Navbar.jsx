@@ -176,8 +176,8 @@ const Navbar = () => {
             />
           )}
           onChange={(event, value) => {
-            if(value) {
-              navigate(`/company/${value?.id}`)
+            if (value) {
+              navigate(`/company/${value?.symbol}`);
             }
           }}
         />
