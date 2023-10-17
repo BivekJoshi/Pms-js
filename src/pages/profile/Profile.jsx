@@ -1,35 +1,34 @@
-import React, { useState } from "react";
-import { Box, Button, Grid, Tab, Typography } from "@mui/material";
-import { Tabs, useTheme } from "@mui/material";
-import profile from "../../assets/profilePicture.png";
-import Camera from "../../assets/camera.png";
-import UpdateProfile from "../../assets/UpdateProfile.png";
-import Notification from "../../assets/Notification.png";
-import Subscription from "../../assets/Subscription.png";
-import Security from "../../assets/Security.png";
-import Transaction from "../../assets/Transaction.png";
-import Bills from "../../assets/Bill.png";
-import Statements from "../../assets/Statement.png";
-import Payment from "../../assets/Payment.png";
-import Terms from "../../assets/Terms.png";
-import Update from "../../assets/Update.png";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import ProfileInfo from "./ProfileTab/ProfileInfo";
-import ForgetPassword from "./ProfileTab/ForgetPassword";
-import SubscriptionTab from "./SubscriptionTab/SubscriptionTab";
-import Research from "../research/Research";
-import Transactions from "./transaction/Transactions";
-import Bill from "./bill/Bill";
-import ReceiptPayment from "./receipt-payment/ReceiptPayment";
-import Statement from "./statement/Statement";
-import { useSelector } from "react-redux";
+import React, { useState } from 'react';
+import { Box, Button, Grid, Tab, Typography } from '@mui/material';
+import { Tabs, useTheme } from '@mui/material';
+import profile from '../../assets/profilePicture.png';
+import Camera from '../../assets/camera.png';
+import UpdateProfile from '../../assets/UpdateProfile.png';
+import Notification from '../../assets/Notification.png';
+import Subscription from '../../assets/Subscription.png';
+import Security from '../../assets/Security.png';
+import Transaction from '../../assets/Transaction.png';
+import Bills from '../../assets/Bill.png';
+import Statements from '../../assets/Statement.png';
+import Payment from '../../assets/Payment.png';
+import Terms from '../../assets/Terms.png';
+import Update from '../../assets/Update.png';
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+import ProfileInfo from './ProfileTab/ProfileInfo';
+import ForgetPassword from './ProfileTab/ForgetPassword';
+import SubscriptionTab from './SubscriptionTab/SubscriptionTab';
+import Research from '../research/Research';
+import Transactions from './transaction/Transactions';
+import Bill from './bill/Bill';
+import ReceiptPayment from './receipt-payment/ReceiptPayment';
+import Statement from './statement/Statement';
+import { useSelector } from 'react-redux';
 
 const Profile = () => {
   const theme = useTheme();
   const [value, setValue] = useState('1');
 
-  const userDetail=useSelector((store)=>store.user.details)
-  console.log(userDetail,"Details");
+  const userDetail = useSelector((store) => store.user.details);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -117,11 +116,14 @@ const Profile = () => {
                   value='1'
                   style={{
                     color: theme.palette.text.main,
-                    height: "0",
-                    alignItems: "flex-start",
-                    padding: ".2",
-                    backgroundColor: value === "1" ? theme.palette.primary.main : "transparent", 
-                    borderRadius:".5rem"
+                    height: '0',
+                    alignItems: 'flex-start',
+                    padding: '.2',
+                    backgroundColor:
+                      value === '1'
+                        ? theme.palette.primary.main
+                        : 'transparent',
+                    borderRadius: '.5rem',
                   }}
                 />
                 <Tab
@@ -138,9 +140,12 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    padding: ".2",
-                    backgroundColor: value === "2" ? theme.palette.primary.main : "transparent", 
-                    borderRadius:".5rem"
+                    padding: '.2',
+                    backgroundColor:
+                      value === '2'
+                        ? theme.palette.primary.main
+                        : 'transparent',
+                    borderRadius: '.5rem',
                   }}
                 />
                 <Tab
@@ -155,9 +160,12 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    padding: ".2",
-                    backgroundColor: value === "3" ? theme.palette.primary.main : "transparent", 
-                    borderRadius:".5rem"
+                    padding: '.2',
+                    backgroundColor:
+                      value === '3'
+                        ? theme.palette.primary.main
+                        : 'transparent',
+                    borderRadius: '.5rem',
                   }}
                 />
                 <Tab
@@ -172,9 +180,12 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    padding: ".2",
-                    backgroundColor: value === "4" ? theme.palette.primary.main : "transparent", 
-                    borderRadius:".5rem"
+                    padding: '.2',
+                    backgroundColor:
+                      value === '4'
+                        ? theme.palette.primary.main
+                        : 'transparent',
+                    borderRadius: '.5rem',
                   }}
                 />
               </Tabs>
@@ -202,8 +213,11 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    backgroundColor: value === "5" ? theme.palette.primary.main : "transparent", 
-                    borderRadius:".5rem"
+                    backgroundColor:
+                      value === '5'
+                        ? theme.palette.primary.main
+                        : 'transparent',
+                    borderRadius: '.5rem',
                   }}
                 />
                 <Tab
@@ -218,9 +232,12 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    padding: ".2",
-                    backgroundColor: value === "6" ? theme.palette.primary.main : "transparent", 
-                    borderRadius:".5rem"
+                    padding: '.2',
+                    backgroundColor:
+                      value === '6'
+                        ? theme.palette.primary.main
+                        : 'transparent',
+                    borderRadius: '.5rem',
                   }}
                 />
                 <Tab
@@ -235,9 +252,12 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    padding: ".2",
-                    backgroundColor: value === "7" ? theme.palette.primary.main : "transparent", 
-                    borderRadius:".5rem"
+                    padding: '.2',
+                    backgroundColor:
+                      value === '7'
+                        ? theme.palette.primary.main
+                        : 'transparent',
+                    borderRadius: '.5rem',
                   }}
                 />
                 <Tab
@@ -252,9 +272,12 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    padding: ".2",
-                    backgroundColor: value === "8" ? theme.palette.primary.main : "transparent", 
-                    borderRadius:".5rem"
+                    padding: '.2',
+                    backgroundColor:
+                      value === '8'
+                        ? theme.palette.primary.main
+                        : 'transparent',
+                    borderRadius: '.5rem',
                   }}
                 />
               </Tabs>
@@ -282,9 +305,12 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    padding: ".2",
-                    backgroundColor: value === "9" ? theme.palette.primary.main : "transparent", 
-                    borderRadius:".5rem"
+                    padding: '.2',
+                    backgroundColor:
+                      value === '9'
+                        ? theme.palette.primary.main
+                        : 'transparent',
+                    borderRadius: '.5rem',
                   }}
                 />
                 <Tab
@@ -299,16 +325,19 @@ const Profile = () => {
                     color: theme.palette.text.main,
                     height: '0',
                     alignItems: 'flex-start',
-                    padding: ".2",
-                    backgroundColor: value === "10" ? theme.palette.primary.main : "transparent", 
-                    borderRadius:".5rem"
+                    padding: '.2',
+                    backgroundColor:
+                      value === '10'
+                        ? theme.palette.primary.main
+                        : 'transparent',
+                    borderRadius: '.5rem',
                   }}
                 />
               </Tabs>
             </Grid>
           </Grid>
         </Grid>
-        <TabPanel value='1'>
+        <TabPanel sx={{ p: 0 }} value='1'>
           <ProfileInfo />
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='2'>

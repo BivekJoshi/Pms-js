@@ -5,13 +5,17 @@ import CustomTable from '../../../components/customTable/CustomTable';
 import toast from 'react-hot-toast';
 import { Bill_TRANSACTION } from '../../../api/urls/urls';
 import { fetchData } from '../../../redux/actions/transactionData';
-import { Box } from '@mui/material';
+import { Box, Button, Modal } from '@mui/material';
+import FormModal from '../../../components/formModal/FormModal';
+import BillDetail from './BillDetail';
 
 const Bill = () => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
-  const tableData = useSelector((store) => store?.generic?.data?.content);
+  const tableData = useSelector((store) => store?.generic?.data?.data);
   const isLoading = useSelector((store) => store?.generic?.processing);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const columns = useMemo(
     () => [
@@ -119,7 +123,10 @@ const Bill = () => {
       toast.error('Please provide both date values...');
     }
   };
-
+  const handleRowClick = (rowData) => {
+    setIsModalOpen(true);
+    setSelectedRowData(rowData);
+  };
   return (
     <>
       <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
@@ -130,9 +137,31 @@ const Bill = () => {
             columns={columns}
             isLoading={isLoading}
             data={tableData}
+            onRowClick={handleRowClick}
           />
         ) : null}
       </Box>
+      <FormModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        formComponent={
+          <>
+            <BillDetail rowData={selectedRowData} />
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Button
+                variant='contained'
+                onClick={() => {
+                  setIsModalOpen(false);
+                }}
+                sx={{ mt: 3, ml: 1 }}
+                color='error'
+              >
+                Close
+              </Button>
+            </Box>
+          </>
+        }
+      />
     </>
   );
 };

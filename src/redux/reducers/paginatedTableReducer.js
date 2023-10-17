@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {
   FETCH_PAGINATED_SELECT,
   FETCH_PAGINATED_SELECT_FAILED,
@@ -69,6 +71,7 @@ const fetchPaginatedSelectTable = (action) => {
     : action.payload.data
     ? action.payload.data
     : action.payload;
+
   updatedStateData = {
     ..._.mapKeys(actualData, action.key),
   };
@@ -80,9 +83,7 @@ const fetchPaginatedSelectTable = (action) => {
     if (remainder > 0) pages = pages + 1;
   }
   stateClone.total = totalNoOfData ? totalNoOfData : action.payload.record;
-  if (action.payload.unmatchBank)
-    stateClone.extras.unmatchBank = action.payload.unmatchBank;
-  if (action.payload.both) stateClone.extras.both = action.payload.both;
+
   stateClone.page = action.page ? action.page : 0;
   stateClone.itemsPerPage = action.payload.pageSize || 1000;
   stateClone.processing = false;
