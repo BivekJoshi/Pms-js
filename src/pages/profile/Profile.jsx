@@ -29,7 +29,6 @@ const Profile = () => {
   const [value, setValue] = useState('1');
 
   const userDetail = useSelector((store) => store.user.details);
-  console.log(userDetail, 'Details');
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -44,7 +43,7 @@ const Profile = () => {
       color={theme.palette.text.main}
     >
       <TabContext value={value}>
-        <Grid display='flex' flexDirection='column' gap='24px' width='344px'>
+        <Grid display='flex' flexDirection='column' gap='24px' width='344px' >
           <Grid
             display='flex'
             flexDirection='row'
