@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
-import ProfileTesting from '../pages/profile/ProfileTesting';
 
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));
@@ -28,7 +27,8 @@ const ChangePasswordPage = React.lazy(() =>
 const ApplicationMessage = React.lazy(() =>
   import('../pages/auth/ApplicationMessage')
 );
-import ErrorPage from './../pages/error-page/ErrorPage';
+const ErrorPage = React.lazy(() => import('./../pages/error-page/ErrorPage'));
+const Company = React.lazy(() => import('../pages/company/Company'));
 
 export default function AppRoutes() {
   return (
@@ -54,6 +54,7 @@ export default function AppRoutes() {
             <Route path='portfolio' element={<Portfolio />} />
             <Route path='alert' element={<Alert />} />
             <Route path='profile' element={<Profile />} />
+            <Route path='company/:script' element={<Company />} />
           </Route>
           <Route path='/error-page' element={<ErrorPage />} />
         </Routes>

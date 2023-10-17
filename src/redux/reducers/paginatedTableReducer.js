@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import {
   FETCH_PAGINATED_SELECT,
   FETCH_PAGINATED_SELECT_FAILED,
@@ -61,6 +63,10 @@ const PaginatedSelectReducer = (state = initialSate, action) => {
 };
 
 const fetchPaginatedSelectTable = (action) => {
+  console.log(
+    '🚀 ~ file: paginatedTableReducer.js:66 ~ fetchPaginatedSelectTable ~ action:',
+    action
+  );
   var stateClone = { ...initialSate };
   let updatedStateData = {};
   // For Client Upload

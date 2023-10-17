@@ -1,5 +1,5 @@
-import { Box, Typography, useTheme } from "@mui/material";
-import React from "react";
+import { Box, Typography, useTheme } from '@mui/material';
+import React from 'react';
 import {
   LineChart,
   Line,
@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from "recharts";
+} from 'recharts';
 
 const LineChartDash = ({ data }) => {
   const theme = useTheme();
@@ -18,15 +18,16 @@ const LineChartDash = ({ data }) => {
     <Box
       color={theme.palette.text.main}
       bgcolor={theme.palette.background.alt}
-      style={{
-        padding: "1rem 2rem",
+      sx={{
+        padding: '1rem 2rem',
+        borderRadius: '6px',
       }}
     >
       {/* total share capital total investment */}
-      <div style={{ marginBottom: "0.6rem" }}>
-        <Typography variant="h4">Recent Holding Chart</Typography>
+      <div style={{ marginBottom: '0.6rem' }}>
+        <Typography variant='h4'>Recent Holding Chart</Typography>
       </div>
-      <ResponsiveContainer width="100%" height={200}>
+      <ResponsiveContainer width='100%' height={200}>
         <LineChart
           data={data}
           // margin={{
@@ -39,18 +40,18 @@ const LineChartDash = ({ data }) => {
           {/* <text x={150} y={10} textAnchor="middle" fontSize="20">
           Recent holding chart
         </text> */}
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <CartesianGrid strokeDasharray='3 3' />
+          <XAxis dataKey='name' />
           <YAxis />
           <Tooltip />
           <Legend />
           <Line
-            type="monotone"
-            dataKey="Total share capital"
-            stroke="#8884d8"
+            type='monotone'
+            dataKey='Total share capital'
+            stroke='#8884d8'
             activeDot={{ r: 8 }}
           />
-          <Line type="monotone" dataKey="Total investment" stroke="#82ca9d" />
+          <Line type='monotone' dataKey='Total investment' stroke='#82ca9d' />
         </LineChart>
       </ResponsiveContainer>
     </Box>

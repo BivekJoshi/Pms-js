@@ -47,7 +47,10 @@ const WatchList = () => {
       symbolsArray.push({ index: key, ...listedCompanies[key] });
     }
   }
-  const symbols = symbolsArray.map((item) => item.companyInfo);
+  const symbols = symbolsArray.map((item) => ({
+    symbol: item?.symbol,
+    companyInfo: item?.companyInfo,
+  }));
 
   return (
     <div>
@@ -140,6 +143,7 @@ const WatchList = () => {
                   setSelectedSymbol(newValue);
                 }
               }}
+              getOptionLabel={(option) => option?.companyInfo || ""}
               renderInput={(params) => (
                 <TextField
                   {...params}

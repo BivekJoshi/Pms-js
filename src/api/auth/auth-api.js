@@ -45,7 +45,7 @@ export const resetPassword = async (brokerNo, email, nepseCode) => {
   return data;
 };
 
-export const changePassword = async (id, newPassword, confirmPassword) => {
+export const verifyResetPassword = async (id, newPassword, confirmPassword) => {
   const { data } = await axiosInstance.put(`/public/reset-password/${id}`, {
     newPassword,
     confirmPassword,
