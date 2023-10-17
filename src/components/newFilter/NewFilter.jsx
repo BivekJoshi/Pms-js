@@ -60,7 +60,7 @@ const NewFilter = ({ inputField, searchCallBack }) => {
         </Grid>
 
         {showFilter && (
-          <div>
+          <div style={{ paddingTop: '16px' }}>
             <Formik
               initialValues={initialValues}
               onSubmit={(values) => {
