@@ -28,10 +28,11 @@ const Card = () => {
       <Box
         bgcolor={theme.palette.background.alt}
         color={theme.palette.text.main}
-        style={{
+        sx={{
           display: 'flex',
           flexDirection: 'column',
           padding: '1.5rem  2rem',
+          borderRadius: '6px',
         }}
       >
         <Typography
