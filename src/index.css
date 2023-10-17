@@ -114,12 +114,7 @@ body {
   opacity: 1 !important;
 }
 
-/* .css-heg063-MuiTabs-flexContainer{
-  flex-direction: column !important;
-}
-
-
-/* .filterButton{
+.filterButton{
   display: flex;
 padding: 6px 16px;
 justify-content: center;
@@ -129,4 +124,11 @@ border: 1px solid #7A757F;
 cursor: pointer;
 gap: 6px;
 font-weight: 700;
+}
+
+
+ /* .css-heg063-MuiTabs-flexContainer{
+  flex-direction: column !important;
 } */
+
+
