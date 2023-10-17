@@ -106,8 +106,8 @@ const ReceiptPayment = () => {
             RECEIPT_TRANSACTION,
             updatedFormValues,
             null,
-            'voucherNo',
-            'voucherNo'
+            'unique',
+            'unique'
           )
         );
       } catch (error) {
@@ -139,7 +139,8 @@ const ReceiptPayment = () => {
                 RECEIPT_TRANSACTION,
                 params,
                 newPage,
-                'amount'
+                'unique',
+                'unique'
               )
             );
           }}

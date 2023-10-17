@@ -71,10 +71,15 @@ const fetchPaginatedSelectTable = (action) => {
   let updatedStateData = {};
   // For Client Upload
   let actualData = action.responseDatakey
-    ? action.payload[action.responseDatakey]
+    ? action.payload.data[action.responseDatakey]
     : action.payload.data
     ? action.payload.data
     : action.payload;
+  console.log(
+    '🚀 ~ file: paginatedTableReducer.js:70 ~ fetchPaginatedSelectTable ~ actualData:',
+    actualData
+  );
+
   updatedStateData = {
     ..._.mapKeys(actualData, action.key),
   };
@@ -94,6 +99,10 @@ const fetchPaginatedSelectTable = (action) => {
   stateClone.processing = false;
   stateClone.pages = pages;
   stateClone.data = updatedStateData;
+  console.log(
+    '🚀 ~ file: paginatedTableReducer.js:95 ~ fetchPaginatedSelectTable ~ stateClone:',
+    stateClone
+  );
   return stateClone;
 };
 const fetchSummaryPaginationTable = (action) => {
