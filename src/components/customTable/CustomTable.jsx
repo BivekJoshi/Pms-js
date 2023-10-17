@@ -10,7 +10,11 @@ const CustomTable = (props) => {
       props?.onPaginationChange({ pageIndex, pageSize });
     }
   };
-
+  const handleRowClick = (row) => {
+    if (props?.onRowClick) {
+      props?.onRowClick(row.original);
+    }
+  };
   return (
     <div data-aos='fade-up'>
       <MaterialReactTable
@@ -44,6 +48,11 @@ const CustomTable = (props) => {
             color: theme?.palette?.mode === 'light' ? '#000' : '#fafafa',
           },
         }}
+        // enableRowSelection
+        muiTableBodyRowProps={({ row }) => ({
+          onClick: () => handleRowClick(row),
+          sx: { cursor: 'pointer' },
+        })}
         renderTopToolbarCustomActions={() => (
           <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
             <Typography variant='h3'>{props?.title}</Typography>

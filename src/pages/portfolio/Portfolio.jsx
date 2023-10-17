@@ -1,8 +1,7 @@
 import React, { useMemo } from "react";
 import CustomTable from "../../components/customTable/CustomTable";
-import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import {
-  useGetTransactionPortfolio,
   useGetUserenPortfolio,
 } from "../../hooks/portfolio/usePortfolio";
 
@@ -74,7 +73,6 @@ const Portfolio = () => {
   );
 
   const handleMarketValue = (row) => {
-    // console.log(row?.original)
     const ltp = row?.ltp;
     const quantity = row?.quantity;
     return ltp * quantity;
@@ -82,17 +80,6 @@ const Portfolio = () => {
 
   return (
     <>
-      {/* <CButton
-        title={'Add Portfolio'}
-        color={theme.palette.text.main}
-        bgcolor={theme.palette.background.btn}
-        padding={'1rem'}
-        textAlign={'center'}
-        display={'flex'}
-        flexDirextion={'row-reverse'}
-        margin={'0.5rem 0rem'}
-      /> */}
-
       <Box
         bgcolor={theme.palette.background.alt}
         style={{
@@ -120,7 +107,10 @@ const Portfolio = () => {
         </Box>
         <Button
           variant="contained"
-          sx={{ backgroundColor: "#401686", color: "#fff" }}
+          style={{
+            backgroundColor: theme.palette.background.btn,
+            color: theme.palette.text.alt,
+          }}
         >
           Export
         </Button>

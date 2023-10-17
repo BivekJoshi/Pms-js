@@ -136,6 +136,11 @@ const Navbar = () => {
                         ? theme.palette.text.main
                         : theme.palette.text.main,
                     fontWeight: isActive === items.id ? 'bold' : 'normal',
+                    '&:hover': {
+                      backgroundColor: theme.palette.background.hover,
+                      borderRadius:".5rem",
+                      padding:"4px"
+                    }
                   }}
                   variant='h6'
                 >
