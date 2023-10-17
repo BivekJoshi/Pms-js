@@ -25,7 +25,6 @@ const NewFilter = ({ inputField, searchCallBack }) => {
   return (
     <>
       <Box
-        data-aos='fade-left'
         bgcolor={theme.palette.background.alt}
         color={theme.palette.text.main}
         sx={{
