@@ -9,24 +9,24 @@ const ProfileInfo = ({data}) => {
 
   return (
     <Grid
-      display="inline-flex"
-      flexDirection="column"
-      alignItems="flex-start"
-      gap="50px"
-      width="100%"
+      display='inline-flex'
+      flexDirection='column'
+      alignItems='flex-start'
+      gap='50px'
+      width='100%'
     >
       <Grid
-        display="flex"
+        display='flex'
         bgcolor={theme.palette.background.alt}
-        p="16px"
-        width="100%"
+        p='16px'
+        width='100%'
       >
         <Grid
-          display="flex"
-          flexDirection="column"
-          gap="18px"
-          width="20%"
-          className="profileWidth"
+          display='flex'
+          flexDirection='column'
+          gap='18px'
+          width='20%'
+          className='profileWidth'
         >
           <Typography className="profilePageItem" variant="h6">
             {t("Name")} <span>:</span>
@@ -73,17 +73,17 @@ const ProfileInfo = ({data}) => {
           {t("Bank Details")}
         </Typography>
         <Grid
-          display="flex"
+          display='flex'
           bgcolor={theme.palette.background.alt}
-          p="16px"
-          width="100%"
+          p='16px'
+          width='100%'
         >
           <Grid
-            display="flex"
-            flexDirection="column"
-            gap="18px"
-            width="20%"
-            className="profileWidth"
+            display='flex'
+            flexDirection='column'
+            gap='18px'
+            width='20%'
+            className='profileWidth'
           >
             <Typography className="profilePageItem" variant="h6">
               {t("Bank Name")} <span>:</span>
@@ -102,7 +102,7 @@ const ProfileInfo = ({data}) => {
             <Typography className="profileItem" variant="h6">
               {data?.accountNo}
             </Typography>
-            <Typography className="profileItem" variant="h6">
+            <Typography className='profileItem' variant='h6'>
               Verified
             </Typography>
           </Grid>
