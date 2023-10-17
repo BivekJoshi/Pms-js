@@ -6,10 +6,12 @@ import toast from 'react-hot-toast';
 import { SHARE_TRANSACTION } from '../../../api/urls/urls';
 import { fetchData } from '../../../redux/actions/transactionData';
 import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const Transactions = () => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
+  const { t } = useTranslation();
   const tableData = useSelector((store) => store?.generic?.data?.content);
   const totalElements = useSelector(
     (store) => store?.generic?.data?.totalElements
@@ -72,7 +74,7 @@ const Transactions = () => {
 
   const filterMenuItem = [
     {
-      label: 'Date From',
+      label: t('Date From'),
       name: 'dateFrom',
       type: 'date-picker',
       required: true,
@@ -80,7 +82,7 @@ const Transactions = () => {
       sm: 12,
     },
     {
-      label: 'Date To',
+      label: t('Date To'),
       name: 'dateTo',
       type: 'date-picker',
       required: true,

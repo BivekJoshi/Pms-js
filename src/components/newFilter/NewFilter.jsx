@@ -14,14 +14,17 @@ import {
   useTheme,
 } from '@mui/material';
 import InputType from '../inputType/InputType';
+import { useTranslation } from 'react-i18next';
 
 const NewFilter = ({ inputField, searchCallBack }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const [showFilter, setShowFilter] = useState(true);
   const initialValues = inputField.reduce((acc, item) => {
     acc[item.name] = '';
     return acc;
   }, {});
+
   return (
     <>
       <Box
@@ -41,7 +44,7 @@ const NewFilter = ({ inputField, searchCallBack }) => {
             <Typography
               sx={{ color: theme.palette.text.light, fontWeight: 700 }}
             >
-              Filter
+              {t("Filter")}
             </Typography>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -98,7 +101,7 @@ const NewFilter = ({ inputField, searchCallBack }) => {
                   })}
                   <Grid item sm={3}>
                     <Button type='submit' variant='contained'>
-                      Submit
+                      {t("SUBMIT")}
                     </Button>
                   </Grid>
                 </Grid>

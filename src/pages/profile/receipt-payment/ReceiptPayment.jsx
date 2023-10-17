@@ -8,10 +8,12 @@ import { fetchData } from '../../../redux/actions/transactionData';
 import { Box } from '@mui/material';
 import CustomPagination from '../../../components/customPagination/CustomPagination';
 import { fetchPaginatedTable } from '../../../redux/actions/paginatedTable';
+import { useTranslation } from 'react-i18next';
 
 const ReceiptPayment = () => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
+  const { t } = useTranslation();
   const tableData = useSelector((store) => store?.generic?.data?.content);
   const isLoading = useSelector((store) => store?.generic?.processing);
   const [params, setParams] = useState();
@@ -59,7 +61,7 @@ const ReceiptPayment = () => {
 
   const filterMenuItem = [
     {
-      label: 'Date From',
+      label: t('Date From'),
       name: 'dateFrom',
       type: 'date-picker',
       required: true,
@@ -67,7 +69,7 @@ const ReceiptPayment = () => {
       sm: 12,
     },
     {
-      label: 'Date To',
+      label: t('Date To'),
       name: 'dateTo',
       type: 'date-picker',
       required: true,

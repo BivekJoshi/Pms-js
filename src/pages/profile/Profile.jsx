@@ -22,11 +22,12 @@ import ReceiptPayment from "./receipt-payment/ReceiptPayment";
 import Statement from "./statement/Statement";
 import { useGetUserInfo } from "../../hooks/portfolio/usePortfolio";
 import { TabContext, TabPanel } from "@mui/lab";
+import { useTranslation } from "react-i18next";
 
 const Profile = () => {
   const theme = useTheme();
   const [value, setValue] = useState("1");
-
+  const { t } = useTranslation();
   const { data: userInfoData, isLoading: loading } = useGetUserInfo();
 
   const handleChange = (event, newValue) => {
@@ -81,7 +82,7 @@ const Profile = () => {
                   color: "black",
                 }}
               >
-                Basic
+                {t("Basic")}
               </Button>
             </Grid>
           </Grid>
@@ -96,7 +97,7 @@ const Profile = () => {
           >
             <Grid display="flex" flexDirection="column">
               <Typography variant="h4" p="12px 0">
-                General
+                {t("General")}
               </Typography>
               <Tabs
                 value={value}
@@ -109,7 +110,7 @@ const Profile = () => {
                   label={
                     <Grid className="profileIcon">
                       <img src={UpdateProfile} alt="UpdateProfile" />
-                      <Typography variant="h7">Update Profile</Typography>
+                      <Typography variant="h7">{t("UPDATE PROFILE")}</Typography>
                     </Grid>
                   }
                   value="1"
@@ -130,7 +131,7 @@ const Profile = () => {
                     <Grid className="profileIcon">
                       <img src={Notification} alt="UpdateProfile" />
                       <Typography variant="h7">
-                        Notification Configuration
+                        {t("NOTIFICATION CONFIGURATION")}
                       </Typography>
                     </Grid>
                   }
@@ -151,7 +152,7 @@ const Profile = () => {
                   label={
                     <Grid className="profileIcon">
                       <img src={Subscription} alt="UpdateProfile" />
-                      <Typography variant="h7">Subscription</Typography>
+                      <Typography variant="h7">{t("SUBSCRIPTION")}</Typography>
                     </Grid>
                   }
                   value="3"
@@ -171,7 +172,7 @@ const Profile = () => {
                   label={
                     <Grid className="profileIcon">
                       <img src={Security} alt="UpdateProfile" />
-                      <Typography variant="h7">Change Password</Typography>
+                      <Typography variant="h7">{t("CHANGE PASSWORD")}</Typography>
                     </Grid>
                   }
                   value="4"
@@ -191,7 +192,7 @@ const Profile = () => {
             </Grid>
             <Grid display="flex" flexDirection="column">
               <Typography variant="h4" p="12px 0">
-                Activities
+                {t("Activities")}
               </Typography>
               <Tabs
                 value={value}
@@ -204,7 +205,7 @@ const Profile = () => {
                   label={
                     <Grid className="profileIcon">
                       <img src={Transaction} alt="UpdateProfile" />
-                      <Typography variant="h7">Transaction</Typography>
+                      <Typography variant="h7">{t("TRANSACTION")}</Typography>
                     </Grid>
                   }
                   value="5"
@@ -223,7 +224,7 @@ const Profile = () => {
                   label={
                     <Grid className="profileIcon">
                       <img src={Bills} alt="UpdateProfile" />
-                      <Typography variant="h7">Bill</Typography>
+                      <Typography variant="h7">{t("BILL")}</Typography>
                     </Grid>
                   }
                   value="6"
@@ -243,7 +244,7 @@ const Profile = () => {
                   label={
                     <Grid className="profileIcon">
                       <img src={Statements} alt="UpdateProfile" />
-                      <Typography variant="h7">Statement</Typography>
+                      <Typography variant="h7">{t("STATEMENT")}</Typography>
                     </Grid>
                   }
                   value="7"
@@ -263,7 +264,7 @@ const Profile = () => {
                   label={
                     <Grid className="profileIcon">
                       <img src={Payment} alt="UpdateProfile" />
-                      <Typography variant="h7">Receipt/Payment</Typography>
+                      <Typography variant="h7">{t("RECEIPT/PAYMENT")}</Typography>
                     </Grid>
                   }
                   value="8"
@@ -283,7 +284,7 @@ const Profile = () => {
             </Grid>
             <Grid>
               <Typography variant="h4" p="12px 0">
-                More
+                {t("More")}
               </Typography>
               <Tabs
                 value={value}
@@ -296,7 +297,7 @@ const Profile = () => {
                   label={
                     <Grid className="profileIcon">
                       <img src={Terms} alt="UpdateProfile" />
-                      <Typography variant="h7">Terms & Conditions</Typography>
+                      <Typography variant="h7">{t("TERMS & CONDITION")}</Typography>
                     </Grid>
                   }
                   value="9"
@@ -316,7 +317,7 @@ const Profile = () => {
                   label={
                     <Grid className="profileIcon">
                       <img src={Update} alt="UpdateProfile" />
-                      <Typography variant="h7">Privacy Policy</Typography>
+                      <Typography variant="h7">{t("PRIVACY POLICY")}</Typography>
                     </Grid>
                   }
                   value="10"

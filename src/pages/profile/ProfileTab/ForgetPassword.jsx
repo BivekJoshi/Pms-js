@@ -14,9 +14,11 @@ import toast from "react-hot-toast";
 import { useChangePasswordForm } from "../../../form/auth/change-password/useChangePasswordForm";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const theme = useTheme();
   const {
     formik,
@@ -54,9 +56,9 @@ const ForgetPassword = () => {
         gap="16px"
         p="8px 16px"
       >
-        <Typography variant="h4">Change Your Password</Typography>
+        <Typography variant="h4">{t("Change Your Password")}</Typography>
         <Typography variant="h7">
-          Enter a new password below to change your password
+          {t("Enter a new password below to change your password")}
         </Typography>
       </Grid>
       <Grid
@@ -71,8 +73,8 @@ const ForgetPassword = () => {
           <TextField
             id="oldPassword"
             name="oldPassword"
-            label="Current Password"
-            placeholder="Enter your current password..."
+            label={t("Current Password")}
+            placeholder={t("Enter your current password")}
             fullWidth
             required
             value={formik.values.oldPassword}
@@ -113,8 +115,8 @@ const ForgetPassword = () => {
           <TextField
             id="newPassword"
             name="newPassword"
-            label="New Password"
-            placeholder="Enter your new password..."
+            label={t("New Password")}
+            placeholder={t("Enter your new password")}
             fullWidth
             required
             value={formik.values.newPassword}
@@ -151,22 +153,22 @@ const ForgetPassword = () => {
             }}
           />
           <Grid display="flex" flexDirection="row" alignItems="center">
-            <Typography pr="1rem">Must have one: </Typography>
+            <Typography pr="1rem">{t("Must have one")}: </Typography>
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Uppercase"
+              label={t("Uppercase")}
             />
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Lowercase"
+              label={t("Lowercase")}
             />
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Character"
+              label={t("Character")}
             />
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Number"
+              label={t("Number")}
             />
           </Grid>
         </Grid>
@@ -174,8 +176,8 @@ const ForgetPassword = () => {
           <TextField
             id="rePassword"
             name="rePassword"
-            label="Confirm New Password"
-            placeholder="Confirm your new password..."
+            label={t("Confirm New Password")}
+            placeholder={t("Confirm your new password")}
             fullWidth
             required
             value={formik.values.rePassword}
@@ -187,6 +189,7 @@ const ForgetPassword = () => {
             variant="outlined"
             autoFocus
             type={showConfirmPassword ? "text" : "password"}
+            InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -211,22 +214,22 @@ const ForgetPassword = () => {
             }}
           />
           <Grid display="flex" flexDirection="row" alignItems="center">
-            <Typography pr="1rem">Must have one: </Typography>
+            <Typography pr="1rem">{t("Must have one")}: </Typography>
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Uppercase"
+              label={t("Uppercase")}
             />
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Lowercase"
+              label={t("Lowercase")}
             />
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Character"
+              label={t("Character")}
             />
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Number"
+              label={t("Number")}
             />
           </Grid>
           <Grid
@@ -240,7 +243,7 @@ const ForgetPassword = () => {
               onClick={handleFormSubmit}
               sx={{ mt: 3, ml: 1 }}
             >
-              Change Password
+              {t("CHANGE PASSWORD")}
             </Button>
           </Grid>
         </Grid>

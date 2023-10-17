@@ -6,10 +6,12 @@ import toast from 'react-hot-toast';
 import { Bill_TRANSACTION } from '../../../api/urls/urls';
 import { fetchData } from '../../../redux/actions/transactionData';
 import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const Bill = () => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
+  const { t } = useTranslation();
   const tableData = useSelector((store) => store?.generic?.data?.content);
   const isLoading = useSelector((store) => store?.generic?.processing);
 
@@ -78,7 +80,7 @@ const Bill = () => {
 
   const filterMenuItem = [
     {
-      label: 'Date From',
+      label: t('Date From'),
       name: 'dateFrom',
       type: 'date-picker',
       required: true,
@@ -86,7 +88,7 @@ const Bill = () => {
       sm: 12,
     },
     {
-      label: 'Date To',
+      label: t('Date To'),
       name: 'dateTo',
       type: 'date-picker',
       required: true,

@@ -26,6 +26,7 @@ import { useNavigate } from 'react-router';
 import NavabarProfile from './NavabarProfile';
 import ResponsiveNavMenu from './ResponsiveMenu';
 import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
+import { useTranslation } from 'react-i18next';
 
 const navItems = [
   {
@@ -60,6 +61,7 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { data: listedCompanies } = useGetListedCompanies();
 
   const handleActiveClick = (id, path) => {
@@ -143,7 +145,7 @@ const Navbar = () => {
                   }}
                   variant='h6'
                 >
-                  {items?.item}
+                  {t(items?.item)}
                   {isActive === items.id && (
                     <div
                       style={{
