@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import NewFilter from '../../../components/newFilter/NewFilter';
 import CustomTable from '../../../components/customTable/CustomTable';
 import toast from 'react-hot-toast';
-import { Bill_TRANSACTION, RECEIPT_TRANSACTION } from '../../../api/urls/urls';
-import { fetchData } from '../../../redux/actions/transactionData';
+import { RECEIPT_TRANSACTION } from '../../../api/urls/urls';
+
 import { Box } from '@mui/material';
 import CustomPagination from '../../../components/customPagination/CustomPagination';
 import { fetchPaginatedTable } from '../../../redux/actions/paginatedTable';
@@ -87,7 +87,7 @@ const ReceiptPayment = () => {
       sm: 12,
     },
     {
-      label: 'Transaction Type',
+      label: t('Transaction Type'),
       name: 'type',
       type: 'input-type',
       required: true,
