@@ -11,21 +11,17 @@ const Dashboard = () => {
 
   return (
     <Grid container spacing={4}>
-      <Grid item xs={12} md={4} lg={4} xl={4}>
-        {' '}
-        <Card />{' '}
+      <Grid item xs={12} md={4} lg={4} xl={4}>        
+        <Card />
       </Grid>
-      <Grid item xs={12} md={8} lg={8} xl={8}>
-        {' '}
-        <LineChartDash data={lineData} />{' '}
+      <Grid item xs={12} md={8} lg={8} xl={8}>        
+        <LineChartDash data={lineData} />
       </Grid>
-      <Grid item xs={12} md={5} lg={5} xl={5}>
-        {' '}
-        <CardInfo />{' '}
+      <Grid item xs={12} md={5} lg={5} xl={5}>        
+        <CardInfo />
       </Grid>
-      <Grid item xs={12} md={7} lg={7} xl={7}>
-        {' '}
-        <BarChartDash data={barData} />{' '}
+      <Grid item xs={12} md={7} lg={7} xl={7}>        
+        <BarChartDash data={barData} />
       </Grid>
     </Grid>
   );

@@ -174,7 +174,7 @@ const Navbar = () => {
           renderInput={(params) => (
             <TextField
               {...params}
-              placeholder='Company name or symbol'
+              placeholder={t('Company name or symbol')}
               variant='outlined'
               autoFocus
               size='small'
