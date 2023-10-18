@@ -1,6 +1,11 @@
 import toast from "react-hot-toast";
 import { axiosInstance } from "../../api/axiosInterceptor";
-import { DELETE_DATA, FETCH_DATA, PROCESSING } from "../types/types";
+import {
+  DELETE_DATA,
+  FETCH_DATA,
+  PROCESSING,
+  UPDATE_TABLE_DATA,
+} from "../types/types";
 import { initiated } from "./httpResponse";
 
 export const fetchData = (
@@ -52,6 +57,18 @@ export const deleteData = (path, id, index, resolve, reject, data) => {
       console.log(err);
       toast.error(err.message);
       reject();
+    }
+  };
+};
+export const putData = (path, id, data) => {
+  return async (dispatch) => {
+    dispatch(initiated());
+    try {
+      await axiosInstance.put(path + "/" + id, data);
+      dispatch({ type: UPDATE_TABLE_DATA, payload: data });
+      toast.success(" Successfully Updated");
+    } catch (error) {
+      toast.error(error.message);
     }
   };
 };

@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from "lodash";
 import {
   CLEAR_DATA,
   FETCH_DATA,
@@ -8,7 +8,8 @@ import {
   DELETE_DATA,
   EDIT_DATA,
   PATCH_PARENT_DATA,
-} from '../types/types';
+  UPDATE_TABLE_DATA,
+} from "../types/types";
 
 const initialState = {
   error: null,
@@ -29,10 +30,12 @@ const genericReducer = (state = initialState, action) => {
       return { ...initialState };
     case PROCESSING:
       return { ...state, processing: action.processing };
-    case 'GENERIC_PUT_REMOVE':
+    case "GENERIC_PUT_REMOVE":
       return putRemove(state, action.payload);
     case EDIT_DATA:
       return dataEdit(action.payload, state);
+    case UPDATE_TABLE_DATA:
+      return updateData(state, action.payload);
     case PATCH_PARENT_DATA:
       return parentData(action.payload, state);
     default:
@@ -77,7 +80,7 @@ const searchResult = (action) => {
 const putRemove = (state, payload) => {
   var stateClone = { ...state };
   let { response, key } = payload;
-  if (!key) key = 'id';
+  if (!key) key = "id";
   let data = { ..._.mapKeys(stateClone.data, key) };
   for (let index in response) {
     data = _.omit(data, response[index][key]);
@@ -97,6 +100,12 @@ const dataEdit = (payload, state) => {
   });
   stateClone.processing = false;
   stateClone.data = data;
+  return stateClone;
+};
+const updateData = (state, paylaod) => {
+  let stateClone = { ...state };
+  const tableData = state.data?.map((d) => d.stockAlertResponses);
+  console.log(tableData);
   return stateClone;
 };
 const parentData = (action, state) => {

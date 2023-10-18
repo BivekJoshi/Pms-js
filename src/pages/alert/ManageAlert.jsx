@@ -1,13 +1,16 @@
-import React from 'react';
-import { Autocomplete, Box, MenuItem, Select, TextField } from '@mui/material';
-import NewFilter from '../../components/newFilter/NewFilter';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteData, fetchData } from '../../redux/actions/genericData';
-import CustomTable from '../../components/customTable/CustomTable';
-import { useState } from 'react';
-import { useMemo } from 'react';
-import CustomeAlertDialog from '../../components/customeDialog/CustomeDialog';
-import EditAlert from './EditAlert';
+import React from "react";
+import { Autocomplete, Box, MenuItem, Select, TextField } from "@mui/material";
+import NewFilter from "../../components/newFilter/NewFilter";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteData,
+  fetchData,
+  putData,
+} from "../../redux/actions/genericData";
+import CustomTable from "../../components/customTable/CustomTable";
+import { useState } from "react";
+import { useMemo } from "react";
+import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
 
 const ManageAlert = (props) => {
   const [tableShow, setTableShow] = useState(false);
@@ -21,17 +24,17 @@ const ManageAlert = (props) => {
 
   const filterMenuItem = [
     {
-      label: 'Script',
-      name: 'script',
-      type: 'labelAutoComplete',
+      label: "Script",
+      name: "script",
+      type: "labelAutoComplete",
       md: 4,
       options: props.script,
       sm: 12,
     },
     {
-      label: 'Alert Type',
-      name: 'alertType',
-      type: 'dropDownId',
+      label: "Alert Type",
+      name: "alertType",
+      type: "dropDownId",
       dropDownData: props.alertType,
       md: 4,
       sm: 12,
@@ -39,20 +42,20 @@ const ManageAlert = (props) => {
   ];
   const alertType = [
     {
-      id: 'HIGHER_THAN',
-      label: 'Price Rise',
+      id: "HIGHER_THAN",
+      label: "Price Rise",
     },
     {
-      id: 'LOWER_THAN',
-      label: 'Price Below',
+      id: "LOWER_THAN",
+      label: "Price Below",
     },
   ];
   const columns = useMemo(
     () => [
       {
         id: 1,
-        accessorKey: 'alertType',
-        header: 'Alert Type',
+        accessorKey: "alertType",
+        header: "Alert Type",
         size: 100,
         sortable: false,
 
@@ -67,22 +70,22 @@ const ManageAlert = (props) => {
       },
       {
         id: 2,
-        accessorKey: 'triggerPrice',
-        header: 'AlertTrigger',
+        accessorKey: "triggerPrice",
+        header: "AlertTrigger",
         size: 100,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: 'alertMethod',
-        header: 'Notification Delivery Method',
+        accessorKey: "alertMethod",
+        header: "Notification Delivery Method",
         size: 100,
         sortable: false,
       },
       {
-        id: 5,
-        accessorKey: 'trType',
-        header: 'Alert For',
+        id: 4,
+        accessorKey: "trType",
+        header: "Alert For",
         size: 100,
       },
     ],
@@ -110,7 +113,7 @@ const ManageAlert = (props) => {
       new Promise((resolve, reject) => {
         dispatch(
           deleteData(
-            '/live-market/delete/stock-alert',
+            "/live-market/delete/stock-alert",
             rowData.id,
             tableDataIndex,
             resolve,
@@ -119,6 +122,9 @@ const ManageAlert = (props) => {
         );
       }).then(() => setIsModalOpen(false));
     }
+  };
+  const handleUpdate = (row, changeData) => {
+    dispatch(putData("/live-market/update/stock-alert", row.original.id,changeData));
   };
   return (
     <div>
@@ -135,13 +141,15 @@ const ManageAlert = (props) => {
                     title={companyName}
                     enableColumnActions
                     columns={columns}
-                    isLoading={isLoading}
+                    isLoading={true}
                     enableEditing={true}
-                    editingMode='modal'
+                    state={{ isLoading: props.isLoading,showSkeletons:props.isLoading }}
+                    editingMode="modal"
                     enableEdit
                     enableDelete
                     data={d.stockAlertResponses}
                     handleDelete={deleteRow}
+                    handleUpdate={handleUpdate}
                     edit
                     delete
                   />
@@ -151,9 +159,9 @@ const ManageAlert = (props) => {
           : null}
       </Box>
       <CustomeAlertDialog
-        disagreeLabel={'Cancel'}
-        agreeLabel={'Agree'}
-        header={'Are you sure to delete this alert ?'}
+        disagreeLabel={"Cancel"}
+        agreeLabel={"Agree"}
+        header={"Are you sure to delete this alert ?"}
         handleModalClose={handleModalClose}
         isModalOpen={isModalOpen}
         handleAgree={handleDeleteData}
