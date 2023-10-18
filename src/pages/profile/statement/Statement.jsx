@@ -6,10 +6,12 @@ import NewFilter from "../../../components/newFilter/NewFilter";
 import { fetchData } from "../../../redux/actions/genericData";
 import CustomTable from "../../../components/customTable/CustomTable";
 import { Box } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const Statement = () => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
+  const { t } = useTranslation();
   const tableData = useSelector((store) => store?.generic);
   const isLoading = useSelector((store) => store?.generic?.processing);
 
@@ -54,7 +56,7 @@ const Statement = () => {
 
   const filterMenuItem = [
     {
-      label: "Date From",
+      label: t("Date From"),
       name: "dateFrom",
       type: "date-picker",
       required: true,
@@ -62,7 +64,7 @@ const Statement = () => {
       sm: 12,
     },
     {
-      label: "Date To",
+      label: t("Date To"),
       name: "dateTo",
       type: "date-picker",
       required: true,

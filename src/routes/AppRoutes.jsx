@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
+import ScrollToTop from '../utility/ScrollToTop';
 
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));
@@ -33,32 +34,34 @@ const Company = React.lazy(() => import('../pages/company/Company'));
 export default function AppRoutes() {
   return (
     <HashRouter hashType='slash'>
-      <Suspense fallback={<Spinner />}>
-        <Routes>
-          <Route path='/' element={<LoginLayout />}>
-            <Route path='login' element={<LoginPage />} />
-            <Route path='register' element={<RegisterPage />} />
-            <Route path='application/status' element={<ApplicationPage />} />
-            <Route path='verification/:id' element={<Verification />} />
-            <Route path='reset/password' element={<ResetPasswordPage />} />
-            <Route
-              path='pms/api/public/reset-password/:id'
-              element={<ChangePasswordPage />}
-            />
-            <Route path='status/message' element={<ApplicationMessage />} />
-          </Route>
-          <Route path='/' element={<AppLayout />}>
-            <Route path='dashboard' element={<Dashboard />} />
-            <Route path='watchlist' element={<WatchList />} />
-            <Route path='research' element={<Research />} />
-            <Route path='portfolio' element={<Portfolio />} />
-            <Route path='alert' element={<Alert />} />
-            <Route path='profile' element={<Profile />} />
-            <Route path='company/:script' element={<Company />} />
-          </Route>
-          <Route path='/error-page' element={<ErrorPage />} />
-        </Routes>
-      </Suspense>
+      <ScrollToTop>
+        <Suspense fallback={<Spinner />}>
+          <Routes>
+            <Route path='/' element={<LoginLayout />}>
+              <Route path='login' element={<LoginPage />} />
+              <Route path='register' element={<RegisterPage />} />
+              <Route path='application/status' element={<ApplicationPage />} />
+              <Route path='verification/:id' element={<Verification />} />
+              <Route path='reset/password' element={<ResetPasswordPage />} />
+              <Route
+                path='pms/api/public/reset-password/:id'
+                element={<ChangePasswordPage />}
+              />
+              <Route path='status/message' element={<ApplicationMessage />} />
+            </Route>
+            <Route path='/' element={<AppLayout />}>
+              <Route path='dashboard' element={<Dashboard />} />
+              <Route path='watchlist' element={<WatchList />} />
+              <Route path='research' element={<Research />} />
+              <Route path='portfolio' element={<Portfolio />} />
+              <Route path='alert' element={<Alert />} />
+              <Route path='profile' element={<Profile />} />
+              <Route path='company/:script' element={<Company />} />
+            </Route>
+            <Route path='/error-page' element={<ErrorPage />} />
+          </Routes>
+        </Suspense>
+      </ScrollToTop>
     </HashRouter>
   );
 }

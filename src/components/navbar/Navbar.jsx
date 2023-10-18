@@ -26,6 +26,7 @@ import { useNavigate } from 'react-router';
 import NavabarProfile from './NavabarProfile';
 import ResponsiveNavMenu from './ResponsiveMenu';
 import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
+import { useTranslation } from 'react-i18next';
 
 const navItems = [
   {
@@ -60,6 +61,7 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { data: listedCompanies } = useGetListedCompanies();
 
   const handleActiveClick = (id, path) => {
@@ -103,9 +105,11 @@ const Navbar = () => {
   return (
     <AppBar
       style={{
-        position: 'static',
+        position: 'sticky',
+        top: 0,
+        boxShadow:
+          'rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset',
         background: theme.palette.background.alt,
-        boxShadow: 'none',
         color: 'black',
       }}
     >
@@ -142,13 +146,13 @@ const Navbar = () => {
                     fontWeight: isActive === items.id ? 'bold' : 'normal',
                     '&:hover': {
                       backgroundColor: theme.palette.background.hover,
-                      borderRadius:".5rem",
-                      padding:"4px"
-                    }
+                      borderRadius: '.5rem',
+                      padding: '4px',
+                    },
                   }}
                   variant='h6'
                 >
-                  {items?.item}
+                  {t(items?.item)}
                   {isActive === items.id && (
                     <div
                       style={{
@@ -172,7 +176,7 @@ const Navbar = () => {
           renderInput={(params) => (
             <TextField
               {...params}
-              placeholder='Company name or symbol'
+              placeholder={t('Company name or symbol')}
               variant='outlined'
               autoFocus
               size='small'

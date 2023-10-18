@@ -8,10 +8,12 @@ import { fetchData } from '../../../redux/actions/transactionData';
 import { Box, Button, Modal } from '@mui/material';
 import FormModal from '../../../components/formModal/FormModal';
 import BillDetail from './BillDetail';
+import { useTranslation } from 'react-i18next';
 
 const Bill = () => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
+  const { t } = useTranslation();
   const tableData = useSelector((store) => store?.generic?.data?.data);
   const isLoading = useSelector((store) => store?.generic?.processing);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -82,7 +84,7 @@ const Bill = () => {
 
   const filterMenuItem = [
     {
-      label: 'Date From',
+      label: t('Date From'),
       name: 'dateFrom',
       type: 'date-picker',
       required: true,
@@ -90,7 +92,7 @@ const Bill = () => {
       sm: 12,
     },
     {
-      label: 'Date To',
+      label: t('Date To'),
       name: 'dateTo',
       type: 'date-picker',
       required: true,
@@ -133,7 +135,7 @@ const Bill = () => {
       <Box marginTop={2}>
         {tableShow ? (
           <CustomTable
-            title='Bill Report'
+            title={t('Bill Report')}
             columns={columns}
             isLoading={isLoading}
             data={tableData}
@@ -156,7 +158,7 @@ const Bill = () => {
                 sx={{ mt: 3, ml: 1 }}
                 color='error'
               >
-                Close
+                {t("Close")}
               </Button>
             </Box>
           </>

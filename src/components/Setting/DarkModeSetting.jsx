@@ -5,10 +5,12 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@emotion/react';
+import { useTranslation } from 'react-i18next';
 
 const DarkModeSetting = ({ onClose }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const mode = theme.palette.mode;
   const language = useSelector((store) => store.language.mode);
 
@@ -30,14 +32,14 @@ const DarkModeSetting = ({ onClose }) => {
         }}
       >
         <Typography variant='h5' gutterBottom>
-          Setting
+          {t("Setting")}
         </Typography>
         <CloseIcon onClick={onClose} sx={{ cursor: 'pointer' }} />
       </div>
       <Divider />
       <div style={{ padding: '1rem' }}>
         <Typography variant='button' display='block' gutterBottom>
-          MODE
+          {t("MODE")}
         </Typography>
         <Grid
           container
@@ -64,7 +66,7 @@ const DarkModeSetting = ({ onClose }) => {
             onClick={() => handleModeClick('light')}
           >
             <WbSunnyIcon />
-            <Typography variant='h6'>Light</Typography>
+            <Typography variant='h6'>{t("Light")}</Typography>
           </Grid>
           <Grid
             item
@@ -80,13 +82,13 @@ const DarkModeSetting = ({ onClose }) => {
             onClick={() => handleModeClick('dark')}
           >
             <DarkModeIcon />
-            <Typography variant='h6'>Dark</Typography>
+            <Typography variant='h6'>{t("Dark")}</Typography>
           </Grid>
         </Grid>
       </div>
       <div style={{ padding: '1rem' }}>
         <Typography variant='button' display='block' gutterBottom>
-          LANGUAGE
+          {t("LANGUAGE")}
         </Typography>
         <Grid
           container
@@ -175,7 +177,7 @@ const DarkModeSetting = ({ onClose }) => {
               </defs>
             </svg>
 
-            <Typography variant='h6'>English</Typography>
+            <Typography variant='h6'>{t("English")}</Typography>
           </Grid>
           <Grid
             item
@@ -217,7 +219,7 @@ const DarkModeSetting = ({ onClose }) => {
               />
             </svg>
 
-            <Typography variant='h6'>Nepali</Typography>
+            <Typography variant='h6'>{t("Nepali")}</Typography>
           </Grid>
         </Grid>
       </div>

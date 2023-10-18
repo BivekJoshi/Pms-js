@@ -2,12 +2,16 @@ import React, { useMemo } from "react";
 import CustomTable from "../../components/customTable/CustomTable";
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import {
+  useGetUserInfo,
   useGetUserenPortfolio,
 } from "../../hooks/portfolio/usePortfolio";
+import { useTranslation } from "react-i18next";
 
 const Portfolio = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const { data: userPorfolioData, isLoading } = useGetUserenPortfolio();
+  const { data: userInfoData, isLoading: loading } = useGetUserInfo();
 
   const columns = useMemo(
     () => [
@@ -90,7 +94,7 @@ const Portfolio = () => {
         }}
       >
         <Box>
-          <Typography variant="h6">Name: Sagar Pradhan</Typography>
+          <Typography variant="h6">Name: {userInfoData?.clientName}</Typography>
           <Typography variant="h6">980000000</Typography>
         </Box>
         <Box>
@@ -112,7 +116,7 @@ const Portfolio = () => {
             color: theme.palette.text.alt,
           }}
         >
-          Export
+          {t("Export")}
         </Button>
       </Box>
       {!isLoading ? (

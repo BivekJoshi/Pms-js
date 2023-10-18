@@ -1,5 +1,6 @@
 import { Box, useTheme } from '@mui/material';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   BarChart,
   Bar,
@@ -14,6 +15,7 @@ import {
 
 const BarChartDash = ({ data }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -37,8 +39,8 @@ const BarChartDash = ({ data }) => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey='Selling Price' fill='#8884d8' />
-          <Bar dataKey='Cost Price' fill='#82ca9d' />
+          <Bar dataKey={t("Selling Price")} fill='#8884d8' />
+          <Bar dataKey={t("Cost Price")} fill='#82ca9d' />
         </BarChart>
       </ResponsiveContainer>
     </Box>
