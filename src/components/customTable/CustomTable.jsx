@@ -27,6 +27,10 @@ const CustomTable = (props) => {
   const handleDeleteRow = useCallback((row) => {
     props.handleDelete(row);
   }, []);
+
+  const headerBackgroundColor = props.headerBackgroundColor || (theme.palette.mode === "light" ? "#ffffff" : "#401686");
+  const headerColor = props.headerColor || (theme?.palette?.mode === "light" ? "#000" : "#fafafa");
+
   return (
     <div data-aos="fade-up">
       <MaterialReactTable
@@ -75,9 +79,8 @@ const CustomTable = (props) => {
         }}
         muiTableHeadCellProps={{
           sx: {
-            backgroundColor:
-              theme?.palette?.mode === "light" ? "#ffffff" : "#401686",
-            color: theme?.palette?.mode === "light" ? "#000" : "#fafafa",
+            backgroundColor: headerBackgroundColor,
+            color: headerColor,
           },
         }}
         // enableRowSelection

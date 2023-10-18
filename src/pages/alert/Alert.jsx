@@ -357,9 +357,9 @@ const Alert = (props) => {
                 sx={{
                   mt: 3,
                   ml: 1,
-                  backgroundColor: "#6C49B4",
+                  backgroundColor: theme.palette.background.btn,
                   themeMode,
-                  color: "#fcfcfc",
+                  color: theme.palette.text.alt,
                 }}
               >
                 Create Alert

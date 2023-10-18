@@ -5,6 +5,9 @@ import CardInfo from '../../components/dashboardComponents/CardInfo';
 import { barData, lineData } from './data';
 import LineChartDash from '../../components/dashboardComponents/LineChart';
 import BarChartDash from '../../components/dashboardComponents/BarChart';
+import PieChartDash from '../../components/dashboardComponents/PieChart';
+import BestPerformance from '../../components/dashboardComponents/BestPerformance';
+import WorstPerformance from '../../components/dashboardComponents/WorstPerformance';
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -22,6 +25,15 @@ const Dashboard = () => {
       </Grid>
       <Grid item xs={12} md={7} lg={7} xl={7}>        
         <BarChartDash data={barData} />
+      </Grid>
+      <Grid item xs={12} md={12} lg={12} xl={12}>        
+        <BestPerformance/>
+      </Grid>
+      <Grid item xs={12} md={12} lg={12} xl={12}>        
+        <WorstPerformance/>
+      </Grid>
+      <Grid item xs={12} md={4} lg={4} xl={4}>        
+        <PieChartDash />
       </Grid>
     </Grid>
   );
