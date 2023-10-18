@@ -231,7 +231,7 @@ const Portfolio = () => {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleExportExcel}>Export as Excell</MenuItem>
+        <MenuItem onClick={handleExportExcel}>Export as Excel</MenuItem>
       </Menu>
     </>
   );
