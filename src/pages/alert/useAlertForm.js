@@ -2,7 +2,6 @@ import { useFormik } from "formik";
 import { useAddCreateAlert } from "./useAlertPost";
 import { addAlertSchema } from "./createAlertValidation";
 
-
 export const useAlertForm = () => {
   const { mutate } = useAddCreateAlert({
     onSuccess: () => {
@@ -15,9 +14,8 @@ export const useAlertForm = () => {
       companyId: "",
       alertType: "",
       triggerPrice: "",
-      transactionType: false,
       alertMethod: "",
-      alertFor: true,
+      transactionType: "SELL",
       ltp: null,
     },
 
@@ -25,6 +23,7 @@ export const useAlertForm = () => {
     onSubmit: (value) => {
       const submitedValue = { ...value, alertMethod: "EMAIL" };
       handlePost(submitedValue);
+      handleClear();
     },
   });
 

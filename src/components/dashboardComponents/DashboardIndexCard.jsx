@@ -12,7 +12,7 @@ const summaryData = {
   investment: '3478437',
   date: '2023-10-10',
 };
-const Card = () => {
+const DashboardIndexCard = () => {
   const theme = useTheme();
 
   const style = {
@@ -81,4 +81,4 @@ const Card = () => {
   );
 };
 
-export default Card;
+export default DashboardIndexCard;

@@ -105,9 +105,11 @@ const Navbar = () => {
   return (
     <AppBar
       style={{
-        position: 'static',
+        position: 'sticky',
+        top: 0,
+        boxShadow:
+          'rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset',
         background: theme.palette.background.alt,
-        boxShadow: 'none',
         color: 'black',
       }}
     >
@@ -144,9 +146,9 @@ const Navbar = () => {
                     fontWeight: isActive === items.id ? 'bold' : 'normal',
                     '&:hover': {
                       backgroundColor: theme.palette.background.hover,
-                      borderRadius:".5rem",
-                      padding:"4px"
-                    }
+                      borderRadius: '.5rem',
+                      padding: '4px',
+                    },
                   }}
                   variant='h6'
                 >
