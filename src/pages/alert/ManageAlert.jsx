@@ -16,11 +16,7 @@ const ManageAlert = (props) => {
   const [tableDataIndex, settableDataIndex] = useState();
   const tableData = useSelector((store) => store?.generic?.data);
   const isLoading = useSelector((store) => store?.generic?.processing);
-  const [currentAlertType, setCurrentAlertType] = useState();
-  console.log(
-    '🚀 ~ file: ManageAlert.jsx:20 ~ ManageAlert ~ currentAlertType:',
-    currentAlertType
-  );
+
   const dispatch = useDispatch();
 
   const filterMenuItem = [
@@ -59,31 +55,14 @@ const ManageAlert = (props) => {
         header: 'Alert Type',
         size: 100,
         sortable: false,
-        Edit: (props) => {
-          const handleChange = (e, value) => {
-            setCurrentAlertType(value?.id);
-          };
 
-          return (
-            <Autocomplete
-              name='alertType'
-              getOptionLabel={(option) => option.label}
-              options={alertType}
-              // value={currentAlertType}
-              onChange={handleChange}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label='Select an Alert Type'
-                  placeholder='Select alert type'
-                  variant='outlined'
-                  size='small'
-                  InputLabelProps={{ shrink: true }}
-                  required
-                />
-              )}
-            />
-          );
+        muiTableBodyCellEditTextFieldProps: {
+          select: true, //change to select for a dropdown
+          children: alertType.map((state) => (
+            <MenuItem key={state?.id} value={state?.id}>
+              {state?.label}
+            </MenuItem>
+          )),
         },
       },
       {
@@ -161,7 +140,6 @@ const ManageAlert = (props) => {
                     editingMode='modal'
                     enableEdit
                     enableDelete
-                    currentAlertType={currentAlertType}
                     data={d.stockAlertResponses}
                     handleDelete={deleteRow}
                     edit

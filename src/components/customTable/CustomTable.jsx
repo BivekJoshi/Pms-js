@@ -29,7 +29,10 @@ const CustomTable = (props) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSaveRow = async ({ exitEditingMode, row, values }) => {
-    console.log(props?.currentAlertType);
+    console.log(
+      '🚀 ~ file: CustomTable.jsx:32 ~ handleSaveRow ~ values:',
+      values
+    );
     exitEditingMode(); //required to exit editing mode
   };
 
