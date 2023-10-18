@@ -18,6 +18,29 @@ body {
     max-width: 100% !important;
   }
 }
+
+@media (max-width: 1050px) {
+  .smallScreen {
+    display: none !important;
+  }
+  .smallIcon {
+    display: block !important;
+  }
+
+  .profileGrid{
+    grid-template-columns: 1fr 20fr;
+  }
+}
+
+@media (min-width: 1051px) {
+  .smallIcon {
+    display: none !important;
+  }
+  .profileGrid{
+    grid-template-columns: 2fr 10fr;
+  }
+}
+
 @media (max-height: 750px) {
   .paddingOuter {
     padding-top: 0 !important;
@@ -31,7 +54,7 @@ body {
     width: 25% !important;
   }
   .profileWidth {
-    width: 40% !important;
+    width: 50% !important;
   }
 }
 
@@ -79,6 +102,7 @@ body {
   font-weight: 400;
   line-height: 16px; /* 133.333% */
   letter-spacing: 0.4px;
+  color: #000;
 }
 .labelMedium {
   font-family: DM Sans;
@@ -96,23 +120,36 @@ body {
   align-items: center;
   gap: 12px;
 }
-.profilePageItem{
+.profilePageItem {
   padding: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.profileItem{
+.profileItem {
   padding: 10px 20px;
-  border-bottom: 1px solid #CCC;
+  border-bottom: 1px solid #ccc;
   font-weight: 400 !important;
   line-height: 1.55 !important;
 }
 
-.css-1hdcydv-MuiButtonBase-root-MuiTab-root{
+.css-1hdcydv-MuiButtonBase-root-MuiTab-root {
   opacity: 1 !important;
 }
 
-.css-heg063-MuiTabs-flexContainer{
-  flex-direction: column !important;
+.filterButton {
+  display: flex;
+  padding: 6px 16px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid #7a757f;
+  cursor: pointer;
+  gap: 6px;
+  font-weight: 700;
 }
+
+/* .css-heg063-MuiTabs-flexContainer{
+  flex-direction: column !important;
+} */
+

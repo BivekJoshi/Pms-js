@@ -14,38 +14,39 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useDispatch } from "react-redux";
 import { logout } from "../../utility/logout";
 import { useNavigate } from "react-router-dom";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import { useTranslation } from "react-i18next";
 
 const NavabarProfile = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const { t } = useTranslation();
 
   const handleLogout = () => {
-    setAnchorEl(null);
+    setAnchorEl(false);
     dispatch({ type: "LOGOUT" });
     logout();
     navigate("/login");
   };
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleProfileClick = () => {
+    navigate("/profile");
+    handleClose();
   };
 
   return (
     <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
       <Tooltip title="Account settings">
-        <IconButton
-          onClick={handleClick}
-          size="small"
-          sx={{ ml: 2 }}
-          aria-controls={open ? "account-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-        >
-          <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+        <IconButton onClick={handleClick}>
+          <PermIdentityIcon sx={{ width: "24px", height: "24px" }} />
         </IconButton>
       </Tooltip>
 
@@ -54,18 +55,16 @@ const NavabarProfile = () => {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
             overflow: "visible",
             filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
+            mt: 5.5,
+            ml: -3,
             "& .MuiAvatar-root": {
               width: 32,
               height: 32,
-              ml: -0.5,
-              mr: 1,
             },
             "&:before": {
               content: '""',
@@ -82,38 +81,38 @@ const NavabarProfile = () => {
           },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        anchorOrigin={{ horizontal: "right", vertical: "top" }}
       >
-        <MenuItem onClick={() => navigate("/profile")}>
-            <ListItemAvatar>
-              <Avatar />
-            </ListItemAvatar>
-            Profile
+        <MenuItem onClick={handleProfileClick}>
+          <ListItemAvatar>
+            <Avatar />
+          </ListItemAvatar>
+          {t("Profile")}
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemAvatar>
             <Avatar />
           </ListItemAvatar>
-          My account
+          {t("My account")}
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <PersonAddIcon fontSize="small" />
           </ListItemIcon>
-          Add another account
+          {t("Add another account")}
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <SettingsIcon fontSize="small" />
           </ListItemIcon>
-          Settings
+          {t("Settings")}
         </MenuItem>
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <LogoutIcon fontSize="small" />
           </ListItemIcon>
-          Logout
+          {t("Logout")}
         </MenuItem>
       </Menu>
     </Box>

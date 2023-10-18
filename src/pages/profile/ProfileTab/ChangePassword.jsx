@@ -1,19 +1,42 @@
 import { useTheme } from "@emotion/react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Button, Checkbox, FormControlLabel, IconButton } from "@mui/material";
-import { Grid, InputAdornment, TextField, Typography } from "@mui/material";
+import {
+  InputAdornment,
+  TextField,
+  FormControlLabel,
+  IconButton,
+} from "@mui/material";
+import { Button, Checkbox, Typography, Tooltip, Grid } from "@mui/material";
 import React from "react";
-import changePasswordForm from "../../../form/auth/change-password/changePasswordForm";
+import toast from "react-hot-toast";
+import { useChangePasswordForm } from "../../../form/auth/change-password/useChangePasswordForm";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ChangePassword = () => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const theme = useTheme();
   const {
     formik,
-    handleClickShowPassword,
-    loading,
-    handleMouseDownPassword,
     showValues,
-  } = changePasswordForm();
+    handleClickShowPassword,
+    handleMouseDownPassword,
+  } = useChangePasswordForm();
+
+  const handleFormSubmit = () => {
+    formik.handleSubmit();
+
+    if (formik.isValid) {
+      navigate("/login");
+    } else {
+      toast.error("Please make sure you have filled the form correctly");
+    }
+  };
+
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <Grid
@@ -31,9 +54,9 @@ const ChangePassword = () => {
         gap="16px"
         p="8px 16px"
       >
-        <Typography variant="h4">Change Your Password</Typography>
+        <Typography variant="h4">{t("Change Your Password")}</Typography>
         <Typography variant="h7">
-          Enter a new password below to change your password
+          {t("Enter a new password below to change your password")}
         </Typography>
       </Grid>
       <Grid
@@ -46,34 +69,41 @@ const ChangePassword = () => {
       >
         <Grid>
           <TextField
+            id="oldPassword"
+            name="oldPassword"
+            label={t("Current Password")}
+            placeholder={t("Enter your current password")}
+            fullWidth
             required
             value={formik.values.oldPassword}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.handleChange(e);
+            }}
             error={
               formik.touched.oldPassword && Boolean(formik.errors.oldPassword)
             }
             helperText={formik.touched.oldPassword && formik.errors.oldPassword}
-            name="oldPassword"
-            autoComplete="old-Password"
-            label="Old Password "
-            fullWidth
             variant="outlined"
-            type={showValues.showPassword ? "text" : "password"}
+            autoFocus
+            type={showOldPassword ? "text" : "password"}
+            InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
+                  <Tooltip
+                    title={`Show ${
+                      showOldPassword ? "Hidden" : "Visible"
+                    } Old Password`}
                   >
-                    {showValues.showPassword ? (
-                      <VisibilityOff />
-                    ) : (
-                      <Visibility />
-                    )}
-                  </IconButton>
+                    <IconButton
+                      aria-label="toggle old password visibility"
+                      onClick={() => setShowOldPassword(!showOldPassword)}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showOldPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </Tooltip>
                 </InputAdornment>
               ),
             }}
@@ -81,64 +111,71 @@ const ChangePassword = () => {
         </Grid>
         <Grid>
           <TextField
-            variant="outlined"
-            label="New Password"
+            id="newPassword"
             name="newPassword"
-            autoComplete="new-Password "
+            label={t("New Password")}
+            placeholder={t("Enter your new password")}
+            fullWidth
             required
             value={formik.values.newPassword}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.handleChange(e);
+            }}
             error={
               formik.touched.newPassword && Boolean(formik.errors.newPassword)
             }
             helperText={formik.touched.newPassword && formik.errors.newPassword}
-            fullWidth
+            variant="outlined"
+            autoFocus
             type={showValues.showPassword ? "text" : "password"}
+            InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {showValues.showPassword ? (
-                      <VisibilityOff />
-                    ) : (
-                      <Visibility />
-                    )}
-                  </IconButton>
+                  <Tooltip title="Show Password">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showValues.showPassword ? (
+                        <VisibilityOff />
+                      ) : (
+                        <Visibility />
+                      )}
+                    </IconButton>
+                  </Tooltip>
                 </InputAdornment>
               ),
             }}
           />
           <Grid display="flex" flexDirection="row" alignItems="center">
-            <Typography pr="1rem">Must have one: </Typography>
+            <Typography pr="1rem">{t("Must have one")}: </Typography>
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Uppercase"
+              label={t("Uppercase")}
             />
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Lowercase"
+              label={t("Lowercase")}
             />
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Character"
+              label={t("Character")}
             />
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Number"
+              label={t("Number")}
             />
           </Grid>
         </Grid>
         <Grid>
           <TextField
-            variant="outlined"
-            label="Re-Type New Password "
-            name="rePassword "
-            autoComplete="retype-Password "
+            id="rePassword"
+            name="rePassword"
+            label={t("Confirm New Password")}
+            placeholder={t("Confirm your new password")}
             fullWidth
             required
             value={formik.values.rePassword}
@@ -147,78 +184,66 @@ const ChangePassword = () => {
               formik.touched.rePassword && Boolean(formik.errors.rePassword)
             }
             helperText={formik.touched.rePassword && formik.errors.rePassword}
-            type={showValues.showPassword ? "text" : "Password"}
+            variant="outlined"
+            autoFocus
+            type={showConfirmPassword ? "text" : "password"}
+            InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
+                  <Tooltip
+                    title={`Show ${
+                      showConfirmPassword ? "Hidden" : "Visible"
+                    } Confirm Password`}
                   >
-                    {showValues.showPassword ? (
-                      <VisibilityOff />
-                    ) : (
-                      <Visibility />
-                    )}
-                  </IconButton>
+                    <IconButton
+                      aria-label="toggle confirm password visibility"
+                      onClick={() =>
+                        setShowConfirmPassword(!showConfirmPassword)
+                      }
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </Tooltip>
                 </InputAdornment>
               ),
             }}
           />
           <Grid display="flex" flexDirection="row" alignItems="center">
-            <Typography pr="1rem">Must have one: </Typography>
+            <Typography pr="1rem">{t("Must have one")}: </Typography>
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Uppercase"
+              label={t("Uppercase")}
             />
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Lowercase"
+              label={t("Lowercase")}
             />
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Character"
+              label={t("Character")}
             />
             <FormControlLabel
               control={<Checkbox color="default" />}
-              label="Number"
+              label={t("Number")}
             />
           </Grid>
-        </Grid>
-        <Grid
-          display="flex"
-          flexDirection="row"
-          justifyContent="flex-end"
-          gap="1rem"
-        >
-          <Button
-            variant="outlined"
-            // color="purple"
-            sx={{
-              bgcolor: "white",
-              color:
-                // theme.palette.mode === "dark"?
-                "purple",
-              // : theme.palette.text.main,
-              fontWeight: "800",
-            }}
+          <Grid
+            container
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="flex-end"
           >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => formik.submitForm()}
-            sx={{
-              bgcolor: "purple",
-              color:
-                theme.palette.mode === "dark"
-                  ? theme.palette.text.main
-                  : "white",
-            }}
-          >
-            save
-          </Button>
+            <Button
+              variant="contained"
+              onClick={handleFormSubmit}
+              sx={{ mt: 3, ml: 1 }}
+            >
+              {t("CHANGE PASSWORD")}
+            </Button>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>

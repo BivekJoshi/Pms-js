@@ -1,13 +1,30 @@
-import { useTheme } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import React from 'react';
-import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useTranslation } from 'react-i18next';
+import {
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 
 const BarChartDash = ({ data }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
-    return (
-       <div style={{ padding: "2rem 0rem", background: theme.palette.background.main }}>
-         <ResponsiveContainer width="100%" height={300}>
+  return (
+    <Box
+      padding={2}
+      borderRadius={'6px'}
+      color={theme.palette.text.main}
+      bgcolor={theme.palette.background.alt}
+    >
+      <ResponsiveContainer width='100%' height={300}>
         <BarChart
           data={data}
           margin={{
@@ -17,17 +34,17 @@ const BarChartDash = ({ data }) => {
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <CartesianGrid strokeDasharray='3 3' />
+          <XAxis dataKey='name' />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Selling Price" fill="#8884d8" />
-          <Bar dataKey="Cost Price" fill="#82ca9d" />
+          <Bar dataKey={t("Selling Price")} fill='#8884d8' />
+          <Bar dataKey={t("Cost Price")} fill='#82ca9d' />
         </BarChart>
       </ResponsiveContainer>
-       </div>
-    );
+    </Box>
+  );
 };
 
 export default BarChartDash;

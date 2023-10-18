@@ -1,6 +1,8 @@
 import React from 'react';
 import './Spinner.css';
+import { useTheme } from '@mui/material';
 const Spinner = () => {
+  const theme = useTheme();
   return (
     <div
       style={{
@@ -9,6 +11,8 @@ const Spinner = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: theme.palette.background.alt,
+        color: theme.palette.text.main,
       }}
     >
       <div className='spinner'></div>

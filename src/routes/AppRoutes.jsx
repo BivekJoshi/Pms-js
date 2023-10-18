@@ -18,8 +18,17 @@ const ApplicationPage = React.lazy(() =>
   import('../pages/auth/ApplicationPage')
 );
 const Verification = React.lazy(() => import('../pages/auth/Verification'));
-const ResetPasswordPage = React.lazy(() => import('../pages/auth/ResetPasswordPage'));
-const ApplicationMessage = React.lazy(() => import( '../pages/auth/ApplicationMessage'));
+const ResetPasswordPage = React.lazy(() =>
+  import('../pages/auth/ResetPasswordPage')
+);
+const ChangePasswordPage = React.lazy(() =>
+  import('../pages/auth/ChangePasswordPage')
+);
+const ApplicationMessage = React.lazy(() =>
+  import('../pages/auth/ApplicationMessage')
+);
+const ErrorPage = React.lazy(() => import('./../pages/error-page/ErrorPage'));
+const Company = React.lazy(() => import('../pages/company/Company'));
 
 export default function AppRoutes() {
   return (
@@ -32,6 +41,10 @@ export default function AppRoutes() {
             <Route path='application/status' element={<ApplicationPage />} />
             <Route path='verification/:id' element={<Verification />} />
             <Route path='reset/password' element={<ResetPasswordPage />} />
+            <Route
+              path='pms/api/public/reset-password/:id'
+              element={<ChangePasswordPage />}
+            />
             <Route path='status/message' element={<ApplicationMessage />} />
           </Route>
           <Route path='/' element={<AppLayout />}>
@@ -41,7 +54,9 @@ export default function AppRoutes() {
             <Route path='portfolio' element={<Portfolio />} />
             <Route path='alert' element={<Alert />} />
             <Route path='profile' element={<Profile />} />
+            <Route path='company/:script' element={<Company />} />
           </Route>
+          <Route path='/error-page' element={<ErrorPage />} />
         </Routes>
       </Suspense>
     </HashRouter>

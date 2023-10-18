@@ -6,9 +6,9 @@ import {
   ThemeProvider,
   Typography,
   createTheme,
-} from "@mui/material";
-import ErrorBoundary from "../components/ErrorBoundary";
-import Navbar from "../components/navbar/Navbar";
+} from '@mui/material';
+import ErrorBoundary from '../components/ErrorBoundary';
+import Navbar from '../components/navbar/Navbar';
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +16,7 @@ import { themeSettings } from './../theme';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { useGetTheme } from '../hooks/brokerTheme/useBrokerTheme';
 import Spinner from '../components/spinner/Spinner';
+import Footer from '../components/footer/Footer';
 
 const AppLayout = () => {
   const dispatch = useDispatch();
@@ -56,25 +57,14 @@ const AppLayout = () => {
           <Navbar />
         </header>
         {/* <Container fixed> */}
-        <section style={{ margin: "0px 32px" }}>
+        <section
+          style={{ padding: '16px', minHeight: '94dvh' }}
+          data-aos='fade-right'
+        >
           <Outlet />
         </section>
         {/* </Container> */}
-        <Grid
-          width="100%"
-          display="flex"
-          p="0px 48px"
-          height="63px"
-          gap="22px"
-          alignItems="center"
-          justifyContent="space-between"
-          bgcolor={theme.palette.background.alt}
-        >
-          <Typography variant="h7">
-            DG TRADE © DIGIHUB | Sumeru Securities Pvt. Ltd.
-          </Typography>
-          <Chip label="Version : 1.0" sx={{ fontSize: "13px" }} />
-        </Grid>
+        <Footer />
       </ThemeProvider>
       {/* </ErrorBoundary> */}
     </>

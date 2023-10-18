@@ -10,7 +10,6 @@ export const getProfileDetail = async () => {
 /*________________________GET WATCHLIST MASTER DATA_____________________________________*/
 export const getWatchListName = async () => {
   const res = await axiosInstance.get("/app-user/watchlist-master-data");
-  // console.log('🚀 ~ file: watchlist-api.js:5 ~ getWatchListName ~ data:', data);
   return res.data;
 };
 
@@ -19,8 +18,6 @@ export const getWatchListDataById = async (id) => {
   let response;
   if (id) {
     response = await axiosInstance.get(`/app-user/watchlist-data/${id}`);
-  } else {
-    response = await axiosInstance.get(`/app-user/watchlist-data/1`); //need to change this
   }
   return response;
 };

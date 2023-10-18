@@ -1,20 +1,18 @@
 import React from "react";
 import { Grid, TextField } from "@mui/material";
-import { Box, MenuItem, InputAdornment, Typography } from "@mui/material";
+import { Box, MenuItem, InputAdornment } from "@mui/material";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import { LoadingButton } from "@mui/lab";
 import { useSelector } from "react-redux";
-import { useRegisterForm } from "../../form/auth/register/useRegisterForm";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
-import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
-import { useResetPasswordForm } from "../../form/auth/reset-password/useResetPasswordForm";
 import ResetPaassword from "../../assets/reset-Paassword.png";
 import { useNavigate } from "react-router-dom";
+import { useResetPasswordForm } from "../../form/auth/reset-password/useResetPasswordForm";
 
 const ResetPasswordPage = () => {
   const brokerOption = useSelector((state) => state.brokerList.brokerOption);
   const { formik, loading } = useResetPasswordForm();
-  const history = useNavigate()
+  const history = useNavigate();
 
   const handleClick = () => {
     history("/login");
@@ -30,7 +28,6 @@ const ResetPasswordPage = () => {
       borderRadius="32px"
       position="relative"
       alignSelf="center"
-      // height="100%"
     >
       <Grid padding={{ sm: "2rem", xs: "0" }} className="paddingOuterLayer">
         <Grid
@@ -39,7 +36,11 @@ const ResetPasswordPage = () => {
           paddingBottom={{ lg: "2rem", md: "1rem", xs: ".25rem" }}
           className="paddingOuterLayer"
         >
-          <img src={ResetPaassword} alt="reset-Paassword.png"  className="registerImg" />
+          <img
+            src={ResetPaassword}
+            alt="reset-Paassword.png"
+            className="registerImg"
+          />
         </Grid>
         <Grid
           display="flex"
@@ -116,25 +117,6 @@ const ResetPasswordPage = () => {
               ),
             }}
           />
-          <TextField
-            required
-            value={formik.values.mobileNo}
-            onChange={formik.handleChange}
-            error={formik.touched.mobileNo && Boolean(formik.errors.mobileNo)}
-            helperText={formik.touched.mobileNo && formik.errors.mobileNo}
-            name="mobileNo"
-            label="Enter your number"
-            fullWidth
-            variant="outlined"
-            type="number"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <CallOutlinedIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
 
           <LoadingButton
             fullWidth
@@ -149,12 +131,12 @@ const ResetPasswordPage = () => {
               background: "#6750a4",
             }}
           >
-            Contunue
+            Continue
           </LoadingButton>
         </Grid>
         <Grid sx={{ textAlign: "center" }} marginTop=".5rem">
           <div className="bodySmall ">
-            Already have an account?{" "}
+            Already have an account?
             <span
               className="labelMedium"
               style={{ color: "#3838d0", cursor: "pointer" }}

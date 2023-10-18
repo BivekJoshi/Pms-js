@@ -1,7 +1,7 @@
-import { axiosInstance } from '../axiosInterceptor';
+import { axiosInstance } from "../axiosInterceptor";
 
 export const login = async (email, brokerNo, password) => {
-  const data = await axiosInstance.post('/public/login', {
+  const data = await axiosInstance.post("/public/login", {
     email,
     brokerNo,
     password,
@@ -10,7 +10,7 @@ export const login = async (email, brokerNo, password) => {
 };
 
 export const register = async (email, brokerNo, nepseCode, mobileNo) => {
-  const { data } = await axiosInstance.post('/public/register', {
+  const { data } = await axiosInstance.post("/public/register", {
     email,
     brokerNo,
     nepseCode,
@@ -36,7 +36,19 @@ export const resendVerification = async (id, otp) => {
   return data;
 };
 
-export const resetPassword = async (id) => {
-  const { data } = await axiosInstance.post(`/public/register/${id}`);
+export const resetPassword = async (brokerNo, email, nepseCode) => {
+  const { data } = await axiosInstance.put(`/public/reset-password`, {
+    brokerNo,
+    email,
+    nepseCode,
+  });
+  return data;
+};
+
+export const verifyResetPassword = async (id, newPassword, confirmPassword) => {
+  const { data } = await axiosInstance.put(`/public/reset-password/${id}`, {
+    newPassword,
+    confirmPassword,
+  });
   return data;
 };

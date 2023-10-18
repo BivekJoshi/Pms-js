@@ -1,109 +1,108 @@
 import { useTheme } from "@emotion/react";
 import { Grid, Typography } from "@mui/material";
 import React from "react";
-import { useGetProfileDetail } from "../../../hooks/watchList/useWatchList";
+import { useTranslation } from "react-i18next";
 
-const ProfileInfo = () => {
+const ProfileInfo = ({data}) => {
   const theme = useTheme();
-  const { data: profileData } = useGetProfileDetail();
-  console.log(profileData);
+  const { t } = useTranslation();
 
   return (
     <Grid
-      display="inline-flex"
-      flexDirection="column"
-      alignItems="flex-start"
-      gap="50px"
-      width="100%"
+      display='inline-flex'
+      flexDirection='column'
+      alignItems='flex-start'
+      gap='50px'
+      width='100%'
     >
       <Grid
-        display="flex"
+        display='flex'
         bgcolor={theme.palette.background.alt}
-        p="16px"
-        width="100%"
+        p='16px'
+        width='100%'
       >
         <Grid
-          display="flex"
-          flexDirection="column"
-          gap="18px"
-          width="20%"
-          className="profileWidth"
+          display='flex'
+          flexDirection='column'
+          gap='18px'
+          width='20%'
+          className='profileWidth'
         >
           <Typography className="profilePageItem" variant="h6">
-            Name <span>:</span>
+            {t("Name")} <span>:</span>
           </Typography>
           <Typography className="profilePageItem" variant="h6">
-            Mobile Number <span>:</span>
+            {t("Mobile Number")} <span>:</span>
           </Typography>
           <Typography className="profilePageItem" variant="h6">
-            E-Mail <span>:</span>
+            {t("E-Mail")} <span>:</span>
           </Typography>
           <Typography className="profilePageItem" variant="h6">
-            Depositary participation <span>:</span>
+            {t("Depositary participation")} <span>:</span>
           </Typography>
           <Typography className="profilePageItem" variant="h6">
-            Demat Number <span>:</span>
+            {t("Demat Number")} <span>:</span>
           </Typography>
           <Typography className="profilePageItem" variant="h6">
-            NEPSE code <span>:</span>
+            {t("NEPSE code")} <span>:</span>
           </Typography>
         </Grid>
         <Grid display="flex" flexDirection="column" gap="18px" width="100%">
           <Typography className="profileItem" variant="h6">
-            {profileData?.clientName}
+            {data?.clientName}
           </Typography>
           <Typography className="profileItem" variant="h6">
-            {profileData?.mobileNo}
+            {data?.mobileNo}
           </Typography>
           <Typography className="profileItem" variant="h6">
-            {profileData?.email}
+            {data?.email}
           </Typography>
           <Typography className="profileItem" variant="h6">
-            Secured Security Limited [11600]
+            {data?.dpName||"-"}
           </Typography>
           <Typography className="profileItem" variant="h6">
-          {profileData?.dematNo}
+            {data?.dematNo}
           </Typography>
           <Typography className="profileItem" variant="h6">
-          {profileData?.nepseCode}
+            {data?.nepseCode}
           </Typography>
         </Grid>
       </Grid>
       <Grid display="flex" gap="30px" flexDirection="column" width="100%">
         <Typography fontWeight="500" variant="h5">
-          Bank Details
+          {t("Bank Details")}
         </Typography>
         <Grid
-          display="flex"
+          display='flex'
           bgcolor={theme.palette.background.alt}
-          p="16px"
-          width="100%"
+          p='16px'
+          width='100%'
         >
           <Grid
-            display="flex"
-            flexDirection="column"
-            gap="18px"
-            width="20%"
-            className="profileWidth"
+            display='flex'
+            flexDirection='column'
+            gap='18px'
+            width='20%'
+            className='profileWidth'
           >
             <Typography className="profilePageItem" variant="h6">
-              Bank Name <span>:</span>
+              {t("Bank Name")} <span>:</span>
             </Typography>
             <Typography className="profilePageItem" variant="h6">
-              Account Number <span>:</span>
+              {t("Account Number")} <span>:</span>
             </Typography>
             <Typography className="profilePageItem" variant="h6">
-              Verify Status <span>:</span>
+              {t("Verify Status")} <span>:</span>
             </Typography>
           </Grid>
           <Grid display="flex" flexDirection="column" gap="18px" width="100%">
             <Typography className="profileItem" variant="h6">
-            {profileData?.bankName}
+              {data?.bankName}
             </Typography>
             <Typography className="profileItem" variant="h6">
-            {profileData?.accountNo}
+              {data?.accountNo}
             </Typography>
-            <Typography className="profileItem" variant="h6">
+            <Typography className='profileItem' variant='h6'>
               Verified
             </Typography>
           </Grid>
