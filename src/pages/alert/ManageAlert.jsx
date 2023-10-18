@@ -1,16 +1,19 @@
 import React from "react";
-import { Box, IconButton } from "@mui/material";
-import { Delete as DeleteIcon } from "@mui/icons-material"; // Import the delete icon
+import { Box } from "@mui/material";
 import NewFilter from "../../components/newFilter/NewFilter";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchData } from "../../redux/actions/genericData";
+import { deleteData, fetchData } from "../../redux/actions/genericData";
 import CustomTable from "../../components/customTable/CustomTable";
 import { useState } from "react";
 import { useMemo } from "react";
-import { DELETE_DATA } from "../../redux/types/types";
+import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
+import EditAlert from "./EditAlert";
 
 const ManageAlert = (props) => {
   const [tableShow, setTableShow] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [rowData, setRowData] = useState();
+  const [tableDataIndex, settableDataIndex] = useState();
   const tableData = useSelector((store) => store?.generic?.data);
   const isLoading = useSelector((store) => store?.generic?.processing);
   const dispatch = useDispatch();
@@ -41,12 +44,21 @@ const ManageAlert = (props) => {
         header: "Alert Type",
         size: 100,
         sortable: false,
+        Edit: ({ cell, row, column, updateData }) => (
+          <EditAlert
+            type={"alertType"}
+            cell={cell}
+            row={row}
+            column={column}
+            updateData={updateData}
+          />
+        ),
       },
       {
         id: 2,
         accessorKey: "triggerPrice",
         header: "AlertTrigger",
-        size: 120,
+        size: 100,
         sortable: false,
       },
       {
@@ -56,20 +68,46 @@ const ManageAlert = (props) => {
         size: 100,
         sortable: false,
       },
+      {
+        id: 5,
+        accessorKey: "trType",
+        header: "Alert For",
+        size: 100,
+      },
     ],
     []
   );
   const handleSearch = (formValues) => {
-    console.log(formValues);
+    setTableShow(true);
     dispatch(
       fetchData(
         `live-market/stock-alerts?script=${formValues.script}&alertType=${formValues.alertType}`
       )
     );
-    setTableShow(true);
   };
-  const deleteData = () => {
-    dispatch({ type: DELETE_DATA });
+  const deleteRow = (row) => {
+    setIsModalOpen(true);
+    setRowData(row?.original);
+    settableDataIndex(row.index);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+  const handleDeleteData = () => {
+    if (rowData.id && tableDataIndex) {
+      new Promise((resolve, reject) => {
+        dispatch(
+          deleteData(
+            "/live-market/delete/stock-alert",
+            rowData.id,
+            tableDataIndex,
+            resolve,
+            reject
+          )
+        );
+      }).then(() => setIsModalOpen(false));
+    }
   };
   return (
     <div>
@@ -88,11 +126,11 @@ const ManageAlert = (props) => {
                     columns={columns}
                     isLoading={isLoading}
                     enableEditing={true}
-                    editingMode="row"
+                    editingMode="modal"
                     enableEdit
                     enableDelete
                     data={d.stockAlertResponses}
-                    handleDelete={(data) => console.log(data)}
+                    handleDelete={deleteRow}
                     edit
                     delete
                   />
@@ -101,6 +139,14 @@ const ManageAlert = (props) => {
             })
           : null}
       </Box>
+      <CustomeAlertDialog
+        disagreeLabel={"Cancel"}
+        agreeLabel={"Agree"}
+        header={"Are you sure to delete this alert ?"}
+        handleModalClose={handleModalClose}
+        isModalOpen={isModalOpen}
+        handleAgree={handleDeleteData}
+      />
     </div>
   );
 };

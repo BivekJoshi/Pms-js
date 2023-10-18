@@ -275,14 +275,14 @@ const Alert = (props) => {
                             <FormControlLabel
                               control={
                                 <Switch
-                                  checked={formik.values?.alertFor === "SELL"}
+                                  checked={formik.values?.transactionType === "SELL"}
                                   onChange={(e) => {
                                     formik.setFieldValue(
-                                      "alertFor",
+                                      "transactionType",
                                       e.target.checked ? "SELL" : "BUY"
                                     );
                                   }}
-                                  name="alertFor"
+                                  name="transactionType"
                                 />
                               }
                             />

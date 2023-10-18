@@ -21,19 +21,25 @@ const CustomTable = (props) => {
   };
   const handleRowClick = (row) => {
     if (props?.onRowClick) {
-      props?.onRowClick(row.original);
+      props?.onRowClick(row);
     }
   };
   const handleDeleteRow = useCallback((row) => {
-    props.handleDelete(row);
-  }, []);
+    if (props.delete && props.handleDelete) props.handleDelete(row);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleSaveRow = async ({ exitEditingMode, row, values }) => {
+    console.log(values)
+    exitEditingMode(); //required to exit editing mode
+  };
+
   return (
     <div data-aos="fade-up">
       <MaterialReactTable
         columns={props?.columns || []}
         data={props?.data || []}
         isLoading={props?.isLoading}
-        enableRowNumbers
+        enableRowNumbers={props.enableRowNumbers || false}
         enableRowVirtualization
         headerTitle={props?.title || "My Table Title"}
         enableStickyHeader
@@ -41,6 +47,7 @@ const CustomTable = (props) => {
         enablePagination={props?.manualPagination}
         paginationPageSize={props?.pageSize || 10}
         enableEditing={props.enableEditing || false}
+        onEditingRowSave={handleSaveRow}
         editingMode={props.editingMode}
         rowCount={props?.rowCount}
         onPaginationChange={handlePaginationChange}
