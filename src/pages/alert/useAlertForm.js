@@ -17,6 +17,7 @@ export const useAlertForm = () => {
       triggerPrice: "",
       transactionType: false,
       alertMethod: "",
+      alertFor: true,
       ltp: null,
     },
 

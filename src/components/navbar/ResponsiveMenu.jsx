@@ -11,9 +11,11 @@ import {
 } from '@mui/material';
 import { Search } from '@mui/icons-material';
 import FlexBetween from '../flexBetween/FlexBetween';
+import { useTranslation } from 'react-i18next';
 
 const ResponsiveNavMenu = (props) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const {
     navItem = [],
     isActive,
@@ -80,7 +82,7 @@ const ResponsiveNavMenu = (props) => {
                   }}
                   variant='h6'
                 >
-                  {items?.item}
+                   {t(items?.item)}
                   {isActive === items.id && (
                     <div
                       style={{

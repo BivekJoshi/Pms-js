@@ -9,19 +9,84 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Autocomplete,
   TextField,
   Typography,
   useTheme,
-} from "@mui/material";
-import InputType from "../inputType/InputType";
+} from '@mui/material';
+import InputType from '../inputType/InputType';
+import { useTranslation } from 'react-i18next';
 
 const NewFilter = ({ inputField, searchCallBack }) => {
   const theme = useTheme();
-  const [showFilter, setShowFilter] = useState(false);
+  const { t } = useTranslation();
+  const [showFilter, setShowFilter] = useState(true);
   const initialValues = inputField.reduce((acc, item) => {
     acc[item.name] = "";
     return acc;
   }, {});
+
+  const getComponentToRender = (element, setFieldValue) => {
+    switch (element?.type) {
+      case "date-picker":
+        return (
+          <CustomDatePicker
+            name={element?.name}
+            label={element?.label}
+            min={element?.min}
+            max={element?.max}
+            required={element?.required}
+          />
+        );
+      case "input-type":
+        return (
+          <InputType
+            name={element?.name}
+            label={element?.label}
+            min={element?.min}
+            max={element?.max}
+            required={element?.required}
+          />
+        );
+      case "labelAutoComplete":
+        return (
+          <Autocomplete
+            name={element?.name}
+            getOptionLabel={(option) => option.label}
+            options={element?.options}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label={element?.label}
+                name={element?.name}
+                placeholder={element?.placeholder}
+              />
+            )}
+            onChange={(e, value) => setFieldValue(element?.name, value?.label)}
+          />
+        );
+      case "dropDownId":
+        return (
+          <>
+            <FormControl fullWidth>
+              <InputLabel>{element.label}</InputLabel>
+              <Field as={Select} name={element?.name} label={element.label}>
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {element?.dropDownData?.map((d, index) => (
+                  <MenuItem key={d + index} value={d.id}>
+                    {d.label}
+                  </MenuItem>
+                ))}
+              </Field>
+            </FormControl>
+          </>
+        );
+      default:
+        return <TextField name={element?.name} label={element?.label} />;
+    }
+  };
   return (
     <>
       <Box
@@ -42,7 +107,7 @@ const NewFilter = ({ inputField, searchCallBack }) => {
             <Typography
               sx={{ color: theme.palette.text.light, fontWeight: 700 }}
             >
-              Filter
+              {t("Filter")}
             </Typography>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -60,57 +125,36 @@ const NewFilter = ({ inputField, searchCallBack }) => {
         </Grid>
 
         {showFilter && (
-          <div style={{ paddingTop: '16px' }}>
+          <div style={{ paddingTop: "16px" }}>
             <Formik
               initialValues={initialValues}
               onSubmit={(values) => {
                 searchCallBack(values);
               }}
             >
-              <Form>
-                <Grid container spacing={2} alignItems={"center"}>
-                  {inputField?.map((element, index) => {
-                    return (
-                      <Grid item sm={element?.sm} md={element?.md} key={index}>
-                        {element?.type === "date-picker" ? (
-                          <CustomDatePicker
-                            name={element?.name}
-                            label={element?.label}
-                            min={element?.min}
-                            max={element?.max}
-                            required={element?.required}
-                          />
-                        ) : element?.type === "input-type" ? (
-                          <InputType
-                            name={element?.name}
-                            label={element?.label}
-                            min={element?.min}
-                            max={element?.max}
-                            required={element?.required}
-                          />
-                        ) : (
-                          <TextField
-                            name={element?.name}
-                            label={element?.label}
-                          />
-                        )}
-                      </Grid>
-                    );
-                  })}
-                  <Grid item sm={3}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      style={{
-                        backgroundColor: theme.palette.background.btn,
-                        color: theme.palette.text.alt,
-                      }}
-                    >
-                      Submit
-                    </Button>
+              {({ setFieldValue }) => (
+                <Form>
+                  <Grid container spacing={2} alignItems={"center"}>
+                    {inputField?.map((element, index) => {
+                      return (
+                        <Grid
+                          item
+                          sm={element?.sm}
+                          md={element?.md}
+                          key={index}
+                        >
+                          {getComponentToRender(element, setFieldValue)}
+                        </Grid>
+                      );
+                    })}
+                    <Grid item sm={3}>
+                      <Button type="submit" variant="contained">
+                      {t("SUBMIT")}
+                      </Button>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </Form>
+                </Form>
+              )}
             </Formik>
           </div>
         )}

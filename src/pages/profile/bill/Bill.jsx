@@ -4,12 +4,12 @@ import NewFilter from "../../../components/newFilter/NewFilter";
 import CustomTable from "../../../components/customTable/CustomTable";
 import toast from "react-hot-toast";
 import { Bill_TRANSACTION } from "../../../api/urls/urls";
-import { fetchData } from "../../../redux/actions/transactionData";
 import { Box, Button, Modal } from "@mui/material";
 import FormModal from "../../../components/formModal/FormModal";
 import BillDetail from "./BillDetail";
 import { fetchPaginatedTable } from "../../../redux/actions/paginatedTable";
 import CustomPagination from "../../../components/customPagination/CustomPagination";
+import { useTranslation } from "react-i18next";
 
 const Bill = () => {
   const dispatch = useDispatch();
@@ -26,6 +26,8 @@ const Bill = () => {
   const [params, setParams] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
+  const { t } = useTranslation();
+
 
   const columns = useMemo(
     () => [
@@ -92,17 +94,17 @@ const Bill = () => {
 
   const filterMenuItem = [
     {
-      label: "Date From",
-      name: "dateFrom",
-      type: "date-picker",
+      label: t('Date From'),
+      name: 'dateFrom',
+      type: 'date-picker',
       required: true,
       md: 4,
       sm: 12,
     },
     {
-      label: "Date To",
-      name: "dateTo",
-      type: "date-picker",
+      label: t('Date To'),
+      name: 'dateTo',
+      type: 'date-picker',
       required: true,
       md: 4,
       sm: 12,
@@ -201,7 +203,7 @@ const Bill = () => {
                 sx={{ mt: 3, ml: 1 }}
                 color="error"
               >
-                Close
+                {t("Close")}
               </Button>
             </Box>
           </>

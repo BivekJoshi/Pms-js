@@ -3,15 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import NewFilter from '../../../components/newFilter/NewFilter';
 import CustomTable from '../../../components/customTable/CustomTable';
 import toast from 'react-hot-toast';
-import { Bill_TRANSACTION, RECEIPT_TRANSACTION } from '../../../api/urls/urls';
-import { fetchData } from '../../../redux/actions/transactionData';
+import { RECEIPT_TRANSACTION } from '../../../api/urls/urls';
+
 import { Box } from '@mui/material';
 import CustomPagination from '../../../components/customPagination/CustomPagination';
 import { fetchPaginatedTable } from '../../../redux/actions/paginatedTable';
+import { useTranslation } from 'react-i18next';
 
 const ReceiptPayment = () => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
+  const { t } = useTranslation();
   const tableData = useSelector((store) => store?.paginatedTable?.data);
   console.log(
     '🚀 ~ file: ReceiptPayment.jsx:16 ~ ReceiptPayment ~ tableData:',
@@ -69,7 +71,7 @@ const ReceiptPayment = () => {
 
   const filterMenuItem = [
     {
-      label: 'Date From',
+      label: t('Date From'),
       name: 'dateFrom',
       type: 'date-picker',
       required: true,
@@ -77,7 +79,7 @@ const ReceiptPayment = () => {
       sm: 12,
     },
     {
-      label: 'Date To',
+      label: t('Date To'),
       name: 'dateTo',
       type: 'date-picker',
       required: true,
@@ -85,7 +87,7 @@ const ReceiptPayment = () => {
       sm: 12,
     },
     {
-      label: 'Transaction Type',
+      label: t('Transaction Type'),
       name: 'type',
       type: 'input-type',
       required: true,
