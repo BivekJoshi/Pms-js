@@ -1,17 +1,35 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import CustomTable from "../../components/customTable/CustomTable";
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  Menu,
+  MenuItem,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import {
   useGetUserInfo,
   useGetUserenPortfolio,
 } from "../../hooks/portfolio/usePortfolio";
 import { useTranslation } from "react-i18next";
+import ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
 
 const Portfolio = () => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const [anchorEl, setAnchorEl] = useState(null);
   const { data: userPorfolioData, isLoading } = useGetUserenPortfolio();
   const { data: userInfoData, isLoading: loading } = useGetUserInfo();
+
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const columns = useMemo(
     () => [
@@ -82,6 +100,70 @@ const Portfolio = () => {
     return ltp * quantity;
   };
 
+  const handleExportExcel = () => {
+    if (userPorfolioData && userPorfolioData.length > 0) {
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet("Portfolio");
+
+      worksheet.getRow(1).fill={
+        type:"pattern",
+        pattern:"darkGray",
+        fgColor:"red"
+      }
+      worksheet.columns = [
+        {
+          header: "Symbol",
+          key: "script",
+          width: 15,
+        },
+        {
+          header: "Quantity",
+          key: "quantity",
+          width: 15,
+        },
+        {
+          header: "LTP",
+          key: "ltp",
+          width: 15,
+        },
+        {
+          header: "Change Percent",
+          key: "changePercent",
+          width: 15,
+        },
+        {
+          header: "Close Price",
+          key: "previousClose",
+          width: 15,
+        },
+        {
+          header: "Market Value",
+          key: "marketValue",
+          width: 15,
+        },
+      ];
+
+      userPorfolioData.forEach((item) => {
+        worksheet.addRow({
+          script: item?.script,
+          quantity: item?.quantity,
+          ltp: item?.ltp,
+          changePercent: item?.changePercent,
+          previousClose: item?.previousClose,
+          marketValue: handleMarketValue(item),
+        });
+      });
+
+      workbook.xlsx.writeBuffer().then((data) => {
+        const blob = new Blob([data], {
+          type:
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+        saveAs(blob, "Portfolio.xlsx");
+      });
+    }
+  };
+
   return (
     <>
       <Box
@@ -115,6 +197,10 @@ const Portfolio = () => {
             backgroundColor: theme.palette.background.btn,
             color: theme.palette.text.alt,
           }}
+          aria-controls={open ? "basic-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleClick}
         >
           {t("Export")}
         </Button>
@@ -135,6 +221,18 @@ const Portfolio = () => {
           }}
         />
       )}
+
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={handleExportExcel}>Export as Excell</MenuItem>
+      </Menu>
     </>
   );
 };
