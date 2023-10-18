@@ -1,83 +1,93 @@
-import React, { useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import NewFilter from '../../../components/newFilter/NewFilter';
-import CustomTable from '../../../components/customTable/CustomTable';
-import toast from 'react-hot-toast';
-import { Bill_TRANSACTION } from '../../../api/urls/urls';
-import { fetchData } from '../../../redux/actions/transactionData';
-import { Box, Button, Modal } from '@mui/material';
-import FormModal from '../../../components/formModal/FormModal';
-import BillDetail from './BillDetail';
-import { useTranslation } from 'react-i18next';
+import React, { useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import NewFilter from "../../../components/newFilter/NewFilter";
+import CustomTable from "../../../components/customTable/CustomTable";
+import toast from "react-hot-toast";
+import { Bill_TRANSACTION } from "../../../api/urls/urls";
+import { Box, Button, Modal } from "@mui/material";
+import FormModal from "../../../components/formModal/FormModal";
+import BillDetail from "./BillDetail";
+import { fetchPaginatedTable } from "../../../redux/actions/paginatedTable";
+import CustomPagination from "../../../components/customPagination/CustomPagination";
+import { useTranslation } from "react-i18next";
 
 const Bill = () => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
-  const { t } = useTranslation();
-  const tableData = useSelector((store) => store?.generic?.data?.data);
-  const isLoading = useSelector((store) => store?.generic?.processing);
+  const tableData = useSelector((store) => store?.paginatedTable?.data);
+  const isLoading = useSelector((store) => store?.paginatedTable?.processing);
+
+  const totalData = useSelector((store) => store?.paginatedTable?.total);
+  const totalPages = useSelector((store) => store?.paginatedTable?.pages);
+  const currentPage = useSelector((store) => store?.paginatedTable?.page);
+
+  const pageSize = useSelector((store) => store?.paginatedTable?.itemsPerPage);
+
+  const [params, setParams] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
+  const { t } = useTranslation();
+
 
   const columns = useMemo(
     () => [
       {
         id: 1,
-        accessorKey: 'trDate',
-        header: 'Date',
+        accessorKey: "trDate",
+        header: "Date",
         size: 100,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: 'billNo',
-        header: 'Bill Number',
+        accessorKey: "billNo",
+        header: "Bill Number",
         size: 120,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: 'trType',
-        header: 'Transaction Type',
+        accessorKey: "trType",
+        header: "Transaction Type",
         size: 100,
         sortable: false,
       },
-      {
-        id: 4,
-        accessorKey: 'script',
-        header: 'Script',
-        size: 100,
-        sortable: false,
-      },
+      // {
+      //   id: 4,
+      //   accessorKey: "script",
+      //   header: "Script",
+      //   size: 100,
+      //   sortable: false,
+      // },
 
       {
         id: 5,
-        accessorKey: 'buyQty',
-        header: 'Buy Quantity',
+        accessorKey: "buyQty",
+        header: "Buy Quantity",
         size: 100,
         sortable: false,
       },
       {
         id: 6,
-        accessorKey: 'sellQty',
-        header: 'Sell Quantity',
+        accessorKey: "sellQty",
+        header: "Sell Quantity",
         size: 100,
         sortable: false,
       },
       {
         id: 7,
-        accessorKey: 'amount',
-        header: 'Amount',
+        accessorKey: "amount",
+        header: "Amount",
         size: 100,
         sortable: false,
       },
-      {
-        id: 8,
-        accessorKey: 'rate',
-        header: 'Rate',
-        size: 100,
-        sortable: false,
-      },
+      // {
+      //   id: 8,
+      //   accessorKey: "rate",
+      //   header: "Rate",
+      //   size: 100,
+      //   sortable: false,
+      // },
     ],
     []
   );
@@ -102,27 +112,35 @@ const Bill = () => {
   ];
 
   const handleSearch = (formValues) => {
-    const epochDateFrom = formValues.dateFrom
+    const dateFrom = formValues.dateFrom
       ? new Date(formValues.dateFrom).getTime() / 1000
       : null;
-    const epochDateTo = formValues.dateTo
+    const dateTo = formValues.dateTo
       ? new Date(formValues.dateTo).getTime() / 1000
       : null;
 
-    if (epochDateFrom && epochDateTo) {
-      setTableShow(true);
+    if (dateFrom && dateTo) {
+      const updatedFormValues = {
+        ...formValues,
+        dateFrom,
+        dateTo,
+      };
+      setParams(updatedFormValues);
       try {
         dispatch(
-          fetchData(
-            Bill_TRANSACTION +
-              `?pageNumber=0&dateFrom=${epochDateFrom}&dateTo=${epochDateTo}`
+          fetchPaginatedTable(
+            Bill_TRANSACTION,
+            updatedFormValues,
+            null,
+            "billNo"
           )
         );
+        setTableShow(true);
       } catch (error) {
         toast.error(error);
       }
     } else {
-      toast.error('Please provide both date values...');
+      toast.error("Please provide both date values...");
     }
   };
   const handleRowClick = (rowData) => {
@@ -134,13 +152,40 @@ const Bill = () => {
       <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
       <Box marginTop={2}>
         {tableShow ? (
-          <CustomTable
-            title={t('Bill Report')}
-            columns={columns}
-            isLoading={isLoading}
-            data={tableData}
-            onRowClick={handleRowClick}
-          />
+          <>
+            <CustomTable
+              title="Bill Report"
+              columns={columns}
+              isLoading={isLoading}
+              data={Object.values(tableData)}
+              pageSize={pageSize}
+              onRowClick={handleRowClick}
+            />
+            <div
+              style={{
+                paddingTop: "16px",
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <CustomPagination
+                pages={totalPages}
+                activePage={currentPage}
+                handleChangePage={(newPage) => {
+                  dispatch(
+                    fetchPaginatedTable(
+                      Bill_TRANSACTION,
+                      params,
+                      newPage,
+                      "billNo",
+                      null,
+                      totalData
+                    )
+                  );
+                }}
+              />
+            </div>
+          </>
         ) : null}
       </Box>
       <FormModal
@@ -149,14 +194,14 @@ const Bill = () => {
         formComponent={
           <>
             <BillDetail rowData={selectedRowData} />
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
-                variant='contained'
+                variant="contained"
                 onClick={() => {
                   setIsModalOpen(false);
                 }}
                 sx={{ mt: 3, ml: 1 }}
-                color='error'
+                color="error"
               >
                 {t("Close")}
               </Button>

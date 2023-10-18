@@ -13,9 +13,9 @@ import {
   TextField,
   Typography,
   useTheme,
-} from '@mui/material';
-import InputType from '../inputType/InputType';
-import { useTranslation } from 'react-i18next';
+} from "@mui/material";
+import InputType from "../inputType/InputType";
+import { useTranslation } from "react-i18next";
 
 const NewFilter = ({ inputField, searchCallBack }) => {
   const theme = useTheme();
@@ -148,8 +148,17 @@ const NewFilter = ({ inputField, searchCallBack }) => {
                       );
                     })}
                     <Grid item sm={3}>
-                      <Button type="submit" variant="contained">
-                      {t("SUBMIT")}
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        sx={{
+                          mt: 3,
+                          ml: 1,
+                          backgroundColor: theme.palette.background.btn,
+                          color: theme.palette.text.alt,
+                        }}
+                      >
+                        {t("SUBMIT")}
                       </Button>
                     </Grid>
                   </Grid>
