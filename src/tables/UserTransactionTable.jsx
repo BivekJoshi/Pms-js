@@ -21,7 +21,6 @@ const UserTransactionTable = () => {
         // Use async/await for data retrieval
         try {
           const data = await getAccountTransaction(epochDateFrom, epochDateTo);
-          console.log('Data Retrieved:', data);
         } catch (error) {
           console.error('Error:', error);
         }

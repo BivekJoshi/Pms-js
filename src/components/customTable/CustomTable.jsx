@@ -29,16 +29,16 @@ const CustomTable = (props) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSaveRow = async ({ exitEditingMode, row, values }) => {
-    console.log(
-      '🚀 ~ file: CustomTable.jsx:32 ~ handleSaveRow ~ values:',
-      values
-    );
     exitEditingMode(); //required to exit editing mode
   };
 
-  const headerBackgroundColor = props.headerBackgroundColor || (theme.palette.mode === "light" ? "#ffffff" : "#401686");
-  const headerColor = props.headerColor || (theme?.palette?.mode === "light" ? "#000" : "#fafafa");
-  
+  const headerBackgroundColor =
+    props.headerBackgroundColor ||
+    (theme.palette.mode === 'light' ? '#ffffff' : '#401686');
+  const headerColor =
+    props.headerColor ||
+    (theme?.palette?.mode === 'light' ? '#000' : '#fafafa');
+
   return (
     <div data-aos='fade-up'>
       <MaterialReactTable
