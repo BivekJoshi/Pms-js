@@ -20,13 +20,7 @@ const WatchTable = (watchid) => {
         size: 100,
         sortable: false,
       },
-      {
-        id: 2,
-        accessorKey: 'change',
-        header: 'Change Percent (%)',
-        size: 170,
-        sortable: false,
-      },
+   
       {
         id: 3,
         accessorKey: 'open',
@@ -74,6 +68,13 @@ const WatchTable = (watchid) => {
         accessorKey: 'change',
         header: 'Change (Rs)',
         size: 120,
+        sortable: false,
+      },
+      {
+        id: 2,
+        accessorKey: 'change',
+        header: 'Change Percent (%)',
+        size: 170,
         sortable: false,
       },
       {

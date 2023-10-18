@@ -42,7 +42,7 @@ const Portfolio = () => {
       {
         id: 5,
         accessorKey: "previousClose",
-        header: "Close",
+        header: "Close Price",
         size: 100,
         sortable: false,
       },
