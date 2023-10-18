@@ -1,12 +1,12 @@
-import React, { useMemo, useState } from "react";
-import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { ACCOUNT_TRANSACTION } from "../../../api/urls/urls";
-import NewFilter from "../../../components/newFilter/NewFilter";
-import { fetchData } from "../../../redux/actions/genericData";
-import CustomTable from "../../../components/customTable/CustomTable";
-import { Box } from "@mui/material";
-import { useTranslation } from "react-i18next";
+import React, { useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { ACCOUNT_TRANSACTION } from '../../../api/urls/urls';
+import NewFilter from '../../../components/newFilter/NewFilter';
+import { fetchData } from '../../../redux/actions/genericData';
+import CustomTable from '../../../components/customTable/CustomTable';
+import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const Statement = () => {
   const dispatch = useDispatch();
@@ -18,37 +18,37 @@ const Statement = () => {
   const columns = useMemo(() => [
     {
       id: 1,
-      accessorKey: "trDate",
-      header: "Date",
+      accessorKey: 'trDate',
+      header: 'Date',
       size: 100,
       sortable: false,
     },
     {
       id: 2,
-      accessorKey: "voucherType",
-      header: "Voucher",
+      accessorKey: 'voucherType',
+      header: 'Voucher',
       size: 120,
       sortable: false,
     },
     {
       id: 3,
-      accessorKey: "particulars",
-      header: "Particulars",
+      accessorKey: 'particulars',
+      header: 'Particulars',
       size: 100,
       sortable: false,
     },
     {
       id: 4,
-      accessorKey: "referenceNo",
-      header: "Reference No",
+      accessorKey: 'referenceNo',
+      header: 'Reference No',
       size: 100,
       sortable: false,
     },
 
     {
       id: 5,
-      accessorKey: "voucherNo",
-      header: "Voucher No",
+      accessorKey: 'voucherNo',
+      header: 'Voucher No',
       size: 100,
       sortable: false,
     },
@@ -56,19 +56,19 @@ const Statement = () => {
 
   const filterMenuItem = [
     {
-      label: t("Date From"),
-      name: "dateFrom",
-      type: "date-picker",
+      label: t('Date From'),
+      name: 'dateFrom',
+      type: 'date-picker',
       required: true,
-      md: 4,
+      md: 6,
       sm: 12,
     },
     {
-      label: t("Date To"),
-      name: "dateTo",
-      type: "date-picker",
+      label: t('Date To'),
+      name: 'dateTo',
+      type: 'date-picker',
       required: true,
-      md: 4,
+      md: 6,
       sm: 12,
       max: new Date().toISOString().slice(0, 10),
     },
@@ -94,8 +94,6 @@ const Statement = () => {
       } catch (error) {
         toast.error(error);
       }
-    } else {
-      toast.error("Please provide both date values...");
     }
   };
 
@@ -105,7 +103,7 @@ const Statement = () => {
       <Box marginTop={2}>
         {tableShow ? (
           <CustomTable
-            title="Transaction Report"
+            title='Transaction Report'
             columns={columns}
             isLoading={isLoading}
             data={tableData}

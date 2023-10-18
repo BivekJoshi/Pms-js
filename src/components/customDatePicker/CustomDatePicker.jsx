@@ -4,12 +4,16 @@ import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
 function CustomDatePicker({ name, label, min, max, required }) {
-  const { setFieldValue } = useFormikContext();
+  const { setFieldValue, setFieldTouched, errors } = useFormikContext();
+
   const [field] = useField(name);
 
   const handleDateChange = (date) => {
+    setFieldTouched(name, true); // Mark the field as touched
     setFieldValue(name, date);
   };
+
+  const errorMessage = errors[name] || ''; // Access the specific error for the field
 
   return (
     <div key={name}>
@@ -19,9 +23,13 @@ function CustomDatePicker({ name, label, min, max, required }) {
         label={label}
         value={field.value || null}
         onChange={handleDateChange}
-        // minDate={dayjs(min)}
         maxDate={dayjs(max)}
-        required={required}
+        slotProps={{
+          textField: {
+            error: !!errorMessage,
+            helperText: errorMessage,
+          },
+        }}
       />
     </div>
   );

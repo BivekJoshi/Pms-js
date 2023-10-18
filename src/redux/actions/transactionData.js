@@ -33,7 +33,6 @@ export const fetchData = (
       dispatch({ type: FETCH_DATA, payload: response });
       toast.success('Data fetched');
     } catch (err) {
-      console.log('🚀 ~ file: genericData.js:35 ~ return ~ err:', err);
       toast.error(err?.response?.data?.message);
       dispatch(genericProcessing(false));
     }
