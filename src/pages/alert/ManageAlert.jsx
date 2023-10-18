@@ -1,13 +1,13 @@
-import React from "react";
-import { Box } from "@mui/material";
-import NewFilter from "../../components/newFilter/NewFilter";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteData, fetchData } from "../../redux/actions/genericData";
-import CustomTable from "../../components/customTable/CustomTable";
-import { useState } from "react";
-import { useMemo } from "react";
-import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
-import EditAlert from "./EditAlert";
+import React from 'react';
+import { Autocomplete, Box, MenuItem, Select, TextField } from '@mui/material';
+import NewFilter from '../../components/newFilter/NewFilter';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteData, fetchData } from '../../redux/actions/genericData';
+import CustomTable from '../../components/customTable/CustomTable';
+import { useState } from 'react';
+import { useMemo } from 'react';
+import CustomeAlertDialog from '../../components/customeDialog/CustomeDialog';
+import EditAlert from './EditAlert';
 
 const ManageAlert = (props) => {
   const [tableShow, setTableShow] = useState(false);
@@ -16,62 +16,94 @@ const ManageAlert = (props) => {
   const [tableDataIndex, settableDataIndex] = useState();
   const tableData = useSelector((store) => store?.generic?.data);
   const isLoading = useSelector((store) => store?.generic?.processing);
+  const [currentAlertType, setCurrentAlertType] = useState();
+  console.log(
+    '🚀 ~ file: ManageAlert.jsx:20 ~ ManageAlert ~ currentAlertType:',
+    currentAlertType
+  );
   const dispatch = useDispatch();
 
   const filterMenuItem = [
     {
-      label: "Script",
-      name: "script",
-      type: "labelAutoComplete",
+      label: 'Script',
+      name: 'script',
+      type: 'labelAutoComplete',
       md: 4,
       options: props.script,
       sm: 12,
     },
     {
-      label: "Alert Type",
-      name: "alertType",
-      type: "dropDownId",
+      label: 'Alert Type',
+      name: 'alertType',
+      type: 'dropDownId',
       dropDownData: props.alertType,
       md: 4,
       sm: 12,
+    },
+  ];
+  const alertType = [
+    {
+      id: 'HIGHER_THAN',
+      label: 'Price Rise',
+    },
+    {
+      id: 'LOWER_THAN',
+      label: 'Price Below',
     },
   ];
   const columns = useMemo(
     () => [
       {
         id: 1,
-        accessorKey: "alertType",
-        header: "Alert Type",
+        accessorKey: 'alertType',
+        header: 'Alert Type',
         size: 100,
         sortable: false,
-        Edit: ({ cell, row, column, updateData }) => (
-          <EditAlert
-            type={"alertType"}
-            cell={cell}
-            row={row}
-            column={column}
-            updateData={updateData}
-          />
-        ),
+        Edit: (props) => {
+          const handleChange = (e, value) => {
+            setCurrentAlertType(value?.id);
+          };
+
+          return (
+            <Autocomplete
+              name='alertType'
+              getOptionLabel={(option) => option.label}
+              options={alertType}
+              // value={currentAlertType}
+              onChange={handleChange}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label='Select an Alert Type'
+                  placeholder='Select alert type'
+                  variant='outlined'
+                  size='small'
+                  InputLabelProps={{ shrink: true }}
+                  required
+                />
+              )}
+            />
+          );
+        },
       },
       {
         id: 2,
-        accessorKey: "triggerPrice",
-        header: "AlertTrigger",
+        accessorKey: 'triggerPrice',
+        header: 'AlertTrigger',
         size: 100,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: "alertMethod",
-        header: "Notification Delivery Method",
+        accessorKey: 'alertMethod',
+        header: 'Notification Delivery Method',
         size: 100,
         sortable: false,
       },
       {
         id: 5,
-        accessorKey: "trType",
-        header: "Alert For",
+        accessorKey: 'trType',
+        header: 'Alert For',
         size: 100,
       },
     ],
@@ -99,7 +131,7 @@ const ManageAlert = (props) => {
       new Promise((resolve, reject) => {
         dispatch(
           deleteData(
-            "/live-market/delete/stock-alert",
+            '/live-market/delete/stock-alert',
             rowData.id,
             tableDataIndex,
             resolve,
@@ -126,9 +158,10 @@ const ManageAlert = (props) => {
                     columns={columns}
                     isLoading={isLoading}
                     enableEditing={true}
-                    editingMode="modal"
+                    editingMode='modal'
                     enableEdit
                     enableDelete
+                    currentAlertType={currentAlertType}
                     data={d.stockAlertResponses}
                     handleDelete={deleteRow}
                     edit
@@ -140,9 +173,9 @@ const ManageAlert = (props) => {
           : null}
       </Box>
       <CustomeAlertDialog
-        disagreeLabel={"Cancel"}
-        agreeLabel={"Agree"}
-        header={"Are you sure to delete this alert ?"}
+        disagreeLabel={'Cancel'}
+        agreeLabel={'Agree'}
+        header={'Are you sure to delete this alert ?'}
         handleModalClose={handleModalClose}
         isModalOpen={isModalOpen}
         handleAgree={handleDeleteData}

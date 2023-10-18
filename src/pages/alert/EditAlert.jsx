@@ -1,6 +1,7 @@
 import React from 'react';
 import { Autocomplete, MenuItem, Select, TextField } from '@mui/material';
 import InputType from '../../components/inputType/InputType';
+import { useState } from 'react';
 const alertType = [
   {
     id: 'HIGHER_THAN',
@@ -11,18 +12,9 @@ const alertType = [
     label: 'Price Below',
   },
 ];
-const EditAlert = ({ cell, row, column, updateData, type }) => {
-  const handleAutocompleteChange = (event, newValue) => {
-    console.log(
-      '🚀 ~ file: EditAlert.jsx:16 ~ handleAutocompleteChange ~ newValue:',
-      newValue
-    );
-    console.log(
-      '🚀 ~ file: EditAlert.jsx:16 ~ handleAutocompleteChange ~ event:',
-      event
-    );
-    updateData(row.index, column.id, newValue.id); // Update the value in your table data
-  };
+const EditAlert = ({ cell, row, column, type }) => {
+  const [tableData, setTableData] = useState();
+  const handleAutocompleteChange = (event, newValue) => {};
   const rendercustomeEdit = () => {
     switch (type) {
       case 'alertType':
