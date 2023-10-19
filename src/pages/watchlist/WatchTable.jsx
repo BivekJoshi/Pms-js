@@ -1,5 +1,4 @@
 import React from 'react';
-import MaterialReactTable from 'material-react-table';
 import { useMemo } from 'react';
 import { useGetWatchListDataById } from '../../hooks/watchList/useWatchList';
 import CustomTable from '../../components/customTable/CustomTable';

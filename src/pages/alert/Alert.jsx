@@ -59,7 +59,7 @@ const Alert = (props) => {
     return { label: item.symbol, id: item.id };
   });
   const scriptName = symbols.find(
-    (d) => d.id === formik.values?.companyId
+    (d) => d.id === formik.values?.companyInfoId
   )?.label;
 
   const { data: getLtpData } = useGetLtp(scriptName);
@@ -132,7 +132,7 @@ const Alert = (props) => {
               <Grid container spacing={2}>
                 <Grid item xs={6} sm={6} md={4} lg={2}>
                   <Autocomplete
-                    name='companyId'
+                    name='companyInfoId'
                     options={symbols}
                     getOptionLabel={(option) => option.label}
                     renderInput={(params) => (
@@ -147,16 +147,16 @@ const Alert = (props) => {
                         onChange={formik.handleChange}
                         required
                         error={
-                          formik.touched.companyId &&
-                          Boolean(formik.errors.companyId)
+                          formik.touched.companyInfoId &&
+                          Boolean(formik.errors.companyInfoId)
                         }
                         helperText={
-                          formik.touched.companyId && formik.errors.companyId
+                          formik.touched.companyInfoId && formik.errors.companyInfoId
                         }
                       />
                     )}
                     onChange={(e, value) => {
-                      formik?.setFieldValue('companyId', value?.id || ''); // Set the field value based on the selected option or an empty string if no option is selected
+                      formik?.setFieldValue('companyInfoId', value?.id || ''); // Set the field value based on the selected option or an empty string if no option is selected
                     }}
                   />
                 </Grid>
@@ -286,7 +286,7 @@ const Alert = (props) => {
                                   onChange={(e) => {
                                     formik.setFieldValue(
                                       'transactionType',
-                                      e.target.checked ? 'SELL' : 'BUY'
+                                      e.target.checked ? 'SELL' : 'PURCHASE'
                                     );
                                   }}
                                   name='transactionType'

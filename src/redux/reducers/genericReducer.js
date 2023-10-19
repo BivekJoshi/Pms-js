@@ -102,10 +102,23 @@ const dataEdit = (payload, state) => {
   stateClone.data = data;
   return stateClone;
 };
-const updateData = (state, paylaod) => {
+const updateData = (state, payload) => {
   let stateClone = { ...state };
-  const tableData = state.data?.map((d) => d.stockAlertResponses);
-  console.log(tableData);
+  const { companyId, id } = payload;
+  const company = stateClone.data.find((d) => d.companyId === companyId);
+
+  if (company) {
+    const stockAlertResponse = company.stockAlertResponses.find(
+      (response) => response.id === id
+    );
+    if (stockAlertResponse) {
+      for (const key in payload) {
+        if (key !== "companyId" && key !== "id") {
+          stockAlertResponse[key] = payload[key];
+        }
+      }
+    }
+  }
   return stateClone;
 };
 const parentData = (action, state) => {

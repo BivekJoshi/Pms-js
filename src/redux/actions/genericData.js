@@ -12,7 +12,7 @@ export const fetchData = (
   path,
   addtionalFilterFunction,
   params,
-  method = 'GET',
+  method = "GET",
   data = null,
   header = null
 ) => {
@@ -27,7 +27,7 @@ export const fetchData = (
         data: data,
         params: params,
         headers: {
-          'Content-Type': header ? 'text/plain' : 'application/json',
+          "Content-Type": header ? "text/plain" : "application/json",
         },
       });
 
@@ -35,7 +35,7 @@ export const fetchData = (
         response = addtionalFilterFunction(response.data);
       } else response = response.data;
       dispatch({ type: FETCH_DATA, payload: response });
-      toast.success('Data fetched');
+      toast.success("Success");
     } catch (err) {
       toast.error(err?.response?.data?.message);
       dispatch(genericProcessing(false));
@@ -46,12 +46,12 @@ export const deleteData = (path, id, index, resolve, reject, data) => {
   return async (dispatch) => {
     dispatch(initiated());
     try {
-      const response = await axiosInstance.delete(path + '/' + id, {
+      const response = await axiosInstance.delete(path + "/" + id, {
         data: data,
       });
       dispatch({ type: DELETE_DATA, payload: index });
       resolve(response.data);
-      toast.success(' Successfully Deleted');
+      toast.success(" Success");
     } catch (err) {
       console.log(err);
       toast.error(err.message);
@@ -59,15 +59,16 @@ export const deleteData = (path, id, index, resolve, reject, data) => {
     }
   };
 };
-export const putData = (path, id, data) => {
+export const putData = (path, id, data, resolve, reject) => {
   return async (dispatch) => {
     dispatch(initiated());
     try {
       await axiosInstance.put(path + "/" + id, data);
       dispatch({ type: UPDATE_TABLE_DATA, payload: data });
-      toast.success(" Successfully Updated");
+      resolve();
     } catch (error) {
       toast.error(error.message);
+      reject();
     }
   };
 };

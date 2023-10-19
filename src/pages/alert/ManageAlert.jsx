@@ -1,5 +1,5 @@
 import React from "react";
-import { Autocomplete, Box, MenuItem, Select, TextField } from "@mui/material";
+import { Box, MenuItem, useTheme } from "@mui/material";
 import NewFilter from "../../components/newFilter/NewFilter";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,13 +13,14 @@ import { useMemo } from "react";
 import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
 
 const ManageAlert = (props) => {
-  const [tableShow, setTableShow] = useState(false);
+  const [tableShow, setTableShow] = React.useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowData, setRowData] = useState();
   const [tableDataIndex, settableDataIndex] = useState();
+  const [params, setparams] = useState({});
   const tableData = useSelector((store) => store?.generic?.data);
   const isLoading = useSelector((store) => store?.generic?.processing);
-
+  const theme = useTheme();
   const dispatch = useDispatch();
 
   const filterMenuItem = [
@@ -50,6 +51,10 @@ const ManageAlert = (props) => {
       label: "Price Below",
     },
   ];
+  const alertFor = [
+    { id: "SELL", label: "Sell" },
+    { id: "PURCHASE", label: "Purchase" },
+  ];
   const columns = useMemo(
     () => [
       {
@@ -67,6 +72,13 @@ const ManageAlert = (props) => {
             </MenuItem>
           )),
         },
+        Cell: ({ cell }) => {
+          return (
+            <div>
+              {cell.getValue() === "LOWER_THAN" ? "Price Below" : "Price Rise"}
+            </div>
+          );
+        },
       },
       {
         id: 2,
@@ -81,18 +93,31 @@ const ManageAlert = (props) => {
         header: "Notification Delivery Method",
         size: 100,
         sortable: false,
+        editable: false,
       },
       {
         id: 4,
-        accessorKey: "trType",
+        accessorKey: "transactionType",
         header: "Alert For",
         size: 100,
+        muiTableBodyCellEditTextFieldProps: {
+          select: true, //change to select for a dropdown
+          children: alertFor.map((state) => (
+            <MenuItem key={state?.id} value={state?.id}>
+              {state?.label}
+            </MenuItem>
+          )),
+        },
+        Cell: ({ cell }) => {
+          return <div>{cell.getValue() === "SELL" ? "Sell" : "Purchase"}</div>;
+        },
       },
     ],
     []
   );
   const handleSearch = (formValues) => {
     setTableShow(true);
+    setparams(formValues);
     dispatch(
       fetchData(
         `live-market/stock-alerts?script=${formValues.script}&alertType=${formValues.alertType}`
@@ -109,7 +134,7 @@ const ManageAlert = (props) => {
     setIsModalOpen(false);
   };
   const handleDeleteData = () => {
-    if (rowData.id && tableDataIndex) {
+    if (rowData.id) {
       new Promise((resolve, reject) => {
         dispatch(
           deleteData(
@@ -124,39 +149,73 @@ const ManageAlert = (props) => {
     }
   };
   const handleUpdate = (row, changeData) => {
-    dispatch(putData("/live-market/update/stock-alert", row.original.id,changeData));
+    new Promise((resolve, reject) => {
+      dispatch(
+        putData(
+          "/live-market/update/stock-alert",
+          row.original.id,
+          changeData,
+          resolve,
+          reject
+        )
+      );
+    }).then(() =>
+      dispatch(
+        fetchData(
+          `live-market/stock-alerts?script=${params.script}&alertType=${params.alertType}`
+        )
+      )
+    );
   };
+
   return (
     <div>
       <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
       <Box marginTop={2}>
-        {tableShow
-          ? tableData?.map((d) => {
+        {tableShow ? (
+          tableData && tableData.length > 0 ? ( // Check if tableData is not empty
+            tableData.map((d) => {
               const companyName = props.companyList?.find(
                 (data) => data.id === d.companyId
               )?.companyInfo;
               return (
-                <>
-                  <CustomTable
-                    title={companyName}
-                    enableColumnActions
-                    columns={columns}
-                    isLoading={true}
-                    enableEditing={true}
-                    state={{ isLoading: props.isLoading,showSkeletons:props.isLoading }}
-                    editingMode="modal"
-                    enableEdit
-                    enableDelete
-                    data={d.stockAlertResponses}
-                    handleDelete={deleteRow}
-                    handleUpdate={handleUpdate}
-                    edit
-                    delete
-                  />
-                </>
+                <CustomTable
+                  key={d.companyId} // Add a unique key for each CustomTable
+                  title={companyName}
+                  enableColumnActions
+                  columns={columns}
+                  isLoading={true}
+                  enableEditing={true}
+                  state={{
+                    isLoading: isLoading,
+                    showSkeletons: isLoading,
+                  }}
+                  editingMode="modal"
+                  enableEdit
+                  enableDelete
+                  data={d.stockAlertResponses}
+                  handleDelete={deleteRow}
+                  handleUpdate={handleUpdate}
+                  edit
+                  delete
+                />
               );
             })
-          : null}
+          ) : (
+            <Box
+              sx={{
+                width: "cover",
+                height: "84px",
+                backgroundColor: theme.palette.background.alt,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              No Script Found
+            </Box>
+          )
+        ) : null}
       </Box>
       <CustomeAlertDialog
         disagreeLabel={"Cancel"}
