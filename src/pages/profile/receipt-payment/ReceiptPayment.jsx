@@ -9,6 +9,8 @@ import { Box } from '@mui/material';
 import CustomPagination from '../../../components/customPagination/CustomPagination';
 import { fetchPaginatedTable } from '../../../redux/actions/paginatedTable';
 import { useTranslation } from 'react-i18next';
+import { receiptPaymentType } from '../../../utility/dropdownData';
+import { filterDateValidationSchema } from '../../../form/validations/filterDateValidate';
 
 const ReceiptPayment = () => {
   const dispatch = useDispatch();
@@ -86,8 +88,8 @@ const ReceiptPayment = () => {
     {
       label: t('Transaction Type'),
       name: 'type',
-      type: 'input-type',
-      required: true,
+      type: 'dropDownId',
+      dropDownData: receiptPaymentType,
       md: 4,
       sm: 12,
     },
@@ -126,7 +128,11 @@ const ReceiptPayment = () => {
 
   return (
     <>
-      <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
+      <NewFilter
+        inputField={filterMenuItem}
+        searchCallBack={handleSearch}
+        validate={filterDateValidationSchema}
+      />
       <Box marginTop={2}>
         {tableShow && (
           <>

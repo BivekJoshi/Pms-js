@@ -8,3 +8,14 @@ export const transactionType = [
     id: 'B',
   },
 ];
+
+export const receiptPaymentType = [
+  {
+    label: 'Receipt',
+    id: 'R',
+  },
+  {
+    label: 'Payment',
+    id: 'P',
+  },
+];
