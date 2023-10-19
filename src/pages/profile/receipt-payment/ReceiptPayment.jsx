@@ -15,10 +15,7 @@ const ReceiptPayment = () => {
   const [tableShow, setTableShow] = useState(false);
   const { t } = useTranslation();
   const tableData = useSelector((store) => store?.paginatedTable?.data);
-  console.log(
-    '🚀 ~ file: ReceiptPayment.jsx:16 ~ ReceiptPayment ~ tableData:',
-    tableData
-  );
+
   const isLoading = useSelector((store) => store?.paginatedTable?.processing);
   const totalData = useSelector((store) => store?.paginatedTable?.total);
   const totalPages = useSelector((store) => store?.paginatedTable?.pages);
@@ -124,8 +121,6 @@ const ReceiptPayment = () => {
       } catch (error) {
         toast.error(error);
       }
-    } else {
-      toast.error('Please provide both date values...');
     }
   };
 
