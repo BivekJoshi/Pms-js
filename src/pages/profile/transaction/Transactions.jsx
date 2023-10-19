@@ -130,7 +130,7 @@ const Transactions = () => {
             SHARE_TRANSACTION,
             updatedFormValues,
             null,
-            'unique'
+            'transactionNo'
           )
         );
         setTableShow(true);
@@ -173,7 +173,7 @@ const Transactions = () => {
                       SHARE_TRANSACTION,
                       params,
                       newPage,
-                      'unique',
+                      'transactionNo',
                       null,
                       totalData
                     )
