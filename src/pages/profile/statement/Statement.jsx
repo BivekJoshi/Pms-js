@@ -7,6 +7,7 @@ import { fetchData } from '../../../redux/actions/genericData';
 import CustomTable from '../../../components/customTable/CustomTable';
 import { Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { filterDateValidationSchema } from '../../../form/validations/filterDateValidate';
 
 const Statement = () => {
   const dispatch = useDispatch();
@@ -15,44 +16,47 @@ const Statement = () => {
   const tableData = useSelector((store) => store?.generic);
   const isLoading = useSelector((store) => store?.generic?.processing);
 
-  const columns = useMemo(() => [
-    {
-      id: 1,
-      accessorKey: 'trDate',
-      header: 'Date',
-      size: 100,
-      sortable: false,
-    },
-    {
-      id: 2,
-      accessorKey: 'voucherType',
-      header: 'Voucher',
-      size: 120,
-      sortable: false,
-    },
-    {
-      id: 3,
-      accessorKey: 'particulars',
-      header: 'Particulars',
-      size: 100,
-      sortable: false,
-    },
-    {
-      id: 4,
-      accessorKey: 'referenceNo',
-      header: 'Reference No',
-      size: 100,
-      sortable: false,
-    },
+  const columns = useMemo(
+    () => [
+      {
+        id: 1,
+        accessorKey: 'trDate',
+        header: 'Date',
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 2,
+        accessorKey: 'voucherType',
+        header: 'Voucher',
+        size: 120,
+        sortable: false,
+      },
+      {
+        id: 3,
+        accessorKey: 'particulars',
+        header: 'Particulars',
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 4,
+        accessorKey: 'referenceNo',
+        header: 'Reference No',
+        size: 100,
+        sortable: false,
+      },
 
-    {
-      id: 5,
-      accessorKey: 'voucherNo',
-      header: 'Voucher No',
-      size: 100,
-      sortable: false,
-    },
-  ]);
+      {
+        id: 5,
+        accessorKey: 'voucherNo',
+        header: 'Voucher No',
+        size: 100,
+        sortable: false,
+      },
+    ],
+    []
+  );
 
   const filterMenuItem = [
     {
@@ -99,7 +103,11 @@ const Statement = () => {
 
   return (
     <>
-      <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
+      <NewFilter
+        inputField={filterMenuItem}
+        searchCallBack={handleSearch}
+        validate={filterDateValidationSchema}
+      />
       <Box marginTop={2}>
         {tableShow ? (
           <CustomTable
