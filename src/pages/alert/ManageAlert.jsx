@@ -120,7 +120,7 @@ const ManageAlert = (props) => {
     setparams(formValues);
     dispatch(
       fetchData(
-        `live-market/stock-alerts?script=${formValues.script}&alertType=${formValues.alertType}`
+        `live-market/stock-alerts?script=${formValues.script || ""}&alertType=${formValues.alertType || ""}`
       )
     );
   };
