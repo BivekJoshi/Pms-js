@@ -399,6 +399,7 @@ const Profile = () => {
           PaperProps={{
             sx: { width: '400px' },
           }}
+          className='profileNavBar'
         >
           <Grid display='flex' flexDirection='column' gap='24px'>
             <Grid
