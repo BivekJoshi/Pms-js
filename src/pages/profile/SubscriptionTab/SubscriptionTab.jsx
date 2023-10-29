@@ -41,6 +41,7 @@ const subscriptionCardData = [
         bulletColor: '#D9D7DB',
       },
     ],
+    buttonColor:'#D9D7DB',
   },
   {
     bg: GoldSub,
@@ -64,6 +65,7 @@ const subscriptionCardData = [
       },
       { text: 'Candle Stick Prediction', bulletColor: '#EABB5E' },
     ],
+    buttonColor:'#EABB5E',
   },
 ];
 

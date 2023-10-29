@@ -11,11 +11,9 @@ import React from "react";
 import toast from "react-hot-toast";
 import { useChangePasswordForm } from "../../../form/auth/change-password/useChangePasswordForm";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-const ChangePassword = () => {
-  const navigate = useNavigate();
+const ForgetPassword = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const {
@@ -29,7 +27,6 @@ const ChangePassword = () => {
     formik.handleSubmit();
 
     if (formik.isValid) {
-      navigate("/login");
     } else {
       toast.error("Please make sure you have filled the form correctly");
     }
@@ -239,7 +236,12 @@ const ChangePassword = () => {
             <Button
               variant="contained"
               onClick={handleFormSubmit}
-              sx={{ mt: 3, ml: 1 }}
+              sx={{
+                mt: 3,
+                ml: 1,
+                backgroundColor: theme.palette.background.btn,
+                color: theme.palette.text.alt,
+              }}
             >
               {t("CHANGE PASSWORD")}
             </Button>

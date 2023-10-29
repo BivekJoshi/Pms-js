@@ -12,7 +12,6 @@ import {
   TextField,
   Typography,
   useTheme,
-  useThemeProps,
 } from "@mui/material";
 
 import WatchListMasterField from "../../form/formComponent/watchlist/WatchListMasterField";

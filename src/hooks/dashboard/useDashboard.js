@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
-import { getCompanyById } from '../../api/company/company-api';
+import { getMarketIndex } from '../../api/dashboard/dashboard-api';
 
 /*________________________GET COMPANY DATA BY ID_____________________________________*/
-export const useGetCompanyById = (script) => {
-  return useQuery(['getCompany', script], () => getCompanyById(script), {
+export const useGetMarketIndex = () => {
+  return useQuery(['getMarketIndex'], () => getMarketIndex(), {
     cacheTime: 10000,
     refetchInterval: false,
     refetchOnWindowFocus: false,

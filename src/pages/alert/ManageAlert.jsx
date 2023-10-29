@@ -1,18 +1,26 @@
 import React from "react";
-import { Box, IconButton } from "@mui/material";
-import { Delete as DeleteIcon } from "@mui/icons-material"; // Import the delete icon
+import { Box, MenuItem, useTheme } from "@mui/material";
 import NewFilter from "../../components/newFilter/NewFilter";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchData } from "../../redux/actions/genericData";
+import {
+  deleteData,
+  fetchData,
+  putData,
+} from "../../redux/actions/genericData";
 import CustomTable from "../../components/customTable/CustomTable";
 import { useState } from "react";
 import { useMemo } from "react";
-import { DELETE_DATA } from "../../redux/types/types";
+import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
 
 const ManageAlert = (props) => {
-  const [tableShow, setTableShow] = useState(false);
+  const [tableShow, setTableShow] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [rowData, setRowData] = useState();
+  const [tableDataIndex, settableDataIndex] = useState();
+  const [params, setparams] = useState({});
   const tableData = useSelector((store) => store?.generic?.data);
   const isLoading = useSelector((store) => store?.generic?.processing);
+  const theme = useTheme();
   const dispatch = useDispatch();
 
   const filterMenuItem = [
@@ -33,6 +41,20 @@ const ManageAlert = (props) => {
       sm: 12,
     },
   ];
+  const alertType = [
+    {
+      id: "HIGHER_THAN",
+      label: "Price Rise",
+    },
+    {
+      id: "LOWER_THAN",
+      label: "Price Below",
+    },
+  ];
+  const alertFor = [
+    { id: "SELL", label: "Sell" },
+    { id: "PURCHASE", label: "Purchase" },
+  ];
   const columns = useMemo(
     () => [
       {
@@ -41,12 +63,28 @@ const ManageAlert = (props) => {
         header: "Alert Type",
         size: 100,
         sortable: false,
+
+        muiTableBodyCellEditTextFieldProps: {
+          select: true, //change to select for a dropdown
+          children: alertType.map((state) => (
+            <MenuItem key={state?.id} value={state?.id}>
+              {state?.label}
+            </MenuItem>
+          )),
+        },
+        Cell: ({ cell }) => {
+          return (
+            <div>
+              {cell.getValue() === "LOWER_THAN" ? "Price Below" : "Price Rise"}
+            </div>
+          );
+        },
       },
       {
         id: 2,
         accessorKey: "triggerPrice",
         header: "AlertTrigger",
-        size: 120,
+        size: 100,
         sortable: false,
       },
       {
@@ -55,52 +93,138 @@ const ManageAlert = (props) => {
         header: "Notification Delivery Method",
         size: 100,
         sortable: false,
+        editable: false,
+      },
+      {
+        id: 4,
+        accessorKey: "transactionType",
+        header: "Alert For",
+        size: 100,
+        muiTableBodyCellEditTextFieldProps: {
+          select: true, //change to select for a dropdown
+          children: alertFor.map((state) => (
+            <MenuItem key={state?.id} value={state?.id}>
+              {state?.label}
+            </MenuItem>
+          )),
+        },
+        Cell: ({ cell }) => {
+          return <div>{cell.getValue() === "SELL" ? "Sell" : "Purchase"}</div>;
+        },
       },
     ],
     []
   );
   const handleSearch = (formValues) => {
-    console.log(formValues);
+    setTableShow(true);
+    setparams(formValues);
     dispatch(
       fetchData(
-        `live-market/stock-alerts?script=${formValues.script}&alertType=${formValues.alertType}`
+        `live-market/stock-alerts?script=${formValues.script || ""}&alertType=${formValues.alertType || ""}`
       )
     );
-    setTableShow(true);
   };
-  const deleteData = () => {
-    dispatch({ type: DELETE_DATA });
+  const deleteRow = (row) => {
+    setIsModalOpen(true);
+    setRowData(row?.original);
+    settableDataIndex(row.index);
   };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+  const handleDeleteData = () => {
+    if (rowData.id) {
+      new Promise((resolve, reject) => {
+        dispatch(
+          deleteData(
+            "/live-market/delete/stock-alert",
+            rowData.id,
+            tableDataIndex,
+            resolve,
+            reject
+          )
+        );
+      }).then(() => setIsModalOpen(false));
+    }
+  };
+  const handleUpdate = (row, changeData) => {
+    new Promise((resolve, reject) => {
+      dispatch(
+        putData(
+          "/live-market/update/stock-alert",
+          row.original.id,
+          changeData,
+          resolve,
+          reject
+        )
+      );
+    }).then(() =>
+      dispatch(
+        fetchData(
+          `live-market/stock-alerts?script=${params.script}&alertType=${params.alertType}`
+        )
+      )
+    );
+  };
+
   return (
     <div>
       <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
       <Box marginTop={2}>
-        {tableShow
-          ? tableData?.map((d) => {
+        {tableShow ? (
+          tableData && tableData.length > 0 ? ( // Check if tableData is not empty
+            tableData.map((d) => {
               const companyName = props.companyList?.find(
                 (data) => data.id === d.companyId
               )?.companyInfo;
               return (
-                <>
-                  <CustomTable
-                    title={companyName}
-                    enableColumnActions
-                    columns={columns}
-                    isLoading={isLoading}
-                    enableEditing={true}
-                    editingMode="row"
-                    enableEdit
-                    enableDelete
-                    data={d.stockAlertResponses}
-                    handleDelete={(data) => console.log(data)}
-                    edit
-                    delete
-                  />
-                </>
+                <CustomTable
+                  key={d.companyId} // Add a unique key for each CustomTable
+                  title={companyName}
+                  enableColumnActions
+                  columns={columns}
+                  isLoading={true}
+                  enableEditing={true}
+                  state={{
+                    isLoading: isLoading,
+                    showSkeletons: isLoading,
+                  }}
+                  editingMode="modal"
+                  enableEdit
+                  enableDelete
+                  data={d.stockAlertResponses}
+                  handleDelete={deleteRow}
+                  handleUpdate={handleUpdate}
+                  edit
+                  delete
+                />
               );
             })
-          : null}
+          ) : (
+            <Box
+              sx={{
+                width: "cover",
+                height: "84px",
+                backgroundColor: theme.palette.background.alt,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              No Script Found
+            </Box>
+          )
+        ) : null}
       </Box>
+      <CustomeAlertDialog
+        disagreeLabel={"Cancel"}
+        agreeLabel={"Agree"}
+        header={"Are you sure to delete this alert ?"}
+        handleModalClose={handleModalClose}
+        isModalOpen={isModalOpen}
+        handleAgree={handleDeleteData}
+      />
     </div>
   );
 };

@@ -1,9 +1,25 @@
-import React, { useState } from "react";
-import { SettingsOutlined, Menu as MenuIcon } from "@mui/icons-material";
-import DarkModeSetting from "../Setting/DarkModeSetting";
-import { AppBar, Typography, IconButton, Toolbar } from "@mui/material";
-import { useTheme, List, ListItem, Drawer } from "@mui/material";
-import { TextField, Autocomplete, Tooltip } from "@mui/material";
+import React, { useState } from 'react';
+import {
+  Search,
+  SettingsOutlined,
+  Menu as MenuIcon,
+} from '@mui/icons-material';
+import DarkModeSetting from '../Setting/DarkModeSetting';
+import {
+  AppBar,
+  Typography,
+  IconButton,
+  InputBase,
+  Toolbar,
+  useTheme,
+  List,
+  ListItem,
+  Drawer,
+  TextField,
+  Autocomplete,
+  Tooltip,
+  Grid,
+} from '@mui/material';
 
 import FlexBetween from "../flexBetween/FlexBetween";
 import logo from "../../assets/logo.png";
@@ -87,13 +103,29 @@ const Navbar = () => {
     id: item?.id,
   }));
 
+  // const textFieldStyle = {
+  //   width: "320px",
+  // };
+
+  // if (theme.breakpoints.down("xs")) {
+  //   textFieldStyle.width = "100px"; // Extra small screens
+  // } else if (theme.breakpoints.down("sm")) {
+  //   textFieldStyle.width = "200px"; // Small screens
+  // } else if (theme.breakpoints.down("md")) {
+  //   textFieldStyle.width = "250px"; // Medium screens
+  // } else if (theme.breakpoints.down("lg")) {
+  //   textFieldStyle.width = "300px"; // Large screens
+  // }
+
   return (
     <AppBar
       style={{
-        position: "static",
+        position: 'sticky',
+        top: 0,
+        boxShadow:
+          'rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset',
         background: theme.palette.background.alt,
-        boxShadow: "none",
-        color: "black",
+        color: 'black',
       }}
     >
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -129,8 +161,8 @@ const Navbar = () => {
                     fontWeight: isActive === items.id ? "bold" : "normal",
                     "&:hover": {
                       backgroundColor: theme.palette.background.hover,
-                      borderRadius: ".5rem",
-                      padding: "4px",
+                      borderRadius: '.5rem',
+                      padding: '4px',
                     },
                   }}
                   variant="h6"
@@ -152,27 +184,32 @@ const Navbar = () => {
           ))}
         </FlexBetween>
 
-        <Autocomplete
-          name="script"
-          options={symbols}
-          getOptionLabel={(option) => option?.companyInfo}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder={t("Company name or symbol")}
-              variant="outlined"
-              autoFocus
-              size="small"
-              InputLabelProps={{ shrink: true }}
-              sx={{ width: "300px" }}
-            />
-          )}
-          onChange={(event, value) => {
-            if (value) {
-              navigate(`/company/${value?.symbol}`);
-            }
-          }}
-        />
+        <Grid sx={{ width: '100%', margin: { md: '0 32px', sm: '0px' } }}>
+          <Autocomplete
+            name='script'
+            fullWidth
+            options={symbols}
+            getOptionLabel={(option) => option?.companyInfo}
+            // style={{ width: '100%' }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                placeholder={t('Company name or symbol')}
+                variant='outlined'
+                autoFocus
+                size='small'
+                InputLabelProps={{ shrink: true }}
+                style={{ minWidth: '150px' }}
+              />
+            )}
+            onChange={(event, value) => {
+              if (value) {
+                navigate(`/company/${value?.symbol}`);
+              }
+            }}
+          />
+        </Grid>
 
         <FlexBetween gap="12px">
           <div>

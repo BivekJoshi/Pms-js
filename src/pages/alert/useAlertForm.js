@@ -2,22 +2,16 @@ import { useFormik } from "formik";
 import { useAddCreateAlert } from "./useAlertPost";
 import { addAlertSchema } from "./createAlertValidation";
 
-
 export const useAlertForm = () => {
-  const { mutate } = useAddCreateAlert({
-    onSuccess: () => {
-      formik.resetForm();
-    },
-  });
+  const { mutate } = useAddCreateAlert({});
 
   const formik = useFormik({
     initialValues: {
-      companyId: "",
+      companyInfoId: "",
       alertType: "",
       triggerPrice: "",
-      transactionType: false,
       alertMethod: "",
-      alertFor: true,
+      transactionType: "PURCHASE",
       ltp: null,
     },
 
