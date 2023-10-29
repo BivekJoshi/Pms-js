@@ -13,7 +13,6 @@ import Statements from "../../assets/Statement.png";
 import Payment from "../../assets/Payment.png";
 import Terms from "../../assets/Terms.png";
 import Update from "../../assets/Update.png";
-// import { TabContext, TabList, TabPanel } from "@mui/lab";
 import ProfileInfo from "./ProfileTab/ProfileInfo";
 import ChangePassword from "./ProfileTab/ChangePassword";
 import SubscriptionTab from "./SubscriptionTab/SubscriptionTab";
@@ -25,11 +24,13 @@ import { useGetUserInfo } from "../../hooks/portfolio/usePortfolio";
 import { TabContext, TabPanel } from "@mui/lab";
 import { useTranslation } from "react-i18next";
 import MenuIcon from "@mui/icons-material/Menu";
+import ResponsiveProfileSidBar from "./SideNavProfile/ResponsiveProfileSidBar";
 
 const Profile = () => {
   const theme = useTheme();
   const [value, setValue] = useState("1");
   const { t } = useTranslation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: userInfoData, isLoading: loading } = useGetUserInfo();
 
   const handleChange = (event, newValue) => {
@@ -49,8 +50,9 @@ const Profile = () => {
           <MenuIcon
             className="smallIcon"
             sx={{ width: "24px", height: "24px" }}
-            onClick=""
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
           />
+          <ResponsiveProfileSidBar/>
           <Grid className="smallScreen">
             <Grid
               display="flex"
