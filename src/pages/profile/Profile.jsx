@@ -47,12 +47,17 @@ const Profile = () => {
     >
       <TabContext value={value}>
         <Grid display="flex" flexDirection="column" gap="24px">
-          <MenuIcon
+          {/* <MenuIcon
             className="smallIcon"
             sx={{ width: "24px", height: "24px" }}
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+          /> */}
+          <ResponsiveProfileSidBar
+            value={value}
+            userInfoData={userInfoData}
+            handleChange={handleChange}
+            MenuIcon={MenuIcon}
           />
-          <ResponsiveProfileSidBar/>
           <Grid className="smallScreen">
             <Grid
               display="flex"
