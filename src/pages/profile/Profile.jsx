@@ -32,6 +32,7 @@ const Profile = () => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    window.scrollTo(0,0);
   };
 
   return (
@@ -39,7 +40,7 @@ const Profile = () => {
       display="grid"
       gridTemplateColumns="2fr 10fr"
       gap="1rem"
-      mt="1.8rem"
+      // mt="1.8rem"
       color={theme.palette.text.main}
     >
       <TabContext value={value}>

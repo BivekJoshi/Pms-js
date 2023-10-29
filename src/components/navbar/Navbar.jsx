@@ -18,6 +18,7 @@ import {
   TextField,
   Autocomplete,
   Tooltip,
+  Grid,
 } from '@mui/material';
 
 import FlexBetween from '../flexBetween/FlexBetween';
@@ -102,6 +103,20 @@ const Navbar = () => {
     id: item?.id,
   }));
 
+  // const textFieldStyle = {
+  //   width: "320px",
+  // };
+
+  // if (theme.breakpoints.down("xs")) {
+  //   textFieldStyle.width = "100px"; // Extra small screens
+  // } else if (theme.breakpoints.down("sm")) {
+  //   textFieldStyle.width = "200px"; // Small screens
+  // } else if (theme.breakpoints.down("md")) {
+  //   textFieldStyle.width = "250px"; // Medium screens
+  // } else if (theme.breakpoints.down("lg")) {
+  //   textFieldStyle.width = "300px"; // Large screens
+  // }
+
   return (
     <AppBar
       style={{
@@ -167,7 +182,8 @@ const Navbar = () => {
           ))}
         </FlexBetween>
 
-        <Autocomplete
+      <Grid >
+      <Autocomplete
           name='script'
           options={symbols}
           getOptionLabel={(option) => option?.companyInfo}
@@ -179,7 +195,7 @@ const Navbar = () => {
               autoFocus
               size='small'
               InputLabelProps={{ shrink: true }}
-              sx={{ width: '300px' }}
+              style={{ width: "300px" }}
             />
           )}
           onChange={(event, value) => {
@@ -188,6 +204,7 @@ const Navbar = () => {
             }
           }}
         />
+      </Grid>
 
         <FlexBetween gap='12px'>
           <div>
