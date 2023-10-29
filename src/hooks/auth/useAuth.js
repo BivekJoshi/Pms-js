@@ -64,7 +64,7 @@ export const useRegister = ({ onSuccess }) => {
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
-        toast.error(err.message);
+        toast.error(getErrorMessage(err));
       },
     }
   );
@@ -144,7 +144,7 @@ export const useResetPassword = ({ onSuccess }) => {
 };
 
 export const useVerifyResetPassword = ({ id, onSuccess }) => {
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   return useMutation(
     ['changePassword'],
@@ -152,11 +152,11 @@ export const useVerifyResetPassword = ({ id, onSuccess }) => {
     {
       onSuccess: (data, variables, context) => {
         toast.success('Password changed successfully');
-        history(`/login`);
+        navigate(`/login`);
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
-        toast.error(err.message);
+        toast.error(getErrorMessage(err));
       },
     }
   );

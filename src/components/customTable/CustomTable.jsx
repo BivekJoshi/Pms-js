@@ -21,19 +21,44 @@ const CustomTable = (props) => {
   };
   const handleRowClick = (row) => {
     if (props?.onRowClick) {
-      props?.onRowClick(row.original);
+      props?.onRowClick(row);
     }
   };
   const handleDeleteRow = useCallback((row) => {
-    props.handleDelete(row);
-  }, []);
+    if (props.delete && props.handleDelete) props.handleDelete(row);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleSaveRow = async ({ exitEditingMode, row, values }) => {
+    let tableData = [...props.data];
+    let updatedData = tableData[row.index];
+    let column = [...props.columns];
+    for (const key in values) {
+      const columnID = Number(key);
+      const selectedValue = values[key];
+      const columnConfig = column?.find((d) => d.id === columnID);
+      const fieldName = columnConfig?.accessorKey;
+      if (fieldName) {
+        updatedData[fieldName] = selectedValue;
+      }
+    }
+    props?.handleUpdate(row, updatedData);
+    exitEditingMode(); //required to exit editing mode
+  };
+
+  const headerBackgroundColor =
+    props.headerBackgroundColor ||
+    (theme.palette.mode === 'light' ? '#ffffff' : '#401686');
+  const headerColor =
+    props.headerColor ||
+    (theme?.palette?.mode === 'light' ? '#000' : '#fafafa');
+
   return (
     <div data-aos="fade-up">
       <MaterialReactTable
         columns={props?.columns || []}
         data={props?.data || []}
         isLoading={props?.isLoading}
-        enableRowNumbers
+        enableRowNumbers={props.enableRowNumbers || false}
         enableRowVirtualization
         headerTitle={props?.title || "My Table Title"}
         enableStickyHeader
@@ -41,6 +66,7 @@ const CustomTable = (props) => {
         enablePagination={props?.manualPagination}
         paginationPageSize={props?.pageSize || 10}
         enableEditing={props.enableEditing || false}
+        onEditingRowSave={handleSaveRow}
         editingMode={props.editingMode}
         rowCount={props?.rowCount}
         onPaginationChange={handlePaginationChange}
@@ -75,9 +101,8 @@ const CustomTable = (props) => {
         }}
         muiTableHeadCellProps={{
           sx: {
-            backgroundColor:
-              theme?.palette?.mode === "light" ? "#ffffff" : "#401686",
-            color: theme?.palette?.mode === "light" ? "#000" : "#fafafa",
+            backgroundColor: headerBackgroundColor,
+            color: headerColor,
           },
         }}
         // enableRowSelection

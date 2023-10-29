@@ -3,22 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import NewFilter from '../../../components/newFilter/NewFilter';
 import CustomTable from '../../../components/customTable/CustomTable';
 import toast from 'react-hot-toast';
-import { Bill_TRANSACTION, RECEIPT_TRANSACTION } from '../../../api/urls/urls';
-import { fetchData } from '../../../redux/actions/transactionData';
+import { RECEIPT_TRANSACTION } from '../../../api/urls/urls';
+
 import { Box } from '@mui/material';
 import CustomPagination from '../../../components/customPagination/CustomPagination';
 import { fetchPaginatedTable } from '../../../redux/actions/paginatedTable';
 import { useTranslation } from 'react-i18next';
+import { receiptPaymentType } from '../../../utility/dropdownData';
+import { filterDateValidationSchema } from '../../../form/validations/filterDateValidate';
 
 const ReceiptPayment = () => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
   const { t } = useTranslation();
   const tableData = useSelector((store) => store?.paginatedTable?.data);
-  console.log(
-    '🚀 ~ file: ReceiptPayment.jsx:16 ~ ReceiptPayment ~ tableData:',
-    tableData
-  );
+
   const isLoading = useSelector((store) => store?.paginatedTable?.processing);
   const totalData = useSelector((store) => store?.paginatedTable?.total);
   const totalPages = useSelector((store) => store?.paginatedTable?.pages);
@@ -87,10 +86,10 @@ const ReceiptPayment = () => {
       sm: 12,
     },
     {
-      label: 'Transaction Type',
+      label: t('Transaction Type'),
       name: 'type',
-      type: 'input-type',
-      required: true,
+      type: 'dropDownId',
+      dropDownData: receiptPaymentType,
       md: 4,
       sm: 12,
     },
@@ -124,14 +123,16 @@ const ReceiptPayment = () => {
       } catch (error) {
         toast.error(error);
       }
-    } else {
-      toast.error('Please provide both date values...');
     }
   };
 
   return (
     <>
-      <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
+      <NewFilter
+        inputField={filterMenuItem}
+        searchCallBack={handleSearch}
+        validate={filterDateValidationSchema}
+      />
       <Box marginTop={2}>
         {tableShow && (
           <>

@@ -17,6 +17,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import { useGetTheme } from '../hooks/brokerTheme/useBrokerTheme';
 import Spinner from '../components/spinner/Spinner';
 import Footer from '../components/footer/Footer';
+import MarketIndexNav from '../components/navbar/MarketIndexNav';
 
 const AppLayout = () => {
   const dispatch = useDispatch();
@@ -53,9 +54,10 @@ const AppLayout = () => {
       {/* <ErrorBoundary> */}
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <header>
-          <Navbar />
-        </header>
+
+        <Navbar />
+
+        <MarketIndexNav />
         {/* <Container fixed> */}
         <section
           style={{ padding: '16px', minHeight: '94dvh' }}
