@@ -46,9 +46,12 @@ const Company = () => {
   const rows = [
     createData("Sector", "270,580.00"),
     createData("Shares Outstanding", "2312"),
-    createData("%Changes", companyData?.script?.change +" %"),
+    createData("%Changes", companyData?.script?.change + " %"),
     createData("Last Traded On", companyData?.script?.ltp),
-    createData("52 Weeks High-Low", "(" +companyData?.script?.high +" - "+companyData?.script?.low +")"),
+    createData(
+      "52 Weeks High-Low",
+      "(" + companyData?.script?.high + " - " + companyData?.script?.low + ")"
+    ),
     createData("120 Date Average", "434.34"),
     createData("1 Year Yield", "2323.32"),
     createData("EPS", "-27,34%"),
@@ -61,17 +64,17 @@ const Company = () => {
 
   return (
     <Box style={{ margin: "1rem 0.5rem" }}>
+      <Typography
+        variant="h2"
+        style={{
+          color: theme.palette.text.dark,
+          marginBottom: "1rem",
+        }}
+      >
+        {companyData?.companyInfo?.companyInfo}
+      </Typography>
       <Grid container spacing={2}>
         <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-          <Typography
-            variant="h2"
-            style={{
-              color: theme.palette.text.dark,
-              marginBottom: "1rem",
-            }}
-          >
-            {companyData?.companyInfo?.companyInfo}
-          </Typography>
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableHead>
@@ -136,7 +139,7 @@ const Company = () => {
           borderRadius: "6px",
         }}
       >
-        <ScriptProfile companyData={companyData}/>
+        <ScriptProfile companyData={companyData} />
       </Box>
     </Box>
   );
