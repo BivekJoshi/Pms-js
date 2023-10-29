@@ -1,9 +1,16 @@
 import React from 'react';
-import { Pagination, Stack } from '@mui/material';
+import { Pagination, Stack, useTheme } from '@mui/material';
 
 const CustomPagination = ({ activePage, pages, handleChangePage }) => {
+  const theme = useTheme();
+
   return (
-    <Stack spacing={2}>
+    <Stack
+      spacing={2}
+      bgcolor={theme.palette.background.alt}
+      padding={'8px'}
+      borderRadius={'6px'}
+    >
       <Pagination
         variant='outlined'
         color='secondary'

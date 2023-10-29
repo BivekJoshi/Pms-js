@@ -21,20 +21,26 @@ const Dashboard = () => {
         <LineChartDash data={lineData} />
       </Grid>
       <Grid item xs={12} md={5} lg={5} xl={5}>
-        <CardInfo />
+        <CardInfo title={'Realized'} />
       </Grid>
       <Grid item xs={12} md={7} lg={7} xl={7}>
         <BarChartDash data={barData} />
       </Grid>
-      <Grid item xs={12} md={12} lg={12} xl={12}>        
-        <BestPerformance/>
+      <Grid item xs={12} md={5} lg={5} xl={5}>
+        <CardInfo title={'Unrealized'} />
       </Grid>
-      <Grid item xs={12} md={12} lg={12} xl={12}>        
-        <WorstPerformance/>
+      <Grid item xs={12} md={7} lg={7} xl={7}>
+        <BarChartDash data={barData} />
       </Grid>
-      <Grid item xs={12} md={4} lg={4} xl={4}>        
+      <Grid item xs={12} md={6}>
+        <BestPerformance />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <WorstPerformance />
+      </Grid>
+      {/* <Grid item xs={12} md={4} lg={4} xl={4}>        
         <PieChartDash />
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

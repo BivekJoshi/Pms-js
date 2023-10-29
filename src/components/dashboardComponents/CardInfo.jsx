@@ -89,7 +89,7 @@ const CustomCard = ({ items, activeId, onClick }) => {
   );
 };
 
-const CardInfo = () => {
+const CardInfo = ({ title }) => {
   const theme = useTheme();
   const [isActive, setIsActive] = useState(null);
   const [active, setActive] = useState(null);
@@ -105,17 +105,18 @@ const CardInfo = () => {
   return (
     <Box
       padding={2}
+      height={'100%'}
       borderRadius={'6px'}
       color={theme.palette.text.main}
       bgcolor={theme.palette.background.alt}
     >
-      <CustomCard
+      {/* <CustomCard
         items={cardItems}
         activeId={isActive}
         onClick={handleActiveClick}
-      />
+      /> */}
 
-      <div
+      {/* <div
         style={{
           display: 'flex',
           gap: '0.1rem',
@@ -128,14 +129,14 @@ const CardInfo = () => {
           activeId={active}
           onClick={handleRealiseClick}
         />
-      </div>
+      </div> */}
 
       <div
         style={{
           marginTop: '1rem',
           background: theme.palette.background.light,
           color: theme.palette.text.main,
-          padding: '1rem 2.2rem',
+          // padding: '1rem 2.2rem',
         }}
       >
         <Typography
@@ -145,10 +146,12 @@ const CardInfo = () => {
             color: theme.palette.text.main,
           }}
         >
-          {t("Realized Gain/Loss")}
+          {t(`${title} Gain/Loss`)}
         </Typography>
         <Box sx={{ marginTop: '1rem', textAlign: 'right' }}>
-          <Typography variant='h5'>0 {t("of")} 1 {t("in Profit")}</Typography>
+          <Typography variant='h5'>
+            0 {t('of')} 1 {t('in Profit')}
+          </Typography>
         </Box>
         <div style={{ position: 'relative', color: 'black' }}>
           <Typography variant='h5' sx={{ textAlign: 'right' }}>
@@ -174,7 +177,7 @@ const CardInfo = () => {
             }}
             variant='h5'
           >
-            {t("Investment")} XXXX
+            {t('Investment')} XXXX
           </Typography>
           <Typography
             style={{
@@ -184,7 +187,7 @@ const CardInfo = () => {
             }}
             variant='h5'
           >
-            {t("Capital Gain")} XXXX
+            {t('Capital Gain')} XXXX
           </Typography>
         </Box>
       </div>
