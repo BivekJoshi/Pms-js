@@ -156,6 +156,7 @@ const NewFilter = ({ inputField, searchCallBack, validate }) => {
                         <Grid
                           item
                           sm={element?.sm}
+                          xs={element?.xs || element?.sm}
                           md={element?.md}
                           key={index}
                         >

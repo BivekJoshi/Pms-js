@@ -184,29 +184,32 @@ const Navbar = () => {
           ))}
         </FlexBetween>
 
-      <Grid >
-      <Autocomplete
-          name='script'
-          options={symbols}
-          getOptionLabel={(option) => option?.companyInfo}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              placeholder={t('Company name or symbol')}
-              variant='outlined'
-              autoFocus
-              size='small'
-              InputLabelProps={{ shrink: true }}
-              style={{ width: "300px" }}
-            />
-          )}
-          onChange={(event, value) => {
-            if (value) {
-              navigate(`/company/${value?.symbol}`);
-            }
-          }}
-        />
-      </Grid>
+        <Grid sx={{ width: '100%', margin: { md: '0 32px', sm: '0px' } }}>
+          <Autocomplete
+            name='script'
+            fullWidth
+            options={symbols}
+            getOptionLabel={(option) => option?.companyInfo}
+            // style={{ width: '100%' }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                placeholder={t('Company name or symbol')}
+                variant='outlined'
+                autoFocus
+                size='small'
+                InputLabelProps={{ shrink: true }}
+                style={{ minWidth: '150px' }}
+              />
+            )}
+            onChange={(event, value) => {
+              if (value) {
+                navigate(`/company/${value?.symbol}`);
+              }
+            }}
+          />
+        </Grid>
 
         <FlexBetween gap='12px'>
           <div>

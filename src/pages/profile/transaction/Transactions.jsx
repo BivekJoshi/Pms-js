@@ -103,7 +103,6 @@ const Transactions = () => {
       name: 'trType',
       type: 'dropDownId',
       dropDownData: transactionType,
-
       md: 4,
       sm: 12,
     },
