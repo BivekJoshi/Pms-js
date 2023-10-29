@@ -710,8 +710,8 @@ const Profile = () => {
         <TabPanel sx={{ p: 0 }} value='1'>
           <ProfileInfo data={userInfoData} />
         </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="2">
-          Notification
+        <TabPanel sx={{ p: 0 }} value='2'>
+          <ProfileNotification />
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value="3">
           <SubscriptionTab />
