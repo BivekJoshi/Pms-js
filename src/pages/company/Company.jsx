@@ -1,7 +1,7 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { useGetCompanyById } from '../../hooks/company/useCompany';
-import { companyData as chartData } from '../dashboard/data';
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useGetCompanyById } from "../../hooks/company/useCompany";
+import { companyData as chartData } from "../dashboard/data";
 import {
   LineChart,
   Line,
@@ -11,146 +11,133 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
+} from "recharts";
 import {
   Box,
   Grid,
+  Paper,
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
   useTheme,
-} from '@mui/material';
-import { useTranslation } from 'react-i18next';
+} from "@mui/material";
+import { useTranslation } from "react-i18next";
+import ScriptProfile from "./ScriptProfile/ScriptProfile";
 
 const Company = () => {
   const { script } = useParams();
   const theme = useTheme();
   const { t } = useTranslation();
   const { data: companyData, isLoading } = useGetCompanyById(script);
-  const data = [
-    {
-      id: 1,
-      heading: 'sector',
-      data: 3435678675643.0,
-    },
-    {
-      id: 2,
-      heading: 'Shares Outstanding',
-      data: 573.0,
-    },
-    {
-      id: 3,
-      heading: '%change',
-      data: '0.88%',
-    },
-    {
-      id: 4,
-      heading: 'Last Trade On',
-      data: '2023/10/17',
-    },
-    {
-      id: 5,
-      heading: '52 Weeks High-Low',
-      data: '930.00-560.50',
-    },
-    {
-      id: 6,
-      heading: '120 Dat average',
-      data: '594.48',
-    },
-    {
-      id: 7,
-      heading: '1 year Yield',
-      data: '-28.1%',
-    },
-    {
-      id: 8,
-      heading: 'EPS',
-      data: 'cm',
-    },
+
+  // console.log(companyData?.script, "daa");
+  const cellStyle = {
+    borderRight: "1px solid #e0e0e0",
+    fontWeight: "bold",
+  };
+  function createData(heading, data) {
+    return { heading, data };
+  }
+
+  const rows = [
+    createData("Sector", "270,580.00"),
+    createData("Shares Outstanding", "2312"),
+    createData("%Changes", companyData?.script?.change +" %"),
+    createData("Last Traded On", companyData?.script?.ltp),
+    createData("52 Weeks High-Low", "(" +companyData?.script?.high +" - "+companyData?.script?.low +")"),
+    createData("120 Date Average", "434.34"),
+    createData("1 Year Yield", "2323.32"),
+    createData("EPS", "-27,34%"),
+    createData("P/E Ratio", "27.82(FY:079-089)"),
+    createData("Book Value", "214.69"),
+    createData("PBV", "2.67"),
+    createData("30-Day Avg Volume", "46,0323.23"),
+    createData("Markert Capiltaization", "155,036,592"),
   ];
 
   return (
-    <Box style={{ margin: '1rem 0.5rem' }}>
+    <Box style={{ margin: "1rem 0.5rem" }}>
       <Grid container spacing={2}>
         <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-          <Typography variant='h5'>Nabil Bank Limited (NBL)</Typography>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  style={{
-                    border: `1px solid ${theme.palette.background.btn}`,
-                    background: theme.palette.background.btn,
-                    color: theme.palette.text.alt,
-                    fontSize: '1rem',
-                  }}
-                >
-                  Heading
-                </TableCell>
-                <TableCell
-                  style={{
-                    border: `1px solid ${theme.palette.background.btn}`,
-                    background: theme.palette.background.alt,
-                    color: theme.palette.text.main,
-                    fontSize: '1rem',
-                  }}
-                >
-                  Data
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((rowData) => (
-                <TableRow
-                  key={rowData?.id}
-                  style={{ background: theme.palette.background.alt }}
-                >
-                  <TableCell style={{ border: '1px solid grey' }}>
-                    {rowData?.heading}
+          <Typography
+            variant="h2"
+            style={{
+              color: theme.palette.text.dark,
+              marginBottom: "1rem",
+            }}
+          >
+            {companyData?.companyInfo?.companyInfo}
+          </Typography>
+          <TableContainer component={Paper}>
+            <Table aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell
+                    style={cellStyle}
+                    sx={{ backgroundColor: "#401686", color: "#fff" }}
+                  >
+                    Heading
                   </TableCell>
-                  <TableCell style={{ border: '1px solid grey' }}>
-                    {rowData?.data}
-                  </TableCell>
+                  <TableCell>Data</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row.heading}>
+                    <TableCell style={cellStyle}>{row.heading}</TableCell>
+                    <TableCell>{row.data}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Grid>
         <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
           <Box
             color={theme.palette.text.main}
             bgcolor={theme.palette.background.alt}
             sx={{
-              padding: '1rem 2rem',
-              borderRadius: '6px',
+              padding: "1rem 2rem",
+              borderRadius: "6px",
             }}
           >
-            <Typography variant='h4' style={{ marginBottom: '1rem' }}>
-              {t('Nabil Bank Limited 1D')}
+            <Typography variant="h4" style={{ marginBottom: "1rem" }}>
+              {t("Nabil Bank Limited 1D")}
             </Typography>
-            <ResponsiveContainer width='100%' height={500}>
+            <ResponsiveContainer width="100%" height={500}>
               <LineChart width={500} height={300} data={chartData}>
-                <CartesianGrid strokeDasharray='3 3' />
-                <XAxis dataKey='name' />
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
                 <Line
-                  type='monotone'
-                  dataKey={t('Pvalue')}
-                  stroke='#8884d8'
+                  type="monotone"
+                  dataKey={t("Pvalue")}
+                  stroke="#8884d8"
                   activeDot={{ r: 8 }}
                 />
-                <Line type='monotone' dataKey={t('Mvalue')} stroke='#82ca9d' />
+                <Line type="monotone" dataKey={t("Mvalue")} stroke="#82ca9d" />
               </LineChart>
             </ResponsiveContainer>
           </Box>
         </Grid>
       </Grid>
+      <br />
+      <Box
+        color={theme.palette.text.main}
+        bgcolor={theme.palette.background.alt}
+        sx={{
+          padding: "1rem 2rem",
+          borderRadius: "6px",
+        }}
+      >
+        <ScriptProfile companyData={companyData}/>
+      </Box>
     </Box>
   );
 };
