@@ -23,6 +23,7 @@ import Update from '../../assets/Update.png';
 // import { TabContext, TabList, TabPanel } from "@mui/lab";
 import ProfileInfo from './ProfileTab/ProfileInfo';
 import ForgetPassword from './ProfileTab/ForgetPassword';
+import ProfileNotification from './ProfileTab/ProfileNotification';
 import SubscriptionTab from './SubscriptionTab/SubscriptionTab';
 import Transactions from './transaction/Transactions';
 import Bill from './bill/Bill';
@@ -47,7 +48,7 @@ const Profile = () => {
     <Box
       display="grid"
       gridTemplateColumns="2fr 10fr"
-      gap="1rem"
+      gap="32px"
       // mt="1.8rem"
       color={theme.palette.text.main}
     >
@@ -359,7 +360,7 @@ const Profile = () => {
           <ProfileInfo data={userInfoData} />
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='2'>
-          Notification
+          <ProfileNotification/>
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='3'>
           <SubscriptionTab />

@@ -98,38 +98,47 @@ body {
   align-items: center;
   gap: 12px;
 }
-.profilePageItem{
+.profilePageItem {
   padding: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.profileItem{
+.profileItem {
   padding: 10px 20px;
-  border-bottom: 1px solid #CCC;
+  border-bottom: 1px solid #ccc;
   font-weight: 400 !important;
   line-height: 1.55 !important;
 }
 
-.css-1hdcydv-MuiButtonBase-root-MuiTab-root{
+.css-1hdcydv-MuiButtonBase-root-MuiTab-root {
   opacity: 1 !important;
 }
 
-.filterButton{
+.filterButton {
   display: flex;
-padding: 6px 16px;
-justify-content: center;
-align-items: center; 
-border-radius: 4px;
-border: 1px solid #7A757F;
-cursor: pointer;
-gap: 6px;
-font-weight: 700;
+  padding: 6px 16px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid #7a757f;
+  cursor: pointer;
+  gap: 6px;
+  font-weight: 700;
 }
 
-
- /* .css-heg063-MuiTabs-flexContainer{
+/* .css-heg063-MuiTabs-flexContainer{
   flex-direction: column !important;
 } */
-
-
+.notificationBg {
+  background-color: #401686;
+  height: 40px;
+  justify-content: flex-end !important;
+}
+.notificationSwitch{
+  flex-direction: row;
+  justify-content: space-between !important;
+}
+.css-1juiuni-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track{
+  background-color: #2ECA45 !important;
+}
