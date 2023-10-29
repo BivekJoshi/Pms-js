@@ -13,7 +13,7 @@ import { useChangePasswordForm } from "../../../form/auth/change-password/useCha
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const ForgetPassword = () => {
+const ChangePassword = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const {

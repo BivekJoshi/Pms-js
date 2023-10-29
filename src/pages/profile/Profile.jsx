@@ -26,7 +26,7 @@ import Terms from '../../assets/Terms.png';
 import Update from '../../assets/Update.png';
 // import { TabContext, TabList, TabPanel } from "@mui/lab";
 import ProfileInfo from './ProfileTab/ProfileInfo';
-import ForgetPassword from './ProfileTab/ForgetPassword';
+import ChangePassword from './ProfileTab/ChangePassword';
 import SubscriptionTab from './SubscriptionTab/SubscriptionTab';
 import Transactions from './transaction/Transactions';
 import Bill from './bill/Bill';
@@ -72,46 +72,49 @@ const Profile = () => {
             display: isSm ? 'none' : 'flex',
           }}
         >
-          <Grid
-            display='flex'
-            color={theme.palette.text.main}
-            bgcolor={theme.palette.background.alt}
-            alignItems='center'
-            gap='16px'
-            justifyContent='space-evenly'
-            borderRadius='6px'
-            position='relative'
-            padding='16px'
-          >
-            <img
-              src={profile}
-              alt='statusSuccess.png'
-              height='135px'
-              width='135px'
-              style={{ borderRadius: '50%' }}
-            />
-            <img
-              src={Camera}
-              alt='Camera'
-              style={{ position: 'absolute', bottom: '22%', left: '19%' }}
-            />
-            <Grid display='flex' flexDirection='column' gap='8px'>
-              <Typography variant='h4'>{userInfoData?.clientName}</Typography>
-              <Typography variant='h7'>{userInfoData?.email}</Typography>
-              <Typography variant='h7'>{userInfoData?.mobileNo}</Typography>
-              <Button
-                sx={{
-                  bgcolor: '#FFDCBC',
-                  border: '1px solid #7A757F',
-                  borderRadius: '4px',
-                  padding: '2px 4px',
-                  color: 'black',
-                  width: 'fit-content',
-                }}
-              >
-                {t('Basic')}
-              </Button>
+          <Grid display='flex' flexDirection='column' gap='24px'>
+            <Grid
+              display='flex'
+              color={theme.palette.text.main}
+              bgcolor={theme.palette.background.alt}
+              alignItems='center'
+              gap='16px'
+              justifyContent='space-evenly'
+              borderRadius='6px'
+              position='relative'
+              padding='16px'
+            >
+              <img
+                src={profile}
+                alt='statusSuccess.png'
+                height='135px'
+                width='135px'
+                style={{ borderRadius: '50%' }}
+              />
+              <img
+                src={Camera}
+                alt='Camera'
+                style={{ position: 'absolute', bottom: '22%', left: '19%' }}
+              />
+              <Grid display='flex' flexDirection='column' gap='8px'>
+                <Typography variant='h4'>{userInfoData?.clientName}</Typography>
+                <Typography variant='h7'>{userInfoData?.email}</Typography>
+                <Typography variant='h7'>{userInfoData?.mobileNo}</Typography>
+                <Button
+                  sx={{
+                    bgcolor: '#FFDCBC',
+                    border: '1px solid #7A757F',
+                    borderRadius: '4px',
+                    padding: '2px 4px',
+                    color: 'black',
+                    width: 'fit-content',
+                  }}
+                >
+                  {t('Basic')}
+                </Button>
+              </Grid>
             </Grid>
+            
             <Grid
               p="24px"
               bgcolor={theme.palette.background.alt}
@@ -394,7 +397,7 @@ const Profile = () => {
           anchor={'left'}
           onClose={() => setOpenDrawer(false)}
           PaperProps={{
-            sx: { width: '300px' },
+            sx: { width: '400px' },
           }}
         >
           <Grid display='flex' flexDirection='column' gap='24px'>
