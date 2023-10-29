@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
 import ScrollToTop from '../utility/ScrollToTop';
+// import PageNotFound from '../pages/PageNotFound/PageNotFound';
 
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));
@@ -30,6 +31,7 @@ const ApplicationMessage = React.lazy(() =>
 );
 const ErrorPage = React.lazy(() => import('./../pages/error-page/ErrorPage'));
 const Company = React.lazy(() => import('../pages/company/Company'));
+const PageNotFound = React.lazy(() => import('../pages/PageNotFound/PageNotFound'));
 
 export default function AppRoutes() {
   return (
@@ -57,6 +59,8 @@ export default function AppRoutes() {
               <Route path='alert' element={<Alert />} />
               <Route path='profile' element={<Profile />} />
               <Route path='company/:script' element={<Company />} />
+              <Route path='pagenotfound' element={<PageNotFound />} />
+              
             </Route>
             <Route path='/error-page' element={<ErrorPage />} />
           </Routes>
