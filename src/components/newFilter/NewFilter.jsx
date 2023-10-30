@@ -17,7 +17,7 @@ import {
 import InputType from '../inputType/InputType';
 import { useTranslation } from 'react-i18next';
 
-const NewFilter = ({ inputField, searchCallBack, validate }) => {
+const NewFilter = ({ inputField, searchCallBack, validate, tradeDate }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const [showFilter, setShowFilter] = useState(true);
@@ -90,7 +90,7 @@ const NewFilter = ({ inputField, searchCallBack, validate }) => {
   return (
     <>
       <Box
-        data-aos='fade-left'
+        data-aos='fade-up'
         bgcolor={theme.palette.background.alt}
         color={theme.palette.text.main}
         sx={{
@@ -99,7 +99,16 @@ const NewFilter = ({ inputField, searchCallBack, validate }) => {
           borderRadius: '6px',
         }}
       >
-        <Grid sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Grid
+          sx={{
+            display: 'flex',
+            justifyContent: tradeDate ? 'space-between' : 'flex-end',
+            alignItems: 'center',
+          }}
+        >
+          <div>
+            Last Trade Date: <b>{tradeDate}</b>
+          </div>
           <div
             className='filterButton'
             onClick={() => setShowFilter(!showFilter)}
