@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  useTheme,
-} from "@mui/material";
+import { useTheme } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useTranslation } from "react-i18next";
 import CustomTable from "../../components/customTable/CustomTable";
@@ -40,7 +33,7 @@ const CompanyDetail = ({ companyData }) => {
   return (
     <Box color={theme.palette.text.main}>
       <TabContext value={value}>
-        <Box>
+        <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
           <TabList onChange={handleChange}>
             <Tab
               label={<Typography>{t("% Dividend")}</Typography>}
@@ -158,7 +151,7 @@ export const Bonus = ({ companyData }) => {
 };
 export const RightShare = ({ companyData }) => {
   const theme = useTheme();
-  
+
   const filteredData = companyData?.dividend.filter(
     (row) => row.fiscalYear && row.right
   );
