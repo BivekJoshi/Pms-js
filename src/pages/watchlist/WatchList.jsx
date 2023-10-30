@@ -61,7 +61,7 @@ const WatchList = () => {
     })) || [];
 
   useEffect(() => {
-    if (!loadingname && watchListName.length > 0) {
+    if (!loadingname && watchListName?.length > 0) {
       setWatchList(watchListName[0]?.id);
     }
   }, [loadingname, watchListName]);
@@ -121,7 +121,7 @@ const WatchList = () => {
             Watchlist:
           </Typography>
           {!loadingname &&
-            watchListName.map((name) => (
+            watchListName?.map((name) => (
               <Chip
                 label={name?.watchlistName}
                 className='custom-chip'
