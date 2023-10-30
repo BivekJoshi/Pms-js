@@ -79,7 +79,7 @@ export const useApplication = ({ onSuccess }) => {
     {
       onSuccess: (data, variables, context) => {
         toast.success(data?.status);
-        history(`/status/message/status=${data?.status}`);
+        history(`/status/message/${data?.status}`);
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {

@@ -8,10 +8,7 @@ import Pending from '../../assets/pending.png';
 const ApplicationMessage = () => {
   const history = useNavigate();
   const { status } = useParams();
-  console.log(
-    '🚀 ~ file: ApplicationMessage.jsx:11 ~ ApplicationMessage ~ status:',
-    status
-  );
+
 
   const handleClick = () => {
     history('/login');
@@ -33,7 +30,7 @@ const ApplicationMessage = () => {
       </h3>
 
       {/* status verified */}
-      {/* <Grid style={{ textAlign: "-webkit-center" }}>
+      {status === "VERIFIED" &&        (<Grid style={{ textAlign: "-webkit-center" }}>
         <img
           src={StatusSuccess}
           alt="Status Success"
@@ -55,10 +52,12 @@ const ApplicationMessage = () => {
             Sign In
           </span>
         </div>
-      </Grid> */}
+      </Grid> )}
 
-      {/* Approved State */}
-      {/* <Grid style={{ textAlign: "-webkit-center" }}>
+      {status === "APPROVED" && 
+
+     
+     ( <Grid style={{ textAlign: "-webkit-center" }}>
         <img
           src={Success}
           alt="Status Success"
@@ -82,10 +81,10 @@ const ApplicationMessage = () => {
             Sign In
           </span>
         </div>
-      </Grid> */}
+      </Grid> )}
 
-      {/* Pending State */}
-      <Grid style={{ textAlign: '-webkit-center' }}>
+      {status === "PENDING" && 
+     ( <Grid style={{ textAlign: '-webkit-center' }}>
         <img
           src={Pending}
           alt='Status Success'
@@ -109,7 +108,7 @@ const ApplicationMessage = () => {
             Sign In
           </span>
         </div>
-      </Grid>
+      </Grid>)}
     </Box>
   );
 };

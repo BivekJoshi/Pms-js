@@ -49,7 +49,7 @@ export default function AppRoutes() {
                 path='pms/api/public/reset-password/:id'
                 element={<ChangePasswordPage />}
               />
-              <Route path='status/message' element={<ApplicationMessage />} />
+              <Route path='status/message/:status' element={<ApplicationMessage />} />
             </Route>
             <Route path='/' element={<AppLayout />}>
               <Route path='dashboard' element={<Dashboard />} />
