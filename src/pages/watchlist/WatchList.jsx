@@ -7,20 +7,23 @@ import {
   Autocomplete,
   Box,
   Button,
+  Checkbox,
   Chip,
   Grid,
   TextField,
   Typography,
   useTheme,
 } from "@mui/material";
-
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import WatchListMasterField from "../../form/formComponent/watchlist/WatchListMasterField";
 import { useState } from "react";
 import WatchTable from "./WatchTable";
 import { useWatchListDetailForm } from "../../hooks/watchList/useWatchListForm/useWatchListDetailForm";
 import toast from "react-hot-toast";
 import FormModal from "../../components/formModal/FormModal";
-
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
 const WatchList = () => {
   const theme = useTheme();
   const [watchlist, setWatchList] = useState();
@@ -46,10 +49,11 @@ const WatchList = () => {
       symbolsArray.push({ index: key, ...listedCompanies[key] });
     }
   }
-  const symbols = symbolsArray.map((item) => ({
-    symbol: item?.symbol,
-    companyInfo: item?.companyInfo,
-  }));
+  const symbols =
+    symbolsArray.map((item) => ({
+      symbol: item?.symbol,
+      companyInfo: item?.companyInfo,
+    })) || [];
 
   return (
     <div>
@@ -82,7 +86,6 @@ const WatchList = () => {
         sx={{
           display: "flex",
           width: "cover",
-          height: "84px",
           backgroundColor: theme.palette.background.alt,
           padding: "16px",
           justifyContent: "space-between",
@@ -131,7 +134,7 @@ const WatchList = () => {
           >
             NEPSE CODE:
           </Typography>
-          <div style={{ width: "300px" }}>
+          {/* <div style={{ width: "300px" }}>
             <Autocomplete
               name="script"
               options={symbols}
@@ -156,7 +159,48 @@ const WatchList = () => {
                 />
               )}
             />
-          </div>
+          </div> */}
+          <Autocomplete
+            multiple
+            id="checkboxes-tags-demo"
+            options={symbols}
+            value={selectedSymbol || []}
+            isOptionEqualToValue={(option, value) =>
+              option.symbol === value.symbol
+            }
+            onChange={(event, newValue) => {
+              if (newValue != null) {
+                const multiScript = newValue.map((d) => d.symbol);
+                console.log(multiScript);
+                formik.setFieldValue("script", multiScript);
+                setSelectedSymbol(newValue);
+              }
+            }}
+            getOptionLabel={(option) => option.symbol}
+            renderOption={(props, option, { selected }) => (
+              <li {...props}>
+                <Checkbox
+                  icon={icon}
+                  checkedIcon={checkedIcon}
+                  style={{ marginRight: 8 }}
+                  checked={selected}
+                />
+                {option.symbol}
+              </li>
+            )}
+            style={{ width: 400 }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Script"
+                error={formik.touched.script && Boolean(formik.errors.script)}
+                helperText={formik.touched.script && formik.errors.script}
+                autoFocus
+                size="small"
+                value={formik.values.script}
+              />
+            )}
+          />
         </div>
 
         <Button
