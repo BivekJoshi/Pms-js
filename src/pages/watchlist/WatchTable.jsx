@@ -5,6 +5,7 @@ import CustomTable from '../../components/customTable/CustomTable';
 import { Box, useTheme } from '@mui/material';
 
 const WatchTable = (watchid) => {
+  console.log('🚀 ~ file: WatchTable.jsx:8 ~ WatchTable ~ watchid:', watchid);
   const id = watchid.watchid;
   const { data: watchListDataById, isLoading } = useGetWatchListDataById(id);
 
@@ -19,7 +20,7 @@ const WatchTable = (watchid) => {
         size: 100,
         sortable: false,
       },
-   
+
       {
         id: 3,
         accessorKey: 'open',
