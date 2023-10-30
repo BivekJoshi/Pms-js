@@ -47,7 +47,7 @@ const AlertScriptDetails = ({ data, isLoading }) => {
         </Typography>
       </div>
       <Grid container spacing={2}>
-        <Grid item md={2} xs={12}>
+        <Grid item md={3} xs={12}>
           <TableContainer component={Paper}>
             <Table aria-label='simple table'>
               <TableBody>
@@ -71,7 +71,7 @@ const AlertScriptDetails = ({ data, isLoading }) => {
             </Table>
           </TableContainer>
         </Grid>
-        <Grid item md={6} xs={12}>
+        <Grid item md={5} xs={12}>
           <AlertGraph />
         </Grid>
         <Grid item md={4} xs={12}>
