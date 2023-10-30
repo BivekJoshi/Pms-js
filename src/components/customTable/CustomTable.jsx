@@ -76,6 +76,7 @@ const CustomTable = (props) => {
         enableColumnActions={props?.enableColumnActions}
         enableColumnFilters={props?.enableColumnFilters}
         enableSorting={props?.enableSorting}
+        enableRowActions={props.enableRowActions || false}
         enableBottomToolbar={props?.enableBottomToolbar}
         enableTopToolbar={props?.enableTopToolbar}
         renderRowActions={({ row, table }) => (

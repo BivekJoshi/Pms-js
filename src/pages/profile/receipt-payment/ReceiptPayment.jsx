@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import { receiptPaymentType } from '../../../utility/dropdownData';
 import { filterDateValidationSchema } from '../../../form/validations/filterDateValidate';
 
-const ReceiptPayment = () => {
+const ReceiptPayment = ({ tradeDate }) => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
   const { t } = useTranslation();
@@ -129,6 +129,7 @@ const ReceiptPayment = () => {
   return (
     <>
       <NewFilter
+        tradeDate={tradeDate}
         inputField={filterMenuItem}
         searchCallBack={handleSearch}
         validate={filterDateValidationSchema}

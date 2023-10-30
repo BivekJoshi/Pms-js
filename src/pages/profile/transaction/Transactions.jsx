@@ -11,7 +11,7 @@ import { filterDateValidationSchema } from '../../../form/validations/filterDate
 import { fetchPaginatedTable } from '../../../redux/actions/paginatedTable';
 import CustomPagination from '../../../components/customPagination/CustomPagination';
 
-const Transactions = () => {
+const Transactions = ({ tradeDate }) => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
   const { t } = useTranslation();
@@ -145,6 +145,7 @@ const Transactions = () => {
         inputField={filterMenuItem}
         searchCallBack={handleSearch}
         validate={filterDateValidationSchema}
+        tradeDate={tradeDate}
       />
       <Box marginTop={2}>
         {tableShow && (
