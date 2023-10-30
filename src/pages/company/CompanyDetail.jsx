@@ -71,6 +71,11 @@ export default CompanyDetail;
 
 export const Dividend = ({ companyData }) => {
   const theme = useTheme();
+
+  const filteredData = companyData?.dividend.filter(
+    (row) => row?.fiscalYear && row?.cash
+  );
+
   const columns = useMemo(
     () => [
       {
@@ -94,7 +99,7 @@ export const Dividend = ({ companyData }) => {
     <CustomTable
       title=""
       columns={columns}
-      data={companyData?.dividend}
+      data={filteredData}
       enablePagination={false}
       enableEditing={false}
       enableColumnResizing={false}
@@ -111,6 +116,12 @@ export const Dividend = ({ companyData }) => {
 };
 export const Bonus = ({ companyData }) => {
   const theme = useTheme();
+
+  const filteredData = companyData?.dividend.filter(
+    (row) => row.fiscalYear && row.bonus
+  );
+
+
   const columns = useMemo(
     () => [
       {
@@ -134,7 +145,7 @@ export const Bonus = ({ companyData }) => {
     <CustomTable
       title=""
       columns={columns}
-      data={companyData?.dividend}
+      data={filteredData}
       enablePagination={false}
       enableEditing={false}
       enableColumnResizing={false}

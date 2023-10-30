@@ -112,13 +112,13 @@ const PriceHistory = ({ companyData }) => {
         size: 100,
         sortable: false,
       },
-      {
-        id: 7,
-        accessorKey: 'ltp',
-        header: 'LTP',
-        size: 100,
-        sortable: false,
-      },
+      // {
+      //   id: 7,
+      //   accessorKey: 'ltp',
+      //   header: 'LTP',
+      //   size: 100,
+      //   sortable: false,
+      // },
       {
         id: 8,
         accessorKey: 'previousClose',
