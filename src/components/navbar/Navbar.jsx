@@ -184,13 +184,19 @@ const Navbar = () => {
           ))}
         </FlexBetween>
 
-        <Grid sx={{ width: '100%', margin: { md: '0 32px', sm: '0px' } }}>
+        <Grid
+          sx={{
+            width: '100%',
+            maxWidth: '300px',
+            display: { md: 'block', xs: 'none' },
+            margin: { md: '0 32px', sm: '0px' },
+          }}
+        >
           <Autocomplete
             name='script'
             fullWidth
             options={symbols}
             getOptionLabel={(option) => option?.companyInfo}
-            // style={{ width: '100%' }}
             renderInput={(params) => (
               <TextField
                 {...params}

@@ -113,7 +113,7 @@ const BestPerformance = () => {
       {
         id: 3,
         accessorKey: 'pp',
-        header: 'PP',
+        header: 'CP',
         size: 100,
         sortable: false,
       },
