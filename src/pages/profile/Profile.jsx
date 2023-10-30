@@ -26,7 +26,7 @@ import Terms from '../../assets/Terms.png';
 import Update from '../../assets/Update.png';
 // import { TabContext, TabList, TabPanel } from "@mui/lab";
 import ProfileInfo from './ProfileTab/ProfileInfo';
-import ForgetPassword from './ProfileTab/ForgetPassword';
+import ForgetPassword from './ProfileTab/forgetPassword/ForgetPassword';
 import ProfileNotification from './ProfileTab/ProfileNotification';
 import SubscriptionTab from './SubscriptionTab/SubscriptionTab';
 import Transactions from './transaction/Transactions';

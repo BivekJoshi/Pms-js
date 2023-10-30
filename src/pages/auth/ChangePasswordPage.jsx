@@ -40,7 +40,7 @@ function Validation(props) {
         <Typography
           variant='body1'
           gutterBottom
-          sx={{ color: props.validated ? 'green' : 'red' }}
+          sx={{ color: props.validated ? 'green' : 'default' }}
         >
           <Checkbox
             checked={props?.validated}

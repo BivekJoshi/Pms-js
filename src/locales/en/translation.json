@@ -131,5 +131,9 @@
   "Total gain/Loss": "Total gain/Loss",
   "Today's Gain/Loss": "Today's Gain/Loss",
   "CREATE NEW WATCHLIST": "CREATE NEW WATCHLIST",
-  "+ADD": "+ADD"
+  "+ADD": "+ADD",
+  "Length": "Length",
+  "Passwords matched": "Passwords matched",
+  "Basic": "Basic",
+  "Depositary participation": "Depositary participation"
 }
