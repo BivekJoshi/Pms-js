@@ -153,7 +153,7 @@ const CardInfo = ({ title }) => {
             0 {t('of')} 1 {t('in Profit')}
           </Typography>
         </Box>
-        <div style={{ position: 'relative', color: 'black' }}>
+        <div style={{ position: 'relative' }}>
           <Typography variant='h5' sx={{ textAlign: 'right' }}>
             0 of 0%
           </Typography>
