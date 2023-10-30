@@ -12,8 +12,8 @@ export const useChangePassword = ({ onSuccess }) => {
       changePassword(oldPassword,newPassword,rePassword),
     {
       onSuccess: (data, variables, context) => {
-        toast.success('Password Changed Sucessfull');
-        navigate(`/login`);
+        toast.success('Password Changed Sucessfully');
+        navigate(`/profile`);
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {

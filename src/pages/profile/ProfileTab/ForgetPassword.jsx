@@ -14,8 +14,39 @@ import toast from "react-hot-toast";
 import { useChangePasswordForm } from "../../../form/auth/change-password/useChangePasswordForm";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import passwordValidation from "../../auth/validation/passwordValidation";
+
+function Validation(props) {
+  return (
+    <>
+      <div className={props.validated ? "validated" : "not-validated"}>
+        <Typography
+          variant="body1"
+          gutterBottom
+          sx={{ color: props.validated ? "green" : "default" }}
+        >
+          <Checkbox
+            checked={props?.validated}
+            color={props.validated ? "success" : "error"}
+          />
+          {props.message}
+        </Typography>
+      </div>
+    </>
+  );
+}
 
 const ForgetPassword = () => {
+  const initial = {
+    lowerValidated: false,
+    upperValidated: false,
+    numberValidated: false,
+    specialValidated: false,
+    lengthValidated: false,
+  };
+  const [newPasswordValidation, setNewPasswordValidation] = useState(initial);
+  const [rePasswordValidation, setRePasswordValidation] = useState(initial);
+  const [passwordMatched, setPasswordMatched] = useState(false);
   const { t } = useTranslation();
   const theme = useTheme();
   const {
@@ -28,7 +59,8 @@ const ForgetPassword = () => {
   const handleFormSubmit = () => {
     formik.handleSubmit();
 
-    if (formik.isValid) {
+    if (formik.isValid && passwordMatched) {
+      // toast.success("Password changed successfully");
     } else {
       toast.error("Please make sure you have filled the form correctly");
     }
@@ -36,6 +68,40 @@ const ForgetPassword = () => {
 
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const {
+    lowerValidated,
+    upperValidated,
+    numberValidated,
+    specialValidated,
+    lengthValidated,
+    handleChangeValidation,
+  } = passwordValidation();
+
+  const handleChangeNewPassword = (e) => {
+    console.log({"hello": e.target.value})
+    formik.handleChange(e);
+    handleChangeValidation(e.target.value);
+    setNewPasswordValidation({
+      lowerValidated,
+      upperValidated,
+      numberValidated,
+      specialValidated,
+      lengthValidated,
+    });
+  };
+
+  const handleChangeRePassword = (e) => {
+    formik.handleChange(e);
+    handleChangeValidation(e.target.value);
+    setRePasswordValidation({
+      lowerValidated,
+      upperValidated,
+      numberValidated,
+      specialValidated,
+      lengthValidated,
+    });
+    setPasswordMatched(e.target.value === formik.values.newPassword);
+  };
 
   return (
     <Grid
@@ -117,9 +183,7 @@ const ForgetPassword = () => {
             fullWidth
             required
             value={formik.values.newPassword}
-            onChange={(e) => {
-              formik.handleChange(e);
-            }}
+            onChange={handleChangeNewPassword}
             error={
               formik.touched.newPassword && Boolean(formik.errors.newPassword)
             }
@@ -151,21 +215,25 @@ const ForgetPassword = () => {
           />
           <Grid display="flex" flexDirection="row" alignItems="center">
             <Typography pr="1rem">{t("Must have one")}: </Typography>
-            <FormControlLabel
-              control={<Checkbox color="default" />}
-              label={t("Uppercase")}
+            <Validation
+              validated={newPasswordValidation.lowerValidated}
+              message={t("Lowercase")}
             />
-            <FormControlLabel
-              control={<Checkbox color="default" />}
-              label={t("Lowercase")}
+            <Validation
+              validated={newPasswordValidation.upperValidated}
+              message={t("Uppercase")}
             />
-            <FormControlLabel
-              control={<Checkbox color="default" />}
-              label={t("Character")}
+            <Validation
+              validated={newPasswordValidation.numberValidated}
+              message={t("Number")}
             />
-            <FormControlLabel
-              control={<Checkbox color="default" />}
-              label={t("Number")}
+            <Validation
+              validated={newPasswordValidation.specialValidated}
+              message={t("Character")}
+            />
+            <Validation
+              validated={newPasswordValidation.lengthValidated}
+              message={t("Length")}
             />
           </Grid>
         </Grid>
@@ -178,7 +246,7 @@ const ForgetPassword = () => {
             fullWidth
             required
             value={formik.values.rePassword}
-            onChange={formik.handleChange}
+            onChange={handleChangeRePassword}
             error={
               formik.touched.rePassword && Boolean(formik.errors.rePassword)
             }
@@ -212,22 +280,29 @@ const ForgetPassword = () => {
           />
           <Grid display="flex" flexDirection="row" alignItems="center">
             <Typography pr="1rem">{t("Must have one")}: </Typography>
-            <FormControlLabel
-              control={<Checkbox color="default" />}
-              label={t("Uppercase")}
+            <Validation
+              validated={rePasswordValidation.lowerValidated}
+              message={t("Lowercase")}
             />
-            <FormControlLabel
-              control={<Checkbox color="default" />}
-              label={t("Lowercase")}
+            <Validation
+              validated={rePasswordValidation.upperValidated}
+              message={t("Uppercase")}
             />
-            <FormControlLabel
-              control={<Checkbox color="default" />}
-              label={t("Character")}
+            <Validation
+              validated={rePasswordValidation.numberValidated}
+              message={t("Number")}
             />
-            <FormControlLabel
-              control={<Checkbox color="default" />}
-              label={t("Number")}
+            <Validation
+              validated={rePasswordValidation.specialValidated}
+              message={t("Character")}
             />
+            <Validation
+              validated={rePasswordValidation.lengthValidated}
+              message={t("Length")}
+            />
+            <Validation
+            validated={passwordMatched}
+            message={t("Passwords matched")}/>
           </Grid>
           <Grid
             container
