@@ -36,6 +36,7 @@ import { useGetUserInfo } from '../../hooks/portfolio/usePortfolio';
 import { TabContext, TabPanel } from '@mui/lab';
 import { useTranslation } from 'react-i18next';
 import MenuIcon from '@mui/icons-material/Menu';
+import ProfileNotification from './ProfileTab/ProfileNotification';
 
 const Profile = () => {
   const theme = useTheme();
@@ -711,7 +712,7 @@ const Profile = () => {
           <ProfileInfo data={userInfoData} />
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='2'>
-          <ProfileNotification />
+          <ProfileNotification/>
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value="3">
           <SubscriptionTab />
