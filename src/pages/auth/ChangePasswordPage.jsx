@@ -55,10 +55,7 @@ function Validation(props) {
 
 const ChangePasswordPage = () => {
   const { id } = useParams();
-  console.log(
-    '🚀 ~ file: ChangePasswordPage.jsx:56 ~ ChangePasswordPage ~ id:',
-    id
-  );
+
   const {
     formik,
     loading,
