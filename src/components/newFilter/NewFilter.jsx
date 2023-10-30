@@ -90,7 +90,7 @@ const NewFilter = ({ inputField, searchCallBack, validate, tradeDate }) => {
   return (
     <>
       <Box
-        data-aos='fade-up'
+        // data-aos='fade-up'
         bgcolor={theme.palette.background.alt}
         color={theme.palette.text.main}
         sx={{
