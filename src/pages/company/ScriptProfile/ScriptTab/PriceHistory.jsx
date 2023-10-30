@@ -17,7 +17,6 @@ const PriceHistory = ({ companyData }) => {
   const tableData = useSelector((store) => store?.paginatedTable?.data);
   const isLoading = useSelector((store) => store?.paginatedTable?.processing);
 
-  console.log(tableData,"tableData");
   const totalData = useSelector((store) => store?.paginatedTable?.table);
   const totalPages = useSelector((store) => store?.paginatedTable?.pages);
   const currentPage = useSelector((store) => store?.paginatedTable?.page);
@@ -44,10 +43,10 @@ const PriceHistory = ({ companyData }) => {
 
     if (trDate) {
       const updatedFormValues = {
+        ...formValues,
         script: companyData?.companyInfo?.symbol,
         trDate,
-        pageNumber: 0,
-        pageSize: 1000,
+     
       };
       setParams(updatedFormValues);
 
