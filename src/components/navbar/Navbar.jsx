@@ -28,6 +28,7 @@ import NavabarProfile from './NavabarProfile';
 import ResponsiveNavMenu from './ResponsiveMenu';
 import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 const navItems = [
   {
@@ -53,20 +54,19 @@ const navItems = [
   {
     id: 5,
     item: 'Research',
-    path: 'research',
+    path: '/research',
   },
 ];
 
 const Navbar = () => {
   const theme = useTheme();
-  const [isActive, setIsActive] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { data: listedCompanies } = useGetListedCompanies();
+  const { pathname = '' } = useLocation();
 
-  const handleActiveClick = (id, path) => {
-    setIsActive(id);
+  const handleActiveClick = (path) => {
     navigate(`${path}`);
     if (isMenuOpen) setIsMenuOpen(false);
   };
@@ -151,14 +151,14 @@ const Navbar = () => {
             >
               <ListItem sx={{ position: 'relative' }}>
                 <Typography
-                  onClick={() => handleActiveClick(items?.id, items?.path)}
+                  onClick={() => handleActiveClick(items?.path)}
                   sx={{
                     cursor: 'pointer',
                     color:
-                      isActive === items.id
+                      pathname === items.path
                         ? theme.palette.text.main
                         : theme.palette.text.main,
-                    fontWeight: isActive === items.id ? 'bold' : 'normal',
+                    fontWeight: pathname === items.path ? 'bold' : 'normal',
                     '&:hover': {
                       backgroundColor: theme.palette.background.hover,
                       borderRadius: '.5rem',
@@ -168,7 +168,7 @@ const Navbar = () => {
                   variant='h6'
                 >
                   {t(items?.item)}
-                  {isActive === items.id && (
+                  {pathname === items.path && (
                     <div
                       style={{
                         position: 'absolute',
@@ -252,7 +252,6 @@ const Navbar = () => {
       </Toolbar>
 
       <ResponsiveNavMenu
-        isActive={isActive}
         isMenuOpen={isMenuOpen}
         navItem={navItems}
         handleActiveClick={(id, path) => handleActiveClick(id, path)}

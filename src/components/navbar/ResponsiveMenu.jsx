@@ -12,19 +12,14 @@ import {
 import { Search } from '@mui/icons-material';
 import FlexBetween from '../flexBetween/FlexBetween';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 
 const ResponsiveNavMenu = (props) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const {
-    navItem = [],
-    isActive,
-    isMenuOpen,
-    handleActiveClick,
-    handleToggle,
-  } = props;
+  const { navItem, isMenuOpen, handleActiveClick, handleToggle } = props;
   const [menuOpen, setmenuOpen] = useState(false);
-
+  const { pathname = '' } = useLocation();
   const isScreenSizeSM = useMediaQuery(theme.breakpoints.down('md'));
 
   useEffect(() => {
@@ -71,19 +66,19 @@ const ResponsiveNavMenu = (props) => {
             <List key={items?.id} sx={{ position: 'relative' }}>
               <ListItem sx={{ position: 'relative' }}>
                 <Typography
-                  onClick={() => handleActiveClick(items?.id, items?.path)}
+                  onClick={() => handleActiveClick(items?.path)}
                   sx={{
                     cursor: 'pointer',
                     color:
-                      isActive === items.id
+                      pathname === items?.path
                         ? theme.palette.text.main
                         : theme.palette.text.main,
-                    fontWeight: isActive === items.id ? 'bold' : 'normal',
+                    fontWeight: pathname === items.path ? 'bold' : 'normal',
                   }}
                   variant='h6'
                 >
-                   {t(items?.item)}
-                  {isActive === items.id && (
+                  {t(items?.item)}
+                  {pathname === items?.path && (
                     <div
                       style={{
                         position: 'absolute',

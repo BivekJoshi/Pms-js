@@ -5,3 +5,4 @@ export const Bill_TRANSACTION_BILL_DETAIL='/transaction/bill-detail'
 export const RECEIPT_TRANSACTION = '/transaction/receipt';
 export const PAYMENT_TRANSACTION = '/transaction/bill-transaction';
 export const STOCK_PRICE_DETAILS = '/app-user/stock-price-details';
+export const FLOOR_SHEET_DETAILS = '/app-user/floor-sheet-details';

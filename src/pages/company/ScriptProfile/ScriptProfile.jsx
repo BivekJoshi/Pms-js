@@ -65,7 +65,7 @@ const ScriptProfile = ({companyData}) => {
           <PriceHistory companyData={companyData}/>
         </TabPanel>
         <TabPanel value="3">
-          <Floorsheet />
+          <Floorsheet companyData={companyData}/>
         </TabPanel>
         <TabPanel value="4">
           <QuarterlyReport />

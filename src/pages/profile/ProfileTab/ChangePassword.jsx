@@ -1,21 +1,19 @@
 import { useTheme } from "@emotion/react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
-  Button,
-  Checkbox,
+  InputAdornment,
+  TextField,
   FormControlLabel,
-  Grid,
   IconButton,
-  Tooltip,
 } from "@mui/material";
-import { InputAdornment, TextField, Typography } from "@mui/material";
+import { Button, Checkbox, Typography, Tooltip, Grid } from "@mui/material";
 import React from "react";
 import toast from "react-hot-toast";
 import { useChangePasswordForm } from "../../../form/auth/change-password/useChangePasswordForm";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-const ForgetPassword = () => {
+const ChangePassword = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const {
@@ -254,4 +252,4 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+export default ChangePassword;

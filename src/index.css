@@ -19,6 +19,34 @@ body {
     max-width: 100% !important;
   }
 }
+@media (min-width: 600px) {
+  .profileNavBar {
+    display: none;
+  }
+}
+
+@media (max-width: 1050px) {
+  .smallScreen {
+    display: none !important;
+  }
+  .smallIcon {
+    display: block !important;
+  }
+
+  .profileGrid{
+    grid-template-columns: 1fr 20fr;
+  }
+}
+
+@media (min-width: 1051px) {
+  .smallIcon {
+    display: none !important;
+  }
+  .profileGrid{
+    grid-template-columns: 2fr 10fr;
+  }
+}
+
 @media (max-height: 750px) {
   .paddingOuter {
     padding-top: 0 !important;
@@ -32,7 +60,7 @@ body {
     width: 25% !important;
   }
   .profileWidth {
-    width: 40% !important;
+    width: 50% !important;
   }
 }
 
