@@ -151,7 +151,8 @@ const Alert = (props) => {
                           Boolean(formik.errors.companyInfoId)
                         }
                         helperText={
-                          formik.touched.companyInfoId && formik.errors.companyInfoId
+                          formik.touched.companyInfoId &&
+                          formik.errors.companyInfoId
                         }
                       />
                     )}
@@ -180,7 +181,6 @@ const Alert = (props) => {
                     size='small'
                     label='LTP'
                     onChange={(e, value) => {
-                      console.log(e);
                       formik?.setFieldValue('ltp', value || ''); // Set the field value based on the selected option or an empty string if no option is selected
                     }}
                     disabled

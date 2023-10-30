@@ -78,16 +78,16 @@ export const useApplication = ({ onSuccess }) => {
     ({ email, submissionNo }) => application(email, submissionNo),
     {
       onSuccess: (data, variables, context) => {
-        toast.success('status fetched Successfully');
-        history('dashboard');
+        toast.success(data?.status);
+        history(`/status/message/${data?.status}`);
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
         if (err.message === 'Request failed with status code 406') {
-          toast.success('Success');
+          // toast.success('Success');
           history('/status/message');
         }
-        // toast.error(err.message);
+        toast.error(err.message);
       },
     }
   );
@@ -99,7 +99,7 @@ export const useVerification = ({ onSuccess }) => {
   return useMutation(['verification'], ({ id, otp }) => verification(id, otp), {
     onSuccess: (data, variables, context) => {
       toast.success('status fetched Successfully');
-      history('login');
+      history('/login');
       onSuccess && onSuccess(data, variables, context);
     },
     onError: (err, _variables, _context) => {
@@ -148,7 +148,8 @@ export const useVerifyResetPassword = ({ id, onSuccess }) => {
 
   return useMutation(
     ['changePassword'],
-    ({newPassword, confirmPassword}) => verifyResetPassword(id, newPassword, confirmPassword),
+    ({ newPassword, confirmPassword }) =>
+      verifyResetPassword(id, newPassword, confirmPassword),
     {
       onSuccess: (data, variables, context) => {
         toast.success('Password changed successfully');

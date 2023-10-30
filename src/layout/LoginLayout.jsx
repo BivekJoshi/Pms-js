@@ -22,7 +22,7 @@ const LoginLayout = () => {
     if (!token) {
       navigate('/login');
     } else {
-      localStorage.removeItem('auth');
+      navigate('/dashboard');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
