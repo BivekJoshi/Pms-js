@@ -31,7 +31,9 @@ const ApplicationMessage = React.lazy(() =>
 );
 const ErrorPage = React.lazy(() => import('./../pages/error-page/ErrorPage'));
 const Company = React.lazy(() => import('../pages/company/Company'));
-const PageNotFound = React.lazy(() => import('../pages/PageNotFound/PageNotFound'));
+const PageNotFound = React.lazy(() =>
+  import('../pages/PageNotFound/PageNotFound')
+);
 
 export default function AppRoutes() {
   return (
@@ -46,10 +48,13 @@ export default function AppRoutes() {
               <Route path='verification/:id' element={<Verification />} />
               <Route path='reset/password' element={<ResetPasswordPage />} />
               <Route
-                path='pms/api/public/reset-password/:id'
+                path='reset-password/:id'
                 element={<ChangePasswordPage />}
               />
-              <Route path='status/message/:status' element={<ApplicationMessage />} />
+              <Route
+                path='status/message/:status'
+                element={<ApplicationMessage />}
+              />
             </Route>
             <Route path='/' element={<AppLayout />}>
               <Route path='dashboard' element={<Dashboard />} />
@@ -60,7 +65,6 @@ export default function AppRoutes() {
               <Route path='profile' element={<Profile />} />
               <Route path='company/:script' element={<Company />} />
               <Route path='pagenotfound' element={<PageNotFound />} />
-              
             </Route>
             <Route path='/error-page' element={<ErrorPage />} />
           </Routes>
