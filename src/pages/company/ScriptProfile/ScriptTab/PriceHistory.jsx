@@ -1,11 +1,10 @@
-import React, { useMemo } from "react";
+import React, { useMemo , useState} from "react";
 import NewFilter from "../../../../components/newFilter/NewFilter";
 import { useTranslation } from "react-i18next";
 import CustomTable from "../../../../components/customTable/CustomTable";
 import { useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { STOCK_PRICE_DETAILS } from "../../../../api/urls/urls";
-import { useState } from "react";
 import toast from "react-hot-toast";
 import { fetchPaginatedTable } from "../../../../redux/actions/paginatedTable";
 
