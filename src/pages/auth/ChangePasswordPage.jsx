@@ -1,5 +1,5 @@
-import React from 'react';
-import { Grid, TextField, IconButton, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Grid, TextField, IconButton, Typography, Tooltip } from '@mui/material';
 import { Box, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
@@ -8,30 +8,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useVerifyResetPasswordForm } from '../../form/auth/reset-password/useResetPasswordForm';
 import Checkbox from '@mui/material/Checkbox';
 import passwordValidation from './validation/passwordValidation';
-
-// function Validation(props) {
-//   const label = { inputProps: { "aria-label": "Checkbox demo" } };
-
-//   return (
-//     <>
-//       <div className={props.validated ? "validated" : "not-validated"}>
-//         <Typography variant="p" gutterBottom sx={{ color: "#888888" }}>
-//           {props.validated ? (
-//             <>
-//               <Checkbox {...label} sx={{ color: "green" }} />
-//               {props.message}
-//             </>
-//           ) : (
-//             <>
-//               <Checkbox {...label} sx={{ color: "red" }} />
-//               {props.message}
-//             </>
-//           )}
-//         </Typography>
-//       </div>
-//     </>
-//   );
-// }
+import { useTranslation } from 'react-i18next';
+import { useNewPasswordValidation, useRePasswordValidation } from '../profile/ProfileTab/changePassword/validation';
 
 function Validation(props) {
   return (
@@ -54,7 +32,12 @@ function Validation(props) {
 }
 
 const ChangePasswordPage = () => {
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [passwordMatched, setPasswordMatched] = useState(false);
+  const { t } = useTranslation();
   const { id } = useParams();
+  const history = useNavigate();
 
   const {
     formik,
@@ -63,20 +46,38 @@ const ChangePasswordPage = () => {
     handleClickShowPassword,
     handleMouseDownPassword,
   } = useVerifyResetPasswordForm(id);
-  const history = useNavigate();
+  
+  const handleFormSubmit = () => {
+    formik.handleSubmit();
+
+    if (formik.isValid && passwordMatched) {
+      // toast.success("Password changed successfully");
+    } else {
+      toast.error("Please make sure you have filled the form correctly");
+    }
+  };
 
   const handleClick = () => {
     history('/login');
   };
 
   const {
-    lowerValidated,
-    upperValidated,
-    numberValidated,
-    specialValidated,
-    lengthValidated,
-    handleChangeValidation,
-  } = passwordValidation();
+    lowerValidated: lowerValidatedNew,
+    upperValidated: upperValidatedNew,
+    numberValidated: numberValidatedNew,
+    specialValidated: specialValidatedNew,
+    lengthValidated: lengthValidatedNew,
+    validatePassword: validateNewPassword,
+  } = useNewPasswordValidation();
+
+  const {
+    lowerValidated: lowerValidatedRe,
+    upperValidated: upperValidatedRe,
+    numberValidated: numberValidatedRe,
+    specialValidated: specialValidatedRe,
+    lengthValidated: lengthValidatedRe,
+    validatePassword: validateRePassword,
+  } = useRePasswordValidation();
 
   return (
     <Box
@@ -121,25 +122,29 @@ const ChangePasswordPage = () => {
           sx={{ mt: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}
         >
           <TextField
+          id='newPassword'
+          name='newPassword'
             required
             value={formik.values.newPassword}
             onChange={(e) => {
               formik.handleChange(e);
-              handleChangeValidation(e.target.value);
+              validateNewPassword(e.target.value);
             }}
             error={
               formik.touched.newPassword && Boolean(formik.errors.newPassword)
             }
             helperText={formik.touched.newPassword && formik.errors.newPassword}
-            name='newPassword'
+           
             autoComplete='username'
             label='New password'
             fullWidth
             variant='outlined'
             type={showValues.showPassword ? 'text' : 'password'}
+            InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>
+                     <Tooltip title="Show Password">
                   <IconButton
                     aria-label='toggle password visibility'
                     onClick={handleClickShowPassword}
@@ -152,22 +157,36 @@ const ChangePasswordPage = () => {
                       <Visibility />
                     )}
                   </IconButton>
+                  </Tooltip>
                 </InputAdornment>
               ),
             }}
           />
-          <Grid container alignItems='center'>
-            Must have one:
-            <Validation validated={lowerValidated} message='Lowercase' />
-            <Validation validated={upperValidated} message='Uppercase' />
-            <Validation validated={numberValidated} message='Number' />
-            <Validation validated={specialValidated} message='Character' />
-            <Validation validated={lengthValidated} message='Length' />
+          <Grid display="flex" flexDirection="row" alignItems="center">
+            <Typography pr="1rem">{t("Must have one")}: </Typography>
+            <Validation
+              validated={lowerValidatedNew}
+              message={t("Lowercase")}
+            />
+            <Validation
+              validated={upperValidatedNew}
+              message={t("Uppercase")}
+            />
+            <Validation validated={numberValidatedNew} message={t("Number")} />
+            <Validation
+              validated={specialValidatedNew}
+              message={t("Character")}
+            />
+            <Validation validated={lengthValidatedNew} message={t("Length")} />
           </Grid>
           <TextField
             required
             value={formik.values.confirmPassword}
-            onChange={formik.handleChange}
+            onChange={(e) => {
+              formik.handleChange(e);
+              validateRePassword(e.target.value);
+              setPasswordMatched(e.target.value === formik.values.newPassword);
+            }}
             error={
               formik.touched.confirmPassword &&
               Boolean(formik.errors.confirmPassword)
@@ -181,29 +200,49 @@ const ChangePasswordPage = () => {
             fullWidth
             variant='outlined'
             type={showValues.showPassword ? 'text' : 'password'}
+            InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>
+                   <Tooltip
+                    title={`Show ${
+                      showConfirmPassword ? "Hidden" : "Visible"
+                    } Confirm Password`}
+                  >
                   <IconButton
                     aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
+                    onClick={() =>
+                      setShowConfirmPassword(!showConfirmPassword)
+                    }
                     onMouseDown={handleMouseDownPassword}
                     edge='end'
                   >
-                    {showValues.showPassword ? (
-                      <VisibilityOff />
-                    ) : (
-                      <Visibility />
-                    )}
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
+                  </Tooltip>
                 </InputAdornment>
               ),
             }}
           />
+           <Grid display="flex" flexDirection="row" alignItems="center">
+            <Typography pr="1rem">{t("Must have one")}: </Typography>
+            <Validation validated={lowerValidatedRe} message={t("Lowercase")} />
+            <Validation validated={upperValidatedRe} message={t("Uppercase")} />
+            <Validation validated={numberValidatedRe} message={t("Number")} />
+            <Validation
+              validated={specialValidatedRe}
+              message={t("Character")}
+            />
+            <Validation validated={lengthValidatedRe} message={t("Length")} />
+            <Validation
+              validated={passwordMatched}
+              message={t("Passwords matched")}
+            />
+          </Grid>
 
           <LoadingButton
             fullWidth
-            onClick={() => formik.submitForm()}
+            onClick={handleFormSubmit}
             variant='contained'
             loading={loading}
             sx={{
