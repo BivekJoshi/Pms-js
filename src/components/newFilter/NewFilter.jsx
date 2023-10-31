@@ -17,7 +17,7 @@ import {
 import InputType from '../inputType/InputType';
 import { useTranslation } from 'react-i18next';
 
-const NewFilter = ({ inputField, searchCallBack, validate }) => {
+const NewFilter = ({ inputField, searchCallBack, validate, tradeDate }) => {
   const theme = useTheme();
   const { t } = useTranslation();
   const [showFilter, setShowFilter] = useState(true);
@@ -90,7 +90,7 @@ const NewFilter = ({ inputField, searchCallBack, validate }) => {
   return (
     <>
       <Box
-        data-aos='fade-left'
+        // data-aos='fade-up'
         bgcolor={theme.palette.background.alt}
         color={theme.palette.text.main}
         sx={{
@@ -99,7 +99,16 @@ const NewFilter = ({ inputField, searchCallBack, validate }) => {
           borderRadius: '6px',
         }}
       >
-        <Grid sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Grid
+          sx={{
+            display: 'flex',
+            justifyContent: tradeDate ? 'space-between' : 'flex-end',
+            alignItems: 'center',
+          }}
+        >
+          <div>
+            Last Trade Date: <b>{tradeDate}</b>
+          </div>
           <div
             className='filterButton'
             onClick={() => setShowFilter(!showFilter)}
@@ -132,7 +141,7 @@ const NewFilter = ({ inputField, searchCallBack, validate }) => {
               >
                 <path
                   d='M9 8.25C9 8.44891 9.07902 8.63968 9.21967 8.78033C9.36032 8.92098 9.55109 9 9.75 9H14.25C14.4489 9 14.6397 8.92098 14.7803 8.78033C14.921 8.63968 15 8.44891 15 8.25C15 8.05109 14.921 7.86032 14.7803 7.71967C14.6397 7.57902 14.4489 7.5 14.25 7.5H9.75C9.55109 7.5 9.36032 7.57902 9.21967 7.71967C9.07902 7.86032 9 8.05109 9 8.25ZM6 12.75C6 12.9489 6.07902 13.1397 6.21967 13.2803C6.36032 13.421 6.55109 13.5 6.75 13.5H17.25C17.4489 13.5 17.6397 13.421 17.7803 13.2803C17.921 13.1397 18 12.9489 18 12.75C18 12.5511 17.921 12.3603 17.7803 12.2197C17.6397 12.079 17.4489 12 17.25 12H6.75C6.55109 12 6.36032 12.079 6.21967 12.2197C6.07902 12.3603 6 12.5511 6 12.75ZM3 17.25C3 17.4489 3.07902 17.6397 3.21967 17.7803C3.36032 17.921 3.55109 18 3.75 18H20.25C20.4489 18 20.6397 17.921 20.7803 17.7803C20.921 17.6397 21 17.4489 21 17.25C21 17.0511 20.921 16.8603 20.7803 16.7197C20.6397 16.579 20.4489 16.5 20.25 16.5H3.75C3.55109 16.5 3.36032 16.579 3.21967 16.7197C3.07902 16.8603 3 17.0511 3 17.25Z'
-                  fill='white'
+                  fill={theme.palette.mode === 'dark' ? 'white' : 'black'}
                 />
               </svg>
             )}

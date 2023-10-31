@@ -13,7 +13,6 @@ const LoginLayout = () => {
   const authData = JSON.parse(authDataString);
   let authToken = authData?.authToken;
   const [token, setToken] = useState(authToken);
-  console.log('🚀 ~ file: LoginLayout.jsx:16 ~ LoginLayout ~ token:', token);
   const brokerOption = useSelector((state) => state.brokerList.brokerOption);
 
   const navigate = useNavigate();
@@ -22,7 +21,7 @@ const LoginLayout = () => {
     if (!token) {
       navigate('/login');
     } else {
-      localStorage.removeItem('auth');
+      navigate('/dashboard');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);

@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Grid,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Grid, Typography, useTheme } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -16,10 +12,7 @@ function createData(heading, data) {
   return { heading, data };
 }
 
-
-
-const About = ({companyData}) => {
-
+const About = ({ companyData }) => {
   const rows = [
     createData("Symbol", companyData?.companyInfo?.symbol),
     createData("Company Name", companyData?.companyInfo?.companyInfo),
@@ -35,24 +28,19 @@ const About = ({companyData}) => {
   };
 
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={12} md={12} lg={12} xl={12}>
-        <TableContainer component={Paper}>
-          <Table aria-label="simple table">
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.heading}>
-                  <TableCell style={cellStyle}>{row.heading}</TableCell>
-                  <TableCell>{row.data}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Grid>
-    </Grid>
-
+    <TableContainer component={Paper}>
+      <Table aria-label="simple table">
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow key={row.heading}>
+              <TableCell style={cellStyle}>{row.heading}</TableCell>
+              <TableCell>{row.data}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
-}
+};
 
 export default About;

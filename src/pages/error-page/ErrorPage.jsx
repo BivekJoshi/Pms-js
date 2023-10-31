@@ -24,15 +24,15 @@ const ErrorPage = () => {
         src={ErrorPhoto}
         alt='Error page'
       />
-      {brokerOption !== null && (
-        <Button
-          variant='contained'
-          style={{ backgroundColor: '#6C49B4' }}
-          onClick={() => navigate('/login')}
-        >
-          Go to Home
-        </Button>
-      )}
+
+      <Button
+        variant='contained'
+        style={{ backgroundColor: '#6C49B4' }}
+        onClick={() => navigate(-1)}
+      >
+        Go Back
+      </Button>
+
       <br />
       <Typography variant='h5' color='grey'>
         Page Not Found

@@ -37,13 +37,13 @@ import { TabContext, TabPanel } from '@mui/lab';
 import { useTranslation } from 'react-i18next';
 import MenuIcon from '@mui/icons-material/Menu';
 import ProfileNotification from './ProfileTab/ProfileNotification';
+import Spinner from '../../components/spinner/Spinner';
 
 const Profile = () => {
   const theme = useTheme();
   const [value, setValue] = useState('1');
   const [openDrawer, setOpenDrawer] = useState(false);
   const { t } = useTranslation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { data: userInfoData, isLoading: loading } = useGetUserInfo();
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -115,264 +115,264 @@ const Profile = () => {
                 </Button>
               </Grid>
             </Grid>
-            
+
             <Grid
-              p="24px"
+              p='24px'
               bgcolor={theme.palette.background.alt}
-              display="flex"
-              flexDirection="column"
-              gap="20px"
-              borderRadius="8px"
-              width="100%"
+              display='flex'
+              flexDirection='column'
+              gap='20px'
+              borderRadius='8px'
+              width='100%'
             >
-              <Grid display="flex" flexDirection="column">
-                <Typography variant="h4" p="12px 0">
-                  {t("General")}
+              <Grid display='flex' flexDirection='column'>
+                <Typography variant='h4' p='12px 0'>
+                  {t('General')}
                 </Typography>
                 <Tabs
                   value={value}
                   onChange={handleChange}
-                  aria-label="lab API tabs example"
-                  sx={{ display: "flex", flexDirection: "column" }}
-                  orientation="vertical"
+                  aria-label='lab API tabs example'
+                  sx={{ display: 'flex', flexDirection: 'column' }}
+                  orientation='vertical'
                 >
                   <Tab
                     label={
-                      <Grid className="profileIcon">
-                        <img src={UpdateProfile} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("UPDATE PROFILE")}
+                      <Grid className='profileIcon'>
+                        <img src={UpdateProfile} alt='UpdateProfile' />
+                        <Typography variant='h7'>
+                          {t('UPDATE PROFILE')}
                         </Typography>
                       </Grid>
                     }
-                    value="1"
+                    value='1'
                     style={{
                       color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
+                      height: '0',
+                      alignItems: 'flex-start',
+                      padding: '.2',
                       backgroundColor:
-                        value === "1"
+                        value === '1'
                           ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem",
+                          : 'transparent',
+                      borderRadius: '.5rem',
                     }}
                   />
                   <Tab
                     label={
-                      <Grid className="profileIcon">
-                        <img src={Notification} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("NOTIFICATION CONFIGURATION")}
+                      <Grid className='profileIcon'>
+                        <img src={Notification} alt='UpdateProfile' />
+                        <Typography variant='h7'>
+                          {t('NOTIFICATION CONFIGURATION')}
                         </Typography>
                       </Grid>
                     }
-                    value="2"
+                    value='2'
                     style={{
                       color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
+                      height: '0',
+                      alignItems: 'flex-start',
+                      padding: '.2',
                       backgroundColor:
-                        value === "2"
+                        value === '2'
                           ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem",
+                          : 'transparent',
+                      borderRadius: '.5rem',
                     }}
                   />
                   <Tab
                     label={
-                      <Grid className="profileIcon">
-                        <img src={Subscription} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("SUBSCRIPTION")}
+                      <Grid className='profileIcon'>
+                        <img src={Subscription} alt='UpdateProfile' />
+                        <Typography variant='h7'>
+                          {t('SUBSCRIPTION')}
                         </Typography>
                       </Grid>
                     }
-                    value="3"
+                    value='3'
                     style={{
                       color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
+                      height: '0',
+                      alignItems: 'flex-start',
+                      padding: '.2',
                       backgroundColor:
-                        value === "3"
+                        value === '3'
                           ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem",
+                          : 'transparent',
+                      borderRadius: '.5rem',
                     }}
                   />
                   <Tab
                     label={
-                      <Grid className="profileIcon">
-                        <img src={Security} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("CHANGE PASSWORD")}
+                      <Grid className='profileIcon'>
+                        <img src={Security} alt='UpdateProfile' />
+                        <Typography variant='h7'>
+                          {t('CHANGE PASSWORD')}
                         </Typography>
                       </Grid>
                     }
-                    value="4"
+                    value='4'
                     style={{
                       color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
+                      height: '0',
+                      alignItems: 'flex-start',
+                      padding: '.2',
                       backgroundColor:
-                        value === "4"
+                        value === '4'
                           ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem",
+                          : 'transparent',
+                      borderRadius: '.5rem',
                     }}
                   />
                 </Tabs>
               </Grid>
-              <Grid display="flex" flexDirection="column">
-                <Typography variant="h4" p="12px 0">
-                  {t("Activities")}
+              <Grid display='flex' flexDirection='column'>
+                <Typography variant='h4' p='12px 0'>
+                  {t('Activities')}
                 </Typography>
                 <Tabs
                   value={value}
-                  orientation="vertical"
+                  orientation='vertical'
                   onChange={handleChange}
-                  aria-label="lab API tabs example"
-                  sx={{ display: "flex", flexDirection: "column" }}
+                  aria-label='lab API tabs example'
+                  sx={{ display: 'flex', flexDirection: 'column' }}
                 >
                   <Tab
                     label={
-                      <Grid className="profileIcon">
-                        <img src={Transaction} alt="UpdateProfile" />
-                        <Typography variant="h7">{t("TRANSACTION")}</Typography>
+                      <Grid className='profileIcon'>
+                        <img src={Transaction} alt='UpdateProfile' />
+                        <Typography variant='h7'>{t('TRANSACTION')}</Typography>
                       </Grid>
                     }
-                    value="5"
+                    value='5'
                     style={{
                       color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
+                      height: '0',
+                      alignItems: 'flex-start',
                       backgroundColor:
-                        value === "5"
+                        value === '5'
                           ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem",
+                          : 'transparent',
+                      borderRadius: '.5rem',
                     }}
                   />
                   <Tab
                     label={
-                      <Grid className="profileIcon">
-                        <img src={Bills} alt="UpdateProfile" />
-                        <Typography variant="h7">{t("BILL")}</Typography>
+                      <Grid className='profileIcon'>
+                        <img src={Bills} alt='UpdateProfile' />
+                        <Typography variant='h7'>{t('BILL')}</Typography>
                       </Grid>
                     }
-                    value="6"
+                    value='6'
                     style={{
                       color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
+                      height: '0',
+                      alignItems: 'flex-start',
+                      padding: '.2',
                       backgroundColor:
-                        value === "6"
+                        value === '6'
                           ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem",
+                          : 'transparent',
+                      borderRadius: '.5rem',
                     }}
                   />
                   <Tab
                     label={
-                      <Grid className="profileIcon">
-                        <img src={Statements} alt="UpdateProfile" />
-                        <Typography variant="h7">{t("STATEMENT")}</Typography>
+                      <Grid className='profileIcon'>
+                        <img src={Statements} alt='UpdateProfile' />
+                        <Typography variant='h7'>{t('STATEMENT')}</Typography>
                       </Grid>
                     }
-                    value="7"
+                    value='7'
                     style={{
                       color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
+                      height: '0',
+                      alignItems: 'flex-start',
+                      padding: '.2',
                       backgroundColor:
-                        value === "7"
+                        value === '7'
                           ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem",
+                          : 'transparent',
+                      borderRadius: '.5rem',
                     }}
                   />
                   <Tab
                     label={
-                      <Grid className="profileIcon">
-                        <img src={Payment} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("RECEIPT/PAYMENT")}
+                      <Grid className='profileIcon'>
+                        <img src={Payment} alt='UpdateProfile' />
+                        <Typography variant='h7'>
+                          {t('RECEIPT/PAYMENT')}
                         </Typography>
                       </Grid>
                     }
-                    value="8"
+                    value='8'
                     style={{
                       color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
+                      height: '0',
+                      alignItems: 'flex-start',
+                      padding: '.2',
                       backgroundColor:
-                        value === "8"
+                        value === '8'
                           ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem",
+                          : 'transparent',
+                      borderRadius: '.5rem',
                     }}
                   />
                 </Tabs>
               </Grid>
               <Grid>
-                <Typography variant="h4" p="12px 0">
-                  {t("More")}
+                <Typography variant='h4' p='12px 0'>
+                  {t('More')}
                 </Typography>
                 <Tabs
                   value={value}
-                  orientation="vertical"
+                  orientation='vertical'
                   onChange={handleChange}
-                  aria-label="lab API tabs example"
-                  sx={{ display: "flex", flexDirection: "column" }}
+                  aria-label='lab API tabs example'
+                  sx={{ display: 'flex', flexDirection: 'column' }}
                 >
                   <Tab
                     label={
-                      <Grid className="profileIcon">
-                        <img src={Terms} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("TERMS & CONDITION")}
+                      <Grid className='profileIcon'>
+                        <img src={Terms} alt='UpdateProfile' />
+                        <Typography variant='h7'>
+                          {t('TERMS & CONDITION')}
                         </Typography>
                       </Grid>
                     }
-                    value="9"
+                    value='9'
                     style={{
                       color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
+                      height: '0',
+                      alignItems: 'flex-start',
+                      padding: '.2',
                       backgroundColor:
-                        value === "9"
+                        value === '9'
                           ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem",
+                          : 'transparent',
+                      borderRadius: '.5rem',
                     }}
                   />
                   <Tab
                     label={
-                      <Grid className="profileIcon">
-                        <img src={Update} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("PRIVACY POLICY")}
+                      <Grid className='profileIcon'>
+                        <img src={Update} alt='UpdateProfile' />
+                        <Typography variant='h7'>
+                          {t('PRIVACY POLICY')}
                         </Typography>
                       </Grid>
                     }
-                    value="10"
+                    value='10'
                     style={{
                       color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
+                      height: '0',
+                      alignItems: 'flex-start',
+                      padding: '.2',
                       backgroundColor:
-                        value === "10"
+                        value === '10'
                           ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem",
+                          : 'transparent',
+                      borderRadius: '.5rem',
                     }}
                   />
                 </Tabs>
@@ -709,33 +709,33 @@ const Profile = () => {
           </Grid>
         </Drawer>
         <TabPanel sx={{ p: 0 }} value='1'>
-          <ProfileInfo data={userInfoData} />
+          {loading ? <Spinner /> : <ProfileInfo data={userInfoData} />}
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='2'>
-          <ProfileNotification/>
+          <ProfileNotification />
         </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="3">
+        <TabPanel sx={{ p: 0 }} value='3'>
           <SubscriptionTab />
         </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="4">
+        <TabPanel sx={{ p: 0 }} value='4'>
           <ChangePassword />
         </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="5">
-          <Transactions />
+        <TabPanel sx={{ p: 0 }} value='5'>
+          <Transactions tradeDate={userInfoData?.lastTradeDate} />
         </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="6">
-          <Bill />
+        <TabPanel sx={{ p: 0 }} value='6'>
+          <Bill tradeDate={userInfoData?.lastTradeDate} />
         </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="7">
-          <Statement />
+        <TabPanel sx={{ p: 0 }} value='7'>
+          <Statement tradeDate={userInfoData?.lastTradeDate} />
         </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="8">
-          <ReceiptPayment />
+        <TabPanel sx={{ p: 0 }} value='8'>
+          <ReceiptPayment tradeDate={userInfoData?.lastTradeDate} />
         </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="9">
+        <TabPanel sx={{ p: 0 }} value='9'>
           Terms & Conditions
         </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="10">
+        <TabPanel sx={{ p: 0 }} value='10'>
           Privacy & Policy
         </TabPanel>
       </TabContext>

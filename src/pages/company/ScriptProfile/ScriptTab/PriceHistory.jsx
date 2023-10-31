@@ -1,12 +1,14 @@
-import React, { useMemo , useState} from "react";
-import NewFilter from "../../../../components/newFilter/NewFilter";
-import { useTranslation } from "react-i18next";
-import CustomTable from "../../../../components/customTable/CustomTable";
-import { useTheme } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { STOCK_PRICE_DETAILS } from "../../../../api/urls/urls";
-import toast from "react-hot-toast";
-import { fetchPaginatedTable } from "../../../../redux/actions/paginatedTable";
+import React, { useMemo } from 'react';
+import NewFilter from '../../../../components/newFilter/NewFilter';
+import { useTranslation } from 'react-i18next';
+import CustomTable from '../../../../components/customTable/CustomTable';
+import { useTheme } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { STOCK_PRICE_DETAILS } from '../../../../api/urls/urls';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { fetchPaginatedTable } from '../../../../redux/actions/paginatedTable';
+import CustomPagination from '../../../../components/customPagination/CustomPagination';
 
 const PriceHistory = ({ companyData }) => {
   const { t } = useTranslation();
@@ -26,9 +28,9 @@ const PriceHistory = ({ companyData }) => {
 
   const filterMenuItem = [
     {
-      label: t("Date From"),
-      name: "trDate",
-      type: "date-picker",
+      label: t('Date From'),
+      name: 'trDate',
+      type: 'date-picker',
       required: true,
       md: 6,
       sm: 12,
@@ -45,7 +47,6 @@ const PriceHistory = ({ companyData }) => {
         ...formValues,
         script: companyData?.companyInfo?.symbol,
         trDate,
-     
       };
       setParams(updatedFormValues);
 
@@ -55,15 +56,14 @@ const PriceHistory = ({ companyData }) => {
             STOCK_PRICE_DETAILS,
             updatedFormValues,
             null,
-            "unique"
+            'unique'
           )
         );
-        setTableShow(true);
       } catch (error) {
         toast.error(error);
       }
     } else {
-      toast.error("Please provide both date values...");
+      toast.error('Please provide both date values...');
     }
   };
 
@@ -71,58 +71,58 @@ const PriceHistory = ({ companyData }) => {
     () => [
       {
         id: 1,
-        accessorKey: "date",
-        header: "Date",
+        accessorKey: 'date',
+        header: 'Date',
         size: 100,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: "ltp",
-        header: "LTP",
+        accessorKey: 'ltp',
+        header: 'LTP',
         size: 120,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: "change",
-        header: "% Change",
+        accessorKey: 'change',
+        header: '% Change',
         size: 100,
         sortable: false,
       },
       {
         id: 4,
-        accessorKey: "high",
-        header: "High",
+        accessorKey: 'high',
+        header: 'High',
         size: 100,
         sortable: false,
       },
 
       {
         id: 5,
-        accessorKey: "low",
-        header: "Low",
+        accessorKey: 'low',
+        header: 'Low',
         size: 100,
         sortable: false,
       },
       {
         id: 6,
-        accessorKey: "open",
-        header: "Open",
+        accessorKey: 'open',
+        header: 'Open',
         size: 100,
         sortable: false,
       },
       {
         id: 7,
-        accessorKey: "quantity",
-        header: "Qty.",
+        accessorKey: 'quantity',
+        header: 'Qty.',
         size: 100,
         sortable: false,
       },
       {
         id: 8,
-        accessorKey: "turnover",
-        header: "Turnover",
+        accessorKey: 'turnover',
+        header: 'Turnover',
         size: 100,
         sortable: false,
       },
@@ -138,13 +138,13 @@ const PriceHistory = ({ companyData }) => {
         // validate={filterDateValidationSchema}
       />
       <CustomTable
-        title="Market Date"
+        title='Market Date'
         columns={columns}
         isLoading={isLoading}
         data={Object.values(tableData)}
         pageSize={pageSize}
         // onRowClick={handleRowClick}
-        headerBackgroundColor="#401686"
+        headerBackgroundColor='#401686'
         headerColor={theme.palette.text.alt}
         enablePagination={false}
         enableEditing={false}
@@ -155,6 +155,30 @@ const PriceHistory = ({ companyData }) => {
         enableBottomToolbar={false}
         enableTopToolbar={false}
       />
+      <div
+        style={{
+          paddingTop: '16px',
+          display: 'flex',
+          justifyContent: 'flex-end',
+        }}
+      >
+        <CustomPagination
+          pages={totalPages}
+          activePage={currentPage}
+          handleChangePage={(newPage) => {
+            dispatch(
+              fetchPaginatedTable(
+                STOCK_PRICE_DETAILS,
+                params,
+                newPage,
+                'unique',
+                null,
+                totalData
+              )
+            );
+          }}
+        />
+      </div>
     </>
   );
 };

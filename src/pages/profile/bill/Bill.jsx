@@ -12,7 +12,7 @@ import CustomPagination from '../../../components/customPagination/CustomPaginat
 import { useTranslation } from 'react-i18next';
 import { filterDateValidationSchema } from '../../../form/validations/filterDateValidate';
 
-const Bill = () => {
+const Bill = ({ tradeDate }) => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
   const tableData = useSelector((store) => store?.paginatedTable?.data);
@@ -151,6 +151,7 @@ const Bill = () => {
     <>
       <NewFilter
         inputField={filterMenuItem}
+        tradeDate={tradeDate}
         searchCallBack={handleSearch}
         validate={filterDateValidationSchema}
       />
