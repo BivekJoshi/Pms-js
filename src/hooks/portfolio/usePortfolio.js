@@ -4,6 +4,7 @@ import {
   getTransactionPortfolio,
   getUserInfo,
   getUserPortfolio,
+  postChangeProfile,
 } from "../../api/portfolio/portfolio-api";
 
 /*________________________GET TRANSACTION PORTFOLIO_____________________________________*/
@@ -34,5 +35,18 @@ export const useGetUserInfo = () => {
     cacheTime: 10000,
     refetchInterval: false,
     refetchOnWindowFocus: false,
+  });
+};
+
+
+export const usePostChangeProfile = ({ onSuccess }) => {
+  return useMutation(["addAlert"], () => postChangeProfile(), {
+    onSuccess: (data, variables, context) => {
+      toast.success("Succesfully Change Profile");
+      onSuccess && onSuccess(data, variables, context);
+    },
+    onError: (err) => {
+      toast.error(`error: ${err.message}`);
+    },
   });
 };

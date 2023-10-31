@@ -9,6 +9,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 function StockExchange() {
   const data = [
@@ -41,22 +42,7 @@ function StockExchange() {
       amt: 2100,
     },
   ];
-  //   const yMin =
-  //     Math.floor(
-  //       data.reduce((min, entry) => Math.min(min, entry.uv), Infinity) / 1000
-  //     ) * 1000;
-  //   const yMax =
-  //     Math.ceil(
-  //       data.reduce((max, entry) => Math.max(max, entry.uv), -Infinity) / 1000
-  //     ) * 1000;
-
-  //   // Calculate the Y-axis ticks
-  //   const numberOfLines = 8;
-  //   const yTicks = [];
-  //   for (let i = 0; i < numberOfLines; i++) {
-  //     const value = yMin + (i / (numberOfLines - 1)) * (yMax - yMin);
-  //     yTicks.push(value);
-  //   }
+  
   const yMin = 0;
   const yMax = 6000;
 
@@ -68,12 +54,12 @@ function StockExchange() {
   }
   return (
     <div style={{background:"white", padding:"16px"}}>
-      <Grid display="flex" flexDirection="row" justifyContent="space-between" paddingBottom="1.5rem">
+      <Grid display="flex" flexDirection="row" justifyContent="space-between" padding="0 1.5rem 1.5rem" alignItems="flex-end">
         <Grid>
           <Typography variant="h5" fontWeight="500">NEPAL STOCK EXCHANGE</Typography>
-          <Typography variant="h6">Volume 30.43B</Typography>
+          <Typography variant="h6" fontWeight="500">Volume 30.43B</Typography>
         </Grid>
-        <Grid>hi</Grid>
+        <Grid display="flex" flexDirection="row"><CalendarMonthIcon  width="18px" height="18px"/><Typography>Oct 30 11:09 Am</Typography></Grid>
       </Grid>
       <ResponsiveContainer width="100%" height="80%">
         <AreaChart

@@ -170,3 +170,7 @@ body {
 .css-1juiuni-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track{
   background-color: #2ECA45 !important;
 }
+
+.hover-effect:hover {
+  color: rgb(125, 5, 238);
+}
