@@ -29,10 +29,7 @@ const WatchList = () => {
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
 
   const [watchlist, setWatchList] = useState();
-  console.log(
-    '🚀 ~ file: WatchList.jsx:31 ~ WatchList ~ watchlist:',
-    watchlist
-  );
+
   const [open, setOpen] = useState(false);
 
   const { data: listedCompanies } = useGetListedCompanies();
@@ -61,7 +58,7 @@ const WatchList = () => {
     })) || [];
 
   useEffect(() => {
-    if (!loadingname && watchListName.length > 0) {
+    if (!loadingname && watchListName?.length > 0) {
       setWatchList(watchListName[0]?.id);
     }
   }, [loadingname, watchListName]);
@@ -121,7 +118,7 @@ const WatchList = () => {
             Watchlist:
           </Typography>
           {!loadingname &&
-            watchListName.map((name) => (
+            watchListName?.map((name) => (
               <Chip
                 label={name?.watchlistName}
                 className='custom-chip'
