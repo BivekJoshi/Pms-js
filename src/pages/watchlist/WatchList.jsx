@@ -29,10 +29,7 @@ const WatchList = () => {
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
 
   const [watchlist, setWatchList] = useState();
-  console.log(
-    '🚀 ~ file: WatchList.jsx:31 ~ WatchList ~ watchlist:',
-    watchlist
-  );
+
   const [open, setOpen] = useState(false);
 
   const { data: listedCompanies } = useGetListedCompanies();
