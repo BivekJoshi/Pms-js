@@ -2,23 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useTheme } from "@emotion/react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
-<<<<<<<< HEAD:src/pages/profile/ProfileTab/forgetPassword/ForgetPassword.jsx
   Button,
   Checkbox,
   Grid,
-========
   InputAdornment,
   TextField,
   FormControlLabel,
->>>>>>>> d3b592a4fcefbdbfb33aeff43fd0b66c86630df1:src/pages/profile/ProfileTab/ChangePassword.jsx
   IconButton,
 } from "@mui/material";
-<<<<<<<< HEAD:src/pages/profile/ProfileTab/forgetPassword/ForgetPassword.jsx
 import { InputAdornment, TextField, Typography } from "@mui/material";
-========
 import { Button, Checkbox, Typography, Tooltip, Grid } from "@mui/material";
 import React from "react";
->>>>>>>> d3b592a4fcefbdbfb33aeff43fd0b66c86630df1:src/pages/profile/ProfileTab/ChangePassword.jsx
 import toast from "react-hot-toast";
 import { useChangePasswordForm } from "../../../../form/auth/change-password/useChangePasswordForm";
 import { useTranslation } from "react-i18next";
@@ -44,14 +38,7 @@ function Validation(props) {
   );
 }
 
-<<<<<<<< HEAD:src/pages/profile/ProfileTab/forgetPassword/ForgetPassword.jsx
-const ForgetPassword = () => {
-  const [passwordMatched, setPasswordMatched] = useState(false);
-  const [showOldPassword, setShowOldPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-========
 const ChangePassword = () => {
->>>>>>>> d3b592a4fcefbdbfb33aeff43fd0b66c86630df1:src/pages/profile/ProfileTab/ChangePassword.jsx
   const { t } = useTranslation();
   const theme = useTheme();
   const {
