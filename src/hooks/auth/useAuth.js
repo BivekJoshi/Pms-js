@@ -78,6 +78,7 @@ export const useApplication = ({ onSuccess }) => {
     ({ email, submissionNo }) => application(email, submissionNo),
     {
       onSuccess: (data, variables, context) => {
+        console.log("data msg", data)
         toast.success(data?.status);
         history(`/status/message/${data?.status}`);
         onSuccess && onSuccess(data, variables, context);

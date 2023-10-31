@@ -48,15 +48,15 @@ const ProfileNotification = () => {
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
             <Typography>Bond/Debenture </Typography>(Opening date and Closing
-            Date){" "}
+            Date)
           </Grid>
           <Switch defaultChecked />
         </ListItem>
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
             <Typography>AGM/SGM </Typography>(Announce and Joint Transaction
-            date){" "}
-          </Grid>{" "}
+            date)
+          </Grid>
           <Switch defaultChecked />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -68,7 +68,7 @@ const ProfileNotification = () => {
         </ListItem>
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
-            Financial Reports{" "}
+            Financial Reports
           </Grid>
           <Switch defaultChecked />
         </ListItem>

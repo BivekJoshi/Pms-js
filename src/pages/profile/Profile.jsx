@@ -26,7 +26,7 @@ import Terms from '../../assets/Terms.png';
 import Update from '../../assets/Update.png';
 // import { TabContext, TabList, TabPanel } from "@mui/lab";
 import ProfileInfo from './ProfileTab/ProfileInfo';
-import ForgetPassword from './ProfileTab/forgetPassword/ForgetPassword';
+import ChangePassword from './ProfileTab/changePassword/ChangePassword';
 import ProfileNotification from './ProfileTab/ProfileNotification';
 import SubscriptionTab from './SubscriptionTab/SubscriptionTab';
 import Transactions from './transaction/Transactions';
@@ -37,7 +37,6 @@ import { useGetUserInfo } from '../../hooks/portfolio/usePortfolio';
 import { TabContext, TabPanel } from '@mui/lab';
 import { useTranslation } from 'react-i18next';
 import MenuIcon from '@mui/icons-material/Menu';
-import ProfileNotification from './ProfileTab/ProfileNotification';
 import Spinner from '../../components/spinner/Spinner';
 
 const Profile = () => {

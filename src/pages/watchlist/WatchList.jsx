@@ -24,6 +24,7 @@ import toast from 'react-hot-toast';
 import FormModal from '../../components/formModal/FormModal';
 const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;
+
 const WatchList = () => {
   const theme = useTheme();
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
