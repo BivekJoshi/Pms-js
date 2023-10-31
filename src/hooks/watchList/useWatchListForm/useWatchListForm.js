@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { watchlistMasterSchema } from "./watchListSchema";
-import { useAddWatchListMaster } from "../useWatchList";
+import { useAddWatchListMaster, useUpdateWatchlistName } from "../useWatchList";
 
 export const useWatchListForm = () => {
   const { mutate } = useAddWatchListMaster({});
@@ -21,6 +21,23 @@ export const useWatchListForm = () => {
 
   return {
     handleRegister,
+    formik,
+  };
+};
+export const useUpdateWatchListname = () => {
+  const { mutate } = useUpdateWatchlistName({});
+  const formik = useFormik({
+    validationSchema: watchlistMasterSchema,
+    onSubmit: (values) => {
+      handleUpdate(values);
+    },
+  });
+  const handleUpdate = (values) => {
+    console.log(values);
+    mutate({ values });
+  };
+  return {
+    handleUpdate,
     formik,
   };
 };

@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { deleteData } from '../../redux/actions/genericData';
 
 const WatchTable = (watchid) => {
-  console.log('🚀 ~ file: WatchTable.jsx:8 ~ WatchTable ~ watchid:', watchid);
   const id = watchid.watchid;
   const { data: watchListDataById, isLoading } = useGetWatchListDataById(id);
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -41,3 +41,15 @@ export const addWatchListDetail = async (formData) => {
   const data = await axiosInstance.post(`/watchlist/master/${id}`, payload);
   return data;
 };
+// ........................Edit WatchListName ..........//
+export const editWatchListName = async (formData) => {
+  const id = formData.id;
+  const name = formData.name;
+  const data = await axiosInstance.put(`/watchlist/${id}`, name);
+  return data;
+};
+
+/*...................deleteWatchListname....................*/
+export const deleteWatchName = async (id) => {
+  await axiosInstance.delete(`/watchlist/${id}`);
+};
