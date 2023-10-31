@@ -15,7 +15,6 @@ export const useWatchListDetailForm = (watchlist) => {
   });
 
   const handleRegister = (values) => {
-    console.log(values);
     const formData = {
       id: watchlist,
       ...values,
