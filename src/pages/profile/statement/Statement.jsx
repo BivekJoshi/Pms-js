@@ -9,7 +9,7 @@ import { Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { filterDateValidationSchema } from '../../../form/validations/filterDateValidate';
 
-const Statement = () => {
+const Statement = ({ tradeDate }) => {
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
   const { t } = useTranslation();
@@ -104,6 +104,7 @@ const Statement = () => {
   return (
     <>
       <NewFilter
+        tradeDate={tradeDate}
         inputField={filterMenuItem}
         searchCallBack={handleSearch}
         validate={filterDateValidationSchema}
