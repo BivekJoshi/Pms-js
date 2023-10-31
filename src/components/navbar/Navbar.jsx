@@ -20,7 +20,7 @@ import {
   Tooltip,
   Grid,
 } from '@mui/material';
-
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import FlexBetween from '../flexBetween/FlexBetween';
 import logo from '../../assets/logo.png';
 import { useNavigate } from 'react-router';
@@ -241,6 +241,9 @@ const Navbar = () => {
               </Drawer>
             </React.Fragment>
           </div>
+          <IconButton>
+            <NotificationsNoneIcon sx={{ fontSize: '25px' }} />
+          </IconButton>
 
           <NavabarProfile />
 
