@@ -78,18 +78,16 @@ const WatchTable = (watchid) => {
         size: 170,
         sortable: false,
       },
-      {
-        id: 10,
-        accessorKey: "c",
-        header: "Action",
-        size: 60,
-        sortable: false,
-      },
     ],
     []
   );
   const handleRowClick = (rowData) => {
     navigate(`/company/${rowData?.original?.symbol}`);
+  };
+  const handleEdit = (row) => {
+    // Handle the edit action here
+    // Implement the logic to edit the row
+    console.log("Edit action for row", row);
   };
   return (
     <div>
@@ -103,6 +101,8 @@ const WatchTable = (watchid) => {
           headerColor={theme.palette.text.alt}
           headerBackgroundColor="#401686"
           enableRowNumbers={true}
+          handleEdit={handleEdit}
+          renderRowAction={true}
         />
       ) : (
         <Box
