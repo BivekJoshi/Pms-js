@@ -1,17 +1,27 @@
-import React from "react";
-import { useMemo } from "react";
-import { useGetWatchListDataById } from "../../hooks/watchList/useWatchList";
-import CustomTable from "../../components/customTable/CustomTable";
-import { Box, useTheme } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useMemo } from 'react';
+import { useGetWatchListDataById } from '../../hooks/watchList/useWatchList';
+import CustomTable from '../../components/customTable/CustomTable';
+import { Box, useTheme } from '@mui/material';
+import { useState } from 'react';
+import CustomeAlertDialog from '../../components/customeDialog/CustomeDialog';
+import { useDispatch } from 'react-redux';
+import { deleteData } from '../../redux/actions/genericData';
+import { useNavigate } from 'react-router-dom';
 
 const WatchTable = (watchid) => {
   const navigate = useNavigate();
   const id = watchid?.watchid;
   const { data: watchListDataById, isLoading } = useGetWatchListDataById(id);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [rowData, setRowData] = useState();
+  const [tableDataIndex, settableDataIndex] = useState();
 
+  const dispatch = useDispatch();
   const theme = useTheme();
-
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
   const columns = useMemo(
     () => [
       {
@@ -81,13 +91,28 @@ const WatchTable = (watchid) => {
     ],
     []
   );
-  const handleRowClick = (rowData) => {
-    navigate(`/company/${rowData?.original?.symbol}`);
+
+  const deleteRow = (row) => {
+    console.log(row);
+    setIsModalOpen(true);
+    setRowData(row?.original);
+    settableDataIndex(row.index);
   };
-  const handleEdit = (row) => {
-    // Handle the edit action here
-    // Implement the logic to edit the row
-    console.log("Edit action for row", row);
+  const handleDeleteData = () => {
+    console.log(rowData);
+    if (rowData.id) {
+      new Promise((resolve, reject) => {
+        dispatch(
+          deleteData(
+            '/api/watchlist/detail',
+            rowData.id,
+            tableDataIndex,
+            resolve,
+            reject
+          )
+        );
+      }).then(() => setIsModalOpen(false));
+    }
   };
   return (
     <div>
@@ -96,13 +121,16 @@ const WatchTable = (watchid) => {
           title="Watch List"
           columns={columns}
           data={watchListDataById?.data}
-          onRowClick={handleRowClick}
+          state={{
+            isLoading: isLoading,
+            showSkeletons: isLoading,
+          }}
           isLoading={isLoading}
-          headerColor={theme.palette.text.alt}
-          headerBackgroundColor="#401686"
-          enableRowNumbers={true}
-          handleEdit={handleEdit}
-          renderRowAction={true}
+          enableColumnActions
+          enableDelete
+          enableEditing={true}
+          handleDelete={deleteRow}
+          delete
         />
       ) : (
         <Box
@@ -118,6 +146,14 @@ const WatchTable = (watchid) => {
           No Script Found
         </Box>
       )}
+      <CustomeAlertDialog
+        disagreeLabel={'Cancel'}
+        agreeLabel={'Agree'}
+        header={'Are you sure to delete this alert ?'}
+        handleModalClose={handleModalClose}
+        isModalOpen={isModalOpen}
+        handleAgree={handleDeleteData}
+      />
     </div>
   );
 };

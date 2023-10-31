@@ -106,9 +106,11 @@ const NewFilter = ({ inputField, searchCallBack, validate, tradeDate }) => {
             alignItems: 'center',
           }}
         >
-          <div>
-            Last Trade Date: <b>{tradeDate}</b>
-          </div>
+          {tradeDate && (
+            <div>
+              Last Trade Date: <b>{tradeDate}</b>
+            </div>
+          )}
           <div
             className='filterButton'
             onClick={() => setShowFilter(!showFilter)}

@@ -1,0 +1,91 @@
+.live-indicator .background {
+    fill: #00ff11b4; /* Change the background color to green */
+  }
+  
+  .live-indicator .main-circle {
+    fill: #65ff7794; /* Set the inner circle to green */
+  }
+  
+  .live-indicator .main-circle:last-child {
+    fill: #02ff14; /* Use a lighter color for the ripples */
+    opacity: 0.5;
+  }
+  
+  .live-indicator .rp1 {
+    animation: ripple1 1.5s linear infinite;
+  }
+  
+  @keyframes ripple1 {
+    0% {
+      transform: scale(0);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(10);
+      opacity: 0;
+    }
+  }
+  
+  .live-indicator .rp2,
+  .live-indicator .rp3,
+  .live-indicator .rp4 {
+    animation: ripple2 10s linear infinite;
+  }
+  
+  @keyframes ripple2 {
+    0% {
+      transform: scale(0);
+      opacity: 0.1;
+    }
+    100% {
+      transform: scale(10);
+      opacity: 0;
+    }
+  }
+  
+  .live-indicator-red .background-red {
+    fill: #ff657994;
+  }
+  
+  .live-indicator-red .main-circle-red {
+    fill: #ff6579;
+    opacity: 0.3;
+  }
+  
+  .live-indicator-red .main-circle-red:last-child {
+    fill: #ff1d38;
+    opacity: 0.5;
+  }
+  
+  .live-indicator-red .rp1-red {
+    animation: ripple1-red 1.5s linear infinite;
+  }
+  
+  @keyframes ripple1-red {
+    0% {
+      transform: scale(0);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(10);
+      opacity: 0;
+    }
+  }
+  
+  .live-indicator-red .rp2-red,
+  .live-indicator-red .rp3-red,
+  .live-indicator-red .rp4-red {
+    animation: ripple2-red 10s linear infinite;
+  }
+  
+  @keyframes ripple2-red {
+    0% {
+      transform: scale(0);
+      opacity: 0.1;
+    }
+    100% {
+      transform: scale(10);
+      opacity: 0;
+    }
+  }
+  

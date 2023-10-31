@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Box,
   Button,
+  Divider,
   Drawer,
   Grid,
   IconButton,
@@ -226,6 +227,7 @@ const Profile = () => {
                   />
                 </Tabs>
               </Grid>
+              <Divider />
               <Grid display='flex' flexDirection='column'>
                 <Typography variant='h4' p='12px 0'>
                   {t('Activities')}
@@ -320,6 +322,8 @@ const Profile = () => {
                   />
                 </Tabs>
               </Grid>
+              <Divider />
+
               <Grid>
                 <Typography variant='h4' p='12px 0'>
                   {t('More')}
@@ -444,6 +448,7 @@ const Profile = () => {
                 </Button>
               </Grid>
             </Grid>
+
             <Grid
               p='24px'
               bgcolor={theme.palette.background.alt}
@@ -553,6 +558,7 @@ const Profile = () => {
                     }}
                   />
                 </Tabs>
+                <Divider />
               </Grid>
               <Grid display='flex' flexDirection='column'>
                 <Typography variant='h4' p='12px 0'>
@@ -648,6 +654,8 @@ const Profile = () => {
                   />
                 </Tabs>
               </Grid>
+              <Divider />
+
               <Grid>
                 <Typography variant='h4' p='12px 0'>
                   {t('More')}
