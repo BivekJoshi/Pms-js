@@ -29,6 +29,7 @@ import ResponsiveNavMenu from './ResponsiveMenu';
 import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
+import LiveIndicator from '../liveIndicator/LiveIndicator';
 
 const navItems = [
   {
@@ -65,7 +66,7 @@ const Navbar = () => {
   const { t } = useTranslation();
   const { data: listedCompanies } = useGetListedCompanies();
   const { pathname = '' } = useLocation();
-
+  const marketOpen = false;
   const handleActiveClick = (path) => {
     navigate(`${path}`);
     if (isMenuOpen) setIsMenuOpen(false);
@@ -216,6 +217,12 @@ const Navbar = () => {
             }}
           />
         </Grid>
+
+        <Tooltip title={'Market ' + (marketOpen ? 'Open' : 'Closed')}>
+          <div>
+            <LiveIndicator open={marketOpen} />
+          </div>
+        </Tooltip>
 
         <FlexBetween gap='12px'>
           <div>
