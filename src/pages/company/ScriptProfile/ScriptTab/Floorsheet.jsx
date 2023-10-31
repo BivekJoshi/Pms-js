@@ -70,7 +70,7 @@ const Floorsheet = ({ companyData }) => {
         id: 1,
         accessorKey: "trDate",
         header: "Date",
-        size: 100,
+        size: 200,
         sortable: false,
       },
       {

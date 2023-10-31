@@ -47,10 +47,10 @@ const CustomTable = (props) => {
 
   const headerBackgroundColor =
     props.headerBackgroundColor ||
-    (theme.palette.mode === 'light' ? '#ffffff' : '#401686');
+    (theme.palette.mode === "light" ? "#ffffff" : "#401686");
   const headerColor =
     props.headerColor ||
-    (theme?.palette?.mode === 'light' ? '#000' : '#fafafa');
+    (theme?.palette?.mode === "light" ? "#000" : "#fafafa");
 
   return (
     <div data-aos="fade-up">
@@ -78,6 +78,11 @@ const CustomTable = (props) => {
         enableSorting={props?.enableSorting}
         enableBottomToolbar={props?.enableBottomToolbar}
         enableTopToolbar={props?.enableTopToolbar}
+        enableDensityToggle={props?.enableDensityToggle}
+        enableHiding={props?.enableHiding}
+        enableFullScreenToggle={props?.enableFullScreenToggle}
+        enableGlobalFilter={props?.enableGlobalFilter}
+        density={props?.density}
         renderRowActions={({ row, table }) => (
           <Box sx={{ display: "flex", gap: "1rem" }}>
             {props.edit && (
