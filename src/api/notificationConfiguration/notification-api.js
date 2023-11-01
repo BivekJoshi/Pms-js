@@ -8,12 +8,12 @@ export const addNotification = async (formData) => {
 
 /*________________________GET NOTIFICATION CONFIGURATION_____________________________________*/
 export const getNotification = async () => {
-  const response = await axiosInstance.get(`/notification-configuration`);
-  return response.data;
+  const {data} = await axiosInstance.get(`/notification-configuration`);
+  return data;
 };
 
 /*________________________EDIT NOTIFICATION CONFIGURATION_____________________________________*/
 export const editNotification = async (formData) => {
-  const data  = await axiosInstance.put(`/notification-configuration`);
+  const data  = await axiosInstance.put(`/notification-configuration`,formData);
   return data;
 };

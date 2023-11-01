@@ -1,9 +1,11 @@
 import { useTheme } from "@emotion/react";
 import { Box, Button, Grid, List, ListItem } from "@mui/material";
 import { Switch, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useGetNotification } from "../../../hooks/notificationConfiguration/useNotification";
 import { useState } from "react";
+import toast from "react-hot-toast";
+import useNotificationForm from "../../../hooks/notificationConfiguration/useNotificationForm";
 
 const ProfileNotification = () => {
   const theme = useTheme();
@@ -12,8 +14,23 @@ const ProfileNotification = () => {
     data: notificationData,
     isLoading: loadingNotification,
   } = useGetNotification();
-  const [switchStates, setSwitchStates] = useState(notificationData);
 
+  const [switchStates, setSwitchStates] = useState(notificationData);
+  const { data } = useGetNotification();
+
+  const { formik } = useNotificationForm( data);
+  useEffect(() => {
+    setSwitchStates(notificationData);
+  }, [notificationData]);
+
+  const handleFormSubmit = () => {
+    formik.handleSubmit();
+    if (formik.isValid) {
+      const formData = formik?.values;
+    } else {
+      toast.error("Please make sure you have filled the form correctly");
+    }
+  };
   return (
     <Box display="flex" flexDirection="column" alignItems="flex-start">
       <List
@@ -36,9 +53,8 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.ipoFpo}
-            onChange={() =>
-              setSwitchStates({ ...switchStates, ipoFpo: !switchStates.ipoFpo })
-            }
+            onChange={formik.handleChange}
+            name="ipoFpo"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -48,9 +64,8 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.rightShare}
-            onChange={() =>
-              setSwitchStates({ ...switchStates, rightShare: !switchStates.rightShare })
-            }
+            onChange={formik.handleChange}
+            name="rightShare"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -60,9 +75,8 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.dividend}
-            onChange={() =>
-              setSwitchStates({ ...switchStates, dividend: !switchStates.dividend })
-            }
+            onChange={formik.handleChange}
+            name="dividend"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -71,9 +85,8 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.auction}
-            onChange={() =>
-              setSwitchStates({ ...switchStates, auction: !switchStates.auction })
-            }
+            onChange={formik.handleChange}
+            name="auction"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -83,9 +96,8 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.bondDebenture}
-            onChange={() =>
-              setSwitchStates({ ...switchStates, bondDebenture: !switchStates.bondDebenture })
-            }
+            onChange={formik.handleChange}
+            name="bondDebenture"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -95,9 +107,8 @@ const ProfileNotification = () => {
           </Grid>{" "}
           <Switch
             checked={switchStates?.agmSgm}
-            onChange={() =>
-              setSwitchStates({ ...switchStates, agmSgm: !switchStates.agmSgm })
-            }
+            onChange={formik.handleChange}
+            name="agmSgm"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -107,9 +118,8 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.mergerAcquisition}
-            onChange={() =>
-              setSwitchStates({ ...switchStates, mergerAcquisition: !switchStates.mergerAcquisition })
-            }
+            onChange={formik.handleChange}
+            name="mergerAcquisition"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -118,9 +128,8 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.financialReports}
-            onChange={() =>
-              setSwitchStates({ ...switchStates, financialReports: !switchStates.financialReports })
-            }
+            onChange={formik.handleChange}
+            name="financialReports"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -129,9 +138,8 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.newsLetter}
-            onChange={() =>
-              setSwitchStates({ ...switchStates, newsLetter: !switchStates.newsLetter })
-            }
+            onChange={formik.handleChange}
+            name="newsLetter"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -140,9 +148,8 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.general}
-            onChange={() =>
-              setSwitchStates({ ...switchStates, general: !switchStates.general })
-            }
+            onChange={formik.handleChange}
+            name="general"
           />
         </ListItem>
       </List>
@@ -168,6 +175,7 @@ const ProfileNotification = () => {
             background: "#6C49B4",
             color: mode === "light" ? "white" : theme.palette.text.main,
           }}
+          onClick={handleFormSubmit}
         >
           Set Notification
         </Button>
