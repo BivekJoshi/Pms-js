@@ -20,7 +20,7 @@ import {
   Tooltip,
   Grid,
 } from '@mui/material';
-
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import FlexBetween from '../flexBetween/FlexBetween';
 import logo from '../../assets/logo.png';
 import { useNavigate } from 'react-router';
@@ -29,6 +29,7 @@ import ResponsiveNavMenu from './ResponsiveMenu';
 import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
+import LiveIndicator from '../liveIndicator/LiveIndicator';
 
 const navItems = [
   {
@@ -65,7 +66,7 @@ const Navbar = () => {
   const { t } = useTranslation();
   const { data: listedCompanies } = useGetListedCompanies();
   const { pathname = '' } = useLocation();
-
+  const marketOpen = false;
   const handleActiveClick = (path) => {
     navigate(`${path}`);
     if (isMenuOpen) setIsMenuOpen(false);
@@ -217,6 +218,12 @@ const Navbar = () => {
           />
         </Grid>
 
+        <Tooltip title={'Market ' + (marketOpen ? 'Open' : 'Closed')}>
+          <div>
+            <LiveIndicator open={marketOpen} />
+          </div>
+        </Tooltip>
+
         <FlexBetween gap='12px'>
           <div>
             <React.Fragment>
@@ -234,6 +241,9 @@ const Navbar = () => {
               </Drawer>
             </React.Fragment>
           </div>
+          <IconButton>
+            <NotificationsNoneIcon sx={{ fontSize: '25px' }} />
+          </IconButton>
 
           <NavabarProfile />
 

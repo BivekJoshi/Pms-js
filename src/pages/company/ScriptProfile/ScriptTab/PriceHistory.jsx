@@ -7,8 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { STOCK_PRICE_DETAILS } from '../../../../api/urls/urls';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { fetchPaginatedTable } from '../../../../redux/actions/paginatedTable';
+import {
+  clearPaginatedData,
+  fetchPaginatedTable,
+} from '../../../../redux/actions/paginatedTable';
 import CustomPagination from '../../../../components/customPagination/CustomPagination';
+import { useEffect } from 'react';
 
 const PriceHistory = ({ companyData }) => {
   const { t } = useTranslation();
@@ -37,33 +41,36 @@ const PriceHistory = ({ companyData }) => {
     },
   ];
 
+  useEffect(() => {
+    dispatch(clearPaginatedData());
+    return () => {
+      dispatch(clearPaginatedData());
+    };
+  }, [dispatch]);
+
   const handleSearch = (formValues) => {
     const trDate = formValues.trDate
       ? new Date(formValues.trDate).getTime() / 1000
       : null;
 
-    if (trDate) {
-      const updatedFormValues = {
-        ...formValues,
-        script: companyData?.companyInfo?.symbol,
-        trDate,
-      };
-      setParams(updatedFormValues);
+    const updatedFormValues = {
+      ...formValues,
+      script: companyData?.companyInfo?.symbol,
+      trDate,
+    };
+    setParams(updatedFormValues);
 
-      try {
-        dispatch(
-          fetchPaginatedTable(
-            STOCK_PRICE_DETAILS,
-            updatedFormValues,
-            null,
-            'unique'
-          )
-        );
-      } catch (error) {
-        toast.error(error);
-      }
-    } else {
-      toast.error('Please provide both date values...');
+    try {
+      dispatch(
+        fetchPaginatedTable(
+          STOCK_PRICE_DETAILS,
+          updatedFormValues,
+          null,
+          'unique'
+        )
+      );
+    } catch (error) {
+      toast.error(error);
     }
   };
 
@@ -71,7 +78,7 @@ const PriceHistory = ({ companyData }) => {
     () => [
       {
         id: 1,
-        accessorKey: 'date',
+        accessorKey: 'stockDate',
         header: 'Date',
         size: 100,
         sortable: false,
@@ -107,25 +114,25 @@ const PriceHistory = ({ companyData }) => {
       },
       {
         id: 6,
-        accessorKey: 'open',
+        accessorKey: 'previousClose',
         header: 'Open',
         size: 100,
         sortable: false,
       },
-      {
-        id: 7,
-        accessorKey: 'quantity',
-        header: 'Qty.',
-        size: 100,
-        sortable: false,
-      },
-      {
-        id: 8,
-        accessorKey: 'turnover',
-        header: 'Turnover',
-        size: 100,
-        sortable: false,
-      },
+      // {
+      //   id: 7,
+      //   accessorKey: 'quantity',
+      //   header: 'Qty.',
+      //   size: 100,
+      //   sortable: false,
+      // },
+      // {
+      //   id: 8,
+      //   accessorKey: 'turnover',
+      //   header: 'Turnover',
+      //   size: 100,
+      //   sortable: false,
+      // },
     ],
     []
   );

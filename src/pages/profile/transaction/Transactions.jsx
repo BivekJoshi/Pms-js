@@ -43,7 +43,7 @@ const Transactions = ({ tradeDate }) => {
       },
       {
         id: 3,
-        accessorKey: 'trType',
+        accessorKey: 'transactionType',
         header: 'Transaction Type',
         size: 100,
         sortable: false,

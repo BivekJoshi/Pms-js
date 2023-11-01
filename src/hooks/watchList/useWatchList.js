@@ -2,6 +2,8 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import {
   addWatchListDetail,
   addWatchListMaster,
+  deleteWatchName,
+  editWatchListName,
   getProfileDetail,
   getWatchListDataById,
   getWatchListName,
@@ -90,4 +92,36 @@ export const useAddWatchListDetail = ({ onSuccess }) => {
       },
     }
   );
+};
+// .........................Edit WatchList Name ................//
+export const useUpdateWatchlistName = ({ onSuccess }) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    ["editWatchList"],
+    (formData) => editWatchListName(formData),
+    {
+      onSuccess: (data, variables, context) => {
+        toast.success("Succesfully Edit WatchList Name");
+        onSuccess && onSuccess(data, variables, context);
+        queryClient.invalidateQueries("getWatchListName");
+      },
+      onError: (err, _variables, _context) => {
+        toast.error(`error: ${err.message}`);
+      },
+    }
+  );
+};
+/*............................Delete Watch List Name ...*/
+export const useRemoveWatchListName = ({ onSuccess }) => {
+  const queryClient = useQueryClient();
+  return useMutation(["removeWatchList"], (id) => deleteWatchName(id), {
+    onSuccess: (data, variables, context) => {
+      toast.success("Succesfully Deleted");
+      onSuccess && onSuccess(data, variables, context);
+      queryClient.invalidateQueries("getWatchListName");
+    },
+    onError: (err, _variables, _context) => {
+      toast.error(`error: ${err.message}`);
+    },
+  });
 };
