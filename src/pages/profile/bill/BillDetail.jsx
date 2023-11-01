@@ -7,13 +7,18 @@ import { fetchData } from '../../../redux/actions/genericData';
 import toast from 'react-hot-toast';
 
 const BillDetail = ({ rowData }) => {
+  console.log('🚀 ~ file: BillDetail.jsx:10 ~ BillDetail ~ rowData:', rowData);
   const dispatch = useDispatch();
   const tableData = useSelector((store) => store?.generic?.data);
   const isLoading = useSelector((store) => store?.generic?.processing);
 
   useEffect(() => {
     try {
-      dispatch(fetchData(Bill_TRANSACTION_BILL_DETAIL + `/${rowData?.billNo}`));
+      dispatch(
+        fetchData(
+          Bill_TRANSACTION_BILL_DETAIL + `/${rowData?.original?.billNo}`
+        )
+      );
     } catch (error) {
       toast.error('Please select RowData');
     }
@@ -115,31 +120,39 @@ const BillDetail = ({ rowData }) => {
         </Box>
         <Box>
           <Typography variant='h6'>Total Amount</Typography>
-          <Typography variant='h6'>{tableData?.totalAmount}</Typography>
+          <Typography variant='h6'>
+            {Number(tableData?.totalAmount).toFixed(2)}
+          </Typography>
         </Box>
         <Box>
           <Typography variant='h6'>Total Sebon Commission</Typography>
           <Typography variant='h6'>
-            {tableData?.totalSebonCommission}
+            {Number(tableData?.totalSebonCommission).toFixed(2)}
           </Typography>
         </Box>
         <Box>
           <Typography variant='h6'>Total Commission</Typography>
-          <Typography variant='h6'>{tableData?.totalCommission}</Typography>
+          <Typography variant='h6'>
+            {Number(tableData?.totalCommission).toFixed(2)}
+          </Typography>
         </Box>
         <Box>
           <Typography variant='h6'>Total CGT</Typography>
-          <Typography variant='h6'>{tableData?.totalCgt}</Typography>
+          <Typography variant='h6'>
+            {Number(tableData?.totalCgt).toFixed(2)}
+          </Typography>
         </Box>
         <Box>
           <Typography variant='h6'>Total Stock Commission</Typography>
           <Typography variant='h6'>
-            {tableData?.totalStockCommission}
+            {Number(tableData?.totalStockCommission).toFixed(2)}
           </Typography>
         </Box>
         <Box>
           <Typography variant='h6'>Total DP Charge</Typography>
-          <Typography variant='h6'>{tableData?.totalDpCharge}</Typography>
+          <Typography variant='h6'>
+            {Number(tableData?.totalDpCharge).toFixed(2)}
+          </Typography>
         </Box>
         <Box>
           <Typography variant='h6'>Total Buy Quantity</Typography>
