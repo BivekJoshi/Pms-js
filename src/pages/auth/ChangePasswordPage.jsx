@@ -1,37 +1,11 @@
 import React from 'react';
-import { Grid, TextField, IconButton, Typography } from '@mui/material';
+import { Grid, TextField, IconButton } from '@mui/material';
 import { Box, InputAdornment } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import ResetPaassword from '../../assets/reset-Paassword.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useVerifyResetPasswordForm } from '../../form/auth/reset-password/useResetPasswordForm';
-import Checkbox from '@mui/material/Checkbox';
-import passwordValidation from './validation/passwordValidation';
-
-// function Validation(props) {
-//   const label = { inputProps: { "aria-label": "Checkbox demo" } };
-
-//   return (
-//     <>
-//       <div className={props.validated ? "validated" : "not-validated"}>
-//         <Typography variant="p" gutterBottom sx={{ color: "#888888" }}>
-//           {props.validated ? (
-//             <>
-//               <Checkbox {...label} sx={{ color: "green" }} />
-//               {props.message}
-//             </>
-//           ) : (
-//             <>
-//               <Checkbox {...label} sx={{ color: "red" }} />
-//               {props.message}
-//             </>
-//           )}
-//         </Typography>
-//       </div>
-//     </>
-//   );
-// }
 
 const ChangePasswordPage = () => {
   const { id } = useParams();
