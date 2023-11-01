@@ -33,26 +33,6 @@ import passwordValidation from './validation/passwordValidation';
 //   );
 // }
 
-function Validation(props) {
-  return (
-    <>
-      <div className={props.validated ? 'validated' : 'not-validated'}>
-        <Typography
-          variant='body1'
-          gutterBottom
-          sx={{ color: props.validated ? 'green' : 'red' }}
-        >
-          <Checkbox
-            checked={props?.validated}
-            color={props.validated ? 'success' : 'error'}
-          />
-          {props.message}
-        </Typography>
-      </div>
-    </>
-  );
-}
-
 const ChangePasswordPage = () => {
   const { id } = useParams();
 
@@ -68,15 +48,6 @@ const ChangePasswordPage = () => {
   const handleClick = () => {
     history('/login');
   };
-
-  const {
-    lowerValidated,
-    upperValidated,
-    numberValidated,
-    specialValidated,
-    lengthValidated,
-    handleChangeValidation,
-  } = passwordValidation();
 
   return (
     <Box
@@ -125,7 +96,6 @@ const ChangePasswordPage = () => {
             value={formik.values.newPassword}
             onChange={(e) => {
               formik.handleChange(e);
-              handleChangeValidation(e.target.value);
             }}
             error={
               formik.touched.newPassword && Boolean(formik.errors.newPassword)
@@ -156,14 +126,7 @@ const ChangePasswordPage = () => {
               ),
             }}
           />
-          <Grid container alignItems='center'>
-            Must have one:
-            <Validation validated={lowerValidated} message='Lowercase' />
-            <Validation validated={upperValidated} message='Uppercase' />
-            <Validation validated={numberValidated} message='Number' />
-            <Validation validated={specialValidated} message='Character' />
-            <Validation validated={lengthValidated} message='Length' />
-          </Grid>
+
           <TextField
             required
             value={formik.values.confirmPassword}
@@ -206,6 +169,7 @@ const ChangePasswordPage = () => {
             onClick={() => formik.submitForm()}
             variant='contained'
             loading={loading}
+            disabled={!formik.isValid}
             sx={{
               mt: 2,
               mb: 2,
