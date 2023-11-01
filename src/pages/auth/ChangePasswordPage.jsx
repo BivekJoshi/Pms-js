@@ -245,6 +245,7 @@ const ChangePasswordPage = () => {
             onClick={handleFormSubmit}
             variant='contained'
             loading={loading}
+            disabled={!formik.isValid}
             sx={{
               mt: 2,
               mb: 2,

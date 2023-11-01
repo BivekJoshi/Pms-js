@@ -8,7 +8,6 @@ import {
   Box,
   Button,
   Checkbox,
-  Chip,
   Grid,
   TextField,
   Typography,
@@ -22,6 +21,8 @@ import WatchTable from './WatchTable';
 import { useWatchListDetailForm } from '../../hooks/watchList/useWatchListForm/useWatchListDetailForm';
 import toast from 'react-hot-toast';
 import FormModal from '../../components/formModal/FormModal';
+import { MoreVert } from '@mui/icons-material';
+import WatchListModal from './WatchListModal';
 const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;
 
@@ -30,11 +31,12 @@ const WatchList = () => {
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
 
   const [watchlist, setWatchList] = useState();
-  console.log(
-    '🚀 ~ file: WatchList.jsx:31 ~ WatchList ~ watchlist:',
-    watchlist
-  );
   const [open, setOpen] = useState(false);
+  const [watchListModal, setWatchListModal] = useState(null);
+  const [watchListDetail, setWatchListDetail] = React.useState({
+    name: '',
+    id: '',
+  });
 
   const { data: listedCompanies } = useGetListedCompanies();
 
@@ -62,7 +64,7 @@ const WatchList = () => {
     })) || [];
 
   useEffect(() => {
-    if (!loadingname && watchListName.length > 0) {
+    if (!loadingname && watchListName?.length > 0) {
       setWatchList(watchListName[0]?.id);
     }
   }, [loadingname, watchListName]);
@@ -122,19 +124,36 @@ const WatchList = () => {
             Watchlist:
           </Typography>
           {!loadingname &&
-            watchListName.map((name) => (
-              <Chip
-                label={name?.watchlistName}
-                className='custom-chip'
+            watchListName?.map((name) => (
+              <div
+                onClick={() => setWatchList(name?.id)}
                 key={name?.id}
                 style={{
+                  display: 'flex',
+                  cursor: 'pointer',
+                  alignItems: 'center',
+                  borderRadius: '100px',
+                  position: 'relative',
+                  padding: '3px 6px',
                   backgroundColor:
                     watchlist === name?.id ? '#329EF4' : '#EBEBEB',
                   color: watchlist === name?.id ? 'white' : 'initial',
-                  margin: '2px',
                 }}
-                onClick={() => setWatchList(name?.id)}
-              />
+              >
+                {name?.watchlistName}
+                <span>
+                  <MoreVert
+                    sx={{ marginTop: '25%' }}
+                    onClick={(e) => {
+                      setWatchListModal(e.currentTarget);
+                      setWatchListDetail({
+                        name: name.watchlistName,
+                        id: name?.id,
+                      });
+                    }}
+                  />
+                </span>
+              </div>
             ))}
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
@@ -146,32 +165,6 @@ const WatchList = () => {
           >
             NEPSE CODE:
           </Typography>
-          {/* <div style={{ width: "300px" }}>
-            <Autocomplete
-              name="script"
-              options={symbols}
-              value={selectedSymbol || formik?.values?.script}
-              onChange={(event, newValue) => {
-                if (newValue != null) {
-                  formik.setFieldValue("script", newValue);
-                  setSelectedSymbol(newValue);
-                }
-              }}
-              getOptionLabel={(option) => option?.companyInfo || ""}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Script"
-                  variant="outlined"
-                  error={formik.touched.script && Boolean(formik.errors.script)}
-                  helperText={formik.touched.script && formik.errors.script}
-                  autoFocus
-                  size="small"
-                  value={formik.values.script}
-                />
-              )}
-            />
-          </div> */}
           <Autocomplete
             multiple
             id='checkboxes-tags-demo'
@@ -228,8 +221,17 @@ const WatchList = () => {
         </Button>
       </Box>
       <br />
-
       <WatchTable watchid={watchlist} />
+      {watchListModal && (
+        <WatchListModal
+          open={watchListModal}
+          handleClose={() => {
+            setWatchListModal(null);
+            setWatchList({ name: '', id: '' });
+          }}
+          watchListDetail={watchListDetail}
+        />
+      )}
     </div>
   );
 };

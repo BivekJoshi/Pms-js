@@ -1,4 +1,4 @@
-import { axiosInstance } from "../axiosInterceptor";
+import { axiosInstance } from '../axiosInterceptor';
 
 /*________________________GET COMPANY DATA BY ID_____________________________________*/
 export const getCompanyById = async (script) => {

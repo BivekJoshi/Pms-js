@@ -1,13 +1,17 @@
-import { useTheme } from "@mui/material";
-import React, { useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import NewFilter from "../../../../components/newFilter/NewFilter";
-import CustomTable from "../../../../components/customTable/CustomTable";
-import toast from "react-hot-toast";
-import CustomPagination from "../../../../components/customPagination/CustomPagination";
-import { fetchPaginatedTable } from "../../../../redux/actions/paginatedTable";
-import { FLOOR_SHEET_DETAILS } from "../../../../api/urls/urls";
+import { useTheme } from '@mui/material';
+import React, { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import NewFilter from '../../../../components/newFilter/NewFilter';
+import CustomTable from '../../../../components/customTable/CustomTable';
+import toast from 'react-hot-toast';
+import CustomPagination from '../../../../components/customPagination/CustomPagination';
+import {
+  clearPaginatedData,
+  fetchPaginatedTable,
+} from '../../../../redux/actions/paginatedTable';
+import { FLOOR_SHEET_DETAILS } from '../../../../api/urls/urls';
+import { useEffect } from 'react';
 
 const Floorsheet = ({ companyData }) => {
   const { t } = useTranslation();
@@ -27,92 +31,97 @@ const Floorsheet = ({ companyData }) => {
 
   const filterMenuItem = [
     {
-      label: t("Date From"),
-      name: "trDate",
-      type: "date-picker",
+      label: t('Date From'),
+      name: 'trDate',
+      type: 'date-picker',
       required: true,
       md: 6,
       sm: 12,
     },
   ];
+
+  useEffect(() => {
+    dispatch(clearPaginatedData());
+    return () => {
+      dispatch(clearPaginatedData());
+    };
+  }, [dispatch]);
+
   const handleSearch = (formValues) => {
     const trDate = formValues.trDate
       ? new Date(formValues.trDate).getTime() / 1000
       : null;
-    if (trDate) {
-      const updatedFormValues = {
-        ...formValues,
-        script: companyData?.companyInfo?.symbol,
-        trDate,
-      };
-      setParams(updatedFormValues);
 
-      try {
-        dispatch(
-          fetchPaginatedTable(
-            FLOOR_SHEET_DETAILS,
-            updatedFormValues,
-            null,
-            "unique"
-          )
-        );
-        setTableShow(true);
-      } catch (error) {
-        toast.error(error);
-      }
-    } else {
-      toast.error("Please provide both date values...");
+    const updatedFormValues = {
+      ...formValues,
+      script: companyData?.companyInfo?.symbol,
+      trDate,
+    };
+    setParams(updatedFormValues);
+
+    try {
+      dispatch(
+        fetchPaginatedTable(
+          FLOOR_SHEET_DETAILS,
+          updatedFormValues,
+          null,
+          'unique'
+        )
+      );
+      setTableShow(true);
+    } catch (error) {
+      toast.error(error);
     }
   };
   const columns = useMemo(
     () => [
       {
         id: 1,
-        accessorKey: "trDate",
-        header: "Date",
+        accessorKey: 'trDate',
+        header: 'Date',
         size: 100,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: "amount",
-        header: "Amount",
+        accessorKey: 'amount',
+        header: 'Amount',
         size: 120,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: "buyer",
-        header: "Buyer",
+        accessorKey: 'buyer',
+        header: 'Buyer',
         size: 100,
         sortable: false,
       },
       {
         id: 4,
-        accessorKey: "quantity",
-        header: "Quantity",
+        accessorKey: 'quantity',
+        header: 'Quantity',
         size: 100,
         sortable: false,
       },
 
       {
         id: 5,
-        accessorKey: "rate",
-        header: "Rate",
+        accessorKey: 'rate',
+        header: 'Rate',
         size: 100,
         sortable: false,
       },
       {
         id: 6,
-        accessorKey: "seller",
-        header: " Seller",
+        accessorKey: 'seller',
+        header: ' Seller',
         size: 100,
         sortable: false,
       },
       {
         id: 7,
-        accessorKey: "symbol",
-        header: "Symbol",
+        accessorKey: 'symbol',
+        header: 'Symbol',
         size: 100,
         sortable: false,
       },
@@ -130,13 +139,13 @@ const Floorsheet = ({ companyData }) => {
       {tableShow ? (
         <>
           <CustomTable
-            title="Market Date"
+            title='Market Date'
             columns={columns}
             isLoading={isLoading}
             data={Object.values(tableData)}
             pageSize={pageSize}
             // onRowClick={handleRowClick}
-            headerBackgroundColor="#401686"
+            headerBackgroundColor='#401686'
             headerColor={theme.palette.text.alt}
             enablePagination={false}
             enableEditing={false}
@@ -149,9 +158,9 @@ const Floorsheet = ({ companyData }) => {
           />
           <div
             style={{
-              paddingTop: "16px",
-              display: "flex",
-              justifyContent: "flex-end",
+              paddingTop: '16px',
+              display: 'flex',
+              justifyContent: 'flex-end',
             }}
           >
             <CustomPagination
@@ -164,7 +173,7 @@ const Floorsheet = ({ companyData }) => {
                     updatedFormValues,
                     newPage,
                     null,
-                    "unique",
+                    'unique',
                     totalData,
                     params
                   )

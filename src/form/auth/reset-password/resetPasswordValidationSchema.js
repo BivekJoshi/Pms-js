@@ -6,9 +6,18 @@ const resetPasswordSchema = Yup.object().shape({
   nepseCode: Yup.string().required('Nepse code is required'),
 });
 
+const strongPasswordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
+
 const changePasswordSchema = Yup.object().shape({
-  newPassword: Yup.string().required('Required'),
-  confirmPassword: Yup.string().required('Required'),
+  newPassword: Yup.string()
+    .required('Required')
+    .matches(
+      strongPasswordRegex,
+      'Password must contain at least 8 characters, including uppercase, lowercase, and a number'
+    ),
+  confirmPassword: Yup.string()
+    .required('Required')
+    .oneOf([Yup.ref('newPassword')], 'Passwords must match'),
 });
 
 export { resetPasswordSchema, changePasswordSchema };
