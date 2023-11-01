@@ -53,7 +53,11 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.ipoFpo}
-            onChange={formik.handleChange}
+            onChange={(event) => {
+              const newState = { ...switchStates, ipoFpo: event.target.checked };
+              setSwitchStates(newState);
+              formik.handleChange(event);
+            }}
             name="ipoFpo"
           />
         </ListItem>
@@ -64,7 +68,11 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.rightShare}
-            onChange={formik.handleChange}
+            onChange={(event) => {
+              const newState = { ...switchStates, rightShare: event.target.checked };
+              setSwitchStates(newState);
+              formik.handleChange(event);
+            }}
             name="rightShare"
           />
         </ListItem>
@@ -75,7 +83,11 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.dividend}
-            onChange={formik.handleChange}
+            onChange={(event) => {
+              const newState = { ...switchStates, dividend: event.target.checked };
+              setSwitchStates(newState);
+              formik.handleChange(event); 
+            }}
             name="dividend"
           />
         </ListItem>
@@ -85,7 +97,11 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.auction}
-            onChange={formik.handleChange}
+            onChange={(event) => {
+              const newState = { ...switchStates, auction: event.target.checked };
+              setSwitchStates(newState);
+              formik.handleChange(event); 
+            }}
             name="auction"
           />
         </ListItem>
@@ -96,7 +112,11 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.bondDebenture}
-            onChange={formik.handleChange}
+            onChange={(event) => {
+              const newState = { ...switchStates, bondDebenture: event.target.checked };
+              setSwitchStates(newState);
+              formik.handleChange(event); 
+            }}
             name="bondDebenture"
           />
         </ListItem>
@@ -107,7 +127,11 @@ const ProfileNotification = () => {
           </Grid>{" "}
           <Switch
             checked={switchStates?.agmSgm}
-            onChange={formik.handleChange}
+            onChange={(event) => {
+              const newState = { ...switchStates, agmSgm: event.target.checked };
+              setSwitchStates(newState);
+              formik.handleChange(event); 
+            }}
             name="agmSgm"
           />
         </ListItem>
@@ -118,7 +142,11 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.mergerAcquisition}
-            onChange={formik.handleChange}
+            onChange={(event) => {
+              const newState = { ...switchStates, mergerAcquisition: event.target.checked };
+              setSwitchStates(newState);
+              formik.handleChange(event); 
+            }}
             name="mergerAcquisition"
           />
         </ListItem>
@@ -128,7 +156,11 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.financialReports}
-            onChange={formik.handleChange}
+            onChange={(event) => {
+              const newState = { ...switchStates, financialReports: event.target.checked };
+              setSwitchStates(newState);
+              formik.handleChange(event); 
+            }}
             name="financialReports"
           />
         </ListItem>
@@ -138,7 +170,11 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.newsLetter}
-            onChange={formik.handleChange}
+            onChange={(event) => {
+              const newState = { ...switchStates, newsLetter: event.target.checked };
+              setSwitchStates(newState);
+              formik.handleChange(event);
+            }}
             name="newsLetter"
           />
         </ListItem>
@@ -148,7 +184,11 @@ const ProfileNotification = () => {
           </Grid>
           <Switch
             checked={switchStates?.general}
-            onChange={formik.handleChange}
+            onChange={(event) => {
+              const newState = { ...switchStates, general: event.target.checked };
+              setSwitchStates(newState);
+              formik.handleChange(event); 
+            }}
             name="general"
           />
         </ListItem>
