@@ -12,7 +12,6 @@ const ProfileNotification = () => {
     data: notificationData,
     isLoading: loadingNotification,
   } = useGetNotification();
-  console.log(notificationData, "notificationData");
   const [switchStates, setSwitchStates] = useState(notificationData);
 
   return (
@@ -36,7 +35,7 @@ const ProfileNotification = () => {
             Date)
           </Grid>
           <Switch
-            checked={switchStates.ipoFpo}
+            checked={switchStates?.ipoFpo}
             onChange={() =>
               setSwitchStates({ ...switchStates, ipoFpo: !switchStates.ipoFpo })
             }
@@ -48,7 +47,7 @@ const ProfileNotification = () => {
             Close Date)
           </Grid>
           <Switch
-            checked={switchStates.rightShare}
+            checked={switchStates?.rightShare}
             onChange={() =>
               setSwitchStates({ ...switchStates, rightShare: !switchStates.rightShare })
             }
@@ -60,7 +59,7 @@ const ProfileNotification = () => {
             Close date)
           </Grid>
           <Switch
-            checked={switchStates.dividend}
+            checked={switchStates?.dividend}
             onChange={() =>
               setSwitchStates({ ...switchStates, dividend: !switchStates.dividend })
             }
@@ -71,7 +70,7 @@ const ProfileNotification = () => {
             <Typography>Auction </Typography>(Declare and Opening Date)
           </Grid>
           <Switch
-            checked={switchStates.auction}
+            checked={switchStates?.auction}
             onChange={() =>
               setSwitchStates({ ...switchStates, auction: !switchStates.auction })
             }
@@ -83,7 +82,7 @@ const ProfileNotification = () => {
             Date){" "}
           </Grid>
           <Switch
-            checked={switchStates.bondDebenture}
+            checked={switchStates?.bondDebenture}
             onChange={() =>
               setSwitchStates({ ...switchStates, bondDebenture: !switchStates.bondDebenture })
             }
@@ -95,7 +94,7 @@ const ProfileNotification = () => {
             date){" "}
           </Grid>{" "}
           <Switch
-            checked={switchStates.agmSgm}
+            checked={switchStates?.agmSgm}
             onChange={() =>
               setSwitchStates({ ...switchStates, agmSgm: !switchStates.agmSgm })
             }
@@ -107,7 +106,7 @@ const ProfileNotification = () => {
             Transaction date)
           </Grid>
           <Switch
-            checked={switchStates.mergerAcquisition}
+            checked={switchStates?.mergerAcquisition}
             onChange={() =>
               setSwitchStates({ ...switchStates, mergerAcquisition: !switchStates.mergerAcquisition })
             }
@@ -118,7 +117,7 @@ const ProfileNotification = () => {
             Financial Reports{" "}
           </Grid>
           <Switch
-            checked={switchStates.financialReports}
+            checked={switchStates?.financialReports}
             onChange={() =>
               setSwitchStates({ ...switchStates, financialReports: !switchStates.financialReports })
             }
@@ -129,7 +128,7 @@ const ProfileNotification = () => {
             Newsletter
           </Grid>
           <Switch
-            checked={switchStates.newsLetter}
+            checked={switchStates?.newsLetter}
             onChange={() =>
               setSwitchStates({ ...switchStates, newsLetter: !switchStates.newsLetter })
             }
@@ -140,7 +139,7 @@ const ProfileNotification = () => {
             <Typography>General </Typography>(New feature/ updates)
           </Grid>
           <Switch
-            checked={switchStates.general}
+            checked={switchStates?.general}
             onChange={() =>
               setSwitchStates({ ...switchStates, general: !switchStates.general })
             }
