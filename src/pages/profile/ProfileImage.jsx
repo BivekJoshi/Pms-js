@@ -1,13 +1,17 @@
-import { Grid } from "@mui/material";
-import React from "react";
-import LocalSeeIcon from "@mui/icons-material/LocalSee";
-import { DOC_URL } from "../../api/axiosInterceptor";
-import profile from "../../assets/profilePicture.png";
-import { useState } from "react";
-import ProfileEditModal from "./ProfileEditModel/ProfileEditModal";
+import { Grid } from '@mui/material';
+import React from 'react';
+import LocalSeeIcon from '@mui/icons-material/LocalSee';
+import { DOC_URL } from '../../api/axiosInterceptor';
+import profile from '../../assets/profilePicture.png';
+import { useState } from 'react';
+import ProfileEditModal from './ProfileEditModel/ProfileEditModal';
 
 const ProfileImage = ({ userInfoData }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
+  console.log(
+    '🚀 ~ file: ProfileImage.jsx:11 ~ ProfileImage ~ openEditModal:',
+    openEditModal
+  );
 
   const url = DOC_URL;
 
@@ -17,20 +21,23 @@ const ProfileImage = ({ userInfoData }) => {
     <Grid>
       <img
         src={userInfoData?.path ? `${url}${userInfoData?.path}` : profile}
-        alt="Profile"
-        height="135px"
-        width="135px"
-        style={{ borderRadius: "50%" }}
+        alt='Profile'
+        height='135px'
+        width='135px'
+        style={{ borderRadius: '50%' }}
       />
       <LocalSeeIcon
-        className="hover-effect"
+        className='hover-effect'
+        onClick={() => {
+          setOpenEditModal(true);
+        }}
         sx={{
-          position: "absolute",
-          bottom: "22%",
-          left: "19%",
-          width: "40px",
-          height: "40px",
-          color: "white",
+          position: 'absolute',
+          bottom: '22%',
+          left: '19%',
+          width: '40px',
+          height: '40px',
+          color: 'white',
         }}
       />
       {openEditModal && (

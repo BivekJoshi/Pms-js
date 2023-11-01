@@ -1,18 +1,18 @@
-import React from "react";
-import { Box, Modal } from "@mui/material";
-import { useTheme } from "@emotion/react";
+import React from 'react';
+import { Box, Modal } from '@mui/material';
+import { useTheme } from '@emotion/react';
 
 const FormModal = ({ open, onClose, formComponent, sx }) => {
   const theme = useTheme();
 
   const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 1400,
-    bgcolor: "background.paper",
-    border: "1px solid #808080",
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '1px solid #808080',
     borderRadius: 2,
     boxShadow: 24,
     p: 4,
@@ -24,8 +24,8 @@ const FormModal = ({ open, onClose, formComponent, sx }) => {
     <Modal
       open={open}
       onClose={onClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      aria-labelledby='modal-modal-title'
+      aria-describedby='modal-modal-description'
       // sx={sx}
     >
       <Box sx={style}>{formComponent}</Box>
