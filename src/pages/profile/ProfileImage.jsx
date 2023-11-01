@@ -8,19 +8,23 @@ import ProfileEditModal from './ProfileEditModel/ProfileEditModal';
 
 const ProfileImage = ({ userInfoData }) => {
   const [openEditModal, setOpenEditModal] = useState(false);
-  console.log(
-    '🚀 ~ file: ProfileImage.jsx:11 ~ ProfileImage ~ openEditModal:',
-    openEditModal
-  );
 
   const url = DOC_URL;
 
   const handleCloseEditModal = () => setOpenEditModal(false);
 
+  console.log(
+    '🚀 ~ file: ProfileImage.jsx:22 ~ ProfileImage ~ `${url}${userInfoData?.path}`:',
+    `${url}${userInfoData?.imageFilePath}`
+  );
   return (
     <Grid>
       <img
-        src={userInfoData?.path ? `${url}${userInfoData?.path}` : profile}
+        src={
+          userInfoData?.imageFilePath
+            ? `${url}${userInfoData?.imageFilePath}`
+            : profile
+        }
         alt='Profile'
         height='135px'
         width='135px'

@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import FormModal from '../../../components/formModal/FormModal';
 import toast from 'react-hot-toast';
 import { Button, Grid } from '@mui/material';
+import useProfilePic from '../../../hooks/changeProfilePic/useProfilePic';
 
 const ProfileEditModal = ({ open, handleCloseModal }) => {
   const [selectedProfile, setSelectedProfile] = useState();
   const [imagePreview, setImagePreview] = useState(null);
+
+  const { formik } = useProfilePic({ selectedProfile });
 
   const handleChangeImage = (e) => {
     const file = e.target.files[0];
@@ -59,7 +62,7 @@ const ProfileEditModal = ({ open, handleCloseModal }) => {
               </Button>
               <Button
                 variant='contained'
-                // onClick={handleFormSubmit}
+                onClick={() => formik.submitForm()}
                 sx={{ mt: 3, ml: 1 }}
                 color='error'
               >
