@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
 import { useUpdateWatchListname } from '../../hooks/watchList/useWatchListForm/useWatchListForm';
 import { deleteWatchName } from '../../api/watchlist/watchlist-api';
+import { useRemoveWatchListName } from '../../hooks/watchList/useWatchList';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -26,20 +27,17 @@ const EditDeleteModal = (props) => {
     props.details?.name,
     props?.details?.id
   );
+  const { mutate } = useRemoveWatchListName({});
+
   const handleEdit = () => {
     formik.handleSubmit();
+    props?.handleClose();
   };
 
   const handleDelete = () => {
-    try {
-      deleteWatchName(props?.details?.id);
-      props.handleClose();
-    } catch (err) {
-      console.log(
-        '🚀 ~ file: EditDeleteModal.jsx:39 ~ handleDelete ~ err:',
-        err
-      );
-    }
+    // deleteWatchName(props?.details?.id);
+    mutate(props?.details?.id);
+    props.handleClose();
   };
   return (
     <div>
@@ -95,12 +93,12 @@ const EditDeleteModal = (props) => {
         </DialogContent>
         <DialogActions>
           {props.type === 'delete' && (
-            <Button color='error' onClick={handleDelete}>
+            <Button color='error' onClick={handleDelete} variant='contained'>
               Delete
             </Button>
           )}
           {props.type === 'edit' && (
-            <Button color='success' onClick={handleEdit}>
+            <Button color='success' onClick={handleEdit} variant='contained'>
               Save
             </Button>
           )}

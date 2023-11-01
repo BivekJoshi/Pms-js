@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import { watchlistMasterSchema } from './watchListSchema';
 import { useAddWatchListMaster, useUpdateWatchlistName } from '../useWatchList';
 
-export const useWatchListForm = () => {
+export const useWatchListForm = ({onClose}) => {
   const { mutate } = useAddWatchListMaster({});
   const formik = useFormik({
     initialValues: {
@@ -16,7 +16,8 @@ export const useWatchListForm = () => {
 
   const handleRegister = (values) => {
     const { watchlistName } = values;
-    mutate({ watchlistName });
+    // mutate({ watchlistName });
+    mutate({ watchlistName, onSuccess: () => onClose });
   };
 
   return {

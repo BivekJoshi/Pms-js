@@ -32,6 +32,7 @@ const About = ({companyData}) => {
   const cellStyle = {
     borderRight: "1px solid #e0e0e0",
     fontWeight: "bold",
+    width:"20rem"
   };
 
   return (

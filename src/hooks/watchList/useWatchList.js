@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import {
   addWatchListDetail,
   addWatchListMaster,
+  deleteWatchListDetail,
   deleteWatchName,
   editWatchListName,
   getProfileDetail,
@@ -93,35 +94,57 @@ export const useAddWatchListDetail = ({ onSuccess }) => {
     }
   );
 };
-// .........................Edit WatchList Name ................//
+/*__________________________Edit WatchList Name_____________________________________*/
 export const useUpdateWatchlistName = ({ onSuccess }) => {
   const queryClient = useQueryClient();
   return useMutation(
-    ["editWatchList"],
+    ['editWatchList'],
     (formData) => editWatchListName(formData),
     {
       onSuccess: (data, variables, context) => {
-        toast.success("Succesfully Edit WatchList Name");
+        toast.success('Succesfully Edit WatchList Name');
         onSuccess && onSuccess(data, variables, context);
-        queryClient.invalidateQueries("getWatchListName");
+        queryClient.invalidateQueries('getWatchListName');
       },
       onError: (err, _variables, _context) => {
-        toast.error(`error: ${err.message}`);
+        toast.error(getErrorMessage(err));
       },
     }
   );
 };
-/*............................Delete Watch List Name ...*/
+/*________________________________Delete Watch List Name_____________________*/
 export const useRemoveWatchListName = ({ onSuccess }) => {
   const queryClient = useQueryClient();
-  return useMutation(["removeWatchList"], (id) => deleteWatchName(id), {
+  return useMutation(['removeWatchList'], (id) => deleteWatchName(id), {
     onSuccess: (data, variables, context) => {
-      toast.success("Succesfully Deleted");
-      onSuccess && onSuccess(data, variables, context);
-      queryClient.invalidateQueries("getWatchListName");
+      toast.success('Successfully Deleted');
+      if (onSuccess) {
+        onSuccess(data, variables, context);
+      }
+      queryClient.invalidateQueries('getWatchListName');
     },
     onError: (err, _variables, _context) => {
-      toast.error(`error: ${err.message}`);
+      toast.error(`Error: ${err.message}`);
     },
   });
+};
+
+/*________________________________DELETE WATCHTLIST DETAIL_____________________*/
+export const useRemoveWatchListDetail = ({ onSuccess, id }) => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    ['removeWatchListDetail'],
+    (tableDataSymbol) => deleteWatchListDetail(tableDataSymbol, id),
+    {
+      onSuccess: (data, variables, context) => {
+        onSuccess && onSuccess(data, variables, context);
+        toast.success('Succesfully Deleted Watchlist Detail');
+
+        queryClient.invalidateQueries('getWatchListDataById');
+      },
+      onError: (err, _variables, _context) => {
+        toast.error(getErrorMessage(err));
+      },
+    }
+  );
 };
