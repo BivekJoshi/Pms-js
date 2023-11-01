@@ -1,29 +1,31 @@
 import { Grid } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import LocalSeeIcon from '@mui/icons-material/LocalSee';
-import { DOC_URL } from '../../api/axiosInterceptor';
 import profile from '../../assets/profilePicture.png';
-import { useState } from 'react';
 import ProfileEditModal from './ProfileEditModel/ProfileEditModal';
+import { DOC_URL } from '../../utility/getBaseUrl';
 
 const ProfileImage = ({ userInfoData }) => {
+  const [key, setKey] = useState(0); // Key for forcing re-render
   const [openEditModal, setOpenEditModal] = useState(false);
-
   const url = DOC_URL;
+  const defaultProfile = profile;
 
-  const handleCloseEditModal = () => setOpenEditModal(false);
+  const handleCloseEditModal = () => {
+    setOpenEditModal(false);
 
-  console.log(
-    '🚀 ~ file: ProfileImage.jsx:22 ~ ProfileImage ~ `${url}${userInfoData?.path}`:',
-    `${url}${userInfoData?.imageFilePath}`
-  );
+    setKey((prevKey) => prevKey + 1); // Change the key to force re-render
+  };
+
   return (
-    <Grid>
+    <Grid key={key}>
+      {' '}
+      {/* Use the key to force re-render */}
       <img
         src={
           userInfoData?.imageFilePath
             ? `${url}${userInfoData?.imageFilePath}`
-            : profile
+            : defaultProfile
         }
         alt='Profile'
         height='135px'

@@ -10,7 +10,6 @@ export const axiosInstance = Axios.create({
   baseURL: BASEURL,
   timeout: 20000,
 });
-export const DOC_URL = "https://103.94.159.144/";
 
 axiosInstance.defaults.headers['Access-Control-Allow-Origin'] = '*';
 

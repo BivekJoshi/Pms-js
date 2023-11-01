@@ -11,18 +11,23 @@ const useAddImage = ({ onSuccess }) => {
   return useMutation(['addProfile'], (image) => addProfilePic(image), {
     onSuccess: (data, variables, context) => {
       onSuccess && onSuccess(data, variables, context);
-      queryClient.invalidateQueries('userMetaData');
+      queryClient.invalidateQueries('getUserInfo');
+      toast.success('Profile Picture Successfully Changed');
     },
     onError: (err, _variables, _context) => {
       toast.error(getErrorMessage(err));
     },
   });
 };
-export const useProfilePic = ({ selectedProfile }) => {
+export const useProfilePic = ({ selectedProfile, handleCloseModal }) => {
   const { mutate } = useAddImage({});
 
   const handleAddProfileImage = (value) => {
-    mutate(value);
+    mutate(value, {
+      onSuccess: () => {
+        handleCloseModal();
+      },
+    });
   };
   const formik = useFormik({
     initialValues: {

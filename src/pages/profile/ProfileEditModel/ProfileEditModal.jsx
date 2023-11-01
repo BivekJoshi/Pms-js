@@ -8,7 +8,7 @@ const ProfileEditModal = ({ open, handleCloseModal }) => {
   const [selectedProfile, setSelectedProfile] = useState();
   const [imagePreview, setImagePreview] = useState(null);
 
-  const { formik } = useProfilePic({ selectedProfile });
+  const { formik } = useProfilePic({ selectedProfile, handleCloseModal });
 
   const handleChangeImage = (e) => {
     const file = e.target.files[0];

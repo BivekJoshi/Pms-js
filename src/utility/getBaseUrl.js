@@ -18,3 +18,5 @@ export const getBaseUrl = () => {
   }
   // return 'https://dgtrade.dghub.io:8085/pms/api';
 };
+
+export const DOC_URL = 'https://103.94.159.144';
