@@ -29,11 +29,7 @@ const ProfileEditModal = ({ open, handleCloseModal }) => {
         formComponent={
           <Grid container spacing={3}>
             <Grid item xs={12} sm={12}>
-              <input
-                type='file'
-                label='citizenship'
-                onChange={handleChangeImage}
-              />
+              <input type='file' label='Profile' onChange={handleChangeImage} />
             </Grid>
 
             {/* Display the image preview */}
@@ -67,7 +63,7 @@ const ProfileEditModal = ({ open, handleCloseModal }) => {
                 sx={{ mt: 3, ml: 1 }}
                 color='error'
               >
-                Update Document
+                Update Profile
               </Button>
             </Grid>
           </Grid>
