@@ -250,7 +250,7 @@ const ChangePassword = () => {
                       onMouseDown={handleMouseDownPassword}
                       edge='end'
                     >
-                     c
+                     {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </Tooltip>
                 </InputAdornment>
