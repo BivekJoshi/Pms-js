@@ -17,7 +17,9 @@ export const useAlertForm = () => {
 
     validationSchema: addAlertSchema,
     onSubmit: (value) => {
-      const submitedValue = { ...value, alertMethod: "EMAIL" };
+      console.log(value)
+      // const submitedValue = { ...value, alertMethod: "EMAIL" }; 
+      const submitedValue = { ...value };
       handlePost(submitedValue);
     },
   });
