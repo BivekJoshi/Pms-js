@@ -5,19 +5,15 @@ import CustomTable from "../../components/customTable/CustomTable";
 import { Box, useTheme } from "@mui/material";
 import { useState } from "react";
 import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
-import { useDispatch } from "react-redux";
 
 const WatchTable = (watchid) => {
   const id = watchid.watchid;
   const { data: watchListDataById, isLoading } = useGetWatchListDataById(id);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [rowData, setRowData] = useState();
-  const [tableDataIndex, settableDataIndex] = useState();
   const [tableDataSymbol, setTableDataSymbol] = useState();
   const deleteWatchlistMutation = useRemoveWatchListDetail({tableDataSymbol});
 
 
-  const dispatch = useDispatch();
   const theme = useTheme();
   const handleModalClose = () => {
     setIsModalOpen(false);
@@ -94,8 +90,6 @@ const WatchTable = (watchid) => {
 
   const deleteRow = (row) => {
     setIsModalOpen(true);
-    setRowData(row?.original);
-    settableDataIndex(row.index);
     setTableDataSymbol(row?.original?.symbol)
   };
 

@@ -98,12 +98,12 @@ const EditDeleteModal = (props) => {
         </DialogContent>
         <DialogActions>
           {props.type === 'delete' && (
-            <Button color='error' onClick={handleDelete}>
+            <Button color='error' onClick={handleDelete} variant="contained">
               Delete
             </Button>
           )}
           {props.type === 'edit' && (
-            <Button color='success' onClick={handleEdit}>
+            <Button color='success' onClick={handleEdit} variant="contained">
               Save
             </Button>
           )}
