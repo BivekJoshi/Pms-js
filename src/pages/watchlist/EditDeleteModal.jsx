@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import { TextField } from '@mui/material';
 import { useUpdateWatchListname } from '../../hooks/watchList/useWatchListForm/useWatchListForm';
 import { deleteWatchName } from '../../api/watchlist/watchlist-api';
+import { useRemoveWatchListName } from '../../hooks/watchList/useWatchList';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -28,11 +29,13 @@ const EditDeleteModal = (props) => {
   );
   const handleEdit = () => {
     formik.handleSubmit();
+    props?.handleClose();
   };
 
   const handleDelete = () => {
     try {
-      deleteWatchName(props?.details?.id);
+      // deleteWatchName(props?.details?.id);
+      useRemoveWatchListName(props?.details?.id);
       props.handleClose();
     } catch (err) {
       console.log(

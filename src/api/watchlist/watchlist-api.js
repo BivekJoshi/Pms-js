@@ -58,3 +58,8 @@ export const editWatchListName = async (formData) => {
 export const deleteWatchName = async (id) => {
   await axiosInstance.delete(`/watchlist/${id}`);
 };
+
+/*_______________________DELETE WATCHLIST DETAIL________________________________*/
+export const deleteWatchListDetail = async (tableDataSymbol) => {
+  await axiosInstance.delete(`/watchlist/detail/${tableDataSymbol}`);
+};

@@ -24,6 +24,7 @@ const CustomeAlertDialog = (props) => {
 
   const handleSave = () => {
     handleAgree();
+    handleModalClose();
   };
 
   return (
