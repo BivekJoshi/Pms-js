@@ -15,11 +15,14 @@ export const getWatchListName = async () => {
 
 /*________________________GET WATCHLIST DATA BY_____________________________________*/
 export const getWatchListDataById = async (id) => {
-  let response;
   if (id) {
-    response = await axiosInstance.get(`/watchlist/data/${id}`);
+    console.log(
+      '🚀 ~ file: watchlist-api.js:19 ~ getWatchListDataById ~ id:',
+      id
+    );
+    const response = await axiosInstance.get(`/watchlist/data/${id}`);
+    return response;
   }
-  return response;
 };
 
 /*________________________GET LISTED COMPANIES_____________________________________*/
@@ -60,6 +63,10 @@ export const deleteWatchName = async (id) => {
 };
 
 /*_______________________DELETE WATCHLIST DETAIL________________________________*/
-export const deleteWatchListDetail = async (tableDataSymbol) => {
-  await axiosInstance.delete(`/watchlist/detail/${tableDataSymbol}`);
+export const deleteWatchListDetail = async (tableDataSymbol, id) => {
+  if (id) {
+    await axiosInstance.delete(
+      `/watchlist/detail/${tableDataSymbol}?masterId=${id}`
+    );
+  }
 };
