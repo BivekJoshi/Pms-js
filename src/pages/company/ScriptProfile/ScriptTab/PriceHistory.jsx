@@ -93,12 +93,19 @@ const PriceHistory = ({ companyData }) => {
       {
         id: 3,
         accessorKey: 'change',
-        header: '% Change',
+        header: 'Change',
         size: 100,
         sortable: false,
       },
       {
         id: 4,
+        accessorKey: 'changePercent',
+        header: 'Change %',
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 5,
         accessorKey: 'high',
         header: 'High',
         size: 100,
@@ -106,7 +113,7 @@ const PriceHistory = ({ companyData }) => {
       },
 
       {
-        id: 5,
+        id: 6,
         accessorKey: 'low',
         header: 'Low',
         size: 100,

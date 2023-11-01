@@ -59,6 +59,11 @@ const Alert = (props) => {
   const symbols = symbolsArray.map((item) => {
     return { label: item.symbol, id: item.id };
   });
+
+  const scriptFullName = symbolsArray.map((item)=>{
+    return{ label:item?.companyInfo,id:item.id};
+  });
+
   const scriptName = symbols.find(
     (d) => d.id === formik.values?.companyInfoId
   )?.label;
@@ -137,7 +142,7 @@ const Alert = (props) => {
                   <Grid item xs={6} sm={6} md={4} lg={2}>
                     <Autocomplete
                       name='companyInfoId'
-                      options={symbols}
+                      options={scriptFullName}
                       getOptionLabel={(option) => option.label}
                       renderInput={(params) => (
                         <TextField
