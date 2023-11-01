@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Chip, Grid, Typography } from "@mui/material";
 import React from "react";
 import {
   Area,
@@ -9,9 +9,12 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { useTheme } from "@emotion/react";
 
 function StockExchange() {
+  const theme = useTheme();
+
   const data = [
     {
       uv: 4000,
@@ -42,24 +45,37 @@ function StockExchange() {
       amt: 2100,
     },
   ];
-  
+
   const yMin = 0;
   const yMax = 6000;
 
-  // Calculate the Y-axis ticks with intervals of 1000
   const yTickInterval = 1000;
   const yTicks = [];
   for (let value = yMin; value <= yMax; value += yTickInterval) {
     yTicks.push(value);
   }
   return (
-    <div style={{background:"white", padding:"16px"}}>
-      <Grid display="flex" flexDirection="row" justifyContent="space-between" padding="0 1.5rem 1.5rem" alignItems="flex-end">
+    <div style={{ background: theme.palette.background.alt, padding: "16px" }}>
+      <Grid
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-between"
+        padding="0 1.5rem 1.5rem"
+        alignItems="flex-end"
+      >
         <Grid>
-          <Typography variant="h5" fontWeight="500">NEPAL STOCK EXCHANGE</Typography>
-          <Typography variant="h6" fontWeight="500">Volume 30.43B</Typography>
+          <Typography variant="h5" fontWeight="500">
+            NEPAL STOCK EXCHANGE
+          </Typography>
+          <Typography variant="h6" fontWeight="500">
+            Volume 30.43B
+          </Typography>
         </Grid>
-        <Grid display="flex" flexDirection="row"><CalendarMonthIcon  width="18px" height="18px"/><Typography>Oct 30 11:09 Am</Typography></Grid>
+        <Grid display="flex" flexDirection="row">
+          <CalendarMonthIcon width="18px" height="18px" />
+          <Typography pr="10px">Oct 30 11:09 Am</Typography>
+          <Chip label="success" color="success" sx={{height:"20px", }}/>
+        </Grid>
       </Grid>
       <ResponsiveContainer width="100%" height="80%">
         <AreaChart
@@ -68,8 +84,8 @@ function StockExchange() {
         >
           <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+              <stop offset="5%" stopColor="#54C5FF" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#54C5FF" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
@@ -83,7 +99,7 @@ function StockExchange() {
           <Area
             type="monotone"
             dataKey="uv"
-            stroke="#8884d8"
+            stroke="#54C5FF"
             fillOpacity={1}
             fill="url(#colorUv)"
           />

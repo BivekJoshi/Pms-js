@@ -5,6 +5,7 @@ import {
   Drawer,
   Grid,
   IconButton,
+  Input,
   Tab,
   Tabs,
   Tooltip,
@@ -36,15 +37,19 @@ import { TabContext, TabPanel } from "@mui/lab";
 import { useTranslation } from "react-i18next";
 import MenuIcon from "@mui/icons-material/Menu";
 import ProfileNotification from "./ProfileTab/ProfileNotification";
-import LocalSeeIcon from "@mui/icons-material/LocalSee";
 import { DOC_URL } from "../../api/axiosInterceptor";
+import LocalSeeIcon from "@mui/icons-material/LocalSee";
+import ProfileImage from "./ProfileImage";
 
 const Profile = () => {
   const theme = useTheme();
   const [value, setValue] = useState("1");
   const [openDrawer, setOpenDrawer] = useState(false);
   const { t } = useTranslation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [image, setImage] = useState();
+  // const [editedDocument, setEditedDocument] = useState({});
+
   const { data: userInfoData, isLoading: loading } = useGetUserInfo();
   const isSm = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -53,28 +58,11 @@ const Profile = () => {
     setOpenDrawer(false);
     window.scrollTo(0, 0);
   };
-const url = DOC_URL;
 
-const handleFormSubmit = (documentType) => {
-  if(document) {
-    formik.setFieldValue("documentType", documentType);
-    formik.handleSubmit(documentType);
-  } else {
-    toast.warning("Please select a document to upload");
-  }
-  
-};
-
-
-const handleChangeImage = (e) => {
-  setDocument(e.target.files[0]);
-};
- 
   return (
     <Box
       display="grid"
       gap="1rem"
-      // mt="1.8rem"
       sx={{
         gridTemplateRows: isSm ? "4% 1fr" : "1fr",
         gridTemplateColumns: !isSm ? "2fr 10fr" : "1fr",
@@ -102,27 +90,8 @@ const handleChangeImage = (e) => {
               position="relative"
               padding="16px"
             >
-              <img
-                src={`${url}${userInfoData?.path}`}
-                alt="Profile.png"
-                height="135px"
-                width="135px"
-                style={{ borderRadius: "50%" }}
-                // onChange={handleFileChange}
-              />
-              <LocalSeeIcon
-                className="hover-effect"
-                // onClick={handleUpload}
-                sx={{
-                  position: "absolute",
-                  bottom: "22%",
-                  left: "19%",
-                  width: "40px",
-                  height: "40px",
-                  color: "white",
-                }}
-              />
-
+              <ProfileImage userInfoData={userInfoData}/>
+              
               <Grid display="flex" flexDirection="column" gap="8px">
                 <Typography variant="h4">{userInfoData?.clientName}</Typography>
                 <Typography variant="h7">{userInfoData?.email}</Typography>
