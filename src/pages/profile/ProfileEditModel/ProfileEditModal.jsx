@@ -32,7 +32,7 @@ const ProfileEditModal = () => {
             <Grid item xs={12} sm={12}>
               <input
                 type="file"
-                label="citizenship"
+                label="Profile"
                 onChange={handleChangeImage}
               />
             </Grid>
@@ -57,7 +57,7 @@ const ProfileEditModal = () => {
                 sx={{ mt: 3, ml: 1 }}
                 color="error"
               >
-                Update Document
+                Update Profile
               </Button>
             </Grid>
           </Grid>
