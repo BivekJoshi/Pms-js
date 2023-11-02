@@ -6,6 +6,7 @@ import {
   Drawer,
   Grid,
   IconButton,
+  Input,
   Tab,
   Tabs,
   Tooltip,
@@ -14,7 +15,6 @@ import {
   useTheme,
 } from '@mui/material';
 import profile from '../../assets/profilePicture.png';
-import Camera from '../../assets/camera.png';
 import UpdateProfile from '../../assets/UpdateProfile.png';
 import Notification from '../../assets/Notification.png';
 import Subscription from '../../assets/Subscription.png';
@@ -38,13 +38,18 @@ import { TabContext, TabPanel } from '@mui/lab';
 import { useTranslation } from 'react-i18next';
 import MenuIcon from '@mui/icons-material/Menu';
 import ProfileNotification from './ProfileTab/ProfileNotification';
-import Spinner from '../../components/spinner/Spinner';
+import LocalSeeIcon from '@mui/icons-material/LocalSee';
+import ProfileImage from './ProfileImage';
 
 const Profile = () => {
   const theme = useTheme();
   const [value, setValue] = useState('1');
   const [openDrawer, setOpenDrawer] = useState(false);
   const { t } = useTranslation();
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [image, setImage] = useState();
+  // const [editedDocument, setEditedDocument] = useState({});
+
   const { data: userInfoData, isLoading: loading } = useGetUserInfo();
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -58,7 +63,6 @@ const Profile = () => {
     <Box
       display='grid'
       gap='1rem'
-      // mt="1.8rem"
       sx={{
         gridTemplateRows: isSm ? '4% 1fr' : '1fr',
         gridTemplateColumns: !isSm ? '2fr 10fr' : '1fr',
@@ -86,18 +90,8 @@ const Profile = () => {
               position='relative'
               padding='16px'
             >
-              <img
-                src={profile}
-                alt='statusSuccess.png'
-                height='135px'
-                width='135px'
-                style={{ borderRadius: '50%' }}
-              />
-              <img
-                src={Camera}
-                alt='Camera'
-                style={{ position: 'absolute', bottom: '22%', left: '19%' }}
-              />
+              <ProfileImage userInfoData={userInfoData} loading={loading} />
+
               <Grid display='flex' flexDirection='column' gap='8px'>
                 <Typography variant='h4'>{userInfoData?.clientName}</Typography>
                 <Typography variant='h7'>{userInfoData?.email}</Typography>
@@ -425,10 +419,16 @@ const Profile = () => {
                 width='135px'
                 style={{ borderRadius: '50%' }}
               />
-              <img
-                src={Camera}
-                alt='Camera'
-                style={{ position: 'absolute', bottom: '22%', left: '19%' }}
+              <LocalSeeIcon
+                className='hover-effect'
+                sx={{
+                  position: 'absolute',
+                  bottom: '22%',
+                  left: '19%',
+                  width: '40px',
+                  height: '40px',
+                  color: 'white',
+                }}
               />
               <Grid display='flex' flexDirection='column' gap='8px'>
                 <Typography variant='h4'>{userInfoData?.clientName}</Typography>
@@ -444,7 +444,7 @@ const Profile = () => {
                     width: 'fit-content',
                   }}
                 >
-                  {t('Basic')}
+                  {t(`${userInfoData?.subscription}`)}
                 </Button>
               </Grid>
             </Grid>
@@ -717,7 +717,7 @@ const Profile = () => {
           </Grid>
         </Drawer>
         <TabPanel sx={{ p: 0 }} value='1'>
-          {loading ? <Spinner /> : <ProfileInfo data={userInfoData} />}
+          <ProfileInfo data={userInfoData} />
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='2'>
           <ProfileNotification />
@@ -729,16 +729,16 @@ const Profile = () => {
           <ChangePassword />
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='5'>
-          <Transactions tradeDate={userInfoData?.lastTradeDate} />
+          <Transactions />
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='6'>
-          <Bill tradeDate={userInfoData?.lastTradeDate} />
+          <Bill />
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='7'>
-          <Statement tradeDate={userInfoData?.lastTradeDate} />
+          <Statement />
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='8'>
-          <ReceiptPayment tradeDate={userInfoData?.lastTradeDate} />
+          <ReceiptPayment />
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='9'>
           Terms & Conditions
