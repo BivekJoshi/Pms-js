@@ -40,6 +40,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ProfileNotification from './ProfileTab/ProfileNotification';
 import LocalSeeIcon from '@mui/icons-material/LocalSee';
 import ProfileImage from './ProfileImage';
+import ProfileButton from './Button/ProfileButton';
 
 const Profile = () => {
   const theme = useTheme();
@@ -96,7 +97,7 @@ const Profile = () => {
                 <Typography variant='h4'>{userInfoData?.clientName}</Typography>
                 <Typography variant='h7'>{userInfoData?.email}</Typography>
                 <Typography variant='h7'>{userInfoData?.mobileNo}</Typography>
-                <Button
+                {/* <Button
                   sx={{
                     bgcolor: '#FFDCBC',
                     border: '1px solid #7A757F',
@@ -107,7 +108,8 @@ const Profile = () => {
                   }}
                 >
                   {t('Basic')}
-                </Button>
+                </Button> */}
+                <ProfileButton userInfoData={userInfoData?.subscription}/>
               </Grid>
             </Grid>
 
