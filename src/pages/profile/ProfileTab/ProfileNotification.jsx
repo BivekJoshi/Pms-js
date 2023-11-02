@@ -6,6 +6,7 @@ import { useGetNotification } from "../../../hooks/notificationConfiguration/use
 import { useState } from "react";
 import toast from "react-hot-toast";
 import useNotificationForm from "../../../hooks/notificationConfiguration/useNotificationForm";
+import Spinner from "../../../components/spinner/Spinner";
 
 const ProfileNotification = () => {
   const theme = useTheme();
@@ -16,9 +17,8 @@ const ProfileNotification = () => {
   } = useGetNotification();
 
   const [switchStates, setSwitchStates] = useState(notificationData);
-  const { data } = useGetNotification();
 
-  const { formik } = useNotificationForm( data);
+  const { formik } = useNotificationForm(notificationData);
   useEffect(() => {
     setSwitchStates(notificationData);
   }, [notificationData]);
@@ -27,10 +27,15 @@ const ProfileNotification = () => {
     formik.handleSubmit();
     if (formik.isValid) {
       const formData = formik?.values;
+      console.log(formData, "FormData ma Chai ");
     } else {
       toast.error("Please make sure you have filled the form correctly");
     }
   };
+
+  if (loadingNotification) {
+    return <Spinner />;
+  }
   return (
     <Box display="flex" flexDirection="column" alignItems="flex-start">
       <List
@@ -54,11 +59,15 @@ const ProfileNotification = () => {
           <Switch
             checked={switchStates?.ipoFpo}
             onChange={(event) => {
-              const newState = { ...switchStates, ipoFpo: event.target.checked };
+              const newState = {
+                ...switchStates,
+                ipoFpo: event.target.checked,
+              };
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
             name="ipoFpo"
+            id="ipoFpo"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -69,11 +78,15 @@ const ProfileNotification = () => {
           <Switch
             checked={switchStates?.rightShare}
             onChange={(event) => {
-              const newState = { ...switchStates, rightShare: event.target.checked };
+              const newState = {
+                ...switchStates,
+                rightShare: event.target.checked,
+              };
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
             name="rightShare"
+            id="rightShare"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -84,11 +97,15 @@ const ProfileNotification = () => {
           <Switch
             checked={switchStates?.dividend}
             onChange={(event) => {
-              const newState = { ...switchStates, dividend: event.target.checked };
+              const newState = {
+                ...switchStates,
+                dividend: event.target.checked,
+              };
               setSwitchStates(newState);
-              formik.handleChange(event); 
+              formik.handleChange(event);
             }}
             name="dividend"
+            id="dividend"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -98,11 +115,15 @@ const ProfileNotification = () => {
           <Switch
             checked={switchStates?.auction}
             onChange={(event) => {
-              const newState = { ...switchStates, auction: event.target.checked };
+              const newState = {
+                ...switchStates,
+                auction: event.target.checked,
+              };
               setSwitchStates(newState);
-              formik.handleChange(event); 
+              formik.handleChange(event);
             }}
             name="auction"
+            id="auction"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -113,11 +134,15 @@ const ProfileNotification = () => {
           <Switch
             checked={switchStates?.bondDebenture}
             onChange={(event) => {
-              const newState = { ...switchStates, bondDebenture: event.target.checked };
+              const newState = {
+                ...switchStates,
+                bondDebenture: event.target.checked,
+              };
               setSwitchStates(newState);
-              formik.handleChange(event); 
+              formik.handleChange(event);
             }}
             name="bondDebenture"
+            id="bondDebenture"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -128,11 +153,15 @@ const ProfileNotification = () => {
           <Switch
             checked={switchStates?.agmSgm}
             onChange={(event) => {
-              const newState = { ...switchStates, agmSgm: event.target.checked };
+              const newState = {
+                ...switchStates,
+                agmSgm: event.target.checked,
+              };
               setSwitchStates(newState);
-              formik.handleChange(event); 
+              formik.handleChange(event);
             }}
             name="agmSgm"
+            id="agmSgm"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -143,11 +172,15 @@ const ProfileNotification = () => {
           <Switch
             checked={switchStates?.mergerAcquisition}
             onChange={(event) => {
-              const newState = { ...switchStates, mergerAcquisition: event.target.checked };
+              const newState = {
+                ...switchStates,
+                mergerAcquisition: event.target.checked,
+              };
               setSwitchStates(newState);
-              formik.handleChange(event); 
+              formik.handleChange(event);
             }}
             name="mergerAcquisition"
+            id="mergerAcquisition"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -157,11 +190,15 @@ const ProfileNotification = () => {
           <Switch
             checked={switchStates?.financialReports}
             onChange={(event) => {
-              const newState = { ...switchStates, financialReports: event.target.checked };
+              const newState = {
+                ...switchStates,
+                financialReports: event.target.checked,
+              };
               setSwitchStates(newState);
-              formik.handleChange(event); 
+              formik.handleChange(event);
             }}
             name="financialReports"
+            id="dinancialReports"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -171,11 +208,15 @@ const ProfileNotification = () => {
           <Switch
             checked={switchStates?.newsLetter}
             onChange={(event) => {
-              const newState = { ...switchStates, newsLetter: event.target.checked };
+              const newState = {
+                ...switchStates,
+                newsLetter: event.target.checked,
+              };
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
             name="newsLetter"
+            id="newsLetter"
           />
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -185,11 +226,15 @@ const ProfileNotification = () => {
           <Switch
             checked={switchStates?.general}
             onChange={(event) => {
-              const newState = { ...switchStates, general: event.target.checked };
+              const newState = {
+                ...switchStates,
+                general: event.target.checked,
+              };
               setSwitchStates(newState);
-              formik.handleChange(event); 
+              formik.handleChange(event);
             }}
             name="general"
+            id="general"
           />
         </ListItem>
       </List>

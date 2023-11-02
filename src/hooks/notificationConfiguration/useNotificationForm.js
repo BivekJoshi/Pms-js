@@ -1,26 +1,24 @@
 import { useFormik } from "formik";
 import { useEditNotification } from "./useNotification";
 
-const useNotificationForm = ( data ) => {
-  console.log(data, "data ma ");
-
+const useNotificationForm = (notificationData) => {
   const { mutate: editNotification } = useEditNotification({});
 
   const formik = useFormik({
     initialValues: {
-      ipoFpo: data?.ipoFpo || false,
-      rightShare: data?.rightShare || false,
-      dividend: data?.dividend || false,
-      auction: data?.auction || false,
-      bondDebenture: data?.bondDebenture || false,
-      agmSgm: data?.agmSgm || false,
-      mergerAcquisition: data?.mergerAcquisition || false,
-      financialReports: data?.financialReports || false,
-      newsLetter: data?.newsLetter || false,
-      general: data?.general || false,
+      ipoFpo: notificationData?.ipoFpo || false,
+      rightShare: notificationData?.rightShare || false,
+      dividend: notificationData?.dividend || false,
+      auction: notificationData?.auction || false,
+      bondDebenture: notificationData?.bondDebenture || false,
+      agmSgm: notificationData?.agmSgm || false,
+      mergerAcquisition: notificationData?.mergerAcquisition || false,
+      financialReports: notificationData?.financialReports || false,
+      newsLetter: notificationData?.newsLetter || false,
+      general: notificationData?.general || false,
     },
-    // validationSchema: NotificationSchema,
     onSubmit: (values) => {
+      console.log(values, "Values ma ");
       handleRequest(values);
     },
   });
