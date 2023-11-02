@@ -43,7 +43,10 @@ const ProfileImage = ({ userInfoData }) => {
           left: '19%',
           width: '40px',
           height: '40px',
-          color: 'white',
+          color: '#947cb7',
+          '&:hover': {
+            color: '#784aba', // Style changes on hover
+          },
         }}
       />
       {openEditModal && (

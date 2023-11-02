@@ -8,7 +8,8 @@ import About from "./ScriptTab/About";
 import PriceHistory from "./ScriptTab/PriceHistory";
 import Floorsheet from "./ScriptTab/Floorsheet";
 import QuarterlyReport from "./ScriptTab/QuarterlyReport";
-import Dividend from "./ScriptTab/Dividend";
+import { Dividend } from "../CompanyDetail";
+// import Dividend from "./ScriptTab/Dividend";
 
 const ScriptProfile = ({companyData}) => {
   const [value, setValue] = React.useState("1");
@@ -77,7 +78,7 @@ const ScriptProfile = ({companyData}) => {
           <QuarterlyReport />
         </TabPanel>
         <TabPanel value="5">
-          <Dividend />
+          <Dividend companyData={companyData}/>
         </TabPanel>
       </TabContext>
     </Box>
