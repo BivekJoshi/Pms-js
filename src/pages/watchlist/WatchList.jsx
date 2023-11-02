@@ -23,8 +23,10 @@ import toast from 'react-hot-toast';
 import FormModal from '../../components/formModal/FormModal';
 import { MoreVert } from '@mui/icons-material';
 import WatchListModal from './WatchListModal';
+
 const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 const checkedIcon = <CheckBoxIcon fontSize='small' />;
+
 const WatchList = () => {
   const theme = useTheme();
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
@@ -62,8 +64,12 @@ const WatchList = () => {
       companyInfo: item?.companyInfo,
     })) || [];
 
+  console.log(
+    '🚀 ~ file: WatchList.jsx:69 ~ useEffect ~ watchListName:',
+    watchlist
+  );
   useEffect(() => {
-    if (!loadingname && watchListName?.length > 0) {
+    if (!loadingname && watchListName?.length > 0 && watchlist) {
       setWatchList(watchListName[0]?.id);
     }
   }, [loadingname, watchListName]);

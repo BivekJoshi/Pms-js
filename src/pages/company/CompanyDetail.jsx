@@ -1,19 +1,12 @@
-import React, { useState } from 'react';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  useTheme,
-} from '@mui/material';
-import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { useTranslation } from 'react-i18next';
-import CustomTable from '../../components/customTable/CustomTable';
-import { useMemo } from 'react';
+import React, { useState } from "react";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import { useTheme } from "@mui/material";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
+import { useTranslation } from "react-i18next";
+import CustomTable from "../../components/customTable/CustomTable";
+import { useMemo } from "react";
 
 const CompanyDetail = ({ companyData }) => {
   const theme = useTheme();
@@ -24,18 +17,18 @@ const CompanyDetail = ({ companyData }) => {
     setValue(newValue);
   };
   const tabLabelStyle = {
-    backgroundColor: '#EBEDEF',
-    marginLeft: '.5rem',
-    textTransform: 'none',
-    borderRadius: '.5rem',
-    color: 'black',
+    backgroundColor: "#EBEDEF",
+    marginLeft: ".5rem",
+    textTransform: "none",
+    borderRadius: ".5rem",
+    color: "black",
   };
   const activeLabelStyle = {
-    borderTop: '2px solid #401686',
-    backgroundColor: '#fff',
-    textTransform: 'none',
-    color: 'black',
-    marginLeft: '.5rem',
+    borderTop: "2px solid #401686",
+    backgroundColor: "#fff",
+    textTransform: "none",
+    color: "black",
+    marginLeft: ".5rem",
   };
   return (
     <Box color={theme.palette.text.main}>
@@ -48,14 +41,14 @@ const CompanyDetail = ({ companyData }) => {
               style={value === '0' ? activeLabelStyle : tabLabelStyle}
             /> */}
             <Tab
-              label={<Typography>{t('% Bonus')}</Typography>}
-              value='1'
-              style={value === '1' ? activeLabelStyle : tabLabelStyle}
+              label={<Typography>{t("% Bonus")}</Typography>}
+              value="1"
+              style={value === "1" ? activeLabelStyle : tabLabelStyle}
             />
             <Tab
-              label={<Typography>{t('Right Share')}</Typography>}
-              value='2'
-              style={value === '2' ? activeLabelStyle : tabLabelStyle}
+              label={<Typography>{t("Right Share")}</Typography>}
+              value="2"
+              style={value === "2" ? activeLabelStyle : tabLabelStyle}
             />
           </TabList>
         </Box>
@@ -66,7 +59,7 @@ const CompanyDetail = ({ companyData }) => {
         <TabPanel value='1'>
           <Bonus companyData={companyData} />
         </TabPanel>
-        <TabPanel value='2'>
+        <TabPanel value="2">
           <RightShare companyData={companyData} />
         </TabPanel>
       </TabContext>
@@ -78,19 +71,24 @@ export default CompanyDetail;
 
 export const Dividend = ({ companyData }) => {
   const theme = useTheme();
+
+  const filteredData = companyData?.dividend.filter(
+    (row) => row?.fiscalYear && row?.cash
+  );
+
   const columns = useMemo(
     () => [
       {
         id: 1,
-        accessorKey: 'fiscalYear',
-        header: 'Fiscal Year',
+        accessorKey: "fiscalYear",
+        header: "Fiscal Year",
         size: 100,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: 'cash',
-        header: 'Value',
+        accessorKey: "cash",
+        header: "Value",
         size: 100,
         sortable: false,
       },
@@ -99,9 +97,9 @@ export const Dividend = ({ companyData }) => {
   );
   return (
     <CustomTable
-      title=''
+      title=""
       columns={columns}
-      data={companyData?.dividend}
+      data={filteredData}
       enablePagination={false}
       enableEditing={false}
       enableColumnResizing={false}
@@ -110,7 +108,7 @@ export const Dividend = ({ companyData }) => {
       enableSorting={false}
       enableBottomToolbar={false}
       enableTopToolbar={false}
-      headerBackgroundColor='#401686'
+      headerBackgroundColor="#401686"
       headerColor={theme.palette.text.alt}
       enableRowNumbers={true}
     />
@@ -118,19 +116,25 @@ export const Dividend = ({ companyData }) => {
 };
 export const Bonus = ({ companyData }) => {
   const theme = useTheme();
+
+  const filteredData = companyData?.dividend.filter(
+    (row) => row.fiscalYear && row.bonus
+  );
+
+
   const columns = useMemo(
     () => [
       {
         id: 1,
-        accessorKey: 'fiscalYear',
-        header: 'Fiscal Year',
+        accessorKey: "fiscalYear",
+        header: "Fiscal Year",
         size: 100,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: 'bonus',
-        header: 'Bonus',
+        accessorKey: "bonus",
+        header: "Bonus",
         size: 100,
         sortable: false,
       },
@@ -139,9 +143,9 @@ export const Bonus = ({ companyData }) => {
   );
   return (
     <CustomTable
-      title=''
+      title=""
       columns={columns}
-      data={companyData?.dividend}
+      data={filteredData}
       enablePagination={false}
       enableEditing={false}
       enableColumnResizing={false}
@@ -150,7 +154,7 @@ export const Bonus = ({ companyData }) => {
       enableSorting={false}
       enableBottomToolbar={false}
       enableTopToolbar={false}
-      headerBackgroundColor='#401686'
+      headerBackgroundColor="#401686"
       headerColor={theme.palette.text.alt}
       enableRowNumbers={true}
     />
@@ -158,19 +162,24 @@ export const Bonus = ({ companyData }) => {
 };
 export const RightShare = ({ companyData }) => {
   const theme = useTheme();
+
+  const filteredData = companyData?.dividend.filter(
+    (row) => row.fiscalYear && row.right
+  );
+
   const columns = useMemo(
     () => [
       {
         id: 1,
-        accessorKey: 'fiscalYear',
-        header: 'Fiscal Year',
+        accessorKey: "fiscalYear",
+        header: "Fiscal Year",
         size: 100,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: 'right',
-        header: 'Right',
+        accessorKey: "right",
+        header: "Right",
         size: 100,
         sortable: false,
       },
@@ -179,9 +188,9 @@ export const RightShare = ({ companyData }) => {
   );
   return (
     <CustomTable
-      title=''
+      title=""
       columns={columns}
-      data={companyData?.dividend}
+      data={filteredData}
       enablePagination={false}
       enableEditing={false}
       enableColumnResizing={false}
@@ -190,7 +199,7 @@ export const RightShare = ({ companyData }) => {
       enableSorting={false}
       enableBottomToolbar={false}
       enableTopToolbar={false}
-      headerBackgroundColor='#401686'
+      headerBackgroundColor="#401686"
       headerColor={theme.palette.text.alt}
       enableRowNumbers={true}
     />

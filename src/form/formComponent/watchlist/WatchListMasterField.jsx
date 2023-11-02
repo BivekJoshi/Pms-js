@@ -4,7 +4,7 @@ import { useWatchListForm } from "../../../hooks/watchList/useWatchListForm/useW
 import toast from "react-hot-toast";
 
 const WatchListMasterField = ({onClose}) => {
-  const { formik } = useWatchListForm();
+  const { formik } = useWatchListForm({onClose});
 
   const handleFormSubmit = () => {
     formik.handleSubmit();
@@ -51,6 +51,7 @@ const WatchListMasterField = ({onClose}) => {
             variant="contained"
             onClick={handleFormSubmit}
             sx={{ mt: 3, ml: 1 }}
+            color="success"
           >
             Submit
           </Button>
