@@ -28,7 +28,6 @@ export const useAlertForm = () => {
 
   const handleClear = () => {
     formik.resetForm();
-    formik.resetForm
   };
   return {
     formik,

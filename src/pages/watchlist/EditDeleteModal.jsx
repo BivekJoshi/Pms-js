@@ -64,7 +64,7 @@ const EditDeleteModal = (props) => {
         <DialogContent>
           {props.type === 'delete' && (
             <Typography gutterBottom>
-              Are you sure do youy want to delete this watch list ?
+              Are you sure do you want to delete this watch list ?
             </Typography>
           )}
           {props.type === 'edit' && (
