@@ -18,16 +18,20 @@ const ProfileNotification = () => {
 
   const [switchStates, setSwitchStates] = useState(notificationData);
 
-  const { formik } = useNotificationForm(notificationData);
+  const { formik, updateFormikValues } = useNotificationForm(switchStates);
   useEffect(() => {
     setSwitchStates(notificationData);
+    updateFormikValues(notificationData);
   }, [notificationData]);
 
   const handleFormSubmit = () => {
     formik.handleSubmit();
     if (formik.isValid) {
       const formData = formik?.values;
-      console.log(formData, "FormData ma Chai ");
+      const finalData = {
+        ...switchStates,
+        ...formData,
+      };
     } else {
       toast.error("Please make sure you have filled the form correctly");
     }

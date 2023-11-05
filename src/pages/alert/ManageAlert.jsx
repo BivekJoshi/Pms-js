@@ -11,17 +11,23 @@ import CustomTable from '../../components/customTable/CustomTable';
 import { useState } from 'react';
 import { useMemo } from 'react';
 import CustomeAlertDialog from '../../components/customeDialog/CustomeDialog';
+import { useRemoveWatchListDetail } from './useAlertPost';
 
 const ManageAlert = (props) => {
-  const [tableShow, setTableShow] = React.useState(false);
+  const theme = useTheme();
+  const dispatch = useDispatch();
+  const [params, setparams] = useState({});
+
+  const [tableShow, setTableShow] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowData, setRowData] = useState();
   const [tableDataIndex, settableDataIndex] = useState();
-  const [params, setparams] = useState({});
+ 
   const tableData = useSelector((store) => store?.generic?.data);
   const isLoading = useSelector((store) => store?.generic?.processing);
-  const theme = useTheme();
-  const dispatch = useDispatch();
+  
+  const id =rowData?.id;
+  const { mutate } = useRemoveWatchListDetail({id});
 
   const filterMenuItem = [
     {
@@ -136,19 +142,7 @@ const ManageAlert = (props) => {
     setIsModalOpen(false);
   };
   const handleDeleteData = () => {
-    if (rowData.id) {
-      new Promise((resolve, reject) => {
-        dispatch(
-          deleteData(
-            '/live-market/delete/stock-alert',
-            rowData.id,
-            tableDataIndex,
-            resolve,
-            reject
-          )
-        );
-      }).then(() => setIsModalOpen(false));
-    }
+      mutate(tableDataIndex);
   };
   const handleUpdate = (row, changeData) => {
     new Promise((resolve, reject) => {

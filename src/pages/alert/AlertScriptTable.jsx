@@ -13,6 +13,7 @@ const AlertScriptTable = ({ script }) => {
   useEffect(() => {
     dispatch(fetchData(`live-market/stock-alerts?script=${script || ''}`));
   }, [dispatch, script]);
+  
   const columns = useMemo(
     () => [
       {
