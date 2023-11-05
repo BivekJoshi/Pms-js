@@ -33,13 +33,13 @@ const CompanyDetail = ({ companyData }) => {
   return (
     <Box color={theme.palette.text.main}>
       <TabContext value={value}>
-        <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          <TabList onChange={handleChange}>
-            <Tab
-              label={<Typography>{t("% Dividend")}</Typography>}
-              value="0"
-              style={value === "0" ? activeLabelStyle : tabLabelStyle}
-            />
+        <Box>
+          <TabList onChange={handleChange} sx={{display:"flex", justifyContent:"space-between"}}>
+            {/* <Tab
+              label={<Typography>{t('% Dividend')}</Typography>}
+              value='0'
+              style={value === '0' ? activeLabelStyle : tabLabelStyle}
+            /> */}
             <Tab
               label={<Typography>{t("% Bonus")}</Typography>}
               value="1"
@@ -53,10 +53,10 @@ const CompanyDetail = ({ companyData }) => {
           </TabList>
         </Box>
 
-        <TabPanel value="0">
+        {/* <TabPanel value='0'>
           <Dividend companyData={companyData} />
-        </TabPanel>
-        <TabPanel value="1">
+        </TabPanel> */}
+        <TabPanel value='1'>
           <Bonus companyData={companyData} />
         </TabPanel>
         <TabPanel value="2">
