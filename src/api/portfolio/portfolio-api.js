@@ -17,3 +17,10 @@ export const getUserInfo = async () => {
   const response = await axiosInstance.get(`/app-user`);
   return response.data;
 };
+/*________________________Change Profile_____________________________________*/
+export const postChangeProfile = async () => {
+  const data = await axiosInstance.post(
+    "app-user/upload/profile-photo",
+  );
+  return data;
+};

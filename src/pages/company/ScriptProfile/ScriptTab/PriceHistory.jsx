@@ -1,23 +1,23 @@
-import React, { useMemo } from 'react';
-import NewFilter from '../../../../components/newFilter/NewFilter';
-import { useTranslation } from 'react-i18next';
-import CustomTable from '../../../../components/customTable/CustomTable';
-import { useTheme } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { STOCK_PRICE_DETAILS } from '../../../../api/urls/urls';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+import React, { useMemo } from "react";
+import NewFilter from "../../../../components/newFilter/NewFilter";
+import { useTranslation } from "react-i18next";
+import CustomTable from "../../../../components/customTable/CustomTable";
+import { useTheme } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { STOCK_PRICE_DETAILS } from "../../../../api/urls/urls";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import {
   clearPaginatedData,
   fetchPaginatedTable,
-} from '../../../../redux/actions/paginatedTable';
-import CustomPagination from '../../../../components/customPagination/CustomPagination';
-import { useEffect } from 'react';
+} from "../../../../redux/actions/paginatedTable";
+import CustomPagination from "../../../../components/customPagination/CustomPagination";
+import { useEffect } from "react";
 
 const PriceHistory = ({ companyData }) => {
   const { t } = useTranslation();
   const theme = useTheme();
-
+  const [tableShow, setTableShow] = useState(false);
   const dispatch = useDispatch();
   const tableData = useSelector((store) => store?.paginatedTable?.data);
   const isLoading = useSelector((store) => store?.paginatedTable?.processing);
@@ -32,17 +32,40 @@ const PriceHistory = ({ companyData }) => {
 
   const filterMenuItem = [
     {
-      label: t('Date From'),
-      name: 'trDate',
-      type: 'date-picker',
+      label: t("Date From"),
+      name: "trDate",
+      type: "date-picker",
       required: true,
       md: 6,
       sm: 12,
     },
   ];
+  const fetchData = async () => {
+    try {
+      const initialFormValues = {
+        // Define your initial form values here
+        trDate: null, // or a default date
+        script: companyData?.companyInfo?.symbol,
+        // Add other form fields if needed
+      };
 
+      // Fetch data when the component mounts
+      dispatch(
+        fetchPaginatedTable(
+          STOCK_PRICE_DETAILS,
+          initialFormValues,
+          null,
+          "unique"
+        )
+      );
+      setTableShow(true);
+    } catch (error) {
+      toast.error(error);
+    }
+  };
   useEffect(() => {
     dispatch(clearPaginatedData());
+    fetchData();
     return () => {
       dispatch(clearPaginatedData());
     };
@@ -66,7 +89,7 @@ const PriceHistory = ({ companyData }) => {
           STOCK_PRICE_DETAILS,
           updatedFormValues,
           null,
-          'unique'
+          "unique"
         )
       );
     } catch (error) {
@@ -78,15 +101,15 @@ const PriceHistory = ({ companyData }) => {
     () => [
       {
         id: 1,
-        accessorKey: 'stockDate',
-        header: 'Date',
+        accessorKey: "stockDate",
+        header: "Date",
         size: 100,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: 'ltp',
-        header: 'LTP',
+        accessorKey: "ltp",
+        header: "LTP",
         size: 120,
         sortable: false,
       },
@@ -121,8 +144,8 @@ const PriceHistory = ({ companyData }) => {
       },
       {
         id: 6,
-        accessorKey: 'previousClose',
-        header: 'Open',
+        accessorKey: "previousClose",
+        header: "Open",
         size: 100,
         sortable: false,
       },
@@ -150,49 +173,53 @@ const PriceHistory = ({ companyData }) => {
         inputField={filterMenuItem}
         searchCallBack={handleSearch}
         // validate={filterDateValidationSchema}
-      />
-      <CustomTable
-        title='Market Date'
-        columns={columns}
-        isLoading={isLoading}
-        data={Object.values(tableData)}
-        pageSize={pageSize}
-        // onRowClick={handleRowClick}
-        headerBackgroundColor='#401686'
-        headerColor={theme.palette.text.alt}
-        enablePagination={false}
-        enableEditing={false}
-        enableColumnResizing={false}
-        enableColumnActions={false}
-        enableColumnFilters={false}
-        enableSorting={false}
-        enableBottomToolbar={false}
-        enableTopToolbar={false}
-      />
-      <div
-        style={{
-          paddingTop: '16px',
-          display: 'flex',
-          justifyContent: 'flex-end',
-        }}
-      >
-        <CustomPagination
-          pages={totalPages}
-          activePage={currentPage}
-          handleChangePage={(newPage) => {
-            dispatch(
-              fetchPaginatedTable(
-                STOCK_PRICE_DETAILS,
-                params,
-                newPage,
-                'unique',
-                null,
-                totalData
-              )
-            );
-          }}
-        />
-      </div>
+      />{" "}
+      {tableShow ? (
+        <>
+          <CustomTable
+            title="Market Date"
+            columns={columns}
+            isLoading={isLoading}
+            data={Object.values(tableData)}
+            pageSize={pageSize}
+            // onRowClick={handleRowClick}
+            headerBackgroundColor="#401686"
+            headerColor={theme.palette.text.alt}
+            enablePagination={false}
+            enableEditing={false}
+            enableColumnResizing={false}
+            enableColumnActions={false}
+            enableColumnFilters={false}
+            enableSorting={false}
+            enableBottomToolbar={false}
+            enableTopToolbar={false}
+          />
+          <div
+            style={{
+              paddingTop: "16px",
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            <CustomPagination
+              pages={totalPages}
+              activePage={currentPage}
+              handleChangePage={(newPage) => {
+                dispatch(
+                  fetchPaginatedTable(
+                    STOCK_PRICE_DETAILS,
+                    params,
+                    newPage,
+                    "unique",
+                    null,
+                    totalData
+                  )
+                );
+              }}
+            />
+          </div>
+        </>
+      ) : null}
     </>
   );
 };
