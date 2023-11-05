@@ -79,6 +79,18 @@ const Alert = (props) => {
       formik.setFieldValue("ltp", companyData.script?.ltp);
     }
   }, [companyData?.script]); //eslint-disable-line
+
+  const labelStyle = {
+    backgroundColor: "#EBEDEF",
+    marginLeft: ".5rem",
+    textTransform: "none",
+    borderRadius: ".5rem",
+    color: "black",
+  };
+  const activeLabelStyle = {
+    ...labelStyle,
+    backgroundColor:"#329EF4",
+  };
   return (
     <>
       <div>
@@ -89,32 +101,31 @@ const Alert = (props) => {
                 backgroundColor: theme.palette.background.alt,
                 padding: "12px",
                 borderRadius: "6px",
+                display: "flex",
+                alignItems: "center",
               }}
             >
-              <Tabs onChange={handleChange} value={activeTab}>
-                <Tab
-                  sx={{
-                    borderRadius: "5px",
-                    p: 0,
-                    px: "8px",
-                    backgroundColor:
-                      activeTab === "1" && btnStyle.backgroundColor,
-                  }}
-                  label="Create Alert"
-                  value="1"
-                />
-                <Tab
-                  sx={{
-                    borderRadius: "5px",
-                    p: 0,
-                    px: "8px",
-                    backgroundColor:
-                      activeTab === "2" && btnStyle.backgroundColor,
-                  }}
-                  label="Manage Alert"
-                  value="2"
-                />
-              </Tabs>
+              <Typography
+                variant="h4"
+                gutterBottom
+                sx={{ padding: ".5rem", fontWeight: "bold" }}
+              >
+                Alert:
+              </Typography>
+              <div style={{ marginLeft: "2rem" }}>
+                <Tabs onChange={handleChange} value={activeTab}>
+                  <Tab
+                    label="+ Create Alert"
+                    value="1"
+                    style={activeTab === "1" ? activeLabelStyle : labelStyle}
+                  />
+                  <Tab
+                    label="Manage Alert"
+                    value="2"
+                    style={activeTab === "2" ? activeLabelStyle : labelStyle}
+                  />
+                </Tabs>
+              </div>
             </div>
           </div>
           <TabPanel sx={{ p: 0, pt: "16px" }} value="1">
