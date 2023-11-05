@@ -142,7 +142,13 @@ const ManageAlert = (props) => {
     setIsModalOpen(false);
   };
   const handleDeleteData = () => {
-      mutate(tableDataIndex);
+    mutate(tableDataIndex,{onSuccess:()=> {
+      dispatch(
+        fetchData(
+          `live-market/stock-alerts?script=${params.script || ''}&alertType=${params.alertType || ''}`
+        )
+      );
+    }})
   };
   const handleUpdate = (row, changeData) => {
     new Promise((resolve, reject) => {

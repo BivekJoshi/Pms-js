@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../../redux/actions/genericData';
+// import { useGetStockAlert } from './useAlertPost';
 
 const AlertScriptTable = ({ script }) => {
   const dispatch = useDispatch();
@@ -13,7 +14,9 @@ const AlertScriptTable = ({ script }) => {
   useEffect(() => {
     dispatch(fetchData(`live-market/stock-alerts?script=${script || ''}`));
   }, [dispatch, script]);
-  
+
+  // const { data: AlertScriptData, isLoading } = useGetStockAlert(script);
+
   const columns = useMemo(
     () => [
       {
@@ -51,10 +54,12 @@ const AlertScriptTable = ({ script }) => {
     <>
       <CustomTable
         columns={columns}
+        // isLoading={isLoading}
         isLoading={true}
         enableTopToolbar={false}
         enableBottomToolbar={false}
         enableColumnActions={false}
+        // data={AlertScriptData[0]?.stockAlertResponses}
         data={tableData}
       />
     </>
