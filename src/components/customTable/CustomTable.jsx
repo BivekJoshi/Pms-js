@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { useCallback } from 'react';
-
+import './CustomTable.css';
 const CustomTable = (props) => {
   const theme = useTheme();
 
@@ -53,7 +53,10 @@ const CustomTable = (props) => {
     (theme?.palette?.mode === 'light' ? '#000' : '#fafafa');
 
   return (
-    <div>
+    <div
+      className='custom_table'
+      style={{ backgroundColor: headerBackgroundColor }}
+    >
       <MaterialReactTable
         columns={props?.columns || []}
         data={props?.data || []}
@@ -103,9 +106,11 @@ const CustomTable = (props) => {
           </Box>
         )}
         muiTableContainerProps={{
-          sx: { maxHeight: props?.maxHeight || '600px' },
+          sx: {
+            maxHeight: props?.maxHeight || '600px',
+          },
         }}
-        muiTableHeadCellProps={{
+        muiTableHeadRowProps={{
           sx: {
             backgroundColor: headerBackgroundColor,
             color: headerColor,
@@ -114,7 +119,10 @@ const CustomTable = (props) => {
         // enableRowSelection
         muiTableBodyRowProps={({ row }) => ({
           onClick: () => handleRowClick(row),
-          sx: { cursor: 'pointer' },
+          sx: {
+            cursor: 'pointer',
+            backgroundColor: headerBackgroundColor,
+          },
         })}
         renderTopToolbarCustomActions={() => (
           <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
