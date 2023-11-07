@@ -19,18 +19,18 @@ import {
   Autocomplete,
   Tooltip,
   Grid,
-} from "@mui/material";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import FlexBetween from "../flexBetween/FlexBetween";
-import logo from "../../assets/logo.png";
-import { useNavigate } from "react-router";
-import NavabarProfile from "./NavabarProfile";
-import ResponsiveNavMenu from "./ResponsiveMenu";
-import { useGetListedCompanies } from "../../hooks/watchList/useWatchList";
-import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
-import LiveIndicator from "../liveIndicator/LiveIndicator";
-import { useGetUserChildDetail } from "../../hooks/portfolio/usePortfolio";
+} from '@mui/material';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import FlexBetween from '../flexBetween/FlexBetween';
+import logo from '../../assets/logo.png';
+import { useNavigate } from 'react-router';
+import NavabarProfile from './NavabarProfile';
+import ResponsiveNavMenu from './ResponsiveMenu';
+import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
+import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
+import LiveIndicator from '../liveIndicator/LiveIndicator';
+import { useGetUserChildDetail } from '../../hooks/portfolio/usePortfolio';
 
 const navItems = [
   {
@@ -68,7 +68,7 @@ const Navbar = () => {
   const { data: listedCompanies } = useGetListedCompanies();
   const { data: childDetailData, isLoading } = useGetUserChildDetail();
 
-  const { pathname = "" } = useLocation();
+  const { pathname = '' } = useLocation();
   const marketOpen = false;
   const handleActiveClick = (path) => {
     navigate(`${path}`);
@@ -127,9 +127,12 @@ const Navbar = () => {
         position: "sticky",
         top: 0,
         boxShadow:
-          "rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset",
-        background: theme.palette.background.alt,
-        color: "black",
+          'rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset',
+        background:
+          theme.palette.mode === 'light'
+            ? theme.palette.background.alt
+            : theme.palette.primary[700],
+        color: 'black',
       }}
     >
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -248,7 +251,7 @@ const Navbar = () => {
             <NotificationsNoneIcon sx={{ fontSize: "25px" }} />
           </IconButton>
 
-          <NavabarProfile childDetailData={childDetailData}/>
+          <NavabarProfile childDetailData={childDetailData} />
 
           <IconButton
             edge="start"
