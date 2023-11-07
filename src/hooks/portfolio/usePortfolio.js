@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import toast from "react-hot-toast";
 import {
   getTransactionPortfolio,
+  getUserChildDetail,
   getUserInfo,
   getUserPortfolio,
   postChangeProfile,
@@ -32,6 +33,15 @@ export const useGetUserenPortfolio = () => {
 /*________________________GET TRANSACTION PORTFOLIO_____________________________________*/
 export const useGetUserInfo = () => {
   return useQuery(["getUserInfo"], () => getUserInfo(), {
+    cacheTime: 10000,
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+  });
+};
+
+/*________________________GET CHILD DETAIL_____________________________________*/
+export const useGetUserChildDetail = () => {
+  return useQuery(["getUserChildDetail"], () => getUserChildDetail(), {
     cacheTime: 10000,
     refetchInterval: false,
     refetchOnWindowFocus: false,

@@ -1,17 +1,18 @@
-import React from 'react';
-import { Box, MenuItem, useTheme } from '@mui/material';
-import NewFilter from '../../components/newFilter/NewFilter';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { Box, MenuItem, useTheme } from "@mui/material";
+import NewFilter from "../../components/newFilter/NewFilter";
+import { useDispatch, useSelector } from "react-redux";
 import {
   deleteData,
   fetchData,
   putData,
-} from '../../redux/actions/genericData';
-import CustomTable from '../../components/customTable/CustomTable';
-import { useState } from 'react';
-import { useMemo } from 'react';
-import CustomeAlertDialog from '../../components/customeDialog/CustomeDialog';
-import { useRemoveWatchListDetail } from './useAlertPost';
+} from "../../redux/actions/genericData";
+import CustomTable from "../../components/customTable/CustomTable";
+import { useState } from "react";
+import { useMemo } from "react";
+import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
+import { useRemoveWatchListDetail } from "./useAlertPost";
+import Spinner from "../../components/spinner/Spinner";
 
 const ManageAlert = (props) => {
   const theme = useTheme();
@@ -22,26 +23,30 @@ const ManageAlert = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowData, setRowData] = useState();
   const [tableDataIndex, settableDataIndex] = useState();
- 
+
   const tableData = useSelector((store) => store?.generic?.data);
   const isLoading = useSelector((store) => store?.generic?.processing);
-  
-  const id =rowData?.id;
-  const { mutate } = useRemoveWatchListDetail({id});
+
+  const id = rowData?.id;
+  const { mutate } = useRemoveWatchListDetail({ id });
+
+  useEffect(() => {
+    dispatch(fetchData(`live-market/stock-alerts`));
+  }, [dispatch]);
 
   const filterMenuItem = [
     {
-      label: 'Script',
-      name: 'script',
-      type: 'labelAutoComplete',
+      label: "Script",
+      name: "script",
+      type: "labelAutoComplete",
       md: 4,
       options: props.script,
       sm: 12,
     },
     {
-      label: 'Alert Type',
-      name: 'alertType',
-      type: 'dropDownId',
+      label: "Alert Type",
+      name: "alertType",
+      type: "dropDownId",
       dropDownData: props.alertType,
       md: 4,
       sm: 12,
@@ -49,24 +54,24 @@ const ManageAlert = (props) => {
   ];
   const alertType = [
     {
-      id: 'HIGHER_THAN',
-      label: 'Price Rise',
+      id: "HIGHER_THAN",
+      label: "Price Rise",
     },
     {
-      id: 'LOWER_THAN',
-      label: 'Price Below',
+      id: "LOWER_THAN",
+      label: "Price Below",
     },
   ];
   const alertFor = [
-    { id: 'SELL', label: 'Sell' },
-    { id: 'PURCHASE', label: 'Purchase' },
+    { id: "SELL", label: "Sell" },
+    { id: "PURCHASE", label: "Purchase" },
   ];
   const columns = useMemo(
     () => [
       {
         id: 1,
-        accessorKey: 'alertType',
-        header: 'Alert Type',
+        accessorKey: "alertType",
+        header: "Alert Type",
         size: 100,
         sortable: false,
 
@@ -81,30 +86,30 @@ const ManageAlert = (props) => {
         Cell: ({ cell }) => {
           return (
             <div>
-              {cell.getValue() === 'LOWER_THAN' ? 'Price Below' : 'Price Rise'}
+              {cell.getValue() === "LOWER_THAN" ? "Price Below" : "Price Rise"}
             </div>
           );
         },
       },
       {
         id: 2,
-        accessorKey: 'triggerPrice',
-        header: 'AlertTrigger',
+        accessorKey: "triggerPrice",
+        header: "AlertTrigger",
         size: 100,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: 'alertMethod',
-        header: 'Notification Delivery Method',
+        accessorKey: "alertMethod",
+        header: "Notification Delivery Method",
         size: 100,
         sortable: false,
         editable: false,
       },
       {
         id: 4,
-        accessorKey: 'transactionType',
-        header: 'Alert For',
+        accessorKey: "transactionType",
+        header: "Alert For",
         size: 100,
         muiTableBodyCellEditTextFieldProps: {
           select: true, //change to select for a dropdown
@@ -115,7 +120,7 @@ const ManageAlert = (props) => {
           )),
         },
         Cell: ({ cell }) => {
-          return <div>{cell.getValue() === 'SELL' ? 'Sell' : 'Purchase'}</div>;
+          return <div>{cell.getValue() === "SELL" ? "Sell" : "Purchase"}</div>;
         },
       },
     ],
@@ -126,8 +131,8 @@ const ManageAlert = (props) => {
     setparams(formValues);
     dispatch(
       fetchData(
-        `live-market/stock-alerts?script=${formValues.script || ''}&alertType=${
-          formValues.alertType || ''
+        `live-market/stock-alerts?script=${formValues.script || ""}&alertType=${
+          formValues.alertType || ""
         }`
       )
     );
@@ -142,19 +147,23 @@ const ManageAlert = (props) => {
     setIsModalOpen(false);
   };
   const handleDeleteData = () => {
-    mutate(tableDataIndex,{onSuccess:()=> {
-      dispatch(
-        fetchData(
-          `live-market/stock-alerts?script=${params.script || ''}&alertType=${params.alertType || ''}`
-        )
-      );
-    }})
+    mutate(tableDataIndex, {
+      onSuccess: () => {
+        dispatch(
+          fetchData(
+            `live-market/stock-alerts?script=${params.script || ""}&alertType=${
+              params.alertType || ""
+            }`
+          )
+        );
+      },
+    });
   };
   const handleUpdate = (row, changeData) => {
     new Promise((resolve, reject) => {
       dispatch(
         putData(
-          '/live-market/update/stock-alert',
+          "/live-market/update/stock-alert",
           row.original.id,
           changeData,
           resolve,
@@ -170,6 +179,9 @@ const ManageAlert = (props) => {
     );
   };
 
+  {
+    if (isLoading) <Spinner />;
+  }
   return (
     <div>
       <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
@@ -186,13 +198,13 @@ const ManageAlert = (props) => {
                   title={companyName}
                   enableColumnActions
                   columns={columns}
-                  isLoading={true}
+                  isLoading={isLoading}
                   enableEditing={true}
                   state={{
                     isLoading: isLoading,
                     showSkeletons: isLoading,
                   }}
-                  editingMode='modal'
+                  editingMode="modal"
                   enableEdit
                   enableDelete
                   data={d.stockAlertResponses}
@@ -206,12 +218,12 @@ const ManageAlert = (props) => {
           ) : (
             <Box
               sx={{
-                width: 'cover',
-                height: '84px',
+                width: "cover",
+                height: "84px",
                 backgroundColor: theme.palette.background.alt,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               No Script Found
@@ -219,10 +231,12 @@ const ManageAlert = (props) => {
           )
         ) : null}
       </Box>
+
+      {/*Delete the Row Data */}
       <CustomeAlertDialog
-        disagreeLabel={'Cancel'}
-        agreeLabel={'Agree'}
-        header={'Are you sure to delete this alert ?'}
+        disagreeLabel={"Cancel"}
+        agreeLabel={"Agree"}
+        header={"Are you sure to delete this alert ?"}
         handleModalClose={handleModalClose}
         isModalOpen={isModalOpen}
         handleAgree={handleDeleteData}

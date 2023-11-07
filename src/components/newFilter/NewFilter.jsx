@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 const NewFilter = ({ inputField, searchCallBack, validate, tradeDate }) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const [showFilter, setShowFilter] = useState(true);
+  const [showFilter, setShowFilter] = useState(false);
   const initialValues = inputField.reduce((acc, item) => {
     acc[item.name] = '';
     return acc;
