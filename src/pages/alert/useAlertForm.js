@@ -1,10 +1,9 @@
 import { useFormik } from "formik";
-import { useAddCreateAlert, useGetLtp } from "./useAlertPost";
+import { useAddCreateAlert} from "./useAlertPost";
 import { addAlertSchema } from "./createAlertValidation";
 
 export const useAlertForm = () => {
   const { mutate } = useAddCreateAlert({});
-  const { data: getltpData } = useGetLtp();
 
   const formik = useFormik({
     initialValues: {
@@ -18,24 +17,20 @@ export const useAlertForm = () => {
 
     validationSchema: addAlertSchema,
     onSubmit: (value) => {
-      const submitedValue = { ...value, alertMethod: "EMAIL" };
-      // handlePost(submitedValue);
+      console.log(value ,"submitted value here");
+      const submitedValue = { ...value, alertMethod: "SMS" };
       mutate(submitedValue, {
         onSuccess: () => {
-          formik.resetForm();
+          handleClear();
         },
       })
     },
   });
 
-  const handlePost = (value) => {
-    mutate(value);
-  };
   const handleClear = () => {
     formik.resetForm();
   };
   return {
-    handlePost,
     formik,
     handleClear,
   };

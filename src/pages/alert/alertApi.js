@@ -24,3 +24,10 @@ export const deleteStockAlert = async ( id) => {
   }
 };
 
+export const getStockAlert = async (script) => {
+  if (script) {
+    const res = await axiosInstance.get(`/live-market/stock-alerts?script=${script}`);
+    return res.data;
+  } else return null;
+};
+

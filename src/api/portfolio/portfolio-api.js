@@ -24,3 +24,9 @@ export const postChangeProfile = async () => {
   );
   return data;
 };
+
+/*________________________GET CHILD DETAIL_____________________________________*/
+export const getUserChildDetail = async () => {
+  const response = await axiosInstance.get(`/app-user/child-detail`);
+  return response.data;
+};
