@@ -30,6 +30,7 @@ import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import LiveIndicator from '../liveIndicator/LiveIndicator';
+import { useGetUserChildDetail } from '../../hooks/portfolio/usePortfolio';
 
 const navItems = [
   {
@@ -65,6 +66,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { data: listedCompanies } = useGetListedCompanies();
+  const { data: childDetailData, isLoading } = useGetUserChildDetail();
+
   const { pathname = '' } = useLocation();
   const marketOpen = false;
   const handleActiveClick = (path) => {
@@ -248,7 +251,7 @@ const Navbar = () => {
             <NotificationsNoneIcon sx={{ fontSize: '25px' }} />
           </IconButton>
 
-          <NavabarProfile />
+          <NavabarProfile childDetailData={childDetailData} />
 
           <IconButton
             edge='start'

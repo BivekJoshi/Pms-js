@@ -70,7 +70,7 @@ const Alert = (props) => {
 
   const { data: companyData, isLoading } = useGetCompanyById(scriptName);
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async () => {
     formik.handleSubmit();
   };
   const isSMSPresent = formik.values?.alertMethod?.includes('SMS');
@@ -80,6 +80,18 @@ const Alert = (props) => {
       formik.setFieldValue('ltp', companyData.script?.ltp);
     }
   }, [companyData?.script]); //eslint-disable-line
+
+  const labelStyle = {
+    backgroundColor: '#EBEDEF',
+    marginLeft: '.5rem',
+    textTransform: 'none',
+    borderRadius: '.5rem',
+    color: 'black',
+  };
+  const activeLabelStyle = {
+    ...labelStyle,
+    backgroundColor: '#329EF4',
+  };
   return (
     <>
       <div>
@@ -90,6 +102,8 @@ const Alert = (props) => {
                 backgroundColor: theme.palette.background.alt,
                 padding: '12px',
                 borderRadius: '6px',
+                display: 'flex',
+                alignItems: 'center',
               }}
             >
               <Tabs
@@ -169,10 +183,18 @@ const Alert = (props) => {
                             formik.touched.companyInfoId &&
                             formik.errors.companyInfoId
                           }
+                          value={formik.values.companyInfoId}
                         />
                       )}
                       onChange={(e, value) => {
-                        formik?.setFieldValue('companyInfoId', value?.id || ''); // Set the field value based on the selected option or an empty string if no option is selected
+                        if (value != null) {
+                          formik.setFieldValue(
+                            'companyInfoId',
+                            value?.id || ''
+                          ); // Set the field value based on the selected option or an empty string if no option is selected
+                        } else {
+                          formik.setFieldValue('companyInfoId', ''); // Reset the value when no option is selected
+                        }
                       }}
                     />
                   </Grid>
@@ -196,11 +218,11 @@ const Alert = (props) => {
                       size='small'
                       label='LTP'
                       onChange={(e, value) => {
-                        console.log(e);
                         formik?.setFieldValue('ltp', value || ''); // Set the field value based on the selected option or an empty string if no option is selected
                       }}
                       disabled
-                      value={companyData?.script?.ltp}
+                      // value={companyData?.script?.ltp}
+                      value={formik.values.ltp}
                       inputProps={{
                         inputMode: 'numeric',
                         min: 0,
@@ -219,6 +241,7 @@ const Alert = (props) => {
                           placeholder='Select alert type'
                           variant='outlined'
                           size='small'
+                          value={formik.values.alertType}
                           InputLabelProps={{ shrink: true }}
                           error={
                             formik.touched.alertType &&
@@ -258,6 +281,7 @@ const Alert = (props) => {
                       size='small'
                       label='Enter Trigger Price'
                       placeholder='Enter Trigger Price'
+                      value={formik.values.triggerPrice}
                       error={
                         formik.touched.triggerPrice &&
                         Boolean(formik.errors.triggerPrice)
@@ -379,7 +403,9 @@ const Alert = (props) => {
                     backgroundColor: '#6C49B4',
                     themeMode,
                     color: '#fcfcfc',
+                    textTransform: 'none',
                   }}
+                  disabled={!formik.isValid}
                 >
                   Create Alert
                 </Button>
