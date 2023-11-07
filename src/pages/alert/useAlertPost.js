@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query";
-import { createAlertApi, getCompanyLTP, getLiveMarketIndex } from "./alertApi";
+import { createAlertApi, getCompanyLTP } from "./alertApi";
 import toast from "react-hot-toast";
 
 /*________________________POST ALERT_____________________________________*/
@@ -24,6 +24,22 @@ export const useGetLtp = (script) => {
     cacheTime: 10000,
     refetchInterval: false,
     refetchOnWindowFocus: false,
+  });
+};
+/*________________________________DELETE MANAGE STOCK ALERT _____________________*/
+export const useRemoveWatchListDetail = ({ onSuccess, id }) => {
+  console.log(id ,"id ma chai ");
+  const queryClient = useQueryClient();
+  return useMutation(["deleteStockAlert"], () => deleteStockAlert(id), {
+    onSuccess: (data, variables, context) => {
+      onSuccess && onSuccess(data, variables, context);
+      toast.success("Succesfully Deleted Stock Alert");
+
+      queryClient.invalidateQueries("getLtpData");
+    },
+    onError: (err, _variables, _context) => {
+      toast.error(getErrorMessage(err));
+    },
   });
 };
 

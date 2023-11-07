@@ -39,7 +39,7 @@ const SubscriptionCard = ({ section, index }) => {
         <div
           style={{
             display: 'flex',
-            padding: '32px 20px',
+            padding: '0 20px',
             flexDirection: 'column',
             gap: '8px',
           }}
@@ -58,7 +58,7 @@ const SubscriptionCard = ({ section, index }) => {
                       flexDirection: 'row',
                       alignItems: 'center',
                       gap: '8px',
-                      padding: '12px 5px',
+                      padding: '6px 5px',
                     }}
                   >
                     <div

@@ -273,6 +273,10 @@ export const themeSettings = (mode, data) => {
         fontFamily: ["DM Sans", "sans-serif"].join(","),
         fontSize: 14,
       },
+      h7: {
+        fontFamily: ["DM Sans", "sans-serif"].join(","),
+        fontSize: 12,
+      },
     },
   };
 };

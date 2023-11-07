@@ -39,9 +39,28 @@ const Floorsheet = ({ companyData }) => {
       sm: 12,
     },
   ];
+  const fetchData = async () => {
+    try {
+      const initialFormValues = {
+        // Define your initial form values here
+        trDate: null, // or a default date
+        script: companyData?.companyInfo?.symbol,
+        // Add other form fields if needed
+      };
+
+      // Fetch data when the component mounts
+      dispatch(
+        fetchPaginatedTable(FLOOR_SHEET_DETAILS, initialFormValues, null, 'unique')
+      );
+      setTableShow(true);
+    } catch (error) {
+      toast.error(error);
+    }
+  };
 
   useEffect(() => {
     dispatch(clearPaginatedData());
+    fetchData();
     return () => {
       dispatch(clearPaginatedData());
     };
@@ -79,7 +98,7 @@ const Floorsheet = ({ companyData }) => {
         id: 1,
         accessorKey: 'trDate',
         header: 'Date',
-        size: 100,
+        size: 200,
         sortable: false,
       },
       {

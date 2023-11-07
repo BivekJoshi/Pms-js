@@ -9,13 +9,22 @@ export const createAlertApi = async (formData) => {
   return data;
 };
 
-/*________________________GET LIVE MARKET LTP_____________________________________*/
 export const getCompanyLTP = async (script) => {
   if (script) {
     const res = await axiosInstance.get(`/live-market/ltp/${script}`);
     return res.data;
   } else return null;
 };
+
+/*_______________________DELETE MANAGE STOCK ALERT________________________________*/
+export const deleteStockAlert = async ( id) => {
+  if (id) {
+    await axiosInstance.delete(
+      `/live-market/delete/stock-alert/${id}`
+    );
+  }
+};
+
 
 
 /*________________________GET LIVE MARKET INDEX_____________________________________*/
