@@ -48,7 +48,7 @@ const Alert = (props) => {
   const { data: listedCompanies } = useGetListedCompanies();
 
   const btnStyle = {
-    backgroundColor: themeMode === 'dark' ? '#fcfcfc' : '#6C49B4',
+    backgroundColor: themeMode === 'dark' ? '#8496ff' : '#ebebeb',
   };
   const symbolsArray = [];
   for (const key in listedCompanies) {
@@ -60,8 +60,8 @@ const Alert = (props) => {
     return { label: item.symbol, id: item.id };
   });
 
-  const scriptFullName = symbolsArray.map((item)=>{
-    return{ label:item?.companyInfo,id:item.id};
+  const scriptFullName = symbolsArray.map((item) => {
+    return { label: item?.companyInfo, id: item.id };
   });
 
   const scriptName = symbols.find(
@@ -92,12 +92,18 @@ const Alert = (props) => {
                 borderRadius: '6px',
               }}
             >
-              <Tabs onChange={handleChange} value={activeTab}>
+              <Tabs
+                onChange={handleChange}
+                value={activeTab}
+                indicatorColor='secondary'
+                textColor={theme.palette.text.main}
+              >
                 <Tab
                   sx={{
                     borderRadius: '5px',
                     p: 0,
                     px: '8px',
+
                     backgroundColor:
                       activeTab === '1' && btnStyle.backgroundColor,
                   }}
@@ -129,7 +135,7 @@ const Alert = (props) => {
                 {' '}
                 <Typography
                   variant='h5'
-                  style={{ color: theme.palette.text.light, fontWeight: '400' }}
+                  style={{ color: theme.palette.text.main, fontWeight: '400' }}
                 >
                   Create New Alert
                 </Typography>
@@ -363,14 +369,6 @@ const Alert = (props) => {
                 justifyContent='flex-end'
                 alignItems='flex-end'
               >
-                <Button
-                  variant='contained'
-                  onClick={handleClear}
-                  sx={{ mt: 3, ml: 1 }}
-                  color='error'
-                >
-                  Cancel
-                </Button>
                 <Button
                   variant='contained'
                   type='submit'

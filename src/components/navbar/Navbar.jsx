@@ -125,7 +125,10 @@ const Navbar = () => {
         top: 0,
         boxShadow:
           'rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset',
-        background: theme.palette.background.alt,
+        background:
+          theme.palette.mode === 'light'
+            ? theme.palette.background.alt
+            : theme.palette.primary[700],
         color: 'black',
       }}
     >
