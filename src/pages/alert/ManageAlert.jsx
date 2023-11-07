@@ -180,11 +180,11 @@ const ManageAlert = (props) => {
   };
 
   {
-    if (isLoading) <Spinner />;
+    if (isLoading) return <Spinner />;
   }
   return (
     <div>
-      <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
+      <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} showfilter={false}/>
       <Box marginTop={2}>
         {tableShow ? (
           tableData && tableData.length > 0 ? ( // Check if tableData is not empty
