@@ -391,6 +391,7 @@ const Alert = (props) => {
                     backgroundColor: "#6C49B4",
                     themeMode,
                     color: "#fcfcfc",
+                    textTransform:"none"
                   }}
                   disabled={!formik.isValid}
                 >
