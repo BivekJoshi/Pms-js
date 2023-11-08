@@ -1,4 +1,4 @@
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useWatchListForm } from "../../../hooks/watchList/useWatchListForm/useWatchListForm";
 import toast from "react-hot-toast";
@@ -21,6 +21,8 @@ const WatchListMasterField = ({onClose}) => {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} sm={12}>
+        <Typography variant="h4">Add WatchList</Typography>
+        <br/>
         <TextField
           id="watchlistName"
           name="watchlistName"

@@ -89,6 +89,7 @@ const WatchList = () => {
             backgroundColor: theme.palette.background.btn,
             color: theme.palette.text.alt,
             marginTop: '1rem',
+            textTransform: "none",
           }}
         >
           Create New watchlist
@@ -219,10 +220,11 @@ const WatchList = () => {
           style={{
             backgroundColor: theme.palette.background.btn,
             color: theme.palette.text.alt,
+            textTransform: "none",
           }}
           onClick={handleFormSubmit}
         >
-          +Add
+          + Add
         </Button>
       </Box>
       <br />
