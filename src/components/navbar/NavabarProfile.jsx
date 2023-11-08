@@ -24,8 +24,6 @@ const NavabarProfile = ({ childDetailData }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  console.log(childDetailData, "data hai ma chai");
-
   const handleLogout = () => {
     setAnchorEl(false);
     dispatch({ type: "LOGOUT" });
