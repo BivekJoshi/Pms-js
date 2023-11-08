@@ -10,6 +10,7 @@ const changepasswordSchema = Yup.object().shape({
       strongPasswordRegex,
       'Password must contain at least 8 characters, including uppercase, lowercase, and a number'
     )
+    .notOneOf([Yup.ref('oldPassword')], 'New password cannot be the same as the old password')
     .oneOf([Yup.ref('rePassword')], 'Passwords must match'),
   rePassword: Yup.string()
     .required('Required')

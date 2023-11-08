@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next';
 const ChangePassword = () => {
   const { t } = useTranslation();
   const theme = useTheme();
+  
   const {
     formik,
     showValues,
@@ -194,7 +195,7 @@ const ChangePassword = () => {
             <Button
               variant='contained'
               onClick={handleFormSubmit}
-              disabled={!formik.isValid}
+              // disabled={!formik.isValid}
               sx={{
                 mt: 3,
                 ml: 1,

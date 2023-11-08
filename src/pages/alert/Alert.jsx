@@ -48,7 +48,7 @@ const Alert = (props) => {
   const { data: listedCompanies } = useGetListedCompanies();
 
   const btnStyle = {
-    backgroundColor: themeMode === 'dark' ? '#8496ff' : '#ebebeb',
+    backgroundColor: themeMode === "dark" ? "#8496ff" : "#ebebeb",
   };
   const symbolsArray = [];
   for (const key in listedCompanies) {
@@ -81,15 +81,15 @@ const Alert = (props) => {
   }, [companyData?.script]); //eslint-disable-line
 
   const labelStyle = {
-    backgroundColor: '#EBEDEF',
-    marginLeft: '.5rem',
-    textTransform: 'none',
-    borderRadius: '.5rem',
-    color: 'black',
+    backgroundColor: "#EBEDEF",
+    marginLeft: ".5rem",
+    textTransform: "none",
+    borderRadius: ".5rem",
+    color: "black",
   };
   const activeLabelStyle = {
     ...labelStyle,
-    backgroundColor: '#329EF4',
+    backgroundColor: "#329EF4",
   };
   return (
     <>
@@ -99,40 +99,40 @@ const Alert = (props) => {
             <div
               style={{
                 backgroundColor: theme.palette.background.alt,
-                padding: '12px',
-                borderRadius: '6px',
-                display: 'flex',
-                alignItems: 'center',
+                padding: "12px",
+                borderRadius: "6px",
+                display: "flex",
+                alignItems: "center",
               }}
             >
               <Tabs
                 onChange={handleChange}
                 value={activeTab}
-                indicatorColor='secondary'
+                indicatorColor="secondary"
                 textColor={theme.palette.text.main}
               >
                 <Tab
                   sx={{
-                    borderRadius: '5px',
+                    borderRadius: "5px",
                     p: 0,
-                    px: '8px',
+                    px: "8px",
 
                     backgroundColor:
-                      activeTab === '1' && btnStyle.backgroundColor,
+                      activeTab === "1" && btnStyle.backgroundColor,
                   }}
-                  label='Create Alert'
-                  value='1'
+                  label="Create Alert"
+                  value="1"
                 />
                 <Tab
                   sx={{
-                    borderRadius: '5px',
+                    borderRadius: "5px",
                     p: 0,
-                    px: '8px',
+                    px: "8px",
                     backgroundColor:
-                      activeTab === '2' && btnStyle.backgroundColor,
+                      activeTab === "2" && btnStyle.backgroundColor,
                   }}
-                  label='Manage Alert'
-                  value='2'
+                  label="Manage Alert"
+                  value="2"
                 />
               </Tabs>
             </div>
@@ -147,8 +147,8 @@ const Alert = (props) => {
               <div>
                 {" "}
                 <Typography
-                  variant='h5'
-                  style={{ color: theme.palette.text.main, fontWeight: '400' }}
+                  variant="h5"
+                  style={{ color: theme.palette.text.main, fontWeight: "400" }}
                 >
                   Create New Alert
                 </Typography>
@@ -188,11 +188,11 @@ const Alert = (props) => {
                       onChange={(e, value) => {
                         if (value != null) {
                           formik.setFieldValue(
-                            'companyInfoId',
-                            value?.id || ''
+                            "companyInfoId",
+                            value?.id || ""
                           ); // Set the field value based on the selected option or an empty string if no option is selected
                         } else {
-                          formik.setFieldValue('companyInfoId', ''); // Reset the value when no option is selected
+                          formik.setFieldValue("companyInfoId", ""); // Reset the value when no option is selected
                         }
                       }}
                     />
@@ -216,7 +216,7 @@ const Alert = (props) => {
                       size="small"
                       label="LTP"
                       onChange={(e, value) => {
-                        formik?.setFieldValue('ltp', value || ''); // Set the field value based on the selected option or an empty string if no option is selected
+                        formik?.setFieldValue("ltp", value || ""); // Set the field value based on the selected option or an empty string if no option is selected
                       }}
                       disabled
                       // value={companyData?.script?.ltp}
@@ -235,10 +235,10 @@ const Alert = (props) => {
                       renderInput={(params) => (
                         <TextField
                           {...params}
-                          label='Select an Alert Type'
-                          placeholder='Select alert type'
-                          variant='outlined'
-                          size='small'
+                          label="Select an Alert Type"
+                          placeholder="Select alert type"
+                          variant="outlined"
+                          size="small"
                           value={formik.values.alertType}
                           InputLabelProps={{ shrink: true }}
                           error={
@@ -274,10 +274,10 @@ const Alert = (props) => {
                       type="number"
                       name="triggerPrice"
                       InputLabelProps={{ shrink: true }}
-                      variant='outlined'
-                      size='small'
-                      label='Enter Trigger Price'
-                      placeholder='Enter Trigger Price'
+                      variant="outlined"
+                      size="small"
+                      label="Enter Trigger Price"
+                      placeholder="Enter Trigger Price"
                       value={formik.values.triggerPrice}
                       error={
                         formik.touched.triggerPrice &&
@@ -331,6 +331,13 @@ const Alert = (props) => {
                                       );
                                     }}
                                     name="transactionType"
+                                    style={{
+                                      color:
+                                        formik.values?.transactionType ===
+                                        "SELL"
+                                          ? "red"
+                                          : "green",
+                                    }}
                                   />
                                 }
                               />
@@ -375,6 +382,13 @@ const Alert = (props) => {
                                   method.id === "SMS" &&
                                   method.id === "notification"
                                 }
+                                style={{
+                                  color: formik.values?.alertMethod?.includes(
+                                    method.id
+                                  )
+                                    ? "blue"
+                                    : "inherit",
+                                }}
                               />
                             }
                           />
@@ -391,16 +405,16 @@ const Alert = (props) => {
                 alignItems="flex-end"
               >
                 <Button
-                  variant='contained'
-                  type='submit'
+                  variant="contained"
+                  type="submit"
                   onClick={handleFormSubmit}
                   sx={{
                     mt: 3,
                     ml: 1,
                     backgroundColor: "#6C49B4",
                     themeMode,
-                    color: '#fcfcfc',
-                    textTransform: 'none',
+                    color: "#fcfcfc",
+                    textTransform: "none",
                   }}
                   disabled={!formik.isValid}
                 >
