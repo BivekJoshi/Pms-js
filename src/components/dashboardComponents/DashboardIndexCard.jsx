@@ -49,22 +49,23 @@ const DashboardIndexCard = () => {
           Rs. {summaryData?.price} (Total Share Capital)
         </Typography>
         <Box sx={style}>
-          Day Gain :<Typography variant='p'>{summaryData?.gain}</Typography>
+          Day Gain : {' '}
+          <Typography variant='p'>{summaryData?.gain}</Typography>
         </Box>
         <Box sx={style}>
-          Day Loss:
+          Day Loss :{' '}
           <Typography variant='p' sx={{ color: 'red' }}>
             {summaryData?.loss}
           </Typography>
         </Box>
         <Box sx={style}>
-          Total Gain :
+          Total Gain :{' '}
           <Typography variant='p' sx={style}>
             {summaryData?.tGain}
           </Typography>
         </Box>
         <Box sx={style}>
-          Total Loss :
+          Total Loss :{' '}
           <Typography variant='p' sx={{ color: 'red' }}>
             {summaryData?.tLoss}
           </Typography>

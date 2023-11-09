@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../utility/logout';
-import { useNavigate } from 'react-router-dom';
-import PermIdentityIcon from '@mui/icons-material/PermIdentity';
-import { useTranslation } from 'react-i18next';
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Divider from "@mui/material/Divider";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import SettingsIcon from "@mui/icons-material/Settings";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useDispatch } from "react-redux";
+import { logout } from "../../utility/logout";
+import { useNavigate } from "react-router-dom";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import { useTranslation } from "react-i18next";
 
-const NavabarProfile = () => {
+const NavabarProfile = ({ childDetailData }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
@@ -26,9 +26,9 @@ const NavabarProfile = () => {
 
   const handleLogout = () => {
     setAnchorEl(false);
-    dispatch({ type: 'LOGOUT' });
+    dispatch({ type: "LOGOUT" });
     logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   const handleClick = (event) => {
@@ -38,57 +38,67 @@ const NavabarProfile = () => {
     setAnchorEl(null);
   };
   const handleProfileClick = () => {
-    navigate('/profile');
+    navigate("/profile");
     handleClose();
   };
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-      <Tooltip title='Account settings'>
+    <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+      <Tooltip title="Account settings">
         <IconButton onClick={handleClick}>
-          <PermIdentityIcon sx={{ width: '24px', height: '24px' }} />
+          <PermIdentityIcon sx={{ width: "24px", height: "24px" }} />
         </IconButton>
       </Tooltip>
 
       <Menu
         anchorEl={anchorEl}
-        id='account-menu'
+        id="account-menu"
         open={open}
         onClose={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 5.5,
             ml: 0,
-            '& .MuiAvatar-root': {
+            "& .MuiAvatar-root": {
               width: 32,
               height: 32,
             },
-            '&:before': {
+            "&:before": {
               content: '""',
-              display: 'block',
-              position: 'absolute',
+              display: "block",
+              position: "absolute",
               top: 0,
               right: 14,
               width: 10,
               height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
               zIndex: 0,
             },
           },
         }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "top" }}
       >
         <MenuItem onClick={handleProfileClick}>
           <ListItemAvatar>
             <Avatar />
           </ListItemAvatar>
-          {t('Profile')}
+          {t("Profile")}
         </MenuItem>
+        {Array.isArray(childDetailData)
+          ? childDetailData.map((item) => (
+              <MenuItem key={item.id}>
+                <ListItemAvatar>
+                  <Avatar />
+                </ListItemAvatar>
+                <p>{item.clientName}</p>
+              </MenuItem>
+            ))
+          : null}
         {/* <MenuItem onClick={handleClose}>
           <ListItemAvatar>
             <Avatar />
@@ -111,9 +121,9 @@ const NavabarProfile = () => {
         <Divider />
         <MenuItem onClick={handleLogout}>
           <ListItemIcon>
-            <LogoutIcon fontSize='small' />
+            <LogoutIcon fontSize="small" />
           </ListItemIcon>
-          {t('Logout')}
+          {t("Logout")}
         </MenuItem>
       </Menu>
     </Box>

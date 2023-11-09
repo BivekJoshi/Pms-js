@@ -38,12 +38,27 @@ const useNotificationForm = (switchStates) => {
     });
   };
 
+  const resetForm = () => {
+    formik.setValues({
+      ipoFpo: false,
+      rightShare: false,
+      dividend: false,
+      auction: false,
+      bondDebenture: false,
+      agmSgm: false,
+      mergerAcquisition: false,
+      financialReports: false,
+      newsLetter: false,
+      general: false,
+    });
+  };
+
   const handleRequest = (values) => {
     values = { ...values };
     editNotification(values, formik);
   };
 
-  return { formik, updateFormikValues };
+  return { formik, updateFormikValues, resetForm };
 };
 
 export default useNotificationForm;

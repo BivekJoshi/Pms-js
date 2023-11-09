@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Search,
   SettingsOutlined,
   Menu as MenuIcon,
-} from '@mui/icons-material';
-import DarkModeSetting from '../Setting/DarkModeSetting';
+} from "@mui/icons-material";
+import DarkModeSetting from "../Setting/DarkModeSetting";
 import {
   AppBar,
   Typography,
@@ -30,32 +30,33 @@ import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import LiveIndicator from '../liveIndicator/LiveIndicator';
+import { useGetUserChildDetail } from '../../hooks/portfolio/usePortfolio';
 
 const navItems = [
   {
     id: 1,
-    item: 'Home',
-    path: '/dashboard',
+    item: "Home",
+    path: "/dashboard",
   },
   {
     id: 2,
-    item: 'Portfolio',
-    path: '/portfolio',
+    item: "Portfolio",
+    path: "/portfolio",
   },
   {
     id: 3,
-    item: 'Watchlist',
-    path: '/watchlist',
+    item: "Watchlist",
+    path: "/watchlist",
   },
   {
     id: 4,
-    item: 'Alert',
-    path: '/alert',
+    item: "Alert",
+    path: "/alert",
   },
   {
     id: 5,
-    item: 'Research',
-    path: '/research',
+    item: "Research",
+    path: "/research",
   },
 ];
 
@@ -65,6 +66,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { data: listedCompanies } = useGetListedCompanies();
+  const { data: childDetailData, isLoading } = useGetUserChildDetail();
+
   const { pathname = '' } = useLocation();
   const marketOpen = false;
   const handleActiveClick = (path) => {
@@ -79,8 +82,8 @@ const Navbar = () => {
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
     ) {
       return;
     }
@@ -121,22 +124,25 @@ const Navbar = () => {
   return (
     <AppBar
       style={{
-        position: 'sticky',
+        position: "sticky",
         top: 0,
         boxShadow:
           'rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset',
-        background: theme.palette.background.alt,
+        background:
+          theme.palette.mode === 'light'
+            ? theme.palette.background.alt
+            : theme.palette.primary[700],
         color: 'black',
       }}
     >
-      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <img
           src={logo}
-          alt='Logo'
-          width='104px'
-          height='36px'
-          style={{ cursor: 'pointer' }}
-          onClick={() => navigate('/dashboard')}
+          alt="Logo"
+          width="104px"
+          height="36px"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate("/dashboard")}
         />
 
         {/* <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -146,36 +152,36 @@ const Navbar = () => {
             <List
               key={items?.id}
               sx={{
-                position: 'relative',
-                display: { sm: 'none', md: 'block', xs: 'none' }, // Hide on small screens
+                position: "relative",
+                display: { sm: "none", md: "block", xs: "none" }, // Hide on small screens
               }}
             >
-              <ListItem sx={{ position: 'relative' }}>
+              <ListItem sx={{ position: "relative" }}>
                 <Typography
                   onClick={() => handleActiveClick(items?.path)}
                   sx={{
-                    cursor: 'pointer',
+                    cursor: "pointer",
                     color:
                       pathname === items.path
                         ? theme.palette.text.main
                         : theme.palette.text.main,
-                    fontWeight: pathname === items.path ? 'bold' : 'normal',
-                    '&:hover': {
+                    fontWeight: pathname === items.path ? "bold" : "normal",
+                    "&:hover": {
                       backgroundColor: theme.palette.background.hover,
-                      borderRadius: '.5rem',
-                      padding: '4px',
+                      borderRadius: ".5rem",
+                      padding: "4px",
                     },
                   }}
-                  variant='h6'
+                  variant="h6"
                 >
                   {t(items?.item)}
                   {pathname === items.path && (
                     <div
                       style={{
-                        position: 'absolute',
-                        width: '50%',
-                        height: '0.1rem',
-                        background: 'blue',
+                        position: "absolute",
+                        width: "50%",
+                        height: "0.1rem",
+                        background: "blue",
                       }}
                     ></div>
                   )}
@@ -187,14 +193,14 @@ const Navbar = () => {
 
         <Grid
           sx={{
-            width: '100%',
-            maxWidth: '300px',
-            display: { md: 'block', xs: 'none' },
-            margin: { md: '0 32px', sm: '0px' },
+            width: "100%",
+            maxWidth: "300px",
+            display: { md: "block", xs: "none" },
+            margin: { md: "0 32px", sm: "0px" },
           }}
         >
           <Autocomplete
-            name='script'
+            name="script"
             fullWidth
             options={symbols}
             getOptionLabel={(option) => option?.companyInfo}
@@ -202,12 +208,12 @@ const Navbar = () => {
               <TextField
                 {...params}
                 fullWidth
-                placeholder={t('Company name or symbol')}
-                variant='outlined'
+                placeholder={t("Company name or symbol")}
+                variant="outlined"
                 autoFocus
-                size='small'
+                size="small"
                 InputLabelProps={{ shrink: true }}
-                style={{ minWidth: '150px' }}
+                style={{ minWidth: "150px" }}
               />
             )}
             onChange={(event, value) => {
@@ -218,42 +224,42 @@ const Navbar = () => {
           />
         </Grid>
 
-        <Tooltip title={'Market ' + (marketOpen ? 'Open' : 'Closed')}>
+        <Tooltip title={"Market " + (marketOpen ? "Open" : "Closed")}>
           <div>
             <LiveIndicator open={marketOpen} />
           </div>
         </Tooltip>
 
-        <FlexBetween gap='12px'>
+        <FlexBetween gap="12px">
           <div>
             <React.Fragment>
-              <Tooltip title='App settings'>
-                <IconButton onClick={toggleDrawer('right', true)}>
-                  <SettingsOutlined sx={{ fontSize: '25px' }} />
+              <Tooltip title="App settings">
+                <IconButton onClick={toggleDrawer("right", true)}>
+                  <SettingsOutlined sx={{ fontSize: "25px" }} />
                 </IconButton>
               </Tooltip>
               <Drawer
-                anchor='right'
-                open={state['right']}
-                onClose={toggleDrawer('right', false)}
+                anchor="right"
+                open={state["right"]}
+                onClose={toggleDrawer("right", false)}
               >
-                <DarkModeSetting onClose={toggleDrawer('right', false)} />
+                <DarkModeSetting onClose={toggleDrawer("right", false)} />
               </Drawer>
             </React.Fragment>
           </div>
           <IconButton>
-            <NotificationsNoneIcon sx={{ fontSize: '25px' }} />
+            <NotificationsNoneIcon sx={{ fontSize: "25px" }} />
           </IconButton>
 
-          <NavabarProfile />
+          <NavabarProfile childDetailData={childDetailData} />
 
           <IconButton
-            edge='start'
-            color='inherit'
-            aria-label='menu'
+            edge="start"
+            color="inherit"
+            aria-label="menu"
             onClick={toggleMenu}
             sx={{
-              display: { sm: 'block', md: 'none', xs: 'block' }, // Show on small screens
+              display: { sm: "block", md: "none", xs: "block" }, // Show on small screens
             }}
           >
             <MenuIcon />
