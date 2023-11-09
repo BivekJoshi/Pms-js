@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetCompanyById } from "../../hooks/company/useCompany";
 import { companyData as chartData } from "../dashboard/data";
@@ -33,7 +32,7 @@ const Company = () => {
   const { script } = useParams();
   const theme = useTheme();
   const { t } = useTranslation();
-  const { data: companyData, isLoading } = useGetCompanyById(script);
+  const { data: companyData } = useGetCompanyById(script);
 
   // console.log(companyData?.script, "daa");
   const cellStyle = {

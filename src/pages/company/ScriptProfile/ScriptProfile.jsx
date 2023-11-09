@@ -8,6 +8,8 @@ import About from "./ScriptTab/About";
 import PriceHistory from "./ScriptTab/PriceHistory";
 import Floorsheet from "./ScriptTab/Floorsheet";
 import QuarterlyReport from "./ScriptTab/QuarterlyReport";
+import { Dividend } from "../CompanyDetail";
+// import Dividend from "./ScriptTab/Dividend";
 
 const ScriptProfile = ({companyData}) => {
   const [value, setValue] = React.useState("1");
@@ -56,6 +58,11 @@ const ScriptProfile = ({companyData}) => {
               value="4"
               style={value === "4" ? activeLabelStyle : labelStyle}
             />
+            <Tab
+              label="Dividend"
+              value="5"
+              style={value === "5" ? activeLabelStyle : labelStyle}
+            />
           </TabList>
         </Box>
         <TabPanel value="1">
@@ -69,6 +76,9 @@ const ScriptProfile = ({companyData}) => {
         </TabPanel>
         <TabPanel value="4">
           <QuarterlyReport />
+        </TabPanel>
+        <TabPanel value="5">
+          <Dividend companyData={companyData}/>
         </TabPanel>
       </TabContext>
     </Box>
