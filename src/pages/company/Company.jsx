@@ -39,6 +39,10 @@ const Company = () => {
   const cellStyle = {
     borderRight: "1px solid #e0e0e0",
     fontWeight: "bold",
+    textAlign: "center",
+  };
+  const cell1Style = {
+    textAlign: "center",
   };
   function createData(heading, data) {
     return { heading, data };
@@ -94,20 +98,20 @@ const Company = () => {
                     >
                       Heading
                     </TableCell>
-                    <TableCell>Data</TableCell>
+                    <TableCell style={cellStyle}>Data</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
                     <TableRow key={row.heading}>
                       <TableCell style={cellStyle}>{row.heading}</TableCell>
-                      <TableCell>{row.data}</TableCell>
+                      <TableCell style={cell1Style}>{row.data}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </TableContainer>
-            <Box sx={{paddingTop:".5rem"}}>
+            <Box sx={{ paddingTop: ".5rem" }}>
               <CompanyDetail companyData={companyData} />
             </Box>
           </Grid>
@@ -121,7 +125,7 @@ const Company = () => {
               }}
             >
               <Typography variant="h4" style={{ marginBottom: "1rem" }}>
-                {t("Nabil Bank Limited 1D")}
+                {companyData?.companyInfo?.companyInfo}
               </Typography>
               <ResponsiveContainer width="100%" height={500}>
                 <LineChart width={500} height={300} data={chartData}>

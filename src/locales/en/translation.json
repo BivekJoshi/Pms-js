@@ -122,7 +122,7 @@
   "Total Share Sapital": "Total Share Sapital",
   "Recent Holding Chart": "Recent Holding Chart",
   "Market Value": "Market Value",
-  "Today Change": "Today Change",
+"Today Change": "Today Change",
   "Overall return": "Overall return",
   "Symbol": "Symbol",
   "Quantity": "Quantity",
@@ -132,5 +132,6 @@
   "Today's Gain/Loss": "Today's Gain/Loss",
   "CREATE NEW WATCHLIST": "CREATE NEW WATCHLIST",
   "+ADD": "+ADD",
-  "Depositary participation":"Depositary participation"
+  "Depositary participation":"Depositary participation",
+  "LANGUAGE":"LANGUAGE"
 }
