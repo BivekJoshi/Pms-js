@@ -37,7 +37,7 @@ const alertType = [
   },
 ];
 const deliveryMethods = [
-  { id: "PUSH_NOTIFICATION", value: "Push Notification" },
+  { id: "notification", value: "Push Notification" },
   { id: "SMS", value: "SMS" },
   { id: "EMAIL", value: "Email" },
 ];
@@ -51,7 +51,7 @@ const Alert = (props) => {
   const { data: listedCompanies } = useGetListedCompanies();
 
   const btnStyle = {
-    backgroundColor: themeMode === "dark" ? "#fcfcfc" : "#6C49B4",
+    backgroundColor: themeMode === "dark" ? "#8496ff" : "#ebebeb",
   };
   const symbolsArray = [];
   for (const key in listedCompanies) {
@@ -104,6 +104,8 @@ const Alert = (props) => {
                 backgroundColor: theme.palette.background.alt,
                 padding: "12px",
                 borderRadius: "6px",
+                display: "flex",
+                alignItems: "center",
               }}
             >
               <Tabs
@@ -148,17 +150,17 @@ const Alert = (props) => {
                 {" "}
                 <Typography
                   variant="h5"
-                  style={{ color: theme.palette.text.light, fontWeight: "400" }}
+                  style={{ color: theme.palette.text.main, fontWeight: "400" }}
                 >
                   Create New Alert
                 </Typography>
               </div>
 
               <div
-                style={{ display: "flex", padding: "4rem 0" }}
+                style={{ display: "flex", gap: "16px", padding: "24px 0px" }}
               >
                 <Grid container spacing={2}>
-                  <Grid item xs={6} sm={6} md={4} lg={2}>
+                  <Grid item xs={12} sm={6} md={4} lg={3}>
                     <Autocomplete
                       name="companyInfoId"
                       options={scriptFullName}
@@ -186,18 +188,24 @@ const Alert = (props) => {
                         />
                       )}
                       onChange={(e, value) => {
-                        formik?.setFieldValue("companyInfoId", value?.id || ""); // Set the field value based on the selected option or an empty string if no option is selected
+                        if (value != null) {
+                          formik.setFieldValue(
+                            "companyInfoId",
+                            value?.id || ""
+                          ); // Set the field value based on the selected option or an empty string if no option is selected
+                        } else {
+                          formik.setFieldValue("companyInfoId", ""); // Reset the value when no option is selected
+                        }
                       }}
                     />
                   </Grid>
-                  <Grid item xs={6} sm={6} md={4} lg={2}>
+                  <Grid item xs={12} sm={6} md={4} lg={3}>
                     <TextField
                       {...props}
                       sx={{
-                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
-                          {
-                            display: "none",
-                          },
+                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                          display: "none",
+                        },
                         "& input[type=number]": {
                           MozAppearance: "textfield",
                         },
@@ -210,7 +218,6 @@ const Alert = (props) => {
                       size="small"
                       label="LTP"
                       onChange={(e, value) => {
-                        console.log(e);
                         formik?.setFieldValue("ltp", value || ""); // Set the field value based on the selected option or an empty string if no option is selected
                       }}
                       disabled
@@ -222,7 +229,7 @@ const Alert = (props) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={6} sm={6} md={4} lg={2}>
+                  <Grid item xs={12} sm={6} md={4} lg={3}>
                     <Autocomplete
                       name="alertType"
                       getOptionLabel={(option) => option.label} // Specify how to display the option label
@@ -234,6 +241,7 @@ const Alert = (props) => {
                           placeholder="Select alert type"
                           variant="outlined"
                           size="small"
+                          value={formik.values.alertType}
                           InputLabelProps={{ shrink: true }}
                           error={
                             formik.touched.alertType &&
@@ -253,14 +261,13 @@ const Alert = (props) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={6} sm={6} md={4} lg={2}>
+                  <Grid item xs={12} sm={6} md={4} lg={3}>
                     <TextField
                       {...props}
                       sx={{
-                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
-                          {
-                            display: "none",
-                          },
+                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+                          display: "none",
+                        },
                         "& input[type=number]": {
                           MozAppearance: "textfield",
                         },
@@ -273,6 +280,7 @@ const Alert = (props) => {
                       size="small"
                       label="Enter Trigger Price"
                       placeholder="Enter Trigger Price"
+                      value={formik.values.triggerPrice}
                       error={
                         formik.touched.triggerPrice &&
                         Boolean(formik.errors.triggerPrice)
@@ -289,49 +297,10 @@ const Alert = (props) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6} md={4} lg={2}>
-                    <FormControl component="fieldset" style={{display: "flex", flexDirection: "row", alignItems: "center"}}>
-                      <label>Alert For: </label>
-                      <Box
-                        style={{
-                          display: "flex",
-                          flexDirection: "row",
-                          marginLeft: "0.6rem",
-                        }}
-                      >
-                        <Button
-                          style={{
-                            backgroundColor:
-                              formik.values.transactionType === "PURCHASE"
-                                ? btnStyle.backgroundColor
-                                : "",
-                                color:  formik.values.transactionType === "PURCHASE" ? theme.palette.text.alt : theme.palette.text.main,
-                          }}
-                          variant="outlined"
-                          onClick={() => {
-                            formik.setFieldValue("transactionType", "PURCHASE");
-                          }}
-                        >
-                          Buy
-                        </Button>
-                        <Button
-                          style={{
-                            background:
-                              formik.values.transactionType === "SELL"
-                                ? btnStyle.backgroundColor
-                                : "",
-                                color:  formik.values.transactionType === "SELL" ? theme.palette.text.alt : theme.palette.text.main,
-                          }}
-                          variant="outlined"
-                          
-                          onClick={() => {
-                            formik.setFieldValue("transactionType", "SELL");
-                          }}
-                        >
-                          Sell
-                        </Button>
-                      </Box>
-                      {/* <FormGroup
+                  <Grid item xs={12} sm={4} md={3} lg={3} className="d-flex">
+                    <FormControl component="fieldset">
+                      <label>Alert For </label>
+                      <FormGroup
                         sx={{
                           display: "flex",
                           flexDirection: "row",
@@ -340,13 +309,13 @@ const Alert = (props) => {
                       >
                         <FormControlLabel
                           control={
-                            <div style={{ marginLeft: "0.8rem" }}>
+                            <div style={{ marginLeft: "10px" }}>
                               {" "}
                               <label
                                 style={{
                                   color: theme.palette.text.light,
                                   fontWeight: "400",
-                                  margin: "1rem",
+                                  marginRight: "20px",
                                 }}
                               >
                                 Buy
@@ -364,6 +333,13 @@ const Alert = (props) => {
                                       );
                                     }}
                                     name="transactionType"
+                                    style={{
+                                      color:
+                                        formik.values?.transactionType ===
+                                        "SELL"
+                                          ? "red"
+                                          : "green",
+                                    }}
                                   />
                                 }
                               />
@@ -371,7 +347,7 @@ const Alert = (props) => {
                                 style={{
                                   color: theme.palette.text.light,
                                   fontWeight: "400",
-                                  margin: "0rem",
+                                  marginRight: "15px",
                                 }}
                               >
                                 Sell
@@ -379,16 +355,16 @@ const Alert = (props) => {
                             </div>
                           }
                         />
-                      </FormGroup> */}
+                      </FormGroup>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} sm={6} md={4} lg={2} style={{ marginTop: "-2rem"}}>
+                  <Grid item xs={12} sm={6} md={4} lg={3} className="d-flex">
                     <FormControl component="fieldset">
                       <label>Select Delivery Method</label>
                       <FormGroup
                         sx={{
                           display: "flex",
-                          flexDirection: "column",
+                          flexDirection: "row",
                           flexWrap: "wrap",
                         }}
                       >
@@ -423,29 +399,22 @@ const Alert = (props) => {
                             label={method?.value}
                             control={
                               <Checkbox
-                                value={method?.id}
+                                value={method.id}
                                 name="alertMethod" // Name of the field in initialValues
-                                // checked={formik.values.alertMethod.includes(
-                                //   method?.id
-                                // )}
-                                checked={
-                                  formik.values.alertMethod === method?.id
+                                checked={formik.values?.alertMethod?.includes(
+                                  method.id
+                                )}
+                                onChange={formik.handleChange}
+                                disabled={
+                                  method.id === "SMS" &&
+                                  method.id === "notification"
                                 }
-                                onChange={(event) => {
-                                  const selectedMethod = method?.id;
-                                  if (event.target.checked) {
-                                    formik.setFieldValue(
-                                      "alertMethod",
-                                      selectedMethod
-                                    );
-                                  } else {
-                                    formik.setFieldValue("alertMethod", "");
-                                  }
-                                }}
                                 style={{
-                                  "&:checked": {
-                                    backgroundColor: "#6C49B4",
-                                  },
+                                  color: formik.values?.alertMethod?.includes(
+                                    method.id
+                                  )
+                                    ? "blue"
+                                    : "inherit",
                                 }}
                               />
                             }
@@ -470,14 +439,6 @@ const Alert = (props) => {
               >
                 <Button
                   variant="contained"
-                  onClick={handleClear}
-                  sx={{ mt: 3, ml: 1 }}
-                  color="error"
-                >
-                  Cancel
-                </Button>
-                <Button
-                  variant="contained"
                   type="submit"
                   onClick={handleFormSubmit}
                   sx={{
@@ -486,6 +447,7 @@ const Alert = (props) => {
                     backgroundColor: "#6C49B4",
                     themeMode,
                     color: "#fcfcfc",
+                    textTransform: "none",
                   }}
                   disabled={!formik.isValid}
                 >

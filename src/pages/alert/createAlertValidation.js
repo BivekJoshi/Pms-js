@@ -1,12 +1,11 @@
 import * as Yup from "yup";
 
 export const addAlertSchema = Yup.object().shape({
-  companyInfoId: Yup.string().required("Please provide company name"),
-  triggerPrice: Yup.string().required("Provide trigger price"),
-  alertType: Yup.string().required("Provide alert type"),
-  alertMethod: Yup.string().required("Provide alert method"),
+  companyInfoId: Yup.string().required("Required"),
+  triggerPrice: Yup.string().required("Required"),
+  alertType: Yup.string().required("Required"),
   transactionType: Yup.string().required("required"),
-  // alertMethod: Yup.array().of(
-  //   Yup.string().oneOf(["SMS", "EMAIL"], "Invalid option")
-  // ),
+  alertMethod: Yup.array().of(
+    Yup.string().oneOf(["SMS", "EMAIL"], "Invalid option")
+  ),
 });
