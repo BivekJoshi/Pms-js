@@ -1,26 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   ListItem,
   Typography,
   useTheme,
-  InputBase,
-  IconButton,
   useMediaQuery,
   List,
   Collapse,
-} from '@mui/material';
-import { Search } from '@mui/icons-material';
-import FlexBetween from '../flexBetween/FlexBetween';
-import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
+  Autocomplete,
+  TextField,
+} from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 
 const ResponsiveNavMenu = (props) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const { navItem, isMenuOpen, handleActiveClick, handleToggle } = props;
+  const {
+    navItem,
+    isMenuOpen,
+    handleActiveClick,
+    handleToggle,
+    symbols,
+    handelScriptChange,
+    scriptValue,
+  } = props;
   const [menuOpen, setmenuOpen] = useState(false);
-  const { pathname = '' } = useLocation();
-  const isScreenSizeSM = useMediaQuery(theme.breakpoints.down('md'));
+  const { pathname = "" } = useLocation();
+  const isScreenSizeSM = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     setmenuOpen(isMenuOpen);
@@ -35,56 +41,70 @@ const ResponsiveNavMenu = (props) => {
     <Collapse in={menuOpen && isScreenSizeSM}>
       <div
         style={{
-          display: 'flex',
-          padding: '16px',
-          flexDirection: 'column',
-          gap: '16px',
+          display: "flex",
+          padding: "16px",
+          flexDirection: "column",
+          gap: "16px",
         }}
       >
         <div>
-          <FlexBetween
-            backgroundColor={theme.palette.background.alt}
-            borderRadius='5px'
-            gap='3rem'
-            p='var(--borderRadius, 4px) 0px var(--borderRadius, 4px) 16px'
-          >
-            <InputBase placeholder='Company name or symbol...' fullWidth />
-            <IconButton>
-              <Search />
-            </IconButton>
-          </FlexBetween>
+          <Autocomplete
+            name="script"
+            fullWidth
+            options={symbols}
+            getOptionLabel={(option) => option?.companyInfo}
+            value={scriptValue ? scriptValue : null}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                fullWidth
+                placeholder={t("Company name or symbol")}
+                variant="outlined"
+                autoFocus
+                size="small"
+                InputLabelProps={{ shrink: true }}
+                style={{ minWidth: "150px" }}
+              />
+            )}
+            onChange={(event, value) => {
+              if (value) {
+                handelScriptChange(value);
+                handleActiveClick(`/company/${value?.symbol}`);
+              }
+            }}
+          />
         </div>
 
         <div
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
           }}
         >
           {navItem?.map((items) => (
-            <List key={items?.id} sx={{ position: 'relative' }}>
-              <ListItem sx={{ position: 'relative' }}>
+            <List key={items?.id} sx={{ position: "relative" }}>
+              <ListItem sx={{ position: "relative" }}>
                 <Typography
                   onClick={() => handleActiveClick(items?.path)}
                   sx={{
-                    cursor: 'pointer',
+                    cursor: "pointer",
                     color:
                       pathname === items?.path
                         ? theme.palette.text.main
                         : theme.palette.text.main,
-                    fontWeight: pathname === items.path ? 'bold' : 'normal',
+                    fontWeight: pathname === items.path ? "bold" : "normal",
                   }}
-                  variant='h6'
+                  variant="h6"
                 >
                   {t(items?.item)}
                   {pathname === items?.path && (
                     <div
                       style={{
-                        position: 'absolute',
-                        width: '50%',
-                        height: '0.1rem',
-                        background: 'blue',
+                        position: "absolute",
+                        width: "50%",
+                        height: "0.1rem",
+                        background: "blue",
                       }}
                     ></div>
                   )}
