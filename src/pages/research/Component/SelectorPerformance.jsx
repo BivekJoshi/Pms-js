@@ -55,7 +55,7 @@ const SelectorPerformance = () => {
         //   pageSize={pageSize}
         //   onRowClick={handleRowClick}
         headerBackgroundColor="#401686"
-        headerColor={theme.palette.text.alt}
+        headerColor={theme.palette.text.main}
         enablePagination={false}
         enableEditing={false}
         enableColumnResizing={false}

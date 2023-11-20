@@ -46,8 +46,8 @@ const CustomTable = (props) => {
     exitEditingMode(); //required to exit editing mode
   };
 
-  const bodyBackgroundColor =
-    theme.palette.mode === "light" ? "#ffffff" : "#191F45";
+  const bodyBackgroundColor = theme.palette.mode === "light" ? "#ffff" : "#191F45";
+
   return (
     <div className="custom_table">
       <MaterialReactTable
@@ -110,8 +110,7 @@ const CustomTable = (props) => {
               (theme.palette.mode === "light" ? "#ffffff" : "#21295C"),
             color:
               props?.headerColor ||
-              (theme?.palette?.mode === "light" ? "#fafafa" : "#fafafa"),
-            // color: "red",
+              (theme?.palette?.mode === "dark" ? "#fafafa" : "#fafafa"),
           },
         }}
         // enableRowSelection
