@@ -42,9 +42,6 @@ const deliveryMethods = [
   { id: "notification", value: "Push Notification" },
   { id: "SMS", value: "SMS" },
   { id: "EMAIL", value: "Email" },
-  { id: "notification", value: "Push Notification" },
-  { id: "SMS", value: "SMS" },
-  { id: "EMAIL", value: "Email" },
 ];
 
 const Alert = (props) => {
@@ -72,8 +69,6 @@ const Alert = (props) => {
 
   const scriptName = symbols.find((d) => d.id === formik.values?.companyInfoId)
     ?.label;
-  const scriptName = symbols.find((d) => d.id === formik.values?.companyInfoId)
-    ?.label;
 
   const { data: companyData, isLoading } = useGetCompanyById(scriptName);
 
@@ -81,11 +76,9 @@ const Alert = (props) => {
     formik.handleSubmit();
   };
   const isSMSPresent = formik.values?.alertMethod?.includes("SMS");
-  const isSMSPresent = formik.values?.alertMethod?.includes("SMS");
 
   useEffect(() => {
     if (companyData?.script) {
-      formik.setFieldValue("ltp", companyData.script?.ltp);
       formik.setFieldValue("ltp", companyData.script?.ltp);
     }
   }, [companyData?.script]); //eslint-disable-line
@@ -96,15 +89,9 @@ const Alert = (props) => {
     textTransform: "none",
     borderRadius: ".5rem",
     color: "black",
-    backgroundColor: "#EBEDEF",
-    marginLeft: ".5rem",
-    textTransform: "none",
-    borderRadius: ".5rem",
-    color: "black",
   };
   const activeLabelStyle = {
     ...labelStyle,
-    backgroundColor: "#329EF4",
     backgroundColor: "#329EF4",
   };
   return (
@@ -146,7 +133,6 @@ const Alert = (props) => {
             </Box>
           </div>
           <TabPanel sx={{ p: 0, pt: "16px" }} value="1">
-          <TabPanel sx={{ p: 0, pt: "16px" }} value="1">
             <div
               style={{
                 backgroundColor: theme.palette.background.alt,
@@ -157,8 +143,6 @@ const Alert = (props) => {
               <div>
                 {" "}
                 <Typography
-                  variant="h5"
-                  style={{ color: theme.palette.text.main, fontWeight: "400" }}
                   variant="h5"
                   style={{ color: theme.palette.text.main, fontWeight: "400" }}
                 >

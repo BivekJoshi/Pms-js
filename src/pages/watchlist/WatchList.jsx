@@ -112,6 +112,7 @@ const WatchList = () => {
           padding: "16px",
           justifyContent: "space-between",
           alignItems: "center",
+          flexWrap: "wrap",
         }}
       >
         <div
@@ -164,7 +165,7 @@ const WatchList = () => {
               </div>
             ))}
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "2rem" ,flexWrap: "wrap",}}>
           <Typography
             variant="h6"
             style={{
@@ -173,7 +174,7 @@ const WatchList = () => {
           >
             {t("NEPSE CODE")} :
           </Typography>
-          <Box component="form" sx={{ color: "pink" ,backgroundColor:""}}>
+          <Box component="form">
             <Autocomplete
               multiple
               id="checkboxes-tags-demo"
@@ -202,7 +203,7 @@ const WatchList = () => {
                   {option.symbol}
                 </li>
               )}
-              style={{ width: 400 }}
+              style={{ width: 300 }}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -212,6 +213,7 @@ const WatchList = () => {
                   autoFocus
                   size="small"
                   value={formik.values.script}
+                  // sx={{width:'auto'}}
                 />
               )}
             />
@@ -225,6 +227,7 @@ const WatchList = () => {
             backgroundColor: theme.palette.background.btn,
             color: theme.palette.text.alt,
             textTransform: "none",
+            marginTop:".2rem"
           }}
           onClick={handleFormSubmit}
         >
