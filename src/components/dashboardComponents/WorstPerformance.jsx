@@ -182,6 +182,7 @@ const WorstPerformance = () => {
       bgcolor={theme.palette.background.alt}
       borderRadius={'6px'}
       padding={2}
+      sx={{ "& .css-c8wlay": { color: "#ffff" } }}
     >
       <Typography
         variant='h6'

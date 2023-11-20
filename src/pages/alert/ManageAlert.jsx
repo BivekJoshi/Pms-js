@@ -189,7 +189,7 @@ const ManageAlert = (props) => {
         searchCallBack={handleSearch}
         showfilter={false}
       />
-      <Box marginTop={2} sx={{ "& .css-1f2qhs8, .css-pj3kdi": { color: "#ffff" } }}>
+      <Box marginTop={2} sx={{ "& .css-1f2qhs8, .css-pj3kdi, .css-1w86f15": { color: "#ffff" } }}>
         {tableShow ? (
           tableData && tableData.length > 0 ? ( // Check if tableData is not empty
             tableData.map((d) => {

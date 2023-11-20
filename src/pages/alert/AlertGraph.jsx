@@ -30,8 +30,8 @@ const AlertGraph = () => {
       <ResponsiveContainer width='100%' height={200}>
         <LineChart data={lineData}>
           <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='name' />
-          <YAxis />
+          <XAxis dataKey='name' stroke={`${theme.palette.text.main}`} />
+          <YAxis stroke={`${theme.palette.text.main}`} />
           <Tooltip />
           <Legend />
           <Line
