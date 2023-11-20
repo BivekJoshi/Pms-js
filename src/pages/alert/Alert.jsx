@@ -63,17 +63,16 @@ const Alert = (props) => {
     return { label: item.symbol, id: item.id };
   });
 
-  const scriptFullName = symbolsArray.map((item)=>{
-    return{ label:item?.companyInfo,id:item.id};
+  const scriptFullName = symbolsArray.map((item) => {
+    return { label: item?.companyInfo, id: item.id };
   });
 
-  const scriptName = symbols.find(
-    (d) => d.id === formik.values?.companyInfoId
-  )?.label;
+  const scriptName = symbols.find((d) => d.id === formik.values?.companyInfoId)
+    ?.label;
 
   const { data: companyData, isLoading } = useGetCompanyById(scriptName);
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async () => {
     formik.handleSubmit();
   };
   const isSMSPresent = formik.values?.alertMethod?.includes("SMS");
@@ -83,6 +82,18 @@ const Alert = (props) => {
       formik.setFieldValue("ltp", companyData.script?.ltp);
     }
   }, [companyData?.script]); //eslint-disable-line
+
+  const labelStyle = {
+    backgroundColor: "#EBEDEF",
+    marginLeft: ".5rem",
+    textTransform: "none",
+    borderRadius: ".5rem",
+    color: "black",
+  };
+  const activeLabelStyle = {
+    ...labelStyle,
+    backgroundColor: "#329EF4",
+  };
   return (
     <>
       <div>
@@ -95,7 +106,12 @@ const Alert = (props) => {
                 borderRadius: "6px",
               }}
             >
-              <Tabs onChange={handleChange} value={activeTab}>
+              <Tabs
+                onChange={handleChange}
+                value={activeTab}
+                indicatorColor="secondary"
+                textColor={theme.palette.text.main}
+              >
                 <Tab
                   sx={{
                     borderRadius: "5px",
@@ -144,7 +160,7 @@ const Alert = (props) => {
                 <Grid container spacing={2}>
                   <Grid item xs={6} sm={6} md={4} lg={2}>
                     <Autocomplete
-                      name='companyInfoId'
+                      name="companyInfoId"
                       options={scriptFullName}
                       getOptionLabel={(option) => option.label}
                       renderInput={(params) => (
@@ -166,6 +182,7 @@ const Alert = (props) => {
                             formik.touched.companyInfoId &&
                             formik.errors.companyInfoId
                           }
+                          value={formik.values.companyInfoId}
                         />
                       )}
                       onChange={(e, value) => {
@@ -197,7 +214,8 @@ const Alert = (props) => {
                         formik?.setFieldValue("ltp", value || ""); // Set the field value based on the selected option or an empty string if no option is selected
                       }}
                       disabled
-                      value={companyData?.script?.ltp}
+                      // value={companyData?.script?.ltp}
+                      value={formik.values.ltp}
                       inputProps={{
                         inputMode: "numeric",
                         min: 0,
@@ -469,6 +487,7 @@ const Alert = (props) => {
                     themeMode,
                     color: "#fcfcfc",
                   }}
+                  disabled={!formik.isValid}
                 >
                   Create Alert
                 </Button>

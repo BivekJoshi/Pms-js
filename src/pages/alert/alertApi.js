@@ -25,10 +25,16 @@ export const deleteStockAlert = async ( id) => {
   }
 };
 
-
-
 /*________________________GET LIVE MARKET INDEX_____________________________________*/
 // export const getLiveMarketIndex = async () => {
 //   const res = await axiosInstance.get('/live-market/market-index');
 //   return res.data;
 // }
+
+export const getStockAlert = async (script) => {
+  if (script) {
+    const res = await axiosInstance.get(`/live-market/stock-alerts?script=${script}`);
+    return res.data;
+  } else return null;
+};
+

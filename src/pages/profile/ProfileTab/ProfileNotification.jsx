@@ -18,7 +18,9 @@ const ProfileNotification = () => {
 
   const [switchStates, setSwitchStates] = useState(notificationData);
 
-  const { formik, updateFormikValues } = useNotificationForm(switchStates);
+  const { formik, updateFormikValues, resetForm } = useNotificationForm(
+    switchStates
+  );
   useEffect(() => {
     setSwitchStates(notificationData);
     updateFormikValues(notificationData);
@@ -28,13 +30,27 @@ const ProfileNotification = () => {
     formik.handleSubmit();
     if (formik.isValid) {
       const formData = formik?.values;
-      const finalData = {
-        ...switchStates,
-        ...formData,
-      };
     } else {
       toast.error("Please make sure you have filled the form correctly");
     }
+  };
+
+  const handleReset = () => {
+    formik.handleSubmit();
+    resetForm();
+    const defaultSwitchStates = {
+      ipoFpo: false,
+      rightShare: false,
+      dividend: false,
+      auction: false,
+      bondDebenture: false,
+      agmSgm: false,
+      mergerAcquisition: false,
+      financialReports: false,
+      newsLetter: false,
+      general: false,
+    };
+    setSwitchStates(defaultSwitchStates);
   };
 
   if (loadingNotification) {
@@ -256,6 +272,7 @@ const ProfileNotification = () => {
             color: mode === "light" ? theme.palette.text.main : "white",
             border: mode === "light" ? "1px solid black" : "1px solid White",
           }}
+          onClick={handleReset}
         >
           Reset
         </Button>

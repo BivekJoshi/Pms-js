@@ -46,6 +46,7 @@ const ChangePassword = () => {
   const [passwordMatched, setPasswordMatched] = useState(false);
   const { t } = useTranslation();
   const theme = useTheme();
+  
   const {
     formik,
     showValues,
@@ -281,7 +282,7 @@ const ChangePassword = () => {
             <Button
               variant='contained'
               onClick={handleFormSubmit}
-              disabled={!formik.isValid}
+              // disabled={!formik.isValid}
               sx={{
                 mt: 3,
                 ml: 1,

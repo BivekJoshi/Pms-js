@@ -106,9 +106,6 @@ const LoginPage = () => {
             fullWidth
             variant='outlined'
             type='text'
-            InputLabelProps={{
-              shrink: formik.values.email,
-            }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>

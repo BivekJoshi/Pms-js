@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, MenuItem, useTheme } from '@mui/material';
 import NewFilter from '../../components/newFilter/NewFilter';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { useMemo } from 'react';
 import CustomeAlertDialog from '../../components/customeDialog/CustomeDialog';
 import { useRemoveWatchListDetail } from './useAlertPost';
+import Spinner from '../../components/spinner/Spinner';
 
 const ManageAlert = (props) => {
   const theme = useTheme();
@@ -22,12 +23,16 @@ const ManageAlert = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rowData, setRowData] = useState();
   const [tableDataIndex, settableDataIndex] = useState();
- 
+
   const tableData = useSelector((store) => store?.generic?.data);
   const isLoading = useSelector((store) => store?.generic?.processing);
-  
-  const id =rowData?.id;
-  const { mutate } = useRemoveWatchListDetail({id});
+
+  const id = rowData?.id;
+  const { mutate } = useRemoveWatchListDetail({ id });
+
+  useEffect(() => {
+    dispatch(fetchData(`live-market/stock-alerts`));
+  }, [dispatch]);
 
   const filterMenuItem = [
     {
@@ -142,7 +147,17 @@ const ManageAlert = (props) => {
     setIsModalOpen(false);
   };
   const handleDeleteData = () => {
-      mutate(tableDataIndex);
+    mutate(tableDataIndex, {
+      onSuccess: () => {
+        dispatch(
+          fetchData(
+            `live-market/stock-alerts?script=${params.script || ''}&alertType=${
+              params.alertType || ''
+            }`
+          )
+        );
+      },
+    });
   };
   const handleUpdate = (row, changeData) => {
     new Promise((resolve, reject) => {
@@ -164,9 +179,16 @@ const ManageAlert = (props) => {
     );
   };
 
+  {
+    if (isLoading) return <Spinner />;
+  }
   return (
     <div>
-      <NewFilter inputField={filterMenuItem} searchCallBack={handleSearch} />
+      <NewFilter
+        inputField={filterMenuItem}
+        searchCallBack={handleSearch}
+        showfilter={false}
+      />
       <Box marginTop={2}>
         {tableShow ? (
           tableData && tableData.length > 0 ? ( // Check if tableData is not empty
@@ -175,26 +197,29 @@ const ManageAlert = (props) => {
                 (data) => data.id === d.companyId
               )?.companyInfo;
               return (
-                <CustomTable
-                  key={d.companyId} // Add a unique key for each CustomTable
-                  title={companyName}
-                  enableColumnActions
-                  columns={columns}
-                  isLoading={true}
-                  enableEditing={true}
-                  state={{
-                    isLoading: isLoading,
-                    showSkeletons: isLoading,
-                  }}
-                  editingMode='modal'
-                  enableEdit
-                  enableDelete
-                  data={d.stockAlertResponses}
-                  handleDelete={deleteRow}
-                  handleUpdate={handleUpdate}
-                  edit
-                  delete
-                />
+                <>
+                  <CustomTable
+                    key={d.companyId} // Add a unique key for each CustomTable
+                    title={companyName}
+                    enableColumnActions
+                    columns={columns}
+                    isLoading={isLoading}
+                    enableEditing={true}
+                    state={{
+                      isLoading: isLoading,
+                      showSkeletons: isLoading,
+                    }}
+                    editingMode='modal'
+                    enableEdit
+                    enableDelete
+                    data={d.stockAlertResponses}
+                    handleDelete={deleteRow}
+                    handleUpdate={handleUpdate}
+                    edit
+                    delete
+                  />
+                  <br></br>
+                </>
               );
             })
           ) : (
@@ -213,6 +238,8 @@ const ManageAlert = (props) => {
           )
         ) : null}
       </Box>
+
+      {/*Delete the Row Data */}
       <CustomeAlertDialog
         disagreeLabel={'Cancel'}
         agreeLabel={'Agree'}
