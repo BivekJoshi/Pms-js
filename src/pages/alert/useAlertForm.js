@@ -27,9 +27,28 @@ export const useAlertForm = () => {
     },
   });
 
+  // const handleClear = () => {
+  //   formik.setFieldValue('companyInfoId', null)
+  //   formik.setFieldValue('ltp', null)
+  //   formik.setFieldValue('alertType', null)
+  //   formik.setFieldValue('triggerPrice', '')
+  //   formik.setFieldValue('transactionType', 'PURCHASE')
+  // };
+
   const handleClear = () => {
-    formik.resetForm();
+    formik.resetForm({
+      values: {
+        companyInfoId: "",
+        alertType: "",
+        triggerPrice: "",
+        alertMethod: "",
+        transactionType: "PURCHASE",
+        ltp: null,
+      },
+    });
   };
+  
+  
   return {
     formik,
     handleClear,

@@ -1,4 +1,4 @@
-import { Chip, Grid, Typography } from "@mui/material";
+import { Chip, Grid, Typography, useTheme } from "@mui/material";
 import React from "react";
 import {
   Area,
@@ -10,7 +10,7 @@ import {
   YAxis,
 } from "recharts";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import { useTheme } from "@emotion/react";
+
 
 function StockExchange() {
   const theme = useTheme();
