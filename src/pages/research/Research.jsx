@@ -10,17 +10,19 @@ const Research = () => {
   const theme = useTheme();
 
   return (
-    <Grid
-      display="grid"
-      gridTemplateColumns="2fr 3fr"
-      gap="32px"
-      p="32px 16px"
-      rowGap="32px"
-    >
-      <SelectorPerformance />
-      <MarketNews />
-      <TopGainers />
-      <StockExchange/>
+    <Grid container spacing={2}>
+      <Grid item xs={12} sm={12} md={4} lg={4}>
+        <SelectorPerformance />
+      </Grid>
+      <Grid item xs={12} sm={12} md={8} lg={8}>
+        <MarketNews />
+      </Grid>
+      <Grid item xs={12} sm={12} md={4} lg={4}>
+        <TopGainers />
+      </Grid>
+      <Grid item xs={12} sm={12} md={8} lg={8}>
+        <StockExchange />
+      </Grid>
     </Grid>
   );
 };

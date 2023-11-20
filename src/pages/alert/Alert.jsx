@@ -1,4 +1,4 @@
-import { TabContext, TabPanel } from "@mui/lab";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
   Autocomplete,
   Box,
@@ -9,7 +9,6 @@ import {
   FormGroup,
   FormHelperText,
   Grid,
-  Radio,
   Switch,
   Tab,
   Tabs,
@@ -43,9 +42,9 @@ const deliveryMethods = [
 ];
 
 const Alert = (props) => {
-  const [activeTab, setactiveTab] = useState("1");
+  const [value, setValue] = useState("1");
   const theme = useTheme();
-  const handleChange = (event, newValue) => setactiveTab(newValue);
+  const handleChange = (event, newValue) => setValue(newValue);
   const themeMode = useSelector((state) => state.theme?.mode);
   const { formik, handleClear } = useAlertForm();
   const { data: listedCompanies } = useGetListedCompanies();
@@ -53,6 +52,7 @@ const Alert = (props) => {
   const btnStyle = {
     backgroundColor: themeMode === "dark" ? "#8496ff" : "#ebebeb",
   };
+
   const symbolsArray = [];
   for (const key in listedCompanies) {
     if (Object.hasOwnProperty.call(listedCompanies, key)) {
@@ -79,10 +79,8 @@ const Alert = (props) => {
 
   useEffect(() => {
     if (companyData?.script) {
-      console.log("Setting ltp value:", companyData.script?.ltp);
       formik.setFieldValue("ltp", companyData.script?.ltp);
     } else {
-      console.log("Setting ltp value to null");
       formik.setFieldValue("ltp", "");
     }
   }, [companyData?.script]); //eslint-disable-line
@@ -101,8 +99,7 @@ const Alert = (props) => {
   return (
     <>
       <div>
-        <TabContext value={activeTab}>
-          <div>
+        <TabContext value={value}>
             <div
               style={{
                 backgroundColor: theme.palette.background.alt,
@@ -110,40 +107,34 @@ const Alert = (props) => {
                 borderRadius: "6px",
                 display: "flex",
                 alignItems: "center",
+                gap: "1rem",
               }}
             >
-              <Tabs
-                onChange={handleChange}
-                value={activeTab}
-                indicatorColor="secondary"
-                textColor={theme.palette.text.main}
-              >
-                <Tab
-                  sx={{
-                    borderRadius: "5px",
-                    p: 0,
-                    px: "8px",
-                    backgroundColor:
-                      activeTab === "1" && btnStyle.backgroundColor,
-                  }}
+               <Typography
+              variant="h5"
+              style={{
+                color: theme.palette.text.light,
+                fontWeight: "800",
+              }}
+            >
+              Alert :
+            </Typography>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <TabList onChange={handleChange} indicatorColor="secondary" textColor={theme.palette.text.main}>
+            <Tab
                   label="Create Alert"
                   value="1"
+                  style={value === "1" ? activeLabelStyle : labelStyle}
                 />
                 <Tab
-                  sx={{
-                    borderRadius: "5px",
-                    p: 0,
-                    px: "8px",
-                    backgroundColor:
-                      activeTab === "2" && btnStyle.backgroundColor,
-                  }}
                   label="Manage Alert"
                   value="2"
+                  style={value === "2" ? activeLabelStyle : labelStyle}
                 />
-              </Tabs>
+            </TabList>
+            </Box>
             </div>
-          </div>
-          <TabPanel sx={{ p: 0, pt: "16px" }} value="1">
+            <TabPanel sx={{ p: 0, pt: "16px" }} value="1">
             <div
               style={{
                 backgroundColor: theme.palette.background.alt,
@@ -471,7 +462,7 @@ const Alert = (props) => {
                     color: "#fcfcfc",
                     textTransform: "none",
                   }}
-                  // disabled={!formik.isValid}
+                  disabled={!formik.isValid}
                 >
                   Create Alert
                 </Button>
@@ -494,7 +485,7 @@ const Alert = (props) => {
                 <AlertScriptDetails data={companyData} isLoading={isLoading} />
               </div>
             )}
-          </TabPanel>
+            </TabPanel>
           <TabPanel sx={{ p: 0, pt: "16px" }} value="2">
             <ManageAlert
               script={symbols}

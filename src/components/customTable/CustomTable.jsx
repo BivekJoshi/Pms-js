@@ -46,20 +46,10 @@ const CustomTable = (props) => {
     exitEditingMode(); //required to exit editing mode
   };
 
-  const headerBackgroundColor =
-    props.headerBackgroundColor ||
-    (theme.palette.mode === "light" ? "#ffffff" : "#401686");
-  const headerColor =
-    props.headerColor ||
-    (theme?.palette?.mode === "light" ? "#fafafa" : "#fafafa");
-
   const bodyBackgroundColor =
     theme.palette.mode === "light" ? "#ffffff" : "#191F45";
   return (
-    <div
-      className="custom_table"
-      style={{ backgroundColor: headerBackgroundColor }}
-    >
+    <div className="custom_table">
       <MaterialReactTable
         columns={props?.columns || []}
         data={props?.data || []}
@@ -115,8 +105,13 @@ const CustomTable = (props) => {
         }}
         muiTableHeadRowProps={{
           sx: {
-            backgroundColor: headerBackgroundColor,
-            color: headerColor,
+            backgroundColor:
+              props?.headerBackgroundColor ||
+              (theme.palette.mode === "light" ? "#ffffff" : "#21295C"),
+            color:
+              props?.headerColor ||
+              (theme?.palette?.mode === "light" ? "#fafafa" : "#fafafa"),
+            // color: "red",
           },
         }}
         // enableRowSelection

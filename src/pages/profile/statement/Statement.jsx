@@ -112,7 +112,7 @@ const Statement = ({ tradeDate }) => {
       <Box marginTop={2}>
         {tableShow ? (
           <CustomTable
-            title='Transaction Report'
+            title='Statement Report'
             columns={columns}
             isLoading={isLoading}
             data={tableData}
