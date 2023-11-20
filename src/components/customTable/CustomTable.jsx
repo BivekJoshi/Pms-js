@@ -11,6 +11,7 @@ import {
 import { Delete, Edit } from "@mui/icons-material";
 import { useCallback } from "react";
 import "./CustomTable.css";
+
 const CustomTable = (props) => {
   const theme = useTheme();
 

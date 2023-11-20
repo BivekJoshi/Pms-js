@@ -79,7 +79,11 @@ const Alert = (props) => {
 
   useEffect(() => {
     if (companyData?.script) {
+      console.log("Setting ltp value:", companyData.script?.ltp);
       formik.setFieldValue("ltp", companyData.script?.ltp);
+    } else {
+      console.log("Setting ltp value to null");
+      formik.setFieldValue("ltp", "");
     }
   }, [companyData?.script]); //eslint-disable-line
 
@@ -160,15 +164,17 @@ const Alert = (props) => {
                 style={{ display: "flex", gap: "16px", padding: "24px 0px" }}
               >
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <Grid item xs={12} sm={6} md={3} lg={3}>
                     <Autocomplete
                       name="companyInfoId"
                       options={scriptFullName}
                       getOptionLabel={(option) => option.label}
+                      value={scriptFullName.find((option) => option.id === formik.values.companyInfoId) || null}
                       renderInput={(params) => (
                         <TextField
                           {...params}
                           label="Select a Company"
+                          name="companyInfoId"
                           placeholder="Select a Company"
                           variant="outlined"
                           autoFocus
@@ -199,7 +205,7 @@ const Alert = (props) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <Grid item xs={12} sm={6} md={3} lg={3}>
                     <TextField
                       {...props}
                       sx={{
@@ -217,11 +223,11 @@ const Alert = (props) => {
                       variant="outlined"
                       size="small"
                       label="LTP"
-                      onChange={(e, value) => {
-                        formik?.setFieldValue("ltp", value || ""); // Set the field value based on the selected option or an empty string if no option is selected
-                      }}
+                      // onChange={(e, value) => {
+                      //   console.log({"value console": value})
+                      //   formik?.setFieldValue("ltp", value); // Set the field value based on the selected option or an empty string if no option is selected
+                      // }}
                       disabled
-                      // value={companyData?.script?.ltp}
                       value={formik.values.ltp}
                       inputProps={{
                         inputMode: "numeric",
@@ -229,11 +235,12 @@ const Alert = (props) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <Grid item xs={12} sm={6} md={3} lg={3}>
                     <Autocomplete
                       name="alertType"
                       getOptionLabel={(option) => option.label} // Specify how to display the option label
                       options={alertType}
+                      value={alertType.find((option) => option.id === formik.values.alertType) || null}
                       renderInput={(params) => (
                         <TextField
                           {...params}
@@ -261,7 +268,7 @@ const Alert = (props) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6} md={4} lg={3}>
+                  <Grid item xs={12} sm={6} md={3} lg={3}>
                     <TextField
                       {...props}
                       sx={{
@@ -297,7 +304,7 @@ const Alert = (props) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={4} md={3} lg={3} className="d-flex">
+                  <Grid item xs={12} sm={6} md={3} lg={2} className="d-flex ">
                     <FormControl component="fieldset">
                       <label>Alert For </label>
                       <FormGroup
@@ -358,7 +365,7 @@ const Alert = (props) => {
                       </FormGroup>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} sm={6} md={4} lg={3} className="d-flex">
+                  <Grid item xs={12} sm={6} md={6} lg={6} className="d-flex ">
                     <FormControl component="fieldset">
                       <label>Select Delivery Method</label>
                       <FormGroup
@@ -439,6 +446,21 @@ const Alert = (props) => {
               >
                 <Button
                   variant="contained"
+                  color="error"
+                  onClick={handleClear}
+                  sx={{
+                    mt: 3,
+                    ml: 1,
+                    // backgroundColor: "#6C49B4",
+                    themeMode,
+                    color: "error",
+                    textTransform: "none",
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="contained"
                   type="submit"
                   onClick={handleFormSubmit}
                   sx={{
@@ -449,7 +471,7 @@ const Alert = (props) => {
                     color: "#fcfcfc",
                     textTransform: "none",
                   }}
-                  disabled={!formik.isValid}
+                  // disabled={!formik.isValid}
                 >
                   Create Alert
                 </Button>
