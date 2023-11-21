@@ -76,45 +76,7 @@ const Company = () => {
         borderRadius: "6px",
       }}
     >
-      <Typography
-        variant="h2"
-        style={{
-          color: theme.palette.text.dark,
-          marginBottom: "1rem",
-        }}
-      >
-<<<<<<< HEAD
-        {companyData?.companyInfo?.companyInfo}
-      </Typography>
-      <Grid container spacing={2}>
-        <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell
-                    style={cellStyle}
-                    sx={{ backgroundColor: "#401686", color: "#fff" }}
-                  >
-                    Heading
-                  </TableCell>
-                  <TableCell>Data</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.heading}>
-                    <TableCell style={cellStyle}>{row.heading}</TableCell>
-                    <TableCell>{row.data}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <Box sx={{ padding: "1rem 2rem" }}>
-            <CompanyDetail companyData={companyData}  />
-          </Box>
-=======
+     
         <Typography
           variant="h2"
           style={{
@@ -187,7 +149,6 @@ const Company = () => {
               </ResponsiveContainer>
             </Box>
           </Grid>
->>>>>>> ef7470dd1d7bfb492f90a939205000febba75e04
         </Grid>
         <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
           <Box
@@ -219,7 +180,7 @@ const Company = () => {
             </ResponsiveContainer>
           </Box>
         </Grid>
-      </Grid>
+     
       <br />
       <Box
         color={theme.palette.text.main}

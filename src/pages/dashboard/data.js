@@ -195,3 +195,57 @@ export const companyData = [
     Mvalue: 490,
   },
 ];
+
+export const bestPerformanceData = [
+  {
+      script: 'ANBL (10)',
+      ltp: 1653.3,
+      pp: 1700.2,
+      change: '10.00%',
+    },
+    {
+      script: 'UNL (20)',
+      ltp: 23423.32,
+      pp: 324234.32,
+      change: '34%',
+    },
+    {
+      script: 'CHCL (60)',
+      ltp: 12332.121,
+      pp: 2212.12,
+      change: '98%',
+    },
+    {
+      script: 'NBL (50)',
+      ltp: 2342,
+      pp: 332.45,
+      change: '19%',
+    },
+];
+
+export const worstPerformanceData = [
+  {
+    script: 'HDL (10)',
+    ltp: 1653.3,
+    pp: 1700.2,
+    change: '10.00%',
+  },
+  {
+    script: 'SONA (20)',
+    ltp: 23423.32,
+    pp: 324234.32,
+    change: '34%',
+  },
+  {
+    script: 'SANM (60)',
+    ltp: 12332.121,
+    pp: 2212.12,
+    change: '98%',
+  },
+  {
+    script: 'NBL (50)',
+    ltp: 2342,
+    pp: 332.45,
+    change: '19%',
+  },
+];
