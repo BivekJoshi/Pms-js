@@ -1,6 +1,6 @@
 import Timer from "../../components/timer/Timer";
 import { Box, Grid, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TimerOutlinedIcon from "@mui/icons-material/TimerOutlined";
 import OtpInput from "react-otp-input";
 import { LoadingButton } from "@mui/lab";
@@ -13,17 +13,28 @@ import Varification from "../../assets/varification.png";
 
 const Verification = () => {
   const [otp, setOtp] = useState("");
+  const [required, setRequired] = useState(false);
   const { id } = useParams();
 
   const { handleVerification, loading } = useVerificationForm();
-  const { handleResendVerification } = useResendVerificationForm();
-  
+  const { handleResendVerification, resetTimer } = useResendVerificationForm();
+
   const handleSubmit = () => {
-    handleVerification({ id, otp });
+    if (otp) handleVerification({ id, otp });
+    if (!otp) {
+      setRequired(true);
+    }
   };
   const handleClick = () => {
-    handleResendVerification({ id });
+    if (id) {
+      handleResendVerification({ id });
+    }
   };
+
+  useEffect(() => {
+    if (otp?.length === 0) setRequired(false);
+  }, [otp]);
+  console.log(resetTimer);
   return (
     <Box
       className="paddingOuter"
@@ -60,11 +71,21 @@ const Verification = () => {
             <OtpInput
               value={otp}
               onChange={setOtp}
+              shouldAutoFocus
               numInputs={6}
               renderSeparator={<span>&nbsp; &nbsp;</span>}
-              renderInput={(props) => (
-                <input {...props} className="bg-light-verification " />
-              )}
+              renderInput={(props) => {
+                const value = props.value;
+                const isEmpty = required ? !value : false;
+                return (
+                  <input
+                    {...props}
+                    className={`bg-light-verification  ${
+                      isEmpty ? "otpRequiredBorder" : ""
+                    } `}
+                  />
+                );
+              }}
               isInputNum={true}
               inputStyle={{
                 border: "1px solid transparent",
@@ -89,7 +110,7 @@ const Verification = () => {
               alignItems="center"
             >
               <TimerOutlinedIcon sx={{ width: "18px" }} />
-              <Timer />
+              <Timer reset={resetTimer} />
             </Grid>
           </Grid>
         </Grid>
@@ -108,14 +129,14 @@ const Verification = () => {
           }}
         >
           <div className="titleMedium " style={{ margin: ".25rem 0" }}>
-            Verify Code
+            VERIFY CODE
           </div>
         </LoadingButton>
         <Grid sx={{ textAlign: "center" }}>
-          <div className="bodySmall ">
+          <div className="bodySmall">
             Not received your code?
             <span
-              style={{ color: "#3838d0", cursor: "pointer" }}
+              style={{ color: "#3838d0", cursor: "pointer", marginLeft: "5px" }}
               onClick={handleClick}
             >
               Resend Code

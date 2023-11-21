@@ -70,6 +70,10 @@ body {
   }
 }
 
+.otpRequiredBorder {
+  border-color: #ff4b4b !important;
+}
+
 .displayLarge {
   font-family: DM Sans;
   font-size: 32px;
@@ -199,7 +203,8 @@ body {
   background: radial-gradient(ellipse at center, #ACA9B1 0%, rgba(172, 169, 177, 0.80) 52.81%, #ACA9B1 100%);
   /* Other CSS properties here */
 }
+
 .primium-gradient-button {
-  background:  radial-gradient(2240.45% 100% at 0% 50%, #E0AA3E 0%, rgba(224, 171, 63, 0.80) 53.01%, #E0AB3F 100%);
+  background: radial-gradient(2240.45% 100% at 0% 50%, #E0AA3E 0%, rgba(224, 171, 63, 0.80) 53.01%, #E0AB3F 100%);
   /* Other CSS properties here */
 }
