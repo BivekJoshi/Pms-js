@@ -120,6 +120,7 @@ const LoginPage = () => {
             name='password'
             autoComplete='current-password'
             fullWidth
+            required
             value={formik.values.password}
             onChange={formik.handleChange}
             onKeyPress={(ev) => {

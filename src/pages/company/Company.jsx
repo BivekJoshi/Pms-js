@@ -144,7 +144,8 @@ const Company = () => {
             </ResponsiveContainer>
           </Box>
         </Grid>
-      </Grid>
+        </Grid>
+     
       <br />
       <Box
         color={theme.palette.text.main}

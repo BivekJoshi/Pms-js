@@ -11,7 +11,9 @@ const registerSchema = Yup.object().shape({
   brokerNo: Yup.string().required("Broker name is required"),
   mobileNo: Yup.string()
     .min(10, "Mobile number must have at least 10 digits")
-    .required("Mobile number is required"),
+    .required("Mobile number is required")
+    .matches(/^[0-9]{10}$/, "Invalid mobile number format")
+    .matches(/^9\d{9}$/, "Mobile number must start from 9"),
 });
 
 export { registerSchema };

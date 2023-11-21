@@ -126,6 +126,7 @@ const RegisterPage = () => {
             fullWidth
             variant='outlined'
             type='number'
+            maxLength='10'
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>

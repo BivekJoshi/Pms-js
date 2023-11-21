@@ -104,19 +104,7 @@ const Navbar = () => {
     id: item?.id,
   }));
 
-  // const textFieldStyle = {
-  //   width: "320px",
-  // };
 
-  // if (theme.breakpoints.down("xs")) {
-  //   textFieldStyle.width = "100px"; // Extra small screens
-  // } else if (theme.breakpoints.down("sm")) {
-  //   textFieldStyle.width = "200px"; // Small screens
-  // } else if (theme.breakpoints.down("md")) {
-  //   textFieldStyle.width = "250px"; // Medium screens
-  // } else if (theme.breakpoints.down("lg")) {
-  //   textFieldStyle.width = "300px"; // Large screens
-  // }
   return (
     <AppBar
       style={{

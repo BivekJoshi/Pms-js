@@ -100,17 +100,17 @@ const Alert = (props) => {
     <>
       <div>
         <TabContext value={value}>
-            <div
-              style={{
-                backgroundColor: theme.palette.background.alt,
-                padding: "12px",
-                borderRadius: "6px",
-                display: "flex",
-                alignItems: "center",
-                gap: "1rem",
-              }}
-            >
-               <Typography
+          <div
+            style={{
+              backgroundColor: theme.palette.background.alt,
+              padding: "12px",
+              borderRadius: "6px",
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+            }}
+          >
+            <Typography
               variant="h5"
               style={{
                 color: theme.palette.text.light,
@@ -120,8 +120,12 @@ const Alert = (props) => {
               Alert :
             </Typography>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <TabList onChange={handleChange} indicatorColor="secondary" textColor={theme.palette.text.main}>
-            <Tab
+              <TabList
+                onChange={handleChange}
+                indicatorColor="secondary"
+                textColor={theme.palette.text.main}
+              >
+                <Tab
                   label="Create Alert"
                   value="1"
                   style={value === "1" ? activeLabelStyle : labelStyle}
@@ -131,10 +135,10 @@ const Alert = (props) => {
                   value="2"
                   style={value === "2" ? activeLabelStyle : labelStyle}
                 />
-            </TabList>
+              </TabList>
             </Box>
-            </div>
-            <TabPanel sx={{ p: 0, pt: "16px" }} value="1">
+          </div>
+          <TabPanel sx={{ p: 0, pt: "16px" }} value="1">
             <div
               style={{
                 backgroundColor: theme.palette.background.alt,
@@ -160,7 +164,11 @@ const Alert = (props) => {
                       name="companyInfoId"
                       options={scriptFullName}
                       getOptionLabel={(option) => option.label}
-                      value={scriptFullName.find((option) => option.id === formik.values.companyInfoId) || null}
+                      value={
+                        scriptFullName.find(
+                          (option) => option.id === formik.values.companyInfoId
+                        ) || null
+                      }
                       renderInput={(params) => (
                         <TextField
                           {...params}
@@ -231,7 +239,11 @@ const Alert = (props) => {
                       name="alertType"
                       getOptionLabel={(option) => option.label} // Specify how to display the option label
                       options={alertType}
-                      value={alertType.find((option) => option.id === formik.values.alertType) || null}
+                      value={
+                        alertType.find(
+                          (option) => option.id === formik.values.alertType
+                        ) || null
+                      }
                       renderInput={(params) => (
                         <TextField
                           {...params}
@@ -485,7 +497,7 @@ const Alert = (props) => {
                 <AlertScriptDetails data={companyData} isLoading={isLoading} />
               </div>
             )}
-            </TabPanel>
+          </TabPanel>
           <TabPanel sx={{ p: 0, pt: "16px" }} value="2">
             <ManageAlert
               script={symbols}

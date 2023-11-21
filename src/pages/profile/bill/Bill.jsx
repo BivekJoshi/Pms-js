@@ -161,15 +161,16 @@ const Bill = ({ tradeDate }) => {
           justifyContent: "space-between",
           alignItems: "center",
           flexWrap: "wrap",
+          borderRadius:'6px'
         }}
       >
         <div>
           <Typography variant="h4">Bills Report</Typography>
-          <Typography variant="h7">Date: 2078-01-09</Typography>
+          <Typography variant="h7">Last Transaction Date: 2078-01-09</Typography>
           <br/>
           <Typography variant="h7">Transaction Type: Sell</Typography>
         </div>
-        <div>
+        <div style={{display:"flex",gap:'7px'}}>
           <LocalPrintshopOutlinedIcon/>
           <DownloadIcon/>
         </div>
