@@ -83,7 +83,6 @@ const Company = () => {
           marginBottom: "1rem",
         }}
       >
-<<<<<<< HEAD
         {companyData?.companyInfo?.companyInfo}
       </Typography>
       <Grid container spacing={2}>
@@ -114,80 +113,6 @@ const Company = () => {
           <Box sx={{ padding: "1rem 2rem" }}>
             <CompanyDetail companyData={companyData}  />
           </Box>
-=======
-        <Typography
-          variant="h2"
-          style={{
-            color: theme.palette.text.dark,
-            marginBottom: "1rem",
-          }}
-        >
-          {companyData?.companyInfo?.companyInfo}
-        </Typography>
-        <Grid container spacing={2}>
-          <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-            <TableContainer component={Paper}>
-              <Table aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell
-                      style={cellStyle}
-                      sx={{ backgroundColor: "#401686", color: "#fff" }}
-                    >
-                      Heading
-                    </TableCell>
-                    <TableCell style={cellStyle}>Data</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map((row) => (
-                    <TableRow key={row.heading}>
-                      <TableCell style={cellStyle}>{row.heading}</TableCell>
-                      <TableCell style={cell1Style}>{row.data}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <Box sx={{ paddingTop: ".5rem" }}>
-              <CompanyDetail companyData={companyData} />
-            </Box>
-          </Grid>
-          <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
-            <Box
-              color={theme.palette.text.main}
-              bgcolor={theme.palette.background.alt}
-              sx={{
-                padding: "1rem 2rem",
-                borderRadius: "6px",
-              }}
-            >
-              <Typography variant="h4" style={{ marginBottom: "1rem" }}>
-                {companyData?.companyInfo?.companyInfo}
-              </Typography>
-              <ResponsiveContainer width="100%" height={500}>
-                <LineChart width={500} height={300} data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey={t("Pvalue")}
-                    stroke="#8884d8"
-                    activeDot={{ r: 8 }}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey={t("Mvalue")}
-                    stroke="#82ca9d"
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </Box>
-          </Grid>
->>>>>>> ef7470dd1d7bfb492f90a939205000febba75e04
         </Grid>
         <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
           <Box
