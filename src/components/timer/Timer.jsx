@@ -4,7 +4,7 @@ import Timecode from "react-timecode";
 const Timer = (props) => {
   const { reset } = props;
   const [time, setTime] = useState(0);
-  const [duration] = useState(1 * 60 * 1000);
+  const [duration] = useState(5 * 60 * 1000);
 
   useEffect(() => {
     const timer = setInterval(() => {
