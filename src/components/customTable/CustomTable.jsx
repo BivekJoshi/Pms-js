@@ -14,11 +14,11 @@ import './CustomTable.css';
 const CustomTable = (props) => {
   const theme = useTheme();
 
-  const handlePaginationChange = (pageIndex, pageSize) => {
-    if (props?.onPaginationChange) {
-      props?.onPaginationChange({ pageIndex, pageSize });
-    }
-  };
+  // const handlePaginationChange = (pageIndex, pageSize) => {
+  //   if (props?.onPaginationChange) {
+  //     props?.onPaginationChange({ pageIndex, pageSize });
+  //   }
+  // };
   const handleRowClick = (row) => {
     if (props?.onRowClick) {
       props?.onRowClick(row);
@@ -74,7 +74,7 @@ const CustomTable = (props) => {
         onEditingRowSave={handleSaveRow}
         editingMode={props.editingMode}
         rowCount={props?.rowCount}
-        onPaginationChange={handlePaginationChange}
+        // onPaginationChange={handlePaginationChange}
         state={props?.state}
         initialState={{ density: props?.density || 'compact' }}
         enableColumnResizing={props?.enableColumnResizing || true}

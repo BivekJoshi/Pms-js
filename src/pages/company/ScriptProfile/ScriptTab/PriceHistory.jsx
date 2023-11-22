@@ -26,7 +26,11 @@ const PriceHistory = ({ companyData }) => {
   const totalPages = useSelector((store) => store?.paginatedTable?.pages);
   const currentPage = useSelector((store) => store?.paginatedTable?.page);
 
-  const pageSize = useSelector((store) => store?.paginatedTable?.itemPerPage);
+  const pageSize = useSelector((store) => store?.paginatedTable?.itemsPerPage);
+  console.log(
+    '🚀 ~ file: PriceHistory.jsx:30 ~ PriceHistory ~ pageSize:',
+    pageSize
+  );
 
   const [params, setParams] = useState();
 
@@ -65,6 +69,10 @@ const PriceHistory = ({ companyData }) => {
   };
   useEffect(() => {
     dispatch(clearPaginatedData());
+    const updatedFormValues = {
+      script: companyData?.companyInfo?.symbol,
+    };
+    setParams(updatedFormValues);
     fetchData();
     return () => {
       dispatch(clearPaginatedData());
@@ -186,14 +194,6 @@ const PriceHistory = ({ companyData }) => {
             // onRowClick={handleRowClick}
             headerBackgroundColor='#401686'
             headerColor={theme.palette.text.alt}
-            enablePagination={false}
-            enableEditing={false}
-            enableColumnResizing={false}
-            enableColumnActions={false}
-            enableColumnFilters={false}
-            enableSorting={false}
-            enableBottomToolbar={false}
-            enableTopToolbar={false}
           />
           <div
             style={{

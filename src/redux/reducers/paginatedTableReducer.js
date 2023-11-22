@@ -77,6 +77,7 @@ const fetchPaginatedSelectTable = (action) => {
   };
   let pages = 1;
   const totalNoOfData = action.total || action.payload.total;
+
   if (action.payload.pageSize) {
     let remainder = totalNoOfData % action.payload.pageSize;
     pages = ~~(totalNoOfData / action.payload.pageSize);

@@ -182,6 +182,11 @@ const ManageAlert = (props) => {
   {
     if (isLoading) return <Spinner />;
   }
+  console.log(
+    '🚀 ~ file: ManageAlert.jsx:195 ~ ManageAlert ~ tableShow:',
+    tableShow
+  );
+
   return (
     <div>
       <NewFilter
@@ -191,7 +196,7 @@ const ManageAlert = (props) => {
       />
       <Box marginTop={2}>
         {tableShow ? (
-          tableData && tableData.length > 0 ? ( // Check if tableData is not empty
+          tableData.length > 0 ? ( // Check if tableData is not empty
             tableData.map((d) => {
               const companyName = props.companyList?.find(
                 (data) => data.id === d.companyId
