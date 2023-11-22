@@ -84,11 +84,7 @@ export const useApplication = ({ onSuccess }) => {
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
-        if (err.message === 'Request failed with status code 406') {
-          // toast.success('Success');
-          history('/status/message');
-        }
-        toast.error(err.message);
+        toast.error(getErrorMessage(err));
       },
     }
   );
@@ -104,22 +100,19 @@ export const useVerification = ({ onSuccess }) => {
       onSuccess && onSuccess(data, variables, context);
     },
     onError: (err, _variables, _context) => {
-      toast.error(err.message);
+      toast.error(getErrorMessage(err));
     },
   });
 };
 
 export const useResendVerification = ({ onSuccess }) => {
-  const history = useNavigate();
-
   return useMutation(['verification'], ({ id }) => resendVerification(id), {
     onSuccess: (data, variables, context) => {
       toast.success('code re-send Successfully');
-      history('login');
       onSuccess && onSuccess(data, variables, context);
     },
     onError: (err, _variables, _context) => {
-      toast.error(err.message);
+      toast.error(getErrorMessage(err));
     },
   });
 };
@@ -138,7 +131,7 @@ export const useResetPassword = ({ onSuccess }) => {
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
-        toast.error(err.message);
+        toast.error(getErrorMessage(err));
       },
     }
   );

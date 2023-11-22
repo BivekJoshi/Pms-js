@@ -18,11 +18,20 @@ import InputType from '../inputType/InputType';
 import { useTranslation } from 'react-i18next';
 import SearchIcon from '@mui/icons-material/Search';
 
-const NewFilter = ({ inputField, searchCallBack, validate, tradeDate ,showfilter}) => {
+const NewFilter = ({
+  inputField,
+  searchCallBack,
+  validate,
+  tradeDate,
+  showfilter,
+  submitButtonText,
+}) => {
   const theme = useTheme();
   const { t } = useTranslation();
-  const [showFilter, setShowFilter] = useState(showfilter !== undefined ? showfilter : true);
-  
+  const [showFilter, setShowFilter] = useState(
+    showfilter !== undefined ? showfilter : true
+  );
+
   const initialValues = inputField.reduce((acc, item) => {
     acc[item.name] = '';
     return acc;
@@ -190,7 +199,9 @@ const NewFilter = ({ inputField, searchCallBack, validate, tradeDate ,showfilter
                         textTransform:"none"
                       }}
                     >
-                      {t('Search')}
+                      {submitButtonText
+                        ? t(`${submitButtonText}`)
+                        : t('SUBMIT')}
                     </Button>
                   </div>
                 </Form>

@@ -34,6 +34,7 @@ const WatchList = () => {
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
 
   const [watchlist, setWatchList] = useState();
+
   const [open, setOpen] = useState(false);
   const [watchListModal, setWatchListModal] = useState(null);
   const [watchListDetail, setWatchListDetail] = React.useState({
@@ -43,8 +44,8 @@ const WatchList = () => {
 
   const { data: listedCompanies } = useGetListedCompanies();
 
-  const { formik } = useWatchListDetailForm(watchlist);
-  const [selectedSymbol, setSelectedSymbol] = useState(formik.values.script);
+  const [selectedSymbol, setSelectedSymbol] = useState();
+  const { formik } = useWatchListDetailForm(watchlist, setSelectedSymbol);
 
   const handleFormSubmit = () => {
     formik.handleSubmit();
@@ -71,7 +72,7 @@ const WatchList = () => {
     watchlist
   );
   useEffect(() => {
-    if (!loadingname && watchListName?.length > 0 && watchlist) {
+    if (!loadingname && watchListName?.length > 0) {
       setWatchList(watchListName[0]?.id);
     }
   }, [loadingname, watchListName]);
@@ -90,8 +91,8 @@ const WatchList = () => {
           sx={{
             backgroundColor: theme.palette.background.btn,
             color: theme.palette.text.alt,
-            marginTop: "1rem",
-            textTransform: "none",
+            marginTop: '1rem',
+            textTransform: 'none',
           }}
         >
           {t("Create New watchlist")}

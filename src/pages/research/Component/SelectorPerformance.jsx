@@ -1,38 +1,38 @@
-import React from "react";
-import CustomTable from "../../../components/customTable/CustomTable";
-import { useMemo } from "react";
-import { useTheme } from "@emotion/react";
-import { Grid } from "@mui/material";
+import React from 'react';
+import CustomTable from '../../../components/customTable/CustomTable';
+import { useMemo } from 'react';
+import { useTheme } from '@emotion/react';
+import { Grid } from '@mui/material';
 
 const SelectorPerformance = () => {
   const theme = useTheme();
   const data = [
-    { index: "NEPSE Index", points: "2037.92", pointChange: "18.96" },
-    { index: "NEPSE Index", points: "2037.92", pointChange: "18.96" },
-    { index: "NEPSE Index", points: "2037.92", pointChange: "18.96" },
-    { index: "NEPSE Index", points: "2037.92", pointChange: "18.96" },
-    { index: "NEPSE Index", points: "2037.92", pointChange: "18.96" },
+    { index: 'NEPSE Index', points: '2037.92', pointChange: '18.96' },
+    { index: 'NEPSE Index', points: '2037.92', pointChange: '18.96' },
+    { index: 'NEPSE Index', points: '2037.92', pointChange: '18.96' },
+    { index: 'NEPSE Index', points: '2037.92', pointChange: '18.96' },
+    { index: 'NEPSE Index', points: '2037.92', pointChange: '18.96' },
   ];
   const columns = useMemo(
     () => [
       {
         id: 1,
-        accessorKey: "index",
-        header: "Index",
+        accessorKey: 'index',
+        header: 'Index',
         size: 150,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: "points",
-        header: "Points",
+        accessorKey: 'points',
+        header: 'Points',
         size: 100,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: "pointChange",
-        header: "Point Change",
+        accessorKey: 'pointChange',
+        header: 'Point Change',
         size: 120,
         sortable: false,
       },
@@ -44,17 +44,17 @@ const SelectorPerformance = () => {
       item
       xs={12}
       bgcolor={theme.palette.background.alt}
-      borderRadius={"6px"}
+      borderRadius={'6px'}
       padding={2}
     >
       <CustomTable
-        title=" Market Index"
+        title=' Market Index'
         columns={columns}
         //   isLoading={isLoading}
         data={data}
         //   pageSize={pageSize}
         //   onRowClick={handleRowClick}
-        headerBackgroundColor="#401686"
+        headerBackgroundColor='#401686'
         headerColor={theme.palette.text.main}
         enablePagination={false}
         enableEditing={false}
@@ -67,8 +67,8 @@ const SelectorPerformance = () => {
         enableDensityToggle={false}
         enableHiding={false}
         enableFullScreenToggle={false}
-        enableGlobalFilter= {false}
-        density="comfortable"
+        enableGlobalFilter={false}
+        density='comfortable'
       />
     </Grid>
   );

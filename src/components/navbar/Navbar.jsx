@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { SettingsOutlined, Menu as MenuIcon } from "@mui/icons-material";
+import {
+  SettingsOutlined,
+  Menu as MenuIcon,
+  MenuOpen,
+} from "@mui/icons-material";
 import DarkModeSetting from "../Setting/DarkModeSetting";
 import {
   AppBar,
@@ -26,6 +30,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import LiveIndicator from "../liveIndicator/LiveIndicator";
 import { useGetUserChildDetail } from "../../hooks/portfolio/usePortfolio";
+import { useSelector } from "react-redux";
 
 const navItems = [
   {
@@ -63,7 +68,7 @@ const Navbar = () => {
   const { t } = useTranslation();
   const { data: listedCompanies } = useGetListedCompanies();
   const { data: childDetailData } = useGetUserChildDetail();
-
+  const themeMode = useSelector((state) => state.theme?.mode);
   const { pathname = "" } = useLocation();
   const marketOpen = false;
   const handleActiveClick = (path) => {
@@ -103,7 +108,6 @@ const Navbar = () => {
     companyInfo: item?.companyInfo,
     id: item?.id,
   }));
-
 
   return (
     <AppBar
@@ -246,9 +250,14 @@ const Navbar = () => {
             onClick={toggleMenu}
             sx={{
               display: { sm: "block", md: "none", xs: "block" }, // Show on small screens
+              color: themeMode === "dark" ? "#fff" : "#0000008a",
             }}
           >
-            <MenuIcon />
+            {isMenuOpen ? (
+              <MenuOpen sx={{ fontSize: "25px" }} />
+            ) : (
+              <MenuIcon sx={{ fontSize: "25px" }} />
+            )}
           </IconButton>
         </FlexBetween>
       </Toolbar>

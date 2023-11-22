@@ -1,5 +1,5 @@
-import React from "react";
-import { MaterialReactTable } from "material-react-table";
+import React from 'react';
+import { MaterialReactTable } from 'material-react-table';
 import {
   Box,
   Button,
@@ -7,11 +7,10 @@ import {
   useTheme,
   IconButton,
   Tooltip,
-} from "@mui/material";
-import { Delete, Edit } from "@mui/icons-material";
-import { useCallback } from "react";
-import "./CustomTable.css";
-
+} from '@mui/material';
+import { Delete, Edit } from '@mui/icons-material';
+import { useCallback } from 'react';
+import './CustomTable.css';
 const CustomTable = (props) => {
   const theme = useTheme();
 
@@ -56,7 +55,7 @@ const CustomTable = (props) => {
         isLoading={props?.isLoading}
         enableRowNumbers={props.enableRowNumbers || false}
         enableRowVirtualization
-        headerTitle={props?.title || "My Table Title"}
+        headerTitle={props?.title || 'My Table Title'}
         enableStickyHeader
         // Here you enable pagination
         enablePagination={props?.manualPagination}
@@ -67,7 +66,7 @@ const CustomTable = (props) => {
         rowCount={props?.rowCount}
         onPaginationChange={handlePaginationChange}
         state={props?.state}
-        initialState={{ density: props?.density || "compact" }}
+        initialState={{ density: props?.density || 'compact' }}
         enableColumnResizing={props?.enableColumnResizing || true}
         enableColumnActions={props?.enableColumnActions}
         enableColumnFilters={props?.enableColumnFilters}
@@ -81,17 +80,17 @@ const CustomTable = (props) => {
         enableGlobalFilter={props?.enableGlobalFilter}
         density={props?.density}
         renderRowActions={({ row, table }) => (
-          <Box sx={{ display: "flex", gap: "1rem" }}>
+          <Box sx={{ display: 'flex', gap: '1rem' }}>
             {props.edit && (
-              <Tooltip arrow placement="left" title="Edit">
+              <Tooltip arrow placement='left' title='Edit'>
                 <IconButton onClick={() => table.setEditingRow(row)}>
                   <Edit />
                 </IconButton>
               </Tooltip>
             )}
             {props.delete && (
-              <Tooltip arrow placement="right" title="Delete">
-                <IconButton color="error" onClick={() => handleDeleteRow(row)}>
+              <Tooltip arrow placement='right' title='Delete'>
+                <IconButton color='error' onClick={() => handleDeleteRow(row)}>
                   <Delete />
                 </IconButton>
               </Tooltip>
@@ -100,7 +99,7 @@ const CustomTable = (props) => {
         )}
         muiTableContainerProps={{
           sx: {
-            maxHeight: props?.maxHeight || "600px",
+            maxHeight: props?.maxHeight || '600px',
           },
         }}
         muiTableHeadRowProps={{
@@ -117,32 +116,32 @@ const CustomTable = (props) => {
         muiTableBodyRowProps={({ row }) => ({
           onClick: () => handleRowClick(row),
           sx: {
-            cursor: "pointer",
+            cursor: 'pointer',
             backgroundColor: bodyBackgroundColor,
           },
         })}
         renderTopToolbarCustomActions={() => (
-          <Box sx={{ display: "flex", gap: "1rem", p: "4px" }}>
-            <Typography variant="h3">{props?.title}</Typography>
+          <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
+            <Typography variant='h3'>{props?.title}</Typography>
             {props?.button1 && (
               <Button
-                color="secondary"
+                color='secondary'
                 onClick={() => {
-                  alert("Create New Account");
+                  alert('Create New Account');
                 }}
-                variant="contained"
+                variant='contained'
               >
                 {props?.button1}
               </Button>
             )}
             {props?.button2 && (
               <Button
-                color="error"
+                color='error'
                 // disabled={!table.getIsSomeRowsSelected()}
                 onClick={() => {
-                  alert("Delete Selected Accounts");
+                  alert('Delete Selected Accounts');
                 }}
-                variant="contained"
+                variant='contained'
               >
                 {props?.button2}
               </Button>

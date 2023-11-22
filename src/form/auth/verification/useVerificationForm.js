@@ -43,32 +43,33 @@
 // };
 
 import { useState } from 'react';
-import { useFormik } from 'formik';
-import { useResendVerification, useVerification } from '../../../hooks/auth/useAuth';
-import { verificationSchema } from './verificationValidationSchema';
+import {
+  useResendVerification,
+  useVerification,
+} from '../../../hooks/auth/useAuth';
 
-export const useVerificationForm = () => { // Remove id and otp parameters
+export const useVerificationForm = () => {
+  // Remove id and otp parameters
   const [loading, setLoading] = useState(false);
   const { mutate } = useVerification({});
 
-  const formik = useFormik({
-    initialValues: {
-      id: '',
-      otp: '',
-    },
-    validationSchema: verificationSchema,
-    onSubmit: (values) => {
-      setLoading(true);
-      handleVerification(values);
-    },
-  });
+  // const formik = useFormik({
+  //   initialValues: {
+  //     id: "",
+  //     otp: "",
+  //   },
+  //   validationSchema: verificationSchema,
+  //   onSubmit: (values) => {
+  //     setLoading(true);
+  //     handleVerification(values);
+  //   },
+  // });
 
   const handleVerification = (values) => {
+    setLoading(true);
     const { id, otp } = values;
-    mutate(
-      { id, otp },
-      { onSettled: () => setLoading(false) }
-    );
+
+    mutate({ id, otp }, { onSettled: () => setLoading(false) });
   };
 
   const handleMouseDownPassword = (event) => {
@@ -77,42 +78,54 @@ export const useVerificationForm = () => { // Remove id and otp parameters
 
   return {
     handleVerification,
-    formik,
+    // formik,
     loading,
     handleMouseDownPassword,
   };
 };
 
-export const useResendVerificationForm = () => { // Remove id and otp parameters
+export const useResendVerificationForm = () => {
+  // Remove id and otp parameters
   const [load, setLoad] = useState(false);
+  const [resetTimer, setResetTimer] = useState(false);
   const { mutate } = useResendVerification({});
 
-  const formik = useFormik({
-    initialValues: {
-      id: '',
-    },
-    onSubmit: (values) => {
-      setLoad(true);
-      handleResendVerification(values);
-    },
-  });
+  // const formik = useFormik({
+  //   initialValues: {
+  //     id: '',
+  //   },
+  //   onSubmit: (values) => {
+  //     setLoad(true);
+  //     handleResendVerification(values);
+  //   },
+  // });
 
   const handleResendVerification = (values) => {
     const { id } = values;
     mutate(
       { id },
-      { onSettled: () => setLoad(false) }
+      {
+        onSuccess: () => {
+          setResetTimer(true);
+          setTimeout(() => {
+            setResetTimer(false);
+          }, 5000);
+        },
+      },
+      { onError: () => setResetTimer(false) },
+      {
+        onSettled: () => setLoad(false),
+      }
     );
   };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
   return {
     handleResendVerification,
-    formik,
     load,
+    resetTimer,
     handleMouseDownPassword,
   };
 };

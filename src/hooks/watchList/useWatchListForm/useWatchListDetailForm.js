@@ -1,8 +1,8 @@
-import { useFormik } from "formik";
-import { watchlistDetailSchema } from "./watchListSchema";
-import { useAddWatchListDetail } from "../useWatchList";
+import { useFormik } from 'formik';
+import { watchlistDetailSchema } from './watchListSchema';
+import { useAddWatchListDetail } from '../useWatchList';
 
-export const useWatchListDetailForm = (watchlist) => {
+export const useWatchListDetailForm = (watchlist, setSelectedSymbol) => {
   const { mutate } = useAddWatchListDetail({});
   const formik = useFormik({
     initialValues: {
@@ -20,11 +20,15 @@ export const useWatchListDetailForm = (watchlist) => {
       ...values,
     };
 
-    mutate(formData);
+    mutate(formData, {
+      onSuccess: () => {
+        formik.resetForm();
+        setSelectedSymbol([]);
+      },
+    });
   };
 
   return {
-    handleRegister,
     formik,
   };
 };

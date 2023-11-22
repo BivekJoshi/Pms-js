@@ -27,13 +27,17 @@ export const application = async (email, submissionNo) => {
 };
 
 export const verification = async (id, otp) => {
-  const { data } = await axiosInstance.post(`/public/register/${id}/${otp}`);
-  return data;
+  if (otp) {
+    const { data } = await axiosInstance.post(`/public/register/${id}/${otp}`);
+    return data;
+  }
 };
 
-export const resendVerification = async (id, otp) => {
-  const { data } = await axiosInstance.post(`/public/register/${id}/${otp}`);
-  return data;
+export const resendVerification = async (id) => {
+  if (id) {
+    const { data } = await axiosInstance.post(`/public/register/${id}`);
+    return data;
+  }
 };
 
 export const resetPassword = async (brokerNo, email, nepseCode) => {

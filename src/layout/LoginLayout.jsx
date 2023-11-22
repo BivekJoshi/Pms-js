@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Box, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Background from '../assets/left.png';
@@ -17,11 +17,13 @@ const LoginLayout = () => {
   const brokerOption = useSelector((state) => state.brokerList.brokerOption);
 
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   useEffect(() => {
     setToken(authToken);
-    if (!token) {
+    if (!token && pathname === '/') {
       navigate('/login');
-    } else {
+    } else if (token) {
       navigate('/dashboard');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

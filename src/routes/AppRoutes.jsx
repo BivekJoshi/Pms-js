@@ -67,6 +67,7 @@ export default function AppRoutes() {
               <Route path='pagenotfound' element={<PageNotFound />} />
             </Route>
             <Route path='/error-page' element={<ErrorPage />} />
+            <Route path='*' element={<ErrorPage />} />
           </Routes>
         </Suspense>
       </ScrollToTop>
