@@ -25,7 +25,7 @@ const Timer = (props) => {
       style={{
         fontSize: "1rem",
         fontWeight: "bold",
-        color: time > 24000 ? "#ff4b4b" : "",
+        color: time > 240000 ? "#ff4b4b" : "",
       }}
     >
       <Timecode time={duration - time} />
