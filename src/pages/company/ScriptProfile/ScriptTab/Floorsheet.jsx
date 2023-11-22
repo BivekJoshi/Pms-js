@@ -179,6 +179,8 @@ const Floorsheet = ({ companyData }) => {
             // onRowClick={handleRowClick}
             headerBackgroundColor='#401686'
             headerColor={theme.palette.text.alt}
+            enableFullScreenToggle={false}
+            enableHiding={false}
           />
           <div
             style={{
