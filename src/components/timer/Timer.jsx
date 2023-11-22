@@ -13,20 +13,20 @@ const Timer = (props) => {
     return () => {
       clearInterval(timer);
     };
-  }, [time, reset]);
+  }, []); // Run only once on mount
 
   useEffect(() => {
     if (reset) {
       setTime(0);
     }
   }, [reset]); // eslint-disable-line
-
+  console.log(time);
   return (
     <div
       style={{
         fontSize: "1rem",
         fontWeight: "bold",
-        color: time > 60 ? "#ff4b4b" : "",
+        color: time > 24000 ? "#ff4b4b" : "",
       }}
     >
       <Timecode time={duration - time} />
