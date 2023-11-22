@@ -100,6 +100,7 @@ const ApplicationPage = () => {
             fullWidth
             onClick={() => formik.submitForm()}
             variant='contained'
+            disabled={!formik.isValid}
             loading={loading}
             sx={{
               mt: 2,
