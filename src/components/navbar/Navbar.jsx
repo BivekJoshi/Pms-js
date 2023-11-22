@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import {
-  Search,
   SettingsOutlined,
   Menu as MenuIcon,
+  MenuOpen,
 } from "@mui/icons-material";
 import DarkModeSetting from "../Setting/DarkModeSetting";
 import {
   AppBar,
   Typography,
   IconButton,
-  InputBase,
   Toolbar,
   useTheme,
   List,
@@ -19,18 +18,19 @@ import {
   Autocomplete,
   Tooltip,
   Grid,
-} from '@mui/material';
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import FlexBetween from '../flexBetween/FlexBetween';
-import logo from '../../assets/logo.png';
-import { useNavigate } from 'react-router';
-import NavabarProfile from './NavabarProfile';
-import ResponsiveNavMenu from './ResponsiveMenu';
-import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
-import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
-import LiveIndicator from '../liveIndicator/LiveIndicator';
-import { useGetUserChildDetail } from '../../hooks/portfolio/usePortfolio';
+} from "@mui/material";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import FlexBetween from "../flexBetween/FlexBetween";
+import logo from "../../assets/logo.png";
+import { useNavigate } from "react-router";
+import NavabarProfile from "./NavabarProfile";
+import ResponsiveNavMenu from "./ResponsiveMenu";
+import { useGetListedCompanies } from "../../hooks/watchList/useWatchList";
+import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
+import LiveIndicator from "../liveIndicator/LiveIndicator";
+import { useGetUserChildDetail } from "../../hooks/portfolio/usePortfolio";
+import { useSelector } from "react-redux";
 
 const navItems = [
   {
@@ -63,16 +63,18 @@ const navItems = [
 const Navbar = () => {
   const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scriptValue, setscriptValue] = useState({ companyInfo: "" });
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { data: listedCompanies } = useGetListedCompanies();
-  const { data: childDetailData, isLoading } = useGetUserChildDetail();
-
-  const { pathname = '' } = useLocation();
+  const { data: childDetailData } = useGetUserChildDetail();
+  const themeMode = useSelector((state) => state.theme?.mode);
+  const { pathname = "" } = useLocation();
   const marketOpen = false;
   const handleActiveClick = (path) => {
     navigate(`${path}`);
     if (isMenuOpen) setIsMenuOpen(false);
+    if (!path.includes("/company/")) setscriptValue({ companyInfo: "" }); // Set to an empty object
   };
 
   const [state, setState] = React.useState({
@@ -107,32 +109,18 @@ const Navbar = () => {
     id: item?.id,
   }));
 
-  // const textFieldStyle = {
-  //   width: "320px",
-  // };
-
-  // if (theme.breakpoints.down("xs")) {
-  //   textFieldStyle.width = "100px"; // Extra small screens
-  // } else if (theme.breakpoints.down("sm")) {
-  //   textFieldStyle.width = "200px"; // Small screens
-  // } else if (theme.breakpoints.down("md")) {
-  //   textFieldStyle.width = "250px"; // Medium screens
-  // } else if (theme.breakpoints.down("lg")) {
-  //   textFieldStyle.width = "300px"; // Large screens
-  // }
-
   return (
     <AppBar
       style={{
         position: "sticky",
         top: 0,
         boxShadow:
-          'rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset',
+          "rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset",
         background:
-          theme.palette.mode === 'light'
+          theme.palette.mode === "light"
             ? theme.palette.background.alt
             : theme.palette.primary[700],
-        color: 'black',
+        color: "black",
       }}
     >
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -204,6 +192,7 @@ const Navbar = () => {
             fullWidth
             options={symbols}
             getOptionLabel={(option) => option?.companyInfo}
+            value={scriptValue ? scriptValue : null}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -218,6 +207,7 @@ const Navbar = () => {
             )}
             onChange={(event, value) => {
               if (value) {
+                setscriptValue(value);
                 navigate(`/company/${value?.symbol}`);
               }
             }}
@@ -260,9 +250,14 @@ const Navbar = () => {
             onClick={toggleMenu}
             sx={{
               display: { sm: "block", md: "none", xs: "block" }, // Show on small screens
+              color: themeMode === "dark" ? "#fff" : "#0000008a",
             }}
           >
-            <MenuIcon />
+            {isMenuOpen ? (
+              <MenuOpen sx={{ fontSize: "25px" }} />
+            ) : (
+              <MenuIcon sx={{ fontSize: "25px" }} />
+            )}
           </IconButton>
         </FlexBetween>
       </Toolbar>
@@ -272,6 +267,9 @@ const Navbar = () => {
         navItem={navItems}
         handleActiveClick={(id, path) => handleActiveClick(id, path)}
         handleToggle={(val) => setIsMenuOpen(val)}
+        symbols={symbols}
+        scriptValue={scriptValue}
+        handelScriptChange={(val) => setscriptValue(val)}
       />
     </AppBar>
   );
