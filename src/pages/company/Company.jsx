@@ -97,7 +97,7 @@ const Company = () => {
                   >
                     Heading
                   </TableCell>
-                  <TableCell>Data</TableCell>
+                  <TableCell sx={{borderTop: "1px solid #e0e0e0",}}>Data</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

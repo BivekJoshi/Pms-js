@@ -4,8 +4,7 @@ import { useMemo } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../../redux/actions/genericData";
-import { Box, useTheme } from "@mui/material";
-// import { useGetStockAlert } from './useAlertPost';
+import { Box, Typography, useTheme } from "@mui/material";
 
 const AlertScriptTable = ({ script }) => {
   const theme = useTheme();
@@ -16,8 +15,6 @@ const AlertScriptTable = ({ script }) => {
   useEffect(() => {
     dispatch(fetchData(`live-market/stock-alerts?script=${script || ""}`));
   }, [dispatch, script]);
-
-  // const { data: AlertScriptData, isLoading } = useGetStockAlert(script);
 
   const columns = useMemo(
     () => [
@@ -52,8 +49,12 @@ const AlertScriptTable = ({ script }) => {
     ],
     []
   );
+  
   return (
     <Box sx={{ "& .css-c8wlay": { color: "#ffff" } }}>
+      <Typography variant="h5" sx={{fontWeight:"bold",paddingBottom:".4rem"}}>
+        Current Alerts for {script}
+      </Typography>
       <CustomTable
         columns={columns}
         // isLoading={isLoading}

@@ -33,12 +33,12 @@ console.log(bestPerformanceData)
       <Grid item xs={12} md={7} lg={7} xl={7}>
         <BarChartDash data={barData} />
       </Grid>
-      <Grid item xs={12} md={6}>
+      {/* <Grid item xs={12} md={6}>
         <BestPerformance />
       </Grid>
       <Grid item xs={12} md={6}>
         <WorstPerformance />
-      </Grid>
+      </Grid> */}
       <Grid item xs={12} md={6}>
         <PerformanceTable title="Best Performance" data={bestPerformanceData} />
       </Grid>

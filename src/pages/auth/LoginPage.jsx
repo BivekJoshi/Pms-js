@@ -209,6 +209,7 @@ const LoginPage = () => {
         <Grid sx={{ textAlign: 'center' }} marginTop='.5rem'>
           <div className='bodySmall '>
             Don't have an account?
+            {"   "}
             <span
               className='labelMedium'
               style={{ color: '#3838d0', cursor: 'pointer' }}

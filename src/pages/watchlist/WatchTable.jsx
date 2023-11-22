@@ -29,7 +29,13 @@ const WatchTable = (watchid) => {
         size: 100,
         sortable: false,
       },
-
+      {
+        id: 2,
+        accessorKey: "change",
+        header: "Change Percent (%)",
+        size: 170,
+        sortable: false,
+      },
       {
         id: 3,
         accessorKey: "open",
@@ -79,13 +85,6 @@ const WatchTable = (watchid) => {
         size: 120,
         sortable: false,
       },
-      {
-        id: 2,
-        accessorKey: "change",
-        header: "Change Percent (%)",
-        size: 170,
-        sortable: false,
-      },
     ],
     []
   );
@@ -101,26 +100,25 @@ const WatchTable = (watchid) => {
   return (
     <div>
       {!isLoading && watchListDataById && watchListDataById.data ? (
-       <Box 
-       sx={{ "& .css-1w86f15, .css-c8wlay": { color: "#ffff" } }}>
-         <CustomTable
-          title="Watch List"
-          columns={columns}
-          data={watchListDataById?.data}
-          state={{
-            isLoading: isLoading,
-            showSkeletons: isLoading,
-          }}
-          isLoading={isLoading}
-          headerBackgroundColor="#401686"
-          headerColor={theme.palette.text.alt}
-          enableColumnActions
-          enableDelete
-          enableEditing={true}
-          handleDelete={deleteRow}
-          delete
-        />
-       </Box>
+        <Box sx={{ "& .css-1w86f15, .css-c8wlay": { color: "#ffff" } }}>
+          <CustomTable
+            title="Watch List"
+            columns={columns}
+            data={watchListDataById?.data}
+            state={{
+              isLoading: isLoading,
+              showSkeletons: isLoading,
+            }}
+            isLoading={isLoading}
+            headerBackgroundColor="#401686"
+            headerColor={theme.palette.text.alt}
+            enableColumnActions
+            enableDelete
+            enableEditing={true}
+            handleDelete={deleteRow}
+            delete
+          />
+        </Box>
       ) : (
         <Box
           sx={{

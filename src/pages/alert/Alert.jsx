@@ -158,7 +158,7 @@ const Alert = (props) => {
               <div
                 style={{ display: "flex", gap: "16px", padding: "24px 0px" }}
               >
-                <Grid container spacing={2}>
+                <Grid container spacing={3.5}>
                   <Grid item xs={12} sm={6} md={3} lg={3}>
                     <Autocomplete
                       name="companyInfoId"
@@ -473,6 +473,7 @@ const Alert = (props) => {
                     themeMode,
                     color: "#fcfcfc",
                     textTransform: "none",
+                    cursor: formik.isValid ? "pointer" : "not-allowed",
                   }}
                   disabled={!formik.isValid}
                 >
