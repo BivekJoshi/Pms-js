@@ -1,18 +1,22 @@
-import Timer from "../../components/timer/Timer";
-import { Box, Grid, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import TimerOutlinedIcon from "@mui/icons-material/TimerOutlined";
-import OtpInput from "react-otp-input";
-import { LoadingButton } from "@mui/lab";
+import Timer from '../../components/timer/Timer';
+import { Box, Grid, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import OtpInput from 'react-otp-input';
+import { LoadingButton } from '@mui/lab';
 import {
   useResendVerificationForm,
   useVerificationForm,
-} from "../../form/auth/verification/useVerificationForm";
-import { useParams } from "react-router";
-import Varification from "../../assets/varification.png";
+} from '../../form/auth/verification/useVerificationForm';
+import { useParams } from 'react-router';
+import Varification from '../../assets/varification.png';
 
 const Verification = () => {
-  const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState('');
+  console.log(
+    '🚀 ~ file: Verification.jsx:16 ~ Verification ~ otp:',
+    otp.length
+  );
   const [required, setRequired] = useState(false);
   const { id } = useParams();
 
@@ -20,8 +24,9 @@ const Verification = () => {
   const { handleResendVerification, resetTimer } = useResendVerificationForm();
 
   const handleSubmit = () => {
-    if (otp) handleVerification({ id, otp });
-    if (!otp) {
+    if (otp?.length === 6) {
+      handleVerification({ id, otp });
+    } else {
       setRequired(true);
     }
   };
@@ -32,42 +37,46 @@ const Verification = () => {
   };
 
   useEffect(() => {
-    if (otp?.length === 0) setRequired(false);
+    if (otp?.length === 0) {
+      setRequired(false);
+    } else if (otp?.length === 6) {
+      handleSubmit();
+    }
   }, [otp]);
-  console.log(resetTimer);
+
   return (
     <Box
-      className="paddingOuter"
-      position="relative"
-      alignSelf="center"
-      padding={{ xs: "20px", sm: "96px 22px" }}
-      boxShadow="0 4px 8px 3px rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3)"
-      width={{ xs: "90%", sm: "80%" }}
-      bgcolor="#fdf8fd"
-      borderRadius="32px"
+      className='paddingOuter'
+      position='relative'
+      alignSelf='center'
+      padding={{ xs: '20px', sm: '96px 22px' }}
+      boxShadow='0 4px 8px 3px rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3)'
+      width={{ xs: '90%', sm: '80%' }}
+      bgcolor='#fdf8fd'
+      borderRadius='32px'
     >
-      <Grid padding={{ sm: "2rem", xs: "0" }} alignItems="center">
+      <Grid padding={{ sm: '2rem', xs: '0' }} alignItems='center'>
         <Grid
-          display="flex"
-          justifyContent="center"
-          paddingBottom={{ lg: "2rem", md: "1rem", xs: ".25rem" }}
+          display='flex'
+          justifyContent='center'
+          paddingBottom={{ lg: '2rem', md: '1rem', xs: '.25rem' }}
         >
-          <img src={Varification} alt="varification.png" />
+          <img src={Varification} alt='varification.png' />
         </Grid>
-        <Grid display="flex" flexDirection="column" alignItems="center">
-          <div className="displayLarge">Verification Code</div>
+        <Grid display='flex' flexDirection='column' alignItems='center'>
+          <div className='displayLarge'>Verification Code</div>
           <div
-            className="bodyMedium"
+            className='bodyMedium'
             style={{
-              maxWidth: "283px",
-              textAlign: "center",
-              paddingBottom: "24px",
+              maxWidth: '283px',
+              textAlign: 'center',
+              paddingBottom: '24px',
             }}
           >
             We have sent the 6 digit Verification code to your mobile number and
             E-mail. Please check.
           </div>
-          <Grid maxWidth="320px">
+          <Grid maxWidth='320px'>
             <OtpInput
               value={otp}
               onChange={setOtp}
@@ -81,35 +90,35 @@ const Verification = () => {
                   <input
                     {...props}
                     className={`bg-light-verification  ${
-                      isEmpty ? "otpRequiredBorder" : ""
+                      isEmpty ? 'otpRequiredBorder' : ''
                     } `}
                   />
                 );
               }}
               isInputNum={true}
               inputStyle={{
-                border: "1px solid transparent",
-                borderRadius: "8px",
-                width: "40px",
-                height: "40px",
-                fontSize: "12px",
-                color: "#000",
-                fontWeight: "400",
-                caretColor: "blue",
-                background: "#d4d4de",
+                border: '1px solid transparent',
+                borderRadius: '8px',
+                width: '40px',
+                height: '40px',
+                fontSize: '12px',
+                color: '#000',
+                fontWeight: '400',
+                caretColor: 'blue',
+                background: '#d4d4de',
               }}
               focusStyle={{
-                border: "1px solid #CFD3DB",
-                outline: "none",
+                border: '1px solid #CFD3DB',
+                outline: 'none',
               }}
             />
             <Grid
-              display="flex"
-              justifyContent="end"
-              paddingTop=".25rem"
-              alignItems="center"
+              display='flex'
+              justifyContent='end'
+              paddingTop='.25rem'
+              alignItems='center'
             >
-              <TimerOutlinedIcon sx={{ width: "18px" }} />
+              <TimerOutlinedIcon sx={{ width: '18px' }} />
               <Timer reset={resetTimer} />
             </Grid>
           </Grid>
@@ -118,25 +127,26 @@ const Verification = () => {
         <LoadingButton
           fullWidth
           onClick={handleSubmit}
-          variant="contained"
+          variant='contained'
+          disabled={loading}
           loading={loading}
           sx={{
             mt: 2,
             mb: 2,
-            textTransform: "none",
+            textTransform: 'none',
             fontWeight: 600,
-            background: "#6750a4",
+            background: '#6750a4',
           }}
         >
-          <div className="titleMedium " style={{ margin: ".25rem 0" }}>
+          <div className='titleMedium ' style={{ margin: '.25rem 0' }}>
             VERIFY CODE
           </div>
         </LoadingButton>
-        <Grid sx={{ textAlign: "center" }}>
-          <div className="bodySmall">
+        <Grid sx={{ textAlign: 'center' }}>
+          <div className='bodySmall'>
             Not received your code?
             <span
-              style={{ color: "#3838d0", cursor: "pointer", marginLeft: "5px" }}
+              style={{ color: '#3838d0', cursor: 'pointer', marginLeft: '5px' }}
               onClick={handleClick}
             >
               Resend Code

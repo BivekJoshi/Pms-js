@@ -130,7 +130,7 @@ export const useResetPassword = ({ onSuccess }) => {
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
-        toast.error(err.message);
+        toast.error(getErrorMessage(err));
       },
     }
   );

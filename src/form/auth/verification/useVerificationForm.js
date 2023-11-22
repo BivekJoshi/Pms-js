@@ -42,33 +42,33 @@
 //   };
 // };
 
-import { useState } from "react";
-import { useFormik } from "formik";
+import { useState } from 'react';
 import {
   useResendVerification,
   useVerification,
-} from "../../../hooks/auth/useAuth";
-import { verificationSchema } from "./verificationValidationSchema";
+} from '../../../hooks/auth/useAuth';
 
 export const useVerificationForm = () => {
   // Remove id and otp parameters
   const [loading, setLoading] = useState(false);
   const { mutate } = useVerification({});
 
-  const formik = useFormik({
-    initialValues: {
-      id: "",
-      otp: "",
-    },
-    validationSchema: verificationSchema,
-    onSubmit: (values) => {
-      setLoading(true);
-      handleVerification(values);
-    },
-  });
+  // const formik = useFormik({
+  //   initialValues: {
+  //     id: "",
+  //     otp: "",
+  //   },
+  //   validationSchema: verificationSchema,
+  //   onSubmit: (values) => {
+  //     setLoading(true);
+  //     handleVerification(values);
+  //   },
+  // });
 
   const handleVerification = (values) => {
+    setLoading(true);
     const { id, otp } = values;
+
     mutate({ id, otp }, { onSettled: () => setLoading(false) });
   };
 
@@ -78,7 +78,7 @@ export const useVerificationForm = () => {
 
   return {
     handleVerification,
-    formik,
+    // formik,
     loading,
     handleMouseDownPassword,
   };
@@ -90,15 +90,15 @@ export const useResendVerificationForm = () => {
   const [resetTimer, setResetTimer] = useState(false);
   const { mutate } = useResendVerification({});
 
-  const formik = useFormik({
-    initialValues: {
-      id: "",
-    },
-    onSubmit: (values) => {
-      setLoad(true);
-      handleResendVerification(values);
-    },
-  });
+  // const formik = useFormik({
+  //   initialValues: {
+  //     id: '',
+  //   },
+  //   onSubmit: (values) => {
+  //     setLoad(true);
+  //     handleResendVerification(values);
+  //   },
+  // });
 
   const handleResendVerification = (values) => {
     const { id } = values;
@@ -124,7 +124,6 @@ export const useResendVerificationForm = () => {
   };
   return {
     handleResendVerification,
-    formik,
     load,
     resetTimer,
     handleMouseDownPassword,

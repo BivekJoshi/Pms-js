@@ -31,7 +31,7 @@ const Floorsheet = ({ companyData }) => {
 
   const filterMenuItem = [
     {
-      label: t('Date From'),
+      label: t('Date'),
       name: 'trDate',
       type: 'date-picker',
       required: true,
@@ -50,7 +50,12 @@ const Floorsheet = ({ companyData }) => {
 
       // Fetch data when the component mounts
       dispatch(
-        fetchPaginatedTable(FLOOR_SHEET_DETAILS, initialFormValues, null, 'unique')
+        fetchPaginatedTable(
+          FLOOR_SHEET_DETAILS,
+          initialFormValues,
+          null,
+          'unique'
+        )
       );
       setTableShow(true);
     } catch (error) {
@@ -153,6 +158,7 @@ const Floorsheet = ({ companyData }) => {
       <NewFilter
         inputField={filterMenuItem}
         searchCallBack={handleSearch}
+        submitButtonText='SEARCH'
         // validate={filterDateValidationSchema}
       />
       {tableShow ? (
