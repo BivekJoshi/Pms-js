@@ -20,7 +20,6 @@ const Timer = (props) => {
       setTime(0);
     }
   }, [reset]); // eslint-disable-line
-  console.log(time);
   return (
     <div
       style={{
