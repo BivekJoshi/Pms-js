@@ -32,6 +32,10 @@ const WatchList = () => {
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
 
   const [watchlist, setWatchList] = useState();
+  console.log(
+    '🚀 ~ file: WatchList.jsx:35 ~ WatchList ~ watchlist:',
+    watchlist
+  );
   const [open, setOpen] = useState(false);
   const [watchListModal, setWatchListModal] = useState(null);
   const [watchListDetail, setWatchListDetail] = React.useState({
@@ -41,15 +45,11 @@ const WatchList = () => {
 
   const { data: listedCompanies } = useGetListedCompanies();
 
-  const { formik } = useWatchListDetailForm(watchlist);
-  const [selectedSymbol, setSelectedSymbol] = useState(formik.values.script);
+  const [selectedSymbol, setSelectedSymbol] = useState();
+  const { formik } = useWatchListDetailForm(watchlist, setSelectedSymbol);
 
   const handleFormSubmit = () => {
     formik.handleSubmit();
-
-    if (!formik.isValid) {
-      toast.error('Please make sure you have filled the form correctly');
-    }
   };
 
   const symbolsArray = [];
@@ -64,12 +64,8 @@ const WatchList = () => {
       companyInfo: item?.companyInfo,
     })) || [];
 
-  console.log(
-    '🚀 ~ file: WatchList.jsx:69 ~ useEffect ~ watchListName:',
-    watchlist
-  );
   useEffect(() => {
-    if (!loadingname && watchListName?.length > 0 && watchlist) {
+    if (!loadingname && watchListName?.length > 0) {
       setWatchList(watchListName[0]?.id);
     }
   }, [loadingname, watchListName]);
@@ -89,7 +85,7 @@ const WatchList = () => {
             backgroundColor: theme.palette.background.btn,
             color: theme.palette.text.alt,
             marginTop: '1rem',
-            textTransform: "none",
+            textTransform: 'none',
           }}
         >
           Create New watchlist
@@ -172,6 +168,7 @@ const WatchList = () => {
             NEPSE CODE:
           </Typography>
           <Autocomplete
+            disableCloseOnSelect
             multiple
             id='checkboxes-tags-demo'
             options={symbols}
@@ -182,7 +179,6 @@ const WatchList = () => {
             onChange={(event, newValue) => {
               if (newValue != null) {
                 const multiScript = newValue.map((d) => d.symbol);
-                console.log(multiScript);
                 formik.setFieldValue('script', multiScript);
                 setSelectedSymbol(newValue);
               }
@@ -206,7 +202,6 @@ const WatchList = () => {
                 label='Script'
                 error={formik.touched.script && Boolean(formik.errors.script)}
                 helperText={formik.touched.script && formik.errors.script}
-                autoFocus
                 size='small'
                 value={formik.values.script}
               />
@@ -220,7 +215,7 @@ const WatchList = () => {
           style={{
             backgroundColor: theme.palette.background.btn,
             color: theme.palette.text.alt,
-            textTransform: "none",
+            textTransform: 'none',
           }}
           onClick={handleFormSubmit}
         >
