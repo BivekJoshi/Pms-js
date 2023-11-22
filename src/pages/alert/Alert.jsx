@@ -347,9 +347,10 @@ const Alert = (props) => {
                                       color:
                                         formik.values?.transactionType ===
                                         "SELL"
-                                          ? "red"
-                                          : "green",
+                                          ? "#F85862"
+                                          : "#5CB85C",
                                     }}
+                                    color="secondary"
                                   />
                                 }
                               />
@@ -473,9 +474,9 @@ const Alert = (props) => {
                     themeMode,
                     color: "#fcfcfc",
                     textTransform: "none",
-                    cursor: formik.isValid ? "pointer" : "not-allowed",
+                    cursor: !formik.isValid ? "not-allowed" : "pointer",
                   }}
-                  disabled={!formik.isValid}
+                  // disabled={!formik.isValid}
                 >
                   Create Alert
                 </Button>

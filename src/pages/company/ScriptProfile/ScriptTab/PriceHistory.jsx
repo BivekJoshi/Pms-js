@@ -185,14 +185,6 @@ const PriceHistory = ({ companyData }) => {
             // onRowClick={handleRowClick}
             headerBackgroundColor="#401686"
             headerColor={theme.palette.text.alt}
-            enablePagination={false}
-            enableEditing={false}
-            enableColumnResizing={false}
-            enableColumnActions={false}
-            enableColumnFilters={false}
-            enableSorting={false}
-            enableBottomToolbar={false}
-            enableTopToolbar={false}
           />
           <div
             style={{

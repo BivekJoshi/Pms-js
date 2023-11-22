@@ -161,7 +161,8 @@ const Bill = ({ tradeDate }) => {
           justifyContent: "space-between",
           alignItems: "center",
           flexWrap: "wrap",
-          borderRadius:'6px'
+          borderRadius:'6px',
+         "& .css-c8wlay": { color: "#ffff" }
         }}
       >
         <div>
