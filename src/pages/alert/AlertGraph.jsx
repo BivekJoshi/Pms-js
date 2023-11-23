@@ -24,14 +24,14 @@ const AlertGraph = () => {
         borderRadius: '6px',
       }}
     >
-      <div style={{ marginBottom: '0.6rem' }}>
+      {/* <div style={{ marginBottom: '0.6rem' }}>
         <Typography variant='h4'>{t('Value')}</Typography>
-      </div>
+      </div> */}
       <ResponsiveContainer width='100%' height={200}>
         <LineChart data={lineData}>
           <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='name' />
-          <YAxis />
+          <XAxis dataKey='name' stroke={`${theme.palette.text.main}`} />
+          <YAxis stroke={`${theme.palette.text.main}`} />
           <Tooltip />
           <Legend />
           <Line

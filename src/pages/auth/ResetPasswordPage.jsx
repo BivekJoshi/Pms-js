@@ -52,7 +52,7 @@ const ResetPasswordPage = () => {
           <div style={{ color: "#875923" }} className="displayLarge">
             Reset Password
           </div>
-          <div className="titleMedium">Please provide the number & email</div>
+          <div className="titleMedium">Please provide the nepse code & email</div>
         </Grid>
         <Grid
           component="form"
@@ -129,6 +129,7 @@ const ResetPasswordPage = () => {
               textTransform: "none",
               fontWeight: 600,
               background: "#6750a4",
+              textTransform: "uppercase"
             }}
           >
             Continue

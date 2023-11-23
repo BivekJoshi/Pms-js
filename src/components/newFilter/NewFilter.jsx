@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import InputType from '../inputType/InputType';
 import { useTranslation } from 'react-i18next';
+import SearchIcon from '@mui/icons-material/Search';
 
 const NewFilter = ({
   inputField,
@@ -190,10 +191,12 @@ const NewFilter = ({
                     <Button
                       type='submit'
                       variant='contained'
+                      startIcon={<SearchIcon />}
                       sx={{
                         mt: 2,
                         backgroundColor: theme.palette.background.btn,
                         color: theme.palette.text.alt,
+                        textTransform:"none"
                       }}
                     >
                       {submitButtonText

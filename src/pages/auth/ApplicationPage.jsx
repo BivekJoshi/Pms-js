@@ -111,7 +111,7 @@ const ApplicationPage = () => {
             }}
           >
             <div className='titleMedium ' style={{ margin: '.25rem 0' }}>
-              Check Now
+              CHECK NOW
             </div>
           </LoadingButton>
         </Grid>

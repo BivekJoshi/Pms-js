@@ -30,7 +30,7 @@ const MarketNews = () => {
         id: 1,
         accessorKey: "date",
         header: "Date",
-        size: 1,
+        size: 20,
         sortable: false,
       },
       {

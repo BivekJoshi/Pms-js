@@ -5,11 +5,14 @@ import { ACCOUNT_TRANSACTION } from '../../../api/urls/urls';
 import NewFilter from '../../../components/newFilter/NewFilter';
 import { fetchData } from '../../../redux/actions/genericData';
 import CustomTable from '../../../components/customTable/CustomTable';
-import { Box } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { filterDateValidationSchema } from '../../../form/validations/filterDateValidate';
+import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
+import DownloadIcon from '@mui/icons-material/Download';
 
 const Statement = ({ tradeDate }) => {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
   const { t } = useTranslation();
@@ -103,6 +106,30 @@ const Statement = ({ tradeDate }) => {
 
   return (
     <>
+       <Box
+        sx={{
+          display: "flex",
+          width: "cover",
+          backgroundColor: theme.palette.background.alt,
+          padding: "16px",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          borderRadius:'6px'
+        }}
+      >
+        <div>
+          <Typography variant="h4">Statement Report</Typography>
+          <Typography variant="h7">Last Transaction Date: 2078-01-09</Typography>
+          <br/>
+          <Typography variant="h7">Transaction Type: Sell</Typography>
+        </div>
+        <div style={{display:"flex",gap:'7px'}}>
+          <LocalPrintshopOutlinedIcon/>
+          <DownloadIcon/>
+        </div>
+      </Box>
+      <br />
       <NewFilter
         tradeDate={tradeDate}
         inputField={filterMenuItem}
@@ -112,7 +139,7 @@ const Statement = ({ tradeDate }) => {
       <Box marginTop={2}>
         {tableShow ? (
           <CustomTable
-            title='Transaction Report'
+            title='Statement Report'
             columns={columns}
             isLoading={isLoading}
             data={tableData}
