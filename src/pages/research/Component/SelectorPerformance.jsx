@@ -46,6 +46,7 @@ const SelectorPerformance = () => {
       bgcolor={theme.palette.background.alt}
       borderRadius={'6px'}
       padding={2}
+      color="ffff"
     >
       <CustomTable
         title=' Market Index'
@@ -55,7 +56,7 @@ const SelectorPerformance = () => {
         //   pageSize={pageSize}
         //   onRowClick={handleRowClick}
         headerBackgroundColor='#401686'
-        headerColor={theme.palette.text.main}
+        headerColor={theme.palette.text.alt}
         enablePagination={false}
         enableEditing={false}
         enableColumnResizing={false}
