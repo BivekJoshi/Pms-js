@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import CustomTable from '../../components/customTable/CustomTable';
 import {
   Box,

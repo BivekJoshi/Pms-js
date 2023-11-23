@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -200,7 +200,7 @@ export const RightShare = ({ companyData }) => {
       enableBottomToolbar={false}
       enableTopToolbar={false}
       headerBackgroundColor="#401686"
-      headerColor={theme.palette.text.alt}
+      headerColor= {theme.palette.text.alt }
       enableRowNumbers={true}
     />
   );
