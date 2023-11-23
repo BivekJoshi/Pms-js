@@ -13,11 +13,11 @@ import './CustomTable.css';
 const CustomTable = (props) => {
   const theme = useTheme();
 
-  const handlePaginationChange = (pageIndex, pageSize) => {
-    if (props?.onPaginationChange) {
-      props?.onPaginationChange({ pageIndex, pageSize });
-    }
-  };
+  // const handlePaginationChange = (pageIndex, pageSize) => {
+  //   if (props?.onPaginationChange) {
+  //     props?.onPaginationChange({ pageIndex, pageSize });
+  //   }
+  // };
   const handleRowClick = (row) => {
     if (props?.onRowClick) {
       props?.onRowClick(row);
@@ -44,20 +44,10 @@ const CustomTable = (props) => {
     exitEditingMode(); //required to exit editing mode
   };
 
-  const headerBackgroundColor =
-    props.headerBackgroundColor ||
-    (theme.palette.mode === 'light' ? '#ffffff' : '#401686');
-  const headerColor =
-    props.headerColor ||
-    (theme?.palette?.mode === 'light' ? '#fff' : '#fafafa');
+  const bodyBackgroundColor = theme.palette.mode === "light" ? "#ffff" : "#191F45";
 
-  const bodyBackgroundColor =
-    theme.palette.mode === 'light' ? '#ffffff' : '#191F45';
   return (
-    <div
-      className='custom_table'
-      style={{ backgroundColor: headerBackgroundColor }}
-    >
+    <div className="custom_table">
       <MaterialReactTable
         columns={props?.columns || []}
         data={props?.data || []}
@@ -73,7 +63,7 @@ const CustomTable = (props) => {
         onEditingRowSave={handleSaveRow}
         editingMode={props.editingMode}
         rowCount={props?.rowCount}
-        onPaginationChange={handlePaginationChange}
+        // onPaginationChange={handlePaginationChange}
         state={props?.state}
         initialState={{ density: props?.density || 'compact' }}
         enableColumnResizing={props?.enableColumnResizing || true}
@@ -113,8 +103,12 @@ const CustomTable = (props) => {
         }}
         muiTableHeadRowProps={{
           sx: {
-            backgroundColor: headerBackgroundColor,
-            color: headerColor,
+            backgroundColor:
+              props?.headerBackgroundColor ||
+              (theme.palette.mode === "light" ? "#ffffff" : "#21295C"),
+            color:
+              props?.headerColor ||
+              (theme?.palette?.mode === "dark" ? "#fafafa" : "#fafafa"),
           },
         }}
         // enableRowSelection

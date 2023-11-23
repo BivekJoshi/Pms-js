@@ -35,8 +35,8 @@ const BarChartDash = ({ data }) => {
           }}
         >
           <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='name' />
-          <YAxis />
+          <XAxis dataKey='name' stroke={`${theme.palette.text.main}`} />
+          <YAxis stroke={`${theme.palette.text.main}`} />
           <Tooltip />
           <Legend />
           <Bar dataKey={t("Selling Price")} fill='#8884d8' />

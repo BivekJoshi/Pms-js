@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import { createAlertApi, deleteStockAlert, getCompanyLTP, getStockAlert } from "./alertApi";
 import toast from "react-hot-toast";
 
+/*________________________POST ALERT_____________________________________*/
 export const useAddCreateAlert = ({ onSuccess }) => {
   const queryClient = useQueryClient();
   return useMutation(["addAlert"], (formData) => createAlertApi(formData), {
@@ -15,6 +16,8 @@ export const useAddCreateAlert = ({ onSuccess }) => {
     },
   });
 };
+
+/*________________________GET LIVE MARKET LTP_____________________________________*/
 export const useGetLtp = (script) => {
   return useQuery(["getLtpData", script], () => getCompanyLTP(script), {
     onError: (err) => {

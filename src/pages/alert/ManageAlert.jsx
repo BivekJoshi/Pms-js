@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
-import { Box, MenuItem, useTheme } from '@mui/material';
-import NewFilter from '../../components/newFilter/NewFilter';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from "react";
+import { Box, MenuItem, useTheme } from "@mui/material";
+import NewFilter from "../../components/newFilter/NewFilter";
+import { useDispatch, useSelector } from "react-redux";
 import {
   
   fetchData,
   putData,
-} from '../../redux/actions/genericData';
-import CustomTable from '../../components/customTable/CustomTable';
-import { useState } from 'react';
-import { useMemo } from 'react';
-import CustomeAlertDialog from '../../components/customeDialog/CustomeDialog';
-import { useRemoveWatchListDetail } from './useAlertPost';
-import Spinner from '../../components/spinner/Spinner';
+} from "../../redux/actions/genericData";
+import CustomTable from "../../components/customTable/CustomTable";
+import { useState } from "react";
+import { useMemo } from "react";
+import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
+import { useRemoveWatchListDetail } from "./useAlertPost";
+// import Spinner from "../../components/spinner/Spinner";
 
 const ManageAlert = (props) => {
   const theme = useTheme();
@@ -161,8 +161,8 @@ const ManageAlert = (props) => {
       onSuccess: () => {
         dispatch(
           fetchData(
-            `live-market/stock-alerts?script=${params.script || ''}&alertType=${
-              params.alertType || ''
+            `live-market/stock-alerts?script=${params.script || ""}&alertType=${
+              params.alertType || ""
             }`
           )
         );
@@ -189,9 +189,6 @@ const ManageAlert = (props) => {
     );
   };
 
-  {
-    if (isLoading) return <Spinner />;
-  }
   return (
     <div>
       <NewFilter
@@ -199,9 +196,9 @@ const ManageAlert = (props) => {
         searchCallBack={handleSearch}
         showfilter={false}
       />
-      <Box marginTop={2}>
+      <Box marginTop={2} sx={{ "& .css-1f2qhs8, .css-pj3kdi, .css-1w86f15": { color: "#ffff" } }}>
         {tableShow ? (
-          tableData && tableData.length > 0 ? ( // Check if tableData is not empty
+          tableData.length > 0 ? ( // Check if tableData is not empty
             tableData.map((d) => {
               const companyName = props.companyList?.find(
                 (data) => data.id === d.companyId
@@ -215,11 +212,13 @@ const ManageAlert = (props) => {
                     columns={columns}
                     isLoading={isLoading}
                     enableEditing={true}
+                    headerBackgroundColor="#401686"
+                    headerColor={theme.palette.text.alt}
                     state={{
                       isLoading: isLoading,
                       showSkeletons: isLoading,
                     }}
-                    editingMode='modal'
+                    editingMode="modal"
                     enableEdit
                     enableDelete
                     data={d.stockAlertResponses}

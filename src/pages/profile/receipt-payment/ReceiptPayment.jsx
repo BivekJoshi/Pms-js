@@ -1,18 +1,21 @@
-import React, { useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import NewFilter from '../../../components/newFilter/NewFilter';
-import CustomTable from '../../../components/customTable/CustomTable';
-import toast from 'react-hot-toast';
-import { RECEIPT_TRANSACTION } from '../../../api/urls/urls';
+import React, { useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import NewFilter from "../../../components/newFilter/NewFilter";
+import CustomTable from "../../../components/customTable/CustomTable";
+import toast from "react-hot-toast";
+import { RECEIPT_TRANSACTION } from "../../../api/urls/urls";
 
-import { Box } from '@mui/material';
-import CustomPagination from '../../../components/customPagination/CustomPagination';
-import { fetchPaginatedTable } from '../../../redux/actions/paginatedTable';
-import { useTranslation } from 'react-i18next';
-import { receiptPaymentType } from '../../../utility/dropdownData';
-import { filterDateValidationSchema } from '../../../form/validations/filterDateValidate';
+import { Box, Typography, useTheme } from "@mui/material";
+import CustomPagination from "../../../components/customPagination/CustomPagination";
+import { fetchPaginatedTable } from "../../../redux/actions/paginatedTable";
+import { useTranslation } from "react-i18next";
+import { receiptPaymentType } from "../../../utility/dropdownData";
+import { filterDateValidationSchema } from "../../../form/validations/filterDateValidate";
+import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
+import DownloadIcon from "@mui/icons-material/Download";
 
 const ReceiptPayment = ({ tradeDate }) => {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
   const { t } = useTranslation();
@@ -30,37 +33,37 @@ const ReceiptPayment = ({ tradeDate }) => {
     () => [
       {
         id: 1,
-        accessorKey: 'trDate',
-        header: 'Date',
+        accessorKey: "trDate",
+        header: "Date",
         size: 100,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: 'voucherType',
-        header: 'Voucher',
+        accessorKey: "voucherType",
+        header: "Voucher",
         size: 120,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: 'particulars',
-        header: 'Particulars',
+        accessorKey: "particulars",
+        header: "Particulars",
         size: 100,
         sortable: false,
       },
       {
         id: 4,
-        accessorKey: 'referenceNo',
-        header: 'Reference No',
+        accessorKey: "referenceNo",
+        header: "Reference No",
         size: 100,
         sortable: false,
       },
 
       {
         id: 5,
-        accessorKey: 'voucherNo',
-        header: 'Voucher No',
+        accessorKey: "voucherNo",
+        header: "Voucher No",
         size: 100,
         sortable: false,
       },
@@ -70,25 +73,25 @@ const ReceiptPayment = ({ tradeDate }) => {
 
   const filterMenuItem = [
     {
-      label: t('Date From'),
-      name: 'dateFrom',
-      type: 'date-picker',
+      label: t("Date From"),
+      name: "dateFrom",
+      type: "date-picker",
       required: true,
       md: 4,
       sm: 12,
     },
     {
-      label: t('Date To'),
-      name: 'dateTo',
-      type: 'date-picker',
+      label: t("Date To"),
+      name: "dateTo",
+      type: "date-picker",
       required: true,
       md: 4,
       sm: 12,
     },
     {
-      label: t('Transaction Type'),
-      name: 'type',
-      type: 'dropDownId',
+      label: t("Transaction Type"),
+      name: "type",
+      type: "dropDownId",
       dropDownData: receiptPaymentType,
       md: 4,
       sm: 12,
@@ -116,7 +119,7 @@ const ReceiptPayment = ({ tradeDate }) => {
             RECEIPT_TRANSACTION,
             updatedFormValues,
             null,
-            'unique'
+            "unique"
           )
         );
         setTableShow(true);
@@ -128,6 +131,32 @@ const ReceiptPayment = ({ tradeDate }) => {
 
   return (
     <>
+      <Box
+        sx={{
+          display: "flex",
+          width: "cover",
+          backgroundColor: theme.palette.background.alt,
+          padding: "16px",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          borderRadius: "6px",
+        }}
+      >
+        <div>
+          <Typography variant="h4">Receipt Payment Report</Typography>
+          <Typography variant="h7">
+            Last Transaction Date: 2078-01-09
+          </Typography>
+          <br />
+          <Typography variant="h7">Transaction Type: Sell</Typography>
+        </div>
+        <div style={{ display: "flex", gap: "7px" }}>
+          <LocalPrintshopOutlinedIcon />
+          <DownloadIcon />
+        </div>
+      </Box>
+      <br/>
       <NewFilter
         tradeDate={tradeDate}
         inputField={filterMenuItem}
@@ -138,7 +167,7 @@ const ReceiptPayment = ({ tradeDate }) => {
         {tableShow && (
           <>
             <CustomTable
-              title='Receipt Report'
+              title="Receipt Report"
               columns={columns}
               isLoading={isLoading}
               data={Object.values(tableData)}
@@ -146,9 +175,9 @@ const ReceiptPayment = ({ tradeDate }) => {
             />
             <div
               style={{
-                paddingTop: '16px',
-                display: 'flex',
-                justifyContent: 'flex-end',
+                paddingTop: "16px",
+                display: "flex",
+                justifyContent: "flex-end",
               }}
             >
               <CustomPagination
@@ -160,7 +189,7 @@ const ReceiptPayment = ({ tradeDate }) => {
                       RECEIPT_TRANSACTION,
                       params,
                       newPage,
-                      'unique',
+                      "unique",
                       null,
                       totalData
                     )

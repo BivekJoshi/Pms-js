@@ -158,7 +158,7 @@ const BestPerformance = () => {
         enableBottomToolbar={false}
         enableTopToolbar={false}
         headerBackgroundColor='#006E17'
-        headerColor="green"
+        headerColor="red"
       />
     </Grid>
   );
