@@ -132,7 +132,6 @@ const CustomTable = (props) => {
             <Typography variant="h3">{props?.title}</Typography>
             {props?.button1 && (
               <Button
-                color='success'
                 color="secondary"
                 onClick={() => {
                   alert("Create New Account");

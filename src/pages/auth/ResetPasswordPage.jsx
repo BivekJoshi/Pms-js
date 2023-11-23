@@ -126,7 +126,7 @@ const ResetPasswordPage = () => {
             sx={{
               mt: 2,
               mb: 2,
-              textTransform: "none",
+              // textTransform: "none",
               fontWeight: 600,
               background: "#6750a4",
               textTransform: "uppercase"
