@@ -46,10 +46,20 @@ const CustomeAlertDialog = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSave} color="success" variant="contained">
+          <Button
+            onClick={handleSave}
+            color="success"
+            variant="contained"
+            sx={{ textTransform: "none" }}
+          >
             {agreeLabel}
           </Button>
-          <Button onClick={handleModalClose} color="error" variant="contained">
+          <Button
+            onClick={handleModalClose}
+            color="error"
+            variant="contained"
+            sx={{ textTransform: "none" }}
+          >
             {disagreeLabel}
           </Button>
         </DialogActions>

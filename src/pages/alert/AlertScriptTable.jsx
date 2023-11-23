@@ -51,7 +51,7 @@ const AlertScriptTable = ({ script }) => {
   );
   
   return (
-    <Box sx={{ "& .css-c8wlay": { color: "#ffff" } }}>
+    <Box>
       <Typography variant="h5" sx={{fontWeight:"bold",paddingBottom:".4rem"}}>
         Current Alerts for {script}
       </Typography>

@@ -31,6 +31,7 @@ import { useLocation } from "react-router-dom";
 import LiveIndicator from "../liveIndicator/LiveIndicator";
 import { useGetUserChildDetail } from "../../hooks/portfolio/usePortfolio";
 import { useSelector } from "react-redux";
+import CustomizedSwitches from "../switch/NotificationSwitch";
 
 const navItems = [
   {
@@ -71,7 +72,9 @@ const Navbar = () => {
   const themeMode = useSelector((state) => state.theme?.mode);
   const { pathname = "" } = useLocation();
   const marketOpen = false;
+
   const handleActiveClick = (path) => {
+    console.log(path,"path ma chai");
     navigate(`${path}`);
     if (isMenuOpen) setIsMenuOpen(false);
     if (!path.includes("/company/")) setscriptValue({ companyInfo: "" }); // Set to an empty object
@@ -154,6 +157,8 @@ const Navbar = () => {
                         ? theme.palette.text.main
                         : theme.palette.text.main,
                     fontWeight: pathname === items.path ? "bold" : "normal",
+                    borderBottom:
+                      pathname === items.path ? "2px solid blue" : "none",
                     "&:hover": {
                       backgroundColor: theme.palette.background.hover,
                       borderRadius: ".5rem",
@@ -163,20 +168,13 @@ const Navbar = () => {
                   variant="h6"
                 >
                   {t(items?.item)}
-                  {pathname === items.path && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        width: "50%",
-                        height: "0.1rem",
-                        background: "blue",
-                      }}
-                    ></div>
-                  )}
+                  {pathname === items.path}
                 </Typography>
+                
               </ListItem>
             </List>
           ))}
+          
         </FlexBetween>
 
         <Grid

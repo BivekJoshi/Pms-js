@@ -106,7 +106,7 @@ const CustomTable = (props) => {
           sx: {
             backgroundColor:
               props?.headerBackgroundColor ||
-              (theme.palette.mode === "light" ? "#ffffff" : "#21295C"),
+              (theme.palette.mode === "light" ? "#401686" : "#21295C"),
             color:
               props?.headerColor ||
               (theme?.palette?.mode === "dark" ? "#fafafa" : "#ffff"),
@@ -132,6 +132,7 @@ const CustomTable = (props) => {
             <Typography variant="h3">{props?.title}</Typography>
             {props?.button1 && (
               <Button
+                color='success'
                 color="secondary"
                 onClick={() => {
                   alert("Create New Account");

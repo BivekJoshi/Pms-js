@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { Box, Button, Grid, List, ListItem } from "@mui/material";
+import { Box, Button, Divider, Grid, List, ListItem } from "@mui/material";
 import { Switch, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useGetNotification } from "../../../hooks/notificationConfiguration/useNotification";
@@ -7,6 +7,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import useNotificationForm from "../../../hooks/notificationConfiguration/useNotificationForm";
 import Spinner from "../../../components/spinner/Spinner";
+import CustomizedSwitches from "../../../components/switch/NotificationSwitch";
 
 const ProfileNotification = () => {
   const theme = useTheme();
@@ -76,7 +77,7 @@ const ProfileNotification = () => {
             <Typography>IPO/FPO</Typography>(Announce, Opening date and Closing
             Date)
           </Grid>
-          <Switch
+          <CustomizedSwitches
             checked={switchStates?.ipoFpo}
             onChange={(event) => {
               const newState = {
@@ -90,12 +91,13 @@ const ProfileNotification = () => {
             id="ipoFpo"
           />
         </ListItem>
+        <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
             <Typography>Right Share</Typography>(Declare, a day before Book
             Close Date)
           </Grid>
-          <Switch
+          <CustomizedSwitches
             checked={switchStates?.rightShare}
             onChange={(event) => {
               const newState = {
@@ -109,12 +111,13 @@ const ProfileNotification = () => {
             id="rightShare"
           />
         </ListItem>
+        <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
             <Typography>Dividend</Typography>(Declare and a day before Book
             Close date)
           </Grid>
-          <Switch
+          <CustomizedSwitches
             checked={switchStates?.dividend}
             onChange={(event) => {
               const newState = {
@@ -128,11 +131,12 @@ const ProfileNotification = () => {
             id="dividend"
           />
         </ListItem>
+        <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
             <Typography>Auction </Typography>(Declare and Opening Date)
           </Grid>
-          <Switch
+          <CustomizedSwitches
             checked={switchStates?.auction}
             onChange={(event) => {
               const newState = {
@@ -146,12 +150,13 @@ const ProfileNotification = () => {
             id="auction"
           />
         </ListItem>
+        <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
             <Typography>Bond/Debenture </Typography>(Opening date and Closing
             Date){" "}
           </Grid>
-          <Switch
+          <CustomizedSwitches
             checked={switchStates?.bondDebenture}
             onChange={(event) => {
               const newState = {
@@ -165,12 +170,13 @@ const ProfileNotification = () => {
             id="bondDebenture"
           />
         </ListItem>
+        <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
             <Typography>AGM/SGM </Typography>(Announce and Joint Transaction
             date){" "}
           </Grid>{" "}
-          <Switch
+          <CustomizedSwitches
             checked={switchStates?.agmSgm}
             onChange={(event) => {
               const newState = {
@@ -184,12 +190,13 @@ const ProfileNotification = () => {
             id="agmSgm"
           />
         </ListItem>
+        <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
             <Typography>Merger/ Acquisition </Typography>(Announce and Joint
             Transaction date)
           </Grid>
-          <Switch
+          <CustomizedSwitches
             checked={switchStates?.mergerAcquisition}
             onChange={(event) => {
               const newState = {
@@ -203,11 +210,12 @@ const ProfileNotification = () => {
             id="mergerAcquisition"
           />
         </ListItem>
+        <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
             Financial Reports{" "}
           </Grid>
-          <Switch
+          <CustomizedSwitches
             checked={switchStates?.financialReports}
             onChange={(event) => {
               const newState = {
@@ -221,11 +229,12 @@ const ProfileNotification = () => {
             id="dinancialReports"
           />
         </ListItem>
+        <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
             Newsletter
           </Grid>
-          <Switch
+          <CustomizedSwitches
             checked={switchStates?.newsLetter}
             onChange={(event) => {
               const newState = {
@@ -239,11 +248,12 @@ const ProfileNotification = () => {
             id="newsLetter"
           />
         </ListItem>
+        <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
             <Typography>General </Typography>(New feature/ updates)
           </Grid>
-          <Switch
+          <CustomizedSwitches
             checked={switchStates?.general}
             onChange={(event) => {
               const newState = {
@@ -268,9 +278,9 @@ const ProfileNotification = () => {
       >
         <Button
           style={{
-            background: "#6C49B4",
-            color: mode === "light" ? "white" : theme.palette.text.main,
-            textTransform:'none'
+            color: mode === "light" ? theme.palette.text.main : "white",
+            border: mode === "light" ? "1px solid black" : "1px solid White",
+            textTransform: "none",
           }}
           onClick={handleFormSubmit}
         >
@@ -279,9 +289,9 @@ const ProfileNotification = () => {
         <Button
           variant="outlined"
           style={{
-            color: mode === "light" ? theme.palette.text.main : "white",
-            border: mode === "light" ? "1px solid black" : "1px solid White",
-            textTransform:'none'
+            background: "#6C49B4",
+            color: mode === "light" ? "white" : theme.palette.text.main,
+            textTransform: "none",
           }}
           onClick={handleReset}
         >

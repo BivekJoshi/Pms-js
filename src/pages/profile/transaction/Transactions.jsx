@@ -158,9 +158,9 @@ const Transactions = ({ tradeDate }) => {
       >
         <div>
           <Typography variant="h4">Transaction Report</Typography>
-          <Typography variant="h7">Date: 2078-01-09</Typography>
+          <Typography variant="h7">Last Transaction Date: <b>{tradeDate}</b></Typography>
           <br/>
-          <Typography variant="h7">Transaction Type: Sell</Typography>
+          <Typography variant="h7">Transaction Type: <b>Sell</b></Typography>
         </div>
         <div style={{display:"flex",gap:'7px'}}>
           <LocalPrintshopOutlinedIcon/>
@@ -173,6 +173,7 @@ const Transactions = ({ tradeDate }) => {
         searchCallBack={handleSearch}
         validate={filterDateValidationSchema}
         tradeDate={tradeDate}
+        submitButtonText="Search"
       />
       <Box marginTop={2}>
         {tableShow && (
