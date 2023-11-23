@@ -173,7 +173,9 @@ const ManageAlert = (props) => {
     }).then(() =>
       dispatch(
         fetchData(
-          `live-market/stock-alerts?script=${params.script || ""}&alertType=${params.alertType||""}`
+          `live-market/stock-alerts?script=${params.script || ""}&alertType=${
+            params.alertType || ""
+          }`
         )
       )
     );
@@ -187,10 +189,7 @@ const ManageAlert = (props) => {
         showfilter={false}
         submitButtonText="Search"
       />
-      <Box
-        marginTop={2}
-        sx={{ "& .css-1f2qhs8, .css-pj3kdi, .css-1w86f15": { color: "#ffff" } }}
-      >
+      <Box marginTop={2}>
         {tableShow ? (
           tableData.length > 0 ? ( // Check if tableData is not empty
             tableData.map((d) => {
@@ -214,6 +213,7 @@ const ManageAlert = (props) => {
                     }}
                     editingMode="modal"
                     enableEdit
+                    enableFullScreenToggle={false}
                     enableDelete
                     data={d.stockAlertResponses}
                     handleDelete={deleteRow}
