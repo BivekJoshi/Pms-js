@@ -135,6 +135,7 @@ const BestPerformance = () => {
       bgcolor={theme.palette.background.alt}
       borderRadius={'6px'}
       padding={2}
+      sx={{ "& .css-c8wlay": { color: "#ffff" } }}
     >
       <Typography
         variant='h6'
@@ -158,7 +159,7 @@ const BestPerformance = () => {
         enableBottomToolbar={false}
         enableTopToolbar={false}
         headerBackgroundColor='#006E17'
-        headerColor={theme.palette.text.alt}
+        headerColor="red"
       />
     </Grid>
   );

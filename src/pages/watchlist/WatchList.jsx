@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import {
   useGetListedCompanies,
   useGetWatchListName,
-} from '../../hooks/watchList/useWatchList';
+} from "../../hooks/watchList/useWatchList";
 import {
   Autocomplete,
   Box,
@@ -12,23 +12,25 @@ import {
   TextField,
   Typography,
   useTheme,
-} from '@mui/material';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import WatchListMasterField from '../../form/formComponent/watchlist/WatchListMasterField';
-import { useState } from 'react';
-import WatchTable from './WatchTable';
-import { useWatchListDetailForm } from '../../hooks/watchList/useWatchListForm/useWatchListDetailForm';
-import toast from 'react-hot-toast';
-import FormModal from '../../components/formModal/FormModal';
-import { MoreVert } from '@mui/icons-material';
-import WatchListModal from './WatchListModal';
+} from "@mui/material";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import WatchListMasterField from "../../form/formComponent/watchlist/WatchListMasterField";
+import { useState } from "react";
+import WatchTable from "./WatchTable";
+import { useWatchListDetailForm } from "../../hooks/watchList/useWatchListForm/useWatchListDetailForm";
+import toast from "react-hot-toast";
+import FormModal from "../../components/formModal/FormModal";
+import { MoreVert } from "@mui/icons-material";
+import WatchListModal from "./WatchListModal";
+import { useTranslation } from "react-i18next";
 
-const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
-const checkedIcon = <CheckBoxIcon fontSize='small' />;
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const WatchList = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const { data: watchListName, isLoading: loadingname } = useGetWatchListName();
 
   const [watchlist, setWatchList] = useState();
@@ -36,8 +38,8 @@ const WatchList = () => {
   const [open, setOpen] = useState(false);
   const [watchListModal, setWatchListModal] = useState(null);
   const [watchListDetail, setWatchListDetail] = React.useState({
-    name: '',
-    id: '',
+    name: "",
+    id: "",
   });
 
   const { data: listedCompanies } = useGetListedCompanies();
@@ -47,6 +49,10 @@ const WatchList = () => {
 
   const handleFormSubmit = () => {
     formik.handleSubmit();
+
+    if (!formik.isValid) {
+      toast.error("Please make sure you have filled the form correctly");
+    }
   };
 
   const symbolsArray = [];
@@ -61,6 +67,10 @@ const WatchList = () => {
       companyInfo: item?.companyInfo,
     })) || [];
 
+  console.log(
+    "🚀 ~ file: WatchList.jsx:69 ~ useEffect ~ watchListName:",
+    watchlist
+  );
   useEffect(() => {
     if (!loadingname && watchListName?.length > 0) {
       setWatchList(watchListName[0]?.id);
@@ -71,12 +81,12 @@ const WatchList = () => {
     <div>
       <Grid
         container
-        direction='row'
-        justifyContent='flex-end'
-        alignItems='center'
+        direction="row"
+        justifyContent="flex-end"
+        alignItems="center"
       >
         <Button
-          variant='contained'
+          variant="contained"
           onClick={() => setOpen(true)}
           sx={{
             backgroundColor: theme.palette.background.btn,
@@ -85,7 +95,7 @@ const WatchList = () => {
             textTransform: 'none',
           }}
         >
-          Create New watchlist
+          {t("Create New watchlist")}
         </Button>
       </Grid>
 
@@ -97,30 +107,31 @@ const WatchList = () => {
       <br />
       <Box
         sx={{
-          display: 'flex',
-          width: 'cover',
+          display: "flex",
+          width: "cover",
           backgroundColor: theme.palette.background.alt,
-          padding: '16px',
-          justifyContent: 'space-between',
-          alignItems: 'center',
+          padding: "16px",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
         }}
       >
         <div
           style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            gap: '.3rem',
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            gap: ".3rem",
           }}
         >
           <Typography
-            variant='h4'
+            variant="h4"
             style={{
               color: theme.palette.text.light,
-              fontWeight: '800',
+              fontWeight: "800",
             }}
           >
-            Watchlist:
+            {t("Watchlist")} :
           </Typography>
           {!loadingname &&
             watchListName?.map((name) => (
@@ -128,21 +139,21 @@ const WatchList = () => {
                 onClick={() => setWatchList(name?.id)}
                 key={name?.id}
                 style={{
-                  display: 'flex',
-                  cursor: 'pointer',
-                  alignItems: 'center',
-                  borderRadius: '100px',
-                  position: 'relative',
-                  padding: '3px 6px',
+                  display: "flex",
+                  cursor: "pointer",
+                  alignItems: "center",
+                  borderRadius: "100px",
+                  position: "relative",
+                  padding: "3px 6px",
                   backgroundColor:
-                    watchlist === name?.id ? '#329EF4' : '#EBEBEB',
-                  color: watchlist === name?.id ? 'white' : 'initial',
+                    watchlist === name?.id ? "#329EF4" : "#EBEBEB",
+                  color: watchlist === name?.id ? "white" : "initial",
                 }}
               >
                 {name?.watchlistName}
                 <span>
                   <MoreVert
-                    sx={{ marginTop: '25%' }}
+                    sx={{ marginTop: "25%" }}
                     onClick={(e) => {
                       setWatchListModal(e.currentTarget);
                       setWatchListDetail({
@@ -155,68 +166,73 @@ const WatchList = () => {
               </div>
             ))}
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "2rem" ,flexWrap: "wrap",}}>
           <Typography
-            variant='h6'
+            variant="h6"
             style={{
               color: theme.palette.text.light,
             }}
           >
-            NEPSE CODE:
+            {t("NEPSE CODE")} :
           </Typography>
-          <Autocomplete
-            disableCloseOnSelect
-            multiple
-            id='checkboxes-tags-demo'
-            options={symbols}
-            value={selectedSymbol || []}
-            isOptionEqualToValue={(option, value) =>
-              option.symbol === value.symbol
-            }
-            onChange={(event, newValue) => {
-              if (newValue != null) {
-                const multiScript = newValue.map((d) => d.symbol);
-                formik.setFieldValue('script', multiScript);
-                setSelectedSymbol(newValue);
+          <Box component="form">
+            <Autocomplete
+              multiple
+              id="checkboxes-tags-demo"
+              options={symbols}
+              value={selectedSymbol || []}
+              isOptionEqualToValue={(option, value) =>
+                option.symbol === value.symbol
               }
-            }}
-            getOptionLabel={(option) => option.symbol}
-            renderOption={(props, option, { selected }) => (
-              <li {...props}>
-                <Checkbox
-                  icon={icon}
-                  checkedIcon={checkedIcon}
-                  style={{ marginRight: 8 }}
-                  checked={selected}
+              onChange={(event, newValue) => {
+                if (newValue != null) {
+                  const multiScript = newValue.map((d) => d.symbol);
+                  console.log(multiScript);
+                  formik.setFieldValue("script", multiScript);
+                  setSelectedSymbol(newValue);
+                }
+              }}
+              getOptionLabel={(option) => option.symbol}
+              renderOption={(props, option, { selected }) => (
+                <li {...props}>
+                  <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8 }}
+                    checked={selected}
+                  />
+                  {option.symbol}
+                </li>
+              )}
+              style={{ width: 300 }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Script"
+                  error={formik.touched.script && Boolean(formik.errors.script)}
+                  helperText={formik.touched.script && formik.errors.script}
+                  autoFocus
+                  size="small"
+                  value={formik.values.script}
+                  // sx={{width:'auto'}}
                 />
-                {option.symbol}
-              </li>
-            )}
-            style={{ width: 400 }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label='Script'
-                error={formik.touched.script && Boolean(formik.errors.script)}
-                helperText={formik.touched.script && formik.errors.script}
-                size='small'
-                value={formik.values.script}
-              />
-            )}
-          />
+              )}
+            />
+          </Box>
         </div>
 
         <Button
-          variant='contained'
+          variant="contained"
           disabled={!watchlist}
           style={{
             backgroundColor: theme.palette.background.btn,
             color: theme.palette.text.alt,
-            textTransform: 'none',
+            textTransform: "none",
+            marginTop:".2rem"
           }}
           onClick={handleFormSubmit}
         >
-          + Add
+          + {t("Add")}
         </Button>
       </Box>
       <br />
@@ -226,7 +242,7 @@ const WatchList = () => {
           open={watchListModal}
           handleClose={() => {
             setWatchListModal(null);
-            setWatchList({ name: '', id: '' });
+            setWatchList({ name: "", id: "" });
           }}
           watchListDetail={watchListDetail}
         />

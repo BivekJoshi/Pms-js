@@ -267,23 +267,25 @@ const ProfileNotification = () => {
         alignSelf="end"
       >
         <Button
-          variant="outlined"
-          style={{
-            color: mode === "light" ? theme.palette.text.main : "white",
-            border: mode === "light" ? "1px solid black" : "1px solid White",
-          }}
-          onClick={handleReset}
-        >
-          Reset
-        </Button>
-        <Button
           style={{
             background: "#6C49B4",
             color: mode === "light" ? "white" : theme.palette.text.main,
+            textTransform:'none'
           }}
           onClick={handleFormSubmit}
         >
           Set Notification
+        </Button>
+        <Button
+          variant="outlined"
+          style={{
+            color: mode === "light" ? theme.palette.text.main : "white",
+            border: mode === "light" ? "1px solid black" : "1px solid White",
+            textTransform:'none'
+          }}
+          onClick={handleReset}
+        >
+          Reset
         </Button>
       </Grid>
     </Box>

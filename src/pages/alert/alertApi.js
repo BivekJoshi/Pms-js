@@ -1,5 +1,6 @@
 import { axiosInstance } from "../../api/axiosInterceptor";
 
+/*________________________POST ALERT_____________________________________*/
 export const createAlertApi = async (formData) => {
   const data = await axiosInstance.post(
     "/live-market/create/stock-alert",
@@ -23,6 +24,12 @@ export const deleteStockAlert = async ( id) => {
     );
   }
 };
+
+/*________________________GET LIVE MARKET INDEX_____________________________________*/
+// export const getLiveMarketIndex = async () => {
+//   const res = await axiosInstance.get('/live-market/market-index');
+//   return res.data;
+// }
 
 export const getStockAlert = async (script) => {
   if (script) {

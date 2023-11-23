@@ -26,13 +26,13 @@ const LineChartDash = ({ data }) => {
       }}
     >
       <div style={{ marginBottom: '0.6rem' }}>
-        <Typography variant='h4'>{t("Holding By Market Value")}</Typography>
+        <Typography variant='h4'>{t("Investment Performance")}</Typography>
       </div>
       <ResponsiveContainer width='100%' height={200}>
         <LineChart data={data} >
           <CartesianGrid strokeDasharray='3 3' />
-          <XAxis dataKey='name' />
-          <YAxis />
+          <XAxis dataKey='name' stroke={`${theme.palette.text.main}`} />
+          <YAxis stroke={`${theme.palette.text.main}`} />
           <Tooltip />
           <Legend />
           <Line

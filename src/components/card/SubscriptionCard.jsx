@@ -88,7 +88,7 @@ const SubscriptionCard = ({ section, index }) => {
               variant='contained'
               style={{
                 backgroundColor:
-                  index === 1 && theme.palette.mode === 'dark'
+                  index === 0 && theme.palette.mode === 'dark'
                     ? 'black'
                     : section?.buttonColor,
               }}
