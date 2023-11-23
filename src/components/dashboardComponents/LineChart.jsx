@@ -7,9 +7,9 @@ const LineChartDash = ({ lineData }) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const names = lineData.map((line) => line.name);
-  const Total_Share_Capital = lineData.map((line) => line.Total_Share_Capital  );
-  const Total_Investment = lineData.map((line) => line.Total_Investment);
+  const names = lineData?.map((line) => line.name);
+  const Total_Share_Capital = lineData?.map((line) => line.Total_Share_Capital  );
+  const Total_Investment = lineData?.map((line) => line.Total_Investment);
 
   const [chartData] = useState({
     series: [
