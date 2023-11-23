@@ -278,8 +278,8 @@ const ProfileNotification = () => {
       >
         <Button
           style={{
-            background: "#6C49B4",
-            color: mode === "light" ? "white" : theme.palette.text.main,
+            color: mode === "light" ? theme.palette.text.main : "white",
+            border: mode === "light" ? "1px solid black" : "1px solid White",
             textTransform: "none",
           }}
           onClick={handleFormSubmit}
@@ -289,8 +289,8 @@ const ProfileNotification = () => {
         <Button
           variant="outlined"
           style={{
-            color: mode === "light" ? theme.palette.text.main : "white",
-            border: mode === "light" ? "1px solid black" : "1px solid White",
+            background: "#6C49B4",
+            color: mode === "light" ? "white" : theme.palette.text.main,
             textTransform: "none",
           }}
           onClick={handleReset}

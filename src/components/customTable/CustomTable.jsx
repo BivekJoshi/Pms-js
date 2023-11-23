@@ -14,11 +14,11 @@ import './CustomTable.css';
 const CustomTable = (props) => {
   const theme = useTheme();
 
-  const handlePaginationChange = (pageIndex, pageSize) => {
-    if (props?.onPaginationChange) {
-      props?.onPaginationChange({ pageIndex, pageSize });
-    }
-  };
+  // const handlePaginationChange = (pageIndex, pageSize) => {
+  //   if (props?.onPaginationChange) {
+  //     props?.onPaginationChange({ pageIndex, pageSize });
+  //   }
+  // };
   const handleRowClick = (row) => {
     if (props?.onRowClick) {
       props?.onRowClick(row);
@@ -64,7 +64,7 @@ const CustomTable = (props) => {
         onEditingRowSave={handleSaveRow}
         editingMode={props.editingMode}
         rowCount={props?.rowCount}
-        onPaginationChange={handlePaginationChange}
+        // onPaginationChange={handlePaginationChange}
         state={props?.state}
         initialState={{ density: props?.density || 'compact' }}
         enableColumnResizing={props?.enableColumnResizing || true}
@@ -106,7 +106,7 @@ const CustomTable = (props) => {
           sx: {
             backgroundColor:
               props?.headerBackgroundColor ||
-              (theme.palette.mode === "light" ? "#ffffff" : "#21295C"),
+              (theme.palette.mode === "light" ? "#401686" : "#21295C"),
             color:
               props?.headerColor ||
               (theme?.palette?.mode === "dark" ? "#fafafa" : "#fafafa"),
@@ -125,7 +125,7 @@ const CustomTable = (props) => {
             <Typography variant='h3'>{props?.title}</Typography>
             {props?.button1 && (
               <Button
-                color='secondary'
+                color='success'
                 onClick={() => {
                   alert('Create New Account');
                 }}

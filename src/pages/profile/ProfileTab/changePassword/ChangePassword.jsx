@@ -1,52 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from "react";
 import { useTheme } from "@emotion/react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-  Button,
-  Checkbox,
-  Grid,
-  InputAdornment,
-  TextField,
-  FormControlLabel,
-  IconButton,
-  Typography,
-  Tooltip,
-} from "@mui/material";
-import toast from "react-hot-toast";
-import { useChangePasswordForm } from "../../../../form/auth/change-password/useChangePasswordForm";
+import { InputAdornment, TextField, IconButton } from "@mui/material";
+import { Button, Typography, Tooltip, Grid } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import {
-  useNewPasswordValidation,
-  useRePasswordValidation,
-} from "./validation";
-
-function Validation(props) {
-  return (
-    <>
-      <div className={props.validated ? "validated" : "not-validated"}>
-        <Typography
-          variant="body1"
-          gutterBottom
-          sx={{ color: props.validated ? "green" : "default" }}
-        >
-          <Checkbox
-            checked={props?.validated}
-            color={props.validated ? "success" : "error"}
-          />
-          {props.message}
-        </Typography>
-      </div>
-    </>
-  );
-}
+import { useChangePasswordForm } from "../../../../form/auth/change-password/useChangePasswordForm";
 
 const ChangePassword = () => {
-  const [showOldPassword, setShowOldPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [passwordMatched, setPasswordMatched] = useState(false);
   const { t } = useTranslation();
   const theme = useTheme();
-  
+
   const {
     formik,
     showValues,
@@ -56,67 +20,49 @@ const ChangePassword = () => {
 
   const handleFormSubmit = () => {
     formik.handleSubmit();
-
-    if (formik.isValid && passwordMatched) {
-      // toast.success("Password changed successfully");
-    } else {
-      toast.error("Please make sure you have filled the form correctly");
-    }
   };
+  const handleFormClear=()=>{
+    formik.resetForm();
+  }
 
-  const {
-    lowerValidated: lowerValidatedNew,
-    upperValidated: upperValidatedNew,
-    numberValidated: numberValidatedNew,
-    specialValidated: specialValidatedNew,
-    lengthValidated: lengthValidatedNew,
-    validatePassword: validateNewPassword,
-  } = useNewPasswordValidation();
-
-  const {
-    lowerValidated: lowerValidatedRe,
-    upperValidated: upperValidatedRe,
-    numberValidated: numberValidatedRe,
-    specialValidated: specialValidatedRe,
-    lengthValidated: lengthValidatedRe,
-    validatePassword: validateRePassword,
-  } = useRePasswordValidation();
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <Grid
-      display='inline-flex'
-      flexDirection='column'
-      alignItems='flex-start'
-      gap='15px'
-      width='100%'
+      display="inline-flex"
+      flexDirection="column"
+      alignItems="flex-start"
+      gap="15px"
+      width="100%"
     >
       <Grid
-        display='flex'
-        flexDirection='column'
+        display="flex"
+        flexDirection="column"
         bgcolor={theme.palette.background.alt}
-        width='100%'
-        gap='16px'
-        p='8px 16px'
+        width="100%"
+        gap="16px"
+        p="8px 16px"
       >
-        <Typography variant='h4'>{t('Change Your Password')}</Typography>
-        <Typography variant='h7'>
-          {t('Enter a new password below to change your password')}
+        <Typography variant="h4">{t("Change Your Password")}</Typography>
+        <Typography variant="h7">
+          {t("Enter a new password below to change your password")}
         </Typography>
       </Grid>
       <Grid
-        display='flex'
-        flexDirection='column'
+        display="flex"
+        flexDirection="column"
         bgcolor={theme.palette.background.alt}
-        width='100%'
-        p='24px'
-        gap='30px'
+        width="100%"
+        p="24px"
+        gap="30px"
       >
         <Grid>
           <TextField
-            id='oldPassword'
-            name='oldPassword'
-            label={t('Current Password')}
-            placeholder={t('Enter your current password')}
+            id="oldPassword"
+            name="oldPassword"
+            label={t("Current Password")}
+            placeholder={t("Enter your current password")}
             fullWidth
             required
             value={formik.values.oldPassword}
@@ -127,23 +73,23 @@ const ChangePassword = () => {
               formik.touched.oldPassword && Boolean(formik.errors.oldPassword)
             }
             helperText={formik.touched.oldPassword && formik.errors.oldPassword}
-            variant='outlined'
+            variant="outlined"
             autoFocus
-            type={showOldPassword ? 'text' : 'password'}
+            type={showOldPassword ? "text" : "password"}
             InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position="end">
                   <Tooltip
                     title={`Show ${
-                      showOldPassword ? 'Hidden' : 'Visible'
+                      showOldPassword ? "Hidden" : "Visible"
                     } Old Password`}
                   >
                     <IconButton
-                      aria-label='toggle old password visibility'
+                      aria-label="toggle old password visibility"
                       onClick={() => setShowOldPassword(!showOldPassword)}
                       onMouseDown={handleMouseDownPassword}
-                      edge='end'
+                      edge="end"
                     >
                       {showOldPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
@@ -155,34 +101,33 @@ const ChangePassword = () => {
         </Grid>
         <Grid>
           <TextField
-            id='newPassword'
-            name='newPassword'
-            label={t('New Password')}
-            placeholder={t('Enter your new password')}
+            id="newPassword"
+            name="newPassword"
+            label={t("New Password")}
+            placeholder={t("Enter your new password")}
             fullWidth
             required
             value={formik.values.newPassword}
             onChange={(e) => {
               formik.handleChange(e);
-              validateNewPassword(e.target.value);
             }}
             error={
               formik.touched.newPassword && Boolean(formik.errors.newPassword)
             }
             helperText={formik.touched.newPassword && formik.errors.newPassword}
-            variant='outlined'
+            variant="outlined"
             autoFocus
-            type={showValues.showPassword ? 'text' : 'password'}
+            type={showValues.showPassword ? "text" : "password"}
             InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
-                  <Tooltip title='Show Password'>
+                <InputAdornment position="end">
+                  <Tooltip title="Show Password">
                     <IconButton
-                      aria-label='toggle password visibility'
+                      aria-label="toggle password visibility"
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
-                      edge='end'
+                      edge="end"
                     >
                       {showValues.showPassword ? (
                         <VisibilityOff />
@@ -195,92 +140,69 @@ const ChangePassword = () => {
               ),
             }}
           />
-          <Grid display="flex" flexDirection="row" alignItems="center">
-            <Typography pr="1rem">{t("Must have one")}: </Typography>
-            <Validation
-              validated={lowerValidatedNew}
-              message={t("Lowercase")}
-            />
-            <Validation
-              validated={upperValidatedNew}
-              message={t("Uppercase")}
-            />
-            <Validation validated={numberValidatedNew} message={t("Number")} />
-            <Validation
-              validated={specialValidatedNew}
-              message={t("Character")}
-            />
-            <Validation validated={lengthValidatedNew} message={t("Length")} />
-          </Grid>
         </Grid>
         <Grid>
           <TextField
-            id='rePassword'
-            name='rePassword'
-            label={t('Confirm New Password')}
-            placeholder={t('Confirm your new password')}
+            id="rePassword"
+            name="rePassword"
+            label={t("Confirm New Password")}
+            placeholder={t("Confirm your new password")}
             fullWidth
             required
             value={formik.values.rePassword}
-            onChange={(e) => {
-              formik.handleChange(e);
-              validateRePassword(e.target.value);
-              setPasswordMatched(e.target.value === formik.values.newPassword);
-            }}
+            onChange={formik.handleChange}
             error={
               formik.touched.rePassword && Boolean(formik.errors.rePassword)
             }
             helperText={formik.touched.rePassword && formik.errors.rePassword}
-            variant='outlined'
+            variant="outlined"
             autoFocus
-            type={showConfirmPassword ? 'text' : 'password'}
+            type={showConfirmPassword ? "text" : "password"}
             InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position="end">
                   <Tooltip
                     title={`Show ${
-                      showConfirmPassword ? 'Hidden' : 'Visible'
+                      showConfirmPassword ? "Hidden" : "Visible"
                     } Confirm Password`}
                   >
                     <IconButton
-                      aria-label='toggle confirm password visibility'
+                      aria-label="toggle confirm password visibility"
                       onClick={() =>
                         setShowConfirmPassword(!showConfirmPassword)
                       }
                       onMouseDown={handleMouseDownPassword}
-                      edge='end'
+                      edge="end"
                     >
-                     {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </Tooltip>
                 </InputAdornment>
               ),
             }}
           />
-          <Grid display="flex" flexDirection="row" alignItems="center">
-            <Typography pr="1rem">{t("Must have one")}: </Typography>
-            <Validation validated={lowerValidatedRe} message={t("Lowercase")} />
-            <Validation validated={upperValidatedRe} message={t("Uppercase")} />
-            <Validation validated={numberValidatedRe} message={t("Number")} />
-            <Validation
-              validated={specialValidatedRe}
-              message={t("Character")}
-            />
-            <Validation validated={lengthValidatedRe} message={t("Length")} />
-            <Validation
-              validated={passwordMatched}
-              message={t("Passwords matched")}
-            />
-          </Grid>
+
           <Grid
             container
-            direction='row'
-            justifyContent='flex-end'
-            alignItems='flex-end'
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="flex-end"
           >
             <Button
-              variant='contained'
+              variant="contained"
+              onClick={handleFormClear}
+              color="error"
+              sx={{
+                mt: 3,
+                ml: 1,
+                textTransform: "none",
+              }}
+            >
+              {t("Clear")}
+            </Button>
+            <Button
+              variant="contained"
               onClick={handleFormSubmit}
               // disabled={!formik.isValid}
               sx={{
@@ -288,9 +210,10 @@ const ChangePassword = () => {
                 ml: 1,
                 backgroundColor: theme.palette.background.btn,
                 color: theme.palette.text.alt,
+                textTransform: "none",
               }}
             >
-              {t('CHANGE PASSWORD')}
+              {t("Change Password")}
             </Button>
           </Grid>
         </Grid>

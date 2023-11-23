@@ -100,7 +100,7 @@ const WatchTable = (watchid) => {
   return (
     <div>
       {!isLoading && watchListDataById && watchListDataById.data ? (
-        <Box sx={{ "& .css-1w86f15, .css-c8wlay": { color: "#ffff" } }}>
+        // <Box sx={{ "& .css-1w86f15, .css-c8wlay": { color: "#ffff" } }}>
           <CustomTable
             title="Watch List"
             columns={columns}
@@ -118,7 +118,7 @@ const WatchTable = (watchid) => {
             handleDelete={deleteRow}
             delete
           />
-        </Box>
+        // </Box>
       ) : (
         <Box
           sx={{

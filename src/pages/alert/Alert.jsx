@@ -95,6 +95,7 @@ const Alert = (props) => {
   const activeLabelStyle = {
     ...labelStyle,
     backgroundColor: "#329EF4",
+    borderBottom:"none"
   };
   return (
     <>

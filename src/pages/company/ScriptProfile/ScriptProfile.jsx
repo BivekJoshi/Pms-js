@@ -51,11 +51,11 @@ const ScriptProfile = ({ companyData }) => {
               value="3"
               style={value === "3" ? activeLabelStyle : labelStyle}
             />
-            <Tab
+            {/* <Tab
               label="Quarterly Report"
               value="4"
               style={value === "4" ? activeLabelStyle : labelStyle}
-            />
+            /> */}
             {/* <Tab
               label="Dividend"
               value="5"

@@ -173,25 +173,26 @@ const ManageAlert = (props) => {
     }).then(() =>
       dispatch(
         fetchData(
-          `live-market/stock-alerts?script=${params.script}&alertType=${params.alertType}`
+          `live-market/stock-alerts?script=${params.script || ""}&alertType=${params.alertType||""}`
         )
       )
     );
   };
 
-  {
-    if (isLoading) return <Spinner />;
-  }
   return (
     <div>
       <NewFilter
         inputField={filterMenuItem}
         searchCallBack={handleSearch}
         showfilter={false}
+        submitButtonText="Search"
       />
-      <Box marginTop={2} sx={{ "& .css-1f2qhs8, .css-pj3kdi, .css-1w86f15": { color: "#ffff" } }}>
+      <Box
+        marginTop={2}
+        sx={{ "& .css-1f2qhs8, .css-pj3kdi, .css-1w86f15": { color: "#ffff" } }}
+      >
         {tableShow ? (
-          tableData && tableData.length > 0 ? ( // Check if tableData is not empty
+          tableData.length > 0 ? ( // Check if tableData is not empty
             tableData.map((d) => {
               const companyName = props.companyList?.find(
                 (data) => data.id === d.companyId

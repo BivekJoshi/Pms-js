@@ -45,7 +45,9 @@ export const useVerifyResetPasswordForm = (id) => {
   const [showValues, setShowValues] = useState({
     newPassword: '',
     confirmPassword: '',
-    showPassword: false,
+    // showPassword: false,
+    showNewPassword: false,
+    showConfirmPassword: false,
   });
 
   const { mutate } = useVerifyResetPassword({id});
@@ -73,9 +75,11 @@ export const useVerifyResetPasswordForm = (id) => {
   const handleClickShowPassword = () => {
     setShowValues({
       ...showValues,
-      showPassword: !showValues.showPassword,
+      showNewPassword: !showValues.showNewPassword,
+      showConfirmPassword: !showValues.showConfirmPassword,
     });
   };
+
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();

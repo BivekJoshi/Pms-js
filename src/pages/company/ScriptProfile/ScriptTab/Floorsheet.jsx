@@ -21,11 +21,11 @@ const Floorsheet = ({ companyData }) => {
   const tableData = useSelector((store) => store?.paginatedTable?.data);
   const isLoading = useSelector((store) => store?.paginatedTable?.processing);
 
-  const totalData = useSelector((store) => store?.paginatedTable?.table);
-  const totalPages = useSelector((store) => store?.paginatedTable?.pages);
-  const currentPage = useSelector((store) => store?.paginatedTable?.page);
+  let totalData = useSelector((store) => store?.paginatedTable?.table);
+  let totalPages = useSelector((store) => store?.paginatedTable?.pages);
+  let currentPage = useSelector((store) => store?.paginatedTable?.page);
 
-  const pageSize = useSelector((store) => store?.paginatedTable?.itemPerPage);
+  let pageSize = useSelector((store) => store?.paginatedTable?.itemsPerPage);
 
   const [params, setParams] = useState();
 
@@ -57,6 +57,7 @@ const Floorsheet = ({ companyData }) => {
           'unique'
         )
       );
+
       setTableShow(true);
     } catch (error) {
       toast.error(error);
@@ -65,7 +66,13 @@ const Floorsheet = ({ companyData }) => {
 
   useEffect(() => {
     dispatch(clearPaginatedData());
+
+    const updatedFormValues = {
+      script: companyData?.companyInfo?.symbol,
+    };
+    setParams(updatedFormValues);
     fetchData();
+
     return () => {
       dispatch(clearPaginatedData());
     };
@@ -169,17 +176,12 @@ const Floorsheet = ({ companyData }) => {
             isLoading={isLoading}
             data={Object.values(tableData)}
             pageSize={pageSize}
+            headerColor={theme.palette.text.main}
             // onRowClick={handleRowClick}
-            headerBackgroundColor='#401686'
-            headerColor={theme.palette.text.alt}
-            enablePagination={false}
-            enableEditing={false}
-            enableColumnResizing={false}
-            enableColumnActions={false}
-            enableColumnFilters={false}
-            enableSorting={false}
-            enableBottomToolbar={false}
-            enableTopToolbar={false}
+            // headerBackgroundColor='#401686'
+            // headerColor={theme.palette.text.alt}
+            enableFullScreenToggle={false}
+            enableHiding={false}
           />
           <div
             style={{
@@ -195,12 +197,11 @@ const Floorsheet = ({ companyData }) => {
                 dispatch(
                   fetchPaginatedTable(
                     FLOOR_SHEET_DETAILS,
-                    updatedFormValues,
+                    params,
                     newPage,
-                    null,
                     'unique',
-                    totalData,
-                    params
+                    null,
+                    totalData
                   )
                 );
               }}
