@@ -4,14 +4,17 @@ import NewFilter from '../../../components/newFilter/NewFilter';
 import CustomTable from '../../../components/customTable/CustomTable';
 import toast from 'react-hot-toast';
 import { SHARE_TRANSACTION } from '../../../api/urls/urls';
-import { Box } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { transactionType } from '../../../utility/dropdownData';
 import { filterDateValidationSchema } from '../../../form/validations/filterDateValidate';
 import { fetchPaginatedTable } from '../../../redux/actions/paginatedTable';
 import CustomPagination from '../../../components/customPagination/CustomPagination';
+import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
+import DownloadIcon from '@mui/icons-material/Download';
 
 const Transactions = ({ tradeDate }) => {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
   const { t } = useTranslation();
@@ -141,6 +144,30 @@ const Transactions = ({ tradeDate }) => {
 
   return (
     <>
+    <Box
+        sx={{
+          display: "flex",
+          width: "cover",
+          backgroundColor: theme.palette.background.alt,
+          padding: "16px",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          borderRadius:'6px'
+        }}
+      >
+        <div>
+          <Typography variant="h4">Transaction Report</Typography>
+          <Typography variant="h7">Date: 2078-01-09</Typography>
+          <br/>
+          <Typography variant="h7">Transaction Type: Sell</Typography>
+        </div>
+        <div style={{display:"flex",gap:'7px'}}>
+          <LocalPrintshopOutlinedIcon/>
+          <DownloadIcon/>
+        </div>
+      </Box>
+      <br />
       <NewFilter
         inputField={filterMenuItem}
         searchCallBack={handleSearch}

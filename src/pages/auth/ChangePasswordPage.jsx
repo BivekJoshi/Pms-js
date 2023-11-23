@@ -6,6 +6,7 @@ import { LoadingButton } from '@mui/lab';
 import ResetPaassword from '../../assets/reset-Paassword.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useVerifyResetPasswordForm } from '../../form/auth/reset-password/useResetPasswordForm';
+import { useState } from 'react';
 
 const ChangePasswordPage = () => {
   const { id } = useParams();
@@ -22,6 +23,8 @@ const ChangePasswordPage = () => {
   const handleClick = () => {
     history('/login');
   };
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
     <Box
@@ -80,17 +83,17 @@ const ChangePasswordPage = () => {
             label='New password'
             fullWidth
             variant='outlined'
-            type={showValues.showPassword ? 'text' : 'password'}
+            type={showNewPassword ? 'text' : 'password'}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>
                   <IconButton
                     aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
+                    onClick={() => setShowNewPassword(!showNewPassword)}
                     onMouseDown={handleMouseDownPassword}
                     edge='end'
                   >
-                    {showValues.showPassword ? (
+                    {showNewPassword ? (
                       <VisibilityOff />
                     ) : (
                       <Visibility />
@@ -117,17 +120,17 @@ const ChangePasswordPage = () => {
             label='Re-enter password'
             fullWidth
             variant='outlined'
-            type={showValues.showPassword ? 'text' : 'password'}
+            type={showConfirmPassword ? 'text' : 'password'}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>
                   <IconButton
                     aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                     onMouseDown={handleMouseDownPassword}
                     edge='end'
                   >
-                    {showValues.showPassword ? (
+                    {showConfirmPassword ? (
                       <VisibilityOff />
                     ) : (
                       <Visibility />
@@ -143,7 +146,7 @@ const ChangePasswordPage = () => {
             onClick={() => formik.submitForm()}
             variant='contained'
             loading={loading}
-            disabled={!formik.isValid}
+            // disabled={!formik.isValid}
             sx={{
               mt: 2,
               mb: 2,

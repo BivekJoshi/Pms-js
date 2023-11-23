@@ -1,11 +1,13 @@
-import { TabContext, TabPanel } from "@mui/lab";
+import { TabContext, TabList, TabPanel } from "@mui/lab";
 import {
   Autocomplete,
+  Box,
   Button,
   Checkbox,
   FormControl,
   FormControlLabel,
   FormGroup,
+  FormHelperText,
   Grid,
   Switch,
   Tab,
@@ -40,9 +42,9 @@ const deliveryMethods = [
 ];
 
 const Alert = (props) => {
-  const [activeTab, setactiveTab] = useState("1");
+  const [value, setValue] = useState("1");
   const theme = useTheme();
-  const handleChange = (event, newValue) => setactiveTab(newValue);
+  const handleChange = (event, newValue) => setValue(newValue);
   const themeMode = useSelector((state) => state.theme?.mode);
   const { formik, handleClear } = useAlertForm();
   const { data: listedCompanies } = useGetListedCompanies();
@@ -50,6 +52,7 @@ const Alert = (props) => {
   const btnStyle = {
     backgroundColor: themeMode === "dark" ? "#8496ff" : "#ebebeb",
   };
+
   const symbolsArray = [];
   for (const key in listedCompanies) {
     if (Object.hasOwnProperty.call(listedCompanies, key)) {
@@ -77,6 +80,8 @@ const Alert = (props) => {
   useEffect(() => {
     if (companyData?.script) {
       formik.setFieldValue("ltp", companyData.script?.ltp);
+    } else {
+      formik.setFieldValue("ltp", "");
     }
   }, [companyData?.script]); //eslint-disable-line
 
@@ -94,48 +99,44 @@ const Alert = (props) => {
   return (
     <>
       <div>
-        <TabContext value={activeTab}>
-          <div>
-            <div
+        <TabContext value={value}>
+          <div
+            style={{
+              backgroundColor: theme.palette.background.alt,
+              padding: "12px",
+              borderRadius: "6px",
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+            }}
+          >
+            <Typography
+              variant="h5"
               style={{
-                backgroundColor: theme.palette.background.alt,
-                padding: "12px",
-                borderRadius: "6px",
-                display: "flex",
-                alignItems: "center",
+                color: theme.palette.text.light,
+                fontWeight: "800",
               }}
             >
-              <Tabs
+              Alert :
+            </Typography>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <TabList
                 onChange={handleChange}
-                value={activeTab}
                 indicatorColor="secondary"
                 textColor={theme.palette.text.main}
               >
                 <Tab
-                  sx={{
-                    borderRadius: "5px",
-                    p: 0,
-                    px: "8px",
-
-                    backgroundColor:
-                      activeTab === "1" && btnStyle.backgroundColor,
-                  }}
                   label="Create Alert"
                   value="1"
+                  style={value === "1" ? activeLabelStyle : labelStyle}
                 />
                 <Tab
-                  sx={{
-                    borderRadius: "5px",
-                    p: 0,
-                    px: "8px",
-                    backgroundColor:
-                      activeTab === "2" && btnStyle.backgroundColor,
-                  }}
                   label="Manage Alert"
                   value="2"
+                  style={value === "2" ? activeLabelStyle : labelStyle}
                 />
-              </Tabs>
-            </div>
+              </TabList>
+            </Box>
           </div>
           <TabPanel sx={{ p: 0, pt: "16px" }} value="1">
             <div
@@ -157,16 +158,22 @@ const Alert = (props) => {
               <div
                 style={{ display: "flex", gap: "16px", padding: "24px 0px" }}
               >
-                <Grid container spacing={2}>
-                  <Grid item xs={6} sm={6} md={4} lg={2}>
+                <Grid container spacing={3.5}>
+                  <Grid item xs={12} sm={6} md={3} lg={3}>
                     <Autocomplete
                       name="companyInfoId"
                       options={scriptFullName}
                       getOptionLabel={(option) => option.label}
+                      value={
+                        scriptFullName.find(
+                          (option) => option.id === formik.values.companyInfoId
+                        ) || null
+                      }
                       renderInput={(params) => (
                         <TextField
                           {...params}
                           label="Select a Company"
+                          name="companyInfoId"
                           placeholder="Select a Company"
                           variant="outlined"
                           autoFocus
@@ -197,7 +204,7 @@ const Alert = (props) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={6} sm={6} md={4} lg={3}>
+                  <Grid item xs={12} sm={6} md={3} lg={3}>
                     <TextField
                       {...props}
                       sx={{
@@ -215,11 +222,11 @@ const Alert = (props) => {
                       variant="outlined"
                       size="small"
                       label="LTP"
-                      onChange={(e, value) => {
-                        formik?.setFieldValue("ltp", value || ""); // Set the field value based on the selected option or an empty string if no option is selected
-                      }}
+                      // onChange={(e, value) => {
+                      //   console.log({"value console": value})
+                      //   formik?.setFieldValue("ltp", value); // Set the field value based on the selected option or an empty string if no option is selected
+                      // }}
                       disabled
-                      // value={companyData?.script?.ltp}
                       value={formik.values.ltp}
                       inputProps={{
                         inputMode: "numeric",
@@ -227,11 +234,16 @@ const Alert = (props) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={6} sm={6} md={4} lg={3}>
+                  <Grid item xs={12} sm={6} md={3} lg={3}>
                     <Autocomplete
                       name="alertType"
                       getOptionLabel={(option) => option.label} // Specify how to display the option label
                       options={alertType}
+                      value={
+                        alertType.find(
+                          (option) => option.id === formik.values.alertType
+                        ) || null
+                      }
                       renderInput={(params) => (
                         <TextField
                           {...params}
@@ -259,7 +271,7 @@ const Alert = (props) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={6} sm={6} md={4} lg={3}>
+                  <Grid item xs={12} sm={6} md={3} lg={3}>
                     <TextField
                       {...props}
                       sx={{
@@ -295,9 +307,9 @@ const Alert = (props) => {
                       }}
                     />
                   </Grid>
-                  <Grid item xs={12} sm={12} md={4} lg={2} className="d-flex ">
+                  <Grid item xs={12} sm={6} md={3} lg={2} className="d-flex ">
                     <FormControl component="fieldset">
-                      <label>Alert For</label>
+                      <label>Alert For </label>
                       <FormGroup
                         sx={{
                           display: "flex",
@@ -335,9 +347,10 @@ const Alert = (props) => {
                                       color:
                                         formik.values?.transactionType ===
                                         "SELL"
-                                          ? "red"
-                                          : "green",
+                                          ? "#F85862"
+                                          : "#5CB85C",
                                     }}
+                                    color="secondary"
                                   />
                                 }
                               />
@@ -356,7 +369,7 @@ const Alert = (props) => {
                       </FormGroup>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} sm={12} md={6} lg={6} className="d-flex ">
+                  <Grid item xs={12} sm={6} md={6} lg={6} className="d-flex ">
                     <FormControl component="fieldset">
                       <label>Select Delivery Method</label>
                       <FormGroup
@@ -366,10 +379,35 @@ const Alert = (props) => {
                           flexWrap: "wrap",
                         }}
                       >
+                        {/* {deliveryMethods.map((method) => (
+                          <FormControlLabel
+                          
+                            key={method.id}
+                            label={method?.value}
+                            control={
+                              <Radio
+                              
+                                value={method?.id}
+                                name='alertMethod' // Name of the field in initialValues
+                                // checked={formik.values?.alertMethod?.includes(
+                                //   method.id
+                                // )}
+                                
+                                checked={formik.values.alertMethod === method?.id}
+                                onChange={formik.handleChange}
+                                // disabled={
+                                //   method.id === 'SMS' &&
+                                //   method.id === 'notification'
+                                // }
+                              />
+                            }
+                          />
+                        ))} */}
+
                         {deliveryMethods.map((method) => (
                           <FormControlLabel
-                            key={method.id}
-                            label={method.value}
+                            key={method?.id}
+                            label={method?.value}
                             control={
                               <Checkbox
                                 value={method.id}
@@ -393,6 +431,12 @@ const Alert = (props) => {
                             }
                           />
                         ))}
+                        {formik.touched.alertMethod &&
+                          formik.errors.alertMethod && (
+                            <FormHelperText error>
+                              {formik.errors.alertMethod}
+                            </FormHelperText>
+                          )}
                       </FormGroup>
                     </FormControl>
                   </Grid>
@@ -406,6 +450,21 @@ const Alert = (props) => {
               >
                 <Button
                   variant="contained"
+                  color="error"
+                  onClick={handleClear}
+                  sx={{
+                    mt: 3,
+                    ml: 1,
+                    // backgroundColor: "#6C49B4",
+                    themeMode,
+                    color: "error",
+                    textTransform: "none",
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  variant="contained"
                   type="submit"
                   onClick={handleFormSubmit}
                   sx={{
@@ -415,8 +474,9 @@ const Alert = (props) => {
                     themeMode,
                     color: "#fcfcfc",
                     textTransform: "none",
+                    cursor: !formik.isValid ? "not-allowed" : "pointer",
                   }}
-                  disabled={!formik.isValid}
+                  // disabled={!formik.isValid}
                 >
                   Create Alert
                 </Button>

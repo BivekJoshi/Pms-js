@@ -73,7 +73,7 @@ const Verification = () => {
               paddingBottom: '24px',
             }}
           >
-            We have sent the 6 digit Verification code to your mobile number and
+            We have sent the 6 digit Verification code to your
             E-mail. Please check.
           </div>
           <Grid maxWidth='320px'>

@@ -48,7 +48,7 @@ const ProfileEditModal = ({ open, handleCloseModal }) => {
                 <img
                   src={imagePreview}
                   alt="Selected Profile"
-                  style={{ width: "100%", height: "auto" }}
+                  style={{ width: "100%", height: "360px" }}
                 />
               </Grid>
             )}

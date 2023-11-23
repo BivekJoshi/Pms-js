@@ -9,9 +9,9 @@ import {
 import { Button, Checkbox, Typography, Tooltip, Grid } from '@mui/material';
 import React from 'react';
 import toast from 'react-hot-toast';
-import { useChangePasswordForm } from '../../../form/auth/change-password/useChangePasswordForm';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useChangePasswordForm } from '../../../../form/auth/change-password/useChangePasswordForm';
 
 const ChangePassword = () => {
   const { t } = useTranslation();

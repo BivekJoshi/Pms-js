@@ -9,7 +9,7 @@ import PriceHistory from "./ScriptTab/PriceHistory";
 import Floorsheet from "./ScriptTab/Floorsheet";
 import QuarterlyReport from "./ScriptTab/QuarterlyReport";
 
-const ScriptProfile = ({companyData}) => {
+const ScriptProfile = ({ companyData }) => {
   const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
@@ -26,10 +26,10 @@ const ScriptProfile = ({companyData}) => {
   const activeLabelStyle = {
     // ...labelStyle,
     borderTop: "2px solid #401686",
-    backgroundColor:"#fff",
+    backgroundColor: "#fff",
     textTransform: "none",
-    color:"black",
-    marginLeft:".5rem",
+    color: "black",
+    marginLeft: ".5rem",
   };
   return (
     <Box sx={{ width: "100%" }}>
@@ -56,16 +56,21 @@ const ScriptProfile = ({companyData}) => {
               value="4"
               style={value === "4" ? activeLabelStyle : labelStyle}
             />
+            {/* <Tab
+              label="Dividend"
+              value="5"
+              style={value === "5" ? activeLabelStyle : labelStyle}
+            /> */}
           </TabList>
         </Box>
         <TabPanel value="1">
-          <About companyData={companyData}/>
+          <About companyData={companyData} />
         </TabPanel>
         <TabPanel value="2">
-          <PriceHistory companyData={companyData}/>
+          <PriceHistory companyData={companyData} />
         </TabPanel>
         <TabPanel value="3">
-          <Floorsheet companyData={companyData}/>
+          <Floorsheet companyData={companyData} />
         </TabPanel>
         <TabPanel value="4">
           <QuarterlyReport />
