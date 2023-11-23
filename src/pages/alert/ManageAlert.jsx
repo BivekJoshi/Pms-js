@@ -179,14 +179,6 @@ const ManageAlert = (props) => {
     );
   };
 
-  {
-    if (isLoading) return <Spinner />;
-  }
-  console.log(
-    '🚀 ~ file: ManageAlert.jsx:195 ~ ManageAlert ~ tableShow:',
-    tableShow
-  );
-
   return (
     <div>
       <NewFilter
