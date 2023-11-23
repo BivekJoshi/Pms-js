@@ -176,9 +176,10 @@ const Floorsheet = ({ companyData }) => {
             isLoading={isLoading}
             data={Object.values(tableData)}
             pageSize={pageSize}
+            headerColor={theme.palette.text.main}
             // onRowClick={handleRowClick}
-            headerBackgroundColor='#401686'
-            headerColor={theme.palette.text.alt}
+            // headerBackgroundColor='#401686'
+            // headerColor={theme.palette.text.alt}
             enableFullScreenToggle={false}
             enableHiding={false}
           />
