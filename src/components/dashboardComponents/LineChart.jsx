@@ -3,7 +3,7 @@ import { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { useTranslation } from "react-i18next";
 
-const LineChartDash = ({ lineData }) => {
+const LineChartDash = ({ lineData, height }) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -100,7 +100,7 @@ const LineChartDash = ({ lineData }) => {
           options={chartData.options}
           series={chartData.series}
           type="line"
-          height={250}
+          height={height ? height: 250}
         />
       </div>
     </Box>

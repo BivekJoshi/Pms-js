@@ -1,16 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useGetCompanyById } from "../../hooks/company/useCompany";
 import { companyData as chartData } from "../dashboard/data";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+
 import {
   Box,
   Grid,
@@ -27,6 +18,7 @@ import {
 import { useTranslation } from "react-i18next";
 import ScriptProfile from "./ScriptProfile/ScriptProfile";
 import CompanyDetail from "./CompanyDetail";
+import LineChartDash from "../../components/dashboardComponents/LineChart";
 
 const Company = () => {
   const { script } = useParams();
@@ -96,7 +88,9 @@ const Company = () => {
                   >
                     Heading
                   </TableCell>
-                  <TableCell sx={{borderTop: "1px solid #e0e0e0",}}>Data</TableCell>
+                  <TableCell sx={{ borderTop: "1px solid #e0e0e0" }}>
+                    Data
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -110,7 +104,7 @@ const Company = () => {
             </Table>
           </TableContainer>
           <Box sx={{ padding: "1rem 2rem" }}>
-            <CompanyDetail companyData={companyData}  />
+            <CompanyDetail companyData={companyData} />
           </Box>
         </Grid>
         <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
@@ -125,26 +119,11 @@ const Company = () => {
             <Typography variant="h4" style={{ marginBottom: "1rem" }}>
               {t("Nabil Bank Limited 1D")}
             </Typography>
-            <ResponsiveContainer width="100%" height={500}>
-              <LineChart width={500} height={300} data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line
-                  type="monotone"
-                  dataKey={t("Pvalue")}
-                  stroke="#8884d8"
-                  activeDot={{ r: 8 }}
-                />
-                <Line type="monotone" dataKey={t("Mvalue")} stroke="#82ca9d" />
-              </LineChart>
-            </ResponsiveContainer>
+            <LineChartDash height={400}/>
           </Box>
         </Grid>
-        </Grid>
-     
+      </Grid>
+
       <br />
       <Box
         color={theme.palette.text.main}
