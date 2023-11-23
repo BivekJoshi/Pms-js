@@ -6,7 +6,7 @@ import { useState } from "react";
 const StockExchange = () =>  {
   const theme = useTheme();
 
-  const [state, setState] = useState({
+  const [state] = useState({
     series: [
       {
         name: 'series1',
