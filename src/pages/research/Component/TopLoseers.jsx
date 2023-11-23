@@ -6,7 +6,7 @@ import CustomTable from '../../../components/customTable/CustomTable';
 const TopLoseers = () => {
     const theme = useTheme();
     const data = [
-      { symbol: "NEPSE Index", tradedPrice: "2037.92", change: "18.96" },
+      { symbol: "NEPSE Index", tradedPrice: "2030.92", change: "18.96" },
       { symbol: "NEPSE Index", tradedPrice: "2037.92", change: "18.96" },
       { symbol: "NEPSE Index", tradedPrice: "2037.92", change: "18.96" },
       { symbol: "NEPSE Index", tradedPrice: "2037.92", change: "18.96" },
@@ -61,7 +61,7 @@ const TopLoseers = () => {
         enableColumnActions={false}
         enableColumnFilters={false}
         enableSorting={false}
-        enableBottomToolbar={false}
+        enableBottomToolbar={false} 
         // enableTopToolbar={false}
         enableDensityToggle={false}
         enableHiding={false}
