@@ -1,14 +1,14 @@
 import React from 'react';
-import {
-  CartesianGrid,
-  Legend,
-  Line,
-  LineChart,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
+// import {
+//   CartesianGrid,
+//   Legend,
+//   Line,
+//   LineChart,
+//   ResponsiveContainer,
+//   Tooltip,
+//   XAxis,
+//   YAxis,
+// } from 'recharts';
 import { lineData } from '../dashboard/data';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography, useTheme } from '@mui/material';
@@ -27,7 +27,7 @@ const AlertGraph = () => {
       {/* <div style={{ marginBottom: '0.6rem' }}>
         <Typography variant='h4'>{t('Value')}</Typography>
       </div> */}
-      <ResponsiveContainer width='100%' height={200}>
+      {/* <ResponsiveContainer width='100%' height={200}>
         <LineChart data={lineData}>
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis dataKey='name' stroke={`${theme.palette.text.main}`} />
@@ -46,7 +46,7 @@ const AlertGraph = () => {
             stroke='#82ca9d'
           />
         </LineChart>
-      </ResponsiveContainer>
+      </ResponsiveContainer> */}
     </Box>
   );
 };

@@ -12,14 +12,13 @@ import PerformanceTable from '../../components/dashboardComponents/PerformanceTa
 
 const Dashboard = () => {
   const theme = useTheme();
-console.log(bestPerformanceData)
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} md={4} lg={4} xl={4}>
         <DashboardIndexCard />
       </Grid>
       <Grid item xs={12} md={8} lg={8} xl={8}>
-        <LineChartDash data={lineData} />
+        <LineChartDash lineData={lineData} />
       </Grid>
       <Grid item xs={12} md={5} lg={5} xl={5}>
         <CardInfo title={'Realized'} />
