@@ -82,9 +82,6 @@ const NewFilter = ({
             <FormControl fullWidth>
               <InputLabel>{element.label}</InputLabel>
               <Field as={Select} name={element?.name} label={element.label}>
-                <MenuItem value=''>
-                  <em>None</em>
-                </MenuItem>
                 {element?.dropDownData?.map((d, index) => (
                   <MenuItem key={d + index} value={d.id}>
                     {d.label}
@@ -196,7 +193,7 @@ const NewFilter = ({
                         mt: 2,
                         backgroundColor: theme.palette.background.btn,
                         color: theme.palette.text.alt,
-                        textTransform:"none"
+                        textTransform: 'none',
                       }}
                     >
                       {submitButtonText
