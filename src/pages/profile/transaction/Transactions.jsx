@@ -144,27 +144,31 @@ const Transactions = ({ tradeDate }) => {
 
   return (
     <>
-    <Box
+      <Box
         sx={{
-          display: "flex",
-          width: "cover",
+          display: 'flex',
+          width: 'cover',
           backgroundColor: theme.palette.background.alt,
-          padding: "16px",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          borderRadius:'6px'
+          padding: '16px',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          borderRadius: '6px',
         }}
       >
         <div>
-          <Typography variant="h4">Transaction Report</Typography>
-          <Typography variant="h7">Last Transaction Date: <b>{tradeDate}</b></Typography>
-          <br/>
-          <Typography variant="h7">Transaction Type: <b>Sell</b></Typography>
+          <Typography variant='h4'>Transaction Report</Typography>
+          <Typography variant='h7'>
+            Last Transaction Date: <b>{tradeDate}</b>
+          </Typography>
+          <br />
+          <Typography variant='h7'>
+            Transaction Type: <b>Sell</b>
+          </Typography>
         </div>
-        <div style={{display:"flex",gap:'7px'}}>
-          <LocalPrintshopOutlinedIcon/>
-          <DownloadIcon/>
+        <div style={{ display: 'flex', gap: '7px' }}>
+          <LocalPrintshopOutlinedIcon />
+          <DownloadIcon />
         </div>
       </Box>
       <br />
@@ -173,7 +177,7 @@ const Transactions = ({ tradeDate }) => {
         searchCallBack={handleSearch}
         validate={filterDateValidationSchema}
         tradeDate={tradeDate}
-        submitButtonText="Search"
+        submitButtonText='Search'
       />
       <Box marginTop={2}>
         {tableShow && (

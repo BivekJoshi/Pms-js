@@ -1,15 +1,15 @@
 export const transactionType = [
   {
     label: 'Sell',
-    id: 'SELL',
+    id: 'S',
   },
   {
-    label: 'Buy',
-    id: 'PURCHASE',
+    label: 'Purchase',
+    id: 'P',
   },
   {
     label: 'Both',
-    id: 'Both',
+    id: 'B',
   },
 ];
 
@@ -24,6 +24,6 @@ export const receiptPaymentType = [
   },
   {
     label: 'Both',
-    id: 'Both',
+    id: 'B',
   },
 ];
