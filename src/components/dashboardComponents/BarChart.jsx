@@ -1,23 +1,16 @@
 import { Box, useTheme } from "@mui/material";
-import React, { useState } from "react";
+import {
+  // React,
+  useState,
+} from "react";
 import ReactApexChart from "react-apexcharts";
-import { useTranslation } from "react-i18next";
-// import {
-//   BarChart,
-//   Bar,
-//   Cell,
-//   XAxis,
-//   YAxis,
-//   CartesianGrid,
-//   Tooltip,
-//   Legend,
-//   ResponsiveContainer,
-// } from 'recharts';
+// import { useTranslation } from "react-i18next";
+import "./ApexCHart.css";
 
 const BarChartDash = ({ data }) => {
-  const theme = useTheme()
-  const { t } = useTranslation();
-
+  const theme = useTheme();
+  // const { t } = useTranslation();
+  const mode = theme.palette.mode;
   const SellingPrice = data.map((xaxisData) => xaxisData.Selling_Price);
   const CostPrice = data.map((xaxisData) => xaxisData.Cost_Price);
   const Name = data.map((xaxisData) => xaxisData.name);
@@ -33,6 +26,7 @@ const BarChartDash = ({ data }) => {
         data: CostPrice,
       },
     ],
+    noData: {},
     options: {
       chart: {
         type: "bar",
@@ -48,7 +42,6 @@ const BarChartDash = ({ data }) => {
       },
       dataLabels: {
         enabled: true,
-        offsetX: -6,
         style: {
           fontSize: "12px",
           colors: ["#fff"],
@@ -64,10 +57,38 @@ const BarChartDash = ({ data }) => {
         intersect: false,
       },
       xaxis: {
-        categories: Name},
-
+        categories: Name,
+        labels: {
+          style: {
+            colors: [
+              mode === "dark" ? theme.palette.text.alt : "black",
+              mode === "dark" ? theme.palette.text.alt : "black",
+              mode === "dark" ? theme.palette.text.alt : "black",
+              mode === "dark" ? theme.palette.text.alt : "black",
+              mode === "dark" ? theme.palette.text.alt : "black",
+              mode === "dark" ? theme.palette.text.alt : "black",
+              mode === "dark" ? theme.palette.text.alt : "black",
+              mode === "dark" ? theme.palette.text.alt : "black",
+              mode === "dark" ? theme.palette.text.alt : "black",
+            ],
+          },
+        },
+      },
       yaxis: {
         categories: Name, // Swap with xaxis
+        labels: {
+          style: {
+            colors: [mode === "dark" ? theme.palette.text.alt : "black"],
+          },
+        },
+      },
+      legend: {
+        labels: {
+          colors: [
+            mode === "dark" ? theme.palette.text.alt : "black",
+            mode === "dark" ? theme.palette.text.alt : "black",
+          ],
+        },
       },
     },
   });
