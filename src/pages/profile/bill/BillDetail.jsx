@@ -92,7 +92,7 @@ const BillDetail = ({ rowData }) => {
       },
       {
         id: 10,
-        accessorKey: 'trType',
+        accessorKey: 'transactionType',
         header: 'Tr Type',
         size: 100,
         sortable: false,
