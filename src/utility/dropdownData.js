@@ -1,11 +1,11 @@
 export const transactionType = [
   {
     label: 'Sell',
-    id: 'S',
+    id: 'SELL',
   },
   {
     label: 'Buy',
-    id: 'B',
+    id: 'PURCHASE',
   },
   {
     label: 'Both',

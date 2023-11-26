@@ -103,7 +103,7 @@ const Transactions = ({ tradeDate }) => {
     },
     {
       label: 'Transaction Type',
-      name: 'trType',
+      name: 'transactionType',
       type: 'dropDownId',
       dropDownData: transactionType,
       md: 4,
