@@ -95,7 +95,6 @@ const Navbar = () => {
 
   const handleDropdownToggle = (event, itemId) => {
     if (submenuAnchors[itemId]) {
-      // Close the submenu if it's already open
       setSubmenuAnchors((prevAnchors) => ({ ...prevAnchors, [itemId]: null }));
     } else {
       // Open the submenu
@@ -240,7 +239,10 @@ const Navbar = () => {
               <ListItem sx={{ position: 'relative' }}>
                 <div style={{ display: 'flex' }}>
                   <List
-                    onClick={(event) => handleDropdownToggle(event, items.id)}
+                    onClick={(event) => {
+                      handleDropdownToggle(event, items.id);
+                      handleActiveClick(items?.path, items?.subLinks);
+                    }}
                     sx={{
                       cursor: 'pointer',
                       color:
