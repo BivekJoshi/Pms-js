@@ -8,22 +8,12 @@ const LineChartDash = ({ lineData, height }) => {
   const theme = useTheme();
   // const { t } = useTranslation();
   const mode = theme.palette.mode;
+  const isDarkMode = mode === "dark";
   const names = lineData?.map((line) => line.name);
   const Total_Share_Capital = lineData?.map((line) => line.Total_Share_Capital);
   const Total_Investment = lineData?.map((line) => line.Total_Investment);
 
-  const [chartData] = useState({
-    series: [
-      {
-        name: "Total Share Capital",
-        data: Total_Share_Capital,
-      },
-      {
-        name: "Total Investment",
-        data: Total_Investment,
-      },
-    ],
-    options: {
+  const chartOptions = {
       chart: {
         height: 350,
         type: "line",
@@ -53,7 +43,7 @@ const LineChartDash = ({ lineData, height }) => {
         align: "left",
         style: {
           // color: mode === "dark" ? "black" : theme.palette.text.alt,
-          color: mode === "dark" ? theme.palette.text.alt : "black",
+          color: isDarkMode ? theme.palette.text.alt : "black",
         },
       },
       grid: {
@@ -71,21 +61,21 @@ const LineChartDash = ({ lineData, height }) => {
         title: {
           text: "Total Share Capital",
           style: {
-            color: mode === "dark" ? theme.palette.text.alt : "black",
+            color: isDarkMode ? theme.palette.text.alt : "black",
           },
         },
         labels: {
           style: {
             colors: [
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
+              isDarkMode ? theme.palette.text.alt : "black",
+              isDarkMode ? theme.palette.text.alt : "black",
+              isDarkMode ? theme.palette.text.alt : "black",
+              isDarkMode ? theme.palette.text.alt : "black",
+              isDarkMode ? theme.palette.text.alt : "black",
+              isDarkMode ? theme.palette.text.alt : "black",
+              isDarkMode ? theme.palette.text.alt : "black",
+              isDarkMode ? theme.palette.text.alt : "black",
+              isDarkMode ? theme.palette.text.alt : "black",
             ],
           },
         },
@@ -94,7 +84,7 @@ const LineChartDash = ({ lineData, height }) => {
         title: {
           text: "Total Investment",
           style: {
-            color: mode === "dark" ? theme.palette.text.alt : "black",
+            color: isDarkMode ? theme.palette.text.alt : "black",
           },
         },
         min: 0,
@@ -102,7 +92,7 @@ const LineChartDash = ({ lineData, height }) => {
         tickAmount: 4,
         labels: {
           style: {
-            colors: [mode === "dark" ? theme.palette.text.alt : "black"],
+            colors: [isDarkMode ? theme.palette.text.alt : "black"]
           },
         },
       },
@@ -114,13 +104,26 @@ const LineChartDash = ({ lineData, height }) => {
         offsetX: -5,
         labels: {
           colors: [
-            mode === "dark" ? theme.palette.text.alt : "black",
-            mode === "dark" ? theme.palette.text.alt : "black",
+            isDarkMode ? theme.palette.text.alt : "black",
+            isDarkMode ? theme.palette.text.alt : "black",
           ],
         },
       },
-    },
-  });
+  };
+  const chartData = {
+    series: [
+      {
+        name: "Total Share Capital",
+        data: Total_Share_Capital,
+      },
+      {
+        name: "Total Investment",
+        data: Total_Investment,
+      },
+    ],
+    options: chartOptions,
+  };
+
   return (
     <Box
       color={theme.palette.text.main}
