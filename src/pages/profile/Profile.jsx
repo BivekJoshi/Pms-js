@@ -6,7 +6,6 @@ import {
   Drawer,
   Grid,
   IconButton,
-  Input,
   Tab,
   Tabs,
   Tooltip,
@@ -14,7 +13,6 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import profile from "../../assets/profilePicture.png";
 import UpdateProfile from "../../assets/UpdateProfile.png";
 import Notification from "../../assets/Notification.png";
 import Subscription from "../../assets/Subscription.png";
@@ -41,6 +39,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import LocalSeeIcon from "@mui/icons-material/LocalSee";
 import ProfileImage from "./ProfileImage";
 import ProfileButton from "./Button/ProfileButton";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { DOC_URL } from "../../utility/getBaseUrl";
 
 const Profile = () => {
   const theme = useTheme();
@@ -424,13 +424,18 @@ const Profile = () => {
               position="relative"
               padding="16px"
             >
-              <img
-                src={profile}
-                alt="statusSuccess.png"
-                height="135px"
-                width="135px"
-                style={{ borderRadius: "50%" }}
-              />
+              {userInfoData?.imageFilePath ? (
+                // <img
+                //   src={`${DOC_URL}${userInfoData?.imageFilePath}`}
+                //   alt="Profile"
+                //   height="135px"
+                //   width="135px"
+                //   style={{ borderRadius: "50%" }}
+                // />
+                <AccountCircleIcon sx={{ width: "9rem", height: "9rem" }} />
+              ) : (
+                <AccountCircleIcon sx={{ width: "9rem", height: "9rem" }} />
+              )}
               <LocalSeeIcon
                 className="hover-effect"
                 sx={{
@@ -439,7 +444,10 @@ const Profile = () => {
                   left: "19%",
                   width: "40px",
                   height: "40px",
-                  color: "white",
+                  color: "#947cb7",
+                  "&:hover": {
+                    color: "#784aba", // Style changes on hover
+                  },
                 }}
               />
               <Grid display="flex" flexDirection="column" gap="8px">
