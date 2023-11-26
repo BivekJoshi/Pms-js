@@ -29,11 +29,6 @@ const ProfileNotification = () => {
 
   const handleFormSubmit = () => {
     formik.handleSubmit();
-    if (formik.isValid) {
-      const formData = formik?.values;
-    } else {
-      toast.error("Please make sure you have filled the form correctly");
-    }
   };
 
   const handleReset = () => {

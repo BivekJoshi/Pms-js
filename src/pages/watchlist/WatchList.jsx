@@ -122,6 +122,7 @@ const WatchList = () => {
             flexWrap: 'wrap',
             alignItems: 'center',
             gap: '.3rem',
+            // pading:'3rem'
           }}
         >
           <Typography
@@ -133,6 +134,7 @@ const WatchList = () => {
           >
             {t('Watchlist')} :
           </Typography>
+          {" "}
           {!loadingname &&
             watchListName?.map((name) => (
               <div
@@ -172,6 +174,7 @@ const WatchList = () => {
             alignItems: 'center',
             gap: '2rem',
             flexWrap: 'wrap',
+            padding:".7rem"
           }}
         >
           <Typography
@@ -222,6 +225,7 @@ const WatchList = () => {
                   autoFocus
                   size='small'
                   value={formik.values.script}
+                  focused
                   // sx={{width:'auto'}}
                 />
               )}

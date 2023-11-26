@@ -18,7 +18,6 @@ const useNotificationForm = (switchStates) => {
       general: switchStates?.general || false,
     },
     onSubmit: (values) => {
-      console.log(values, "Values ma ");
       handleRequest(values);
     },
   });
