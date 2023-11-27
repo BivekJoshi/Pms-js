@@ -36,7 +36,7 @@ const PriceHistory = ({ companyData }) => {
 
   const filterMenuItem = [
     {
-      label: t('Date'),
+      label: t('Select Date'),
       name: 'trDate',
       type: 'date-picker',
       required: true,
@@ -180,7 +180,7 @@ const PriceHistory = ({ companyData }) => {
       <NewFilter
         inputField={filterMenuItem}
         searchCallBack={handleSearch}
-        submitButtonText='SEARCH'
+        submitButtonText='Search'
         // validate={filterDateValidationSchema}
       />{' '}
       {tableShow ? (
