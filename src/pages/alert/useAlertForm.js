@@ -17,7 +17,6 @@ export const useAlertForm = () => {
 
     validationSchema: addAlertSchema,
     onSubmit: (value) => {
-      console.log(value ,"submitted value here");
       const submitedValue = { ...value, alertMethod: "SMS" };
       mutate(submitedValue, {
         onSuccess: () => {

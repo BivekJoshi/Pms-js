@@ -12,6 +12,7 @@ import {
 } from '../../../../redux/actions/paginatedTable';
 import { FLOOR_SHEET_DETAILS } from '../../../../api/urls/urls';
 import { useEffect } from 'react';
+import { getErrorMessage } from '../../../../utility/getErrorMessage';
 
 const Floorsheet = ({ companyData }) => {
   const { t } = useTranslation();
@@ -60,7 +61,7 @@ const Floorsheet = ({ companyData }) => {
 
       setTableShow(true);
     } catch (error) {
-      toast.error(error);
+      toast.error(getErrorMessage(error));
     }
   };
 
@@ -101,7 +102,7 @@ const Floorsheet = ({ companyData }) => {
       );
       setTableShow(true);
     } catch (error) {
-      toast.error(error);
+      toast.error(getErrorMessage(error));
     }
   };
   const columns = useMemo(

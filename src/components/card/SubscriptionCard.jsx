@@ -1,7 +1,7 @@
 import { useTheme } from "@emotion/react";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import React from "react";
-// import "./style.css"
+import "./Style.css"
 
 const SubscriptionCard = ({ section, index, BronzeSub, SilverSub }) => {
   const theme = useTheme();

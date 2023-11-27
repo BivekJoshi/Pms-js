@@ -1,11 +1,8 @@
 import React from 'react';
+import PageNotFound from '../../PageNotFound/PageNotFound';
 
 const Sectors = () => {
-    return (
-        <div>
-            Sectors
-        </div>
-    );
+     return <PageNotFound />;
 };
 
 export default Sectors;

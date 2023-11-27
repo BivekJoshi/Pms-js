@@ -2,11 +2,6 @@ import React, { Suspense } from 'react';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
 import ScrollToTop from '../utility/ScrollToTop';
-import Sectors from '../pages/research/sectors/Sectors';
-import EndOfTheDay from '../pages/research/Screener/endOfTheDay/EndOfTheDay';
-import Technical from '../pages/research/Screener/technical/Technical';
-import Fundamental from '../pages/research/Screener/fundamental/Fundamental';
-// import PageNotFound from '../pages/PageNotFound/PageNotFound';
 
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));
@@ -15,6 +10,11 @@ const Profile = React.lazy(() => import('../pages/profile/Profile'));
 const Alert = React.lazy(() => import('../pages/alert/Alert'));
 const Portfolio = React.lazy(() => import('../pages/portfolio/Portfolio'));
 const Research = React.lazy(() => import('../pages/research/Research'));
+const Sectors = React.lazy(() => import('../pages/research/sectors/Sectors'));
+const EndOfTheDay = React.lazy(() => import('../pages/research/Screener/endOfTheDay/EndOfTheDay'));
+const Technical = React.lazy(() => import('../pages/research/Screener/technical/Technical'));
+const Fundamental = React.lazy(() => import('../pages/research/Screener/technical/Technical'));
+const ResearchCompany = React.lazy(() => import('../pages/research/company/Company'));
 
 const WatchList = React.lazy(() => import('../pages/watchlist/WatchList'));
 
@@ -63,11 +63,10 @@ export default function AppRoutes() {
             <Route path='/' element={<AppLayout />}>
               <Route path='dashboard' element={<Dashboard />} />
               <Route path='watchlist' element={<WatchList />} />
-              {/* <Route path='research' element={<Research />} /> */}
               <Route path='research'>
               <Route path='markets' element={<Research />} />
               <Route path='sectors' element={<Sectors />} />
-              <Route path='company' element={<Company />} />
+              <Route path='company' element={<ResearchCompany />} />
               <Route path='screener'>
               <Route path='fundamental' element={<Fundamental />} />
               <Route path='technical' element={<Technical />} />
