@@ -121,6 +121,7 @@ const WatchTable = (watchid) => {
           enableEditing={true}
           handleDelete={deleteRow}
           delete
+          notification
           onRowClick={handleRowClick}
         />
       ) : (

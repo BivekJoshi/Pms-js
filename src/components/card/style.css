@@ -1,0 +1,15 @@
+@media screen and (max-width: 1211px) {
+    .svgHide {
+      display: none;
+    }
+    .svgShow {
+      display: block;
+    }
+  }
+  
+  @media screen and (min-width: 1212px) {
+      .svgShow {
+          display: none;
+        } 
+  }
+  

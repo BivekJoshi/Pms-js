@@ -1,10 +1,10 @@
 import { useFormik } from "formik";
 import { useEditNotification } from "./useNotification";
 import { useEffect } from "react";
-
+ 
 const useNotificationForm = (switchStates) => {
   const { mutate: editNotification } = useEditNotification({});
-
+ 
   const formik = useFormik({
     initialValues: {
       ipoFpo: false,
@@ -22,11 +22,11 @@ const useNotificationForm = (switchStates) => {
       handleRequest(values);
     },
   });
-
+ 
   useEffect(() => {
     updateFormikValues(switchStates);
   }, [switchStates]);
-
+ 
   const updateFormikValues = (values) => {
     formik.setValues({
       ipoFpo: values?.ipoFpo || false,
@@ -41,18 +41,18 @@ const useNotificationForm = (switchStates) => {
       general: values?.general || false,
     });
   };
-
+ 
   const resetForm = () => {
     formik.resetForm();
     updateFormikValues(switchStates);
   };
-
+ 
   const handleRequest = (values) => {
     values = { ...values };
     editNotification(values, formik);
   };
-
+ 
   return { formik, updateFormikValues, resetForm };
 };
-
+ 
 export default useNotificationForm;

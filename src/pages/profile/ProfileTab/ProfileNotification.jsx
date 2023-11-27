@@ -34,19 +34,19 @@ const ProfileNotification = () => {
   const handleReset = () => {
     formik.handleSubmit();
     resetForm();
-    const defaultSwitchStates = {
-      ipoFpo: false,
-      rightShare: false,
-      dividend: false,
-      auction: false,
-      bondDebenture: false,
-      agmSgm: false,
-      mergerAcquisition: false,
-      financialReports: false,
-      newsLetter: false,
-      general: false,
-    };
-    setSwitchStates(defaultSwitchStates);
+    // const defaultSwitchStates = {
+    //   ipoFpo: false,
+    //   rightShare: false,
+    //   dividend: false,
+    //   auction: false,
+    //   bondDebenture: false,
+    //   agmSgm: false,
+    //   mergerAcquisition: false,
+    //   financialReports: false,
+    //   newsLetter: false,
+    //   general: false,
+    // };
+    // setSwitchStates(defaultSwitchStates);
   };
 
   if (loadingNotification) {
