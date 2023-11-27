@@ -49,9 +49,7 @@ const Alert = (props) => {
   const { formik, handleClear } = useAlertForm();
   const { data: listedCompanies } = useGetListedCompanies();
 
-  const btnStyle = {
-    backgroundColor: themeMode === "dark" ? "#8496ff" : "#ebebeb",
-  };
+
 
   const symbolsArray = [];
   for (const key in listedCompanies) {
