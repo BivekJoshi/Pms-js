@@ -103,7 +103,7 @@ const Company = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          <Box sx={{ padding: '1rem 2rem' }}>
+          <Box sx={{ padding: '1rem 0rem' }}>
             <CompanyDetail companyData={companyData} />
           </Box>
         </Grid>
