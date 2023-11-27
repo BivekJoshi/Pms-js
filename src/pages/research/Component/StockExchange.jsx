@@ -6,14 +6,7 @@ import { useState } from "react";
 const StockExchange = () =>  {
   const theme = useTheme();
 
-  const [state] = useState({
-    series: [
-      {
-        name: 'series1',
-        data: [31, 40, 28, 51, 42, 109, 100]
-      }
-    ],
-    options: {
+  const chartOptions = {
       chart: {
         type: "area",
         height: 350,
@@ -45,8 +38,18 @@ const StockExchange = () =>  {
       legend: {
         horizontalAlign: "left",
       },
-    },
-  });
+    
+  };
+  const chartData = {
+  series: [
+    {
+      name: 'series1',
+      data: [31, 40, 28, 51, 42, 109, 100]
+    }
+   
+  ],
+  options: chartOptions,
+}
   
   return (
     <div style={{ background: theme.palette.background.alt, padding: "16px" }}>
@@ -73,8 +76,8 @@ const StockExchange = () =>  {
       </Grid>
       <div id="chart">
         <Chart
-          options={state.options}
-          series={state.series}
+          options={chartData.options}
+          series={chartData.series}
           type="area"
           height={350}
         />
