@@ -15,6 +15,7 @@ const ProfileInfo = ({data}) => {
       gap='50px'
       width='100%'
     >
+      
       <Grid
         display='flex'
         bgcolor={theme.palette.background.alt}

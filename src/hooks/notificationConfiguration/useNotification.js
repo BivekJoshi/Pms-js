@@ -39,7 +39,14 @@ export const useEditNotification = ({ onSuccess }) => {
     (formData) => editNotification(formData),
     {
       onSuccess: (data, variables, context) => {
-        toast.success("Succesfully set notification");
+        console.log(variables,"variables");
+        const allValuesAreFalse = Object.values(variables || {}).every(value => value === false);
+        if (allValuesAreFalse) {
+          toast.success("All notification configurations are Reset");
+        } else {
+          toast.success("Successfully set notification");
+        }
+
         onSuccess && onSuccess(data, variables, context);
         queryClient.invalidateQueries("getNotifiactionConfiguration");
       },

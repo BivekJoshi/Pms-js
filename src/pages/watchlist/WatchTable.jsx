@@ -97,28 +97,32 @@ const WatchTable = (watchid) => {
   const handleDeleteData = () => {
     mutate(tableDataSymbol);
   };
+
+  const handleRowClick = (rowData) => {
+    console.log(rowData?.original?.symbol);
+  };
+
   return (
     <div>
       {!isLoading && watchListDataById && watchListDataById.data ? (
-        // <Box sx={{ "& .css-1w86f15, .css-c8wlay": { color: "#ffff" } }}>
-          <CustomTable
-            title="Watch List"
-            columns={columns}
-            data={watchListDataById?.data}
-            state={{
-              isLoading: isLoading,
-              showSkeletons: isLoading,
-            }}
-            isLoading={isLoading}
-            headerBackgroundColor="#401686"
-            headerColor={theme.palette.text.alt}
-            enableColumnActions
-            enableDelete
-            enableEditing={true}
-            handleDelete={deleteRow}
-            delete
-          />
-        // </Box>
+        <CustomTable
+          title="Watch List"
+          columns={columns}
+          data={watchListDataById?.data}
+          state={{
+            isLoading: isLoading,
+            showSkeletons: isLoading,
+          }}
+          isLoading={isLoading}
+          headerBackgroundColor="#401686"
+          headerColor={theme.palette.text.alt}
+          enableColumnActions
+          enableDelete
+          enableEditing={true}
+          handleDelete={deleteRow}
+          delete
+          onRowClick={handleRowClick}
+        />
       ) : (
         <Box
           sx={{
@@ -134,9 +138,11 @@ const WatchTable = (watchid) => {
         </Box>
       )}
       <CustomeAlertDialog
-        disagreeLabel={"Cancel"}
-        agreeLabel={"Agree"}
+        disagreeLabel={"Yes, Delete !"}
+        agreeLabel={"No, Keep It."}
+        alertTitle={"Delete Alert"}
         header={"Are you sure to delete this Watchlist Detail?"}
+        confirmhead={"Are u sure ?"}
         handleModalClose={handleModalClose}
         isModalOpen={isModalOpen}
         handleAgree={handleDeleteData}

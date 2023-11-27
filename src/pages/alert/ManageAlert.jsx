@@ -255,9 +255,11 @@ const ManageAlert = (props) => {
 
       {/*Delete the Row Data */}
       <CustomeAlertDialog
-        disagreeLabel={"Cancel"}
-        agreeLabel={"Agree"}
-        header={"Are you sure to delete this alert ?"}
+        disagreeLabel={"Yes, Delete !"}
+        agreeLabel={"No, Keep It."}
+        alertTitle={"Delete Alert"}
+        header={"You are going to delete the ''Alert''."}
+        confirmhead={"Are u sure ?"}
         handleModalClose={handleModalClose}
         isModalOpen={isModalOpen}
         handleAgree={handleDeleteData}
