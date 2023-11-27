@@ -1,11 +1,8 @@
 import React from 'react';
+import PageNotFound from '../../../PageNotFound/PageNotFound';
 
 const Fundamental = () => {
-    return (
-        <div>
-            Fundamental
-        </div>
-    );
+    return <PageNotFound />;
 };
 
 export default Fundamental;

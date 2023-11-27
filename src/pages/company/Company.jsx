@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useGetCompanyById } from "../../hooks/company/useCompany";
-import { companyData as chartData } from "../dashboard/data";
+import { companyData as chartData } from "../dashboard/dashBoardItems";
 
 import {
   Box,

@@ -1,5 +1,5 @@
 
-import { lineData } from "../dashboard/data";
+import { lineData } from "../dashboard/dashBoardItems";
 import { useTranslation } from "react-i18next";
 import { Grid, useTheme } from "@mui/material";
 import LineChartDash from "../../components/dashboardComponents/LineChart";

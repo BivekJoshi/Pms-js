@@ -1,11 +1,8 @@
-import React from 'react';
+import React from "react";
+import PageNotFound from "../../PageNotFound/PageNotFound";
 
-const Company = () => {
-    return (
-        <div>
-            Company
-        </div>
-    );
+const ResearchCompany = () => {
+  return <PageNotFound />;
 };
 
-export default Company;
+export default ResearchCompany;

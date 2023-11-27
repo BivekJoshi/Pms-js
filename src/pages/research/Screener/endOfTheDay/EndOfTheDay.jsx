@@ -1,11 +1,8 @@
 import React from 'react';
+import PageNotFound from '../../../PageNotFound/PageNotFound';
 
 const EndOfTheDay = () => {
-    return (
-        <div>
-            End Of The Day
-        </div>
-    );
+    return <PageNotFound />;
 };
 
 export default EndOfTheDay;
