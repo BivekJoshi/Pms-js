@@ -31,7 +31,7 @@ const Floorsheet = ({ companyData }) => {
 
   const filterMenuItem = [
     {
-      label: t('Date'),
+      label: t('Select Date'),
       name: 'trDate',
       type: 'date-picker',
       required: true,
@@ -165,7 +165,7 @@ const Floorsheet = ({ companyData }) => {
       <NewFilter
         inputField={filterMenuItem}
         searchCallBack={handleSearch}
-        submitButtonText='SEARCH'
+        submitButtonText='Search'
         // validate={filterDateValidationSchema}
       />
       {tableShow ? (
