@@ -1,77 +1,21 @@
 import { Grid, Typography, useTheme } from "@mui/material";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CustomTable from "../customTable/CustomTable";
-import { useMemo } from "react";
+import { BestPerformanceColumns, WorstPerformanceColumns } from "../../pages/dashboard/dashBoardItems";
 
 const PerformanceTable = ({ title, data }) => {
   const theme = useTheme();
-
-  const columns = useMemo(() => {
+  const [columns, setColumns] = useState([]);
+  
+  useEffect(() => {
     if (title === "Best Performance") {
-      return [
-        {
-          id: 1,
-          accessorKey: "script",
-          header: "Script(Qty.)",
-          size: 100,
-          sortable: false,
-        },
-        {
-          id: 2,
-          accessorKey: "ltp",
-          header: "LTP",
-          size: 100,
-          sortable: false,
-        },
-        {
-          id: 3,
-          accessorKey: "pp",
-          header: "CP",
-          size: 100,
-          sortable: false,
-        },
-        {
-          id: 4,
-          accessorKey: "change",
-          header: "Change(%)",
-          size: 100,
-          sortable: false,
-        },
-      ];
+      setColumns(BestPerformanceColumns);
     } else if (title === "Worst Performance") {
-      return [
-        {
-          id: 1,
-          accessorKey: "script",
-          header: "Script(Qty.)",
-          size: 100,
-          sortable: false,
-        },
-        {
-          id: 2,
-          accessorKey: "ltp",
-          header: "LTP",
-          size: 100,
-          sortable: false,
-        },
-        {
-          id: 3,
-          accessorKey: "pp",
-          header: "CP",
-          size: 100,
-          sortable: false,
-        },
-        {
-          id: 4,
-          accessorKey: "change",
-          header: "Change(%)",
-          size: 100,
-          sortable: false,
-        },
-      ];
+      setColumns(WorstPerformanceColumns);
+    } else {
     }
-    return [];
   }, [title]);
+
 
   const headerBackgroundColorMapping = {
     "Best Performance": "#006E17",
