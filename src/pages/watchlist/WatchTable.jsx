@@ -130,7 +130,6 @@ const WatchTable = (watchid) => {
           handleDelete={deleteRow}
           delete
           notification
-          onRowClick={handleRowClick}
         />
       ) : (
         <Box
