@@ -15,8 +15,11 @@ import {
 import { useTranslation } from "react-i18next";
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
+import { useNavigate } from "react-router-dom";
 
 const Portfolio = () => {
+  const navigate = useNavigate();
+
   const theme = useTheme();
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -169,6 +172,10 @@ const Portfolio = () => {
       });
     }
   };
+  
+  const handleRowClick = (rowData) => {
+    navigate(`/company/${rowData?.original?.script}`)
+  };
 
   return (
     <>
@@ -221,6 +228,7 @@ const Portfolio = () => {
             enableFullScreenToggle
             headerBackgroundColor="#401686"
             headerColor={theme.palette.text.alt}
+          onRowClick={handleRowClick}
           />
         </Box>
       ) : (
