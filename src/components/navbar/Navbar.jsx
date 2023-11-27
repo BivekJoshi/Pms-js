@@ -64,28 +64,28 @@ const navItems = [
     item: 'Research',
     path: '/research',
     subLinks: [
-      { id: 7, item: 'Markets', path: 'research/markets' },
-      { id: 8, item: 'Sectors', path: 'research/sectors' },
-      { id: 9, item: 'Company', path: 'research/company' },
+      { id: 7, item: 'Markets', path: '/research/markets' },
+      { id: 8, item: 'Sectors', path: '/research/sectors' },
+      { id: 9, item: 'Company', path: '/research/company' },
       {
         id: 10,
         item: 'Screener',
-        path: 'research/screener',
+        path: '/research/screener',
         subLinks: [
           {
             id: 11,
             item: 'Fundamental Screener',
-            path: 'research/screener/fundamental',
+            path: '/research/screener/fundamental',
           },
           {
             id: 11,
             item: 'Technical Screener',
-            path: 'research/screener/technical',
+            path: '/research/screener/technical',
           },
           {
             id: 11,
             item: 'End of the day Screener',
-            path: 'research/screener/end-of-day',
+            path: '/research/screener/end-of-day',
           },
         ],
       },
@@ -103,6 +103,7 @@ const Navbar = () => {
   const { data: childDetailData } = useGetUserChildDetail();
   const themeMode = useSelector((state) => state.theme?.mode);
   const { pathname = '' } = useLocation();
+  console.log('🚀 ~ file: Navbar.jsx:106 ~ pathname:', pathname);
   const marketOpen = false;
 
   const [submenuAnchors, setSubmenuAnchors] = useState({});
@@ -200,14 +201,40 @@ const Navbar = () => {
           >
             <Typography
               sx={{
+                position: 'relative',
                 cursor: 'pointer',
                 color:
-                  pathname === subLink.path
+                  pathname.startsWith(subLink.path) ||
+                  (subLink.subLinks &&
+                    subLink.subLinks.some((childSubLink) =>
+                      pathname.startsWith(childSubLink.path)
+                    ))
                     ? theme.palette.text.main
                     : theme.palette.text.main,
-                fontWeight: pathname === subLink.path ? 'bold' : 'normal',
-                borderBottom:
-                  pathname === subLink.path ? '2px solid blue' : 'none',
+                fontWeight:
+                  pathname.startsWith(subLink.path) ||
+                  (subLink.subLinks &&
+                    subLink.subLinks.some((childSubLink) =>
+                      pathname.startsWith(childSubLink.path)
+                    ))
+                    ? 'bold'
+                    : 'normal',
+                '&:before': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: '10%',
+                  left: '0%',
+                  width: '70%',
+                  height: '2px',
+                  backgroundColor:
+                    pathname.startsWith(subLink.path) ||
+                    (subLink.subLinks &&
+                      subLink.subLinks.some((childSubLink) =>
+                        pathname.startsWith(childSubLink.path)
+                      ))
+                      ? 'blue'
+                      : 'transparent',
+                },
               }}
               variant='h6'
             >
@@ -267,15 +294,22 @@ const Navbar = () => {
                     sx={{
                       cursor: 'pointer',
                       color:
-                        pathname === items.path
+                        pathname.startsWith(items.path) || // Check if the path starts with the item path
+                        (items.subLinks &&
+                          items.subLinks.some((subLink) =>
+                            pathname.startsWith(subLink.path)
+                          )) // Check if any sublink path starts with the current path
                           ? theme.palette.text.main
                           : theme.palette.text.main,
-                      fontWeight: pathname === items.path ? 'bold' : 'normal',
-                      // position: "relative",
-                      // borderBottom:
-                      //   pathname === items.path ? '2px solid blue' : 'none',
+                      fontWeight:
+                        pathname.startsWith(items.path) ||
+                        (items.subLinks &&
+                          items.subLinks.some((subLink) =>
+                            pathname.startsWith(subLink.path)
+                          ))
+                          ? 'bold'
+                          : 'normal',
                       '&:hover': {
-                        // backgroundColor: theme.palette.background.hover,
                         transform: 'scale(1.2)',
                         transition: 'transform 0.2s ease-in-out',
                         fontWeight: 'bold',
@@ -288,7 +322,13 @@ const Navbar = () => {
                         width: '70%',
                         height: '2px',
                         backgroundColor:
-                          pathname === items.path ? 'blue' : 'transparent',
+                          pathname.startsWith(items.path) ||
+                          (items.subLinks &&
+                            items.subLinks.some((subLink) =>
+                              pathname.startsWith(subLink.path)
+                            ))
+                            ? 'blue'
+                            : 'transparent',
                       },
                       display: 'flex',
                       alignItems: 'center',
