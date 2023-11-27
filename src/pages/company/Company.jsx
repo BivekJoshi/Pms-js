@@ -70,7 +70,7 @@ const Company = () => {
       <Typography
         variant='h2'
         style={{
-          color: theme.palette.text.dark,
+          color: theme.palette.text.main,
           marginBottom: '1rem',
         }}
       >

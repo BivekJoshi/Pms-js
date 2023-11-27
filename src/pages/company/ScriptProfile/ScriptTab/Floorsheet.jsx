@@ -77,7 +77,7 @@ const Floorsheet = ({ companyData }) => {
     return () => {
       dispatch(clearPaginatedData());
     };
-  }, [dispatch]);
+  }, [dispatch, companyData]);
 
   const handleSearch = (formValues) => {
     const trDate = formValues.trDate
@@ -150,13 +150,13 @@ const Floorsheet = ({ companyData }) => {
         size: 100,
         sortable: false,
       },
-      {
-        id: 7,
-        accessorKey: 'symbol',
-        header: 'Symbol',
-        size: 100,
-        sortable: false,
-      },
+      // {
+      //   id: 7,
+      //   accessorKey: 'symbol',
+      //   header: 'Symbol',
+      //   size: 100,
+      //   sortable: false,
+      // },
     ],
     []
   );
