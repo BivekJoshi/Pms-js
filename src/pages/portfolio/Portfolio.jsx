@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import CustomTable from '../../components/customTable/CustomTable';
+import { useMemo, useState } from "react";
+import CustomTable from "../../components/customTable/CustomTable";
 import {
   Box,
   Button,
@@ -22,7 +22,6 @@ const Portfolio = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { data: userPorfolioData, isLoading } = useGetUserenPortfolio();
   const { data: userInfoData, isLoading: loading } = useGetUserInfo();
-
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -79,6 +78,14 @@ const Portfolio = () => {
         header: "Today's Gain/Loss",
         size: 100,
         sortable: false,
+        Cell: ({ row }) => {
+          const todayGain = row?.original?.ltp - row?.original?.previousClose;
+          if (todayGain < 0) {
+            return <Typography style={{ color: "red" }}>{Math.abs(todayGain)}</Typography>;
+          } else {
+            return <Typography>{Math.abs(todayGain)}</Typography>;
+          }
+        },
       },
       {
         id: 8,
@@ -207,14 +214,14 @@ const Portfolio = () => {
       {!isLoading ? (
         <Box sx={{ "& .css-1f2qhs8, .css-c8wlay": { color: "#ffff" } }}>
           <CustomTable
-          title="Portfolio"
-          columns={columns}
-          data={userPorfolioData}
-          isLoading={isLoading}
-          enableFullScreenToggle
-          headerBackgroundColor="#401686"
-          headerColor={theme.palette.text.alt}
-        />
+            title="Portfolio"
+            columns={columns}
+            data={userPorfolioData}
+            isLoading={isLoading}
+            enableFullScreenToggle
+            headerBackgroundColor="#401686"
+            headerColor={theme.palette.text.alt}
+          />
         </Box>
       ) : (
         <Box

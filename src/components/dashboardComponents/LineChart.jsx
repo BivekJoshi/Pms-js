@@ -1,7 +1,6 @@
 import { Box, useTheme } from '@mui/material';
 import { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
-// import { useTranslation } from "react-i18next";
 import './ApexCHart.css';
 
 const LineChartDash = ({ lineData, height }) => {

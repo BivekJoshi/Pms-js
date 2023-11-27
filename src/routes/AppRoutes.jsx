@@ -2,6 +2,10 @@ import React, { Suspense } from 'react';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
 import ScrollToTop from '../utility/ScrollToTop';
+import Sectors from '../pages/research/sectors/Sectors';
+import EndOfTheDay from '../pages/research/Screener/endOfTheDay/EndOfTheDay';
+import Technical from '../pages/research/Screener/technical/Technical';
+import Fundamental from '../pages/research/Screener/fundamental/Fundamental';
 // import PageNotFound from '../pages/PageNotFound/PageNotFound';
 
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
@@ -59,7 +63,17 @@ export default function AppRoutes() {
             <Route path='/' element={<AppLayout />}>
               <Route path='dashboard' element={<Dashboard />} />
               <Route path='watchlist' element={<WatchList />} />
-              <Route path='research' element={<Research />} />
+              {/* <Route path='research' element={<Research />} /> */}
+              <Route path='research'>
+              <Route path='markets' element={<Research />} />
+              <Route path='sectors' element={<Sectors />} />
+              <Route path='company' element={<Company />} />
+              <Route path='screener'>
+              <Route path='fundamental' element={<Fundamental />} />
+              <Route path='technical' element={<Technical />} />
+              <Route path='end-of-day' element={<EndOfTheDay />} />                
+              </Route>
+              </Route>
               <Route path='portfolio' element={<Portfolio />} />
               <Route path='alert' element={<Alert />} />
               <Route path='profile' element={<Profile />} />
