@@ -25,13 +25,17 @@ const AppLayout = () => {
   const brokerId = useSelector((state) => state?.user.details?.brokerNo);
   const authDataString = localStorage.getItem('auth');
   const authData = JSON.parse(authDataString);
-  let authToken = authData?.authToken;
+  const authToken = authData?.authToken;
   const navigate = useNavigate();
   const { data, isLoading, refetch } = useGetTheme(brokerId);
+
   useEffect(() => {
     if (!authToken) {
       navigate('/login');
-    } else {
+    } else if(authData?.tempPassword) {
+      // console.log({"auth": authData?.tempPassword})
+      navigate("reset/password")
+    }else{
       refetch();
     }
     if (data) {

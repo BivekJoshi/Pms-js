@@ -23,8 +23,11 @@ const LoginLayout = () => {
     setToken(authToken);
     if (!token && pathname === '/') {
       navigate('/login');
-    } else if (token) {
-      navigate('/dashboard');
+    } else if (token && authData?.tempPassword) {
+      navigate('/reset/password');
+    }
+    else if(token){
+      navigate('/dashboard')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);

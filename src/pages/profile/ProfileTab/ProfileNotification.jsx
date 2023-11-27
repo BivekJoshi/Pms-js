@@ -18,40 +18,40 @@ const ProfileNotification = () => {
   } = useGetNotification();
 
   const [switchStates, setSwitchStates] = useState(notificationData);
+console.log({"switchStates": switchStates})
+  const { formik, updateFormikValues, resetForm } = useNotificationForm(switchStates);
 
-  const { formik, updateFormikValues, resetForm } = useNotificationForm(
-    switchStates
-  );
   useEffect(() => {
     setSwitchStates(notificationData);
     updateFormikValues(notificationData);
   }, [notificationData]);
 
-  const handleFormSubmit = () => {
-    formik.handleSubmit();
-  };
-
   const handleReset = () => {
     formik.handleSubmit();
     resetForm();
-    // const defaultSwitchStates = {
-    //   ipoFpo: false,
-    //   rightShare: false,
-    //   dividend: false,
-    //   auction: false,
-    //   bondDebenture: false,
-    //   agmSgm: false,
-    //   mergerAcquisition: false,
-    //   financialReports: false,
-    //   newsLetter: false,
-    //   general: false,
-    // };
-    // setSwitchStates(defaultSwitchStates);
+    const defaultSwitchStates = {
+      ipoFpo: false,
+      rightShare: false,
+      dividend: false,
+      auction: false,
+      bondDebenture: false,
+      agmSgm: false,
+      mergerAcquisition: false,
+      financialReports: false,
+      newsLetter: false,
+      general: false,
+    };
+    setSwitchStates(defaultSwitchStates);
   };
+
+  const handleFormSubmit = () => {
+    formik.handleSubmit();
+  }; 
 
   if (loadingNotification) {
     return <Spinner />;
-  }
+  };
+  
   return (
     <Box display="flex" flexDirection="column" alignItems="flex-start">
       <List
