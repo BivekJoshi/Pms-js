@@ -7,6 +7,7 @@ import {
   UPDATE_TABLE_DATA,
 } from "../types/types";
 import { initiated } from "./httpResponse";
+import { getErrorMessage } from "../../utility/getErrorMessage";
 
 export const fetchData = (
   path,
@@ -67,7 +68,7 @@ export const putData = (path, id, data, resolve, reject) => {
       dispatch({ type: UPDATE_TABLE_DATA, payload: data });
       resolve();
     } catch (error) {
-      toast.error(error.message);
+      toast.error(getErrorMessage(error));
       reject();
     }
   };
