@@ -18,6 +18,8 @@ const ReceiptPayment = ({ tradeDate }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
+  const [trType, setTrType] = useState(false);
+
   const { t } = useTranslation();
   const tableData = useSelector((store) => store?.paginatedTable?.data);
 
@@ -106,6 +108,8 @@ const ReceiptPayment = ({ tradeDate }) => {
   ];
 
   const handleSearch = (formValues) => {
+    console.log(formValues,"formValues");
+    setTrType(formValues?.type);
     const dateFrom = formValues.dateFrom
       ? new Date(formValues.dateFrom).getTime() / 1000
       : null;
@@ -151,17 +155,30 @@ const ReceiptPayment = ({ tradeDate }) => {
         }}
       >
         <div>
-          <Typography variant="h4">Receipt Payment Report</Typography>
-          <Typography variant="h7">Last Transaction Date: <b>{tradeDate}</b></Typography>
+          <Typography variant="h4">Receipt/Payment Report</Typography>
+          <Typography variant="h7">
+            Last Transaction Date: <b>{tradeDate}</b>
+          </Typography>
           <br />
-          <Typography variant="h7">Transaction Type: <b>Sell</b></Typography>
+          <Typography variant="h7">
+            Transaction Type:{" "}
+            <b>
+              {trType === "P"
+                ? "Payment"
+                : trType === "R"
+                ? "Receipt"
+                : trType === "B"
+                ? "Both"
+                : "--"}
+            </b>
+          </Typography>
         </div>
         <div style={{ display: "flex", gap: "7px" }}>
           <LocalPrintshopOutlinedIcon />
           <DownloadIcon />
         </div>
       </Box>
-      <br/>
+      <br />
       <NewFilter
         tradeDate={tradeDate}
         inputField={filterMenuItem}
