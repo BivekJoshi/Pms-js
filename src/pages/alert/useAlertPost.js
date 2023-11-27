@@ -27,7 +27,7 @@ export const useAddCreateAlert = ({ onSuccess }) => {
 export const useGetLtp = (script) => {
   return useQuery(['getLtpData', script], () => getCompanyLTP(script), {
     onError: (err) => {
-      toast.error(`error: ${err.message}`);
+      toast.error(getErrorMessage(err));
     },
     cacheTime: 10000,
     refetchInterval: false,
@@ -53,7 +53,7 @@ export const useRemoveWatchListDetail = ({ onSuccess, id }) => {
 export const useGetStockAlert = (script) => {
   return useQuery(['getStockAlert', script], () => getStockAlert(script), {
     onError: (err) => {
-      toast.error(`error: ${err.message}`);
+      toast.error(getErrorMessage(err));
     },
     cacheTime: 10000,
     refetchInterval: false,

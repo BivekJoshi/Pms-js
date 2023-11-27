@@ -2,6 +2,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { register } from '../../api/auth/register-api';
+import { getErrorMessage } from '../../utility/getErrorMessage';
 
 export const useRegister = ({ onSuccess }) => {
   const history = useNavigate();
@@ -17,7 +18,7 @@ export const useRegister = ({ onSuccess }) => {
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
-        toast.error(err.message);
+        toast.error(getErrorMessage(err));
       },
     }
   );
