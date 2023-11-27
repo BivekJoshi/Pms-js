@@ -1,3 +1,4 @@
+// All Data Source here
 export const lineData = [
   {
     name: "ILBS",
@@ -248,4 +249,67 @@ export const worstPerformanceData = [
     pp: 332.45,
     change: '19%',
   },
+];
+
+// All Columns Source here
+export const BestPerformanceColumns = [
+    {
+        id: 1,
+        accessorKey: "script",
+        header: "Script(Qty.)",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 2,
+        accessorKey: "ltp",
+        header: "LTP",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 3,
+        accessorKey: "pp",
+        header: "CP",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 4,
+        accessorKey: "change",
+        header: "Change(%)",
+        size: 100,
+        sortable: false,
+      },
+];
+
+export const WorstPerformanceColumns = [
+    {
+        id: 1,
+        accessorKey: "script",
+        header: "Script(Qty.)",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 2,
+        accessorKey: "ltp",
+        header: "LTP",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 3,
+        accessorKey: "pp",
+        header: "CP",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 4,
+        accessorKey: "change",
+        header: "Change(%)",
+        size: 100,
+        sortable: false,
+      },
 ];

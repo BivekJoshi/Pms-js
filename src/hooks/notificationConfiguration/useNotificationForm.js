@@ -1,27 +1,31 @@
 import { useFormik } from "formik";
 import { useEditNotification } from "./useNotification";
+import { useEffect } from "react";
 
 const useNotificationForm = (switchStates) => {
   const { mutate: editNotification } = useEditNotification({});
 
   const formik = useFormik({
     initialValues: {
-      ipoFpo: switchStates?.ipoFpo || false,
-      rightShare: switchStates?.rightShare || false,
-      dividend: switchStates?.dividend || false,
-      auction: switchStates?.auction || false,
-      bondDebenture: switchStates?.bondDebenture || false,
-      agmSgm: switchStates?.agmSgm || false,
-      mergerAcquisition: switchStates?.mergerAcquisition || false,
-      financialReports: switchStates?.financialReports || false,
-      newsLetter: switchStates?.newsLetter || false,
-      general: switchStates?.general || false,
+      ipoFpo: false,
+      rightShare: false,
+      dividend: false,
+      auction: false,
+      bondDebenture: false,
+      agmSgm: false,
+      mergerAcquisition: false,
+      financialReports: false,
+      newsLetter: false,
+      general: false,
     },
     onSubmit: (values) => {
-      console.log(values, "Values ma ");
       handleRequest(values);
     },
   });
+
+  useEffect(() => {
+    updateFormikValues(switchStates);
+  }, [switchStates]);
 
   const updateFormikValues = (values) => {
     formik.setValues({
@@ -39,18 +43,8 @@ const useNotificationForm = (switchStates) => {
   };
 
   const resetForm = () => {
-    formik.setValues({
-      ipoFpo: false,
-      rightShare: false,
-      dividend: false,
-      auction: false,
-      bondDebenture: false,
-      agmSgm: false,
-      mergerAcquisition: false,
-      financialReports: false,
-      newsLetter: false,
-      general: false,
-    });
+    formik.resetForm();
+    updateFormikValues(switchStates);
   };
 
   const handleRequest = (values) => {
