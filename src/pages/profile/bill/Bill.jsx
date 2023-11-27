@@ -224,6 +224,7 @@ const Bill = ({ tradeDate }) => {
       <FormModal
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        width={1400}
         formComponent={
           <>
             <BillDetail rowData={selectedRowData} />
@@ -233,7 +234,7 @@ const Bill = ({ tradeDate }) => {
                 onClick={() => {
                   setIsModalOpen(false);
                 }}
-                sx={{ mt: 3, ml: 1 }}
+                sx={{ mt: 3, ml: 1,textTransform:'none' }}
                 color="error"
               >
                 {t("Close")}
