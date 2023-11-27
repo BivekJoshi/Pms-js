@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   SettingsOutlined,
   Menu as MenuIcon,
   MenuOpen,
-} from "@mui/icons-material";
-import DarkModeSetting from "../Setting/DarkModeSetting";
+} from '@mui/icons-material';
+import DarkModeSetting from '../Setting/DarkModeSetting';
 import {
   AppBar,
   Typography,
@@ -21,71 +21,71 @@ import {
   Button,
   Menu,
   MenuItem,
-} from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import FlexBetween from "../flexBetween/FlexBetween";
-import logo from "../../assets/logo.png";
-import { useNavigate } from "react-router";
-import NavabarProfile from "./NavabarProfile";
-import ResponsiveNavMenu from "./ResponsiveMenu";
-import { useGetListedCompanies } from "../../hooks/watchList/useWatchList";
-import { useTranslation } from "react-i18next";
-import { useLocation } from "react-router-dom";
-import LiveIndicator from "../liveIndicator/LiveIndicator";
-import { useGetUserChildDetail } from "../../hooks/portfolio/usePortfolio";
-import { useSelector } from "react-redux";
-import CustomizedSwitches from "../switch/NotificationSwitch";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+} from '@mui/material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import FlexBetween from '../flexBetween/FlexBetween';
+import logo from '../../assets/logo.png';
+import { useNavigate } from 'react-router';
+import NavabarProfile from './NavabarProfile';
+import ResponsiveNavMenu from './ResponsiveMenu';
+import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
+import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
+import LiveIndicator from '../liveIndicator/LiveIndicator';
+import { useGetUserChildDetail } from '../../hooks/portfolio/usePortfolio';
+import { useSelector } from 'react-redux';
+import CustomizedSwitches from '../switch/NotificationSwitch';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 const navItems = [
   {
     id: 1,
-    item: "Home",
-    path: "/dashboard",
+    item: 'Home',
+    path: '/dashboard',
   },
   {
     id: 2,
-    item: "Portfolio",
-    path: "/portfolio",
+    item: 'Portfolio',
+    path: '/portfolio',
   },
   {
     id: 3,
-    item: "Watchlist",
-    path: "/watchlist",
+    item: 'Watchlist',
+    path: '/watchlist',
   },
   {
     id: 4,
-    item: "Alert",
-    path: "/alert",
+    item: 'Alert',
+    path: '/alert',
   },
   {
     id: 5,
-    item: "Research",
-    path: "/research",
+    item: 'Research',
+    path: '/research',
     subLinks: [
-      { id: 7, item: "Markets", path: "research/markets" },
-      { id: 8, item: "Sectors", path: "research/sectors" },
-      { id: 9, item: "Company", path: "research/company" },
+      { id: 7, item: 'Markets', path: '/research/markets' },
+      { id: 8, item: 'Sectors', path: '/research/sectors' },
+      { id: 9, item: 'Company', path: '/research/company' },
       {
         id: 10,
-        item: "Screener",
-        path: "research/screener",
+        item: 'Screener',
+        path: '/research/screener',
         subLinks: [
           {
             id: 11,
-            item: "Fundamental Screener",
-            path: "research/screener/fundamental",
+            item: 'Fundamental Screener',
+            path: '/research/screener/fundamental',
           },
           {
             id: 11,
-            item: "Technical Screener",
-            path: "research/screener/technical",
+            item: 'Technical Screener',
+            path: '/research/screener/technical',
           },
           {
             id: 11,
-            item: "End of the day Screener",
-            path: "research/screener/end-of-day",
+            item: 'End of the day Screener',
+            path: '/research/screener/end-of-day',
           },
         ],
       },
@@ -96,18 +96,26 @@ const navItems = [
 const Navbar = () => {
   const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scriptValue, setscriptValue] = useState({ companyInfo: "" });
+  const [scriptValue, setscriptValue] = useState({ companyInfo: '' });
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { data: listedCompanies } = useGetListedCompanies();
   const { data: childDetailData } = useGetUserChildDetail();
   const themeMode = useSelector((state) => state.theme?.mode);
-  const { pathname = "" } = useLocation();
+  const { pathname = '' } = useLocation();
+  console.log('🚀 ~ file: Navbar.jsx:106 ~ pathname:', pathname);
   const marketOpen = false;
-  const [anchorEl, setAnchorEl] = useState(null);
 
   const [submenuAnchors, setSubmenuAnchors] = useState({});
+  const [isNavigating, setIsNavigating] = useState(false);
 
+  useEffect(() => {
+    if (isNavigating) {
+      setSubmenuAnchors({});
+      setIsMenuOpen(false);
+      setIsNavigating(false);
+    }
+  }, [isNavigating]);
   const handleDropdownToggle = (event, itemId) => {
     if (submenuAnchors[itemId]) {
       setSubmenuAnchors((prevAnchors) => ({ ...prevAnchors, [itemId]: null }));
@@ -126,11 +134,11 @@ const Navbar = () => {
 
   const handleActiveClick = (path, child) => {
     if (!child) {
+      setIsNavigating(true);
       navigate(`${path}`);
     }
 
-    if (isMenuOpen && !child) setIsMenuOpen(false);
-    if (!path.includes("/company/")) setscriptValue({ companyInfo: "" });
+    if (!path.includes('/company/')) setscriptValue({ companyInfo: '' });
   };
 
   const [state, setState] = React.useState({
@@ -140,8 +148,8 @@ const Navbar = () => {
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
     ) {
       return;
     }
@@ -172,12 +180,12 @@ const Navbar = () => {
         open={Boolean(submenuAnchors[parentId])}
         onClose={handleDropdownClose}
         anchorOrigin={{
-          vertical: "top",
-          horizontal: "right",
+          vertical: 'top',
+          horizontal: 'right',
         }}
         transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
+          vertical: 'top',
+          horizontal: 'left',
         }}
       >
         {subLinks.map((subLink, i) => (
@@ -188,22 +196,47 @@ const Navbar = () => {
                 handleDropdownToggle(e, subLink.id);
               } else {
                 handleActiveClick(subLink?.path, subLink?.subLinks);
-                handleDropdownClose();
               }
             }}
           >
             <Typography
               sx={{
-                cursor: "pointer",
+                position: 'relative',
+                cursor: 'pointer',
                 color:
-                  pathname === subLink.path
+                  pathname.startsWith(subLink.path) ||
+                  (subLink.subLinks &&
+                    subLink.subLinks.some((childSubLink) =>
+                      pathname.startsWith(childSubLink.path)
+                    ))
                     ? theme.palette.text.main
                     : theme.palette.text.main,
-                fontWeight: pathname === subLink.path ? "bold" : "normal",
-                borderBottom:
-                  pathname === subLink.path ? "2px solid blue" : "none",
+                fontWeight:
+                  pathname.startsWith(subLink.path) ||
+                  (subLink.subLinks &&
+                    subLink.subLinks.some((childSubLink) =>
+                      pathname.startsWith(childSubLink.path)
+                    ))
+                    ? 'bold'
+                    : 'normal',
+                '&:before': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: '10%',
+                  left: '0%',
+                  width: '70%',
+                  height: '2px',
+                  backgroundColor:
+                    pathname.startsWith(subLink.path) ||
+                    (subLink.subLinks &&
+                      subLink.subLinks.some((childSubLink) =>
+                        pathname.startsWith(childSubLink.path)
+                      ))
+                      ? 'blue'
+                      : 'transparent',
+                },
               }}
-              variant="h6"
+              variant='h6'
             >
               {t(subLink?.item)}
             </Typography>
@@ -218,25 +251,25 @@ const Navbar = () => {
   return (
     <AppBar
       style={{
-        position: "sticky",
+        position: 'sticky',
         top: 0,
         boxShadow:
-          "rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset",
+          'rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset',
         background:
-          theme.palette.mode === "light"
+          theme.palette.mode === 'light'
             ? theme.palette.background.alt
             : theme.palette.primary[700],
-        color: "black",
+        color: 'black',
       }}
     >
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <img
           src={logo}
-          alt="Logo"
-          width="104px"
-          height="36px"
-          style={{ cursor: "pointer" }}
-          onClick={() => navigate("/dashboard")}
+          alt='Logo'
+          width='104px'
+          height='36px'
+          style={{ cursor: 'pointer' }}
+          onClick={() => navigate('/dashboard')}
         />
 
         {/* <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -246,51 +279,69 @@ const Navbar = () => {
             <List
               key={items?.id}
               sx={{
-                position: "relative",
-                display: { sm: "none", md: "block", xs: "none" },
+                position: 'relative',
+                display: { sm: 'none', md: 'block', xs: 'none' },
                 // Add additional styling as needed
               }}
             >
-              <ListItem >
-                <div style={{ display: "flex" }}>
+              <ListItem>
+                <div style={{ display: 'flex' }}>
                   <List
                     onClick={(event) => {
                       handleDropdownToggle(event, items.id);
                       handleActiveClick(items?.path, items?.subLinks);
                     }}
                     sx={{
-                      cursor: "pointer",
+                      cursor: 'pointer',
                       color:
-                        pathname === items.path
+                        pathname.startsWith(items.path) || // Check if the path starts with the item path
+                        (items.subLinks &&
+                          items.subLinks.some((subLink) =>
+                            pathname.startsWith(subLink.path)
+                          )) // Check if any sublink path starts with the current path
                           ? theme.palette.text.main
                           : theme.palette.text.main,
-                      fontWeight: pathname === items.path ? "bold" : "normal",
-                      // position: "relative",
-                      // borderBottom:
-                      //   pathname === items.path ? '2px solid blue' : 'none',
-                      "&:hover": {
-                        // backgroundColor: theme.palette.background.hover,
-                        transform: "scale(1.2)",
-                        transition: "transform 0.2s ease-in-out",
-                        fontWeight: "bold",
+                      fontWeight:
+                        pathname.startsWith(items.path) ||
+                        (items.subLinks &&
+                          items.subLinks.some((subLink) =>
+                            pathname.startsWith(subLink.path)
+                          ))
+                          ? 'bold'
+                          : 'normal',
+                      '&:hover': {
+                        transform: 'scale(1.2)',
+                        transition: 'transform 0.2s ease-in-out',
+                        fontWeight: 'bold',
                       },
-                      "&:before": {
+                      '&:before': {
                         content: '""',
-                        position: "absolute",
-                        bottom: "10%",
-                        left: "0%",
-                        width: "70%",
-                        height: "2px",
+                        position: 'absolute',
+                        bottom: '10%',
+                        left: '0%',
+                        width: '70%',
+                        height: '2px',
                         backgroundColor:
-                          pathname === items.path ? "blue" : "transparent",
+                          pathname.startsWith(items.path) ||
+                          (items.subLinks &&
+                            items.subLinks.some((subLink) =>
+                              pathname.startsWith(subLink.path)
+                            ))
+                            ? 'blue'
+                            : 'transparent',
                       },
-                      display: "flex",
-                      alignItems: "center",
+                      display: 'flex',
+                      alignItems: 'center',
                     }}
                   >
                     {t(items?.item)}
                     {items?.subLinks && (
-                      <KeyboardArrowDownIcon sx={{ color: theme.palette.primary.alt, marginLeft: "0.1rem" }} />
+                      <KeyboardArrowDownIcon
+                        sx={{
+                          color: theme.palette.primary.alt,
+                          marginLeft: '0.1rem',
+                        }}
+                      />
                     )}
                   </List>
                   {items?.subLinks && renderSubmenu(items.subLinks, items.id)}
@@ -302,14 +353,14 @@ const Navbar = () => {
 
         <Grid
           sx={{
-            width: "100%",
-            maxWidth: "300px",
-            display: { md: "block", xs: "none" },
-            margin: { md: "0 32px", sm: "0px" },
+            width: '100%',
+            maxWidth: '300px',
+            display: { md: 'block', xs: 'none' },
+            margin: { md: '0 32px', sm: '0px' },
           }}
         >
           <Autocomplete
-            name="script"
+            name='script'
             fullWidth
             options={symbols}
             getOptionLabel={(option) => option?.companyInfo}
@@ -318,12 +369,12 @@ const Navbar = () => {
               <TextField
                 {...params}
                 fullWidth
-                placeholder={t("Company name or symbol")}
-                variant="outlined"
+                placeholder={t('Company name or symbol')}
+                variant='outlined'
                 autoFocus
-                size="small"
+                size='small'
                 InputLabelProps={{ shrink: true }}
-                style={{ minWidth: "150px" }}
+                style={{ minWidth: '150px' }}
               />
             )}
             onChange={(event, value) => {
@@ -335,49 +386,49 @@ const Navbar = () => {
           />
         </Grid>
 
-        <Tooltip title={"Market " + (marketOpen ? "Open" : "Closed")}>
+        <Tooltip title={'Market ' + (marketOpen ? 'Open' : 'Closed')}>
           <div>
             <LiveIndicator open={marketOpen} />
           </div>
         </Tooltip>
 
-        <FlexBetween gap="12px">
+        <FlexBetween gap='12px'>
           <div>
             <React.Fragment>
-              <Tooltip title="App settings">
-                <IconButton onClick={toggleDrawer("right", true)}>
-                  <SettingsOutlined sx={{ fontSize: "25px" }} />
+              <Tooltip title='App settings'>
+                <IconButton onClick={toggleDrawer('right', true)}>
+                  <SettingsOutlined sx={{ fontSize: '25px' }} />
                 </IconButton>
               </Tooltip>
               <Drawer
-                anchor="right"
-                open={state["right"]}
-                onClose={toggleDrawer("right", false)}
+                anchor='right'
+                open={state['right']}
+                onClose={toggleDrawer('right', false)}
               >
-                <DarkModeSetting onClose={toggleDrawer("right", false)} />
+                <DarkModeSetting onClose={toggleDrawer('right', false)} />
               </Drawer>
             </React.Fragment>
           </div>
           <IconButton>
-            <NotificationsNoneIcon sx={{ fontSize: "25px" }} />
+            <NotificationsNoneIcon sx={{ fontSize: '25px' }} />
           </IconButton>
 
           <NavabarProfile childDetailData={childDetailData} />
 
           <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
+            edge='start'
+            color='inherit'
+            aria-label='menu'
             onClick={toggleMenu}
             sx={{
-              display: { sm: "block", md: "none", xs: "block" }, // Show on small screens
-              color: themeMode === "dark" ? "#fff" : "#0000008a",
+              display: { sm: 'block', md: 'none', xs: 'block' }, // Show on small screens
+              color: themeMode === 'dark' ? '#fff' : '#0000008a',
             }}
           >
             {isMenuOpen ? (
-              <MenuOpen sx={{ fontSize: "25px" }} />
+              <MenuOpen sx={{ fontSize: '25px' }} />
             ) : (
-              <MenuIcon sx={{ fontSize: "25px" }} />
+              <MenuIcon sx={{ fontSize: '25px' }} />
             )}
           </IconButton>
         </FlexBetween>

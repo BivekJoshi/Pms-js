@@ -15,7 +15,72 @@ const BarChartDash = ({ data }) => {
   const CostPrice = data.map((xaxisData) => xaxisData.Cost_Price);
   const Name = data.map((xaxisData) => xaxisData.name);
 
-  const [chartData] = useState({
+  const chartOptions = {
+    chart: {
+      type: "bar",
+      height: 430,
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false, // Swap to false to make it vertical
+        dataLabels: {
+          position: "top",
+        },
+      },
+    },
+    dataLabels: {
+      enabled: true,
+      style: {
+        fontSize: "12px",
+        colors: ["#fff"],
+      },
+    },
+    stroke: {
+      show: true,
+      width: 0,
+      colors: ["#fff"],
+    },
+    tooltip: {
+      shared: true,
+      intersect: false,
+    },
+    xaxis: {
+      categories: Name,
+      labels: {
+        style: {
+          colors: [
+            mode === "dark" ? theme.palette.text.alt : "black",
+            mode === "dark" ? theme.palette.text.alt : "black",
+            mode === "dark" ? theme.palette.text.alt : "black",
+            mode === "dark" ? theme.palette.text.alt : "black",
+            mode === "dark" ? theme.palette.text.alt : "black",
+            mode === "dark" ? theme.palette.text.alt : "black",
+            mode === "dark" ? theme.palette.text.alt : "black",
+            mode === "dark" ? theme.palette.text.alt : "black",
+            mode === "dark" ? theme.palette.text.alt : "black",
+          ],
+        },
+      },
+    },
+    yaxis: {
+      categories: Name, // Swap with xaxis
+      labels: {
+        style: {
+          colors: [mode === "dark" ? theme.palette.text.alt : "black"],
+        },
+      },
+    },
+    legend: {
+      labels: {
+        colors: [
+          mode === "dark" ? theme.palette.text.alt : "black",
+          mode === "dark" ? theme.palette.text.alt : "black",
+        ],
+      },
+    },
+  };
+
+  const chartData = {
     series: [
       {
         name: "Selling Price",
@@ -26,72 +91,8 @@ const BarChartDash = ({ data }) => {
         data: CostPrice,
       },
     ],
-    noData: {},
-    options: {
-      chart: {
-        type: "bar",
-        height: 430,
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false, // Swap to false to make it vertical
-          dataLabels: {
-            position: "top",
-          },
-        },
-      },
-      dataLabels: {
-        enabled: true,
-        style: {
-          fontSize: "12px",
-          colors: ["#fff"],
-        },
-      },
-      stroke: {
-        show: true,
-        width: 0,
-        colors: ["#fff"],
-      },
-      tooltip: {
-        shared: true,
-        intersect: false,
-      },
-      xaxis: {
-        categories: Name,
-        labels: {
-          style: {
-            colors: [
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-              mode === "dark" ? theme.palette.text.alt : "black",
-            ],
-          },
-        },
-      },
-      yaxis: {
-        categories: Name, // Swap with xaxis
-        labels: {
-          style: {
-            colors: [mode === "dark" ? theme.palette.text.alt : "black"],
-          },
-        },
-      },
-      legend: {
-        labels: {
-          colors: [
-            mode === "dark" ? theme.palette.text.alt : "black",
-            mode === "dark" ? theme.palette.text.alt : "black",
-          ],
-        },
-      },
-    },
-  });
+    options: chartOptions,
+  };
 
   return (
     <Box
