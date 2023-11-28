@@ -6,6 +6,7 @@ import Logo from '../assets/logo.png';
 import Curved from '../assets/curves--.png';
 import Bear from '../assets/bear--.png';
 import { useSelector } from 'react-redux';
+import toast from 'react-hot-toast';
 
 const LoginLayout = () => {
   const authDataString = localStorage.getItem('auth');
@@ -21,10 +22,13 @@ const LoginLayout = () => {
 
   useEffect(() => {
     setToken(authToken);
+    if (pathname !== '/login') {
+      toast.dismiss();
+    }
     if (!token && pathname === '/') {
       navigate('/login');
     } else if (token && authData?.tempPassword) {
-      navigate('/reset/password');
+      navigate('/change/password');
     }
     else if(token){
       navigate('/dashboard')

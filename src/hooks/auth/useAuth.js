@@ -34,7 +34,7 @@ export const useLogin = ({ onSuccess }) => {
 
         if (data?.data?.user?.tempPasswordStatus) {
           toast.loading('Please change password to continue');
-          history('/reset/password');
+          history('/change/password');
         } else {
           history('/dashboard');
           toast.success('Login Successful');
