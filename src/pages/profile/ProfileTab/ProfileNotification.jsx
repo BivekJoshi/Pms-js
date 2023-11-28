@@ -14,58 +14,58 @@ const ProfileNotification = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const mode = theme.palette.mode;
-  const {
-    data: notificationData,
-    isLoading: loadingNotification,
-  } = useGetNotification();
+  const { data: notificationData, isLoading: loadingNotification } =
+    useGetNotification();
 
-  const [switchStates, setSwitchStates] = useState(notificationData);
+  const [switchStates, setSwitchStates] = useState();
+  const { formik, updateFormikValues, resetForm } =
+    useNotificationForm(switchStates);
 
-  const { formik, updateFormikValues, resetForm } = useNotificationForm(
-    switchStates
-  );
   useEffect(() => {
     setSwitchStates(notificationData);
     updateFormikValues(notificationData);
   }, [notificationData]);
 
-  const handleFormSubmit = () => {
+  const handleReset = () => {
+    resetForm();
+    const defaultSwitchStates = {
+      ipoFpo: false,
+      rightShare: false,
+      dividend: false,
+      auction: false,
+      bondDebenture: false,
+      agmSgm: false,
+      mergerAcquisition: false,
+      financialReports: false,
+      newsLetter: false,
+      general: false,
+    };
+    setSwitchStates(defaultSwitchStates);
     formik.handleSubmit();
   };
 
-  const handleReset = () => {
+  const handleFormSubmit = () => {
     formik.handleSubmit();
-    resetForm();
-    // const defaultSwitchStates = {
-    //   ipoFpo: false,
-    //   rightShare: false,
-    //   dividend: false,
-    //   auction: false,
-    //   bondDebenture: false,
-    //   agmSgm: false,
-    //   mergerAcquisition: false,
-    //   financialReports: false,
-    //   newsLetter: false,
-    //   general: false,
-    // };
-    // setSwitchStates(defaultSwitchStates);
   };
 
   if (loadingNotification) {
     return <Spinner />;
   }
+
+  console.log(switchStates?.ipoFpo);
+
   return (
-    <Box display="flex" flexDirection="column" alignItems="flex-start">
+    <Box display='flex' flexDirection='column' alignItems='flex-start'>
       <List
         sx={{
-          width: "100%",
+          width: '100%',
           bgcolor: theme.palette.background.alt,
-          paddingTop: "0",
+          paddingTop: '0',
         }}
         // color={theme.palette.text.main}
       >
-        <ListItem className="notificationBg">
-          <Typography color="white" pr="16px">
+        <ListItem className='notificationBg'>
+          <Typography color='white' pr='16px'>
             Website
           </Typography>
         </ListItem>
@@ -84,8 +84,8 @@ const ProfileNotification = () => {
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="ipoFpo"
-            id="ipoFpo"
+            name='ipoFpo'
+            id='ipoFpo'
           />
         </ListItem>
         <Divider />
@@ -104,8 +104,8 @@ const ProfileNotification = () => {
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="rightShare"
-            id="rightShare"
+            name='rightShare'
+            id='rightShare'
           />
         </ListItem>
         <Divider />
@@ -124,8 +124,8 @@ const ProfileNotification = () => {
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="dividend"
-            id="dividend"
+            name='dividend'
+            id='dividend'
           />
         </ListItem>
         <Divider />
@@ -144,8 +144,8 @@ const ProfileNotification = () => {
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="auction"
-            id="auction"
+            name='auction'
+            id='auction'
           />
         </ListItem>
         <Divider />
@@ -164,8 +164,8 @@ const ProfileNotification = () => {
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="bondDebenture"
-            id="bondDebenture"
+            name='bondDebenture'
+            id='bondDebenture'
           />
         </ListItem>
         <Divider />
@@ -184,8 +184,8 @@ const ProfileNotification = () => {
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="agmSgm"
-            id="agmSgm"
+            name='agmSgm'
+            id='agmSgm'
           />
         </ListItem>
         <Divider />
@@ -204,8 +204,8 @@ const ProfileNotification = () => {
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="mergerAcquisition"
-            id="mergerAcquisition"
+            name='mergerAcquisition'
+            id='mergerAcquisition'
           />
         </ListItem>
         <Divider />
@@ -223,8 +223,8 @@ const ProfileNotification = () => {
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="financialReports"
-            id="dinancialReports"
+            name='financialReports'
+            id='dinancialReports'
           />
         </ListItem>
         <Divider />
@@ -242,8 +242,8 @@ const ProfileNotification = () => {
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="newsLetter"
-            id="newsLetter"
+            name='newsLetter'
+            id='newsLetter'
           />
         </ListItem>
         <Divider />
@@ -261,39 +261,39 @@ const ProfileNotification = () => {
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="general"
-            id="general"
+            name='general'
+            id='general'
           />
         </ListItem>
       </List>
       <Grid
-        display="flex"
-        flexDirection="row"
-        justifyContent="right"
-        p="32px 6px"
-        gap="16px"
-        alignSelf="end"
+        display='flex'
+        flexDirection='row'
+        justifyContent='right'
+        p='32px 6px'
+        gap='16px'
+        alignSelf='end'
       >
         <Button
           style={{
-            color: mode === "light" ? theme.palette.text.main : "white",
-            border: mode === "light" ? "1px solid black" : "1px solid White",
-            textTransform: "none",
-          }}
-          onClick={handleFormSubmit}
-        >
-          Set Notification
-        </Button>
-        <Button
-          variant="outlined"
-          style={{
-            background: "#6C49B4",
-            color: mode === "light" ? "white" : theme.palette.text.main,
-            textTransform: "none",
+            color: mode === 'light' ? theme.palette.text.main : 'white',
+            border: mode === 'light' ? '1px solid black' : '1px solid White',
+            textTransform: 'none',
           }}
           onClick={handleReset}
         >
           Reset
+        </Button>
+        <Button
+          variant='outlined'
+          style={{
+            background: '#6C49B4',
+            color: mode === 'light' ? 'white' : theme.palette.text.main,
+            textTransform: 'none',
+          }}
+          onClick={handleFormSubmit}
+        >
+          Set Notification
         </Button>
       </Grid>
     </Box>

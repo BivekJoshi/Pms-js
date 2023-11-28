@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const strongPasswordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/;
+const strongPasswordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}|[\]\\:";'<>?,./]).{8,}$/;
 
 const changepasswordSchema = Yup.object().shape({
   oldPassword: Yup.string().required('Required'),
@@ -8,7 +8,7 @@ const changepasswordSchema = Yup.object().shape({
     .required('Required')
     .matches(
       strongPasswordRegex,
-      'Password must contain at least 8 characters, including uppercase, lowercase, and a number'
+      'Password must contain at least 8 characters, including uppercase, lowercase, special character and a number'
     )
     .notOneOf([Yup.ref('oldPassword')], 'New password cannot be the same as the old password')
     .oneOf([Yup.ref('rePassword')], 'Passwords must match'),

@@ -158,13 +158,13 @@ const Floorsheet = ({ companyData }) => {
         size: 100,
         sortable: false,
       },
-      {
-        id: 7,
-        accessorKey: 'symbol',
-        header: 'Symbol',
-        size: 100,
-        sortable: false,
-      },
+      // {
+      //   id: 7,
+      //   accessorKey: 'symbol',
+      //   header: 'Symbol',
+      //   size: 100,
+      //   sortable: false,
+      // },
     ],
     []
   );
