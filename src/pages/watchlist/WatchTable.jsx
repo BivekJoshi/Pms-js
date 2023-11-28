@@ -9,10 +9,12 @@ import { Box, useTheme } from "@mui/material";
 import { useState } from "react";
 import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 const WatchTable = (watchid) => {
   const navigate = useNavigate();
   const id = watchid?.watchid;
+  const { t } = useTranslation();
   const { data: watchListDataById, isLoading } = useGetWatchListDataById(id);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tableDataSymbol, setTableDataSymbol] = useState();
@@ -114,7 +116,7 @@ const WatchTable = (watchid) => {
     <div>
       {!isLoading && watchListDataById && watchListDataById.data ? (
         <CustomTable
-          title="Watch List"
+          title={t("Watchlist")}
           columns={columns}
           data={watchListDataById?.data}
           state={{

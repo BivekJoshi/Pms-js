@@ -8,8 +8,10 @@ import toast from "react-hot-toast";
 import useNotificationForm from "../../../hooks/notificationConfiguration/useNotificationForm";
 import Spinner from "../../../components/spinner/Spinner";
 import CustomizedSwitches from "../../../components/switch/NotificationSwitch";
+import { useTranslation } from "react-i18next";
 
 const ProfileNotification = () => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const mode = theme.palette.mode;
   const {
@@ -69,8 +71,8 @@ const ProfileNotification = () => {
         </ListItem>
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
-            <Typography>IPO/FPO</Typography>(Announce, Opening date and Closing
-            Date)
+            <Typography>{t("IPO/FPO")}</Typography>
+            {t("Announce, Opening date and Closing Date")}
           </Grid>
           <CustomizedSwitches
             checked={switchStates?.ipoFpo}
@@ -89,8 +91,8 @@ const ProfileNotification = () => {
         <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
-            <Typography>Right Share</Typography>(Declare, a day before Book
-            Close Date)
+            <Typography>{t("Right Share")}</Typography>
+            {t("Declare, a day before Book Close Date")}
           </Grid>
           <CustomizedSwitches
             checked={switchStates?.rightShare}
@@ -109,8 +111,8 @@ const ProfileNotification = () => {
         <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
-            <Typography>Dividend</Typography>(Declare and a day before Book
-            Close date)
+            <Typography>{t("Dividend")}</Typography>
+            {t("Declare and a day before Book Close date")}
           </Grid>
           <CustomizedSwitches
             checked={switchStates?.dividend}
@@ -129,7 +131,8 @@ const ProfileNotification = () => {
         <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
-            <Typography>Auction </Typography>(Declare and Opening Date)
+            <Typography>{t("Auction")}</Typography>
+            {t("Declare and Opening Date")}
           </Grid>
           <CustomizedSwitches
             checked={switchStates?.auction}
@@ -148,8 +151,8 @@ const ProfileNotification = () => {
         <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
-            <Typography>Bond/Debenture </Typography>(Opening date and Closing
-            Date){" "}
+            <Typography>{t("Bond/Debenture")}</Typography>
+            {t("Opening date and ClosingDate")}{" "}
           </Grid>
           <CustomizedSwitches
             checked={switchStates?.bondDebenture}
@@ -168,8 +171,8 @@ const ProfileNotification = () => {
         <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
-            <Typography>AGM/SGM </Typography>(Announce and Joint Transaction
-            date){" "}
+            <Typography>{t("AGM/SGM")}</Typography>
+            {t("Announce and Joint Transaction date")}{" "}
           </Grid>{" "}
           <CustomizedSwitches
             checked={switchStates?.agmSgm}
@@ -188,8 +191,8 @@ const ProfileNotification = () => {
         <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
-            <Typography>Merger/ Acquisition </Typography>(Announce and Joint
-            Transaction date)
+            <Typography>{t("Merger/ Acquisition")}</Typography>
+            {t("Announce and Joint Transaction date")}
           </Grid>
           <CustomizedSwitches
             checked={switchStates?.mergerAcquisition}
@@ -208,7 +211,7 @@ const ProfileNotification = () => {
         <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
-            Financial Reports{" "}
+            {t("Financial Reports")}{" "}
           </Grid>
           <CustomizedSwitches
             checked={switchStates?.financialReports}
@@ -227,7 +230,7 @@ const ProfileNotification = () => {
         <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
-            Newsletter
+            {t("Newsletter")}
           </Grid>
           <CustomizedSwitches
             checked={switchStates?.newsLetter}
@@ -246,7 +249,7 @@ const ProfileNotification = () => {
         <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
-            <Typography>General </Typography>(New feature/ updates)
+            <Typography>{t("General")} </Typography>{t("New feature/ updates")}
           </Grid>
           <CustomizedSwitches
             checked={switchStates?.general}

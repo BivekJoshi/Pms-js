@@ -24,32 +24,33 @@ import { useAlertForm } from "./useAlertForm";
 import ManageAlert from "./ManageAlert";
 import AlertScriptDetails from "./AlertScriptDetails";
 import { useGetCompanyById } from "../../hooks/company/useCompany";
+import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 const alertType = [
   {
     id: "HIGHER_THAN",
-    label: "Price Rise",
+    label: t("Price Rise"),
   },
   {
     id: "LOWER_THAN",
-    label: "Price Below",
+    label: t("Price Below"),
   },
 ];
 const deliveryMethods = [
-  { id: "notification", value: "Push Notification" },
-  { id: "SMS", value: "SMS" },
-  { id: "EMAIL", value: "Email" },
+  { id: "notification", value: t("Push Notification") },
+  { id: "SMS", value: t("SMS") },
+  { id: "EMAIL", value: t("Email") },
 ];
 
 const Alert = (props) => {
+  const { t } = useTranslation();
   const [value, setValue] = useState("1");
   const theme = useTheme();
   const handleChange = (event, newValue) => setValue(newValue);
   const themeMode = useSelector((state) => state.theme?.mode);
   const { formik, handleClear } = useAlertForm();
   const { data: listedCompanies } = useGetListedCompanies();
-
-
 
   const symbolsArray = [];
   for (const key in listedCompanies) {
@@ -93,7 +94,7 @@ const Alert = (props) => {
   const activeLabelStyle = {
     ...labelStyle,
     backgroundColor: "#329EF4",
-    borderBottom:"none"
+    borderBottom: "none",
   };
   return (
     <>
@@ -116,7 +117,7 @@ const Alert = (props) => {
                 fontWeight: "800",
               }}
             >
-              Alert :
+              {t("Alert")} :
             </Typography>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <TabList
@@ -125,12 +126,12 @@ const Alert = (props) => {
                 textColor={theme.palette.text.main}
               >
                 <Tab
-                  label="Create Alert"
+                  label={t("Create Alert")}
                   value="1"
                   style={value === "1" ? activeLabelStyle : labelStyle}
                 />
                 <Tab
-                  label="Manage Alert"
+                  label={t("Manage Alert")}
                   value="2"
                   style={value === "2" ? activeLabelStyle : labelStyle}
                 />
@@ -150,7 +151,7 @@ const Alert = (props) => {
                   variant="h5"
                   style={{ color: theme.palette.text.main, fontWeight: "400" }}
                 >
-                  Create New Alert
+                  {t("Create New Alert")}
                 </Typography>
               </div>
 
@@ -171,9 +172,9 @@ const Alert = (props) => {
                       renderInput={(params) => (
                         <TextField
                           {...params}
-                          label="Select a Company"
+                          label={t("Select a Company")}
                           name="companyInfoId"
-                          placeholder="Select a Company"
+                          placeholder={t("Select a Company")}
                           variant="outlined"
                           autoFocus
                           size="small"
@@ -220,7 +221,7 @@ const Alert = (props) => {
                       InputLabelProps={{ shrink: true }}
                       variant="outlined"
                       size="small"
-                      label="LTP"
+                      label={t("LTP")}
                       // onChange={(e, value) => {
                       //   console.log({"value console": value})
                       //   formik?.setFieldValue("ltp", value); // Set the field value based on the selected option or an empty string if no option is selected
@@ -246,8 +247,8 @@ const Alert = (props) => {
                       renderInput={(params) => (
                         <TextField
                           {...params}
-                          label="Select an Alert Type"
-                          placeholder="Select alert type"
+                          label={t("Select an Alert Type")}
+                          placeholder={t("Select alert type")}
                           variant="outlined"
                           size="small"
                           value={formik.values.alertType}
@@ -287,8 +288,8 @@ const Alert = (props) => {
                       InputLabelProps={{ shrink: true }}
                       variant="outlined"
                       size="small"
-                      label="Enter Trigger Price"
-                      placeholder="Enter Trigger Price"
+                      label={t("Enter Trigger Price")}
+                      placeholder={t("Enter Trigger Price")}
                       value={formik.values.triggerPrice}
                       error={
                         formik.touched.triggerPrice &&
@@ -308,7 +309,7 @@ const Alert = (props) => {
                   </Grid>
                   <Grid item xs={12} sm={6} md={3} lg={2} className="d-flex ">
                     <FormControl component="fieldset">
-                      <label>Alert For </label>
+                      <label>{t("Alert For")} </label>
                       <FormGroup
                         sx={{
                           display: "flex",
@@ -327,7 +328,7 @@ const Alert = (props) => {
                                   marginRight: "20px",
                                 }}
                               >
-                                Buy
+                                {t("Buy")}
                               </label>
                               <FormControlLabel
                                 control={
@@ -344,8 +345,7 @@ const Alert = (props) => {
                                     name="transactionType"
                                     style={{
                                       color:
-                                        formik.values?.transactionType ===
-                                        "S"
+                                        formik.values?.transactionType === "S"
                                           ? "#F85862"
                                           : "#5CB85C",
                                     }}
@@ -360,7 +360,7 @@ const Alert = (props) => {
                                   marginRight: "15px",
                                 }}
                               >
-                                Sell
+                                {t("Sell")}
                               </label>
                             </div>
                           }
@@ -370,7 +370,7 @@ const Alert = (props) => {
                   </Grid>
                   <Grid item xs={12} sm={6} md={6} lg={6} className="d-flex ">
                     <FormControl component="fieldset">
-                      <label>Select Delivery Method</label>
+                      <label>{t("Select Delivery Method")}</label>
                       <FormGroup
                         sx={{
                           display: "flex",
@@ -460,7 +460,7 @@ const Alert = (props) => {
                     textTransform: "none",
                   }}
                 >
-                  Cancel
+                  {t("Cancel")}
                 </Button>
                 <Button
                   variant="contained"
@@ -477,7 +477,7 @@ const Alert = (props) => {
                   }}
                   // disabled={!formik.isValid}
                 >
-                  Create Alert
+                  {t("Create Alert")}
                 </Button>
               </Grid>
               {isSMSPresent && (

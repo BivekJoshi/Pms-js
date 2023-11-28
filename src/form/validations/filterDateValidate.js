@@ -22,3 +22,7 @@ export const filterDateValidationSchema = Yup.object().shape({
       return true;
     }),
 });
+
+export const filterTransactionSchema = Yup.object().shape({
+  transactionType: Yup.string().required("Required"),
+});

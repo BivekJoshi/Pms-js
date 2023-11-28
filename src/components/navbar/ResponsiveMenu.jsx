@@ -63,7 +63,7 @@ const ResponsiveNavMenu = (props) => {
                 autoFocus
                 size="small"
                 InputLabelProps={{ shrink: true }}
-                style={{ minWidth: "150px" }}
+                style={{ minWidth: "150px",backgroundColor:"#ECE6EB" }}
               />
             )}
             onChange={(event, value) => {

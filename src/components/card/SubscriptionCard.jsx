@@ -1,7 +1,7 @@
 import { useTheme } from "@emotion/react";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import React from "react";
-import "./Style.css"
+import "./Style.css";
 
 const SubscriptionCard = ({ section, index, BronzeSub, SilverSub }) => {
   const theme = useTheme();
@@ -20,7 +20,7 @@ const SubscriptionCard = ({ section, index, BronzeSub, SilverSub }) => {
       >
         <div style={{ position: "relative" }}>
           <img
-          className="svgHide"
+            className="svgHide"
             src={section?.bg}
             style={{
               width: "100%",
@@ -334,6 +334,7 @@ const SubscriptionCard = ({ section, index, BronzeSub, SilverSub }) => {
                   index === 0 && theme.palette.mode === "dark"
                     ? "black"
                     : section?.buttonColor,
+                textTransform: "none",
               }}
             >
               Subscribe

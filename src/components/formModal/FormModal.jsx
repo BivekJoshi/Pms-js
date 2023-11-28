@@ -11,12 +11,11 @@ const FormModal = ({ open, onClose, formComponent, sx,width }) => {
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: width ? 1400 : "-webkit-fill-available",
-    bgcolor: "background.paper",
     border: "1px solid #808080",
     borderRadius: 2,
     boxShadow: 24,
     p: 4,
-    background: theme.palette.background.default,
+    background: theme.palette.background.alt,
     color: theme.palette.common,
   };
 
