@@ -1,58 +1,74 @@
-import { useTheme } from "@emotion/react";
-import { Box, Button, Divider, Grid, List, ListItem } from "@mui/material";
-import { Switch, Typography } from "@mui/material";
-import React, { useEffect } from "react";
-import { useGetNotification } from "../../../hooks/notificationConfiguration/useNotification";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import useNotificationForm from "../../../hooks/notificationConfiguration/useNotificationForm";
-import Spinner from "../../../components/spinner/Spinner";
-import CustomizedSwitches from "../../../components/switch/NotificationSwitch";
+import { useTheme } from '@emotion/react';
+import { Box, Button, Divider, Grid, List, ListItem } from '@mui/material';
+import { Switch, Typography } from '@mui/material';
+import React, { useEffect } from 'react';
+import { useGetNotification } from '../../../hooks/notificationConfiguration/useNotification';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import useNotificationForm from '../../../hooks/notificationConfiguration/useNotificationForm';
+import Spinner from '../../../components/spinner/Spinner';
+import CustomizedSwitches from '../../../components/switch/NotificationSwitch';
 
 const ProfileNotification = () => {
   const theme = useTheme();
   const mode = theme.palette.mode;
-  const {data: notificationData, isLoading: loadingNotification} = useGetNotification();
-  const [switchStates, setSwitchStates] = useState(notificationData);
-console.log({"switchStates": switchStates})
-  const { formik, updateFormikValues, updateResetFormikValues } = useNotificationForm(switchStates);
+  const { data: notificationData, isLoading: loadingNotification } =
+    useGetNotification();
+
+  const [switchStates, setSwitchStates] = useState();
+  const { formik, updateFormikValues, resetForm } =
+    useNotificationForm(switchStates);
 
   useEffect(() => {
     setSwitchStates(notificationData);
     updateFormikValues(notificationData);
-    updateResetFormikValues(notificationData);
   }, [notificationData]);
 
   const handleReset = () => {
-    updateResetFormikValues(notificationData);
+    resetForm();
+    const defaultSwitchStates = {
+      ipoFpo: false,
+      rightShare: false,
+      dividend: false,
+      auction: false,
+      bondDebenture: false,
+      agmSgm: false,
+      mergerAcquisition: false,
+      financialReports: false,
+      newsLetter: false,
+      general: false,
+    };
+    setSwitchStates(defaultSwitchStates);
     formik.handleSubmit();
   };
 
   const handleFormSubmit = () => {
     formik.handleSubmit();
-  }; 
+  };
 
   if (loadingNotification) {
     return <Spinner />;
-  };
-  
+  }
+
+  console.log(switchStates?.ipoFpo);
+
   return (
-    <Box display="flex" flexDirection="column" alignItems="flex-start">
+    <Box display='flex' flexDirection='column' alignItems='flex-start'>
       <List
         sx={{
-          width: "100%",
+          width: '100%',
           bgcolor: theme.palette.background.alt,
-          paddingTop: "0",
+          paddingTop: '0',
         }}
         // color={theme.palette.text.main}
       >
-        <ListItem className="notificationBg">
-          <Typography color="white" pr="16px">
+        <ListItem className='notificationBg'>
+          <Typography color='white' pr='16px'>
             Website
           </Typography>
         </ListItem>
-        <ListItem className="notificationSwitch">
-          <Grid display="flex" flexDirection="column">
+        <ListItem className='notificationSwitch'>
+          <Grid display='flex' flexDirection='column'>
             <Typography>IPO/FPO</Typography>(Announce, Opening date and Closing
             Date)
           </Grid>
@@ -66,13 +82,13 @@ console.log({"switchStates": switchStates})
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="ipoFpo"
-            id="ipoFpo"
+            name='ipoFpo'
+            id='ipoFpo'
           />
         </ListItem>
         <Divider />
-        <ListItem className="notificationSwitch">
-          <Grid display="flex" flexDirection="column">
+        <ListItem className='notificationSwitch'>
+          <Grid display='flex' flexDirection='column'>
             <Typography>Right Share</Typography>(Declare, a day before Book
             Close Date)
           </Grid>
@@ -86,13 +102,13 @@ console.log({"switchStates": switchStates})
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="rightShare"
-            id="rightShare"
+            name='rightShare'
+            id='rightShare'
           />
         </ListItem>
         <Divider />
-        <ListItem className="notificationSwitch">
-          <Grid display="flex" flexDirection="column">
+        <ListItem className='notificationSwitch'>
+          <Grid display='flex' flexDirection='column'>
             <Typography>Dividend</Typography>(Declare and a day before Book
             Close date)
           </Grid>
@@ -106,13 +122,13 @@ console.log({"switchStates": switchStates})
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="dividend"
-            id="dividend"
+            name='dividend'
+            id='dividend'
           />
         </ListItem>
         <Divider />
-        <ListItem className="notificationSwitch">
-          <Grid display="flex" flexDirection="column">
+        <ListItem className='notificationSwitch'>
+          <Grid display='flex' flexDirection='column'>
             <Typography>Auction </Typography>(Declare and Opening Date)
           </Grid>
           <CustomizedSwitches
@@ -125,15 +141,15 @@ console.log({"switchStates": switchStates})
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="auction"
-            id="auction"
+            name='auction'
+            id='auction'
           />
         </ListItem>
         <Divider />
-        <ListItem className="notificationSwitch">
-          <Grid display="flex" flexDirection="column">
+        <ListItem className='notificationSwitch'>
+          <Grid display='flex' flexDirection='column'>
             <Typography>Bond/Debenture </Typography>(Opening date and Closing
-            Date){" "}
+            Date){' '}
           </Grid>
           <CustomizedSwitches
             checked={switchStates?.bondDebenture}
@@ -145,16 +161,16 @@ console.log({"switchStates": switchStates})
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="bondDebenture"
-            id="bondDebenture"
+            name='bondDebenture'
+            id='bondDebenture'
           />
         </ListItem>
         <Divider />
-        <ListItem className="notificationSwitch">
-          <Grid display="flex" flexDirection="column">
+        <ListItem className='notificationSwitch'>
+          <Grid display='flex' flexDirection='column'>
             <Typography>AGM/SGM </Typography>(Announce and Joint Transaction
-            date){" "}
-          </Grid>{" "}
+            date){' '}
+          </Grid>{' '}
           <CustomizedSwitches
             checked={switchStates?.agmSgm}
             onChange={(event) => {
@@ -165,13 +181,13 @@ console.log({"switchStates": switchStates})
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="agmSgm"
-            id="agmSgm"
+            name='agmSgm'
+            id='agmSgm'
           />
         </ListItem>
         <Divider />
-        <ListItem className="notificationSwitch">
-          <Grid display="flex" flexDirection="column">
+        <ListItem className='notificationSwitch'>
+          <Grid display='flex' flexDirection='column'>
             <Typography>Merger/ Acquisition </Typography>(Announce and Joint
             Transaction date)
           </Grid>
@@ -185,14 +201,14 @@ console.log({"switchStates": switchStates})
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="mergerAcquisition"
-            id="mergerAcquisition"
+            name='mergerAcquisition'
+            id='mergerAcquisition'
           />
         </ListItem>
         <Divider />
-        <ListItem className="notificationSwitch">
-          <Grid display="flex" flexDirection="column">
-            Financial Reports{" "}
+        <ListItem className='notificationSwitch'>
+          <Grid display='flex' flexDirection='column'>
+            Financial Reports{' '}
           </Grid>
           <CustomizedSwitches
             checked={switchStates?.financialReports}
@@ -204,13 +220,13 @@ console.log({"switchStates": switchStates})
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="financialReports"
-            id="dinancialReports"
+            name='financialReports'
+            id='dinancialReports'
           />
         </ListItem>
         <Divider />
-        <ListItem className="notificationSwitch">
-          <Grid display="flex" flexDirection="column">
+        <ListItem className='notificationSwitch'>
+          <Grid display='flex' flexDirection='column'>
             Newsletter
           </Grid>
           <CustomizedSwitches
@@ -223,13 +239,13 @@ console.log({"switchStates": switchStates})
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="newsLetter"
-            id="newsLetter"
+            name='newsLetter'
+            id='newsLetter'
           />
         </ListItem>
         <Divider />
-        <ListItem className="notificationSwitch">
-          <Grid display="flex" flexDirection="column">
+        <ListItem className='notificationSwitch'>
+          <Grid display='flex' flexDirection='column'>
             <Typography>General </Typography>(New feature/ updates)
           </Grid>
           <CustomizedSwitches
@@ -242,39 +258,39 @@ console.log({"switchStates": switchStates})
               setSwitchStates(newState);
               formik.handleChange(event);
             }}
-            name="general"
-            id="general"
+            name='general'
+            id='general'
           />
         </ListItem>
       </List>
       <Grid
-        display="flex"
-        flexDirection="row"
-        justifyContent="right"
-        p="32px 6px"
-        gap="16px"
-        alignSelf="end"
+        display='flex'
+        flexDirection='row'
+        justifyContent='right'
+        p='32px 6px'
+        gap='16px'
+        alignSelf='end'
       >
         <Button
           style={{
-            color: mode === "light" ? theme.palette.text.main : "white",
-            border: mode === "light" ? "1px solid black" : "1px solid White",
-            textTransform: "none",
-          }}
-          onClick={handleFormSubmit}
-        >
-          Set Notification
-        </Button>
-        <Button
-          variant="outlined"
-          style={{
-            background: "#6C49B4",
-            color: mode === "light" ? "white" : theme.palette.text.main,
-            textTransform: "none",
+            color: mode === 'light' ? theme.palette.text.main : 'white',
+            border: mode === 'light' ? '1px solid black' : '1px solid White',
+            textTransform: 'none',
           }}
           onClick={handleReset}
         >
           Reset
+        </Button>
+        <Button
+          variant='outlined'
+          style={{
+            background: '#6C49B4',
+            color: mode === 'light' ? 'white' : theme.palette.text.main,
+            textTransform: 'none',
+          }}
+          onClick={handleFormSubmit}
+        >
+          Set Notification
         </Button>
       </Grid>
     </Box>

@@ -70,7 +70,7 @@ const Company = () => {
       <Typography
         variant='h2'
         style={{
-          color: theme.palette.text.dark,
+          color: theme.palette.text.main,
           marginBottom: '1rem',
         }}
       >
@@ -103,7 +103,7 @@ const Company = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          <Box sx={{ padding: '1rem 2rem' }}>
+          <Box sx={{ padding: '1rem 0rem' }}>
             <CompanyDetail companyData={companyData} />
           </Box>
         </Grid>

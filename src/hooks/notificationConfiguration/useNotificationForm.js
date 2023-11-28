@@ -41,20 +41,10 @@ const useNotificationForm = (switchStates) => {
       general: values?.general || false,
     });
   };
-
-  const updateResetFormikValues = (values) => {
-    formik.setValues({
-      ipoFpo: false,
-      rightShare: false,
-      dividend: false,
-      auction: false,
-      bondDebenture: false,
-      agmSgm: false,
-      mergerAcquisition: false,
-      financialReports: false,
-      newsLetter: false,
-      general: false,
-    });
+ 
+  const resetForm = () => {
+    formik.resetForm();
+    updateFormikValues(switchStates);
   };
  
   const handleRequest = (values) => {
@@ -62,7 +52,7 @@ const useNotificationForm = (switchStates) => {
     editNotification(values, formik);
   };
  
-  return { formik, updateFormikValues, updateResetFormikValues };
+  return { formik, updateFormikValues, resetForm };
 };
  
 export default useNotificationForm;
