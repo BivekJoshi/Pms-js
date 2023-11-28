@@ -1,11 +1,15 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { addNotification, editNotification, getNotification } from "../../api/notificationConfiguration/notification-api";
-import toast from "react-hot-toast";
-import { getErrorMessage } from "../../utility/getErrorMessage";
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import {
+  addNotification,
+  editNotification,
+  getNotification,
+} from '../../api/notificationConfiguration/notification-api';
+import toast from 'react-hot-toast';
+import { getErrorMessage } from '../../utility/getErrorMessage';
 
 /*________________________GET NOTIFICATION CONFIGURATION_____________________________________*/
 export const useGetNotification = () => {
-  return useQuery(["getNotifiactionConfiguration"], () => getNotification(), {
+  return useQuery(['getNotifiactionConfiguration'], () => getNotification(), {
     cacheTime: 10000,
     refetchInterval: false,
     refetchOnWindowFocus: false,
@@ -16,13 +20,13 @@ export const useGetNotification = () => {
 export const useAddWatchListMaster = ({ onSuccess }) => {
   const queryClient = useQueryClient();
   return useMutation(
-    ["addNotification"],
+    ['addNotification'],
     (formData) => addNotification(formData),
     {
       onSuccess: (data, variables, context) => {
-        toast.success("Succesfully set notification");
+        toast.success('Succesfully set notification');
         onSuccess && onSuccess(data, variables, context);
-        queryClient.invalidateQueries("getNotifiactionConfiguration");
+        queryClient.invalidateQueries('getNotifiactionConfiguration');
       },
       onError: (err, _variables, _context) => {
         toast.error(getErrorMessage(err));
@@ -35,20 +39,22 @@ export const useAddWatchListMaster = ({ onSuccess }) => {
 export const useEditNotification = ({ onSuccess }) => {
   const queryClient = useQueryClient();
   return useMutation(
-    ["editNotificationConfiguration"],
+    ['editNotificationConfiguration'],
     (formData) => editNotification(formData),
     {
       onSuccess: (data, variables, context) => {
-        console.log(variables,"variables");
-        const allValuesAreFalse = Object.values(variables || {}).every(value => value === false);
+        const allValuesAreFalse = Object.values(variables || {}).every(
+          (value) => value === false
+        );
+
         if (allValuesAreFalse) {
-          toast.success("All notification configurations are Reset");
+          toast.success('All notification configurations are Reset');
         } else {
-          toast.success("Successfully set notification");
+          toast.success('Successfully set notification');
         }
 
         onSuccess && onSuccess(data, variables, context);
-        queryClient.invalidateQueries("getNotifiactionConfiguration");
+        queryClient.invalidateQueries('getNotifiactionConfiguration');
       },
       onError: (err, _variables, _context) => {
         toast.error(getErrorMessage(err));
