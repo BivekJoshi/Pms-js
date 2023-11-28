@@ -12,36 +12,20 @@ import CustomizedSwitches from "../../../components/switch/NotificationSwitch";
 const ProfileNotification = () => {
   const theme = useTheme();
   const mode = theme.palette.mode;
-  const {
-    data: notificationData,
-    isLoading: loadingNotification,
-  } = useGetNotification();
-
+  const {data: notificationData, isLoading: loadingNotification} = useGetNotification();
   const [switchStates, setSwitchStates] = useState(notificationData);
 console.log({"switchStates": switchStates})
-  const { formik, updateFormikValues, resetForm } = useNotificationForm(switchStates);
+  const { formik, updateFormikValues, updateResetFormikValues } = useNotificationForm(switchStates);
 
   useEffect(() => {
     setSwitchStates(notificationData);
     updateFormikValues(notificationData);
+    updateResetFormikValues(notificationData);
   }, [notificationData]);
 
   const handleReset = () => {
+    updateResetFormikValues(notificationData);
     formik.handleSubmit();
-    resetForm();
-    const defaultSwitchStates = {
-      ipoFpo: false,
-      rightShare: false,
-      dividend: false,
-      auction: false,
-      bondDebenture: false,
-      agmSgm: false,
-      mergerAcquisition: false,
-      financialReports: false,
-      newsLetter: false,
-      general: false,
-    };
-    setSwitchStates(defaultSwitchStates);
   };
 
   const handleFormSubmit = () => {

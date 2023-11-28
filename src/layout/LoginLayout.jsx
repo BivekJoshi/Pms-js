@@ -24,7 +24,7 @@ const LoginLayout = () => {
     if (!token && pathname === '/') {
       navigate('/login');
     } else if (token && authData?.tempPassword) {
-      navigate('/reset/password');
+      navigate('/change/password');
     }
     else if(token){
       navigate('/dashboard')
