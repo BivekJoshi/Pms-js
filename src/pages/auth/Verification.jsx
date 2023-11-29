@@ -13,10 +13,6 @@ import Varification from '../../assets/varification.png';
 
 const Verification = () => {
   const [otp, setOtp] = useState('');
-  console.log(
-    '🚀 ~ file: Verification.jsx:16 ~ Verification ~ otp:',
-    otp.length
-  );
   const [required, setRequired] = useState(false);
   const { id } = useParams();
 
@@ -40,6 +36,7 @@ const Verification = () => {
     if (otp?.length === 0) {
       setRequired(false);
     } else if (otp?.length === 6) {
+      console.log({"otp": otp})
       handleSubmit();
     }
   }, [otp]);

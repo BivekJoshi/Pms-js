@@ -2,7 +2,7 @@ import { useTheme } from "@mui/material";
 import { useState } from "react";
 import ReactApexChart from "react-apexcharts";
 
-const MarketTreeMap = () => {
+const SectorTreeMap = () => {
   const theme = useTheme();
   const [state] = useState({
     series: [
@@ -120,4 +120,4 @@ const MarketTreeMap = () => {
   );
 };
 
-export default MarketTreeMap;
+export default SectorTreeMap;

@@ -22,7 +22,7 @@ const LoginLayout = () => {
 
   useEffect(() => {
     setToken(authToken);
-    if (pathname !== '/login') {
+    if (pathname === '/login') {
       toast.dismiss();
     }
     if (!token && pathname === '/') {
