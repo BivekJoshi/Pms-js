@@ -13,23 +13,23 @@ const Research = () => {
         <SelectorPerformance />
       </Grid>
       <Grid item xs={12} md={7} lg={7} xl={7}>
-        <MarketNews />{" "}
+        <MarketNews />
       </Grid>
       <Grid item xs={12} md={5} lg={5} xl={5}>
         <TopGainers />
-      </Grid>{" "}
+      </Grid>
       <Grid item xs={12} md={7} lg={7} xl={7}>
         <StockExchange />
       </Grid>
       <Grid item xs={12} md={5} lg={5} xl={5}>
         <TopLoseers />
-      </Grid>{" "}
+      </Grid>
       <Grid item xs={12} md={7} lg={7} xl={7}>
         <MarketTreeMap />
-      </Grid>{" "}
+      </Grid>
       <Grid item xs={12} md={6}>
         <TopGainers />
-      </Grid>{" "}
+      </Grid>
       <Grid item xs={12} md={6}>
         <TopLoseers />
       </Grid>
