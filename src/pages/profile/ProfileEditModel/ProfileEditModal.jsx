@@ -62,6 +62,7 @@ const ProfileEditModal = ({ open, handleCloseModal }) => {
               <Button
                 variant="contained"
                 onClick={() => formik.submitForm()}
+                disabled={!selectedProfile}
                 sx={{
                   mt: 3,
                   ml: 1,
