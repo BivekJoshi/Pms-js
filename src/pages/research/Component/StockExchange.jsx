@@ -75,7 +75,7 @@ const StockExchange = () =>  {
 }
   
   return (
-    <div style={{ background: theme.palette.background.alt, padding: "16px" }}>
+    <div style={{ background: theme.palette.background.alt, padding: "16px", width:"100%" }}>
       <Grid
         display="flex"
         flexDirection="row"
