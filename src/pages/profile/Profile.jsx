@@ -52,7 +52,7 @@ const Profile = () => {
   // const [editedDocument, setEditedDocument] = useState({});
 
   const { data: userInfoData, isLoading: loading } = useGetUserInfo();
-  const isSm = useMediaQuery(theme.breakpoints.down("sm"));
+  const isSm = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

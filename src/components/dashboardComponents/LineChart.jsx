@@ -128,7 +128,7 @@ const LineChartDash = ({ lineData, height }) => {
       color={theme.palette.text.main}
       bgcolor={theme.palette.background.alt}
       sx={{
-        padding: '1rem 2rem',
+        padding: '0 2rem',
         borderRadius: '6px',
       }}
     >
