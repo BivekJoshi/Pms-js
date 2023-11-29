@@ -2,9 +2,12 @@ import { Chip, Grid, Typography, useTheme } from "@mui/material";
 import Chart from "react-apexcharts";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useState } from "react";
+import "./Style.css"
 
 const StockExchange = () =>  {
   const theme = useTheme();
+  const mode = theme.palette.mode;
+  const isDarkMode = mode === 'dark';
 
   const chartOptions = {
       chart: {
@@ -31,9 +34,29 @@ const StockExchange = () =>  {
       // labels: series.monthDataSeries1.dates,
       yaxis: {
         type: "datetime",
+        labels: {
+          style: {
+            colors: [isDarkMode ? theme.palette.text.alt : 'black'],
+          },
+        },
       },
       xaxis: {
         opposite: true,
+        labels: {
+          style: {
+            colors: [
+              isDarkMode ? theme.palette.text.alt : 'black',
+              isDarkMode ? theme.palette.text.alt : 'black',
+              isDarkMode ? theme.palette.text.alt : 'black',
+              isDarkMode ? theme.palette.text.alt : 'black',
+              isDarkMode ? theme.palette.text.alt : 'black',
+              isDarkMode ? theme.palette.text.alt : 'black',
+              isDarkMode ? theme.palette.text.alt : 'black',
+              isDarkMode ? theme.palette.text.alt : 'black',
+              isDarkMode ? theme.palette.text.alt : 'black',
+            ],
+          },
+        },
       },
       legend: {
         horizontalAlign: "left",
