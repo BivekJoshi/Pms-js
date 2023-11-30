@@ -109,6 +109,11 @@ const WatchTable = (watchid) => {
     setTableDataSymbol(row?.original?.symbol);
   };
 
+  const notificationRoute =(row)=>{
+    const symbol=row?.original?.symbol;
+    navigate(`/alert/${symbol}`)
+  }
+
   const handleDeleteData = () => {
     mutate(tableDataSymbol);
   };
@@ -130,6 +135,7 @@ const WatchTable = (watchid) => {
           enableDelete
           enableEditing={true}
           handleDelete={deleteRow}
+          handleNotification={notificationRoute}
           delete
           notification
         />

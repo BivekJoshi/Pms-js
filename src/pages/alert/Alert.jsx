@@ -23,9 +23,10 @@ import { useGetListedCompanies } from "../../hooks/watchList/useWatchList";
 import { useAlertForm } from "./useAlertForm";
 import ManageAlert from "./ManageAlert";
 import AlertScriptDetails from "./AlertScriptDetails";
-import { useGetCompanyById } from "../../hooks/company/useCompany";
+import { useGetCompanyById, useGetCompanyBySymbol } from "../../hooks/company/useCompany";
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
+import { useParams } from "react-router-dom";
 
 const alertType = [
   {
@@ -45,6 +46,9 @@ const deliveryMethods = [
 
 const Alert = (props) => {
   const { t } = useTranslation();
+  const { symbol } = useParams();
+  // console.log(symbol,"Script name");
+
   const [value, setValue] = useState("1");
   const theme = useTheme();
   const handleChange = (event, newValue) => setValue(newValue);
@@ -71,6 +75,10 @@ const Alert = (props) => {
 
   const { data: companyData, isLoading } = useGetCompanyById(scriptName);
 
+  const { data: companyInfo } = symbol ? useGetCompanyBySymbol(symbol) : {};
+
+  // console.log(companyInfo?.companyInfo.id, "loasbxkjasxs");
+
   const handleFormSubmit = async () => {
     formik.handleSubmit();
   };
@@ -82,7 +90,15 @@ const Alert = (props) => {
     } else {
       formik.setFieldValue("ltp", "");
     }
-  }, [companyData?.script]); //eslint-disable-line
+  }, [companyData?.script]);
+
+  useEffect(()=>{
+    if(companyInfo?.companyInfo.id){
+      formik.setFieldValue("companyInfoId",companyInfo?.companyInfo.id);
+    }else{
+      formik.setFieldValue("companyInfoId","");
+    }
+  },[companyInfo?.companyInfo.id])
 
   const labelStyle = {
     backgroundColor: "#EBEDEF",

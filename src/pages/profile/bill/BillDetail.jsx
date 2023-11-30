@@ -31,6 +31,13 @@ const BillDetail = ({ rowData }) => {
     () => [
       {
         id: 1,
+        accessorKey: "trDate",
+        header: "Tr Date",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 2,
         accessorKey: "script",
         header: "Script",
         size: 100,
@@ -38,19 +45,18 @@ const BillDetail = ({ rowData }) => {
       },
       {
         id: 3,
-        accessorKey: "buyQty",
-        header: "Buy Quantity",
+        header: "Quantity",
         size: 100,
         sortable: false,
+        Cell: ({ row }) => row.original.buyQty + row.original.sellQty,
       },
       {
         id: 4,
-        accessorKey: "sellQty",
-        header: "Sell Quantity",
+        accessorKey: "rate",
+        header: "Rate",
         size: 100,
         sortable: false,
       },
-
       {
         id: 5,
         accessorKey: "commission",
@@ -60,36 +66,8 @@ const BillDetail = ({ rowData }) => {
       },
       {
         id: 6,
-        accessorKey: "Is Settled",
-        header: "isSettled",
-        size: 100,
-        sortable: false,
-      },
-      {
-        id: 7,
         accessorKey: "amount",
         header: "Amount",
-        size: 100,
-        sortable: false,
-      },
-      {
-        id: 8,
-        accessorKey: "rate",
-        header: "Rate",
-        size: 100,
-        sortable: false,
-      },
-      {
-        id: 9,
-        accessorKey: "trDate",
-        header: "Tr Date",
-        size: 100,
-        sortable: false,
-      },
-      {
-        id: 10,
-        accessorKey: "transactionType",
-        header: "Tr Type",
         size: 100,
         sortable: false,
       },
@@ -102,9 +80,9 @@ const BillDetail = ({ rowData }) => {
   return (
     <div>
       <Box>
-        <div style={{display:'flex', justifyContent:"space-between"}}>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
           <Typography variant="h4">Bill Detail</Typography>
-          <div style={{display:"flex",gap:"1rem"}}>
+          <div style={{ display: "flex", gap: "1rem" }}>
             <PictureAsPdfOutlinedIcon />
             <PrintOutlinedIcon />
             <EmailOutlinedIcon />
@@ -123,10 +101,6 @@ const BillDetail = ({ rowData }) => {
               <b>Total Amount : </b>
               {""} {Number(tableData?.totalAmount).toFixed(2)}
             </Typography>
-            <Typography variant="h6">
-              <b>Total Sebon Commission : </b>
-              {""} {Number(tableData?.totalSebonCommission).toFixed(2)}
-            </Typography>
           </div>
           <div>
             <Typography variant="h6">
@@ -134,29 +108,21 @@ const BillDetail = ({ rowData }) => {
               {""} {Number(tableData?.totalCgt).toFixed(2)}
             </Typography>
             <Typography variant="h6">
-              <b>Total Stock Commission : </b>
-              {""} {Number(tableData?.totalStockCommission).toFixed(2)}
-            </Typography>
-            <Typography variant="h6">
-              <b>Total DP Charge : </b>
-              {""} {Number(tableData?.totalDpCharge).toFixed(2)}
-            </Typography>
-          </div>
-          <div>
-            <Typography variant="h6">
               <b>Total Commission : </b>
               {""} {Number(tableData?.totalCommission).toFixed(2)}
             </Typography>
-            <Typography variant="h6">
-              <b>Total Buy Quantity : </b>
-              {""} {tableData?.totalBuyQuantity}
-            </Typography>
-            <Typography variant="h6">
-              <b>Total Sell Quantity : </b>
-              {""} {tableData?.totalSellQuantity}
-            </Typography>
+          </div>
+          <div>
           </div>
         </div>
+        <br />
+        <Typography variant="h6">
+          As per your order dated <b>{tableData?.detail[0].trDate}</b> we have{" "}
+          <b style={{ borderBottom: "1px solid black" }}>
+            {tableData?.detail[0].trType === "P" ? "Purchased" : "Sold"}
+          </b>{" "}
+          these undernoted stocks.
+        </Typography>
         <br />
         <CustomTable
           title="Bill Detail"

@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { useAddCreateAlert} from "./useAlertPost";
+import { useAddCreateAlert } from "./useAlertPost";
 import { addAlertSchema } from "./createAlertValidation";
 
 export const useAlertForm = () => {
@@ -14,17 +14,18 @@ export const useAlertForm = () => {
       transactionType: "P",
       ltp: null,
     },
-
     validationSchema: addAlertSchema,
+    enableReinitialize:true,
     onSubmit: (value) => {
       const submitedValue = { ...value, alertMethod: "SMS" };
       mutate(submitedValue, {
         onSuccess: () => {
           handleClear();
         },
-      })
+      });
     },
   });
+  console.log(formik,"formik");
 
   // const handleClear = () => {
   //   formik.setFieldValue('companyInfoId', null)
@@ -46,8 +47,7 @@ export const useAlertForm = () => {
       },
     });
   };
-  
-  
+
   return {
     formik,
     handleClear,

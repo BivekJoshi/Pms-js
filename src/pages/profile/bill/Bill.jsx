@@ -49,6 +49,10 @@ const Bill = ({ tradeDate }) => {
         header: "Bill Number",
         size: 120,
         sortable: false,
+        // Cell:(value)=>{
+        //   console.log(value?.cell?.row?.original,"rowData ma")
+          
+        // }
       },
       {
         id: 3,
@@ -71,44 +75,29 @@ const Bill = ({ tradeDate }) => {
         size: 100,
         sortable: false,
       },
-
-      // {
-      //   id: 5,
-      //   accessorKey: "buyQty",
-      //   header: "Buy Quantity",
-      //   size: 100,
-      //   sortable: false,
-      // },
-      // {
-      //   id: 6,
-      //   accessorKey: "sellQty",
-      //   header: "Sell Quantity",
-      //   size: 100,
-      //   sortable: false,
-      // },
       {
-        id: 8,
+        id: 5,
         accessorKey: "rate",
         header: "Rate",
         size: 100,
         sortable: false,
       },
       {
-        id: 7,
+        id: 6,
         accessorKey: "amount",
         header: "Amount",
         size: 100,
         sortable: false,
       },
       {
-        id: 9,
+        id: 7,
         accessorKey: "commission",
         header: "Comission",
         size: 100,
         sortable: false,
       },
       {
-        id: 10,
+        id: 8,
         accessorKey: "isSettled",
         header: "Settlement Status",
         size: 100,

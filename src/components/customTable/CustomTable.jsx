@@ -10,11 +10,12 @@ import {
 import { Delete, Edit } from "@mui/icons-material";
 import { useCallback } from "react";
 import "./CustomTable.css";
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import { useNavigate } from "react-router-dom";
 
 const CustomTable = (props) => {
   const theme = useTheme();
-
+  const navigate = useNavigate();
   // const handlePaginationChange = (pageIndex, pageSize) => {
   //   if (props?.onPaginationChange) {
   //     props?.onPaginationChange({ pageIndex, pageSize });
@@ -28,6 +29,11 @@ const CustomTable = (props) => {
   const handleDeleteRow = useCallback((row) => {
     if (props.delete && props.handleDelete) props.handleDelete(row);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleNotificationIcon = useCallback((row) => {
+    const script = row?.original?.symbol;
+    if(props.notification && props.handleNotification) props.handleNotification(row);
+  },[]);
 
   const handleSaveRow = async ({ exitEditingMode, row, values }) => {
     let tableData = [...props.data];
@@ -99,10 +105,13 @@ const CustomTable = (props) => {
             )}
             {props.notification && (
               <Tooltip arrow placement="right" title="notification">
-              <IconButton sx={{ color: "grey" }}>
-                <NotificationsIcon />
-              </IconButton>
-            </Tooltip>
+                <IconButton
+                  sx={{ color: "grey" }}
+                  onClick={() => handleNotificationIcon(row)}
+                >
+                  <NotificationsIcon />
+                </IconButton>
+              </Tooltip>
             )}
           </Box>
         )}
