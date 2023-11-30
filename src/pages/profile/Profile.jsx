@@ -94,7 +94,7 @@ const Profile = () => {
               <ProfileImage userInfoData={userInfoData} loading={loading} />
 
               <Grid display="flex" flexDirection="column" gap="8px">
-                <Typography variant="h4">{userInfoData?.clientName}</Typography>
+                <Typography variant="h5">{userInfoData?.clientName}</Typography>
                 <Typography variant="h7">{userInfoData?.email}</Typography>
                 <Typography variant="h7">{userInfoData?.mobileNo}</Typography>
                 <ProfileButton userInfoData={userInfoData?.subscription} />
@@ -414,7 +414,7 @@ const Profile = () => {
             >
               <ProfileImage userInfoData={userInfoData} loading={loading} />
               <Grid display="flex" flexDirection="column" gap="8px">
-                <Typography variant="h4">{userInfoData?.clientName}</Typography>
+                <Typography variant="h5">{userInfoData?.clientName}</Typography>
                 <Typography variant="h7">{userInfoData?.email}</Typography>
                 <Typography variant="h7">{userInfoData?.mobileNo}</Typography>
                 <ProfileButton userInfoData={userInfoData?.subscription} />
