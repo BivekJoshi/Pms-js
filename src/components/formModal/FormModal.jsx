@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Modal } from '@mui/material';
 import { useTheme } from '@emotion/react';
 
-const FormModal = ({ open, onClose, formComponent, sx,width }) => {
+const FormModal = ({ open, onClose, formComponent, sx,width, bgcolors }) => {
   const theme = useTheme();
 
   const style = {
@@ -10,13 +10,13 @@ const FormModal = ({ open, onClose, formComponent, sx,width }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: width ? 1400 : "-webkit-fill-available",
+    width: width ? width : "-webkit-fill-available",
     bgcolor: "background.paper",
     border: "1px solid #808080",
     borderRadius: 2,
     boxShadow: 24,
     p: 4,
-    background: theme.palette.background.default,
+    background: bgcolors ? bgcolors : theme.palette.background.default,
     color: theme.palette.common,
   };
 
@@ -26,7 +26,7 @@ const FormModal = ({ open, onClose, formComponent, sx,width }) => {
       onClose={onClose}
       aria-labelledby='modal-modal-title'
       aria-describedby='modal-modal-description'
-      // sx={sx}
+      sx={sx}
     >
       <Box sx={style}>{formComponent}</Box>
     </Modal>
