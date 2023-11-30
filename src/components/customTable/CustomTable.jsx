@@ -81,6 +81,9 @@ const CustomTable = (props) => {
         enableFullScreenToggle={props?.enableFullScreenToggle}
         enableGlobalFilter={props?.enableGlobalFilter}
         density={props?.density}
+       
+     
+        
         renderRowActions={({ row, table }) => (
           <Box sx={{ display: "flex", gap: "0.1rem" }}>
             {props.edit && (
@@ -136,6 +139,8 @@ const CustomTable = (props) => {
               (theme?.palette?.mode === "dark" ? "#fafafa" : "#ffff"),
           },
         }}
+render
+
         renderTopToolbarCustomActions={() => (
           <Box sx={{ display: "flex", gap: "1rem", p: "4px" }}>
             <Typography variant="h3">{props?.title}</Typography>
