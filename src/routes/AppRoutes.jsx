@@ -13,7 +13,7 @@ const Research = React.lazy(() => import('../pages/research/Research'));
 const Sectors = React.lazy(() => import('../pages/research/sectors/Sectors'));
 const EndOfTheDay = React.lazy(() => import('../pages/research/Screener/endOfTheDay/EndOfTheDay'));
 const Technical = React.lazy(() => import('../pages/research/Screener/technical/Technical'));
-const Fundamental = React.lazy(() => import('../pages/research/Screener/technical/Technical'));
+const Fundamental = React.lazy(() => import('../pages/research/Screener/fundamental/Fundamental'));
 const ResearchCompany = React.lazy(() => import('../pages/research/company/Company'));
 
 const WatchList = React.lazy(() => import('../pages/watchlist/WatchList'));
