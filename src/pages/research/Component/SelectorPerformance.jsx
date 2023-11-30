@@ -39,6 +39,7 @@ const SelectorPerformance = () => {
     ],
     []
   );
+
   return (
     <Grid
       item
@@ -55,7 +56,7 @@ const SelectorPerformance = () => {
         data={data}
         //   pageSize={pageSize}
         //   onRowClick={handleRowClick}
-        headerBackgroundColor='#401686'
+        headerBackgroundColor='c'
         headerColor={theme.palette.text.alt}
         enablePagination={false}
         enableEditing={false}

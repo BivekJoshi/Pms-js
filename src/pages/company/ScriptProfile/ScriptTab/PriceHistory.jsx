@@ -199,6 +199,7 @@ const PriceHistory = ({ companyData }) => {
             headerColor={theme.palette.text.alt}
             enableFullScreenToggle={false}
             enableHiding={false}
+            // enableColumnFilters={false}
           />
           <div
             style={{

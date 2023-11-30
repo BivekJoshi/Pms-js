@@ -1,11 +1,17 @@
-import { Grid } from '@mui/material';
-import React from 'react';
-import CardInfo from '../../components/dashboardComponents/CardInfo';
-import { barData, lineData, bestPerformanceData, worstPerformanceData } from './dashBoardItems';
-import LineChartDash from '../../components/dashboardComponents/LineChart';
-import BarChartDash from '../../components/dashboardComponents/BarChart';
-import DashboardIndexCard from '../../components/dashboardComponents/DashboardIndexCard';
-import PerformanceTable from '../../components/dashboardComponents/PerformanceTable';
+import { Grid, useTheme } from "@mui/material";
+import React from "react";
+import CardInfo from "../../components/dashboardComponents/CardInfo";
+import {
+  barData,
+  lineData,
+  bestPerformanceData,
+  worstPerformanceData,
+} from "./dashBoardItems";
+import LineChartDash from "../../components/dashboardComponents/LineChart";
+import BarChartDash from "../../components/dashboardComponents/BarChart";
+import DashboardIndexCard from "../../components/dashboardComponents/DashboardIndexCard";
+import PerformanceTable from "../../components/dashboardComponents/PerformanceTable";
+import PieChartDash from "../../components/dashboardComponents/PieChart";
 
 const Dashboard = () => {
   return (
@@ -17,13 +23,13 @@ const Dashboard = () => {
         <LineChartDash lineData={lineData} />
       </Grid>
       <Grid item xs={12} md={5} lg={5} xl={5}>
-        <CardInfo title={'Realized'} />
+        <CardInfo title={"Realized"} />
       </Grid>
       <Grid item xs={12} md={7} lg={7} xl={7}>
         <BarChartDash data={barData} />
       </Grid>
       <Grid item xs={12} md={5} lg={5} xl={5}>
-        <CardInfo title={'Unrealized'} />
+        <CardInfo title={"Unrealized"} />
       </Grid>
       <Grid item xs={12} md={7} lg={7} xl={7}>
         <BarChartDash data={barData} />
@@ -32,7 +38,37 @@ const Dashboard = () => {
         <PerformanceTable title="Best Performance" data={bestPerformanceData} />
       </Grid>
       <Grid item xs={12} md={6}>
-        <PerformanceTable title="Worst Performance" data={worstPerformanceData} />
+        <PerformanceTable
+          title="Worst Performance"
+          data={worstPerformanceData}
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <PerformanceTable
+          title="Worst Performance"
+          data={worstPerformanceData}
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <BarChartDash data={barData} />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <PerformanceTable
+          title="Worst Performance"
+          data={worstPerformanceData}
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <BarChartDash data={barData} />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <PerformanceTable
+          title="Worst Performance"
+          data={worstPerformanceData}
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <PieChartDash />
       </Grid>
     </Grid>
   );

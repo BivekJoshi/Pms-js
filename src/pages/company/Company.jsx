@@ -70,7 +70,7 @@ const Company = () => {
       <Typography
         variant='h2'
         style={{
-          color: theme.palette.text.main,
+          color: theme.palette.text.dark,
           marginBottom: '1rem',
         }}
       >
@@ -78,7 +78,7 @@ const Company = () => {
       </Typography>
       <Grid container spacing={2}>
         <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} borderRadius='4px 0'>
             <Table aria-label='simple table'>
               <TableHead>
                 <TableRow>
@@ -88,7 +88,13 @@ const Company = () => {
                   >
                     Heading
                   </TableCell>
-                  <TableCell sx={{ borderTop: '1px solid #e0e0e0' }}>
+                  <TableCell
+                    sx={{
+                      border: '1px solid #401686',
+                      borderLeft: '2px solid #401686',
+                      borderRight: '2px solid #401686',
+                    }}
+                  >
                     Data
                   </TableCell>
                 </TableRow>
@@ -103,11 +109,13 @@ const Company = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          <Box sx={{ padding: '1rem 0rem' }}>
-            <CompanyDetail companyData={companyData} />
-          </Box>
         </Grid>
         <Grid item xl={8} lg={8} md={8} sm={12} xs={12}>
+          <Box
+            sx={{ padding: '1rem 2rem', display: { sm: 'block', md: 'none' } }}
+          >
+            <CompanyDetail companyData={companyData} />
+          </Box>
           <Box
             color={theme.palette.text.main}
             bgcolor={theme.palette.background.alt}
@@ -120,6 +128,14 @@ const Company = () => {
               {t('Nabil Bank Limited 1D')}
             </Typography>
             <LineChartDash height={400} />
+          </Box>
+          <Box
+            sx={{
+              padding: { sm: '1rem 2rem', md: '0 2rem' },
+              display: { sm: 'none', md: 'block' },
+            }}
+          >
+            <CompanyDetail companyData={companyData} />
           </Box>
         </Grid>
       </Grid>
