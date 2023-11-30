@@ -12,6 +12,14 @@ export const useGetCompanyById = (script) => {
     refetchOnWindowFocus: false,
   });
 };
+/*________________________GET COMPANY DATA BY ID_____________________________________*/
+export const useGetCompanyBySymbol = (script) => {
+  return useQuery(["getCompanySymbol", script], () => getCompanyById(script), {
+    cacheTime: 10000,
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+  });
+};
 /*________________________GET floor sheet_____________________________________*/
 // export const useGetfloorsheetById = (script, trDate, pageNumber, pageSize) => {
 //   return useQuery(

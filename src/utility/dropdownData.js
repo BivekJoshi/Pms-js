@@ -13,6 +13,17 @@ export const transactionType = [
   },
 ];
 
+export const transactionTypBill = [
+  {
+    label: 'Sell',
+    id: 'S',
+  },
+  {
+    label: 'Purchase',
+    id: 'P',
+  },
+];
+
 export const receiptPaymentType = [
   {
     label: 'Receipt',

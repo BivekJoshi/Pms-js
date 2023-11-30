@@ -5,8 +5,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchData } from "../../redux/actions/genericData";
 import { Box, Typography, useTheme } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const AlertScriptTable = ({ script }) => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const dispatch = useDispatch();
   const tableData = useSelector(
@@ -20,7 +22,7 @@ const AlertScriptTable = ({ script }) => {
     () => [
       {
         id: 1,
-        accessorKey: "alertType",
+        accessorKey: t("alertType"),
         header: "Alert Type",
         size: 120,
         sortable: false,
@@ -34,14 +36,14 @@ const AlertScriptTable = ({ script }) => {
       },
       {
         id: 2,
-        accessorKey: "triggerPrice",
+        accessorKey: t("triggerPrice"),
         header: "Alert Trigger",
         size: 120,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: "alertMethod",
+        accessorKey: t("alertMethod"),
         header: "Notification Type",
         size: 150,
         sortable: false,
@@ -53,7 +55,7 @@ const AlertScriptTable = ({ script }) => {
   return (
     <Box>
       <Typography variant="h5" sx={{fontWeight:"bold",paddingBottom:".4rem"}}>
-        Current Alerts for {script}
+        {t("Current Alerts for")} {script}
       </Typography>
       <CustomTable
         columns={columns}

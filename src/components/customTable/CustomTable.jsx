@@ -10,16 +10,11 @@ import {
 import { Delete, Edit } from "@mui/icons-material";
 import { useCallback } from "react";
 import "./CustomTable.css";
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
 const CustomTable = (props) => {
   const theme = useTheme();
-
-  // const handlePaginationChange = (pageIndex, pageSize) => {
-  //   if (props?.onPaginationChange) {
-  //     props?.onPaginationChange({ pageIndex, pageSize });
-  //   }
-  // };
   const handleRowClick = (row) => {
     if (props?.onRowClick) {
       props?.onRowClick(row);
@@ -28,6 +23,11 @@ const CustomTable = (props) => {
   const handleDeleteRow = useCallback((row) => {
     if (props.delete && props.handleDelete) props.handleDelete(row);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const handleNotificationIcon = useCallback((row) => {
+    if (props.notification && props.handleNotification)
+      props.handleNotification(row);
+  }, []);
 
   const handleSaveRow = async ({ exitEditingMode, row, values }) => {
     let tableData = [...props.data];
@@ -81,31 +81,49 @@ const CustomTable = (props) => {
         enableFullScreenToggle={props?.enableFullScreenToggle}
         enableGlobalFilter={props?.enableGlobalFilter}
         density={props?.density}
-        renderRowActions={({ row, table }) => (
-          <Box sx={{ display: "flex", gap: "0.1rem" }}>
-            {props.edit && (
-              <Tooltip arrow placement="left" title="Edit">
-                <IconButton onClick={() => table.setEditingRow(row)}>
-                  <Edit />
-                </IconButton>
-              </Tooltip>
-            )}
-            {props.delete && (
-              <Tooltip arrow placement="right" title="Delete">
-                <IconButton color="error" onClick={() => handleDeleteRow(row)}>
-                  <Delete />
-                </IconButton>
-              </Tooltip>
-            )}
-            {props.notification && (
+        renderRowActions={({ row, table }) => {
+          console.log(row?.original?.isAlertAdded, "datat");
+          return (
+            <Box sx={{ display: "flex", gap: "0.1rem" }}>
+              {props.edit && (
+                <Tooltip arrow placement="left" title="Edit">
+                  <IconButton onClick={() => table.setEditingRow(row)}>
+                    <Edit />
+                  </IconButton>
+                </Tooltip>
+              )}
+              {props.delete && (
+                <Tooltip arrow placement="right" title="Delete">
+                  <IconButton
+                    color="error"
+                    onClick={() => handleDeleteRow(row)}
+                  >
+                    <Delete />
+                  </IconButton>
+                </Tooltip>
+              )}
+              {props.notification && row?.original?.isAlertAdded === true ? (
+                <Tooltip arrow placement="right" title="notification">
+                  <IconButton
+                    sx={{ color: "rgba(255, 184, 107, 1)" }}
+                    onClick={() => handleNotificationIcon(row)}
+                  >
+                    <NotificationsActiveIcon />
+                  </IconButton>
+                </Tooltip>
+              ):
               <Tooltip arrow placement="right" title="notification">
-              <IconButton sx={{ color: "grey" }}>
-                <NotificationsIcon />
-              </IconButton>
-            </Tooltip>
-            )}
-          </Box>
-        )}
+                  <IconButton
+                    sx={{ color: "grey" }}
+                    onClick={() => handleNotificationIcon(row)}
+                  >
+                    <NotificationsIcon />
+                  </IconButton>
+                </Tooltip>
+                }
+            </Box>
+          );
+        }}
         muiTableContainerProps={{
           sx: {
             maxHeight: props?.maxHeight || "600px",
