@@ -4,7 +4,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useState } from "react";
 import "./Style.css"
 
-const StockExchange = () =>  {
+const StockExchange = ({height}) =>  {
   const theme = useTheme();
   const mode = theme.palette.mode;
   const isDarkMode = mode === 'dark';
@@ -12,7 +12,7 @@ const StockExchange = () =>  {
   const chartOptions = {
       chart: {
         type: "area",
-        height: 350,
+        height:height ? height :350,
         zoom: {
           enabled: false,
         },
@@ -102,7 +102,7 @@ const StockExchange = () =>  {
           options={chartData.options}
           series={chartData.series}
           type="area"
-          height={350}
+          height={height ? height :350}
         />
       </div>
     </div>

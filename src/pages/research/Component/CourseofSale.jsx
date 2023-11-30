@@ -11,6 +11,11 @@ const CourseofSale = () => {
       { time: "10:00:00", volume1: "2037.92", volume2: "18.96", value: "3000" },
       { time: "10:00:00", volume1: "2037.92", volume2: "18.96", value: "3000" },
       { time: "10:00:00", volume1: "2037.92", volume2: "18.96", value: "3000" },
+      { time: "10:00:00", volume1: "2037.92", volume2: "18.96", value: "3000" },
+      { time: "10:00:00", volume1: "2037.92", volume2: "18.96", value: "3000" },
+      { time: "10:00:00", volume1: "2037.92", volume2: "18.96", value: "3000" },
+      // { time: "10:00:00", volume1: "2037.92", volume2: "18.96", value: "3000" },
+      // { time: "10:00:00", volume1: "2037.92", volume2: "18.96", value: "3000" },
     ];
     const columns = useMemo(
       () => [
@@ -38,7 +43,7 @@ const CourseofSale = () => {
         {
           id: 4,
           accessorKey: "value",
-          header: "Value (Rsss)",
+          header: "Value (Rs)",
           size: 100,
           sortable: false,
         },
@@ -55,6 +60,7 @@ const CourseofSale = () => {
     >
       <CustomTable
         columns={columns}
+        // title="CourseofSale"
         //   isLoading={isLoading}
         data={data}
         enablePagination={false}

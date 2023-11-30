@@ -36,7 +36,7 @@ const ResearchCompany = () => {
         </div>
       </Grid>
       <Grid item xs={12} md={7} lg={7} xl={7}>
-        <StockExchange />
+        <StockExchange height={400}/>
       </Grid>
     </Grid>
   );

@@ -5,59 +5,96 @@ import { useMemo } from "react";
 
 const MarketDepth = () => {
   const theme = useTheme();
-  const data = [
-    { time: "10:00:00", volume1: "2037.92", volume2: "18.96", value: "3000" },
-    { time: "10:00:00", volume1: "2037.92", volume2: "18.96", value: "3000" },
-    { time: "10:00:00", volume1: "2037.92", volume2: "18.96", value: "3000" },
-    { time: "10:00:00", volume1: "2037.92", volume2: "18.96", value: "3000" },
-    { time: "10:00:00", volume1: "2037.92", volume2: "18.96", value: "3000" },
+  const salerData = [
+    { order: "1", qty: "30", price: "21" },
+    { order: "2", qty: "307", price: "2100" },
+    { order: "3", qty: "100", price: "218" },
   ];
-  const columns = useMemo(
+  const BayerData = [
+    { order: "1", qty: "30", price: "21" },
+    { order: "2", qty: "307", price: "2198" },
+    { order: "3", qty: "100", price: "21123" },
+  ];
+  const salercolumns = useMemo(
     () => [
       {
         id: 1,
-        accessorKey: "time",
-        header: "Time",
+        accessorKey: "order",
+        header: "Order",
         size: 120,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: "volume1",
-        header: "Volume",
+        accessorKey: "qty",
+        header: "Qty",
         size: 100,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: "volume2",
-        header: "Volume",
-        size: 100,
-        sortable: false,
-      },
-      {
-        id: 4,
-        accessorKey: "value",
-        header: "Value (Rs)",
+        accessorKey: "price",
+        header: "Price",
         size: 100,
         sortable: false,
       },
     ],
     []
   );
+  const Bayercolumns = useMemo(
+    () => [
+      {
+        id: 1,
+        accessorKey: "order",
+        header: "Order",
+        size: 120,
+        sortable: false,
+      },
+      {
+        id: 2,
+        accessorKey: "qty",
+        header: "Qty",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 3,
+        accessorKey: "price",
+        header: "Price",
+        size: 100,
+        sortable: false,
+      },
+    ],
+    []
+  );
+
+  const addTotalRow = (data) => {
+    const totalRow = {
+      order: "Total",
+      qty: data.reduce((total, item) => total + parseInt(item.qty, 10), 0),
+      price: data.reduce((total, item) => total + parseInt(item.price, 10), 0),
+    };
+    return [...data, totalRow];
+  };
+
+  const salerDataWithTotal = addTotalRow(salerData);
+  const BayerDataWithTotal = addTotalRow(BayerData);
   return (
+    <>
     <Grid
       item
       xs={12}
       bgcolor={theme.palette.background.alt}
       borderRadius={"6px"}
-      padding={2}
+      padding={1}
     >
       <CustomTable
-        columns={columns}
+        columns={salercolumns}
         //   isLoading={isLoading}
-        data={data}
-        enableTopToolbar={false}
+        title="Buyer"
+        data={salerDataWithTotal}
+        boldTotalRow={true}
+        // enableTopToolbar={false}
         enablePagination={false}
         enableEditing={false}
         enableColumnResizing={false}
@@ -71,7 +108,40 @@ const MarketDepth = () => {
         enableGlobalFilter={false}
         density="comfortable"
       />
+
+      
     </Grid>
+    <Grid
+      item
+      xs={12}
+      bgcolor={theme.palette.background.alt}
+      borderRadius={"6px"}
+      padding={1}
+    >
+      <CustomTable
+        columns={Bayercolumns}
+        //   isLoading={isLoading}
+        title="Seller"
+        data={BayerDataWithTotal}
+        boldTotalRow={true}
+        // enableTopToolbar={false}
+        enablePagination={false}
+        enableEditing={false}
+        enableColumnResizing={false}
+        enableColumnActions={false}
+        enableColumnFilters={false}
+        enableSorting={false}
+        enableBottomToolbar={false}
+        enableDensityToggle={false}
+        enableHiding={false}
+        enableFullScreenToggle={false}
+        enableGlobalFilter={false}
+        density="comfortable"
+      />
+
+      
+    </Grid>
+    </>
   );
 };
 
