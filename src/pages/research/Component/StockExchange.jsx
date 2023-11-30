@@ -2,7 +2,7 @@ import { Chip, Grid, Typography, useTheme } from "@mui/material";
 import Chart from "react-apexcharts";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useState } from "react";
-import "../Style.css"
+import "./Style.css"
 
 const StockExchange = ({height}) =>  {
   const theme = useTheme();
