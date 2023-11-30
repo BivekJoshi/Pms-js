@@ -71,6 +71,7 @@ const NewFilter = ({
                 label={element?.label}
                 name={element?.name}
                 placeholder={element?.placeholder}
+                
               />
             )}
             onChange={(e, value) => setFieldValue(element?.name, value?.label)}

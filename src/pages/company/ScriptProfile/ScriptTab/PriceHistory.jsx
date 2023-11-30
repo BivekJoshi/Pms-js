@@ -18,6 +18,7 @@ const PriceHistory = ({ companyData }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const [tableShow, setTableShow] = useState(false);
+  const [tableKey, setTableKey] = useState(0); 
   const dispatch = useDispatch();
   const tableData = useSelector((store) => store?.paginatedTable?.data);
   const isLoading = useSelector((store) => store?.paginatedTable?.processing);
@@ -73,7 +74,7 @@ const PriceHistory = ({ companyData }) => {
     return () => {
       dispatch(clearPaginatedData());
     };
-  }, [dispatch, companyData]);
+  }, [dispatch,companyData?.companyInfo?.symbol]);
 
   const handleSearch = (formValues) => {
     const trDate = formValues.trDate
@@ -96,10 +97,16 @@ const PriceHistory = ({ companyData }) => {
           'unique'
         )
       );
+      setTableKey((key)=>key+1);
     } catch (error) {
       toast.error(error);
     }
   };
+  useEffect(() => {
+    if (tableKey > 0) {
+      fetchData();
+    }
+  }, [tableKey, dispatch]);
 
   const columns = useMemo(
     () => [

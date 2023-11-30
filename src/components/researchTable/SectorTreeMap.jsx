@@ -9,19 +9,19 @@ const SectorTreeMap = () => {
       {
         data: [
           {
-            x: "New Delhi",
+            x: "Commercial Banks",
             y: 218,
           },
           {
-            x: "Kolkat",
+            x: "Corporate Debenture",
             y: 149,
           },
           {
-            x: "Mumbai",
+            x: "Development Banks",
             y: 184,
           },
           {
-            x: "Ahmedabad",
+            x: "Finance",
             y: 55,
           },
           {
@@ -29,35 +29,43 @@ const SectorTreeMap = () => {
             y: 84,
           },
           {
-            x: "Pune",
+            x: "Hotels And Tourism",
             y: 31,
           },
           {
-            x: "Chennai",
+            x: "Hydro Power",
             y: 70,
           },
           {
-            x: "Jaipur",
+            x: "Investment",
             y: 30,
           },
           {
-            x: "Surat",
+            x: "Life Insurance",
             y: 44,
           },
           {
-            x: "Hyderabad",
+            x: "Manufacturing And Processing",
             y: 68,
           },
           {
-            x: "Lucknow",
+            x: "Microfinance",
             y: 28,
           },
           {
-            x: "Indore",
+            x: "Mutual Fund",
             y: 19,
           },
           {
-            x: "Kanpur",
+            x: "Non Life Insurance",
+            y: 29,
+          },
+          {
+            x: "Promoter Share",
+            y: 29,
+          },
+          {
+            x: "Trading",
             y: 29,
           },
         ],

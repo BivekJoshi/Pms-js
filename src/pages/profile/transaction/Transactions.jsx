@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NewFilter from "../../../components/newFilter/NewFilter";
 import CustomTable from "../../../components/customTable/CustomTable";
@@ -17,6 +17,8 @@ const Transactions = ({ tradeDate }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
+  const [trType, setTrType] = useState(false);
+
   const { t } = useTranslation();
   const isLoading = useSelector((store) => store?.paginatedTable?.processing);
   const tableData = useSelector((store) => store?.paginatedTable?.data);
@@ -24,10 +26,21 @@ const Transactions = ({ tradeDate }) => {
   const totalData = useSelector((store) => store?.paginatedTable?.total);
   const totalPages = useSelector((store) => store?.paginatedTable?.pages);
   const currentPage = useSelector((store) => store?.paginatedTable?.page);
-
   const pageSize = useSelector((store) => store?.paginatedTable?.itemsPerPage);
 
   const [params, setParams] = useState();
+  const [amount, setAmount] = useState();
+  
+  useEffect(() => {
+    const totalAmount = Object.values(tableData)?.reduce(
+      (acc, curr) => acc + (curr.amount ?? 0),
+      0
+    );
+    setAmount(totalAmount);
+  }, [tableData]);
+
+  
+
   const columns = useMemo(
     () => [
       {
@@ -36,6 +49,11 @@ const Transactions = ({ tradeDate }) => {
         header: "Date",
         size: 100,
         sortable: false,
+        Footer: () => (
+          <Typography variant="h6" style={{ whiteSpace: "nowrap" }}>
+            Total Amount
+          </Typography>
+        ),
       },
       {
         id: 2,
@@ -51,11 +69,12 @@ const Transactions = ({ tradeDate }) => {
         size: 100,
         sortable: false,
         Cell: ({ row }) => {
+          console.log(row?.original);
           if (row?.original?.transactionType === "P") {
             return "Purchase";
           } else if (row?.original?.transactionType === "S") {
             return "Sell";
-          } else return row?.original?.transactionType
+          } else return row?.original?.transactionType;
         },
       },
       {
@@ -79,6 +98,7 @@ const Transactions = ({ tradeDate }) => {
         header: "Rate",
         size: 100,
         sortable: false,
+        
       },
       {
         id: 7,
@@ -86,9 +106,12 @@ const Transactions = ({ tradeDate }) => {
         header: "Amount",
         size: 100,
         sortable: false,
+        Footer: () => {
+          return <span>{amount}</span>;
+        },
       },
     ],
-    []
+    [amount]
   );
 
   const filterMenuItem = [
@@ -119,6 +142,7 @@ const Transactions = ({ tradeDate }) => {
   ];
 
   const handleSearch = (formValues) => {
+    setTrType(formValues?.transactionType);
     const dateFrom = formValues.dateFrom
       ? new Date(formValues.dateFrom).getTime() / 1000
       : null;
@@ -170,7 +194,16 @@ const Transactions = ({ tradeDate }) => {
           </Typography>
           <br />
           <Typography variant="h7">
-            Transaction Type: <b>Sell</b>
+            Transaction Type:{" "}
+            <b>
+              {trType === "P"
+                ? "Purchase"
+                : trType === "S"
+                ? "Sell"
+                : trType === "B"
+                ? "Both"
+                : "--"}
+            </b>
           </Typography>
         </div>
         <div style={{ display: "flex", gap: "7px" }}>
