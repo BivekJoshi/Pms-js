@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import FormModal from "../../../components/formModal/FormModal";
-import toast from "react-hot-toast";
 import { Button, Grid, TextField, Typography, useTheme } from "@mui/material";
 import useProfilePic from "../../../hooks/changeProfilePic/useProfilePic";
 import CloseIcon from "@mui/icons-material/Close";
@@ -10,7 +9,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
   const [selectedProfile, setSelectedProfile] = useState();
   const [imagePreview, setImagePreview] = useState(null);
-
+  const theme = useTheme();
   const { formik } = useProfilePic({
     selectedProfile,
     handleCloseModal,
@@ -34,15 +33,15 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
     <FormModal
       open={open}
       onClose={handleCloseModal}
-      bgcolors="white"
-      width="25%"
+      bgcolors={theme.palette.background.alt}
+      width={{ lg: "25%", sm: "50%" }}
       formComponent={
         <Grid
           container
           spacing={3}
           margin="0"
           justifyContent="center"
-          bgcolor="white"
+          bgcolor={theme.palette.background.alt}
           width="100%"
         >
           <Grid
@@ -105,36 +104,28 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
             )}
             {imagePreview && (
               <>
-                <TextField
-                  type="file"
-                  id="file"
-                  onChange={handleChangeImage}
-                  style={{
-                    display: "none",
-                  }}
-                />
-                <Grid item xs={12} sm={12} >
-                <label htmlFor="file" className="file-label">
-                  <input
-                    type="file"
-                    id="file"
-                    onChange={handleChangeImage}
-                    style={{ display: "none" }}
-                  />
-                  <Button
-                    className="chooseInput"
-                    sx={{
-                      bgcolor: "#E7E0EB",
-                      width: "291px",
-                      height: "26px",
-                      color: "black",
-                      "&:hover": { bgcolor: "#decde7" },
-                    }}
-                    component="span"  // Add this to make the button act like a file input trigger
-                  >
-                    Change Profile picture
-                  </Button>
-                </label>
+                <Grid item xs={12} sm={12}>
+                  <label htmlFor="file" className="file-label">
+                    <input
+                      type="file"
+                      id="file"
+                      onChange={handleChangeImage}
+                      style={{ display: "none" }}
+                    />
+                    <Button
+                      className="chooseInput"
+                      sx={{
+                        bgcolor: "#E7E0EB",
+                        width: "291px",
+                        height: "26px",
+                        color: "black",
+                        "&:hover": { bgcolor: "#decde7" },
+                      }}
+                      component="span" // Add this to make the button act like a file input trigger
+                    >
+                      Change Profile picture
+                    </Button>
+                  </label>
                 </Grid>
               </>
             )}
