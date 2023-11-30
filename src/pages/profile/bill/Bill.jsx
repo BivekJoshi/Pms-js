@@ -14,6 +14,7 @@ import { filterDateValidationSchema } from "../../../form/validations/filterDate
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
 import DownloadIcon from "@mui/icons-material/Download";
 import { transactionTypBill, transactionType } from "../../../utility/dropdownData";
+import { useEffect } from "react";
 
 const Bill = ({ tradeDate }) => {
   const dispatch = useDispatch();
@@ -34,6 +35,24 @@ const Bill = ({ tradeDate }) => {
   const [trType, setTrType] = useState(false);
   const { t } = useTranslation();
 
+  const [amount, setAmount] = useState();
+  const [commission, setCommission] = useState();
+  
+  useEffect(() => {
+    const { totalAmount, totalCommission } = Object.values(tableData)?.reduce(
+      (acc, curr) => {
+        acc.totalAmount += curr.amount ?? 0;
+        acc.totalCommission += curr.rate ?? 0;
+        return acc;
+      },
+      { totalAmount: 0, totalCommission: 0 }
+    );
+  
+    setAmount(totalAmount);
+    setCommission(parseFloat(totalCommission.toFixed(2)));
+  }, [tableData]);
+  
+
   const columns = useMemo(
     () => [
       {
@@ -42,6 +61,11 @@ const Bill = ({ tradeDate }) => {
         header: "Date",
         size: 100,
         sortable: false,
+        Footer: () => (
+          <Typography variant="h6" style={{ whiteSpace: "nowrap" }}>
+            Total Amount
+          </Typography>
+        ),
       },
       {
         id: 2,
@@ -74,6 +98,13 @@ const Bill = ({ tradeDate }) => {
         header: "Script",
         size: 100,
         sortable: false,
+        Cell: ({ row }) => {
+          if (row?.original?.trType === "P") {
+            return "Purchase";
+          } else if (row?.original?.trType === "S") {
+            return "Sell";
+          } else return row?.original?.trType;
+        },
       },
       {
         id: 5,
@@ -111,7 +142,7 @@ const Bill = ({ tradeDate }) => {
         },
       },
     ],
-    []
+    [amount, commission]
   );
 
   const filterMenuItem = [

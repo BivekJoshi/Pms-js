@@ -116,13 +116,13 @@ const BillDetail = ({ rowData }) => {
           </div>
         </div>
         <br />
-        <Typography variant="h6">
-          As per your order dated <b>{tableData?.detail[0].trDate}</b> we have{" "}
+        {/* <Typography variant="h6">
+          As per your order dated <b>{tableData&&tableData?.detail[0].trDate}</b> we have{" "}
           <b style={{ borderBottom: "1px solid black" }}>
-            {tableData?.detail[0].trType === "P" ? "Purchased" : "Sold"}
+            {tableData && tableData?.detail[0].trType === "P" ? "Purchased" : "Sold"}
           </b>{" "}
           these undernoted stocks.
-        </Typography>
+        </Typography> */}
         <br />
         <CustomTable
           title="Bill Detail"
