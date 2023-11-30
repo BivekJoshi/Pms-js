@@ -16,6 +16,7 @@ import { useLoginForm } from "../../form/auth/login/useLoginForm";
 import { useNavigate } from "react-router-dom";
 import CheckStatus from "../../assets/checkStatus.png";
 import Bear from "../../assets/bull--.png";
+import { useEffect } from "react";
 
 const LoginPage = () => {
   const navigate = useNavigate();

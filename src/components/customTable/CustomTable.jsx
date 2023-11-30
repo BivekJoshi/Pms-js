@@ -10,6 +10,8 @@ import {
 import { Delete, Edit } from "@mui/icons-material";
 import { useCallback } from "react";
 import "./CustomTable.css";
+import NotificationsIcon from '@mui/icons-material/Notifications';
+
 const CustomTable = (props) => {
   const theme = useTheme();
 
@@ -80,7 +82,7 @@ const CustomTable = (props) => {
         enableGlobalFilter={props?.enableGlobalFilter}
         density={props?.density}
         renderRowActions={({ row, table }) => (
-          <Box sx={{ display: "flex", gap: "1rem" }}>
+          <Box sx={{ display: "flex", gap: "0.1rem" }}>
             {props.edit && (
               <Tooltip arrow placement="left" title="Edit">
                 <IconButton onClick={() => table.setEditingRow(row)}>
@@ -94,6 +96,13 @@ const CustomTable = (props) => {
                   <Delete />
                 </IconButton>
               </Tooltip>
+            )}
+            {props.notification && (
+              <Tooltip arrow placement="right" title="notification">
+              <IconButton sx={{ color: "grey" }}>
+                <NotificationsIcon />
+              </IconButton>
+            </Tooltip>
             )}
           </Box>
         )}

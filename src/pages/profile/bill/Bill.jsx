@@ -169,10 +169,6 @@ const Bill = ({ tradeDate }) => {
           <Typography variant='h7'>
             Last Transaction Date: <b>{tradeDate}</b>
           </Typography>
-          <br />
-          <Typography variant='h7'>
-            Transaction Type: <b>Sell</b>
-          </Typography>
         </div>
         <div style={{ display: 'flex', gap: '7px' }}>
           <LocalPrintshopOutlinedIcon />

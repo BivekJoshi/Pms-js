@@ -124,7 +124,7 @@ export const useRemoveWatchListName = ({ onSuccess }) => {
       queryClient.invalidateQueries('getWatchListName');
     },
     onError: (err, _variables, _context) => {
-      toast.error(`Error: ${err.message}`);
+      toast.error(getErrorMessage(err));
     },
   });
 };

@@ -334,19 +334,19 @@ const Alert = (props) => {
                                 control={
                                   <Switch
                                     checked={
-                                      formik.values?.transactionType === "SELL"
+                                      formik.values?.transactionType === "S"
                                     }
                                     onChange={(e) => {
                                       formik.setFieldValue(
                                         "transactionType",
-                                        e.target.checked ? "SELL" : "PURCHASE"
+                                        e.target.checked ? "S" : "P"
                                       );
                                     }}
                                     name="transactionType"
                                     style={{
                                       color:
                                         formik.values?.transactionType ===
-                                        "SELL"
+                                        "S"
                                           ? "#F85862"
                                           : "#5CB85C",
                                     }}

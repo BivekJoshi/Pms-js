@@ -11,7 +11,7 @@ export const useAlertForm = () => {
       alertType: "",
       triggerPrice: "",
       alertMethod: "",
-      transactionType: "PURCHASE",
+      transactionType: "P",
       ltp: null,
     },
 
@@ -41,7 +41,7 @@ export const useAlertForm = () => {
         alertType: "",
         triggerPrice: "",
         alertMethod: "",
-        transactionType: "PURCHASE",
+        transactionType: "P",
         ltp: null,
       },
     });

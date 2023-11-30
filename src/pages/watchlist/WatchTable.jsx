@@ -8,8 +8,10 @@ import CustomTable from "../../components/customTable/CustomTable";
 import { Box, useTheme } from "@mui/material";
 import { useState } from "react";
 import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
+import { useNavigate } from "react-router-dom";
 
 const WatchTable = (watchid) => {
+  const navigate = useNavigate();
   const id = watchid?.watchid;
   const { data: watchListDataById, isLoading } = useGetWatchListDataById(id);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,6 +30,17 @@ const WatchTable = (watchid) => {
         header: "Symbol",
         size: 100,
         sortable: false,
+        Cell: ({ row }) => (
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/company/${row.original.symbol}`);
+            }}
+          >
+            {row.original.symbol}
+          </a>
+        ),
       },
       {
         id: 2,
@@ -97,11 +110,6 @@ const WatchTable = (watchid) => {
   const handleDeleteData = () => {
     mutate(tableDataSymbol);
   };
-
-  const handleRowClick = (rowData) => {
-    console.log(rowData?.original?.symbol);
-  };
-
   return (
     <div>
       {!isLoading && watchListDataById && watchListDataById.data ? (
@@ -121,7 +129,7 @@ const WatchTable = (watchid) => {
           enableEditing={true}
           handleDelete={deleteRow}
           delete
-          onRowClick={handleRowClick}
+          notification
         />
       ) : (
         <Box

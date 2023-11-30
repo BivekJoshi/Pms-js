@@ -27,6 +27,9 @@ const Verification = React.lazy(() => import('../pages/auth/Verification'));
 const ResetPasswordPage = React.lazy(() =>
   import('../pages/auth/ResetPasswordPage')
 );
+const ForgetPasswordPage = React.lazy(() =>
+  import('../pages/auth/ForgetPasswordPage')
+);
 const ChangePasswordPage = React.lazy(() =>
   import('../pages/auth/ChangePasswordPage')
 );
@@ -53,6 +56,10 @@ export default function AppRoutes() {
               <Route path='reset/password' element={<ResetPasswordPage />} />
               <Route
                 path='reset-password/:id'
+                element={<ForgetPasswordPage />}
+              />
+              <Route
+                path='change/password'
                 element={<ChangePasswordPage />}
               />
               <Route

@@ -27,10 +27,6 @@ const PriceHistory = ({ companyData }) => {
   const currentPage = useSelector((store) => store?.paginatedTable?.page);
 
   const pageSize = useSelector((store) => store?.paginatedTable?.itemsPerPage);
-  console.log(
-    '🚀 ~ file: PriceHistory.jsx:30 ~ PriceHistory ~ pageSize:',
-    pageSize
-  );
 
   const [params, setParams] = useState();
 
@@ -77,7 +73,7 @@ const PriceHistory = ({ companyData }) => {
     return () => {
       dispatch(clearPaginatedData());
     };
-  }, [dispatch]);
+  }, [dispatch, companyData]);
 
   const handleSearch = (formValues) => {
     const trDate = formValues.trDate

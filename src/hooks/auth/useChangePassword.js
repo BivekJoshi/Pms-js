@@ -4,7 +4,7 @@ import { changePassword } from '../../api/auth/change-password-api';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../utility/logout';
-
+import { getErrorMessage } from '../../utility/getErrorMessage';
 
 export const useChangePassword = ({ onSuccess }) => {
   const navigate = useNavigate();
@@ -12,18 +12,18 @@ export const useChangePassword = ({ onSuccess }) => {
 
   return useMutation(
     ['changePassword'],
-    ({ oldPassword,newPassword,rePassword}) =>
-      changePassword(oldPassword,newPassword,rePassword),
+    ({ oldPassword, newPassword, rePassword }) =>
+      changePassword(oldPassword, newPassword, rePassword),
     {
       onSuccess: (data, variables, context) => {
         toast.success('Password Changed Sucessfull');
         navigate(`/login`);
-        dispatch({ type: "LOGOUT" });
+        dispatch({ type: 'LOGOUT' });
         logout();
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
-        toast.error(err.message);
+        toast.error(getErrorMessage(err));
       },
     }
   );

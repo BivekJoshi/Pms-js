@@ -27,7 +27,6 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import FlexBetween from '../flexBetween/FlexBetween';
 import logo from '../../assets/logo.png';
 import { useNavigate } from 'react-router';
-import NavabarProfile from './NavabarProfile';
 import ResponsiveNavMenu from './ResponsiveMenu';
 import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
 import { useTranslation } from 'react-i18next';
@@ -37,6 +36,8 @@ import { useGetUserChildDetail } from '../../hooks/portfolio/usePortfolio';
 import { useSelector } from 'react-redux';
 import CustomizedSwitches from '../switch/NotificationSwitch';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+
+const NavabarProfile = React.lazy(() => import('./NavabarProfile'));
 
 const navItems = [
   {
