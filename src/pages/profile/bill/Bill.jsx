@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import NewFilter from '../../../components/newFilter/NewFilter';
 import CustomTable from '../../../components/customTable/CustomTable';
@@ -32,6 +32,24 @@ const Bill = ({ tradeDate }) => {
   const [selectedRowData, setSelectedRowData] = useState(null);
   const { t } = useTranslation();
 
+  const [amount, setAmount] = useState();
+  const [commission, setCommission] = useState();
+  
+  useEffect(() => {
+    const { totalAmount, totalCommission } = Object.values(tableData)?.reduce(
+      (acc, curr) => {
+        acc.totalAmount += curr.amount ?? 0;
+        acc.totalCommission += curr.rate ?? 0;
+        return acc;
+      },
+      { totalAmount: 0, totalCommission: 0 }
+    );
+  
+    setAmount(totalAmount);
+    setCommission(parseFloat(totalCommission.toFixed(2)));
+  }, [tableData]);
+  
+
   const columns = useMemo(
     () => [
       {
@@ -40,6 +58,11 @@ const Bill = ({ tradeDate }) => {
         header: 'Date',
         size: 100,
         sortable: false,
+        Footer: () => (
+          <Typography variant="h6" style={{ whiteSpace: "nowrap" }}>
+            Total Amount
+          </Typography>
+        ),
       },
       {
         id: 2,
@@ -50,10 +73,17 @@ const Bill = ({ tradeDate }) => {
       },
       {
         id: 3,
-        accessorKey: 'transactionType',
-        header: 'Transaction Type',
+        accessorKey: 'trType',
+        header: 'Trade Type',
         size: 100,
         sortable: false,
+        Cell: ({ row }) => {
+          if (row?.original?.trType === "P") {
+            return "Purchase";
+          } else if (row?.original?.trType === "S") {
+            return "Sell";
+          } else return row?.original?.trType;
+        },
       },
       // {
       //   id: 4,
@@ -63,36 +93,54 @@ const Bill = ({ tradeDate }) => {
       //   sortable: false,
       // },
 
-      {
-        id: 5,
-        accessorKey: 'buyQty',
-        header: 'Buy Quantity',
-        size: 100,
-        sortable: false,
-      },
-      {
-        id: 6,
-        accessorKey: 'sellQty',
-        header: 'Sell Quantity',
-        size: 100,
-        sortable: false,
-      },
-      {
-        id: 7,
-        accessorKey: 'amount',
-        header: 'Amount',
-        size: 100,
-        sortable: false,
-      },
       // {
-      //   id: 8,
-      //   accessorKey: "rate",
-      //   header: "Rate",
+      //   id: 5,
+      //   accessorKey: 'buyQty',
+      //   header: 'Buy Quantity',
       //   size: 100,
       //   sortable: false,
       // },
+      // {
+      //   id: 6,
+      //   accessorKey: 'sellQty',
+      //   header: 'Sell Quantity',
+      //   size: 100,
+      //   sortable: false,
+      // },
+      {
+        id: 7,
+        accessorKey: 'amount',
+        header: 'Bill Amount',
+        size: 100,
+        sortable: false,
+        Footer: () => {
+          return <span>{amount}</span>
+        }
+      },
+      {
+        id: 8,
+        accessorKey: "rate",
+        header: "Total Commission",
+        size: 100,
+        sortable: false,
+        Footer: () => {
+          return <span>{commission}</span>;
+        },
+      },
+      {
+        id: 9,
+        accessorKey: "isSettled",
+        header: "Settlement Status",
+        size: 100,
+        sortable: false,
+        Cell: ({ row }) => {
+          if (row?.original?.isSettled) {
+            return <Typography color="green">Settled</Typography>;
+          } else return <Typography color="error">Unsettled</Typography>;
+        },
+      },
     ],
-    []
+    [amount, commission]
   );
 
   const filterMenuItem = [

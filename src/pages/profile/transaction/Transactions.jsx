@@ -28,6 +28,7 @@ const Transactions = ({ tradeDate }) => {
 
   const [params, setParams] = useState();
   const [amount, setAmount] = useState();
+  
   useEffect(() => {
     const totalAmount = Object.values(tableData)?.reduce(
       (acc, curr) => acc + (curr.amount ?? 0),
@@ -35,7 +36,8 @@ const Transactions = ({ tradeDate }) => {
     );
     setAmount(totalAmount);
   }, [tableData]);
-  console.log({"amount": amount});
+
+  
 
   const columns = useMemo(
     () => [
@@ -93,6 +95,7 @@ const Transactions = ({ tradeDate }) => {
         header: "Rate",
         size: 100,
         sortable: false,
+        
       },
       {
         id: 7,
@@ -105,7 +108,7 @@ const Transactions = ({ tradeDate }) => {
         },
       },
     ],
-    []
+    [amount]
   );
 
   const filterMenuItem = [

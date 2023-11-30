@@ -50,8 +50,6 @@ const MarketDepth = () => {
   useEffect(() => {
     if (staticData) {
       setData(staticData);
-    } else {
-      return <>"No Data Found"</>;
     }
   }, [staticData]);
   
