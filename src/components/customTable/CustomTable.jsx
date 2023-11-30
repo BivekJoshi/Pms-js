@@ -106,6 +106,11 @@ const CustomTable = (props) => {
             )}
           </Box>
         )}
+        muiTableBodyCellProps={() => ({
+          sx: {
+            padding: props?.bodyCellPadding ? props?.bodyCellPadding :"", // Adjust the padding as needed
+          },
+        })}
         muiTableContainerProps={{
           sx: {
             maxHeight: props?.maxHeight || "600px",
