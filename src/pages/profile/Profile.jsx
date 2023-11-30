@@ -97,18 +97,6 @@ const Profile = () => {
                 <Typography variant="h4">{userInfoData?.clientName}</Typography>
                 <Typography variant="h7">{userInfoData?.email}</Typography>
                 <Typography variant="h7">{userInfoData?.mobileNo}</Typography>
-                {/* <Button
-                  sx={{
-                    bgcolor: '#FFDCBC',
-                    border: '1px solid #7A757F',
-                    borderRadius: '4px',
-                    padding: '2px 4px',
-                    color: 'black',
-                    width: 'fit-content',
-                  }}
-                >
-                  {t('Basic')}
-                </Button> */}
                 <ProfileButton userInfoData={userInfoData?.subscription} />
               </Grid>
             </Grid>
@@ -424,53 +412,17 @@ const Profile = () => {
               position="relative"
               padding="16px"
             >
-              {userInfoData?.imageFilePath ? (
-                // <img
-                //   src={`${DOC_URL}${userInfoData?.imageFilePath}`}
-                //   alt="Profile"
-                //   height="135px"
-                //   width="135px"
-                //   style={{ borderRadius: "50%" }}
-                // />
-                <AccountCircleIcon sx={{ width: "9rem", height: "9rem" }} />
-              ) : (
-                <AccountCircleIcon sx={{ width: "9rem", height: "9rem" }} />
-              )}
-              <LocalSeeIcon
-                className="hover-effect"
-                sx={{
-                  position: "absolute",
-                  bottom: "22%",
-                  left: "19%",
-                  width: "40px",
-                  height: "40px",
-                  color: "#947cb7",
-                  "&:hover": {
-                    color: "#784aba", // Style changes on hover
-                  },
-                }}
-              />
+              <ProfileImage userInfoData={userInfoData} loading={loading} />
               <Grid display="flex" flexDirection="column" gap="8px">
                 <Typography variant="h4">{userInfoData?.clientName}</Typography>
                 <Typography variant="h7">{userInfoData?.email}</Typography>
                 <Typography variant="h7">{userInfoData?.mobileNo}</Typography>
-                <Button
-                  sx={{
-                    bgcolor: "#FFDCBC",
-                    border: "1px solid #7A757F",
-                    borderRadius: "4px",
-                    padding: "2px 4px",
-                    color: "black",
-                    width: "fit-content",
-                  }}
-                >
-                  {t(`${userInfoData?.subscription}`)}
-                </Button>
+                <ProfileButton userInfoData={userInfoData?.subscription} />
               </Grid>
             </Grid>
 
             <Grid
-              p="24px"
+              p="0 24px 24px"
               bgcolor={theme.palette.background.alt}
               display="flex"
               flexDirection="column"

@@ -104,7 +104,7 @@ const ManageAlert = (props) => {
       {
         id: 2,
         accessorKey: "triggerPrice",
-        header: "AlertTrigger",
+        header: "Alert Trigger",
         size: 100,
         sortable: false,
       },
