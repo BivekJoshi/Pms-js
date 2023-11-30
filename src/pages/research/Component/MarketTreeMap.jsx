@@ -123,6 +123,7 @@ const MarketTreeMap = () => {
         series={state.series}
         type="treemap"
         height={350}
+        width="100%"
       />
       </div>
   );
