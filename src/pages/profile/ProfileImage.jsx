@@ -51,6 +51,7 @@ const ProfileImage = ({ userInfoData }) => {
         <ProfileEditModal
           open={openEditModal}
           handleCloseModal={handleCloseEditModal}
+          userInfoData={userInfoData}
         />
       )}
     </Grid>

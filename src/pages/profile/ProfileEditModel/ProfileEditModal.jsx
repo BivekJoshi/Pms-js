@@ -90,7 +90,7 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                 />
               </Grid>
             )}
-            {!imagePreview && (
+            {/* {!imagePreview && (
               <Grid item xs={12} sm={12}>
                 <TextField
                   type="file"
@@ -101,9 +101,9 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                   }}
                 />
               </Grid>
-            )}
-            {imagePreview && (
-              <>
+            )} */}
+            {/* {imagePreview && (
+              <> */}
                 <Grid item xs={12} sm={12}>
                   <label htmlFor="file" className="file-label">
                     <input
@@ -127,8 +127,8 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                     </Button>
                   </label>
                 </Grid>
-              </>
-            )}
+              {/* </>
+            )} */}
           </Grid>
           {/* Display the image preview */}
           <Grid
