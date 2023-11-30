@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NewFilter from "../../../components/newFilter/NewFilter";
 import CustomTable from "../../../components/customTable/CustomTable";
@@ -26,10 +26,19 @@ const Transactions = ({ tradeDate }) => {
   const totalData = useSelector((store) => store?.paginatedTable?.total);
   const totalPages = useSelector((store) => store?.paginatedTable?.pages);
   const currentPage = useSelector((store) => store?.paginatedTable?.page);
-
   const pageSize = useSelector((store) => store?.paginatedTable?.itemsPerPage);
 
   const [params, setParams] = useState();
+  const [amount, setAmount] = useState();
+  useEffect(() => {
+    const totalAmount = Object.values(tableData)?.reduce(
+      (acc, curr) => acc + (curr.amount ?? 0),
+      0
+    );
+    setAmount(totalAmount);
+  }, [tableData]);
+  console.log({"amount": amount});
+
   const columns = useMemo(
     () => [
       {
@@ -38,6 +47,11 @@ const Transactions = ({ tradeDate }) => {
         header: "Date",
         size: 100,
         sortable: false,
+        Footer: () => (
+          <Typography variant="h6" style={{ whiteSpace: "nowrap" }}>
+            Total Amount
+          </Typography>
+        ),
       },
       {
         id: 2,
@@ -89,6 +103,9 @@ const Transactions = ({ tradeDate }) => {
         header: "Amount",
         size: 100,
         sortable: false,
+        Footer: () => {
+          return <span>{amount}</span>;
+        },
       },
     ],
     []

@@ -70,8 +70,9 @@ const Alert = (props) => {
     return { label: item?.companyInfo, id: item.id };
   });
 
-  const scriptName = symbols.find((d) => d.id === formik.values?.companyInfoId)
-    ?.label;
+  const scriptName = symbols.find(
+    (d) => d.id === formik.values?.companyInfoId
+  )?.label;
 
   const { data: companyData, isLoading } = useGetCompanyById(scriptName);
 
@@ -224,9 +225,10 @@ const Alert = (props) => {
                     <TextField
                       {...props}
                       sx={{
-                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                          display: "none",
-                        },
+                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                          {
+                            display: "none",
+                          },
                         "& input[type=number]": {
                           MozAppearance: "textfield",
                         },
@@ -291,9 +293,10 @@ const Alert = (props) => {
                     <TextField
                       {...props}
                       sx={{
-                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
-                          display: "none",
-                        },
+                        "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                          {
+                            display: "none",
+                          },
                         "& input[type=number]": {
                           MozAppearance: "textfield",
                         },
@@ -463,21 +466,6 @@ const Alert = (props) => {
                 justifyContent="flex-end"
                 alignItems="flex-end"
               >
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={handleClear}
-                  sx={{
-                    mt: 3,
-                    ml: 1,
-                    // backgroundColor: "#6C49B4",
-                    themeMode,
-                    color: "error",
-                    textTransform: "none",
-                  }}
-                >
-                  {t("Cancel")}
-                </Button>
                 <Button
                   variant="contained"
                   type="submit"

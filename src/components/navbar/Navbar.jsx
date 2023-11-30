@@ -373,7 +373,7 @@ const Navbar = () => {
                 fullWidth
                 placeholder={t('Company name or symbol')}
                 variant='outlined'
-                autoFocus
+                // autoFocus
                 size='small'
                 InputLabelProps={{ shrink: true }}
                 style={{ minWidth: '150px' ,backgroundColor:"#ECE6EB"}}

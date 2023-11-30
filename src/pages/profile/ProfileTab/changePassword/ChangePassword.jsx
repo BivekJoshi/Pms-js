@@ -74,7 +74,7 @@ const ChangePassword = () => {
             }
             helperText={formik.touched.oldPassword && formik.errors.oldPassword}
             variant="outlined"
-            autoFocus
+           
             type={showOldPassword ? "text" : "password"}
             InputLabelProps={{ shrink: true }}
             InputProps={{
