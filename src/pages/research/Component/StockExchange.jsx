@@ -2,7 +2,7 @@ import { Chip, Grid, Typography, useTheme } from "@mui/material";
 import Chart from "react-apexcharts";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useState } from "react";
-import "../Style.css"
+import "../Component/Style.css"
 
 const StockExchange = ({height}) =>  {
   const theme = useTheme();
@@ -30,13 +30,16 @@ const StockExchange = ({height}) =>  {
       subtitle: {
         text: "Price Movements",
         align: "right",
+        style: {
+          color: isDarkMode ? theme.palette.text.main : 'black',
+        },
       },
       // labels: series.monthDataSeries1.dates,
       yaxis: {
         type: "datetime",
         labels: {
           style: {
-            colors: [isDarkMode ? theme.palette.text.alt : 'black'],
+            colors: [isDarkMode ? theme.palette.text.main : 'black'],
           },
         },
       },
@@ -45,15 +48,15 @@ const StockExchange = ({height}) =>  {
         labels: {
           style: {
             colors: [
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
+              isDarkMode ? theme.palette.text.main : 'black',
+              isDarkMode ? theme.palette.text.main : 'black',
+              isDarkMode ? theme.palette.text.main : 'black',
+              isDarkMode ? theme.palette.text.main : 'black',
+              isDarkMode ? theme.palette.text.main : 'black',
+              isDarkMode ? theme.palette.text.main : 'black',
+              isDarkMode ? theme.palette.text.main : 'black',
+              isDarkMode ? theme.palette.text.main : 'black',
+              isDarkMode ? theme.palette.text.main : 'black',
             ],
           },
         },

@@ -2,80 +2,87 @@ import { Chip, Grid, Typography, useTheme } from "@mui/material";
 import Chart from "react-apexcharts";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useState } from "react";
-import "../../Component/Style.css"
+import "../../Component/Style.css";
 
-const StockExchange = ({height}) =>  {
+const StockExchange = ({ height }) => {
   const theme = useTheme();
   const mode = theme.palette.mode;
-  const isDarkMode = mode === 'dark';
+  const isDarkMode = mode === "dark";
 
   const chartOptions = {
-      chart: {
-        type: "area",
-        height:height ? height :350,
-        zoom: {
-          enabled: false,
-        },
-      },
-      dataLabels: {
+    chart: {
+      type: "area",
+      height: height ? height : 350,
+      zoom: {
         enabled: false,
       },
-      stroke: {
-        curve: "straight",
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "straight",
+    },
+    // title: {
+    //   text: "Fundamental Analysis of Stocks",
+    //   align: "left",
+    // },
+    subtitle: {
+      text: "Price Movements",
+      align: "right",
+      style: {
+        color: isDarkMode ? theme.palette.text.main : "black",
       },
-      // title: {
-      //   text: "Fundamental Analysis of Stocks",
-      //   align: "left",
-      // },
-      subtitle: {
-        text: "Price Movements",
-        align: "right",
-      },
-      // labels: series.monthDataSeries1.dates,
-      yaxis: {
-        type: "datetime",
-        labels: {
-          style: {
-            colors: [isDarkMode ? theme.palette.text.alt : 'black'],
-          },
+    },
+    // labels: series.monthDataSeries1.dates,
+    yaxis: {
+      type: "datetime",
+      labels: {
+        style: {
+          colors: [isDarkMode ? theme.palette.text.main : "black"],
         },
       },
-      xaxis: {
-        opposite: true,
-        labels: {
-          style: {
-            colors: [
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-              isDarkMode ? theme.palette.text.alt : 'black',
-            ],
-          },
+    },
+    xaxis: {
+      opposite: true,
+      labels: {
+        style: {
+          colors: [
+            isDarkMode ? theme.palette.text.main : "black",
+            isDarkMode ? theme.palette.text.main : "black",
+            isDarkMode ? theme.palette.text.main : "black",
+            isDarkMode ? theme.palette.text.main : "black",
+            isDarkMode ? theme.palette.text.main : "black",
+            isDarkMode ? theme.palette.text.main : "black",
+            isDarkMode ? theme.palette.text.main : "black",
+            isDarkMode ? theme.palette.text.main : "black",
+            isDarkMode ? theme.palette.text.main : "black",
+          ],
         },
       },
-      legend: {
-        horizontalAlign: "left",
-      },
-    
+    },
+    legend: {
+      horizontalAlign: "left",
+    },
   };
   const chartData = {
-  series: [
-    {
-      name: 'series1',
-      data: [31, 40, 28, 51, 42, 109, 100]
-    }
-   
-  ],
-  options: chartOptions,
-}
-  
+    series: [
+      {
+        name: "series1",
+        data: [31, 40, 28, 51, 42, 109, 100],
+      },
+    ],
+    options: chartOptions,
+  };
+
   return (
-    <div style={{ background: theme.palette.background.alt, padding: "16px", width:"100%" }}>
+    <div
+      style={{
+        background: theme.palette.background.alt,
+        padding: "16px",
+        width: "100%",
+      }}
+    >
       <Grid
         display="flex"
         flexDirection="row"
@@ -102,11 +109,11 @@ const StockExchange = ({height}) =>  {
           options={chartData.options}
           series={chartData.series}
           type="area"
-          height={height ? height :350}
+          height={height ? height : 350}
         />
       </div>
     </div>
   );
-}
+};
 
 export default StockExchange;
