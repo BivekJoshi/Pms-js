@@ -96,7 +96,7 @@ const MarketIndexNav = () => {
         overflowX: 'hidden',
         width: '100%',
         position: 'relative',
-        backgroundColor: theme.palette.primary[800],
+        backgroundColor: theme.palette.background.main,
         overflow: 'hidden',
       }}
       ref={containerRef}

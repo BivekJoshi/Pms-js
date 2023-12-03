@@ -6,6 +6,7 @@ import CourseofSale from "./Component/CourseofSale";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useState } from "react";
 import About from "./Component/About";
+import Announcements from "./Component/Announcements";
 
 const ResearchCompany = () => {
   const [value, setValue] = useState("1");
@@ -74,7 +75,7 @@ const ResearchCompany = () => {
               <About />
             </TabPanel>
             <TabPanel value="4">
-              <CourseofSale />
+              <Announcements/>
             </TabPanel>
             <TabPanel value="5">
               <MarketDepth />
