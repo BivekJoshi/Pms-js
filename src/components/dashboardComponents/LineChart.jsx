@@ -29,7 +29,7 @@ const LineChartDash = ({ lineData, height }) => {
         show: false,
       },
     },
-    colors: ['#82ca9d', '#2e2d4a'],
+    colors: ['#da2252', '#9016cf'],
     dataLabels: {
       enabled: false,
     },

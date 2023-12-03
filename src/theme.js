@@ -334,7 +334,7 @@ export const themeSettings = (mode, data) => {
               main: palette.surface[500],
             },
             background: {
-              default: palette.surface[600],
+              default: palette.surface[700],
               alt: palette.surface["dark"],
               main: palette.surface[100],
               btn: palette.surface[10],
@@ -356,6 +356,7 @@ export const themeSettings = (mode, data) => {
               ...tokensLight.secondary,
               main: tokensDark.secondary[600],
               light: tokensDark.secondary[700],
+              hader: tokensDark.secondary[400],
             },
             tertiary: {
               ...tokensDark.tertiary,

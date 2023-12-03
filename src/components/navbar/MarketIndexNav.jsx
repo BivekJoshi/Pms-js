@@ -124,7 +124,7 @@ const MarketIndexNav = () => {
                   sx={{
                     width: 'max-content',
                     fontWeight: '700',
-                    color: '#fff',
+                    color: 'blue',
                   }}
                 >
                   {item?.name}
@@ -134,7 +134,7 @@ const MarketIndexNav = () => {
                   sx={{
                     width: 'max-content',
                     fontWeight: '600',
-                    color: '#fff',
+                    color: 'blue',
                   }}
                 >
                   {item?.value}

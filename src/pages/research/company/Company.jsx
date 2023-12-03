@@ -7,6 +7,10 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useState } from "react";
 import About from "./Component/About";
 import Announcements from "./Component/Announcements";
+import DividentHistory from "./Component/DividentHistory";
+import Report from "./Component/Report";
+import Financials from "./Component/Financials";
+import Forcastes from "./Component/Forcastes";
 
 const ResearchCompany = () => {
   const [value, setValue] = useState("1");
@@ -78,16 +82,16 @@ const ResearchCompany = () => {
               <Announcements/>
             </TabPanel>
             <TabPanel value="5">
-              <MarketDepth />
+              <Financials />
             </TabPanel>
             <TabPanel value="6">
-              <CourseofSale />
+              <Report/>
             </TabPanel>
             <TabPanel value="7">
-              <MarketDepth />
+             <DividentHistory/>
             </TabPanel>
             <TabPanel value="8">
-              <CourseofSale />
+              <Forcastes />
             </TabPanel>
           </TabContext>
         </div>
