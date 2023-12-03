@@ -70,6 +70,34 @@ const BillDetail = ({ rowData }) => {
         size: 100,
         sortable: false,
       },
+      {
+        id: 7,
+        accessorKey: 'amount',
+        header: 'Amount',
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 8,
+        accessorKey: 'rate',
+        header: 'Rate',
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 9,
+        accessorKey: 'trDate',
+        header: 'Tr Date',
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 10,
+        accessorKey: 'transactionType',
+        header: 'Tr Type',
+        size: 100,
+        sortable: false,
+      },
     ],
     []
   );
