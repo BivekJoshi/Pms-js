@@ -72,7 +72,7 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                   style={{ borderRadius: "50%" }}
                 />
               ) : (
-                <AccountCircleIcon sx={{ width: "135px", height: "135px" }} />
+                <AccountCircleIcon sx={{ width: "200px", height: "200px" }} />
               )
             ) : (
               ""
@@ -84,8 +84,8 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                   src={imagePreview}
                   alt="Selected Profile"
                   // style={{ width: "50%" }}
-                  height="135px"
-                  width="135px"
+                  height="200px"
+                  width="200px"
                 />
               </Grid>
             )}
