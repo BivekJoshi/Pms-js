@@ -28,16 +28,23 @@ const Transactions = ({ tradeDate }) => {
 
   const [params, setParams] = useState();
   const [amount, setAmount] = useState();
-  
-  useEffect(() => {
-    const totalAmount = Object.values(tableData)?.reduce(
-      (acc, curr) => acc + (curr.amount ?? 0),
-      0
-    );
-    setAmount(totalAmount);
-  }, [tableData]);
+  const [text, setText] = useState();
 
-  
+  useEffect(() => {
+    const data = Object.values(tableData);
+    const newData = data.length;
+    if (newData > 0) {
+      const totalAmount = data.reduce(
+        (acc, curr) => acc + (curr.amount ?? 0),
+        0
+      );
+      setAmount(totalAmount);
+      setText("Total Amount");
+    } else {
+      setAmount("");
+      setText("");
+    }
+  }, [tableData]);
 
   const columns = useMemo(
     () => [
@@ -48,13 +55,8 @@ const Transactions = ({ tradeDate }) => {
         size: 100,
         sortable: false,
         Footer: () => {
-          if(amount === 0) {
-            return "";
-          } else return (
-          <Typography variant="h6" style={{ whiteSpace: "nowrap" }}>
-            Total Amount
-          </Typography>
-        )},
+          return <span>{text}</span>;
+        },
       },
       {
         id: 2,
@@ -98,7 +100,6 @@ const Transactions = ({ tradeDate }) => {
         header: "Rate",
         size: 100,
         sortable: false,
-        
       },
       {
         id: 7,
@@ -107,13 +108,11 @@ const Transactions = ({ tradeDate }) => {
         size: 100,
         sortable: false,
         Footer: () => {
-            if(amount === 0){
-              return "";
-            } else return <span>{amount}</span>
-          }
+          return <Typography style={{ width: "auto" }}>{amount}</Typography>;
+        },
       },
     ],
-    [amount]
+    [amount, text]
   );
 
   const filterMenuItem = [

@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { filterDateValidationSchema } from '../../../form/validations/filterDateValidate';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import DownloadIcon from '@mui/icons-material/Download';
+import { transactionType } from '../../../utility/dropdownData';
 
 const Bill = ({ tradeDate }) => {
   const dispatch = useDispatch();
@@ -34,19 +35,31 @@ const Bill = ({ tradeDate }) => {
 
   const [amount, setAmount] = useState();
   const [commission, setCommission] = useState();
+  const [text, setText] = useState();
   
   useEffect(() => {
-    const { totalAmount, totalCommission } = Object.values(tableData)?.reduce(
-      (acc, curr) => {
-        acc.totalAmount += curr.amount ?? 0;
-        acc.totalCommission += curr.rate ?? 0;
-        return acc;
-      },
-      { totalAmount: 0, totalCommission: 0 }
-    );
-  
-    setAmount(totalAmount);
-    setCommission(parseFloat(totalCommission.toFixed(2)));
+    const data = Object.values(tableData);
+    const newData = data.length;
+    if (newData > 0) {
+      const { totalAmount, totalCommission } = Object.values(tableData)?.reduce(
+        (acc, curr) => {
+          acc.totalAmount += curr.amount ?? 0;
+          acc.totalCommission += curr.rate ?? 0;
+          return acc;
+        },
+        { totalAmount: 0, totalCommission: 0 }
+      );
+    
+      setAmount(totalAmount);
+      setCommission(parseFloat(totalCommission.toFixed(2)));
+      setText("Total Amount");
+    } else {
+      setAmount("");
+      setCommission("");
+      setText("");
+    }
+    
+    
   }, [tableData]);
   
 
@@ -58,11 +71,9 @@ const Bill = ({ tradeDate }) => {
         header: 'Date',
         size: 100,
         sortable: false,
-        Footer: () => (
-          <Typography variant="h6" style={{ whiteSpace: "nowrap" }}>
-            Total Amount
-          </Typography>
-        ),
+        Footer: () => {
+          return <span>{text}</span>;
+        },
       },
       {
         id: 2,
@@ -107,6 +118,14 @@ const Bill = ({ tradeDate }) => {
       //   size: 100,
       //   sortable: false,
       // },
+      // Footer: () => {
+      //   if(amount === 0) {
+      //     return "";
+      //   } else return (
+      //   <Typography variant="h6" style={{ whiteSpace: "nowrap" }}>
+      //     Total Amount
+      //   </Typography>
+      // )},
       {
         id: 7,
         accessorKey: 'amount',
@@ -114,8 +133,8 @@ const Bill = ({ tradeDate }) => {
         size: 100,
         sortable: false,
         Footer: () => {
-          return <span>{amount}</span>
-        }
+          return <Typography style={{ width: "auto" }}>{amount}</Typography>;
+        },
       },
       {
         id: 8,
@@ -124,8 +143,8 @@ const Bill = ({ tradeDate }) => {
         size: 100,
         sortable: false,
         Footer: () => {
-          return <span>{commission}</span>;
-        },
+          return <Typography style={{ width: "auto" }}>{commission}</Typography>;
+        },      
       },
       {
         id: 9,
@@ -158,6 +177,14 @@ const Bill = ({ tradeDate }) => {
       type: 'date-picker',
       required: true,
       md: 6,
+      sm: 12,
+    },
+    {
+      label: "Transaction Type",
+      name: "transactionType",
+      type: "dropDownId",
+      dropDownData: transactionType,
+      md: 4,
       sm: 12,
     },
   ];
