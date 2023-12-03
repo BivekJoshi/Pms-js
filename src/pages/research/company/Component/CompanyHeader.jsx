@@ -13,7 +13,7 @@ const CompanyHeader = () => {
         borderRadius: "6px",
       }}
     >
-      <Typography variant="h5">
+      <Typography variant="h4">
         <b>
           Nabil Bank Limited
           <br />
@@ -111,6 +111,9 @@ const CompanyHeader = () => {
             </Grid>
           </Grid>
         </Grid>
+      </Grid>
+      <Grid container justifyContent="flex-end">
+        {/* Hello */}
       </Grid>
     </Box>
   );

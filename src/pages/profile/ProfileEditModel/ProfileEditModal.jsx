@@ -69,7 +69,7 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                   alt="Profile"
                   height="135px"
                   width="135px"
-                  // style={{ borderRadius: "40%" }}
+                  style={{ borderRadius: "50%" }}
                 />
               ) : (
                 <AccountCircleIcon sx={{ width: "135px", height: "135px" }} />
@@ -119,6 +119,7 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                         height: "26px",
                         color: "black",
                         "&:hover": { bgcolor: "#decde7" },
+                        textTransform:"none",
                       }}
                       component="span" // Add this to make the button act like a file input trigger
                     >
