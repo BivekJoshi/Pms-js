@@ -194,7 +194,9 @@ const Portfolio = () => {
         }}
       >
         <Box>
-          <Typography variant="h6">{t("Name")}{" "}: {userInfoData?.clientName}</Typography>
+          <Typography variant="h6">
+            {t("Name")} : {userInfoData?.clientName}
+          </Typography>
           <Typography variant="h6">980000000</Typography>
         </Box>
         <Box>
@@ -214,7 +216,7 @@ const Portfolio = () => {
           style={{
             backgroundColor: theme.palette.background.btn,
             color: theme.palette.text.alt,
-            textTransform:"none"
+            textTransform: "none",
           }}
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -235,6 +237,7 @@ const Portfolio = () => {
             headerBackgroundColor="#401686"
             headerColor={theme.palette.text.alt}
             onRowClick={handleRowClick}
+            enableRowNumbers={true}
           />
         </Box>
       ) : (

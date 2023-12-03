@@ -82,7 +82,6 @@ const CustomTable = (props) => {
         enableGlobalFilter={props?.enableGlobalFilter}
         density={props?.density}
         renderRowActions={({ row, table }) => {
-          console.log(row?.original?.isAlertAdded, "datat");
           return (
             <Box sx={{ display: "flex", gap: "0.1rem" }}>
               {props.edit && (
@@ -152,6 +151,13 @@ const CustomTable = (props) => {
             color:
               props?.miniHeaderColor ||
               (theme?.palette?.mode === "dark" ? "#fafafa" : "#ffff"),
+          },
+        }}
+        muiTableBodyCellProps= {{
+          sx: {
+            border: '1px solid #EBEDEF',
+            // alignItem:'center',
+            // justifyContent:"center"
           },
         }}
         renderTopToolbarCustomActions={() => (

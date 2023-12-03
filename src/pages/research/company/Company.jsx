@@ -6,6 +6,7 @@ import CourseofSale from "./Component/CourseofSale";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { useState } from "react";
 import About from "./Component/About";
+import CompanyHeader from "./Component/CompanyHeader";
 
 const ResearchCompany = () => {
   const [value, setValue] = useState("1");
@@ -19,7 +20,9 @@ const ResearchCompany = () => {
   };
   return (
     <Grid container spacing={4}>
-      <Grid item xs={12}></Grid>
+      <Grid item xs={12}>
+        <CompanyHeader/>
+      </Grid>
       <Grid item xs={12} md={5} lg={5} xl={5}>
         <div
           style={{
