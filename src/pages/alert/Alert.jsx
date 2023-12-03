@@ -11,8 +11,6 @@ import {
   Grid,
   Switch,
   Tab,
-  Tabs,
-  TextField,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -24,6 +22,7 @@ import { useAlertForm } from "./useAlertForm";
 import ManageAlert from "./ManageAlert";
 import AlertScriptDetails from "./AlertScriptDetails";
 import { useGetCompanyById } from "../../hooks/company/useCompany";
+import TextField from "@mui/material/TextField";
 
 const alertType = [
   {
@@ -176,7 +175,8 @@ const Alert = (props) => {
                           variant="outlined"
                           autoFocus
                           size="small"
-                          InputLabelProps={{ shrink: true }}
+                          InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }, }}
+
                           onChange={formik.handleChange}
                           required
                           error={
@@ -217,7 +217,7 @@ const Alert = (props) => {
                       }}
                       type="number"
                       name="ltp"
-                      InputLabelProps={{ shrink: true }}
+                      InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }, }}
                       variant="outlined"
                       size="small"
                       label="LTP"
@@ -235,7 +235,8 @@ const Alert = (props) => {
                   </Grid>
                   <Grid item xs={12} sm={6} md={3} lg={3}>
                     <Autocomplete
-                      name="alertType"
+                      name="alertType"                      
+                      className='testing'
                       getOptionLabel={(option) => option.label} // Specify how to display the option label
                       options={alertType}
                       value={
@@ -251,7 +252,7 @@ const Alert = (props) => {
                           variant="outlined"
                           size="small"
                           value={formik.values.alertType}
-                          InputLabelProps={{ shrink: true }}
+                          InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }, }}
                           error={
                             formik.touched.alertType &&
                             Boolean(formik.errors.alertType)
@@ -285,7 +286,8 @@ const Alert = (props) => {
                       }}
                       type="number"
                       name="triggerPrice"
-                      InputLabelProps={{ shrink: true }}
+                      InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }, }}
+
                       variant="outlined"
                       size="small"
                       label="Enter Trigger Price"
@@ -345,8 +347,7 @@ const Alert = (props) => {
                                     name="transactionType"
                                     style={{
                                       color:
-                                        formik.values?.transactionType ===
-                                        "S"
+                                        formik.values?.transactionType === "S"
                                           ? "#F85862"
                                           : "#5CB85C",
                                     }}
