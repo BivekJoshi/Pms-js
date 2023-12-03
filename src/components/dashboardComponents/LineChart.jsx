@@ -41,8 +41,8 @@ const LineChartDash = ({ lineData, height }) => {
       text: 'Investment Performance',
       align: 'left',
       style: {
-        // color: mode === "dark" ? "black" : theme.palette.text.alt,
-        color: isDarkMode ? theme.palette.text.alt : 'black',
+        // color: mode === "dark" ? "black" : theme.palette.text.main,
+        color: isDarkMode ? theme.palette.text.main : 'black',
       },
     },
     grid: {
@@ -60,21 +60,21 @@ const LineChartDash = ({ lineData, height }) => {
       title: {
         text: 'Total Share Capital',
         style: {
-          color: isDarkMode ? theme.palette.text.alt : 'black',
+          color: isDarkMode ? theme.palette.text.main : 'black',
         },
       },
       labels: {
         style: {
           colors: [
-            isDarkMode ? theme.palette.text.alt : 'black',
-            isDarkMode ? theme.palette.text.alt : 'black',
-            isDarkMode ? theme.palette.text.alt : 'black',
-            isDarkMode ? theme.palette.text.alt : 'black',
-            isDarkMode ? theme.palette.text.alt : 'black',
-            isDarkMode ? theme.palette.text.alt : 'black',
-            isDarkMode ? theme.palette.text.alt : 'black',
-            isDarkMode ? theme.palette.text.alt : 'black',
-            isDarkMode ? theme.palette.text.alt : 'black',
+            isDarkMode ? theme.palette.text.main : 'black',
+            isDarkMode ? theme.palette.text.main : 'black',
+            isDarkMode ? theme.palette.text.main : 'black',
+            isDarkMode ? theme.palette.text.main : 'black',
+            isDarkMode ? theme.palette.text.main : 'black',
+            isDarkMode ? theme.palette.text.main : 'black',
+            isDarkMode ? theme.palette.text.main : 'black',
+            isDarkMode ? theme.palette.text.main : 'black',
+            isDarkMode ? theme.palette.text.main : 'black',
           ],
         },
       },
@@ -83,7 +83,7 @@ const LineChartDash = ({ lineData, height }) => {
       title: {
         text: 'Total Investment',
         style: {
-          color: isDarkMode ? theme.palette.text.alt : 'black',
+          color: isDarkMode ? theme.palette.text.main : 'black',
         },
       },
       min: 0,
@@ -91,7 +91,7 @@ const LineChartDash = ({ lineData, height }) => {
       tickAmount: 4,
       labels: {
         style: {
-          colors: [isDarkMode ? theme.palette.text.alt : 'black'],
+          colors: [isDarkMode ? theme.palette.text.main : 'black'],
         },
       },
     },
@@ -103,8 +103,8 @@ const LineChartDash = ({ lineData, height }) => {
       offsetX: -5,
       labels: {
         colors: [
-          isDarkMode ? theme.palette.text.alt : 'black',
-          isDarkMode ? theme.palette.text.alt : 'black',
+          isDarkMode ? theme.palette.text.main : 'black',
+          isDarkMode ? theme.palette.text.main : 'black',
         ],
       },
     },
