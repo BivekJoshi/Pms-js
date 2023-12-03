@@ -47,11 +47,14 @@ const Transactions = ({ tradeDate }) => {
         header: "Date",
         size: 100,
         sortable: false,
-        Footer: () => (
+        Footer: () => {
+          if(amount === 0) {
+            return "";
+          } else return (
           <Typography variant="h6" style={{ whiteSpace: "nowrap" }}>
             Total Amount
           </Typography>
-        ),
+        )},
       },
       {
         id: 2,
@@ -104,8 +107,10 @@ const Transactions = ({ tradeDate }) => {
         size: 100,
         sortable: false,
         Footer: () => {
-          return <span>{amount}</span>;
-        },
+            if(amount === 0){
+              return "";
+            } else return <span>{amount}</span>
+          }
       },
     ],
     [amount]

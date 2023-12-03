@@ -8,6 +8,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { selector } from "./fundamentalData";
+import NewFilter from "../../../../components/newFilter/NewFilter";
 
 const Fundamental = () => {
   const theme = useTheme();
@@ -24,6 +25,56 @@ const Fundamental = () => {
       ...prevValues,
       [id]: newValue,
     }));
+  };
+
+  const filterMenuItem = [
+    {
+      label: "PE",
+      name: "pe",
+      type: "dropDownId",
+      dropDownData: selector,
+      md: 4,
+      sm: 12,
+    },
+    {
+      label: "PB",
+      name: "pe",
+      type: "dropDownId",
+      dropDownData: selector,
+      md: 4,
+      sm: 12,
+    },
+  ];
+
+  const handleSearch = (formValues) => {
+    const dateFrom = formValues.dateFrom
+      ? new Date(formValues.dateFrom).getTime() / 1000
+      : null;
+    const dateTo = formValues.dateTo
+      ? new Date(formValues.dateTo).getTime() / 1000
+      : null;
+
+    if (dateFrom && dateTo) {
+      const updatedFormValues = {
+        ...formValues,
+        dateFrom,
+        dateTo,
+      };
+      setParams(updatedFormValues);
+      try {
+        dispatch(
+          fetchPaginatedTable(
+            SHARE_TRANSACTION,
+            updatedFormValues,
+            null,
+            "transactionNo"
+          )
+        );
+        setTableShow(true);
+      } catch (error) {
+        toast.error(error);
+      }
+    }
   };
 
   return (
@@ -71,6 +122,14 @@ const Fundamental = () => {
           </Grid>
         ))}
       </Grid>
+
+      <NewFilter
+        inputField={filterMenuItem}
+        searchCallBack={handleSearch}
+        // validate={filterDateValidationSchema}
+        // tradeDate={tradeDate}
+        submitButtonText="Search"
+      />
     </Box>
   );
 };
