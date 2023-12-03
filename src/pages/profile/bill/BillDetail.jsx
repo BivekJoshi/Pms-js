@@ -92,10 +92,17 @@ const BillDetail = ({ rowData }) => {
       },
       {
         id: 10,
-        accessorKey: 'transactionType',
+        accessorKey: 'trType',
         header: 'Tr Type',
         size: 100,
         sortable: false,
+        Cell: ({ row }) => {
+          if (row?.original?.trType === "P") {
+            return "Purchase";
+          } else if (row?.original?.trType === "S") {
+            return "Sell";
+          } else return row?.original?.trType;
+        },
       },
     ],
     []

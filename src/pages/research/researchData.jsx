@@ -158,63 +158,60 @@ export const researchMarketData = [
     {
       time: "10:00:00",
       volume: "795",
-      volume: "50",
       value: "3975",
     },
   
     {
       time: "11:00:00",
       volume: "600",
-      volume: "40",
+     
       value: "38950",
     },
   
     {
       time: "11:00:00",
       volume: "798",
-      volume: "30",
+     
       value: "38950",
     },
   
     {
       time: "10:00:00",
       volume: "500",
-      volume: "60",
+     
       value: "60000",
     },
   
     {
       time: "10:00:00",
       volume: "900",
-      volume: "50",
+     
       value: "5000",
     },
   
     {
       time: "10:00:00",
       volume: "800",
-      volume: "20",
+     
       value: "9000",
     },
   
     {
       time: "10:00:00",
       volume: "450",
-      volume: "60",
+     
       value: "5000",
     },
   
     {
       time: "10:00:00",
       volume: "350",
-      volume: "80",
       value: "3000",
     },
   
     {
       time: "10:00:00",
       volume: "350",
-      volume: "80",
       value: "3000",
     },
   ];
