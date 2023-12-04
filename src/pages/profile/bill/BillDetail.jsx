@@ -10,7 +10,6 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PictureAsPdfOutlinedIcon from "@mui/icons-material/PictureAsPdfOutlined";
 
 const BillDetail = ({ rowData }) => {
-  console.log("🚀 ~ file: BillDetail.jsx:10 ~ BillDetail ~ rowData:", rowData);
   const dispatch = useDispatch();
   const tableData = useSelector((store) => store?.generic?.data);
   const isLoading = useSelector((store) => store?.generic?.processing);
@@ -71,6 +70,34 @@ const BillDetail = ({ rowData }) => {
         size: 100,
         sortable: false,
       },
+      {
+        id: 7,
+        accessorKey: 'amount',
+        header: 'Amount',
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 8,
+        accessorKey: 'rate',
+        header: 'Rate',
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 9,
+        accessorKey: 'trDate',
+        header: 'Tr Date',
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 10,
+        accessorKey: 'transactionType',
+        header: 'Tr Type',
+        size: 100,
+        sortable: false,
+      },
     ],
     []
   );
@@ -112,17 +139,16 @@ const BillDetail = ({ rowData }) => {
               {""} {Number(tableData?.totalCommission).toFixed(2)}
             </Typography>
           </div>
-          <div>
-          </div>
+          <div></div>
         </div>
         <br />
-        {/* <Typography variant="h6">
-          As per your order dated <b>{tableData&&tableData?.detail[0].trDate}</b> we have{" "}
+        <Typography variant="h6">
+          As per your order dated <b>{rowData?.original?.trDate}</b> we have{" "}
           <b style={{ borderBottom: "1px solid black" }}>
-            {tableData && tableData?.detail[0].trType === "P" ? "Purchased" : "Sold"}
+            {rowData?.original?.trType === "P" ? "Purchased" : "Sold"}
           </b>{" "}
           these undernoted stocks.
-        </Typography> */}
+        </Typography>
         <br />
         <CustomTable
           title="Bill Detail"

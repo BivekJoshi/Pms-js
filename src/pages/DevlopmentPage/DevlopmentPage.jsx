@@ -3,9 +3,10 @@ import React from 'react';
 import Group from '../../assets/Group.png';
 import { useNavigate } from 'react-router-dom';
 
-const PageNotFound = () => {
+const DevlopmentPage = () => {
   const navigate = useNavigate();
   const theme = useTheme();
+  
   return (
     <Box
       display='flex'
@@ -38,4 +39,4 @@ const PageNotFound = () => {
   );
 };
 
-export default PageNotFound;
+export default DevlopmentPage;

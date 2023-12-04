@@ -185,7 +185,7 @@ const PriceHistory = ({ companyData }) => {
         searchCallBack={handleSearch}
         submitButtonText='Search'
         // validate={filterDateValidationSchema}
-      />{' '}
+      />
       {tableShow ? (
         <>
           <CustomTable

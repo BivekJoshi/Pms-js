@@ -47,7 +47,7 @@ const CustomTable = (props) => {
   };
 
   const bodyBackgroundColor =
-    theme.palette.mode === "light" ? "#ffff" : "#191F45";
+    theme.palette.mode === "light" ? "#ffff" : theme.palette.background.default;
 
   return (
     <div className="custom_table">
@@ -82,7 +82,6 @@ const CustomTable = (props) => {
         enableGlobalFilter={props?.enableGlobalFilter}
         density={props?.density}
         renderRowActions={({ row, table }) => {
-          console.log(row?.original?.isAlertAdded, "datat");
           return (
             <Box sx={{ display: "flex", gap: "0.1rem" }}>
               {props.edit && (
@@ -133,9 +132,9 @@ const CustomTable = (props) => {
           sx: {
             backgroundColor:
               props?.headerBackgroundColor ||
-              (theme.palette.mode === "light" ? "#401686" : "#21295C"),
+              (theme.palette.mode === "light" ? "#401686" : theme.palette.secondary.hader),
             color:
-              props?.headerColor ||
+              props?.headerColor || 
               (theme?.palette?.mode === "dark" ? "#fafafa" : "#ffff"),
           },
         }}
@@ -152,6 +151,13 @@ const CustomTable = (props) => {
             color:
               props?.miniHeaderColor ||
               (theme?.palette?.mode === "dark" ? "#fafafa" : "#ffff"),
+          },
+        }}
+        muiTableBodyCellProps= {{
+          sx: {
+            border: '1px solid #EBEDEF',
+            // alignItem:'center',
+            // justifyContent:"center"
           },
         }}
         renderTopToolbarCustomActions={() => (

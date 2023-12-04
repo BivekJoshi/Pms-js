@@ -26,7 +26,6 @@ const Company = () => {
   const { t } = useTranslation();
   const { data: companyData } = useGetCompanyById(script);
 
-  // console.log(companyData?.script, "daa");
   const cellStyle = {
     borderRight: '1px solid #e0e0e0',
     fontWeight: 'bold',
@@ -90,9 +89,10 @@ const Company = () => {
                   </TableCell>
                   <TableCell
                     sx={{
-                      border: '1px solid #401686',
-                      borderLeft: '2px solid #401686',
-                      borderRight: '2px solid #401686',
+                      // border: '1px solid #401686',
+                      // borderLeft: '2px solid #401686',
+                      // borderRight: '2px solid #401686',
+                      borderTop:'1px solid #6692C4'
                     }}
                   >
                     Data

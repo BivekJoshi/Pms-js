@@ -12,6 +12,7 @@ import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlin
 import DownloadIcon from "@mui/icons-material/Download";
 import { fetchPaginatedTable } from "../../../redux/actions/paginatedTable";
 import CustomPagination from "../../../components/customPagination/CustomPagination";
+import { useEffect } from 'react';
 
 const Statement = ({ tradeDate }) => {
   const theme = useTheme();
@@ -29,14 +30,48 @@ const Statement = ({ tradeDate }) => {
 
   const [params, setParams] = useState();
 
+  const [debit, setDebit] = useState();
+  const [credit, setCredit] = useState();
+  const [amount, setAmount] = useState();
+  const [text, setText] = useState();
+console.log({"amount": amount})
+  useEffect(() => {
+    const data = Object.values(tableData);
+    if (data.length > 0) {
+      const { totalDebit, totalCredit, totalAmount } = data?.reduce(
+        (acc, curr) => {
+          acc.totalDebit += Number(curr.dr) ?? 0;
+          acc.totalCredit += Number(curr.cr) ?? 0;
+          acc.totalAmount += Number(curr.balance) ?? 0;
+          return acc;
+        },
+        { totalDebit: 0, totalCredit: 0, totalAmount: 0 }
+      );
+    
+      setDebit(totalDebit.toFixed(2));
+      setCredit(totalCredit);
+      setAmount(totalAmount);
+      setText("Total");
+    } else {
+      setDebit("");
+      setCredit("");
+      setAmount("");
+      setText("");
+    }
+    
+  }, [tableData]);
+
   const columns = useMemo(
     () => [
       {
         id: 1,
         accessorKey: "trDate",
         header: "Transaction Date",
-        size: 60,
+        size: 100,
         sortable: false,
+        Footer: () => {
+          return <span>{text}</span>;
+        },
       },
       {
         id: 3,
@@ -63,7 +98,7 @@ const Statement = ({ tradeDate }) => {
         id: 6,
         accessorKey: "particulars",
         header: "Particular",
-        size: 340,
+        size: 140,
         sortable: false,
       },
       {
@@ -72,6 +107,10 @@ const Statement = ({ tradeDate }) => {
         header: "Debit",
         size: 60,
         sortable: false,
+        Footer: () => {
+          return <Typography style={{ width: "auto" }}>{debit}</Typography>;
+         
+        },
       },
       {
         id: 8,
@@ -79,6 +118,9 @@ const Statement = ({ tradeDate }) => {
         header: "Credit",
         size: 60,
         sortable: false,
+        Footer: () => {
+          return <Typography style={{ width: "auto" }}>{credit}</Typography>;
+        },
       },
       {
         id: 9,
@@ -86,9 +128,12 @@ const Statement = ({ tradeDate }) => {
         header: "Balance",
         size: 60,
         sortable: false,
+        Footer: () => {
+          return <Typography style={{ width: "auto" }}>{amount}</Typography>;
+        },
       },
     ],
-    []
+    [debit, credit, amount]
   );
 
   const filterMenuItem = [
@@ -184,6 +229,7 @@ const Statement = ({ tradeDate }) => {
               columns={columns}
               isLoading={isLoading}
               data={Object.values(tableData)}
+              pageSize={100}
             />
             <div
               style={{

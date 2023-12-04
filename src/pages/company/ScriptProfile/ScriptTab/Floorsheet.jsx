@@ -186,14 +186,13 @@ const Floorsheet = ({ companyData }) => {
             data={Object.values(tableData)}
             pageSize={pageSize}
             // headerColor={theme.palette.text.main}
-            headerBackgroundColor='#006E17'
             headerColor='red'
             // onRowClick={handleRowClick}
             // headerBackgroundColor='#401686'
             // headerColor={theme.palette.text.alt}
             enableFullScreenToggle={false}
             enableHiding={false}
-            enableColumnFilters={false}
+            enableColumnFilters={true}
           />
           <div
             style={{
