@@ -141,7 +141,7 @@ const CustomTable = (props) => {
                 ? "#401686"
                 : theme.palette.secondary.hader),
             color:
-              props?.headerColor ||
+              props?.headerColor || 
               (theme?.palette?.mode === "dark" ? "#fafafa" : "#ffff"),
           },
         }}
@@ -160,9 +160,9 @@ const CustomTable = (props) => {
               (theme?.palette?.mode === "dark" ? "#fafafa" : "#ffff"),
           },
         }}
-        muiTableBodyCellProps={{
+        muiTableBodyCellProps= {{
           sx: {
-            border: "1px solid #EBEDEF",
+            border: '1px solid #EBEDEF',
             // alignItem:'center',
             // justifyContent:"center"
           },
