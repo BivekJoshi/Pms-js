@@ -1,10 +1,11 @@
-import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
+import { Button, Divider, Grid, TextField, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { useWatchListForm } from "../../../hooks/watchList/useWatchListForm/useWatchListForm";
 import toast from "react-hot-toast";
 
 const WatchListMasterField = ({ onClose }) => {
   const { formik } = useWatchListForm({ onClose });
+  const theme = useTheme();
 
   const handleFormSubmit = () => {
     formik.handleSubmit();
@@ -42,7 +43,10 @@ const WatchListMasterField = ({ onClose }) => {
           }
           variant="outlined"
           autoFocus
-          InputLabelProps={{ shrink: true }}
+          InputLabelProps={{
+            shrink: true,
+            style: { color: theme.palette.text.main},
+          }}
         />
         <br /><br/>
         <Divider />

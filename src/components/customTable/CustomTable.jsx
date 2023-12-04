@@ -11,7 +11,7 @@ import { Delete, Edit } from "@mui/icons-material";
 import { useCallback } from "react";
 import "./CustomTable.css";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 
 const CustomTable = (props) => {
   const theme = useTheme();
@@ -24,27 +24,31 @@ const CustomTable = (props) => {
     if (props.delete && props.handleDelete) props.handleDelete(row);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const handleEditRow = useCallback((row) => {
+    if (props.edit && props.handleEdit) props.handleEdit(row);
+  }, []);
+
   const handleNotificationIcon = useCallback((row) => {
     if (props.notification && props.handleNotification)
       props.handleNotification(row);
   }, []);
 
-  const handleSaveRow = async ({ exitEditingMode, row, values }) => {
-    let tableData = [...props.data];
-    let updatedData = tableData[row.index];
-    let column = [...props.columns];
-    for (const key in values) {
-      const columnID = Number(key);
-      const selectedValue = values[key];
-      const columnConfig = column?.find((d) => d.id === columnID);
-      const fieldName = columnConfig?.accessorKey;
-      if (fieldName) {
-        updatedData[fieldName] = selectedValue;
-      }
-    }
-    props?.handleUpdate(row, updatedData);
-    exitEditingMode(); //required to exit editing mode
-  };
+  // const handleSaveRow = async ({ exitEditingMode, row, values }) => {
+  //   let tableData = [...props.data];
+  //   let updatedData = tableData[row.index];
+  //   let column = [...props.columns];
+  //   for (const key in values) {
+  //     const columnID = Number(key);
+  //     const selectedValue = values[key];
+  //     const columnConfig = column?.find((d) => d.id === columnID);
+  //     const fieldName = columnConfig?.accessorKey;
+  //     if (fieldName) {
+  //       updatedData[fieldName] = selectedValue;
+  //     }
+  //   }
+  //   props?.handleUpdate(row, updatedData);
+  //   exitEditingMode(); //required to exit editing mode
+  // };
 
   const bodyBackgroundColor =
     theme.palette.mode === "light" ? "#ffff" : theme.palette.background.default;
@@ -63,7 +67,7 @@ const CustomTable = (props) => {
         enablePagination={props?.manualPagination}
         paginationPageSize={props?.pageSize || 10}
         enableEditing={props.enableEditing || false}
-        onEditingRowSave={handleSaveRow}
+        // onEditingRowSave={handleSaveRow}
         editingMode={props.editingMode}
         rowCount={props?.rowCount}
         // onPaginationChange={handlePaginationChange}
@@ -86,7 +90,7 @@ const CustomTable = (props) => {
             <Box sx={{ display: "flex", gap: "0.1rem" }}>
               {props.edit && (
                 <Tooltip arrow placement="left" title="Edit">
-                  <IconButton onClick={() => table.setEditingRow(row)}>
+                  <IconButton onClick={() => handleEditRow(row)}>
                     <Edit />
                   </IconButton>
                 </Tooltip>
@@ -101,25 +105,26 @@ const CustomTable = (props) => {
                   </IconButton>
                 </Tooltip>
               )}
-              {props.notification && row?.original?.isAlertAdded === true ? (
-                <Tooltip arrow placement="right" title="notification">
-                  <IconButton
-                    sx={{ color: "rgba(255, 184, 107, 1)" }}
-                    onClick={() => handleNotificationIcon(row)}
-                  >
-                    <NotificationsActiveIcon />
-                  </IconButton>
-                </Tooltip>
-              ):
-              <Tooltip arrow placement="right" title="notification">
-                  <IconButton
-                    sx={{ color: "grey" }}
-                    onClick={() => handleNotificationIcon(row)}
-                  >
-                    <NotificationsIcon />
-                  </IconButton>
-                </Tooltip>
-                }
+              {props.notification &&
+                (row?.original?.isAlertAdded ? (
+                  <Tooltip arrow placement="right" title="notification">
+                    <IconButton
+                      sx={{ color: "rgba(255, 184, 107, 1)" }}
+                      onClick={() => handleNotificationIcon(row)}
+                    >
+                      <NotificationsActiveIcon />
+                    </IconButton>
+                  </Tooltip>
+                ) : (
+                  <Tooltip arrow placement="right" title="notification">
+                    <IconButton
+                      sx={{ color: "grey" }}
+                      onClick={() => handleNotificationIcon(row)}
+                    >
+                      <NotificationsIcon />
+                    </IconButton>
+                  </Tooltip>
+                ))}
             </Box>
           );
         }}
@@ -132,9 +137,11 @@ const CustomTable = (props) => {
           sx: {
             backgroundColor:
               props?.headerBackgroundColor ||
-              (theme.palette.mode === "light" ? "#401686" : theme.palette.secondary.hader),
+              (theme.palette.mode === "light"
+                ? "#401686"
+                : theme.palette.secondary.hader),
             color:
-              props?.headerColor || 
+              props?.headerColor ||
               (theme?.palette?.mode === "dark" ? "#fafafa" : "#ffff"),
           },
         }}
@@ -153,9 +160,9 @@ const CustomTable = (props) => {
               (theme?.palette?.mode === "dark" ? "#fafafa" : "#ffff"),
           },
         }}
-        muiTableBodyCellProps= {{
+        muiTableBodyCellProps={{
           sx: {
-            border: '1px solid #EBEDEF',
+            border: "1px solid #EBEDEF",
             // alignItem:'center',
             // justifyContent:"center"
           },

@@ -2,17 +2,15 @@ import React, { useEffect } from "react";
 import { Box, MenuItem, useTheme } from "@mui/material";
 import NewFilter from "../../components/newFilter/NewFilter";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  
-  fetchData,
-  putData,
-} from "../../redux/actions/genericData";
+import { fetchData, putData } from "../../redux/actions/genericData";
 import CustomTable from "../../components/customTable/CustomTable";
 import { useState } from "react";
 import { useMemo } from "react";
-import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
-import { useRemoveWatchListDetail } from "./useAlertPost";
+import CustomeAlertDialog from "../../components/customeDialog/CustomeAlertDialog";
+import { useDeleteStockAlert } from "./useAlertPost";
 import { useTranslation } from "react-i18next";
+import FormModal from "../../components/formModal/FormModal";
+import EditAlertForm from "./EditAlertForm";
 // import Spinner from "../../components/spinner/Spinner";
 
 const ManageAlert = (props) => {
@@ -23,6 +21,8 @@ const ManageAlert = (props) => {
 
   const [tableShow, setTableShow] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+
   const [rowData, setRowData] = useState();
   const [tableDataIndex, settableDataIndex] = useState();
 
@@ -30,7 +30,7 @@ const ManageAlert = (props) => {
   const isLoading = useSelector((store) => store?.generic?.processing);
 
   const id = rowData?.id;
-  const { mutate } = useRemoveWatchListDetail({ id });
+  const { mutate } = useDeleteStockAlert({ id });
 
   useEffect(() => {
     dispatch(fetchData(`live-market/stock-alerts`));
@@ -41,7 +41,9 @@ const ManageAlert = (props) => {
     // For example:
     dispatch(
       fetchData(
-        `live-market/stock-alerts?script=${params.script || ''}&alertType=${params.alertType || ''}`
+        `live-market/stock-alerts?script=${params.script || ""}&alertType=${
+          params.alertType || ""
+        }`
       )
     );
     setTableShow(true);
@@ -171,26 +173,29 @@ const ManageAlert = (props) => {
       },
     });
   };
-  const handleUpdate = (row, changeData) => {
-    new Promise((resolve, reject) => {
-      dispatch(
-        putData(
-          "/live-market/update/stock-alert",
-          row.original.id,
-          changeData,
-          resolve,
-          reject
-        )
-      );
-    }).then(() =>
-      dispatch(
-        fetchData(
-          `live-market/stock-alerts?script=${params.script || ""}&alertType=${
-            params.alertType || ""
-          }`
-        )
-      )
-    );
+
+  const editRow = (row) => {
+    setIsModalEditOpen(true);
+    setRowData(row?.original);
+    settableDataIndex(row?.index);
+  };
+
+  const handleModalEditClose = () => {
+    setIsModalEditOpen(false);
+  };
+
+  const handleEditData = () => {
+    mutate(tableDataIndex, {
+      onSuccess: () => {
+        dispatch(
+          fetchData(
+            `live-market/stock-alerts?script=${params.script || ""}&alertType=${
+              params.alertType || ""
+            }`
+          )
+        );
+      },
+    });
   };
 
   return (
@@ -202,57 +207,55 @@ const ManageAlert = (props) => {
         submitButtonText="Search"
       />
       <Box marginTop={2}>
-        {tableShow ? (
-          tableData.length > 0 ? ( // Check if tableData is not empty
-            tableData.map((d) => {
-              const companyName = props.companyList?.find(
-                (data) => data.id === d.companyId
-              )?.companyInfo;
-              return (
-                <>
-                  <CustomTable
-                    key={d.companyId} // Add a unique key for each CustomTable
-                    title={companyName}
-                    enableColumnActions
-                    columns={columns}
-                    isLoading={isLoading}
-                    enableEditing={true}
-                    headerBackgroundColor="#401686"
-                    headerColor={theme.palette.text.alt}
-                    state={{
-                      isLoading: isLoading,
-                      showSkeletons: isLoading,
-                    }}
-                    editingMode="modal"
-                    enableEdit
-                    enableFullScreenToggle={false}
-                    enableDelete
-                    data={d.stockAlertResponses}
-                    handleDelete={deleteRow}
-                    handleUpdate={handleUpdate}
-                    edit
-                    delete
-                  />
-                  <br></br>
-                </>
-              );
-            })
-          ) : (
-            !tableShow &&
-            <Box
-              sx={{
-                width: "cover",
-                height: "84px",
-                backgroundColor: theme.palette.background.alt,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              No Script Found
-            </Box>
-          )
-        ) : null}
+        {tableShow
+          ? tableData.length > 0 // Check if tableData is not empty
+            ? tableData.map((d) => {
+                const companyName = props.companyList?.find(
+                  (data) => data.id === d.companyId
+                )?.companyInfo;
+                return (
+                  <>
+                    <CustomTable
+                      key={d.companyId} // Add a unique key for each CustomTable
+                      title={companyName}
+                      enableColumnActions
+                      columns={columns}
+                      isLoading={isLoading}
+                      enableEditing={true}
+                      headerBackgroundColor="#401686"
+                      headerColor={theme.palette.text.alt}
+                      state={{
+                        isLoading: isLoading,
+                        showSkeletons: isLoading,
+                      }}
+                      enableEdit
+                      enableFullScreenToggle={false}
+                      enableDelete
+                      data={d.stockAlertResponses}
+                      handleDelete={deleteRow}
+                      handleEdit={editRow}
+                      edit
+                      delete
+                    />
+                    <br></br>
+                  </>
+                );
+              })
+            : !tableShow && (
+                <Box
+                  sx={{
+                    width: "cover",
+                    height: "84px",
+                    backgroundColor: theme.palette.background.alt,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  No Script Found
+                </Box>
+              )
+          : null}
       </Box>
 
       {/*Delete the Row Data */}
@@ -265,6 +268,17 @@ const ManageAlert = (props) => {
         handleModalClose={handleModalClose}
         isModalOpen={isModalOpen}
         handleAgree={handleDeleteData}
+      />
+
+      <FormModal
+        open={isModalEditOpen}
+        onClose={handleModalEditClose}
+        // width={50}
+        formComponent={
+          <>
+            <EditAlertForm onClose={handleModalEditClose} rowData={rowData}/>
+          </>
+        }
       />
     </div>
   );
