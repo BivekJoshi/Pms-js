@@ -12,10 +12,12 @@ import { useState } from "react";
 import { useMemo } from "react";
 import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
 import { useRemoveWatchListDetail } from "./useAlertPost";
+import { useTranslation } from "react-i18next";
 // import Spinner from "../../components/spinner/Spinner";
 
 const ManageAlert = (props) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [params, setparams] = useState({});
 
@@ -81,7 +83,7 @@ const ManageAlert = (props) => {
       {
         id: 1,
         accessorKey: "alertType",
-        header: "Alert Type",
+        header: t("Alert Type"),
         size: 100,
         sortable: false,
 
@@ -111,7 +113,7 @@ const ManageAlert = (props) => {
       {
         id: 3,
         accessorKey: "alertMethod",
-        header: "Notification Delivery Method",
+        header: t("Notification Delivery Method"),
         size: 100,
         sortable: false,
         editable: false,
@@ -119,7 +121,7 @@ const ManageAlert = (props) => {
       {
         id: 4,
         accessorKey: "transactionType",
-        header: "Alert For",
+        header: t("Alert For"),
         size: 100,
         muiTableBodyCellEditTextFieldProps: {
           select: true, //change to select for a dropdown

@@ -44,7 +44,7 @@ const ChangePassword = () => {
         gap="16px"
         p="8px 16px"
       >
-        <Typography variant="h4">{t("Change Your Password")}</Typography>
+        <Typography variant="h4">{t("Change Password")}</Typography>
         <Typography variant="h7">
           {t("Enter a new password below to change your password")}
         </Typography>
@@ -191,18 +191,6 @@ const ChangePassword = () => {
           >
             <Button
               variant="contained"
-              onClick={handleFormClear}
-              color="error"
-              sx={{
-                mt: 3,
-                ml: 1,
-                textTransform: "none",
-              }}
-            >
-              {t("Clear")}
-            </Button>
-            <Button
-              variant="contained"
               onClick={handleFormSubmit}
               // disabled={!formik.isValid}
               sx={{
@@ -214,6 +202,18 @@ const ChangePassword = () => {
               }}
             >
               {t("Change Password")}
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleFormClear}
+              color="error"
+              sx={{
+                mt: 3,
+                ml: 1,
+                textTransform: "none",
+              }}
+            >
+              {t("Clear")}
             </Button>
           </Grid>
         </Grid>

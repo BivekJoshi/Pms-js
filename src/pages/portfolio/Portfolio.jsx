@@ -84,7 +84,11 @@ const Portfolio = () => {
         Cell: ({ row }) => {
           const todayGain = row?.original?.ltp - row?.original?.previousClose;
           if (todayGain < 0) {
-            return <Typography style={{ color: "red" }}>{Math.abs(todayGain)}</Typography>;
+            return (
+              <Typography style={{ color: "red" }}>
+                {Math.abs(todayGain)}
+              </Typography>
+            );
           } else {
             return <Typography>{Math.abs(todayGain)}</Typography>;
           }
@@ -166,15 +170,16 @@ const Portfolio = () => {
 
       workbook.xlsx.writeBuffer().then((data) => {
         const blob = new Blob([data], {
-          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          type:
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         });
         saveAs(blob, "Portfolio.xlsx");
       });
     }
   };
-  
+
   const handleRowClick = (rowData) => {
-    navigate(`/company/${rowData?.original?.script}`)
+    navigate(`/company/${rowData?.original?.script}`);
   };
 
   return (
@@ -189,19 +194,21 @@ const Portfolio = () => {
         }}
       >
         <Box>
-          <Typography variant="h6">Name: {userInfoData?.clientName}</Typography>
+          <Typography variant="h6">
+            {t("Name")} : {userInfoData?.clientName}
+          </Typography>
           <Typography variant="h6">980000000</Typography>
         </Box>
         <Box>
-          <Typography variant="h6">Market Value</Typography>
+          <Typography variant="h6">{t("Market Value")}</Typography>
           <Typography variant="h6">+ 87422.00</Typography>
         </Box>
         <Box>
-          <Typography variant="h6">Today Change</Typography>
+          <Typography variant="h6">{t("Today Change")}</Typography>
           <Typography variant="h6">+ 493.00</Typography>
         </Box>
         <Box>
-          <Typography variant="h6">Overall return</Typography>
+          <Typography variant="h6">{t("Overall return")}</Typography>
           <Typography variant="h6">+ 50004.43</Typography>
         </Box>
         <Button
@@ -209,6 +216,7 @@ const Portfolio = () => {
           style={{
             backgroundColor: theme.palette.background.btn,
             color: theme.palette.text.alt,
+            textTransform: "none",
           }}
           aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
@@ -221,14 +229,15 @@ const Portfolio = () => {
       {!isLoading ? (
         <Box sx={{ "& .css-1f2qhs8, .css-c8wlay": { color: "#ffff" } }}>
           <CustomTable
-            title="Portfolio"
+            title={t("Portfolio")}
             columns={columns}
             data={userPorfolioData}
             isLoading={isLoading}
             enableFullScreenToggle
             headerBackgroundColor="#401686"
             headerColor={theme.palette.text.alt}
-          onRowClick={handleRowClick}
+            onRowClick={handleRowClick}
+            enableRowNumbers={true}
           />
         </Box>
       ) : (

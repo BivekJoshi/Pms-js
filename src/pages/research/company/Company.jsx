@@ -11,6 +11,7 @@ import DividentHistory from "./Component/DividentHistory";
 import Report from "./Component/Report";
 import Financials from "./Component/Financials";
 import Forcastes from "./Component/Forcastes";
+import CompanyHeader from "./Component/CompanyHeader";
 
 const ResearchCompany = () => {
   const [value, setValue] = useState("1");
@@ -22,14 +23,34 @@ const ResearchCompany = () => {
   const handleChangeDown = (event, newValueDown) => {
     setValueDown(newValueDown);
   };
+
+  const labelStyle = {
+    backgroundColor: "#EBEDEF",
+    marginLeft: ".5rem",
+    textTransform: "none",
+    borderRadius: ".5rem",
+    color: "black",
+  };
+  const activeLabelStyle = {
+    // ...labelStyle,
+    borderTop: "2px solid #401686",
+    backgroundColor: "#fff",
+    textTransform: "none",
+    color: "black",
+    marginLeft: ".5rem",
+  };
+
   return (
     <Grid container spacing={4}>
-      <Grid item xs={12}></Grid>
+      <Grid item xs={12}>
+        <CompanyHeader/>
+      </Grid>
       <Grid item xs={12} md={5} lg={5} xl={5}>
         <div
           style={{
             background: theme.palette.background.alt,
             borderRadius: "5px",
+            padding: "1rem",
           }}
         >
           <TabContext value={value}>
@@ -59,6 +80,7 @@ const ResearchCompany = () => {
           style={{
             background: theme.palette.background.alt,
             borderRadius: "5px",
+            padding: "1rem",
           }}
         >
           <TabContext value={valueDown}>

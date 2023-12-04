@@ -19,6 +19,7 @@ const Floorsheet = ({ companyData }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [tableShow, setTableShow] = useState(false);
+  const [tableKey, setTableKey] = useState(0); 
   const tableData = useSelector((store) => store?.paginatedTable?.data);
   const isLoading = useSelector((store) => store?.paginatedTable?.processing);
 
@@ -77,7 +78,7 @@ const Floorsheet = ({ companyData }) => {
     return () => {
       dispatch(clearPaginatedData());
     };
-  }, [dispatch, companyData]);
+  }, [dispatch,companyData?.companyInfo?.symbol]);
 
   const handleSearch = (formValues) => {
     const trDate = formValues.trDate
@@ -101,10 +102,17 @@ const Floorsheet = ({ companyData }) => {
         )
       );
       setTableShow(true);
+      setTableKey((key) => key + 1);
     } catch (error) {
       toast.error(getErrorMessage(error));
     }
   };
+  useEffect(() => {
+    if (tableKey > 0) {
+      fetchData();
+    }
+  }, [tableKey, dispatch]);
+  
   const columns = useMemo(
     () => [
       {
@@ -178,14 +186,13 @@ const Floorsheet = ({ companyData }) => {
             data={Object.values(tableData)}
             pageSize={pageSize}
             // headerColor={theme.palette.text.main}
-            headerBackgroundColor='#006E17'
             headerColor='red'
             // onRowClick={handleRowClick}
             // headerBackgroundColor='#401686'
             // headerColor={theme.palette.text.alt}
             enableFullScreenToggle={false}
             enableHiding={false}
-            enableColumnFilters={false}
+            enableColumnFilters={true}
           />
           <div
             style={{

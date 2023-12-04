@@ -28,7 +28,6 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
       reader.readAsDataURL(file);
     }
   };
-
   return (
     <FormModal
       open={open}
@@ -120,6 +119,7 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                         height: "26px",
                         color: "black",
                         "&:hover": { bgcolor: "#decde7" },
+                        textTransform:"none",
                       }}
                       component="span" // Add this to make the button act like a file input trigger
                     >
