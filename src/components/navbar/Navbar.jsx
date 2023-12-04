@@ -376,7 +376,10 @@ const Navbar = () => {
                 // autoFocus
                 size='small'
                 InputLabelProps={{ shrink: true }}
-                style={{ minWidth: '150px' ,backgroundColor:"#ECE6EB"}}
+                style={{
+                  minWidth: '150px',
+                  backgroundColor: theme.palette.background.default,
+                }}
               />
             )}
             onChange={(event, value) => {
