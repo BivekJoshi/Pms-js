@@ -49,15 +49,15 @@ const BarChartDash = ({ data }) => {
       labels: {
         style: {
           colors: [
-            mode === "dark" ? theme.palette.text.alt : "black",
-            mode === "dark" ? theme.palette.text.alt : "black",
-            mode === "dark" ? theme.palette.text.alt : "black",
-            mode === "dark" ? theme.palette.text.alt : "black",
-            mode === "dark" ? theme.palette.text.alt : "black",
-            mode === "dark" ? theme.palette.text.alt : "black",
-            mode === "dark" ? theme.palette.text.alt : "black",
-            mode === "dark" ? theme.palette.text.alt : "black",
-            mode === "dark" ? theme.palette.text.alt : "black",
+            mode === "dark" ? theme.palette.text.main : "black",
+            mode === "dark" ? theme.palette.text.main : "black",
+            mode === "dark" ? theme.palette.text.main : "black",
+            mode === "dark" ? theme.palette.text.main : "black",
+            mode === "dark" ? theme.palette.text.main : "black",
+            mode === "dark" ? theme.palette.text.main : "black",
+            mode === "dark" ? theme.palette.text.main : "black",
+            mode === "dark" ? theme.palette.text.main : "black",
+            mode === "dark" ? theme.palette.text.main : "black",
           ],
         },
       },
@@ -66,15 +66,15 @@ const BarChartDash = ({ data }) => {
       categories: Name, // Swap with xaxis
       labels: {
         style: {
-          colors: [mode === "dark" ? theme.palette.text.alt : "black"],
+          colors: [mode === "dark" ? theme.palette.text.main : "black"],
         },
       },
     },
     legend: {
       labels: {
         colors: [
-          mode === "dark" ? theme.palette.text.alt : "black",
-          mode === "dark" ? theme.palette.text.alt : "black",
+          mode === "dark" ? theme.palette.text.main : "black",
+          mode === "dark" ? theme.palette.text.main : "black",
         ],
       },
     },

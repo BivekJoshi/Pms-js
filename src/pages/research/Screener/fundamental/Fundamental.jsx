@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PageNotFound from "../../../PageNotFound/PageNotFound";
 import {
   Autocomplete,
   Box,
@@ -8,94 +7,113 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-const selector = [
-  {
-    id: 1,
-    title: "PE",
-    dropdown: [
-      { id: 2, title: "Below 10" },
-      { id: 3, title: "Below 20" },
-      { id: 4, title: "Below 30" },
-    ],
-  },
-  {
-    id: 5,
-    title: "PB",
-    dropdown: [
-      { id: 6, title: "Below 10" },
-      { id: 7, title: "Below 20" },
-      { id: 8, title: "Below 30" },
-    ],
-  },
-  {
-    id: 5,
-    title: "ROE",
-    dropdown: [
-      { id: 6, title: "Below 10" },
-      { id: 7, title: "Below 20" },
-      { id: 8, title: "Below 30" },
-    ],
-  },
-  {
-    id: 5,
-    title: "Dividentd Yield",
-    dropdown: [
-      { id: 6, title: "Below 10" },
-      { id: 7, title: "Below 20" },
-      { id: 8, title: "Below 30" },
-    ],
-  },
-];
+import { selector } from "./fundamentalData";
+import NewFilter from "../../../../components/newFilter/NewFilter";
+
 const Fundamental = () => {
   const theme = useTheme();
-  const [selectedSector, setSelectedSector] = useState(null);
+  const initialSelectedValues = {};
 
-  const handleSectorChange = (event, newValue) => {
-    setSelectedSector(newValue);
+  selector.forEach((item) => {
+    initialSelectedValues[item.id] = null;
+  });
+
+  const [selectedValues, setSelectedValues] = useState(initialSelectedValues);
+
+  const handleSectorChange = (id, newValue) => {
+    setSelectedValues((prevValues) => ({
+      ...prevValues,
+      [id]: newValue,
+    }));
+  };
+
+  const filterMenuItem = [
+    {
+      label: "PE",
+      name: "pe",
+      type: "dropDownId",
+      dropDownData: selector,
+      md: 4,
+      sm: 12,
+    },
+    {
+      label: "PB",
+      name: "pe",
+      type: "dropDownId",
+      dropDownData: selector,
+      md: 4,
+      sm: 12,
+    },
+  ];
+
+  const handleSearch = (formValues) => {
+    const dateFrom = formValues.dateFrom
+      ? new Date(formValues.dateFrom).getTime() / 1000
+      : null;
+    const dateTo = formValues.dateTo
+      ? new Date(formValues.dateTo).getTime() / 1000
+      : null;
+
+    if (dateFrom && dateTo) {
+      const updatedFormValues = {
+        ...formValues,
+        dateFrom,
+        dateTo,
+      };
+      setParams(updatedFormValues);
+      try {
+        dispatch(
+          fetchPaginatedTable(
+            SHARE_TRANSACTION,
+            updatedFormValues,
+            null,
+            "transactionNo"
+          )
+        );
+        setTableShow(true);
+      } catch (error) {
+        toast.error(error);
+      }
+    }
   };
 
   return (
-    <>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sx={12} md={12}>
-          <Typography
-            variant="h6"
-            sx={{
-              background: theme.palette.background.alt,
-              padding: "1rem",
-              borderLeft: "3px solid #191F45",
-            }}
-          >
-            Fundamental Screener
-          </Typography>
-        </Grid>
-      </Grid>
-      <Grid
-        conatiner
-        rowSpacing={1}
-        columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+    <Box sx={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <Typography
+        variant="h6"
         sx={{
           background: theme.palette.background.alt,
-          padding: "1rem",
-          marginTop: "1rem",
+          borderLeft: "3px solid #191F45",
+          lineHeight: "3rem",
         }}
+      >
+        Fundamental Screener
+      </Typography>
+
+      <Grid
+        container
+        spacing={2}
+        bgcolor={theme.palette.background.alt}
+        margin={0}
+        width={"100%"}
+        p={2}
       >
         {selector.map((data) => (
           <Grid item key={data?.id} xs={12} sm={12} md={4} lg={4} xl={3}>
             <Typography variant="h6">{data?.title}</Typography>
             <Autocomplete
-              value={selectedSector}
-              onChange={handleSectorChange}
+              value={selectedValues[data?.id]}
+              onChange={(event, newValue) =>
+                handleSectorChange(data?.id, newValue)
+              }
               options={data?.dropdown}
               getOptionLabel={(option) => option?.title}
-              size="small"
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  placeholder="--Any--"
+                  placeholder="--Select--"
                   variant="outlined"
                   autoFocus
-                  size="small"
                   InputLabelProps={{ shrink: true }}
                   required
                 />
@@ -104,7 +122,15 @@ const Fundamental = () => {
           </Grid>
         ))}
       </Grid>
-    </>
+
+      <NewFilter
+        inputField={filterMenuItem}
+        searchCallBack={handleSearch}
+        // validate={filterDateValidationSchema}
+        // tradeDate={tradeDate}
+        submitButtonText="Search"
+      />
+    </Box>
   );
 };
 

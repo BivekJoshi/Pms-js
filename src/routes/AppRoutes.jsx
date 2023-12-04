@@ -44,10 +44,10 @@ const ChangePasswordPage = React.lazy(() =>
 const ApplicationMessage = React.lazy(() =>
   import("../pages/auth/ApplicationMessage")
 );
-const ErrorPage = React.lazy(() => import("./../pages/error-page/ErrorPage"));
-const Company = React.lazy(() => import("../pages/company/Company"));
-const PageNotFound = React.lazy(() =>
-  import("../pages/PageNotFound/PageNotFound")
+const ErrorPage = React.lazy(() => import('./../pages/error-page/ErrorPage'));
+const Company = React.lazy(() => import('../pages/company/Company'));
+const DevelopmentPage = React.lazy(() =>
+  import('../pages/DevlopmentPage/DevlopmentPage')
 );
 
 export default function AppRoutes() {
@@ -88,9 +88,9 @@ export default function AppRoutes() {
               <Route path="portfolio" element={<Portfolio />} />
               <Route path="alert/:symbol" element={<Alert />} />
               <Route path='alert' element={<Alert />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="company/:script" element={<Company />} />
-              <Route path="pagenotfound" element={<PageNotFound />} />
+              <Route path='profile' element={<Profile />} />
+              <Route path='company/:script' element={<Company />} />
+              <Route path='under-construction' element={<DevelopmentPage />} />
             </Route>
             <Route path="/error-page" element={<ErrorPage />} />
             <Route path="*" element={<ErrorPage />} />

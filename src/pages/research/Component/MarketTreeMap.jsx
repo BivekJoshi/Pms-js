@@ -117,15 +117,17 @@ const MarketTreeMap = () => {
     },
   });
   return (
-      <div style={{ background: theme.palette.background.alt}}>
+    <div style={{ background: theme.palette.background.alt }}>
+      <div style={{ marginLeft: "1rem" }}>
         <ReactApexChart
-        options={state.options}
-        series={state.series}
-        type="treemap"
-        height={350}
-        width="100%"
-      />
+          options={state.options}
+          series={state.series}
+          type="treemap"
+          height={350}
+          width="100%"
+        />
       </div>
+    </div>
   );
 };
 

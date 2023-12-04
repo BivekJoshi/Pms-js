@@ -1,10 +1,20 @@
 import { useTheme } from "@emotion/react";
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import "./Style.css";
+import FormModal from "../formModal/FormModal";
+import Paymentmethod from "../../pages/profile/SubscriptionTab/Paymentmethod";
 
 const SubscriptionCard = ({ section, index, BronzeSub, SilverSub }) => {
   const theme = useTheme();
+
+  const handleSubscribeClick = () => {
+    setOpen(true);
+  };
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => setOpen(false);
 
   return (
     <>
@@ -336,11 +346,19 @@ const SubscriptionCard = ({ section, index, BronzeSub, SilverSub }) => {
                     : section?.buttonColor,
                 textTransform: "none",
               }}
+              onClick={handleSubscribeClick}
             >
               Subscribe
             </Button>
           </div>
         )}
+
+        <FormModal
+          open={open}
+          onClose={() => setOpen(false)}
+          width="378px"
+          formComponent={<Paymentmethod onClose={() => setOpen(false)} />}
+        />
       </Box>
     </>
   );

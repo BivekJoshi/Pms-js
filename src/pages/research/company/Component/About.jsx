@@ -34,13 +34,89 @@ const About = () => {
     createData("30-Day Avg Volume", "46,0323.23"),
     createData("Markert Capiltaization", "155,036,592"),
   ];
+  const rows1 = [
+    createData("Sector", "Commercial Bank"),
+    createData("Shares Outstanding", "2312"),
+    createData("%Changes", "22 832 909 000.00"),
+    createData("Last Traded On", "1653/740"),
+  ];
+  const rows2 = [
+    createData("Sector", "Commercial Bank"),
+    createData("Shares Outstanding", "2312"),
+    createData("%Changes", "22 832 909 000.00"),
+    createData("Last Traded On", "1653/740"),
+  ];
   return (
     <Grid container>
-      <Grid item xs={12} md={5} lg={4} padding="24px 16px">
+      <Grid item xs={12} md={5} lg={6} padding="24px 16px">
+        <div>
+          <Typography variant="h3" fontWeight="600" paddingBottom="16px">
+            Summary
+          </Typography>
+          <Grid>
+            <TableContainer
+              component={Paper}
+              borderRadius="4px 0"
+              border="1px solid red"
+            >
+              <Table
+                aria-label="simple table"
+                sx={{ borderTop: "px solid #e0e0e0" }}
+              >
+                <TableBody>
+                  {rows.map((row) => (
+                    <TableRow
+                      key={row.heading}
+                      sx={{ borderTop: "px solid #e0e0e0" }}
+                    >
+                      <TableCell style={cellStyle}>{row.heading}</TableCell>
+                      <TableCell style={{ borderTop: "1px solid #e0e0e0" }}>
+                        {row.data}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
+        </div>
+        <div>
+          <Typography variant="h3" fontWeight="600" padding="40px 0  16px">
+            Shareholders Information
+          </Typography>
+          <Grid>
+            <TableContainer
+              component={Paper}
+              borderRadius="4px 0"
+              border="1px solid red"
+            >
+              <Table
+                aria-label="simple table"
+                sx={{ borderTop: "px solid #e0e0e0" }}
+              >
+                <TableBody>
+                  {rows1.map((row) => (
+                    <TableRow
+                      key={row.heading}
+                      sx={{ borderTop: "px solid #e0e0e0" }}
+                    >
+                      <TableCell style={cellStyle}>{row.heading}</TableCell>
+                      <TableCell style={{ borderTop: "1px solid #e0e0e0" }}>
+                        {row.data}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
+        </div>
+      </Grid>
+      <Grid item xs={12} md={5} lg={6} padding="24px 16px">
         <Typography variant="h3" fontWeight="600" paddingBottom="16px">
-          Summary
+          General Information
         </Typography>
-        <Grid >
+        <Grid>
           <TableContainer
             component={Paper}
             borderRadius="4px 0"
@@ -50,8 +126,27 @@ const About = () => {
               aria-label="simple table"
               sx={{ borderTop: "px solid #e0e0e0" }}
             >
+              <TableHead>
+                <TableRow>
+                  <TableCell
+                    style={cellStyle}
+                    sx={{ backgroundColor: "#401686", color: "#fff" }}
+                  >
+                    Share Registers
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      border: "1px solid #401686",
+                      borderLeft: "2px solid #401686",
+                      borderRight: "2px solid #401686",
+                    }}
+                  >
+                    Nabil Investment Bank Limited
+                  </TableCell>
+                </TableRow>
+              </TableHead>
               <TableBody>
-                {rows.map((row) => (
+                {rows2.map((row) => (
                   <TableRow
                     key={row.heading}
                     sx={{ borderTop: "px solid #e0e0e0" }}
@@ -65,11 +160,7 @@ const About = () => {
               </TableBody>
             </Table>
           </TableContainer>
-        </Grid>
-      </Grid>
-      <Grid item xs={0} lg={2}></Grid>
-      <Grid item xs={12} md={5} lg={6}>
-        hellow
+        </Grid>{" "}
       </Grid>
     </Grid>
   );

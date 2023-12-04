@@ -1,8 +1,8 @@
 import React from 'react';
-import PageNotFound from '../../../PageNotFound/PageNotFound';
+import DevelopmentPage from '../../../DevlopmentPage/DevlopmentPage';
 
 const EndOfTheDay = () => {
-    return <PageNotFound />;
+    return <DevelopmentPage />;
 };
 
 export default EndOfTheDay;

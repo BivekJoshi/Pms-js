@@ -114,7 +114,7 @@ const MarketDepth = () => {
     <Grid
       item
       xs={12}
-      bgcolor={theme.palette.background.alt}
+      // bgcolor={theme.palette.background.alt}
       borderRadius={"6px"}
       padding={1}
     >

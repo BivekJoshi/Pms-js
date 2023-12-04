@@ -71,7 +71,7 @@ const NewFilter = ({
                 label={element?.label}
                 name={element?.name}
                 placeholder={element?.placeholder}
-                
+                InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }, }}
               />
             )}
             onChange={(e, value) => setFieldValue(element?.name, value?.label)}
