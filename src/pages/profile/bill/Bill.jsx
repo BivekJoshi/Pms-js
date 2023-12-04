@@ -1,19 +1,20 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import NewFilter from '../../../components/newFilter/NewFilter';
-import CustomTable from '../../../components/customTable/CustomTable';
-import toast from 'react-hot-toast';
-import { Bill_TRANSACTION } from '../../../api/urls/urls';
-import { Box, Button, Modal, Typography, useTheme } from '@mui/material';
-import FormModal from '../../../components/formModal/FormModal';
-import BillDetail from './BillDetail';
-import { fetchPaginatedTable } from '../../../redux/actions/paginatedTable';
-import CustomPagination from '../../../components/customPagination/CustomPagination';
-import { useTranslation } from 'react-i18next';
-import { filterDateValidationSchema } from '../../../form/validations/filterDateValidate';
-import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
-import DownloadIcon from '@mui/icons-material/Download';
-import { transactionType } from '../../../utility/dropdownData';
+import React, { useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import NewFilter from "../../../components/newFilter/NewFilter";
+import CustomTable from "../../../components/customTable/CustomTable";
+import toast from "react-hot-toast";
+import { Bill_TRANSACTION } from "../../../api/urls/urls";
+import { Box, Button, Modal, Typography, useTheme } from "@mui/material";
+import FormModal from "../../../components/formModal/FormModal";
+import BillDetail from "./BillDetail";
+import { fetchPaginatedTable } from "../../../redux/actions/paginatedTable";
+import CustomPagination from "../../../components/customPagination/CustomPagination";
+import { useTranslation } from "react-i18next";
+import { filterDateValidationSchema } from "../../../form/validations/filterDateValidate";
+import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
+import DownloadIcon from "@mui/icons-material/Download";
+import { transactionTypBill, transactionType } from "../../../utility/dropdownData";
+import { useEffect } from "react";
 
 const Bill = ({ tradeDate }) => {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ const Bill = ({ tradeDate }) => {
   const [params, setParams] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
+  const [trType, setTrType] = useState(false);
   const { t } = useTranslation();
 
   const [amount, setAmount] = useState();
@@ -67,8 +69,8 @@ const Bill = ({ tradeDate }) => {
     () => [
       {
         id: 1,
-        accessorKey: 'trDate',
-        header: 'Date',
+        accessorKey: "trDate",
+        header: "Date",
         size: 100,
         sortable: false,
         Footer: () => {
@@ -77,15 +79,33 @@ const Bill = ({ tradeDate }) => {
       },
       {
         id: 2,
-        accessorKey: 'billNo',
-        header: 'Bill Number',
+        accessorKey: "billNo",
+        header: "Bill Number",
         size: 120,
         sortable: false,
+        // Cell:(value)=>{
+        //   console.log(value?.cell?.row?.original,"rowData ma")
+          
+        // }
       },
       {
         id: 3,
-        accessorKey: 'trType',
-        header: 'Trade Type',
+        accessorKey: "trType",
+        header: "Transaction Type",
+        size: 100,
+        sortable: false,
+        Cell: (value) => {
+          if (value?.cell?.row?.original?.trType === "P") {
+            return "Purchase";
+          } else {
+            return "Sell";
+          }
+        },
+      },
+      {
+        id: 4,
+        accessorKey: "script",
+        header: "Script",
         size: 100,
         sortable: false,
         Cell: ({ row }) => {
@@ -96,66 +116,39 @@ const Bill = ({ tradeDate }) => {
           } else return row?.original?.trType;
         },
       },
-      // {
-      //   id: 4,
-      //   accessorKey: "script",
-      //   header: "Script",
-      //   size: 100,
-      //   sortable: false,
-      // },
-
-      // {
-      //   id: 5,
-      //   accessorKey: 'buyQty',
-      //   header: 'Buy Quantity',
-      //   size: 100,
-      //   sortable: false,
-      // },
-      // {
-      //   id: 6,
-      //   accessorKey: 'sellQty',
-      //   header: 'Sell Quantity',
-      //   size: 100,
-      //   sortable: false,
-      // },
-      // Footer: () => {
-      //   if(amount === 0) {
-      //     return "";
-      //   } else return (
-      //   <Typography variant="h6" style={{ whiteSpace: "nowrap" }}>
-      //     Total Amount
-      //   </Typography>
-      // )},
       {
-        id: 7,
-        accessorKey: 'amount',
-        header: 'Bill Amount',
+        id: 5,
+        accessorKey: "rate",
+        header: "Rate",
         size: 100,
         sortable: false,
-        Footer: () => {
-          return <Typography style={{ width: "auto" }}>{amount}</Typography>;
-        },
+      },
+      {
+        id: 6,
+        accessorKey: "amount",
+        header: "Amount",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 7,
+        accessorKey: "commission",
+        header: "Comission",
+        size: 100,
+        sortable: false,
       },
       {
         id: 8,
-        accessorKey: "rate",
-        header: "Total Commission",
-        size: 100,
-        sortable: false,
-        Footer: () => {
-          return <Typography style={{ width: "auto" }}>{commission}</Typography>;
-        },      
-      },
-      {
-        id: 9,
         accessorKey: "isSettled",
         header: "Settlement Status",
         size: 100,
         sortable: false,
-        Cell: ({ row }) => {
-          if (row?.original?.isSettled) {
-            return <Typography color="green">Settled</Typography>;
-          } else return <Typography color="error">Unsettled</Typography>;
+        Cell: (value) => {
+          if (value?.cell?.row?.original?.isSettled === true) {
+            return (<b style={{color:"green"}}>Settled</b>);
+          } else {
+            return (<b style={{color:"red"}}>Unsettled</b>);
+          }
         },
       },
     ],
@@ -164,19 +157,27 @@ const Bill = ({ tradeDate }) => {
 
   const filterMenuItem = [
     {
-      label: t('Date From'),
-      name: 'dateFrom',
-      type: 'date-picker',
+      label: t("Date From"),
+      name: "dateFrom",
+      type: "date-picker",
       required: true,
-      md: 6,
+      md: 4,
       sm: 12,
     },
     {
-      label: t('Date To'),
-      name: 'dateTo',
-      type: 'date-picker',
+      label: t("Date To"),
+      name: "dateTo",
+      type: "date-picker",
       required: true,
-      md: 6,
+      md: 4,
+      sm: 12,
+    },
+    {
+      label: "Transaction Type",
+      name: "transactionType",
+      type: "dropDownId",
+      dropDownData: transactionTypBill,
+      md: 4,
       sm: 12,
     },
     {
@@ -190,6 +191,7 @@ const Bill = ({ tradeDate }) => {
   ];
 
   const handleSearch = (formValues) => {
+    setTrType(formValues?.transactionType);
     const dateFrom = formValues.dateFrom
       ? new Date(formValues.dateFrom).getTime() / 1000
       : null;
@@ -210,7 +212,7 @@ const Bill = ({ tradeDate }) => {
             Bill_TRANSACTION,
             updatedFormValues,
             null,
-            'billNo'
+            "billNo"
           )
         );
         setTableShow(true);
@@ -218,7 +220,7 @@ const Bill = ({ tradeDate }) => {
         toast.error(error);
       }
     } else {
-      toast.error('Please provide both date values...');
+      toast.error("Please provide both date values...");
     }
   };
   const handleRowClick = (rowData) => {
@@ -229,23 +231,34 @@ const Bill = ({ tradeDate }) => {
     <>
       <Box
         sx={{
-          display: 'flex',
-          width: 'cover',
+          display: "flex",
+          width: "cover",
           backgroundColor: theme.palette.background.alt,
-          padding: '16px',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          borderRadius: '6px',
+          padding: "16px",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          borderRadius: "6px",
         }}
       >
         <div>
-          <Typography variant='h4'>Bills Report</Typography>
-          <Typography variant='h7'>
+          <Typography variant="h4">Bills Report</Typography>
+          <Typography variant="h7">
             Last Transaction Date: <b>{tradeDate}</b>
           </Typography>
+          <br/>
+          <Typography variant="h7">
+            Transaction Type:{" "}
+            <b>
+              {trType === "P"
+                ? "Purchase"
+                : trType === "S"
+                ? "Sell"
+                : "--"}
+            </b>
+          </Typography>
         </div>
-        <div style={{ display: 'flex', gap: '7px' }}>
+        <div style={{ display: "flex", gap: "7px" }}>
           <LocalPrintshopOutlinedIcon />
           <DownloadIcon />
         </div>
@@ -256,13 +269,13 @@ const Bill = ({ tradeDate }) => {
         tradeDate={tradeDate}
         searchCallBack={handleSearch}
         validate={filterDateValidationSchema}
-        submitButtonText='Search'
+        submitButtonText="Search"
       />
       <Box marginTop={2}>
         {tableShow ? (
           <>
             <CustomTable
-              title='Bill Report'
+              title="Bill Report"
               columns={columns}
               isLoading={isLoading}
               data={Object.values(tableData)}
@@ -271,9 +284,9 @@ const Bill = ({ tradeDate }) => {
             />
             <div
               style={{
-                paddingTop: '16px',
-                display: 'flex',
-                justifyContent: 'flex-end',
+                paddingTop: "16px",
+                display: "flex",
+                justifyContent: "flex-end",
               }}
             >
               <CustomPagination
@@ -285,7 +298,7 @@ const Bill = ({ tradeDate }) => {
                       Bill_TRANSACTION,
                       params,
                       newPage,
-                      'billNo',
+                      "billNo",
                       null,
                       totalData
                     )
@@ -303,16 +316,16 @@ const Bill = ({ tradeDate }) => {
         formComponent={
           <>
             <BillDetail rowData={selectedRowData} />
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
-                variant='contained'
+                variant="contained"
                 onClick={() => {
                   setIsModalOpen(false);
                 }}
-                sx={{ mt: 3, ml: 1,textTransform:'none' }}
+                sx={{ mt: 3, ml: 1, textTransform: "none" }}
                 color="error"
               >
-                {t('Close')}
+                {t("Close")}
               </Button>
             </Box>
           </>

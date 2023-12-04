@@ -13,8 +13,10 @@ import React from 'react';
 import AlertGraph from './AlertGraph';
 import Spinner from '../../components/spinner/Spinner';
 import AlertScriptTable from './AlertScriptTable';
+import { useTranslation } from 'react-i18next';
 
 const AlertScriptDetails = ({ data, isLoading }) => {
+  const { t } = useTranslation();
   const scriptData = data?.script;
   const companyName = data?.companyInfo?.companyInfo;
   const theme = useTheme();
@@ -52,19 +54,19 @@ const AlertScriptDetails = ({ data, isLoading }) => {
             <Table aria-label='simple table'>
               <TableBody>
                 <TableRow>
-                  <TableCell style={cellStyle}>Last traded price</TableCell>
+                  <TableCell style={cellStyle}>{t("Last Traded Price")}</TableCell>
                   <TableCell>{scriptData?.ltp}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell style={cellStyle}>Today’s Change</TableCell>
+                  <TableCell style={cellStyle}>{t("Today’s Change")}</TableCell>
                   <TableCell>{getTodayChanges(scriptData)}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell style={cellStyle}>52 week’s Avg</TableCell>
+                  <TableCell style={cellStyle}>{t("52 week’s Avg")}</TableCell>
                   <TableCell>12312</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell style={cellStyle}>120 day’s Avg</TableCell>
+                  <TableCell style={cellStyle}>{t("120 day’s Avg")}</TableCell>
                   <TableCell>12312</TableCell>
                 </TableRow>
               </TableBody>

@@ -7,3 +7,6 @@
 /* .css-929hxt-MuiInputBase-input-MuiInput-input,.css-193ajjd-MuiInputBase-input-MuiInput-input{
     color:#ffff;
 } */
+.css-929hxt-MuiInputBase-input-MuiInput-input ,.css-1laqsz7-MuiInputAdornment-root {
+    color: beige !important;
+}

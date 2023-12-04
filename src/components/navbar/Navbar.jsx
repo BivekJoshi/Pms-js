@@ -36,6 +36,7 @@ import { useGetUserChildDetail } from '../../hooks/portfolio/usePortfolio';
 import { useSelector } from 'react-redux';
 import CustomizedSwitches from '../switch/NotificationSwitch';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { t } from 'i18next';
 
 const NavabarProfile = React.lazy(() => import('./NavabarProfile'));
 
@@ -65,27 +66,27 @@ const navItems = [
     item: 'Research',
     path: '/research',
     subLinks: [
-      { id: 7, item: 'Markets', path: '/research/markets' },
-      { id: 8, item: 'Sectors', path: '/research/sectors' },
-      { id: 9, item: 'Company', path: '/research/company' },
+      { id: 7, item: t('Markets'), path: '/research/markets' },
+      { id: 8, item: t('Sectors'), path: '/research/sectors' },
+      { id: 9, item: t('Company'), path: '/research/company' },
       {
         id: 10,
-        item: 'Screener',
+        item: t('Screener'),
         path: '/research/screener',
         subLinks: [
           {
             id: 11,
-            item: 'Fundamental Screener',
+            item: t('Fundamental Screener'),
             path: '/research/screener/fundamental',
           },
           {
             id: 11,
-            item: 'Technical Screener',
+            item: t('Technical Screener'),
             path: '/research/screener/technical',
           },
           {
             id: 11,
-            item: 'End of the day Screener',
+            item: t('End of the day Screener'),
             path: '/research/screener/end-of-day',
           },
         ],
@@ -375,7 +376,10 @@ const Navbar = () => {
                 // autoFocus
                 size='small'
                 InputLabelProps={{ shrink: true }}
-                style={{ minWidth: '150px' }}
+                style={{
+                  minWidth: '150px',
+                  backgroundColor: theme.palette.background.default,
+                }}
               />
             )}
             onChange={(event, value) => {
