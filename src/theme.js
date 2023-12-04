@@ -324,6 +324,7 @@ export const themeSettings = (mode, data) => {
             secondary: {
               ...palette.secondary,
               main: palette.secondary[300],
+              nav: palette.secondary[400],
             },
             tertiary: {
               ...palette.tertiary,
@@ -357,6 +358,7 @@ export const themeSettings = (mode, data) => {
               main: tokensDark.secondary[600],
               light: tokensDark.secondary[700],
               hader: tokensDark.secondary[400],
+              nav: palette.secondary[400],
             },
             tertiary: {
               ...tokensDark.tertiary,

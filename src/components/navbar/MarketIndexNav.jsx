@@ -96,7 +96,7 @@ const MarketIndexNav = () => {
         overflowX: 'hidden',
         width: '100%',
         position: 'relative',
-        backgroundColor: theme.palette.background.main,
+        backgroundColor: theme.palette.secondary.nav,
         overflow: 'hidden',
       }}
       ref={containerRef}
@@ -124,7 +124,7 @@ const MarketIndexNav = () => {
                   sx={{
                     width: 'max-content',
                     fontWeight: '700',
-                    color: 'blue',
+                    color: 'white',
                   }}
                 >
                   {item?.name}
@@ -134,7 +134,7 @@ const MarketIndexNav = () => {
                   sx={{
                     width: 'max-content',
                     fontWeight: '600',
-                    color: 'blue',
+                    color: 'white',
                   }}
                 >
                   {item?.value}
