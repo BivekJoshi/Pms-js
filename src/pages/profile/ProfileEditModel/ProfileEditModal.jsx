@@ -5,15 +5,22 @@ import useProfilePic from "../../../hooks/changeProfilePic/useProfilePic";
 import CloseIcon from "@mui/icons-material/Close";
 import { DOC_URL } from "../../../utility/getBaseUrl";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import toast from 'react-hot-toast';
+import { useEffect } from 'react';
 
 const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
   const [selectedProfile, setSelectedProfile] = useState();
+  const [image, setImage] = useState();
   const [imagePreview, setImagePreview] = useState(null);
   const theme = useTheme();
   const { formik } = useProfilePic({
     selectedProfile,
     handleCloseModal,
   });
+
+  useEffect(() => {
+    setImage(userInfoData?.imageFilePath)
+  }, [userInfoData?.imageFilePath]);
 
   const handleChangeImage = (e) => {
     const file = e.target.files[0];
@@ -27,7 +34,14 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
     if (file) {
       reader.readAsDataURL(file);
     }
-  };
+  }
+  const handleSubmit = () => {
+    if(selectedProfile) {
+      formik.submitForm();
+    } else {
+      toast.error("Please select image first");
+    }
+  }
   return (
     <FormModal
       open={open}
@@ -60,16 +74,16 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
               }}
             >
               <Typography variant="h5"><b>Edit Profile Picture</b></Typography>
-              <CloseIcon onClick={handleCloseModal} />
+              <CloseIcon onClick={handleCloseModal} sx={{ cursor: "pointer", border: `1px solid ${theme.palette.text.main}`}}  />
             </div>
             {!imagePreview ? (
-              userInfoData?.imageFilePath ? (
+              image ? (
                 <img
-                  src={`${DOC_URL}${userInfoData?.imageFilePath}`}
+                  src={`${DOC_URL}${image}`}
                   alt="Profile"
                   height="135px"
                   width="135px"
-                  style={{ borderRadius: "50%" }}
+                  // style={{ borderRadius: "50%" }}
                 />
               ) : (
                 <AccountCircleIcon sx={{ width: "200px", height: "200px" }} />
@@ -116,7 +130,6 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                       sx={{
                         bgcolor: "#E7E0EB",
                         width: "291px",
-                        height: "26px",
                         color: "black",
                         "&:hover": { bgcolor: "#decde7" },
                         textTransform:"none",
@@ -139,7 +152,7 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
           >
             <Button
               variant="contained"
-              onClick={() => formik.submitForm()}
+              onClick={handleSubmit}
               sx={{
                 mt: 3,
                 ml: 1,

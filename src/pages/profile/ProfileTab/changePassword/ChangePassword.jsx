@@ -65,6 +65,7 @@ const ChangePassword = () => {
             placeholder={t("Enter your current password")}
             fullWidth
             required
+            autoFocus
             value={formik.values.oldPassword}
             onChange={(e) => {
               formik.handleChange(e);
@@ -76,7 +77,8 @@ const ChangePassword = () => {
             variant="outlined"
            
             type={showOldPassword ? "text" : "password"}
-            InputLabelProps={{ shrink: true }}
+            InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }}}
+
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -116,9 +118,9 @@ const ChangePassword = () => {
             }
             helperText={formik.touched.newPassword && formik.errors.newPassword}
             variant="outlined"
-            autoFocus
+            
             type={showValues.showPassword ? "text" : "password"}
-            InputLabelProps={{ shrink: true }}
+            InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }}}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -156,9 +158,9 @@ const ChangePassword = () => {
             }
             helperText={formik.touched.rePassword && formik.errors.rePassword}
             variant="outlined"
-            autoFocus
+            
             type={showConfirmPassword ? "text" : "password"}
-            InputLabelProps={{ shrink: true }}
+            InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }}}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">

@@ -8,8 +8,8 @@ const CompanyHeader = () => {
     <Box
       bgcolor={theme.palette.background.alt}
       style={{
-        marginBottom: "1rem",
-        padding: "1rem 1rem",
+        // marginBottom: "1rem",
+        padding: "2rem",
         borderRadius: "6px",
       }}
     >

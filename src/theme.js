@@ -332,6 +332,7 @@ export const themeSettings = (mode, data) => {
             neutral: {
               ...palette.surface,
               main: palette.surface[500],
+              alt: palette.surface["light"],
             },
             background: {
               default: palette.surface[700],
@@ -339,6 +340,7 @@ export const themeSettings = (mode, data) => {
               main: palette.surface[100],
               btn: palette.surface[10],
               hover: palette.primary[600],
+              opt: palette.surface[700],
             },
             text: {
               main: palette.surface['light'],
@@ -365,6 +367,7 @@ export const themeSettings = (mode, data) => {
             neutral: {
               ...tokensLight.grey,
               main: tokensDark.grey[10],
+              alt: tokensDark.grey[50],
             },
             background: {
               default: tokensDark.grey[0],
@@ -373,6 +376,8 @@ export const themeSettings = (mode, data) => {
               main: tokensDark.grey[100],
               btn: tokensDark.background[10],
               hover: tokensDark.background[200],
+              opt: tokensDark.background[200],
+
             },
             text: {
               main: tokensDark.grey[500],

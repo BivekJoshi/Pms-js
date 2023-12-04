@@ -84,7 +84,6 @@ const Bill = ({ tradeDate }) => {
         size: 120,
         sortable: false,
         // Cell:(value)=>{
-        //   console.log(value?.cell?.row?.original,"rowData ma")
           
         // }
       },

@@ -8,7 +8,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
-import { TextField } from '@mui/material';
+import { TextField, useTheme } from '@mui/material';
 import { useUpdateWatchListname } from '../../hooks/watchList/useWatchListForm/useWatchListForm';
 import { deleteWatchName } from '../../api/watchlist/watchlist-api';
 import { useRemoveWatchListName } from '../../hooks/watchList/useWatchList';
@@ -23,6 +23,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const EditDeleteModal = (props) => {
+  const theme = useTheme();
   const { formik } = useUpdateWatchListname(
     props.details?.name,
     props?.details?.id
@@ -87,7 +88,7 @@ const EditDeleteModal = (props) => {
               required
               variant='outlined'
               autoFocus
-              InputLabelProps={{ shrink: true }}
+              InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }}}
             />
           )}
         </DialogContent>

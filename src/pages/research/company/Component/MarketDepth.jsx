@@ -1,6 +1,6 @@
 import React from "react";
 import CustomTable from "../../../../components/customTable/CustomTable";
-import { Grid, useTheme } from "@mui/material";
+import { Grid, Typography, useTheme } from "@mui/material";
 import { useMemo } from "react";
 
 const MarketDepth = () => {
@@ -23,6 +23,9 @@ const MarketDepth = () => {
         header: "Order",
         size: 120,
         sortable: false,
+        Footer: () => {
+          return <Typography>Total</Typography>
+        }
       },
       {
         id: 2,
@@ -37,6 +40,7 @@ const MarketDepth = () => {
         header: "Price",
         size: 100,
         sortable: false,
+        
       },
     ],
     []

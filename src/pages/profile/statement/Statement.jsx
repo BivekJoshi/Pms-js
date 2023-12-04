@@ -34,7 +34,7 @@ const Statement = ({ tradeDate }) => {
   const [credit, setCredit] = useState();
   const [amount, setAmount] = useState();
   const [text, setText] = useState();
-console.log({"amount": amount})
+  
   useEffect(() => {
     const data = Object.values(tableData);
     if (data.length > 0) {

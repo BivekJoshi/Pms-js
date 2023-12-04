@@ -1,9 +1,10 @@
-import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
+import { Button, Divider, Grid, TextField, Typography, useTheme } from "@mui/material";
 import React from "react";
 import { useWatchListForm } from "../../../hooks/watchList/useWatchListForm/useWatchListForm";
 import toast from "react-hot-toast";
 
 const WatchListMasterField = ({ onClose }) => {
+  const theme = useTheme();
   const { formik } = useWatchListForm({ onClose });
 
   const handleFormSubmit = () => {
@@ -28,10 +29,11 @@ const WatchListMasterField = ({ onClose }) => {
         <TextField
           id="watchlistName"
           name="watchlistName"
-          label="WatchList Name"
+          label="Watchlist Name"
           placeholder="Enter watchlist name"
           fullWidth
           required
+          autoFocus
           value={formik.values.watchlistName}
           onChange={formik.handleChange}
           error={
@@ -41,8 +43,20 @@ const WatchListMasterField = ({ onClose }) => {
             formik.touched.watchlistName && formik.errors.watchlistName
           }
           variant="outlined"
-          autoFocus
-          InputLabelProps={{ shrink: true }}
+          InputLabelProps={{
+            shrink: true,
+            style: {
+              color: theme.palette.text.main,
+              background: theme.palette.background.opt,
+              border: "none",
+              padding: '6px 4px',
+            },
+          }}
+          InputProps={{
+            style: {
+              border: `1px solid ${theme.palette.text.main}`,
+            },
+          }}
         />
         <br /><br/>
         <Divider />

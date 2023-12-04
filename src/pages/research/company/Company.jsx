@@ -11,6 +11,7 @@ import DividentHistory from "./Component/DividentHistory";
 import Report from "./Component/Report";
 import Financials from "./Component/Financials";
 import Forcastes from "./Component/Forcastes";
+import CompanyHeader from './Component/CompanyHeader';
 
 const ResearchCompany = () => {
   const [value, setValue] = useState("1");

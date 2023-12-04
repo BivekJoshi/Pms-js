@@ -16,6 +16,9 @@ const StockExchange = ({height}) =>  {
         zoom: {
           enabled: false,
         },
+        toolbar: {
+          show: true,
+        },
       },
       dataLabels: {
         enabled: false,

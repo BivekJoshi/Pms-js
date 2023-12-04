@@ -36,7 +36,6 @@ const Verification = () => {
     if (otp?.length === 0) {
       setRequired(false);
     } else if (otp?.length === 6) {
-      console.log({ otp: otp });
       handleSubmit();
     }
   }, [otp]);

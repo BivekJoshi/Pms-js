@@ -67,10 +67,6 @@ const WatchList = () => {
       companyInfo: item?.companyInfo,
     })) || [];
 
-  console.log(
-    '🚀 ~ file: WatchList.jsx:69 ~ useEffect ~ watchListName:',
-    watchlist
-  );
   useEffect(() => {
     if (!loadingname && watchListName?.length > 0) {
       setWatchList(watchListName[0]?.id);
@@ -198,7 +194,7 @@ const WatchList = () => {
               onChange={(event, newValue) => {
                 if (newValue != null) {
                   const multiScript = newValue.map((d) => d.symbol);
-                  console.log(multiScript);
+                 
                   formik.setFieldValue('script', multiScript);
                   setSelectedSymbol(newValue);
                 }
@@ -226,6 +222,8 @@ const WatchList = () => {
                   size='small'
                   value={formik.values.script}
                   focused
+                  InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }, }}
+                  
                   // sx={{width:'auto'}}
                 />
               )}

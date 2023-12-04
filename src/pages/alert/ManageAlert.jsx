@@ -172,6 +172,7 @@ const ManageAlert = (props) => {
     });
   };
   const handleUpdate = (row, changeData) => {
+    console.log({"row": row?.original, "changeData": changeData})
     new Promise((resolve, reject) => {
       dispatch(
         putData(

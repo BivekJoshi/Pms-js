@@ -28,13 +28,11 @@ const AppLayout = () => {
   const authToken = authData?.authToken;
   const navigate = useNavigate();
   const { data, isLoading, refetch } = useGetTheme(brokerId);
-  // console.log({"auth": authData?.tempPassword})
 
   useEffect(() => {
     if (!authToken) {
       navigate('/login');
     } else if(authData?.tempPassword) {
-      // console.log({"auth": authData?.tempPassword})
       navigate("change/password")
     }else{
       refetch();

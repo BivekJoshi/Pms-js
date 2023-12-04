@@ -25,7 +25,6 @@ export const useAlertForm = () => {
       });
     },
   });
-  console.log(formik,"formik");
 
   // const handleClear = () => {
   //   formik.setFieldValue('companyInfoId', null)

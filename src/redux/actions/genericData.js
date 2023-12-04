@@ -54,7 +54,6 @@ export const deleteData = (path, id, index, resolve, reject, data) => {
       resolve(response.data);
       toast.success(" Success");
     } catch (err) {
-      console.log(err);
       toast.error(err.message);
       reject();
     }
