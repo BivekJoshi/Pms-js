@@ -7,14 +7,10 @@ import {
 import CustomTable from "../../components/customTable/CustomTable";
 import { Box, useTheme } from "@mui/material";
 import { useState } from "react";
-import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import CustomeAlertDialog from "../../components/customeDialog/CustomeAlertDialog";
 
-const linkStyles = {
-  color: "red",
-  textDecoration: "underline",
-};
 
 const WatchTable = (watchid) => {
   const navigate = useNavigate();

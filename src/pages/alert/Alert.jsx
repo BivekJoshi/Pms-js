@@ -138,7 +138,7 @@ const Alert = (props) => {
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <TabList
                 onChange={handleChange}
-                indicatorColor="secondary"
+                indicatorColor="none"
                 textColor={theme.palette.text.main}
               >
                 <Tab

@@ -11,17 +11,17 @@ const CompanyHeader = () => {
     { label: "NEPSE Status :", value: "Open" },
     { label: "Bid /Size :", value: "Rs 785 /150" },
 
-    { label: "Last Price (NPR) :", value: "Rs 789.00" },
-    { label: "Todays Change :", value: "Down Rs 50 (0.82%)" },
-    { label: "Last Traded :", value: "11:10 Am, 14 Aug 22" },
+    { label: "Offer /Size :", value: "Rs 789.00" },
+    { label: "Volume :", value: "121212)" },
+    { label: "Traders :", value: "11:10 Am, 14 Aug 22" },
     { label: "NEPSE Status :", value: "Open" },
-    { label: "Bid /Size :", value: "Rs 785 /150" },
+    { label: "Value :", value: "Rs 785 /150" },
 
-    { label: "Last Price (NPR) :", value: "Rs 789.00" },
-    { label: "Todays Change :", value: "Down Rs 50 (0.82%)" },
-    { label: "Last Traded :", value: "11:10 Am, 14 Aug 22" },
-    { label: "NEPSE Status :", value: "Open" },
-    { label: "Bid /Size :", value: "Rs 785 /150" },
+    { label: "High :", value: "Rs 789.00" },
+    { label: "Low :", value: "Rs 234" },
+    { label: "Previous Close :", value: "Rs 688" },
+    { label: "52 Week High :", value: "Rs 987" },
+    { label: "52 Week Low :", value: "Rs 785 " },
   ];
 
   return (
