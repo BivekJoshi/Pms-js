@@ -26,6 +26,7 @@ import { useGetCompanyById, useGetCompanyBySymbol } from "../../hooks/company/us
 import { useTranslation } from "react-i18next";
 import { t } from "i18next";
 import { useParams } from "react-router-dom";
+import "./Alert.css"
 
 const alertType = [
   {
@@ -106,11 +107,13 @@ const Alert = (props) => {
     textTransform: "none",
     borderRadius: ".5rem",
     color: "black",
+    textDecoder:"none"
   };
   const activeLabelStyle = {
     ...labelStyle,
     backgroundColor: "#329EF4",
     borderBottom: "none",
+    textDecoder:"none"
   };
   return (
     <>
