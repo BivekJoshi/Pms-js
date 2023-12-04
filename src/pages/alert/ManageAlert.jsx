@@ -273,7 +273,7 @@ const ManageAlert = (props) => {
       <FormModal
         open={isModalEditOpen}
         onClose={handleModalEditClose}
-        // width={50}
+        width="25rem"
         formComponent={
           <>
             <EditAlertForm onClose={handleModalEditClose} rowData={rowData}/>

@@ -51,9 +51,9 @@ export const useDeleteStockAlert = ({ onSuccess, id }) => {
 };
 
 /*________________________________EDIT MANAGE STOCK ALERT _________________________*/
-export const useEditStockAlert = ({ onSuccess }) => {
+export const useEditStockAlert = ({ onSuccess ,id}) => {
   const queryClient = useQueryClient();
-  return useMutation(["editStockAlert"], (formData) => editStockAlert(formData), {
+  return useMutation(["editStockAlert"], (formData) => editStockAlert(formData,id), {
     onSuccess: (data, variables, context) => {
       onSuccess && onSuccess(data, variables, context);
       toast.success("Succesfully Edited Stock Alert");
@@ -65,6 +65,7 @@ export const useEditStockAlert = ({ onSuccess }) => {
   });
 };
 
+/*_________________________GET STOCK ALERT______________________________________________*/
 export const useGetStockAlert = (script) => {
   return useQuery(["getStockAlert", script], () => getStockAlert(script), {
     onError: (err) => {

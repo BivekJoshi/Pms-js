@@ -9,6 +9,7 @@ export const createAlertApi = async (formData) => {
   return data;
 };
 
+/*_________________________GET COMPANY LTP______________________________________________*/
 export const getCompanyLTP = async (script) => {
   if (script) {
     const res = await axiosInstance.get(`/live-market/ltp/${script}`);
@@ -29,6 +30,7 @@ export const deleteStockAlert = async (id) => {
 //   return res.data;
 // }
 
+/*_________________________GET STOCK ALERT______________________________________________*/
 export const getStockAlert = async (script) => {
   if (script) {
     const res = await axiosInstance.get(
@@ -39,10 +41,12 @@ export const getStockAlert = async (script) => {
 };
 
 /*_________________________EDIT STOCK ALERT______________________________________________*/
-export const editStockAlert = async (formData) => {
-  console.log(formData,"formData");
-  const data = await axiosInstance.put(
-    `/live-market/update/stock-alert`
-  );
-  return data;
+export const editStockAlert = async (formData, id) => {
+  if (id) {
+    const data = await axiosInstance.put(
+      `/live-market/update/stock-alert/${id}`,
+      formData
+    );
+    return data;
+  }
 };

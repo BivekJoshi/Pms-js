@@ -1,4 +1,4 @@
-import { Button, Dialog, Grid, TextField } from "@mui/material";
+import { Button, Dialog, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useAlertForm } from "./useAlertForm";
 
@@ -11,7 +11,10 @@ const EditAlertForm = ({ onClose, rowData }) => {
   };
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} columnSpacing={{ xs: 1, sm: 3, md: 4 }}>
+      <div>
+        <Typography >Edit</Typography>
+      </div>
       <Grid item xs={12} sm={12}>
         <TextField
           id="companyInfoId"
@@ -31,6 +34,7 @@ const EditAlertForm = ({ onClose, rowData }) => {
           variant="outlined"
           autoFocus
           InputLabelProps={{ shrink: true }}
+          size="small"
         />
       </Grid>
       <Grid item xs={12} sm={12}>
@@ -48,6 +52,7 @@ const EditAlertForm = ({ onClose, rowData }) => {
           variant="outlined"
           autoFocus
           InputLabelProps={{ shrink: true }}
+          size="small"
         />
       </Grid>
       <Grid item xs={12} sm={12}>
@@ -70,6 +75,7 @@ const EditAlertForm = ({ onClose, rowData }) => {
           variant="outlined"
           autoFocus
           InputLabelProps={{ shrink: true }}
+          size="small"
         />
       </Grid>
       <Grid item xs={12} sm={12}>
@@ -89,6 +95,7 @@ const EditAlertForm = ({ onClose, rowData }) => {
           variant="outlined"
           autoFocus
           InputLabelProps={{ shrink: true }}
+          size="small"
         />
       </Grid>
       <Grid
@@ -102,7 +109,7 @@ const EditAlertForm = ({ onClose, rowData }) => {
           onClick={handleFormSubmit}
           sx={{ mt: 3, ml: 1 }}
         >
-          Update
+          Save
         </Button>
         <Button
           variant="contained"
