@@ -5,11 +5,11 @@ import {
   useRemoveWatchListDetail,
 } from "../../hooks/watchList/useWatchList";
 import CustomTable from "../../components/customTable/CustomTable";
-import { Box, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const WatchTable = (watchid) => {
   const navigate = useNavigate();
@@ -33,15 +33,17 @@ const WatchTable = (watchid) => {
         size: 100,
         sortable: false,
         Cell: ({ row }) => (
-          <a
+          <Typography
+            variant="h6"
             href="#"
             onClick={(e) => {
               e.preventDefault();
               navigate(`/company/${row.original.symbol}`);
             }}
+            style={{textDecoration:"underLine" }}
           >
             {row.original.symbol}
-          </a>
+          </Typography>
         ),
       },
       {
@@ -109,10 +111,10 @@ const WatchTable = (watchid) => {
     setTableDataSymbol(row?.original?.symbol);
   };
 
-  const notificationRoute =(row)=>{
-    const symbol=row?.original?.symbol;
-    navigate(`/alert/${symbol}`)
-  }
+  const notificationRoute = (row) => {
+    const symbol = row?.original?.symbol;
+    navigate(`/alert/${symbol}`);
+  };
 
   const handleDeleteData = () => {
     mutate(tableDataSymbol);

@@ -7,6 +7,7 @@ import {
   useTheme,
 } from "@mui/material";
 import SectorDetails from "./SectorDetails";
+import DevlopmentPage from "../../DevlopmentPage/DevlopmentPage";
 
 const sector = [
   { id: 1, label: "Hydro" },
@@ -61,7 +62,8 @@ const Sectors = () => {
       </Grid>
       
 
-      {selectedSector && <SectorDetails />}
+      {/* {selectedSector && <SectorDetails />} */}
+      {selectedSector && <DevlopmentPage />}
     </>
   );
 };
