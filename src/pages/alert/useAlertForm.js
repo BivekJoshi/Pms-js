@@ -1,38 +1,57 @@
 import { useFormik } from "formik";
-import { useAddCreateAlert } from "./useAlertPost";
+import { useAddCreateAlert, useEditStockAlert } from "./useAlertPost";
 import { addAlertSchema } from "./createAlertValidation";
 
-export const useAlertForm = () => {
-  const { mutate } = useAddCreateAlert({});
+export const useAlertForm = (rowData) => {
+  const id=rowData?.id;
+
+  const { mutate: addAlert } = useAddCreateAlert({});
+  const { mutate: editAlert } = useEditStockAlert({id});
 
   const formik = useFormik({
     initialValues: {
-      companyInfoId: "",
-      alertType: "",
-      triggerPrice: "",
-      alertMethod: "",
-      transactionType: "P",
+      companyInfoId: rowData?.companyInfoId || "",
+      alertType: rowData?.alertType || "",
+      triggerPrice: rowData?.triggerPrice || "",
+      alertMethod: rowData?.alertMethod || "",
+      transactionType: rowData?.transactionType || "P",
       ltp: null,
     },
-    validationSchema: addAlertSchema,
-    enableReinitialize:true,
-    onSubmit: (value) => {
-      const submitedValue = { ...value, alertMethod: "SMS" };
-      mutate(submitedValue, {
-        onSuccess: () => {
-          handleClear();
-        },
-      });
+    // validationSchema: addAlertSchema,
+    enableReinitialize: true,
+
+    //   onSubmit: (value) => {
+    //     const submitedValue = { ...value, alertMethod: "SMS" };
+    //     mutate(submitedValue, {
+    //       onSubmit: (values) => {
+    //         if (rowData?.id) {
+    //           handledEditRequest(values);
+    //         } else {
+    //           handleRequest(values);
+    //         }
+    //       },
+    //     });
+    //   },
+    // });
+
+    onSubmit: (values) => {
+      if (rowData?.id) {
+        handledEditRequest(values);
+      } else {
+        handleRequest(values);
+      }
     },
   });
 
-  // const handleClear = () => {
-  //   formik.setFieldValue('companyInfoId', null)
-  //   formik.setFieldValue('ltp', null)
-  //   formik.setFieldValue('alertType', null)
-  //   formik.setFieldValue('triggerPrice', '')
-  //   formik.setFieldValue('transactionType', 'PURCHASE')
-  // };
+  const handleRequest = (values) => {
+    values = { ...values };
+    addAlert(values, formik);
+  };
+
+  const handledEditRequest = (values) => {
+    values = { ...values };
+    editAlert(values, formik);
+  };
 
   const handleClear = () => {
     formik.resetForm({

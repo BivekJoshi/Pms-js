@@ -179,14 +179,6 @@ const Bill = ({ tradeDate }) => {
       md: 4,
       sm: 12,
     },
-    {
-      label: "Transaction Type",
-      name: "transactionType",
-      type: "dropDownId",
-      dropDownData: transactionType,
-      md: 4,
-      sm: 12,
-    },
   ];
 
   const handleSearch = (formValues) => {

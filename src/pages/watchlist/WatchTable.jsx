@@ -7,9 +7,10 @@ import {
 import CustomTable from "../../components/customTable/CustomTable";
 import { Box, useTheme } from "@mui/material";
 import { useState } from "react";
-import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from 'react-i18next';
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import CustomeAlertDialog from "../../components/customeDialog/CustomeAlertDialog";
+
 
 const WatchTable = (watchid) => {
   const navigate = useNavigate();
@@ -21,6 +22,10 @@ const WatchTable = (watchid) => {
   const { mutate } = useRemoveWatchListDetail({ id });
 
   const theme = useTheme();
+  const mode = theme.palette.mode;
+  const isDarkMode = mode === "dark";
+  console.log(isDarkMode,"ho ra");
+
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
@@ -33,15 +38,18 @@ const WatchTable = (watchid) => {
         size: 100,
         sortable: false,
         Cell: ({ row }) => (
-          <a
-            href="#"
+          <div
             onClick={(e) => {
               e.preventDefault();
               navigate(`/company/${row.original.symbol}`);
             }}
+            style={{
+              color: "rgb(195, 170, 237)",
+              textDecoration: "underline",
+            }}
           >
             {row.original.symbol}
-          </a>
+          </div>
         ),
       },
       {
@@ -109,10 +117,10 @@ const WatchTable = (watchid) => {
     setTableDataSymbol(row?.original?.symbol);
   };
 
-  const notificationRoute =(row)=>{
-    const symbol=row?.original?.symbol;
-    navigate(`/alert/${symbol}`)
-  }
+  const notificationRoute = (row) => {
+    const symbol = row?.original?.symbol;
+    navigate(`/alert/${symbol}`);
+  };
 
   const handleDeleteData = () => {
     mutate(tableDataSymbol);

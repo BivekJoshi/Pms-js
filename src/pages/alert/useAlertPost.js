@@ -1,21 +1,22 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import {
   createAlertApi,
   deleteStockAlert,
   getCompanyLTP,
   getStockAlert,
-} from './alertApi';
-import toast from 'react-hot-toast';
-import { getErrorMessage } from '../../utility/getErrorMessage';
+  editStockAlert,
+} from "./alertApi";
+import toast from "react-hot-toast";
+import { getErrorMessage } from "../../utility/getErrorMessage";
 
 /*________________________POST ALERT_____________________________________*/
 export const useAddCreateAlert = ({ onSuccess }) => {
   const queryClient = useQueryClient();
-  return useMutation(['addAlert'], (formData) => createAlertApi(formData), {
+  return useMutation(["addAlert"], (formData) => createAlertApi(formData), {
     onSuccess: (data, variables, context) => {
-      toast.success('Succesfully Create Alert');
+      toast.success("Succesfully Create Alert");
       onSuccess && onSuccess(data, variables, context);
-      queryClient.invalidateQueries('getStockAlert');
+      queryClient.invalidateQueries("getStockAlert");
     },
     onError: (err) => {
       toast.error(getErrorMessage(err));
@@ -25,7 +26,7 @@ export const useAddCreateAlert = ({ onSuccess }) => {
 
 /*________________________GET LIVE MARKET LTP_____________________________________*/
 export const useGetLtp = (script) => {
-  return useQuery(['getLtpData', script], () => getCompanyLTP(script), {
+  return useQuery(["getLtpData", script], () => getCompanyLTP(script), {
     onError: (err) => {
       toast.error(getErrorMessage(err));
     },
@@ -35,14 +36,13 @@ export const useGetLtp = (script) => {
   });
 };
 /*________________________________DELETE MANAGE STOCK ALERT _____________________*/
-export const useRemoveWatchListDetail = ({ onSuccess, id }) => {
+export const useDeleteStockAlert = ({ onSuccess, id }) => {
   const queryClient = useQueryClient();
-  return useMutation(['deleteStockAlert'], () => deleteStockAlert(id), {
+  return useMutation(["deleteStockAlert"], () => deleteStockAlert(id), {
     onSuccess: (data, variables, context) => {
       onSuccess && onSuccess(data, variables, context);
-      toast.success('Succesfully Deleted Stock Alert');
-
-      queryClient.invalidateQueries('');
+      toast.success("Succesfully Deleted Stock Alert");
+      queryClient.invalidateQueries("");
     },
     onError: (err, _variables, _context) => {
       toast.error(getErrorMessage(err));
@@ -50,8 +50,24 @@ export const useRemoveWatchListDetail = ({ onSuccess, id }) => {
   });
 };
 
+/*________________________________EDIT MANAGE STOCK ALERT _________________________*/
+export const useEditStockAlert = ({ onSuccess ,id}) => {
+  const queryClient = useQueryClient();
+  return useMutation(["editStockAlert"], (formData) => editStockAlert(formData,id), {
+    onSuccess: (data, variables, context) => {
+      onSuccess && onSuccess(data, variables, context);
+      toast.success("Succesfully Edited Stock Alert");
+      queryClient.invalidateQueries("");
+    },
+    onError: (err, _variables, _context) => {
+      toast.error(getErrorMessage(err));
+    },
+  });
+};
+
+/*_________________________GET STOCK ALERT______________________________________________*/
 export const useGetStockAlert = (script) => {
-  return useQuery(['getStockAlert', script], () => getStockAlert(script), {
+  return useQuery(["getStockAlert", script], () => getStockAlert(script), {
     onError: (err) => {
       toast.error(getErrorMessage(err));
     },

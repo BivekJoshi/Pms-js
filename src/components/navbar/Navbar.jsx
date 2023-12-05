@@ -377,7 +377,7 @@ const Navbar = () => {
                 InputLabelProps={{ shrink: true }}
                 style={{
                   minWidth: '150px',
-                  backgroundColor: theme.palette.background.default,
+                  // backgroundColor: theme.palette.background.default,
                 }}
               />
             )}
