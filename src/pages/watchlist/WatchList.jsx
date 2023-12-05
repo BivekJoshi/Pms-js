@@ -99,6 +99,7 @@ const WatchList = () => {
         open={open}
         onClose={() => setOpen(false)}
         width="445px"
+        bgcolors={theme.palette.background.opt}
         formComponent={<WatchListMasterField onClose={() => setOpen(false)} />}
       />
       <br />
