@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import {
-  getCompanyById,
+  getCompanyById, getCompanyByIdNo,
   // getfloorsheetById,
 } from "../../api/company/company-api";
 
@@ -20,6 +20,16 @@ export const useGetCompanyBySymbol = (script) => {
     refetchOnWindowFocus: false,
   });
 };
+
+/*________________________GET COMPANY DATA BY ID_____________________________________*/
+export const useGetCompanyByIdNo = (id) => {
+  return useQuery(["getCompanyByIdNo", id], () => getCompanyByIdNo(id), {
+    cacheTime: 10000,
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+  });
+};
+
 /*________________________GET floor sheet_____________________________________*/
 // export const useGetfloorsheetById = (script, trDate, pageNumber, pageSize) => {
 //   return useQuery(

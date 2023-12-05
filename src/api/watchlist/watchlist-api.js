@@ -3,7 +3,6 @@ import { axiosInstance } from '../axiosInterceptor';
 /*________________________GET Profile Detail_____________________________________*/
 export const getProfileDetail = async () => {
   const res = await axiosInstance.get('/app-user');
-  // console.log('🚀 ~ file: watchlist-api.js:5 ~ getWatchListName ~ data:', data);
   return res.data;
 };
 
@@ -16,10 +15,6 @@ export const getWatchListName = async () => {
 /*________________________GET WATCHLIST DATA BY_____________________________________*/
 export const getWatchListDataById = async (id) => {
   if (id) {
-    console.log(
-      '🚀 ~ file: watchlist-api.js:19 ~ getWatchListDataById ~ id:',
-      id
-    );
     const response = await axiosInstance.get(`/watchlist/data/${id}`);
     return response;
   }

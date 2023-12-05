@@ -105,7 +105,6 @@ const Navbar = () => {
   const { data: childDetailData } = useGetUserChildDetail();
   const themeMode = useSelector((state) => state.theme?.mode);
   const { pathname = '' } = useLocation();
-  console.log('🚀 ~ file: Navbar.jsx:106 ~ pathname:', pathname);
   const marketOpen = false;
 
   const [submenuAnchors, setSubmenuAnchors] = useState({});
@@ -378,7 +377,7 @@ const Navbar = () => {
                 InputLabelProps={{ shrink: true }}
                 style={{
                   minWidth: '150px',
-                  backgroundColor: theme.palette.background.default,
+                  // backgroundColor: theme.palette.background.default,
                 }}
               />
             )}

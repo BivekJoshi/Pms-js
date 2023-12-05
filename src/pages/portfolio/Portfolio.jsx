@@ -121,9 +121,12 @@ const Portfolio = () => {
 
       worksheet.getRow(1).fill = {
         type: "pattern",
-        pattern: "darkGray",
-        fgColor: "red",
+        pattern: "solid",
+        fgColor: {argb: "EE7214"},
       };
+      // worksheet.getRow(1).font = {
+      //   bold: true,
+      // };
       worksheet.columns = [
         {
           header: "Symbol",
@@ -227,7 +230,7 @@ const Portfolio = () => {
         </Button>
       </Box>
       {!isLoading ? (
-        <Box sx={{ "& .css-1f2qhs8, .css-c8wlay": { color: "#ffff" } }}>
+        <Box>
           <CustomTable
             title={t("Portfolio")}
             columns={columns}

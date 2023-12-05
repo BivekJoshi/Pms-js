@@ -108,7 +108,6 @@ const ReceiptPayment = ({ tradeDate }) => {
   ];
 
   const handleSearch = (formValues) => {
-    console.log(formValues,"formValues");
     setTrType(formValues?.type);
     const dateFrom = formValues.dateFrom
       ? new Date(formValues.dateFrom).getTime() / 1000

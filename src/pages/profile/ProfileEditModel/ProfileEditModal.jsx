@@ -1,19 +1,26 @@
 import React, { useState } from "react";
 import FormModal from "../../../components/formModal/FormModal";
-import { Button, Grid, TextField, Typography, useTheme } from "@mui/material";
+import { Button, Divider, Grid, TextField, Typography, useTheme } from "@mui/material";
 import useProfilePic from "../../../hooks/changeProfilePic/useProfilePic";
 import CloseIcon from "@mui/icons-material/Close";
 import { DOC_URL } from "../../../utility/getBaseUrl";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import toast from 'react-hot-toast';
+import { useEffect } from 'react';
 
 const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
   const [selectedProfile, setSelectedProfile] = useState();
+  const [image, setImage] = useState();
   const [imagePreview, setImagePreview] = useState(null);
   const theme = useTheme();
   const { formik } = useProfilePic({
     selectedProfile,
     handleCloseModal,
   });
+
+  useEffect(() => {
+    setImage(userInfoData?.imageFilePath)
+  }, [userInfoData?.imageFilePath]);
 
   const handleChangeImage = (e) => {
     const file = e.target.files[0];
@@ -27,7 +34,14 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
     if (file) {
       reader.readAsDataURL(file);
     }
-  };
+  }
+  const handleSubmit = () => {
+    if(selectedProfile) {
+      formik.submitForm();
+    } else {
+      toast.error("Please select image first");
+    }
+  }
   return (
     <FormModal
       open={open}
@@ -55,21 +69,21 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                 width: "100%",
                 flexDirection: "row",
                 justifyContent: "space-between",
-                borderBottom: "1px solid #E7E0EB",
-                padding: "1rem",
               }}
             >
-              <Typography>Edit Profile Picture</Typography>
-              <CloseIcon onClick={handleCloseModal} />
+              <Typography variant="h5"><b>Edit Profile Picture</b></Typography>
+              <CloseIcon onClick={handleCloseModal} sx={{ cursor: "pointer", border: `1px solid ${theme.palette.text.main}`}}  />
             </div>
+            <br/>
+            <Divider/>
             {!imagePreview ? (
-              userInfoData?.imageFilePath ? (
+              image ? (
                 <img
-                  src={`${DOC_URL}${userInfoData?.imageFilePath}`}
+                  src={`${DOC_URL}${image}`}
                   alt="Profile"
-                  height="200px"
+                  height="auto"
                   width="200px"
-                  // style={{ borderRadius: "40%" }}
+                  style={{ borderRadius: "20%" }}
                 />
               ) : (
                 <AccountCircleIcon sx={{ width: "200px", height: "200px" }} />
@@ -139,14 +153,18 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
           >
             <Button
               variant="contained"
-              onClick={() => formik.submitForm()}
+              onClick={handleSubmit}
               sx={{
                 mt: 3,
                 ml: 1,
-                color: "#6750A4",
-                backgroundColor: "white",
+                color: "#000",
+                backgroundColor: "#E7E0EB",
                 textTransform: "none",
                 border: "1px solid #6750A4",
+                '&:hover': {
+                  backgroundColor: "#7d449d",
+                  color: '#fff',
+                },
               }}
             >
               Update

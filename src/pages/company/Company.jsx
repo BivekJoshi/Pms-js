@@ -80,7 +80,7 @@ const Company = () => {
           <TableContainer component={Paper} borderRadius='4px 0'>
             <Table aria-label='simple table'>
               <TableHead>
-                <TableRow>
+                <TableRow sx={{borderSpacing: "1px"}}>
                   <TableCell
                     style={cellStyle}
                     sx={{ backgroundColor: '#401686', color: '#fff' }}
@@ -92,7 +92,7 @@ const Company = () => {
                       // border: '1px solid #401686',
                       // borderLeft: '2px solid #401686',
                       // borderRight: '2px solid #401686',
-                      borderTop:'1px solid #6692C4'
+                      border: `1px solid #bfbfbf`,
                     }}
                   >
                     Data

@@ -47,7 +47,6 @@ const deliveryMethods = [
 const Alert = (props) => {
   const { t } = useTranslation();
   const { symbol } = useParams();
-  // console.log(symbol,"Script name");
 
   const [value, setValue] = useState("1");
   const theme = useTheme();
@@ -78,7 +77,6 @@ const Alert = (props) => {
 
   const { data: companyInfo } = symbol ? useGetCompanyBySymbol(symbol) : {};
 
-  // console.log(companyInfo?.companyInfo.id, "loasbxkjasxs");
 
   const handleFormSubmit = async () => {
     formik.handleSubmit();
@@ -141,7 +139,7 @@ const Alert = (props) => {
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <TabList
                 onChange={handleChange}
-                indicatorColor="secondary"
+                indicatorColor="none"
                 textColor={theme.palette.text.main}
               >
                 <Tab
@@ -244,7 +242,6 @@ const Alert = (props) => {
                       size="small"
                       label={t("LTP")}
                       // onChange={(e, value) => {
-                      //   console.log({"value console": value})
                       //   formik?.setFieldValue("ltp", value); // Set the field value based on the selected option or an empty string if no option is selected
                       // }}
                       disabled

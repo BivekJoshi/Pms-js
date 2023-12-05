@@ -52,8 +52,6 @@ const ProfileNotification = () => {
     return <Spinner />;
   }
 
-  console.log(switchStates?.ipoFpo);
-
   return (
     <Box display='flex' flexDirection='column' alignItems='flex-start'>
       <List

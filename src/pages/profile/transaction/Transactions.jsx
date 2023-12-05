@@ -74,7 +74,6 @@ const Transactions = ({ tradeDate }) => {
         size: 100,
         sortable: false,
         Cell: ({ row }) => {
-          console.log(row?.original);
           if (row?.original?.transactionType === "P") {
             return "Purchase";
           } else if (row?.original?.transactionType === "S") {

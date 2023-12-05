@@ -9,6 +9,7 @@ export const createAlertApi = async (formData) => {
   return data;
 };
 
+/*_________________________GET COMPANY LTP______________________________________________*/
 export const getCompanyLTP = async (script) => {
   if (script) {
     const res = await axiosInstance.get(`/live-market/ltp/${script}`);
@@ -17,11 +18,9 @@ export const getCompanyLTP = async (script) => {
 };
 
 /*_______________________DELETE MANAGE STOCK ALERT________________________________*/
-export const deleteStockAlert = async ( id) => {
+export const deleteStockAlert = async (id) => {
   if (id) {
-    await axiosInstance.delete(
-      `/live-market/delete/stock-alert/${id}`
-    );
+    await axiosInstance.delete(`/live-market/delete/stock-alert/${id}`);
   }
 };
 
@@ -31,10 +30,23 @@ export const deleteStockAlert = async ( id) => {
 //   return res.data;
 // }
 
+/*_________________________GET STOCK ALERT______________________________________________*/
 export const getStockAlert = async (script) => {
   if (script) {
-    const res = await axiosInstance.get(`/live-market/stock-alerts?script=${script}`);
+    const res = await axiosInstance.get(
+      `/live-market/stock-alerts?script=${script}`
+    );
     return res.data;
   } else return null;
 };
 
+/*_________________________EDIT STOCK ALERT______________________________________________*/
+export const editStockAlert = async (formData, id) => {
+  if (id) {
+    const data = await axiosInstance.put(
+      `/live-market/update/stock-alert/${id}`,
+      formData
+    );
+    return data;
+  }
+};

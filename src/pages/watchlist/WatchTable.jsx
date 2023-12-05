@@ -8,7 +8,7 @@ import CustomTable from "../../components/customTable/CustomTable";
 import { Box, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 const WatchTable = (watchid) => {
@@ -21,6 +21,10 @@ const WatchTable = (watchid) => {
   const { mutate } = useRemoveWatchListDetail({ id });
 
   const theme = useTheme();
+  const mode = theme.palette.mode;
+  const isDarkMode = mode === "dark";
+  console.log(isDarkMode,"ho ra");
+
   const handleModalClose = () => {
     setIsModalOpen(false);
   };

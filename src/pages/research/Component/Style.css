@@ -1,3 +1,11 @@
 .apexcharts-tooltip.apexcharts-theme-light{
     color: black !important;
 }
+
+.apexcharts-menu.apexcharts-menu-open{
+    background: rgb(125 125 125);
+    color: #fff !important;
+}
+.apexcharts-menu.apexcharts-menu-open:hover{
+    color: #000 !important;
+}
