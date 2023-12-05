@@ -1,5 +1,5 @@
-import { useMemo, useState } from "react";
-import CustomTable from "../../components/customTable/CustomTable";
+import { useMemo, useState } from 'react';
+import CustomTable from '../../components/customTable/CustomTable';
 import {
   Box,
   Button,
@@ -7,15 +7,15 @@ import {
   MenuItem,
   Typography,
   useTheme,
-} from "@mui/material";
+} from '@mui/material';
 import {
   useGetUserInfo,
   useGetUserenPortfolio,
-} from "../../hooks/portfolio/usePortfolio";
-import { useTranslation } from "react-i18next";
-import ExcelJS from "exceljs";
-import { saveAs } from "file-saver";
-import { useNavigate } from "react-router-dom";
+} from '../../hooks/portfolio/usePortfolio';
+import { useTranslation } from 'react-i18next';
+import ExcelJS from 'exceljs';
+import { saveAs } from 'file-saver';
+import { useNavigate } from 'react-router-dom';
 
 const Portfolio = () => {
   const navigate = useNavigate();
@@ -37,42 +37,42 @@ const Portfolio = () => {
     () => [
       {
         id: 1,
-        accessorKey: "script",
-        header: "Symbol",
+        accessorKey: 'script',
+        header: 'Symbol',
         size: 100,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: "quantity",
-        header: "Quantity",
+        accessorKey: 'quantity',
+        header: 'Quantity',
         size: 100,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: "ltp",
-        header: "LTP",
+        accessorKey: 'ltp',
+        header: 'LTP',
         size: 100,
         sortable: false,
       },
       {
         id: 4,
-        accessorKey: "changePercent",
-        header: "Change Percent",
+        accessorKey: 'changePercent',
+        header: 'Change Percent',
         size: 100,
         sortable: false,
       },
       {
         id: 5,
-        accessorKey: "previousClose",
-        header: "Close Price",
+        accessorKey: 'previousClose',
+        header: 'Close Price',
         size: 100,
         sortable: false,
       },
       {
         id: 6,
-        header: "Total Gain/Loss",
+        header: 'Total Gain/Loss',
         size: 100,
         sortable: false,
       },
@@ -85,7 +85,7 @@ const Portfolio = () => {
           const todayGain = row?.original?.ltp - row?.original?.previousClose;
           if (todayGain < 0) {
             return (
-              <Typography style={{ color: "red" }}>
+              <Typography style={{ color: 'red' }}>
                 {Math.abs(todayGain)}
               </Typography>
             );
@@ -96,7 +96,7 @@ const Portfolio = () => {
       },
       {
         id: 8,
-        header: "Market Value",
+        header: 'Market Value',
         size: 100,
         sortable: false,
         Cell: ({ row }) => {
@@ -117,42 +117,42 @@ const Portfolio = () => {
   const handleExportExcel = () => {
     if (userPorfolioData && userPorfolioData.length > 0) {
       const workbook = new ExcelJS.Workbook();
-      const worksheet = workbook.addWorksheet("Portfolio");
+      const worksheet = workbook.addWorksheet('Portfolio');
 
       worksheet.getRow(1).fill = {
-        type: "pattern",
-        pattern: "darkGray",
-        fgColor: "red",
+        // type: "pattern",
+        // pattern: "darkGray",
+        // fgColor: "red",
       };
       worksheet.columns = [
         {
-          header: "Symbol",
-          key: "script",
+          header: 'Symbol',
+          key: 'script',
           width: 15,
         },
         {
-          header: "Quantity",
-          key: "quantity",
+          header: 'Quantity',
+          key: 'quantity',
           width: 15,
         },
         {
-          header: "LTP",
-          key: "ltp",
+          header: 'LTP',
+          key: 'ltp',
           width: 15,
         },
         {
-          header: "Change Percent",
-          key: "changePercent",
+          header: 'Change Percent',
+          key: 'changePercent',
           width: 15,
         },
         {
-          header: "Close Price",
-          key: "previousClose",
+          header: 'Close Price',
+          key: 'previousClose',
           width: 15,
         },
         {
-          header: "Market Value",
-          key: "marketValue",
+          header: 'Market Value',
+          key: 'marketValue',
           width: 15,
         },
       ];
@@ -170,10 +170,9 @@ const Portfolio = () => {
 
       workbook.xlsx.writeBuffer().then((data) => {
         const blob = new Blob([data], {
-          type:
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         });
-        saveAs(blob, "Portfolio.xlsx");
+        saveAs(blob, 'Portfolio.xlsx');
       });
     }
   };
@@ -187,54 +186,54 @@ const Portfolio = () => {
       <Box
         bgcolor={theme.palette.background.alt}
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "1rem",
-          padding: "1rem 1rem",
+          display: 'flex',
+          justifyContent: 'space-between',
+          marginBottom: '1rem',
+          padding: '1rem 1rem',
         }}
       >
         <Box>
-          <Typography variant="h6">
-            {t("Name")} : {userInfoData?.clientName}
+          <Typography variant='h6'>
+            {t('Name')} : {userInfoData?.clientName}
           </Typography>
-          <Typography variant="h6">980000000</Typography>
+          <Typography variant='h6'>980000000</Typography>
         </Box>
         <Box>
-          <Typography variant="h6">{t("Market Value")}</Typography>
-          <Typography variant="h6">+ 87422.00</Typography>
+          <Typography variant='h6'>{t('Market Value')}</Typography>
+          <Typography variant='h6'>+ 87422.00</Typography>
         </Box>
         <Box>
-          <Typography variant="h6">{t("Today Change")}</Typography>
-          <Typography variant="h6">+ 493.00</Typography>
+          <Typography variant='h6'>{t('Today Change')}</Typography>
+          <Typography variant='h6'>+ 493.00</Typography>
         </Box>
         <Box>
-          <Typography variant="h6">{t("Overall return")}</Typography>
-          <Typography variant="h6">+ 50004.43</Typography>
+          <Typography variant='h6'>{t('Overall return')}</Typography>
+          <Typography variant='h6'>+ 50004.43</Typography>
         </Box>
         <Button
-          variant="contained"
+          variant='contained'
           style={{
             backgroundColor: theme.palette.background.btn,
             color: theme.palette.text.alt,
-            textTransform: "none",
+            textTransform: 'none',
           }}
-          aria-controls={open ? "basic-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup='true'
+          aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
         >
-          {t("Export")}
+          {t('Export')}
         </Button>
       </Box>
       {!isLoading ? (
-        <Box sx={{ "& .css-1f2qhs8, .css-c8wlay": { color: "#ffff" } }}>
+        <Box sx={{ '& .css-1f2qhs8, .css-c8wlay': { color: '#ffff' } }}>
           <CustomTable
-            title={t("Portfolio")}
+            title={t('Portfolio')}
             columns={columns}
             data={userPorfolioData}
             isLoading={isLoading}
             enableFullScreenToggle
-            headerBackgroundColor="#401686"
+            headerBackgroundColor='#401686'
             headerColor={theme.palette.text.alt}
             onRowClick={handleRowClick}
             enableRowNumbers={true}
@@ -243,20 +242,20 @@ const Portfolio = () => {
       ) : (
         <Box
           sx={{
-            width: "cover",
-            height: "84px",
+            width: 'cover',
+            height: '84px',
             backgroundColor: theme.palette.background.alt,
           }}
         />
       )}
 
       <Menu
-        id="basic-menu"
+        id='basic-menu'
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          "aria-labelledby": "basic-button",
+          'aria-labelledby': 'basic-button',
         }}
       >
         <MenuItem onClick={handleExportExcel}>Export as Excel</MenuItem>
