@@ -7,7 +7,7 @@ import {
 import CustomTable from "../../components/customTable/CustomTable";
 import { Box, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
-import CustomeAlertDialog from "../../components/customeDialog/CustomeDialog";
+import CustomeAlertDialog from "../../components/customeDialog/CustomeAlertDialog";
 import {  useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 

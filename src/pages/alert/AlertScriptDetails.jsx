@@ -49,7 +49,7 @@ const AlertScriptDetails = ({ data, isLoading }) => {
         </Typography>
       </div>
       <Grid container spacing={2}>
-        <Grid item md={2.5} xs={12}>
+        <Grid item md={6} xs={12}>
           <TableContainer component={Paper}>
             <Table aria-label='simple table'>
               <TableBody>
@@ -61,22 +61,22 @@ const AlertScriptDetails = ({ data, isLoading }) => {
                   <TableCell style={cellStyle}>{t("Today’s Change")}</TableCell>
                   <TableCell>{getTodayChanges(scriptData)}</TableCell>
                 </TableRow>
-                <TableRow>
+                {/* <TableRow>
                   <TableCell style={cellStyle}>{t("52 week’s Avg")}</TableCell>
                   <TableCell>12312</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell style={cellStyle}>{t("120 day’s Avg")}</TableCell>
                   <TableCell>12312</TableCell>
-                </TableRow>
+                </TableRow> */}
               </TableBody>
             </Table>
           </TableContainer>
         </Grid>
-        <Grid item md={5.5} xs={12}>
+        {/* <Grid item md={5.5} xs={12}>
           <AlertGraph />
-        </Grid>
-        <Grid item md={4} xs={12}>
+        </Grid> */}
+        <Grid item md={6} xs={12}>
           <AlertScriptTable script={scriptData.symbol} />
         </Grid>
       </Grid>

@@ -36,7 +36,7 @@ export const useLogin = ({ onSuccess }) => {
           toast.loading('Please change password to continue');
           history('/change/password');
         } else {
-          history('/dashboard');
+          history('/profile');
           toast.success('Login Successful');
         }
         onSuccess && onSuccess(data, variables, context);

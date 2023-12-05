@@ -20,7 +20,7 @@ const DevlopmentPage = () => {
       <Button
         variant="contained"
         style={{ backgroundColor: "#6C49B4" }}
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/profile")}
         sx={{ width: "fit-content" }}
       >
         <Typography variant="h5" style={{ color: "white", fontWeight: "400" }}>
