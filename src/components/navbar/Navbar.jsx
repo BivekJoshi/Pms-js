@@ -61,38 +61,38 @@ const navItems = [
     item: 'Alert',
     path: '/alert',
   },
-  {
-    id: 5,
-    item: 'Research',
-    path: '/research',
-    subLinks: [
-      { id: 7, item: t('Markets'), path: '/research/markets' },
-      { id: 8, item: t('Sectors'), path: '/research/sectors' },
-      { id: 9, item: t('Company'), path: '/research/company' },
-      {
-        id: 10,
-        item: t('Screener'),
-        path: '/research/screener',
-        subLinks: [
-          {
-            id: 11,
-            item: t('Fundamental Screener'),
-            path: '/research/screener/fundamental',
-          },
-          {
-            id: 11,
-            item: t('Technical Screener'),
-            path: '/research/screener/technical',
-          },
-          {
-            id: 11,
-            item: t('End of the day Screener'),
-            path: '/research/screener/end-of-day',
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   id: 5,
+  //   item: 'Research',
+  //   path: '/research',
+  //   subLinks: [
+  //     { id: 7, item: t('Markets'), path: '/research/markets' },
+  //     { id: 8, item: t('Sectors'), path: '/research/sectors' },
+  //     { id: 9, item: t('Company'), path: '/research/company' },
+  //     {
+  //       id: 10,
+  //       item: t('Screener'),
+  //       path: '/research/screener',
+  //       subLinks: [
+  //         {
+  //           id: 11,
+  //           item: t('Fundamental Screener'),
+  //           path: '/research/screener/fundamental',
+  //         },
+  //         {
+  //           id: 11,
+  //           item: t('Technical Screener'),
+  //           path: '/research/screener/technical',
+  //         },
+  //         {
+  //           id: 11,
+  //           item: t('End of the day Screener'),
+  //           path: '/research/screener/end-of-day',
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
 ];
 
 const Navbar = () => {
