@@ -81,9 +81,9 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                 <img
                   src={`${DOC_URL}${image}`}
                   alt="Profile"
-                  height="135px"
-                  width="135px"
-                  // style={{ borderRadius: "50%" }}
+                  height="auto"
+                  width="200px"
+                  style={{ borderRadius: "20%" }}
                 />
               ) : (
                 <AccountCircleIcon sx={{ width: "200px", height: "200px" }} />
@@ -131,7 +131,7 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                         bgcolor: "#E7E0EB",
                         width: "291px",
                         color: "black",
-                        "&:hover": { bgcolor: "#decde7" },
+                        "&:hover": { bgcolor: "#7d449d", color: "#fff" },
                         textTransform:"none",
                       }}
                       component="span" // Add this to make the button act like a file input trigger
@@ -156,10 +156,14 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
               sx={{
                 mt: 3,
                 ml: 1,
-                color: "#6750A4",
-                backgroundColor: "white",
+                color: "#000",
+                backgroundColor: "#E7E0EB",
                 textTransform: "none",
                 border: "1px solid #6750A4",
+                '&:hover': {
+                  backgroundColor: "#7d449d",
+                  color: '#fff',
+                },
               }}
             >
               Update
