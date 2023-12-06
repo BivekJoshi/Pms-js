@@ -74,10 +74,15 @@ export default CompanyDetail;
 
 export const Dividend = ({ companyData }) => {
   const theme = useTheme();
-
+  const [sale, setSale] = useState();
   const filteredData = companyData?.dividend.filter(
     (row) => row?.fiscalYear && row?.cash
   );
+useEffect(() => {
+  if (filteredData) {
+    setSale(filteredData);
+  }
+}, [filteredData])
 
   const columns = useMemo(
     () => [
@@ -119,7 +124,7 @@ export const Dividend = ({ companyData }) => {
 };
 export const Bonus = ({ companyData }) => {
   const theme = useTheme();
-
+  const [sale, setSale] = useState();
   const filteredData = companyData?.dividend.filter(
     (row) => row.fiscalYear && row.bonus
   );
@@ -143,6 +148,12 @@ export const Bonus = ({ companyData }) => {
     ],
     []
   );
+
+  useEffect(() => {
+    if (filteredData) {
+      setSale(filteredData);
+    }
+  }, [filteredData])
   return (
     <CustomTable
       title=''

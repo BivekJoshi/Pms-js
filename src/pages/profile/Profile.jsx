@@ -446,7 +446,7 @@ const Profile = () => {
                       <Grid className="profileIcon">
                         <img src={UpdateProfile} alt="UpdateProfile" />
                         <Typography variant="h7">
-                          {t("UPDATE PROFILE")}
+                          {t("Update Profile")}
                         </Typography>
                       </Grid>
                     }
@@ -468,7 +468,7 @@ const Profile = () => {
                       <Grid className="profileIcon">
                         <img src={Notification} alt="UpdateProfile" />
                         <Typography variant="h7">
-                          {t("NOTIFICATION CONFIGURATION")}
+                          {t("Notification Configuration")}
                         </Typography>
                       </Grid>
                     }
@@ -513,7 +513,7 @@ const Profile = () => {
                       <Grid className="profileIcon">
                         <img src={Security} alt="UpdateProfile" />
                         <Typography variant="h7">
-                          {t("CHANGE PASSWORD")}
+                          {t("Change Password")}
                         </Typography>
                       </Grid>
                     }
@@ -531,7 +531,6 @@ const Profile = () => {
                     }}
                   />
                 </Tabs>
-                <Divider />
               </Grid>
               <Grid display="flex" flexDirection="column">
                 <Typography variant="h4" p="12px 0">
@@ -548,7 +547,7 @@ const Profile = () => {
                     label={
                       <Grid className="profileIcon">
                         <img src={Transaction} alt="UpdateProfile" />
-                        <Typography variant="h7">{t("TRANSACTION")}</Typography>
+                        <Typography variant="h7">{t("Transaction")}</Typography>
                       </Grid>
                     }
                     value="5"
@@ -567,7 +566,7 @@ const Profile = () => {
                     label={
                       <Grid className="profileIcon">
                         <img src={Bills} alt="UpdateProfile" />
-                        <Typography variant="h7">{t("BILL")}</Typography>
+                        <Typography variant="h7">{t("Bill")}</Typography>
                       </Grid>
                     }
                     value="6"
@@ -587,7 +586,7 @@ const Profile = () => {
                     label={
                       <Grid className="profileIcon">
                         <img src={Statements} alt="UpdateProfile" />
-                        <Typography variant="h7">{t("STATEMENT")}</Typography>
+                        <Typography variant="h7">{t("Statement")}</Typography>
                       </Grid>
                     }
                     value="7"
@@ -608,7 +607,7 @@ const Profile = () => {
                       <Grid className="profileIcon">
                         <img src={Payment} alt="UpdateProfile" />
                         <Typography variant="h7">
-                          {t("RECEIPT/PAYMENT")}
+                          {t("Receipt/Payment")}
                         </Typography>
                       </Grid>
                     }
@@ -645,7 +644,7 @@ const Profile = () => {
                       <Grid className="profileIcon">
                         <img src={Terms} alt="UpdateProfile" />
                         <Typography variant="h7">
-                          {t("TERMS & CONDITION")}
+                          {t("Terms & Conditions")}
                         </Typography>
                       </Grid>
                     }
@@ -667,7 +666,7 @@ const Profile = () => {
                       <Grid className="profileIcon">
                         <img src={Update} alt="UpdateProfile" />
                         <Typography variant="h7">
-                          {t("PRIVACY POLICY")}
+                          {t("Privacy Policy")}
                         </Typography>
                       </Grid>
                     }

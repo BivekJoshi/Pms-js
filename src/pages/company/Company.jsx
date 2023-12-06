@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useGetCompanyById } from '../../hooks/company/useCompany';
-import { companyData as chartData } from '../dashboard/dashBoardItems';
+import { companyData as chartData, lineData } from '../dashboard/dashBoardItems';
 
 import {
   Box,
@@ -127,7 +127,7 @@ const Company = () => {
             <Typography variant='h4' style={{ marginBottom: '1rem' }}>
               {t('Nabil Bank Limited 1D')}
             </Typography>
-            <LineChartDash height={400} />
+            <LineChartDash height={400} lineData={lineData}/>
           </Box>
           <Box
             sx={{
