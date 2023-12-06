@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import FormModal from "../../../components/formModal/FormModal";
-import { Button, Divider, Grid, TextField, Typography, useTheme } from "@mui/material";
+import {
+  Button,
+  Divider,
+  Grid,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import useProfilePic from "../../../hooks/changeProfilePic/useProfilePic";
 import CloseIcon from "@mui/icons-material/Close";
 import { DOC_URL } from "../../../utility/getBaseUrl";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import toast from 'react-hot-toast';
-import { useEffect } from 'react';
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
   const [selectedProfile, setSelectedProfile] = useState();
@@ -19,7 +25,7 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
   });
 
   useEffect(() => {
-    setImage(userInfoData?.imageFilePath)
+    setImage(userInfoData?.imageFilePath);
   }, [userInfoData?.imageFilePath]);
 
   const handleChangeImage = (e) => {
@@ -34,14 +40,14 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
     if (file) {
       reader.readAsDataURL(file);
     }
-  }
+  };
   const handleSubmit = () => {
-    if(selectedProfile) {
+    if (selectedProfile) {
       formik.submitForm();
     } else {
       toast.error("Please select image first");
     }
-  }
+  };
   return (
     <FormModal
       open={open}
@@ -71,11 +77,16 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                 justifyContent: "space-between",
               }}
             >
-              <Typography variant="h5"><b>Edit Profile Picture</b></Typography>
-              <CloseIcon onClick={handleCloseModal} sx={{ cursor: "pointer", border: `1px solid ${theme.palette.text.main}`}}  />
+              <Typography variant="h5">
+                <b>Edit Profile Picture</b>
+              </Typography>
+              <CloseIcon
+                onClick={handleCloseModal}
+                sx={{ cursor: "pointer" }}
+              />
             </div>
-            <br/>
-            <Divider/>
+            <br />
+            <Divider />
             {!imagePreview ? (
               image ? (
                 <img
@@ -117,31 +128,31 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
             )} */}
             {/* {imagePreview && (
               <> */}
-                <Grid item xs={12} sm={12}>
-                  <label htmlFor="file" className="file-label">
-                    <input
-                      type="file"
-                      id="file"
-                      onChange={handleChangeImage}
-                      style={{ display: "none" }}
-                    />
-                    <Button
-                      className="chooseInput"
-                      sx={{
-                        bgcolor: "#E7E0EB",
-                        width: "291px",
-                        height: "26px",
-                        color: "black",
-                        "&:hover": { bgcolor: "#decde7" },
-                        textTransform:"none",
-                      }}
-                      component="span" // Add this to make the button act like a file input trigger
-                    >
-                      Change Profile picture
-                    </Button>
-                  </label>
-                </Grid>
-              {/* </>
+            <Grid item xs={12} sm={12}>
+              <label htmlFor="file" className="file-label">
+                <input
+                  type="file"
+                  id="file"
+                  onChange={handleChangeImage}
+                  style={{ display: "none" }}
+                />
+                <Button
+                  className="chooseInput"
+                  sx={{
+                    bgcolor: "#E7E0EB",
+                    width: "291px",
+                    height: "26px",
+                    color: "black",
+                    "&:hover": { bgcolor: "#decde7" },
+                    textTransform: "none",
+                  }}
+                  component="span" // Add this to make the button act like a file input trigger
+                >
+                  Change Profile picture
+                </Button>
+              </label>
+            </Grid>
+            {/* </>
             )} */}
           </Grid>
           {/* Display the image preview */}
@@ -161,9 +172,9 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                 backgroundColor: "#E7E0EB",
                 textTransform: "none",
                 border: "1px solid #6750A4",
-                '&:hover': {
+                "&:hover": {
                   backgroundColor: "#7d449d",
-                  color: '#fff',
+                  color: "#fff",
                 },
               }}
             >
