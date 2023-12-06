@@ -30,15 +30,13 @@ const Portfolio = () => {
   const { data: userInfoData, isLoading: loading } = useGetUserInfo();
   const { data: companyInfoData } = useGetListedCompanies();
 
-  const symbolsArray = [];
+  let symbolsArray = [];
   for (const key in companyInfoData) {
     if (Object.hasOwnProperty.call(companyInfoData, key)) {
       symbolsArray.push({ index: key, ...companyInfoData[key] });
     }
   }
   const commonScripts = symbolsArray.filter(obj2 => userPorfolioData.some(obj1 => obj1?.script === obj2?.symbol));
-
-  console.log({"companyInfoData": commonScripts});
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -270,7 +268,7 @@ const Portfolio = () => {
       {!loading && (
         <Grid container>
         <Grid item xs={12} sm={12} md={5} xl={4} lg={4} sx={{ marginTop: "1rem"}}>
-          <PortfolioChart data={commonScripts} />
+          <PortfolioChart data={commonScripts} userData={userPorfolioData} />
         </Grid>
       </Grid>
       )}
