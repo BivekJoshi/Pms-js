@@ -32,15 +32,15 @@ export const useGetCompanyByIdNo = (id) => {
   });
 };
 
-/*________________________GET floor sheet_____________________________________*/
-export const useGetfloorsheetById = (script) => {
-  return useQuery(
-    ["getFloorsheetDetail", script],
-    () => getFloorsheetDetail(script),
-    {
-      cacheTime: 10000,
-      refetchInterval: false,
-      refetchOnWindowFocus: false,
-    }
-  );
-};
+// /*________________________GET floor sheet_____________________________________*/
+// export const useGetfloorsheetById = (script) => {
+//   return useQuery(
+//     ["getFloorsheetDetail", script],
+//     () => getFloorsheetDetail(script),
+//     {
+//       cacheTime: 10000,
+//       refetchInterval: false,
+//       refetchOnWindowFocus: false,
+//     }
+//   );
+// };
