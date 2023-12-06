@@ -1,4 +1,4 @@
-import { MaterialReactTable } from "material-react-table";
+import { MaterialReactTable } from 'material-react-table';
 import {
   Box,
   Button,
@@ -6,12 +6,12 @@ import {
   useTheme,
   IconButton,
   Tooltip,
-} from "@mui/material";
-import { Delete, Edit } from "@mui/icons-material";
-import { useCallback } from "react";
-import "./CustomTable.css";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+} from '@mui/material';
+import { Delete, Edit } from '@mui/icons-material';
+import { useCallback } from 'react';
+import './CustomTable.css';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 
 const CustomTable = (props) => {
   const theme = useTheme();
@@ -51,17 +51,17 @@ const CustomTable = (props) => {
   // };
 
   const bodyBackgroundColor =
-    theme.palette.mode === "light" ? "#ffff" : theme.palette.background.default;
+    theme.palette.mode === 'light' ? '#ffff' : theme.palette.background.default;
 
   return (
-    <div className="custom_table">
+    <div className='custom_table'>
       <MaterialReactTable
         columns={props?.columns || []}
         data={props?.data || []}
         isLoading={props?.isLoading}
         enableRowNumbers={props.enableRowNumbers || false}
         enableRowVirtualization
-        headerTitle={props?.title || "My Table Title"}
+        headerTitle={props?.title || 'My Table Title'}
         enableStickyHeader
         // Here you enable pagination
         enablePagination={props?.manualPagination}
@@ -72,7 +72,7 @@ const CustomTable = (props) => {
         rowCount={props?.rowCount}
         // onPaginationChange={handlePaginationChange}
         state={props?.state}
-        initialState={{ density: props?.density || "compact" }}
+        initialState={{ density: props?.density || 'compact' }}
         enableColumnResizing={props?.enableColumnResizing || true}
         enableColumnActions={props?.enableColumnActions}
         enableColumnFilters={props?.enableColumnFilters}
@@ -87,18 +87,18 @@ const CustomTable = (props) => {
         density={props?.density}
         renderRowActions={({ row, table }) => {
           return (
-            <Box sx={{ display: "flex", gap: "0.1rem" }}>
+            <Box sx={{ display: 'flex', gap: '0.1rem' }}>
               {props.edit && (
-                <Tooltip arrow placement="left" title="Edit">
+                <Tooltip arrow placement='left' title='Edit'>
                   <IconButton onClick={() => handleEditRow(row)}>
                     <Edit />
                   </IconButton>
                 </Tooltip>
               )}
               {props.delete && (
-                <Tooltip arrow placement="right" title="Delete">
+                <Tooltip arrow placement='right' title='Delete'>
                   <IconButton
-                    color="error"
+                    color='error'
                     onClick={() => handleDeleteRow(row)}
                   >
                     <Delete />
@@ -107,18 +107,18 @@ const CustomTable = (props) => {
               )}
               {props.notification &&
                 (row?.original?.isAlertAdded ? (
-                  <Tooltip arrow placement="right" title="notification">
+                  <Tooltip arrow placement='right' title='Add to alert'>
                     <IconButton
-                      sx={{ color: "rgba(255, 184, 107, 1)" }}
+                      sx={{ color: 'rgba(255, 184, 107, 1)' }}
                       onClick={() => handleNotificationIcon(row)}
                     >
                       <NotificationsActiveIcon />
                     </IconButton>
                   </Tooltip>
                 ) : (
-                  <Tooltip arrow placement="right" title="notification">
+                  <Tooltip arrow placement='right' title='Alert not set'>
                     <IconButton
-                      sx={{ color: "grey" }}
+                      sx={{ color: 'grey' }}
                       onClick={() => handleNotificationIcon(row)}
                     >
                       <NotificationsIcon />
@@ -130,26 +130,26 @@ const CustomTable = (props) => {
         }}
         muiTableContainerProps={{
           sx: {
-            maxHeight: props?.maxHeight || "600px",
+            maxHeight: props?.maxHeight || '600px',
           },
         }}
         muiTableHeadRowProps={{
           sx: {
             backgroundColor:
               props?.headerBackgroundColor ||
-              (theme.palette.mode === "light"
-                ? "#401686"
+              (theme.palette.mode === 'light'
+                ? '#401686'
                 : theme.palette.secondary.hader),
             color:
-              props?.headerColor || 
-              (theme?.palette?.mode === "dark" ? "#fafafa" : "#ffff"),
+              props?.headerColor ||
+              (theme?.palette?.mode === 'dark' ? '#fafafa' : '#ffff'),
           },
         }}
         // enableRowSelection
         muiTableBodyRowProps={({ row }) => ({
           onClick: () => handleRowClick(row),
           sx: {
-            cursor: "pointer",
+            cursor: 'pointer',
             backgroundColor: bodyBackgroundColor,
           },
         })}
@@ -157,32 +157,31 @@ const CustomTable = (props) => {
           sx: {
             color:
               props?.miniHeaderColor ||
-              (theme?.palette?.mode === "dark" ? "#fafafa" : "#ffff"),
+              (theme?.palette?.mode === 'dark' ? '#fafafa' : '#ffff'),
           },
         }}
-       
         renderTopToolbarCustomActions={() => (
-          <Box sx={{ display: "flex", gap: "1rem", p: "4px" }}>
-            <Typography variant="h3">{props?.title}</Typography>
+          <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
+            <Typography variant='h3'>{props?.title}</Typography>
             {props?.button1 && (
               <Button
-                color="secondary"
+                color='secondary'
                 onClick={() => {
-                  alert("Create New Account");
+                  alert('Create New Account');
                 }}
-                variant="contained"
+                variant='contained'
               >
                 {props?.button1}
               </Button>
             )}
             {props?.button2 && (
               <Button
-                color="error"
+                color='error'
                 // disabled={!table.getIsSomeRowsSelected()}
                 onClick={() => {
-                  alert("Delete Selected Accounts");
+                  alert('Delete Selected Accounts');
                 }}
-                variant="contained"
+                variant='contained'
               >
                 {props?.button2}
               </Button>

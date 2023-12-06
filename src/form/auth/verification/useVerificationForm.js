@@ -90,16 +90,6 @@ export const useResendVerificationForm = () => {
   const [resetTimer, setResetTimer] = useState(false);
   const { mutate } = useResendVerification({});
 
-  // const formik = useFormik({
-  //   initialValues: {
-  //     id: '',
-  //   },
-  //   onSubmit: (values) => {
-  //     setLoad(true);
-  //     handleResendVerification(values);
-  //   },
-  // });
-
   const handleResendVerification = (values) => {
     const { id } = values;
     mutate(
@@ -129,4 +119,3 @@ export const useResendVerificationForm = () => {
     handleMouseDownPassword,
   };
 };
-
