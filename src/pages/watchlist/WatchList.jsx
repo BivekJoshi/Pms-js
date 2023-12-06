@@ -91,7 +91,7 @@ const WatchList = () => {
             textTransform: "none",
           }}
         >
-          {t("Create New watchlist")}
+          {t("Create New Watchlist")}
         </Button>
       </Grid>
 
@@ -99,8 +99,7 @@ const WatchList = () => {
         open={open}
         onClose={() => setOpen(false)}
         width="445px"
-        bgcolors={theme.palette.background.opt}
-        formComponent={<WatchListMasterField onClose={() => setOpen(false)} />}
+        formComponent={<WatchListMasterField onClose={() => setOpen(false)} watchListName={watchListName}/>}
       />
       <br />
       <Box
@@ -195,7 +194,7 @@ const WatchList = () => {
               onChange={(event, newValue) => {
                 if (newValue != null) {
                   const multiScript = newValue.map((d) => d.symbol);
-                  console.log(multiScript);
+                 
                   formik.setFieldValue("script", multiScript);
                   setSelectedSymbol(newValue);
                 }
@@ -216,14 +215,14 @@ const WatchList = () => {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  label="Script"
+                  label={t("Script")}
                   error={formik.touched.script && Boolean(formik.errors.script)}
                   helperText={formik.touched.script && formik.errors.script}
-                  autoFocus
+                  // autoFocus
                   size="small"
                   value={formik.values.script}
                   focused
-                  InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }, }}
+                  InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }}}
                   
                   // sx={{width:'auto'}}
                 />
@@ -243,7 +242,7 @@ const WatchList = () => {
           }}
           onClick={handleFormSubmit}
         >
-          + {t("Add")}
+         {t("+ Add")}
         </Button>
       </Box>
       <br />

@@ -22,6 +22,10 @@ export const transactionTypBill = [
     label: 'Purchase',
     id: 'P',
   },
+  {
+    label: 'Both',
+    id: 'B',
+  },
 ];
 
 export const receiptPaymentType = [

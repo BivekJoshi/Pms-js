@@ -117,7 +117,7 @@ const NewFilter = ({
         >
           {tradeDate && (
             <div>
-              Last Trade Date: <b>{tradeDate}</b>
+              {t("Last Trade Date")} : <b>{tradeDate}</b>
             </div>
           )}
           <div

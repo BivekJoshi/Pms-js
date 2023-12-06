@@ -17,7 +17,7 @@ export const useAlertForm = (rowData) => {
       transactionType: rowData?.transactionType || "P",
       ltp: null,
     },
-    // validationSchema: addAlertSchema,
+    validationSchema: addAlertSchema,
     enableReinitialize: true,
 
     //   onSubmit: (value) => {

@@ -4,6 +4,7 @@ import {
   Button,
   Divider,
   Grid,
+  TextField,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -16,17 +17,12 @@ import { useEffect } from "react";
 
 const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
   const [selectedProfile, setSelectedProfile] = useState();
-  const [image, setImage] = useState();
   const [imagePreview, setImagePreview] = useState(null);
   const theme = useTheme();
   const { formik } = useProfilePic({
     selectedProfile,
     handleCloseModal,
   });
-
-  useEffect(() => {
-    setImage(userInfoData?.imageFilePath);
-  }, [userInfoData?.imageFilePath]);
 
   const handleChangeImage = (e) => {
     const file = e.target.files[0];
@@ -82,15 +78,18 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
               </Typography>
               <CloseIcon
                 onClick={handleCloseModal}
-                sx={{ cursor: "pointer" }}
+                sx={{
+                  cursor: "pointer",
+                  border: `1px solid ${theme.palette.text.main}`,
+                }}
               />
             </div>
             <br />
             <Divider />
             {!imagePreview ? (
-              image ? (
+              userInfoData?.imageFilePath ? (
                 <img
-                  src={`${DOC_URL}${image}`}
+                  src={`${DOC_URL}${userInfoData?.imageFilePath}`}
                   alt="Profile"
                   height="auto"
                   width="200px"
@@ -143,7 +142,7 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
                     width: "291px",
                     height: "26px",
                     color: "black",
-                    "&:hover": { bgcolor: "#decde7" },
+                    "&:hover": { bgcolor: "#7d449d", color: "#fff" },
                     textTransform: "none",
                   }}
                   component="span" // Add this to make the button act like a file input trigger

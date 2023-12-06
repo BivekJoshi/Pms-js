@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { SHARE_TRANSACTION } from "../../../api/urls/urls";
 import { Box, Typography, useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { transactionType } from "../../../utility/dropdownData";
+// import { transactionType } from "../../../utility/dropdownData";
 import { filterDateValidationSchema } from "../../../form/validations/filterDateValidate";
 import { fetchPaginatedTable } from "../../../redux/actions/paginatedTable";
 import CustomPagination from "../../../components/customPagination/CustomPagination";
@@ -47,6 +47,21 @@ const Transactions = ({ tradeDate }) => {
       setText("");
     }
   }, [tableData]);
+
+  const transactionType = [
+    {
+      label: t('Sell'),
+      id: 'S',
+    },
+    {
+      label: t('Purchase'),
+      id: 'P',
+    },
+    {
+      label: t('Both'),
+      id: 'B',
+    },
+  ];
 
   const columns = useMemo(
     () => [
@@ -135,7 +150,7 @@ const Transactions = ({ tradeDate }) => {
       sm: 12,
     },
     {
-      label: "Transaction Type",
+      label: t("Transaction Type"),
       name: "transactionType",
       type: "dropDownId",
       dropDownData: transactionType,
@@ -143,6 +158,8 @@ const Transactions = ({ tradeDate }) => {
       sm: 12,
     },
   ];
+
+
 
   const handleSearch = (formValues) => {
     setTrType(formValues?.transactionType);
@@ -191,13 +208,13 @@ const Transactions = ({ tradeDate }) => {
         }}
       >
         <div>
-          <Typography variant="h4">Transaction Report</Typography>
+          <Typography variant="h4">{t("Transaction Report")}</Typography>
           <Typography variant="h7">
-            Last Transaction Date: <b>{tradeDate}</b>
+            {t("Last Transaction Date")} {" "} : {" "} <b>{tradeDate}</b>
           </Typography>
           <br />
           <Typography variant="h7">
-            Transaction Type:{" "}
+            {t("Transaction Type")}{" "}:{" "}
             <b>
               {trType === "P"
                 ? "Purchase"
@@ -226,7 +243,7 @@ const Transactions = ({ tradeDate }) => {
         {tableShow && (
           <>
             <CustomTable
-              title="Transaction Report"
+              title={t("Transaction Report")}
               columns={columns}
               isLoading={isLoading}
               data={Object.values(tableData)}

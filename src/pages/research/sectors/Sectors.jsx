@@ -52,7 +52,7 @@ const Sectors = () => {
               {...params}
               placeholder="Choose Sector"
               variant="outlined"
-              autoFocus
+              // autoFocus
               size="small"
               InputLabelProps={{ shrink: true }}
               required

@@ -9,7 +9,6 @@ import { Box, Typography, useTheme } from "@mui/material";
 import CustomPagination from "../../../components/customPagination/CustomPagination";
 import { fetchPaginatedTable } from "../../../redux/actions/paginatedTable";
 import { useTranslation } from "react-i18next";
-import { receiptPaymentType } from "../../../utility/dropdownData";
 import { filterDateValidationSchema } from "../../../form/validations/filterDateValidate";
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
 import DownloadIcon from "@mui/icons-material/Download";
@@ -79,6 +78,21 @@ const ReceiptPayment = ({ tradeDate }) => {
     ],
     []
   );
+
+  const receiptPaymentType = [
+    {
+      label: t('Receipt'),
+      id: 'R',
+    },
+    {
+      label: t('Payment'),
+      id: 'P',
+    },
+    {
+      label: t('Both'),
+      id: 'B',
+    },
+  ];
 
   const filterMenuItem = [
     {
@@ -154,13 +168,13 @@ const ReceiptPayment = ({ tradeDate }) => {
         }}
       >
         <div>
-          <Typography variant="h4">Receipt/Payment Report</Typography>
+          <Typography variant="h4">{t("Receipt/Payment Report")}</Typography>
           <Typography variant="h7">
-            Last Transaction Date: <b>{tradeDate}</b>
+            {t("Last Transaction Date")} : <b>{tradeDate}</b>
           </Typography>
           <br />
           <Typography variant="h7">
-            Transaction Type:{" "}
+            {t("Transaction Type")} : {" "}
             <b>
               {trType === "P"
                 ? "Payment"
@@ -189,7 +203,7 @@ const ReceiptPayment = ({ tradeDate }) => {
         {tableShow && (
           <>
             <CustomTable
-              title="Receipt Report"
+              title={t("Receipt/Payment Report")}
               columns={columns}
               isLoading={isLoading}
               data={Object.values(tableData)}

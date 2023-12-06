@@ -34,17 +34,18 @@ const TRANSACTION_TYPE = [
   },
 ];
 
-const EditAlertForm = ({ onClose, rowData }) => {
+const EditAlertForm = ({ onClose, rowData,handleReFetchData }) => {
   const theme = useTheme();
   const mode = theme.palette.mode;
 
   const { formik } = useAlertForm(rowData);
   const handleFormSubmit = () => {
+    handleReFetchData();
     formik.handleSubmit();
+    onClose();
   };
 
   const { data: companyinfo } = useGetCompanyByIdNo(formik.values.companyInfoId);
-  console.log(companyinfo,"Info ma chai ");
 
   return (
     <Grid container spacing={3} columnSpacing={{ xs: 1, sm: 3, md: 4 }}>
@@ -95,7 +96,7 @@ const EditAlertForm = ({ onClose, rowData }) => {
             formik.touched.companyInfoId && formik.errors.companyInfoId
           }
           variant="outlined"
-          autoFocus
+          // autoFocus
           InputLabelProps={{ shrink: true }}
           size="small"
           disabled                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
@@ -115,7 +116,7 @@ const EditAlertForm = ({ onClose, rowData }) => {
           error={formik.touched.alertType && Boolean(formik.errors.alertType)}
           helperText={formik.touched.alertType && formik.errors.alertType}
           variant="outlined"
-          autoFocus
+          // autoFocus
           InputLabelProps={{ shrink: true }}
           size="small"
         >
@@ -149,7 +150,7 @@ const EditAlertForm = ({ onClose, rowData }) => {
             formik.touched.transactionType && formik.errors.transactionType
           }
           variant="outlined"
-          autoFocus
+          // autoFocus
           InputLabelProps={{ shrink: true }}
           size="small"
         >
@@ -179,7 +180,7 @@ const EditAlertForm = ({ onClose, rowData }) => {
           }
           helperText={formik.touched.triggerPrice && formik.errors.triggerPrice}
           variant="outlined"
-          autoFocus
+          // autoFocus
           InputLabelProps={{ shrink: true }}
           size="small"
         />

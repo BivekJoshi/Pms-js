@@ -1,32 +1,29 @@
 import { Box, useTheme } from "@mui/material";
 import { useState } from "react";
 import ReactApexChart from "react-apexcharts";
+import { useGetUserenPortfolio } from '../../hooks/portfolio/usePortfolio';
 
-const PieChartDash = () => {
+const PortfolioChart = ({ data }) => {
   const theme = useTheme();
-  // const { t } = useTranslation();
+  const { data: userPorfolioData, isLoading } = useGetUserenPortfolio();
   const mode = theme.palette.mode;
   const isDarkMode = mode === "dark";
-
+  const sector = data && data.map((script) => script?.sector);
+  const quantity = userPorfolioData && userPorfolioData.map((script) => script?.quantity);
+  // console.log(data)
   const chartOptions = {
     chart: {
       width: 380,
-      type: "pie",
+      type: "donut",
       background: "transparent", // Set background to transparent
     },
-    labels: [
-       "Hydropower",
-      "Manufacturing",
-      "Debentures",
-      "Finance",
-      "Life Insurance",
-      "Commercial Bank",
-    ],
+    labels: sector,
      plotOptions: {
       pie: {
         dataLabels: {
           enabled: false, // Disable data labels if not needed
         },
+        expandOnClick: true,
         stroke: {
           color: "transparent", // Set stroke to none
         },
@@ -38,7 +35,7 @@ const PieChartDash = () => {
     theme: {
       mode: isDarkMode ? "dark" : "light",
     },
-    colors: ["#04A4DC", "#94DCFC", "#B7BDC1", "#FBBD00", "#9C6C5A", "#06A8F5"],
+    colors: ["#04A4DC", "#94DCFC", "#B7BDC1"],
     responsive: [
       {
         breakpoint: 350,
@@ -73,11 +70,29 @@ const PieChartDash = () => {
         },
       },
     ],
+    donut: {
+      size: "65%", // You can adjust the size of the hole
+      labels: {
+        show: true,
+        name: {
+          show: true,
+        },
+        value: {
+          show: true,
+        },
+        total: {
+          show: true,
+        },
+      },
+    },
   };
+  
+  
   const chartData = {
-    series: [44, 55, 13, 43, 22, 50],
+    series: quantity,
     options: chartOptions,
   };
+  
   return (
     <Box
       bgcolor={theme.palette.background.alt}
@@ -99,4 +114,4 @@ const PieChartDash = () => {
     </Box>
   );
 };
-export default PieChartDash;
+export default PortfolioChart;

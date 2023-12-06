@@ -1,23 +1,24 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import { styled } from '@mui/material/styles';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import Typography from '@mui/material/Typography';
-import { TextField, useTheme } from '@mui/material';
-import { useUpdateWatchListname } from '../../hooks/watchList/useWatchListForm/useWatchListForm';
-import { deleteWatchName } from '../../api/watchlist/watchlist-api';
-import { useRemoveWatchListName } from '../../hooks/watchList/useWatchList';
+import * as React from "react";
+import Button from "@mui/material/Button";
+import { styled, useTheme } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Typography from "@mui/material/Typography";
+import { TextField } from "@mui/material";
+import { useUpdateWatchListname } from "../../hooks/watchList/useWatchListForm/useWatchListForm";
+import { deleteWatchName } from "../../api/watchlist/watchlist-api";
+import { useRemoveWatchListName } from "../../hooks/watchList/useWatchList";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  '& .MuiDialogContent-root': {
+  "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
   },
-  '& .MuiDialogActions-root': {
+  "& .MuiDialogActions-root": {
     padding: theme.spacing(1),
   },
 }));
@@ -44,37 +45,84 @@ const EditDeleteModal = (props) => {
     <div>
       <BootstrapDialog
         onClose={props.handleClose}
-        aria-labelledby='customized-dialog-title'
+        aria-labelledby="customized-dialog-title"
         open={props.modalopen}
       >
-        <DialogTitle sx={{ m: 0, p: 1 }} id='customized-dialog-title'>
-          {props.type === 'edit' ? 'Edit Watch' : 'Delete Watch'}
-        </DialogTitle>
-        <IconButton
-          aria-label='close'
-          onClick={props.handleClose}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
+        {props.type === "edit" ? (
+          <>
+            <DialogTitle sx={{ m: 0, p: 1 }} id="customized-dialog-title">
+              {/* {props.type === "edit" ? "Edit Watch" : ""} */}
+              Edit Watch
+            </DialogTitle>
+            <IconButton
+              aria-label="close"
+              onClick={props.handleClose}
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+                color: (theme) => theme.palette.grey[500],
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </>
+        ) : (
+          <>
+            <DialogTitle
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                color: "#FF544E",
+              }}
+            >
+              <DeleteOutlineOutlinedIcon
+                sx={{
+                  backgroundColor: "#FFDDDC",
+                  borderRadius: "50%",
+                  fontSize: 36,
+                  // padding: "1rem",
+                }}
+              />
+            </DialogTitle>
+            <DialogTitle
+              sx={{
+                padding: "0px",
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "0",
+              }}
+            >
+              <Typography variant="h4" sx={{ fontWeight: 400 }}>
+                Delete Alert
+              </Typography>
+            </DialogTitle>
+          </>
+        )}
+
         <DialogContent>
-          {props.type === 'delete' && (
-            <Typography gutterBottom>
-              Are you sure do you want to delete this watch list ?
-            </Typography>
+          {props.type === "delete" && (
+            <>
+              <DialogTitle
+                sx={{
+                  padding: "15px",
+                  marginTop: "0",
+                }}
+              >
+                <Typography variant="h5">
+                  Are you sure to delete this Watchlist Detail? 
+                </Typography>
+                <Typography variant="h5" sx={{display:"flex",justifyContent:'center',marginTop:"2px"}}>Are u sure ?</Typography>
+              </DialogTitle>
+            </>
           )}
-          {props.type === 'edit' && (
+          {props.type === "edit" && (
             <TextField
-              sx={{ minWidth: '300px' }}
-              id='watchlistName'
-              name='watchlistName'
-              label='Edit WatchList Name'
-              placeholder='Enter watchlist name'
+              sx={{ minWidth: "300px" }}
+              id="watchlistName"
+              name="watchlistName"
+              label="Edit WatchList Name"
+              placeholder="Enter watchlist name"
               value={formik.values.watchlistName}
               onChange={formik.handleChange}
               fullWidth
@@ -87,23 +135,46 @@ const EditDeleteModal = (props) => {
               }
               required
               variant='outlined'
-              autoFocus
+              // autoFocus
               InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }}}
             />
           )}
         </DialogContent>
-        <DialogActions>
-          {props.type === 'delete' && (
-            <Button color='error' onClick={handleDelete} variant='contained'>
-              Delete
-            </Button>
-          )}
-          {props.type === 'edit' && (
-            <Button color='success' onClick={handleEdit} variant='contained'>
+        {props.type === "delete" && (
+          <>
+            <DialogActions
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                onClick={props?.handleClose}
+                color="success"
+                variant="contained"
+                sx={{ textTransform: "none" }}
+              >
+                No, Keep It.
+              </Button>
+              <Button
+                onClick={handleDelete}
+                color="error"
+                variant="contained"
+                sx={{ textTransform: "none" }}
+              >
+                Delete Watchlist
+              </Button>
+            </DialogActions>
+          </>
+        )}
+        {props.type === "edit" && (
+          <DialogActions>
+            <Button color="success" onClick={handleEdit} variant="contained">
               Save
             </Button>
-          )}
-        </DialogActions>
+          </DialogActions>
+        )}
       </BootstrapDialog>
     </div>
   );
