@@ -152,7 +152,7 @@ const Company = () => {
             }}
           >
             <Typography variant='h4' style={{ marginBottom: '1rem' }}>
-              {t('Nabil Bank Limited 1D')}
+              {companyData?.companyInfo?.companyInfo}
             </Typography>
             <LineChartDash height={400} lineData={lineData} />
           </Box>
