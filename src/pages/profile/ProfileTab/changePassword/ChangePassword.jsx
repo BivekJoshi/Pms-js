@@ -65,7 +65,6 @@ const ChangePassword = () => {
             placeholder={t('Enter your current password')}
             fullWidth
             required
-            autoFocus
             value={formik.values.oldPassword}
             onChange={(e) => {
               formik.handleChange(e);
