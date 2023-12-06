@@ -3,6 +3,7 @@ import {
   Container,
   CssBaseline,
   Grid,
+  IconButton,
   ThemeProvider,
   Typography,
   createTheme,
@@ -18,6 +19,8 @@ import { useGetTheme } from '../hooks/brokerTheme/useBrokerTheme';
 import Spinner from '../components/spinner/Spinner';
 import Footer from '../components/footer/Footer';
 import MarketIndexNav from '../components/navbar/MarketIndexNav';
+import FormModal from '../components/formModal/FormModal';
+import FeedbackModal from '../components/feedbackModal/FeedbackModal';
 
 const AppLayout = () => {
   const dispatch = useDispatch();
@@ -28,13 +31,14 @@ const AppLayout = () => {
   const authToken = authData?.authToken;
   const navigate = useNavigate();
   const { data, isLoading, refetch } = useGetTheme(brokerId);
+  const [feedbackModal, setFeedbackModal] = useState(false);
 
   useEffect(() => {
     if (!authToken) {
       navigate('/login');
-    } else if(authData?.tempPassword) {
-      navigate("change/password")
-    }else{
+    } else if (authData?.tempPassword) {
+      navigate('change/password');
+    } else {
       refetch();
     }
     if (data) {
@@ -57,22 +61,37 @@ const AppLayout = () => {
       {/* <ErrorBoundary> */}
       <ThemeProvider theme={theme}>
         <CssBaseline />
+        <div style={{ position: 'relative' }}>
+          <Navbar />
 
-        <Navbar />
+          <MarketIndexNav />
+          {/* <Container fixed> */}
+          <section
+            style={{
+              padding: '16px',
+              minHeight: '94dvh',
+            }}
+            data-aos='fade-right'
+          >
+            <Outlet />
+          </section>
+          {/* </Container> */}
+          <Footer />
+        </div>
+        <div style={{ position: 'absolute', bottom: '12px', right: '32px' }}>
+          <IconButton onClick={() => setFeedbackModal(true)}>
+            Support
+          </IconButton>
+        </div>
 
-        <MarketIndexNav />
-        {/* <Container fixed> */}
-        <section
-          style={{
-            padding: '16px',
-            minHeight: '94dvh',
-          }}
-          data-aos='fade-right'
-        >
-          <Outlet />
-        </section>
-        {/* </Container> */}
-        <Footer />
+        <FormModal
+          open={feedbackModal}
+          onClose={() => setFeedbackModal(false)}
+          width='378px'
+          formComponent={
+            <FeedbackModal onClose={() => setFeedbackModal(false)} />
+          }
+        />
       </ThemeProvider>
       {/* </ErrorBoundary> */}
     </>
