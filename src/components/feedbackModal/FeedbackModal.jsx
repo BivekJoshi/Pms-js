@@ -1,19 +1,16 @@
 import React from "react";
-import {
-  Autocomplete,
-  Box,
-  Button,
-  Divider,
-  Grid,
-  TextField,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Autocomplete, Box, Button, Divider, Grid } from "@mui/material";
+import { TextField, Typography, useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { useFeedbackForm } from "../../hooks/feedback/FeedbackForm/useFeedbackForm";
 
 const FeedbackModal = ({ onClose }) => {
   const theme = useTheme();
   const top100Films = [{ label: "Bug" }, { label: "Feedback" }];
+  const { formik } = useFeedbackForm({ onClose });
+  const handleFormSubmit = () => {
+    formik.handleSubmit();
+  };
   return (
     <div>
       <div
@@ -34,28 +31,49 @@ const FeedbackModal = ({ onClose }) => {
           Problem Type
         </Typography>
         <CloseIcon onClick={onClose} sx={{ cursor: "pointer" }} />
-      </div>{" "}
+      </div>
       <br />
       <Divider />
       <br />
       <Box component="form">
         <Autocomplete
-          disableCloseOnSelect
-          id="checkboxes-tags-demo"
-          options={top100Films}
+          id="problemType"
+          name="problemType"
+          options={top100Films.map(film => film.label)}
+          required
+          onChange={(event, newValue) => formik.setFieldValue("problemType", newValue)}
           renderInput={(params) => (
-            <TextField {...params} label="Problem Type" />
+            <TextField
+              {...params}
+              label="Problem Type"
+              value={formik.values.problemType}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.problemType && Boolean(formik.errors.problemType)
+              }
+              helperText={
+                formik.touched.problemType && formik.errors.problemType
+              }
+            />
           )}
         />
       </Box>
       <Grid sx={{ paddingTop: "1.5rem" }}>
         <TextField
-          id="filled-multiline-static"
+          id="description"
+          name="description"
           label="Message"
           multiline
           rows={5}
           variant="filled"
           sx={{ width: "100%" }}
+          required
+          value={formik.values.description}
+          onChange={formik.handleChange}
+          error={
+            formik.touched.description && Boolean(formik.errors.description)
+          }
+          helperText={formik.touched.description && formik.errors.description}
         />
       </Grid>
       <br />
@@ -70,7 +88,7 @@ const FeedbackModal = ({ onClose }) => {
         <Button
           variant="contained"
           type="submit"
-          // onClick={handleFormSubmit}
+          onClick={handleFormSubmit}
           sx={{ ml: 1, textTransform: "none" }}
           color="success"
         >

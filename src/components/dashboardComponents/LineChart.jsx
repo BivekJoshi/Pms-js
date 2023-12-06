@@ -3,7 +3,7 @@ import { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import './ApexCHart.css';
 
-const LineChartDash = ({ lineData, height, xAxis, yAxis }) => {
+const LineChartDash = ({ lineData, height, xAxis, yAxis, tableData }) => {
   const theme = useTheme();
   // const { t } = useTranslation();
   const mode = theme.palette.mode;
@@ -151,3 +151,4 @@ const LineChartDash = ({ lineData, height, xAxis, yAxis }) => {
 };
 
 export default LineChartDash;
+
