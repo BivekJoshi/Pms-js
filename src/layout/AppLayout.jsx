@@ -82,6 +82,7 @@ const AppLayout = () => {
                 src={Support}
                 alt='support.png'
                 onClick={() => setFeedbackModal(true)}
+                style={{boxShadow:"1px 1px 1px 1px #c3caf0", borderRadius:"30px"}}
               />
             </Tooltip>
           </IconButton>

@@ -39,9 +39,11 @@ const FeedbackModal = ({ onClose }) => {
         <Autocomplete
           id="problemType"
           name="problemType"
-          options={top100Films.map(film => film.label)}
+          options={top100Films.map((film) => film.label)}
           required
-          onChange={(event, newValue) => formik.setFieldValue("problemType", newValue)}
+          onChange={(event, newValue) =>
+            formik.setFieldValue("problemType", newValue)
+          }
           renderInput={(params) => (
             <TextField
               {...params}
@@ -93,6 +95,14 @@ const FeedbackModal = ({ onClose }) => {
           color="success"
         >
           Submit
+        </Button>
+        <Button
+          variant="contained"
+          onClick={onClose}
+          sx={{ ml: 1, textTransform: "none" }}
+          color="error"
+        >
+          Cancel
         </Button>
       </Grid>
     </div>
