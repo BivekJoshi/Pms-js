@@ -1,4 +1,10 @@
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import {
+  CssBaseline,
+  IconButton,
+  ThemeProvider,
+  Tooltip,
+  createTheme,
+} from '@mui/material';
 import Navbar from '../components/navbar/Navbar';
 
 import React, { useEffect, useMemo, useState } from 'react';
@@ -70,11 +76,15 @@ const AppLayout = () => {
           <Footer />
         </div>
         <div style={{ position: 'fixed', bottom: '50px', right: '32px' }}>
-          <img
-            src={Support}
-            alt='support.png'
-            onClick={() => setFeedbackModal(true)}
-          />
+          <IconButton>
+            <Tooltip title='Give Feedback' arrow placement='left-start'>
+              <img
+                src={Support}
+                alt='support.png'
+                onClick={() => setFeedbackModal(true)}
+              />
+            </Tooltip>
+          </IconButton>
         </div>
 
         <FormModal
