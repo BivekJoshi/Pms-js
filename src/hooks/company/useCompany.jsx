@@ -2,7 +2,6 @@ import { useQuery } from "react-query";
 import {
   getCompanyById,
   getCompanyByIdNo,
-  getFloorsheetDetail,
   // getfloorsheetById,
 } from "../../api/company/company-api";
 
