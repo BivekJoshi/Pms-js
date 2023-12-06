@@ -15,4 +15,11 @@ export const getCompanyByIdNo = async (id) => {
     return res?.data;
   }
 };
+// /*________________________GET Floorsheet Detail_____________________________________*/
+// export const getFloorsheetDetail = async (script) => {
+//   if (script) {
+//     const res = await axiosInstance.get(`/company-info/floor-sheet-details/${script}`);
+//     return res?.data;
+//   }
+// };
 

@@ -3,14 +3,14 @@ import { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import './ApexCHart.css';
 
-const LineChartDash = ({ lineData, height }) => {
+const LineChartDash = ({ lineData, height, xAxis, yAxis }) => {
   const theme = useTheme();
   // const { t } = useTranslation();
   const mode = theme.palette.mode;
   const isDarkMode = mode === 'dark';
   const names = lineData?.map((line) => line.name);
-  const Total_Share_Capital = lineData?.map((line) => line.Total_Share_Capital);
-  const Total_Investment = lineData?.map((line) => line.Total_Investment);
+  const Total_Share_Capital = xAxis ? xAxis : lineData?.map((line) => line.Total_Share_Capital);
+  const Total_Investment = yAxis ? yAxis : lineData?.map((line) => line.Total_Investment);
 
   const chartOptions = {
     chart: {

@@ -1,6 +1,8 @@
 import { useQuery } from "react-query";
 import {
-  getCompanyById, getCompanyByIdNo,
+  getCompanyById,
+  getCompanyByIdNo,
+  getFloorsheetDetail,
   // getfloorsheetById,
 } from "../../api/company/company-api";
 
@@ -30,11 +32,11 @@ export const useGetCompanyByIdNo = (id) => {
   });
 };
 
-/*________________________GET floor sheet_____________________________________*/
-// export const useGetfloorsheetById = (script, trDate, pageNumber, pageSize) => {
+// /*________________________GET floor sheet_____________________________________*/
+// export const useGetfloorsheetById = (script) => {
 //   return useQuery(
-//     ["getfloorsheetById",  script, trDate, pageNumber, pageSize],
-//     () => getfloorsheetById( script, trDate, pageNumber, pageSize),
+//     ["getFloorsheetDetail", script],
+//     () => getFloorsheetDetail(script),
 //     {
 //       cacheTime: 10000,
 //       refetchInterval: false,

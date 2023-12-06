@@ -119,7 +119,7 @@ const Company = () => {
                       // border: '1px solid #401686',
                       // borderLeft: '2px solid #401686',
                       // borderRight: '2px solid #401686',
-                      border: `1px solid #bfbfbf`,
+                      borderTop: '1px solid #6692C4',
                     }}
                   >
                     Data
