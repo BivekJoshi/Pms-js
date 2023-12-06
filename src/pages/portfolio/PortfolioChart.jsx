@@ -1,18 +1,26 @@
-import { Box, useTheme } from "@mui/material";
-import ReactApexChart from "react-apexcharts";
+import { Box, useTheme } from '@mui/material';
+import ReactApexChart from 'react-apexcharts';
 
 const PortfolioChart = ({ data, userData }) => {
   const theme = useTheme();
   const mode = theme.palette.mode;
-  const isDarkMode = mode === "dark";
+  const isDarkMode = mode === 'dark';
   const sector = data && data.map((script) => script?.sector);
+  console.log(
+    '🚀 ~ file: PortfolioChart.jsx:9 ~ PortfolioChart ~ sector:',
+    sector
+  );
   const quantity = userData && userData.map((script) => script?.quantity);
+  console.log(
+    '🚀 ~ file: PortfolioChart.jsx:10 ~ PortfolioChart ~ quantity:',
+    quantity
+  );
   // console.log(data)
   const chartOptions = {
     chart: {
       width: 380,
-      type: "donut", // Change type to donut for a donut chart
-      background: "transparent",
+      type: 'donut', // Change type to donut for a donut chart
+      background: 'transparent',
     },
     labels: sector,
     plotOptions: {
@@ -22,17 +30,17 @@ const PortfolioChart = ({ data, userData }) => {
         },
         expandOnClick: true,
         stroke: {
-          color: "transparent",
+          color: 'transparent',
         },
       },
     },
     legend: {
-      position: "bottom",
+      position: 'bottom',
     },
     theme: {
-      mode: isDarkMode ? "dark" : "light",
+      mode: isDarkMode ? 'dark' : 'light',
     },
-    colors: ["#04A4DC", "#94DCFC", "#B7BDC1"],
+    colors: ['#04A4DC', '#94DCFC', '#B7BDC1'],
     responsive: [
       {
         breakpoint: 350,
@@ -41,8 +49,8 @@ const PortfolioChart = ({ data, userData }) => {
             width: 150,
           },
           legend: {
-            position: "bottom",
-            horizontalAlign: "center",
+            position: 'bottom',
+            horizontalAlign: 'center',
             itemMargin: {
               horizontal: 10,
               vertical: 5,
@@ -57,8 +65,8 @@ const PortfolioChart = ({ data, userData }) => {
             width: 300,
           },
           legend: {
-            position: "bottom",
-            horizontalAlign: "center",
+            position: 'bottom',
+            horizontalAlign: 'center',
             itemMargin: {
               horizontal: 10,
               vertical: 5,
@@ -69,10 +77,10 @@ const PortfolioChart = ({ data, userData }) => {
     ],
     // Set innerRadius to create a circle gap for the donut chart
     donut: {
-      size: "15%",
+      size: '15%',
     },
   };
-  
+
   // const chartOptions = {
   //   chart: {
   //     width: 380,
@@ -92,7 +100,7 @@ const PortfolioChart = ({ data, userData }) => {
   //     },
   //   },
   //   legend: {
-  //     position: "bottom", 
+  //     position: "bottom",
   //   },
   //   theme: {
   //     mode: isDarkMode ? "dark" : "light",
@@ -148,29 +156,28 @@ const PortfolioChart = ({ data, userData }) => {
   //     },
   //   },
   // };
-  
-  
+
   const chartData = {
     series: quantity,
     options: chartOptions,
   };
-  
+
   return (
     <Box
       bgcolor={theme.palette.background.alt}
       sx={{
-        padding: "1rem 2rem",
-        borderRadius: "6px",
-        textAlign: "center",
-        display: "flex",
-        justifyContent: "center",
+        padding: '1rem 2rem',
+        borderRadius: '6px',
+        textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'center',
       }}
-      id="donut"
+      id='donut'
     >
       <ReactApexChart
         options={chartData.options}
         series={chartData.series}
-        type="donut"
+        type='donut'
         width={350}
       />
     </Box>

@@ -12,11 +12,11 @@ import {
 import {
   useGetUserInfo,
   useGetUserenPortfolio,
-} from "../../hooks/portfolio/usePortfolio";
-import { useTranslation } from "react-i18next";
-import ExcelJS from "exceljs";
-import { saveAs } from "file-saver";
-import { useNavigate } from "react-router-dom";
+} from '../../hooks/portfolio/usePortfolio';
+import { useTranslation } from 'react-i18next';
+import ExcelJS from 'exceljs';
+import { saveAs } from 'file-saver';
+import { useNavigate } from 'react-router-dom';
 import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
 import PortfolioChart from './PortfolioChart';
 
@@ -30,13 +30,15 @@ const Portfolio = () => {
   const { data: userInfoData, isLoading: loading } = useGetUserInfo();
   const { data: companyInfoData } = useGetListedCompanies();
 
-  let symbolsArray = [];
-  for (const key in companyInfoData) {
-    if (Object.hasOwnProperty.call(companyInfoData, key)) {
-      symbolsArray.push({ index: key, ...companyInfoData[key] });
-    }
-  }
-  const commonScripts = symbolsArray.filter(obj2 => userPorfolioData.some(obj1 => obj1?.script === obj2?.symbol));
+  // let symbolsArray = [];
+  // for (const key in companyInfoData) {
+  //   if (Object.hasOwnProperty.call(companyInfoData, key)) {
+  //     symbolsArray.push({ index: key, ...companyInfoData[key] });
+  //   }
+  // }
+  // const commonScripts = symbolsArray.filter((obj2) =>
+  //   userPorfolioData.some((obj1) => obj1?.script === obj2?.symbol)
+  // );
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -133,9 +135,9 @@ const Portfolio = () => {
       const worksheet = workbook.addWorksheet('Portfolio');
 
       worksheet.getRow(1).fill = {
-        type: "pattern",
-        pattern: "solid",
-        fgColor: { argb: "EE7214" },
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'EE7214' },
       };
       // worksheet.getRow(1).font = {
       //   bold: true,
@@ -186,7 +188,7 @@ const Portfolio = () => {
 
       workbook.xlsx.writeBuffer().then((data) => {
         const blob = new Blob([data], {
-          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         });
         saveAs(blob, 'Portfolio.xlsx');
       });
@@ -265,13 +267,13 @@ const Portfolio = () => {
         />
       )}
 
-      {!loading && (
+      {/* {!loading && (
         <Grid container>
         <Grid item xs={12} sm={12} md={5} xl={4} lg={4} sx={{ marginTop: "1rem"}}>
           <PortfolioChart data={commonScripts} userData={userPorfolioData} />
         </Grid>
       </Grid>
-      )}
+      )} */}
 
       <Menu
         id='basic-menu'
