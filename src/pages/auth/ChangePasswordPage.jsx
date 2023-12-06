@@ -82,8 +82,9 @@ const ChangePasswordPage = () => {
               formik.touched.oldPassword && Boolean(formik.errors.oldPassword)
             }
             helperText={formik.touched.oldPassword && formik.errors.oldPassword}
-            variant='outlined'
-            type={showOldPassword ? 'text' : 'password'}
+            variant="outlined"
+            // autoFocus
+            type={showOldPassword ? "text" : "password"}
             InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (
@@ -121,8 +122,9 @@ const ChangePasswordPage = () => {
               formik.touched.newPassword && Boolean(formik.errors.newPassword)
             }
             helperText={formik.touched.newPassword && formik.errors.newPassword}
-            variant='outlined'
-            type={showValues.showPassword ? 'text' : 'password'}
+            variant="outlined"
+            // autoFocus
+            type={showValues.showPassword ? "text" : "password"}
             InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (
@@ -158,8 +160,9 @@ const ChangePasswordPage = () => {
               formik.touched.rePassword && Boolean(formik.errors.rePassword)
             }
             helperText={formik.touched.rePassword && formik.errors.rePassword}
-            variant='outlined'
-            type={showConfirmPassword ? 'text' : 'password'}
+            variant="outlined"
+            // autoFocus
+            type={showConfirmPassword ? "text" : "password"}
             InputLabelProps={{ shrink: true }}
             InputProps={{
               endAdornment: (

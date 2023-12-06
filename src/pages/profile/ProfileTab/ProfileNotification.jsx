@@ -64,7 +64,7 @@ const ProfileNotification = () => {
       >
         <ListItem className='notificationBg'>
           <Typography color='white' pr='16px'>
-            Website
+            {t("Website")}
           </Typography>
         </ListItem>
         <ListItem className="notificationSwitch">
@@ -280,7 +280,7 @@ const ProfileNotification = () => {
           }}
           onClick={handleReset}
         >
-          Reset
+          {t("Reset")}
         </Button>
         <Button
           variant='outlined'
@@ -291,7 +291,7 @@ const ProfileNotification = () => {
           }}
           onClick={handleFormSubmit}
         >
-          Set Notification
+          {t("Set Notification")}
         </Button>
       </Grid>
     </Box>

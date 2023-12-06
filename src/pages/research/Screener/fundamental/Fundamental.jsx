@@ -113,7 +113,7 @@ const Fundamental = () => {
                   {...params}
                   placeholder="--Select--"
                   variant="outlined"
-                  autoFocus
+                  // autoFocus
                   InputLabelProps={{ shrink: true }}
                   required
                 />

@@ -18,16 +18,15 @@ const Floorsheet = ({ companyData }) => {
   const { t } = useTranslation();
   const theme = useTheme();
   const dispatch = useDispatch();
-  const [tableShow, setTableShow] = useState(false);
-  const [tableKey, setTableKey] = useState(0); 
+  const [tableShow, setTableShow] = useState(false)
+  
   const tableData = useSelector((store) => store?.paginatedTable?.data);
   const isLoading = useSelector((store) => store?.paginatedTable?.processing);
 
-  let totalData = useSelector((store) => store?.paginatedTable?.table);
-  let totalPages = useSelector((store) => store?.paginatedTable?.pages);
-  let currentPage = useSelector((store) => store?.paginatedTable?.page);
-
-  let pageSize = useSelector((store) => store?.paginatedTable?.itemsPerPage);
+  const totalData = useSelector((store) => store?.paginatedTable?.table);
+  const totalPages = useSelector((store) => store?.paginatedTable?.pages);
+  const currentPage = useSelector((store) => store?.paginatedTable?.page);
+  const pageSize = useSelector((store) => store?.paginatedTable?.itemsPerPage);
 
   const [params, setParams] = useState();
 
@@ -41,44 +40,6 @@ const Floorsheet = ({ companyData }) => {
       sm: 12,
     },
   ];
-  const fetchData = async () => {
-    try {
-      const initialFormValues = {
-        // Define your initial form values here
-        trDate: null, // or a default date
-        script: companyData?.companyInfo?.symbol,
-        // Add other form fields if needed
-      };
-
-      // Fetch data when the component mounts
-      dispatch(
-        fetchPaginatedTable(
-          FLOOR_SHEET_DETAILS,
-          initialFormValues,
-          null,
-          'unique'
-        )
-      );
-
-      setTableShow(true);
-    } catch (error) {
-      toast.error(getErrorMessage(error));
-    }
-  };
-
-  useEffect(() => {
-    dispatch(clearPaginatedData());
-
-    const updatedFormValues = {
-      script: companyData?.companyInfo?.symbol,
-    };
-    setParams(updatedFormValues);
-    fetchData();
-
-    return () => {
-      dispatch(clearPaginatedData());
-    };
-  }, [dispatch,companyData?.companyInfo?.symbol]);
 
   const handleSearch = (formValues) => {
     const trDate = formValues.trDate
@@ -102,16 +63,10 @@ const Floorsheet = ({ companyData }) => {
         )
       );
       setTableShow(true);
-      setTableKey((key) => key + 1);
     } catch (error) {
       toast.error(getErrorMessage(error));
     }
   };
-  useEffect(() => {
-    if (tableKey > 0) {
-      fetchData();
-    }
-  }, [tableKey, dispatch]);
   
   const columns = useMemo(
     () => [

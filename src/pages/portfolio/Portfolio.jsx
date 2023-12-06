@@ -3,6 +3,7 @@ import CustomTable from '../../components/customTable/CustomTable';
 import {
   Box,
   Button,
+  Grid,
   Menu,
   MenuItem,
   Typography,
@@ -11,11 +12,13 @@ import {
 import {
   useGetUserInfo,
   useGetUserenPortfolio,
-} from '../../hooks/portfolio/usePortfolio';
-import { useTranslation } from 'react-i18next';
-import ExcelJS from 'exceljs';
-import { saveAs } from 'file-saver';
-import { useNavigate } from 'react-router-dom';
+} from "../../hooks/portfolio/usePortfolio";
+import { useTranslation } from "react-i18next";
+import ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
+import { useNavigate } from "react-router-dom";
+import { useGetListedCompanies } from '../../hooks/watchList/useWatchList';
+import PortfolioChart from './PortfolioChart';
 
 const Portfolio = () => {
   const navigate = useNavigate();
@@ -25,6 +28,18 @@ const Portfolio = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { data: userPorfolioData, isLoading } = useGetUserenPortfolio();
   const { data: userInfoData, isLoading: loading } = useGetUserInfo();
+  const { data: companyInfoData } = useGetListedCompanies();
+
+  const symbolsArray = [];
+  for (const key in companyInfoData) {
+    if (Object.hasOwnProperty.call(companyInfoData, key)) {
+      symbolsArray.push({ index: key, ...companyInfoData[key] });
+    }
+  }
+  const commonScripts = symbolsArray.filter(obj2 => userPorfolioData.some(obj1 => obj1?.script === obj2?.symbol));
+
+  console.log({"companyInfoData": commonScripts});
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -70,12 +85,12 @@ const Portfolio = () => {
         size: 100,
         sortable: false,
       },
-      {
-        id: 6,
-        header: 'Total Gain/Loss',
-        size: 100,
-        sortable: false,
-      },
+      // {
+      //   id: 6,
+      //   header: "Total Gain/Loss",
+      //   size: 100,
+      //   sortable: false,
+      // },
       {
         id: 7,
         header: "Today's Gain/Loss",
@@ -120,9 +135,9 @@ const Portfolio = () => {
       const worksheet = workbook.addWorksheet('Portfolio');
 
       worksheet.getRow(1).fill = {
-        // type: "pattern",
-        // pattern: "darkGray",
-        // fgColor: "red",
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "EE7214" },
       };
       // worksheet.getRow(1).font = {
       //   bold: true,
@@ -173,7 +188,7 @@ const Portfolio = () => {
 
       workbook.xlsx.writeBuffer().then((data) => {
         const blob = new Blob([data], {
-          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+          type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         });
         saveAs(blob, 'Portfolio.xlsx');
       });
@@ -229,7 +244,7 @@ const Portfolio = () => {
         </Button>
       </Box>
       {!isLoading ? (
-        <Box sx={{ '& .css-1f2qhs8, .css-c8wlay': { color: '#ffff' } }}>
+        <Box>
           <CustomTable
             title={t('Portfolio')}
             columns={columns}
@@ -250,6 +265,14 @@ const Portfolio = () => {
             backgroundColor: theme.palette.background.alt,
           }}
         />
+      )}
+
+      {!loading && (
+        <Grid container>
+        <Grid item xs={12} sm={12} md={5} xl={4} lg={4} sx={{ marginTop: "1rem"}}>
+          <PortfolioChart data={commonScripts} />
+        </Grid>
+      </Grid>
       )}
 
       <Menu

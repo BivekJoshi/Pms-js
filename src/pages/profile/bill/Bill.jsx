@@ -13,7 +13,6 @@ import { useTranslation } from "react-i18next";
 import { filterDateValidationSchema } from "../../../form/validations/filterDateValidate";
 import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
 import DownloadIcon from "@mui/icons-material/Download";
-import { transactionTypBill, transactionType } from "../../../utility/dropdownData";
 import { useEffect } from "react";
 
 const Bill = ({ tradeDate }) => {
@@ -64,6 +63,20 @@ const Bill = ({ tradeDate }) => {
     
   }, [tableData]);
   
+  const transactionType = [
+    {
+      label: t('Sell'),
+      id: 'S',
+    },
+    {
+      label: t('Purchase'),
+      id: 'P',
+    },
+    {
+      label: t('Both'),
+      id: 'B',
+    },
+  ];
 
   const columns = useMemo(
     () => [
@@ -107,13 +120,7 @@ const Bill = ({ tradeDate }) => {
         header: "Script",
         size: 100,
         sortable: false,
-        Cell: ({ row }) => {
-          if (row?.original?.trType === "P") {
-            return "Purchase";
-          } else if (row?.original?.trType === "S") {
-            return "Sell";
-          } else return row?.original?.trType;
-        },
+       
       },
       {
         id: 5,
@@ -172,10 +179,10 @@ const Bill = ({ tradeDate }) => {
       sm: 12,
     },
     {
-      label: "Transaction Type",
+      label: t("Transaction Type"),
       name: "transactionType",
       type: "dropDownId",
-      dropDownData: transactionTypBill,
+      dropDownData: transactionType,
       md: 4,
       sm: 12,
     },
@@ -202,7 +209,7 @@ const Bill = ({ tradeDate }) => {
           fetchPaginatedTable(
             Bill_TRANSACTION,
             updatedFormValues,
-            null,
+            null,            
             "billNo"
           )
         );
@@ -233,13 +240,13 @@ const Bill = ({ tradeDate }) => {
         }}
       >
         <div>
-          <Typography variant="h4">Bills Report</Typography>
+          <Typography variant="h4">{t("Bill Report")}</Typography>
           <Typography variant="h7">
-            Last Transaction Date: <b>{tradeDate}</b>
+            {t("Last Transaction Date")} {" "} : <b>{tradeDate}</b>
           </Typography>
           <br/>
           <Typography variant="h7">
-            Transaction Type:{" "}
+            {t("Transaction Type")} {" "} : {" "}
             <b>
               {trType === "P"
                 ? "Purchase"
@@ -266,7 +273,7 @@ const Bill = ({ tradeDate }) => {
         {tableShow ? (
           <>
             <CustomTable
-              title="Bill Report"
+              title={t("Bill Report")}
               columns={columns}
               isLoading={isLoading}
               data={Object.values(tableData)}

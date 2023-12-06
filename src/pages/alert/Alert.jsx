@@ -193,7 +193,7 @@ const Alert = (props) => {
                           name="companyInfoId"
                           placeholder={t("Select a Company")}
                           variant="outlined"
-                          autoFocus
+                          // autoFocus
                           size="small"
                           InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }, }}
 

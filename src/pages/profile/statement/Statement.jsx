@@ -202,9 +202,9 @@ const Statement = ({ tradeDate }) => {
         }}
       >
         <div>
-          <Typography variant="h4">Statement Report</Typography>
+          <Typography variant="h4">{t("Statement Report")}</Typography>
           <Typography variant="h7">
-            Last Transaction Date: <b>{tradeDate}</b>
+            {t("Last Transaction Date")} : <b>{tradeDate}</b>
           </Typography>
       
         </div>
@@ -225,7 +225,7 @@ const Statement = ({ tradeDate }) => {
         {tableShow && (
           <>
             <CustomTable
-              title="Statement Report"
+              title={t("Statement Report")}
               columns={columns}
               isLoading={isLoading}
               data={Object.values(tableData)}

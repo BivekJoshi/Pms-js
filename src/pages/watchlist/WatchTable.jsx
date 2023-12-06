@@ -23,7 +23,6 @@ const WatchTable = (watchid) => {
   const theme = useTheme();
   const mode = theme.palette.mode;
   const isDarkMode = mode === "dark";
-  console.log(isDarkMode,"ho ra");
 
   const handleModalClose = () => {
     setIsModalOpen(false);

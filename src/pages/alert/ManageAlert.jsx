@@ -160,7 +160,7 @@ const ManageAlert = (props) => {
   const handleModalClose = () => {
     setIsModalOpen(false);
   };
-  const handleDeleteData = () => {
+  const handleReFetchData = () => {
     mutate(tableDataIndex, {
       onSuccess: () => {
         dispatch(
@@ -182,20 +182,6 @@ const ManageAlert = (props) => {
 
   const handleModalEditClose = () => {
     setIsModalEditOpen(false);
-  };
-
-  const handleEditData = () => {
-    mutate(tableDataIndex, {
-      onSuccess: () => {
-        dispatch(
-          fetchData(
-            `live-market/stock-alerts?script=${params.script || ""}&alertType=${
-              params.alertType || ""
-            }`
-          )
-        );
-      },
-    });
   };
 
   return (
@@ -267,7 +253,7 @@ const ManageAlert = (props) => {
         confirmhead={"Are u sure ?"}
         handleModalClose={handleModalClose}
         isModalOpen={isModalOpen}
-        handleAgree={handleDeleteData}
+        handleAgree={handleReFetchData}
       />
 
       <FormModal
@@ -276,7 +262,11 @@ const ManageAlert = (props) => {
         width="25rem"
         formComponent={
           <>
-            <EditAlertForm onClose={handleModalEditClose} rowData={rowData}/>
+            <EditAlertForm
+              onClose={handleModalEditClose}
+              rowData={rowData}
+              handleReFetchData={handleReFetchData}
+            />
           </>
         }
       />
