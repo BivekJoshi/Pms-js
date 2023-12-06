@@ -21,6 +21,7 @@ import Footer from '../components/footer/Footer';
 import MarketIndexNav from '../components/navbar/MarketIndexNav';
 import FormModal from '../components/formModal/FormModal';
 import FeedbackModal from '../components/feedbackModal/FeedbackModal';
+import Support from "../assets/support.png"
 
 const AppLayout = () => {
   const dispatch = useDispatch();
@@ -79,9 +80,7 @@ const AppLayout = () => {
           <Footer />
         </div>
         <div style={{ position: 'absolute', bottom: '12px', right: '32px' }}>
-          <IconButton onClick={() => setFeedbackModal(true)}>
-            Support
-          </IconButton>
+            <img src={Support} alt='support.png' onClick={() => setFeedbackModal(true)}/>
         </div>
 
         <FormModal
