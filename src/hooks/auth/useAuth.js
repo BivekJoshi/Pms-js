@@ -94,7 +94,7 @@ export const useVerification = ({ onSuccess }) => {
   return useMutation(['verification'], ({ id, otp }) => verification(id, otp), {
     onSuccess: (data, variables, context) => {
       toast.success('status fetched Successfully');
-      history('/login');
+      history('/otp/verification');
       onSuccess && onSuccess(data, variables, context);
     },
     onError: (err, _variables, _context) => {

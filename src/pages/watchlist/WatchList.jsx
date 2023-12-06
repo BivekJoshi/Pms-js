@@ -55,7 +55,7 @@ const WatchList = () => {
     }
   };
 
-  const symbolsArray = [];
+  let symbolsArray = [];
   for (const key in listedCompanies) {
     if (Object.hasOwnProperty.call(listedCompanies, key)) {
       symbolsArray.push({ index: key, ...listedCompanies[key] });
