@@ -1,6 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useGetCompanyById } from '../../hooks/company/useCompany';
-import { companyData as chartData, lineData } from '../dashboard/dashBoardItems';
+import {
+  companyData as chartData,
+  lineData,
+} from '../dashboard/dashBoardItems';
 
 import {
   Box,
@@ -19,24 +22,48 @@ import { useTranslation } from 'react-i18next';
 import ScriptProfile from './ScriptProfile/ScriptProfile';
 import CompanyDetail from './CompanyDetail';
 import LineChartDash from '../../components/dashboardComponents/LineChart';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPaginatedTable } from '../../redux/actions/paginatedTable';
+import { STOCK_PRICE_DETAILS } from '../../api/urls/urls';
 
 const Company = () => {
   const { script } = useParams();
   const theme = useTheme();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { data: companyData } = useGetCompanyById(script);
+  const { data: companyData, isLoading } = useGetCompanyById(script);
 
   const cellStyle = {
     borderRight: '1px solid #e0e0e0',
     fontWeight: 'bold',
     textAlign: 'center',
   };
-  const cell1Style = {
-    textAlign: 'center',
-  };
+
   function createData(heading, data) {
     return { heading, data };
   }
+  const tableData = useSelector((store) => store?.paginatedTable?.data);
+  console.log('🚀 ~ file: Company.jsx:50 ~ Company ~ totalData:', tableData);
+
+  useEffect(() => {
+    if (!isLoading) {
+      const initialFormValues = {
+        // Define your initial form values here
+        trDate: null, // or a default date
+        script: companyData?.companyInfo?.symbol,
+        // Add other form fields if needed
+      };
+      dispatch(
+        fetchPaginatedTable(
+          STOCK_PRICE_DETAILS,
+          initialFormValues,
+          null,
+          'unique'
+        )
+      );
+    }
+  }, [isLoading]);
 
   const rows = [
     createData('Sector', '270,580.00'),
@@ -80,7 +107,7 @@ const Company = () => {
           <TableContainer component={Paper} borderRadius='4px 0'>
             <Table aria-label='simple table'>
               <TableHead>
-                <TableRow sx={{borderSpacing: "1px"}}>
+                <TableRow sx={{ borderSpacing: '1px' }}>
                   <TableCell
                     style={cellStyle}
                     sx={{ backgroundColor: '#401686', color: '#fff' }}
@@ -127,7 +154,7 @@ const Company = () => {
             <Typography variant='h4' style={{ marginBottom: '1rem' }}>
               {t('Nabil Bank Limited 1D')}
             </Typography>
-            <LineChartDash height={400} lineData={lineData}/>
+            <LineChartDash height={400} lineData={lineData} />
           </Box>
           <Box
             sx={{
