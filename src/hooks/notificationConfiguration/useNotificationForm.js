@@ -15,7 +15,7 @@ const useNotificationForm = (switchStates) => {
       agmSgm: false,
       mergerAcquisition: false,
       financialReports: false,
-      newsLetter: false,
+      // newsLetter: false,
       general: false,
     },
     onSubmit: (values) => {
@@ -37,7 +37,7 @@ const useNotificationForm = (switchStates) => {
       agmSgm: values?.agmSgm || false,
       mergerAcquisition: values?.mergerAcquisition || false,
       financialReports: values?.financialReports || false,
-      newsLetter: values?.newsLetter || false,
+      // newsLetter: values?.newsLetter || false,
       general: values?.general || false,
     });
   };

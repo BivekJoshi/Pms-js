@@ -2,11 +2,11 @@ import { useFormik } from "formik";
 import { useAddCreateAlert, useEditStockAlert } from "./useAlertPost";
 import { addAlertSchema } from "./createAlertValidation";
 
-export const useAlertForm = (rowData) => {
-  const id=rowData?.id;
+export const useAlertForm = (rowData, onClose) => {
+  const id = rowData?.id;
 
   const { mutate: addAlert } = useAddCreateAlert({});
-  const { mutate: editAlert } = useEditStockAlert({id});
+  const { mutate: editAlert } = useEditStockAlert({ id });
 
   const formik = useFormik({
     initialValues: {
@@ -18,6 +18,7 @@ export const useAlertForm = (rowData) => {
       ltp: null,
     },
     validationSchema: addAlertSchema,
+
     enableReinitialize: true,
 
     //   onSubmit: (value) => {
@@ -39,18 +40,28 @@ export const useAlertForm = (rowData) => {
         handledEditRequest(values);
       } else {
         handleRequest(values);
+        handleClear();
       }
     },
   });
 
   const handleRequest = (values) => {
     values = { ...values };
-    addAlert(values, formik);
+    addAlert(values, formik, {
+      onSuccess: () => {
+        handleClear();
+      },
+    });
   };
 
   const handledEditRequest = (values) => {
     values = { ...values };
-    editAlert(values, formik);
+    editAlert(values, {
+      onSuccess: () => {
+        onClose();
+        formik.resetForm();
+      },
+    });
   };
 
   const handleClear = () => {
@@ -60,14 +71,11 @@ export const useAlertForm = (rowData) => {
         alertType: "",
         triggerPrice: "",
         alertMethod: "",
-        transactionType: "P",
+        transactionType: "",
         ltp: null,
       },
     });
   };
 
-  return {
-    formik,
-    handleClear,
-  };
+  return { formik, handleClear };
 };

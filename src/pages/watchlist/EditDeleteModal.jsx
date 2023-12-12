@@ -110,9 +110,9 @@ const EditDeleteModal = (props) => {
                 }}
               >
                 <Typography variant="h5">
-                  Are you sure to delete this Watchlist Detail? 
+                  You're going to delete this Watchlist? 
                 </Typography>
-                <Typography variant="h5" sx={{display:"flex",justifyContent:'center',marginTop:"2px"}}>Are u sure ?</Typography>
+                <Typography variant="h5" sx={{display:"flex",justifyContent:'center',marginTop:"2px"}}>Are you sure ?</Typography>
               </DialogTitle>
             </>
           )}

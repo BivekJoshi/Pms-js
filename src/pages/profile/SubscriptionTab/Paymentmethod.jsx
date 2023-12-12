@@ -9,8 +9,22 @@ const Paymentmethod = ({ onClose }) => {
   return (
     <>
       <Grid container justifyContent="space-between" direction="row">
-        <Typography variant="h5"><b>Choose Payment Method</b></Typography>
-        <CloseIcon onClick={onClose} />
+        <Typography variant="h5">
+          <b>Choose Payment Method</b>
+        </Typography>
+        <CloseIcon
+          onClick={onClose}
+          sx={{
+            fontSize: "24px",
+            cursor: "pointer",
+            "&:hover": {
+              transform: "scale(1.2)",
+              transition: "transform 0.5s ease-in-out",
+              backgroundColor: "#F85862",
+              borderRadius: "50%",
+            },
+          }}
+        />
       </Grid>
       <br />
       <Divider />

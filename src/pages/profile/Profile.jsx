@@ -41,6 +41,8 @@ import ProfileImage from "./ProfileImage";
 import ProfileButton from "./Button/ProfileButton";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { DOC_URL } from "../../utility/getBaseUrl";
+import TermsCondition from './TermsCondition/TermsCondition';
+import PrivacyPolicy from "./privacyPolicy/PrivacyPolicy";
 
 const Profile = () => {
   const theme = useTheme();
@@ -713,10 +715,10 @@ const Profile = () => {
           <ReceiptPayment tradeDate={userInfoData?.lastTradeDate} />
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value="9">
-          Terms & Conditions
+          <TermsCondition />
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value="10">
-          Privacy & Policy
+          <PrivacyPolicy />
         </TabPanel>
       </TabContext>
     </Box>

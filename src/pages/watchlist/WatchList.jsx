@@ -49,14 +49,9 @@ const WatchList = () => {
 
   const handleFormSubmit = () => {
     formik.handleSubmit();
-
-    if (!formik.isValid) {
-      toast.error('Please make sure you have filled the form correctly');
-    }
   };
 
   let symbolsArray = [];
-
   for (const key in listedCompanies) {
     if (Object.hasOwnProperty.call(listedCompanies, key)) {
       symbolsArray.push({ index: key, ...listedCompanies[key] });

@@ -79,8 +79,14 @@ const ProfileEditModal = ({ open, handleCloseModal, userInfoData }) => {
               <CloseIcon
                 onClick={handleCloseModal}
                 sx={{
+                  fontSize: "24px",
                   cursor: "pointer",
-                  border: `1px solid ${theme.palette.text.main}`,
+                  "&:hover": {
+                    transform: "scale(1.2)",
+                    transition: "transform 0.5s ease-in-out",
+                    backgroundColor: "#F85862",
+                    borderRadius: "50%",
+                  },
                 }}
               />
             </div>
