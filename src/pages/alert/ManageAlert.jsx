@@ -36,21 +36,21 @@ const ManageAlert = (props) => {
     dispatch(fetchData(`live-market/stock-alerts`));
   }, [dispatch]);
 
-  useEffect(() => {
-    // Your data fetching logic here using the fetchData action
-    // For example:
-    dispatch(
-      fetchData(
-        `live-market/stock-alerts?script=${params.script || ""}&alertType=${
-          params.alertType || ""
-        }`
-      )
-    );
-    setTableShow(true);
-  }, [dispatch]);
+  // useEffect(() => {
+  //   // Your data fetching logic here using the fetchData action
+  //   // For example:
+  //   dispatch(
+  //     fetchData(
+  //       `live-market/stock-alerts?script=${params.script || ""}&alertType=${
+  //         params.alertType || ""
+  //       }`
+  //     )
+  //   );
+  //   setTableShow(true);
+  // }, [dispatch]);
   const filterMenuItem = [
     {
-      label: "Script",
+      label: t("Script"),
       name: "script",
       type: "labelAutoComplete",
       md: 4,
@@ -58,7 +58,7 @@ const ManageAlert = (props) => {
       sm: 12,
     },
     {
-      label: "Alert Type",
+      label: t("Alert Type"),
       name: "alertType",
       type: "dropDownId",
       dropDownData: props.alertType,
@@ -69,11 +69,11 @@ const ManageAlert = (props) => {
   const alertType = [
     {
       id: "HIGHER_THAN",
-      label: "Price Rise",
+      label: t("Price Rise"),
     },
     {
       id: "LOWER_THAN",
-      label: "Price Below",
+      label: t("Price Below"),
     },
   ];
   const alertFor = [
@@ -250,7 +250,7 @@ const ManageAlert = (props) => {
         agreeLabel={"No, Keep It."}
         alertTitle={"Delete Alert"}
         header={"You are going to delete the ''Alert''."}
-        confirmhead={"Are u sure ?"}
+        confirmhead={"Are you sure ?"}
         handleModalClose={handleModalClose}
         isModalOpen={isModalOpen}
         handleAgree={handleReFetchData}
@@ -265,7 +265,6 @@ const ManageAlert = (props) => {
             <EditAlertForm
               onClose={handleModalEditClose}
               rowData={rowData}
-              handleReFetchData={handleReFetchData}
             />
           </>
         }

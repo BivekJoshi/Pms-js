@@ -28,8 +28,6 @@ const WatchListMasterField = ({ onClose, watchListName }) => {
 
   const shouldRenderGrid = watchListName.length <= 1;
 
-  console.log(shouldRenderGrid, "name hai ma chai");
-
   return (
     <Grid container spacing={0}>
       {shouldRenderGrid ? (

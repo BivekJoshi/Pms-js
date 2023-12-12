@@ -16,7 +16,7 @@ import { useGetCompanyByIdNo } from "../../hooks/company/useCompany";
 const ALERT_TYPE = [
   {
     value: "HIGHER_THAN",
-    label: "Price Above",
+    label: "Price Rise",
   },
   {
     value: "LOWER_THAN",
@@ -34,18 +34,18 @@ const TRANSACTION_TYPE = [
   },
 ];
 
-const EditAlertForm = ({ onClose, rowData,handleReFetchData }) => {
+const EditAlertForm = ({ onClose, rowData }) => {
   const theme = useTheme();
   const mode = theme.palette.mode;
 
-  const { formik } = useAlertForm(rowData);
+  const { formik } = useAlertForm(rowData, onClose);
   const handleFormSubmit = () => {
-    handleReFetchData();
     formik.handleSubmit();
-    onClose();
   };
 
-  const { data: companyinfo } = useGetCompanyByIdNo(formik.values.companyInfoId);
+  const { data: companyinfo } = useGetCompanyByIdNo(
+    formik.values.companyInfoId
+  );
 
   return (
     <Grid container spacing={3} columnSpacing={{ xs: 1, sm: 3, md: 4 }}>
@@ -96,10 +96,9 @@ const EditAlertForm = ({ onClose, rowData,handleReFetchData }) => {
             formik.touched.companyInfoId && formik.errors.companyInfoId
           }
           variant="outlined"
-          // autoFocus
           InputLabelProps={{ shrink: true }}
           size="small"
-          disabled                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+          disabled
         />
       </Grid>
       <Grid item xs={12} sm={12}>
@@ -116,7 +115,7 @@ const EditAlertForm = ({ onClose, rowData,handleReFetchData }) => {
           error={formik.touched.alertType && Boolean(formik.errors.alertType)}
           helperText={formik.touched.alertType && formik.errors.alertType}
           variant="outlined"
-          // autoFocus
+          autoFocus
           InputLabelProps={{ shrink: true }}
           size="small"
         >
@@ -150,7 +149,6 @@ const EditAlertForm = ({ onClose, rowData,handleReFetchData }) => {
             formik.touched.transactionType && formik.errors.transactionType
           }
           variant="outlined"
-          // autoFocus
           InputLabelProps={{ shrink: true }}
           size="small"
         >
@@ -180,7 +178,6 @@ const EditAlertForm = ({ onClose, rowData,handleReFetchData }) => {
           }
           helperText={formik.touched.triggerPrice && formik.errors.triggerPrice}
           variant="outlined"
-          // autoFocus
           InputLabelProps={{ shrink: true }}
           size="small"
         />
@@ -210,11 +207,9 @@ const EditAlertForm = ({ onClose, rowData,handleReFetchData }) => {
         </Button>
         <Button
           onClick={onClose}
-          style={{
-            color: mode === "light" ? theme.palette.text.main : "white",
-            border: mode === "light" ? "1px solid black" : "1px solid White",
-            textTransform: "none",
-          }}
+          color="error"
+          variant="contained"
+          style={{ textTransform: "none" }}
         >
           Cancel
         </Button>

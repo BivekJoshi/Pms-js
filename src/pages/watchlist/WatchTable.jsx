@@ -94,7 +94,7 @@ const WatchTable = (watchid) => {
       {
         id: 8,
         accessorKey: "low",
-        header: "Low (rs)",
+        header: "Low (Rs)",
         size: 100,
         sortable: false,
       },
@@ -162,8 +162,8 @@ const WatchTable = (watchid) => {
         disagreeLabel={"Yes, Delete !"}
         agreeLabel={"No, Keep It."}
         alertTitle={"Delete Alert"}
-        header={"Are you sure to delete this Watchlist Detail?"}
-        confirmhead={"Are u sure ?"}
+        header={"You're going to delete this Watchlist Detail?"}
+        confirmhead={"Are you sure ?"}
         handleModalClose={handleModalClose}
         isModalOpen={isModalOpen}
         handleAgree={handleDeleteData}

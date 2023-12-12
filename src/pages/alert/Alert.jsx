@@ -427,7 +427,7 @@ const Alert = (props) => {
                         {deliveryMethods.map((method) => (
                           <FormControlLabel
                             key={method?.id}
-                            label={method?.value}
+                            label={t(method?.value)}
                             control={
                               <Checkbox
                                 value={method.id}
@@ -468,6 +468,20 @@ const Alert = (props) => {
                 justifyContent="flex-end"
                 alignItems="flex-end"
               >
+                {/* <Button
+                  variant="contained"
+                  color="error"
+                  onClick={handleClear}
+                  sx={{
+                    mt: 3,
+                    ml: 1,
+                    themeMode,
+                    color: "error",
+                    textTransform: "none",
+                  }}
+                >
+                  Cancel
+                </Button> */}
                 <Button
                   variant="contained"
                   type="submit"

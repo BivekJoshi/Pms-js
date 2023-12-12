@@ -31,13 +31,11 @@ export const deleteStockAlert = async (id) => {
 // }
 
 /*_________________________GET STOCK ALERT______________________________________________*/
-export const getStockAlert = async (script) => {
-  if (script) {
+export const getStockAlert = async () => {
     const res = await axiosInstance.get(
-      `/live-market/stock-alerts?script=${script}`
+      `/live-market/stock-alerts`
     );
     return res.data;
-  } else return null;
 };
 
 /*_________________________EDIT STOCK ALERT______________________________________________*/

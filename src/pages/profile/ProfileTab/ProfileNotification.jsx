@@ -37,7 +37,7 @@ const ProfileNotification = () => {
       agmSgm: false,
       mergerAcquisition: false,
       financialReports: false,
-      newsLetter: false,
+      // newsLetter: false,
       general: false,
     };
     setSwitchStates(defaultSwitchStates);
@@ -225,7 +225,7 @@ const ProfileNotification = () => {
             id='dinancialReports'
           />
         </ListItem>
-        <Divider />
+        {/* <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">
             {t("Newsletter")}
@@ -243,7 +243,7 @@ const ProfileNotification = () => {
             name='newsLetter'
             id='newsLetter'
           />
-        </ListItem>
+        </ListItem> */}
         <Divider />
         <ListItem className="notificationSwitch">
           <Grid display="flex" flexDirection="column">

@@ -57,7 +57,7 @@ export const useEditStockAlert = ({ onSuccess ,id}) => {
     onSuccess: (data, variables, context) => {
       onSuccess && onSuccess(data, variables, context);
       toast.success("Succesfully Edited Stock Alert");
-      queryClient.invalidateQueries("");
+      queryClient.invalidateQueries("getStockAlert");
     },
     onError: (err, _variables, _context) => {
       toast.error(getErrorMessage(err));
@@ -66,8 +66,8 @@ export const useEditStockAlert = ({ onSuccess ,id}) => {
 };
 
 /*_________________________GET STOCK ALERT______________________________________________*/
-export const useGetStockAlert = (script) => {
-  return useQuery(["getStockAlert", script], () => getStockAlert(script), {
+export const useGetStockAlert = () => {
+  return useQuery(["getStockAlert"], () => getStockAlert(script), {
     onError: (err) => {
       toast.error(getErrorMessage(err));
     },
