@@ -1,18 +1,22 @@
-import React, { useMemo, useState } from "react";
-import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { ACCOUNT_TRANSACTION } from "../../../api/urls/urls";
-import NewFilter from "../../../components/newFilter/NewFilter";
-import { fetchData } from "../../../redux/actions/genericData";
-import CustomTable from "../../../components/customTable/CustomTable";
-import { Box, Typography, useTheme } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import { filterDateValidationSchema } from "../../../form/validations/filterDateValidate";
-import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
-import DownloadIcon from "@mui/icons-material/Download";
-import { fetchPaginatedTable } from "../../../redux/actions/paginatedTable";
-import CustomPagination from "../../../components/customPagination/CustomPagination";
+import React, { useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { ACCOUNT_TRANSACTION } from '../../../api/urls/urls';
+import NewFilter from '../../../components/newFilter/NewFilter';
+import { fetchData } from '../../../redux/actions/genericData';
+import CustomTable from '../../../components/customTable/CustomTable';
+import { Box, Typography, useTheme } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { filterDateValidationSchema } from '../../../form/validations/filterDateValidate';
+import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
+import DownloadIcon from '@mui/icons-material/Download';
+import { fetchPaginatedTable } from '../../../redux/actions/paginatedTable';
+import CustomPagination from '../../../components/customPagination/CustomPagination';
 import { useEffect } from 'react';
+import { Chip } from '@mui/material';
+import { Button } from '@mui/material';
+import FormModal from './../../../components/formModal/FormModal';
+import Paymentmethod from './../SubscriptionTab/Paymentmethod';
 
 const Statement = ({ tradeDate }) => {
   const theme = useTheme();
@@ -29,12 +33,12 @@ const Statement = ({ tradeDate }) => {
   const pageSize = useSelector((store) => store?.paginatedTable?.itemsPerPage);
 
   const [params, setParams] = useState();
-
+  const [paymentModal, setPaymentModal] = useState(false);
   const [debit, setDebit] = useState();
   const [credit, setCredit] = useState();
   const [amount, setAmount] = useState();
   const [text, setText] = useState();
-  
+
   useEffect(() => {
     const data = Object.values(tableData);
     if (data.length > 0) {
@@ -47,26 +51,25 @@ const Statement = ({ tradeDate }) => {
         },
         { totalDebit: 0, totalCredit: 0, totalAmount: 0 }
       );
-    
+
       setDebit(totalDebit.toFixed(2));
       setCredit(totalCredit);
       setAmount(totalAmount);
-      setText("Total");
+      setText('Total');
     } else {
-      setDebit("");
-      setCredit("");
-      setAmount("");
-      setText("");
+      setDebit('');
+      setCredit('');
+      setAmount('');
+      setText('');
     }
-    
   }, [tableData]);
 
   const columns = useMemo(
     () => [
       {
         id: 1,
-        accessorKey: "trDate",
-        header: "Transaction Date",
+        accessorKey: 'trDate',
+        header: 'Transaction Date',
         size: 100,
         sortable: false,
         Footer: () => {
@@ -75,61 +78,60 @@ const Statement = ({ tradeDate }) => {
       },
       {
         id: 3,
-        accessorKey: "stDate",
-        header: "Settlement Date",
+        accessorKey: 'stDate',
+        header: 'Settlement Date',
         size: 60,
         sortable: false,
       },
       {
         id: 4,
-        accessorKey: "referenceNo",
-        header: "Ref No.",
+        accessorKey: 'referenceNo',
+        header: 'Ref No.',
         size: 90,
         sortable: false,
       },
       {
         id: 5,
-        accessorKey: "voucherNo",
-        header: "Voucher No.",
+        accessorKey: 'voucherNo',
+        header: 'Voucher No.',
         size: 90,
         sortable: false,
       },
       {
         id: 6,
-        accessorKey: "particulars",
-        header: "Particular",
+        accessorKey: 'particulars',
+        header: 'Particular',
         size: 140,
         sortable: false,
       },
       {
         id: 7,
-        accessorKey: "dr",
-        header: "Debit",
+        accessorKey: 'dr',
+        header: 'Debit',
         size: 60,
         sortable: false,
         Footer: () => {
-          return <Typography style={{ width: "auto" }}>{debit}</Typography>;
-         
+          return <Typography style={{ width: 'auto' }}>{debit}</Typography>;
         },
       },
       {
         id: 8,
-        accessorKey: "cr",
-        header: "Credit",
+        accessorKey: 'cr',
+        header: 'Credit',
         size: 60,
         sortable: false,
         Footer: () => {
-          return <Typography style={{ width: "auto" }}>{credit}</Typography>;
+          return <Typography style={{ width: 'auto' }}>{credit}</Typography>;
         },
       },
       {
         id: 9,
-        accessorKey: "balance",
-        header: "Balance",
+        accessorKey: 'balance',
+        header: 'Balance',
         size: 60,
         sortable: false,
         Footer: () => {
-          return <Typography style={{ width: "auto" }}>{amount}</Typography>;
+          return <Typography style={{ width: 'auto' }}>{amount}</Typography>;
         },
       },
     ],
@@ -138,17 +140,17 @@ const Statement = ({ tradeDate }) => {
 
   const filterMenuItem = [
     {
-      label: t("Date From"),
-      name: "dateFrom",
-      type: "date-picker",
+      label: t('Date From'),
+      name: 'dateFrom',
+      type: 'date-picker',
       required: true,
       md: 6,
       sm: 12,
     },
     {
-      label: t("Date To"),
-      name: "dateTo",
-      type: "date-picker",
+      label: t('Date To'),
+      name: 'dateTo',
+      type: 'date-picker',
       required: true,
       md: 6,
       sm: 12,
@@ -177,7 +179,7 @@ const Statement = ({ tradeDate }) => {
             ACCOUNT_TRANSACTION,
             updatedFormValues,
             null,
-            "id"
+            'id'
           )
         );
         setTableShow(true);
@@ -191,24 +193,30 @@ const Statement = ({ tradeDate }) => {
     <>
       <Box
         sx={{
-          display: "flex",
-          width: "cover",
+          display: 'flex',
+          width: 'cover',
           backgroundColor: theme.palette.background.alt,
-          padding: "16px",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          borderRadius: "6px",
+          padding: '16px',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          borderRadius: '6px',
         }}
       >
-        <div>
-          <Typography variant="h4">{t("Statement Report")}</Typography>
-          <Typography variant="h7">
-            {t("Last Transaction Date")} : <b>{tradeDate}</b>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <Typography variant='h4'>{t('Statement Report')}</Typography>
+          <Typography variant='h7'>
+            {t('Last Transaction Date')} : <b>{tradeDate}</b>
           </Typography>
-      
+          <div style={{ display: 'flex', gap: '16px' }}>
+            <Chip color='error' label='Balance : Rs, 23,154 CR' />{' '}
+            <Button variant='contained' onClick={() => setPaymentModal(true)}>
+              {' '}
+              Initiate Payment
+            </Button>
+          </div>
         </div>
-        <div style={{ display: "flex", gap: "7px" }}>
+        <div style={{ display: 'flex', gap: '7px' }}>
           <LocalPrintshopOutlinedIcon />
           <DownloadIcon />
         </div>
@@ -219,13 +227,13 @@ const Statement = ({ tradeDate }) => {
         inputField={filterMenuItem}
         searchCallBack={handleSearch}
         validate={filterDateValidationSchema}
-        submitButtonText="Search"
+        submitButtonText='Search'
       />
       <Box marginTop={2}>
         {tableShow && (
           <>
             <CustomTable
-              title={t("Statement Report")}
+              title={t('Statement Report')}
               columns={columns}
               isLoading={isLoading}
               data={Object.values(tableData)}
@@ -233,9 +241,9 @@ const Statement = ({ tradeDate }) => {
             />
             <div
               style={{
-                paddingTop: "16px",
-                display: "flex",
-                justifyContent: "flex-end",
+                paddingTop: '16px',
+                display: 'flex',
+                justifyContent: 'flex-end',
               }}
             >
               <CustomPagination
@@ -247,7 +255,7 @@ const Statement = ({ tradeDate }) => {
                       SHARE_TRANSACTION,
                       params,
                       newPage,
-                      "id",
+                      'id',
                       null,
                       totalData
                     )
@@ -258,6 +266,16 @@ const Statement = ({ tradeDate }) => {
           </>
         )}
       </Box>
+      {paymentModal && (
+        <FormModal
+          open={open}
+          onClose={() => setPaymentModal(false)}
+          width='378px'
+          formComponent={
+            <Paymentmethod onClose={() => setPaymentModal(false)} />
+          }
+        />
+      )}
     </>
   );
 };
