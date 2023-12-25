@@ -31,8 +31,10 @@ const RegisterPage = React.lazy(() => import('../pages/auth/RegisterPage'));
 const ApplicationPage = React.lazy(() =>
   import('../pages/auth/ApplicationPage')
 );
-const Verification = React.lazy(() => import("../pages/auth/Verification"));
-const OtpVerification = React.lazy(() => import("../pages/auth/OtpVerification"));
+const Verification = React.lazy(() => import('../pages/auth/Verification'));
+const OtpVerification = React.lazy(() =>
+  import('../pages/auth/OtpVerification')
+);
 const ResetPasswordPage = React.lazy(() =>
   import('../pages/auth/ResetPasswordPage')
 );
@@ -57,13 +59,13 @@ export default function AppRoutes() {
       <ScrollToTop>
         <Suspense fallback={<Spinner />}>
           <Routes>
-            <Route path="/" element={<LoginLayout />}>
-              <Route path="login" element={<LoginPage />} />
-              <Route path="register" element={<RegisterPage />} />
-              <Route path="application/status" element={<ApplicationPage />} />
-              <Route path="verification/:id" element={<Verification />} />
-              <Route path="otp/verification" element={<OtpVerification />} />
-              <Route path="reset/password" element={<ResetPasswordPage />} />
+            <Route path='/' element={<LoginLayout />}>
+              <Route path='login' element={<LoginPage />} />
+              <Route path='register' element={<RegisterPage />} />
+              <Route path='application/status' element={<ApplicationPage />} />
+              <Route path='verification/:id' element={<Verification />} />
+              <Route path='otp/verification' element={<OtpVerification />} />
+              <Route path='reset/password' element={<ResetPasswordPage />} />
               <Route
                 path='reset-password/:id'
                 element={<ForgetPasswordPage />}
@@ -95,7 +97,7 @@ export default function AppRoutes() {
               <Route path='company/:script' element={<Company />} />
               <Route path='under-construction' element={<DevelopmentPage />} />
             </Route>
-            <Route path='/error-page' element={<ErrorPage />} />
+            {/* <Route path='/error-page' element={<ErrorPage />} /> */}
             <Route path='*' element={<ErrorPage />} />
           </Routes>
         </Suspense>

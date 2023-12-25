@@ -6,7 +6,11 @@ import { useSelector } from 'react-redux';
 
 const ErrorPage = () => {
   const navigate = useNavigate();
-  const brokerOption = useSelector((state) => state.brokerList.brokerOption);
+  const brokerOption = useSelector((state) => state?.brokerList?.brokerOption);
+  console.log(
+    '🚀 ~ file: ErrorPage.jsx:10 ~ ErrorPage ~ brokerOption:',
+    brokerOption
+  );
 
   return (
     <div
@@ -28,7 +32,7 @@ const ErrorPage = () => {
       <Button
         variant='contained'
         style={{ backgroundColor: '#6C49B4' }}
-        onClick={() => navigate(-1)}
+        onClick={() => navigate(brokerOption ? -1 : '/login')}
       >
         Go Back
       </Button>

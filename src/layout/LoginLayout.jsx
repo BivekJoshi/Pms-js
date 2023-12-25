@@ -28,9 +28,8 @@ const LoginLayout = () => {
       navigate('/login');
     } else if (token && authData?.tempPassword) {
       navigate('/change/password');
-    }
-    else if(token){
-      navigate('/dashboard')
+    } else if (token) {
+      navigate('/dashboard');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
@@ -39,7 +38,7 @@ const LoginLayout = () => {
     if (brokerOption === null) {
       navigate('/error-page');
     }
-  });
+  }, [brokerOption]);
 
   return (
     <Box
