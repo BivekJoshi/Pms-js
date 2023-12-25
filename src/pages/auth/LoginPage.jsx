@@ -86,6 +86,10 @@ const LoginPage = () => {
                 <CircularProgress size={24} />
                 <Typography sx={{ ml: 2 }}>Loading Broker List</Typography>
               </MenuItem>
+            ) : brokerOption === null ? (
+              <MenuItem key={0} value={0}>
+                No Broker Found
+              </MenuItem>
             ) : (
               brokerOption?.map((option) => (
                 <MenuItem key={option?.id} value={option?.id}>

@@ -5,7 +5,6 @@ import Background from '../assets/left.png';
 import Logo from '../assets/logo.png';
 import Curved from '../assets/curves--.png';
 import Bear from '../assets/bear--.png';
-import { useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 
 const LoginLayout = () => {
@@ -14,7 +13,6 @@ const LoginLayout = () => {
   const authData = JSON.parse(authDataString);
   let authToken = authData?.authToken;
   const [token, setToken] = useState(authToken);
-  const brokerOption = useSelector((state) => state.brokerList.brokerOption);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -33,12 +31,6 @@ const LoginLayout = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
-
-  useEffect(() => {
-    if (brokerOption === null) {
-      navigate('/error-page');
-    }
-  }, [brokerOption]);
 
   return (
     <Box
