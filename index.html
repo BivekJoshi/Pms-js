@@ -8,8 +8,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   </head>
+  <script>
+    const url = window.location.href;
+if (url.includes("hrms.ssl.com.np")) {
+window.location.assign("https://hrms.ssl.com.np:8080/hrms/index.html#");
+} else if (url.includes("pms.ssl.com.np")) {
+window.location.assign("https://pms.ssl.com.np:8080/pms/index.html#");
+} else if (url.includes("kyc.ssl.com.np")) {
+window.location.assign("https://kyc.ssl.com.np:8080/kyc/index.html#/");
+}
+    </script>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+ 
   </body>
 </html>
