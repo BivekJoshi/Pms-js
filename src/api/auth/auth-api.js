@@ -35,7 +35,7 @@ export const verification = async (id, otp) => {
 
 export const resendVerification = async (id) => {
   if (id) {
-    const { data } = await axiosInstance.post(`/public/register/${id}`);
+    const { data } = await axiosInstance.post(`/public/register/re-send-otp/${id}`);
     return data;
   }
 };
