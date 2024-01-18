@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
 import ScrollToTop from '../utility/ScrollToTop';
+import Dropdowm from '../components/dropdown/Dropdown';
 
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));
@@ -96,6 +97,7 @@ export default function AppRoutes() {
               <Route path='profile' element={<Profile />} />
               <Route path='company/:script' element={<Company />} />
               <Route path='under-construction' element={<DevelopmentPage />} />
+              <Route path='dropdown' element={<Dropdowm />} />
             </Route>
             {/* <Route path='/error-page' element={<ErrorPage />} /> */}
             <Route path='*' element={<ErrorPage />} />
