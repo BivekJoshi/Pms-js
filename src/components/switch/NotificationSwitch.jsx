@@ -2,6 +2,7 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import { FormLabel } from '@mui/material';
 
 export const ThemeSwitch = styled((props) => (
   <Switch focusVisibleClassName='.Mui-focusVisible' disableRipple {...props} />
@@ -54,24 +55,46 @@ export const ThemeSwitch = styled((props) => (
   },
 }));
 
-export default function CustomizedSwitches({ id, name, checked, onChange }) {
+export default function CustomizedSwitches({
+  id,
+  name,
+  checked,
+  label,
+  onChange,
+  formLabel,
+  trueLabel,
+  falseLabel,
+  multiLabelEnable,
+}) {
   const [checkedState, setCheckedState] = React.useState(false);
 
   React.useEffect(() => {
     setCheckedState(checked);
   }, [checked]);
 
+  const getLabel = () => {
+    if (multiLabelEnable) {
+      return checkedState ? trueLabel : falseLabel;
+    } else {
+      return label;
+    }
+  };
+
   return (
-    <FormControlLabel
-      control={
-        <ThemeSwitch
-          sx={{ m: 1 }}
-          name={name}
-          id={id}
-          checked={checkedState}
-          onChange={onChange}
-        />
-      }
-    />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      {formLabel && <FormLabel>{formLabel}</FormLabel>}
+      <FormControlLabel
+        label={getLabel()}
+        control={
+          <ThemeSwitch
+            sx={{ m: 1 }}
+            name={name}
+            id={id}
+            checked={checkedState}
+            onChange={onChange}
+          />
+        }
+      />
+    </div>
   );
 }
