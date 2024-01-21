@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomDatePicker from "../customDatePicker/CustomDatePicker";
 import {
   Box,
@@ -24,6 +24,7 @@ const NewFilter = ({
   searchCallBack,
   validate,
   tradeDate,
+  enableFiscalYear,
   showfilter,
   submitButtonText,
 }) => {
@@ -33,7 +34,7 @@ const NewFilter = ({
     showfilter !== undefined ? showfilter : true
   );
 
-  const { data: fiscalYearOptions } = useFiscalYearGet({});
+  const { data: fiscalYearOptions, isLoading } = useFiscalYearGet({});
 
   const initialValues = inputField.reduce((acc, item) => {
     acc[item.name] = "";
@@ -46,8 +47,10 @@ const NewFilter = ({
         return (
           <CustomDatePicker
             name={element?.name}
+            enableFiscalYear={enableFiscalYear}
             label={element?.label}
             min={element?.min}
+            fiscalYearOptions={isLoading ? [] : fiscalYearOptions}
             max={element?.max}
             required={element?.required}
           />
@@ -75,7 +78,6 @@ const NewFilter = ({
                 name={element?.name}
                 placeholder={element?.placeholder}
                 InputLabelProps={{
-                  shrink: true,
                   style: { color: theme.palette.text.main },
                 }}
               />
@@ -128,7 +130,6 @@ const NewFilter = ({
   return (
     <>
       <Box
-        // data-aos='fade-up'
         bgcolor={theme.palette.background.alt}
         color={theme.palette.text.main}
         sx={{
@@ -197,42 +198,46 @@ const NewFilter = ({
                 searchCallBack(values);
               }}
             >
-              {({ setFieldValue }) => (
-                <Form>
-                  <Grid container spacing={2} alignItems={"center"}>
-                    {inputField?.map((element, index) => {
-                      return (
-                        <Grid
-                          item
-                          sm={element?.sm}
-                          xs={element?.xs || element?.sm}
-                          md={element?.md}
-                          key={index}
-                        >
-                          {getComponentToRender(element, setFieldValue)}
-                        </Grid>
-                      );
-                    })}
-                  </Grid>
-                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      startIcon={<SearchIcon />}
-                      sx={{
-                        mt: 2,
-                        backgroundColor: theme.palette.background.btn,
-                        color: theme.palette.text.alt,
-                        textTransform: "none",
-                      }}
+              {({ setFieldValue }) => {
+                return (
+                  <Form>
+                    <Grid container spacing={2} alignItems={"center"}>
+                      {inputField?.map((element, index) => {
+                        return (
+                          <Grid
+                            item
+                            sm={element?.sm}
+                            xs={element?.xs || element?.sm}
+                            md={element?.md}
+                            key={index}
+                          >
+                            {getComponentToRender(element, setFieldValue)}
+                          </Grid>
+                        );
+                      })}
+                    </Grid>
+                    <div
+                      style={{ display: "flex", justifyContent: "flex-end" }}
                     >
-                      {submitButtonText
-                        ? t(`${submitButtonText}`)
-                        : t("SUBMIT")}
-                    </Button>
-                  </div>
-                </Form>
-              )}
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        startIcon={<SearchIcon />}
+                        sx={{
+                          mt: 2,
+                          backgroundColor: theme.palette.background.btn,
+                          color: theme.palette.text.alt,
+                          textTransform: "none",
+                        }}
+                      >
+                        {submitButtonText
+                          ? t(`${submitButtonText}`)
+                          : t("SUBMIT")}
+                      </Button>
+                    </div>
+                  </Form>
+                );
+              }}
             </Formik>
           </div>
         )}
