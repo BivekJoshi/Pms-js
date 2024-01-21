@@ -49,9 +49,9 @@ const ApplicationMessage = React.lazy(() =>
 );
 const ErrorPage = React.lazy(() => import('./../pages/error-page/ErrorPage'));
 const Company = React.lazy(() => import('../pages/company/Company'));
-const BuySellCalculator = React.lazy(() =>
-  import('../pages/calculator/buy-sell/BuySellCalculator')
-);
+// const BuySellCalculator = React.lazy(() =>
+//   import('../pages/calculator/buy-sell/BuySellCalculator')
+// );
 const DevelopmentPage = React.lazy(() =>
   import('../pages/DevlopmentPage/DevlopmentPage')
 );
@@ -99,10 +99,10 @@ export default function AppRoutes() {
               <Route path='profile' element={<Profile />} />
               <Route path='company/:script' element={<Company />} />
               <Route path='under-construction' element={<DevelopmentPage />} />
-              <Route
+              {/* <Route
                 path='/buy-sell-calculator'
                 element={<BuySellCalculator />}
-              />
+              /> */}
             </Route>
             {/* <Route path='/error-page' element={<ErrorPage />} /> */}
             <Route path='*' element={<ErrorPage />} />

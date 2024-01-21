@@ -92,17 +92,17 @@ const navItems = [
   //     },
   //   ],
   // },
-  {
-    id: 6,
-    item: 'Calculator',
-    subLinks: [
-      {
-        id: 1,
-        item: t('Buy Sell Calulator'),
-        path: '/buy-sell-calculator',
-      },
-    ],
-  },
+  // {
+  //   id: 6,
+  //   item: 'Calculator',
+  //   subLinks: [
+  //     {
+  //       id: 1,
+  //       item: t('Buy Sell Calulator'),
+  //       path: '/buy-sell-calculator',
+  //     },
+  //   ],
+  // },
 ];
 
 const Navbar = () => {
