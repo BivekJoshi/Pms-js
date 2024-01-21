@@ -14,12 +14,11 @@ const CustomDatePicker = ({
   enableFiscalYear,
   fiscalYearOptions,
 }) => {
-  const { setFieldValue, setFieldTouched, errors, touched, values, resetForm } =
+  const { setFieldValue, setFieldTouched, errors, touched, values } =
     useFormikContext();
 
   const [field] = useField(name);
   const [fiscalYearValidate, setFiscalYearValidate] = useState();
-
   useEffect(() => {
     if (enableFiscalYear) {
       const curentDate = fiscalYearOptions.filter(
@@ -60,7 +59,9 @@ const CustomDatePicker = ({
           enableFiscalYear ? dayjs(fiscalYearValidate?.endDate) : dayjs(max)
         }
         minDate={
-          enableFiscalYear ? dayjs(fiscalYearValidate?.startDate) : dayjs(min) // Use dayjs(min) when enableFiscalYear is false
+          enableFiscalYear
+            ? dayjs(fiscalYearValidate?.startDate)
+            : dayjs(min ? min : null)
         }
         slotProps={{
           textField: {
