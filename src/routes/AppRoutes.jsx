@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
 import ScrollToTop from '../utility/ScrollToTop';
+import Dropdown from '../components/dropdown/Dropdown';
 
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));
