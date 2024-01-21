@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import Spinner from '../components/spinner/Spinner';
 import ScrollToTop from '../utility/ScrollToTop';
-import Dropdowm from '../components/dropdown/Dropdown';
+import Dropdown from '../components/dropdown/Dropdown';
 
 const LoginLayout = React.lazy(() => import('../layout/LoginLayout'));
 const AppLayout = React.lazy(() => import('../layout/AppLayout'));
@@ -50,6 +50,9 @@ const ApplicationMessage = React.lazy(() =>
 );
 const ErrorPage = React.lazy(() => import('./../pages/error-page/ErrorPage'));
 const Company = React.lazy(() => import('../pages/company/Company'));
+// const BuySellCalculator = React.lazy(() =>
+//   import('../pages/calculator/buy-sell/BuySellCalculator')
+// );
 const DevelopmentPage = React.lazy(() =>
   import('../pages/DevlopmentPage/DevlopmentPage')
 );
@@ -97,7 +100,10 @@ export default function AppRoutes() {
               <Route path='profile' element={<Profile />} />
               <Route path='company/:script' element={<Company />} />
               <Route path='under-construction' element={<DevelopmentPage />} />
-              <Route path='dropdown' element={<Dropdowm />} />
+              {/* <Route
+                path='/buy-sell-calculator'
+                element={<BuySellCalculator />}
+              /> */}
             </Route>
             {/* <Route path='/error-page' element={<ErrorPage />} /> */}
             <Route path='*' element={<ErrorPage />} />

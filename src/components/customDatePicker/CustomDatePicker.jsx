@@ -4,7 +4,8 @@ import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 
 function CustomDatePicker({ name, label, min, max, required }) {
-  const { setFieldValue, setFieldTouched, errors } = useFormikContext();
+  const { setFieldValue, setFieldTouched, errors, touched } =
+    useFormikContext();
 
   const [field] = useField(name);
 
@@ -26,8 +27,8 @@ function CustomDatePicker({ name, label, min, max, required }) {
         maxDate={dayjs(max)}
         slotProps={{
           textField: {
-            error: !!errorMessage,
-            helperText: errorMessage,
+            error: touched[name] && !!errorMessage,
+            helperText: touched[name] && errorMessage,
           },
         }}
       />
