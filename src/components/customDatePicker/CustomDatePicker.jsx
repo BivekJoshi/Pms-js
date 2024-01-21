@@ -10,7 +10,6 @@ const CustomDatePicker = ({
   label,
   min,
   max,
-  required,
   enableFiscalYear,
   fiscalYearOptions,
 }) => {
