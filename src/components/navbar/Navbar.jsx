@@ -101,6 +101,31 @@ const navItems = [
         item: t('Buy Sell Calulator'),
         path: '/buy-sell-calculator',
       },
+      {
+        id: 2,
+        item: t('Bonus Share Calulator'),
+        path: '/bonus-share-calculator',
+      },
+      {
+        id: 3,
+        item: t('Right Share Calulator'),
+        path: '/right-share-calculator',
+      },
+      {
+        id: 4,
+        item: t('CAGR Calulator'),
+        path: '/cagr-calculator',
+      },
+      {
+        id: 5,
+        item: t('SIP Calulator'),
+        path: '/sip-investment-plan-calculator',
+      },
+      {
+        id: 6,
+        item: t('Dividend Calulator'),
+        path: '/dividend-calculator',
+      },
     ],
   },
 ];
