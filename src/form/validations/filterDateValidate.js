@@ -13,7 +13,7 @@ export const filterDateValidationSchema = (validateDateNumber = 30) => {
       }),
     dateTo: Yup.string()
       .required("Date To is required")
-      .test("dateTo", "Date To must be after Date From", function (value) {
+      .test("dateTo", "Date To must be less than Date From", function (value) {
         const { dateFrom } = this.parent;
         if (value && dateFrom) {
           return new Date(value) >= new Date(dateFrom);
