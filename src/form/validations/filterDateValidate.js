@@ -1,9 +1,7 @@
 import * as Yup from "yup";
 
-const validateDateNumber = 30;
-
-export const filterDateValidationSchema = () =>
-  Yup.object().shape({
+export const filterDateValidationSchema = (validateDateNumber = 30) => {
+  return Yup.object().shape({
     dateFrom: Yup.string()
       .required("Date From is required")
       .test("dateFrom", "Date From must be before Date To", function (value) {
@@ -41,6 +39,7 @@ export const filterDateValidationSchema = () =>
         }
       ),
   });
+};
 
 export const filterTransactionSchema = Yup.object().shape({
   transactionType: Yup.string().required("Required"),

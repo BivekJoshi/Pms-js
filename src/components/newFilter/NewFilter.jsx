@@ -18,6 +18,7 @@ import InputType from "../inputType/InputType";
 import { useTranslation } from "react-i18next";
 import SearchIcon from "@mui/icons-material/Search";
 import { useFiscalYearGet } from "../../api/fiscal-year/useFiscalYear";
+import { useSelector } from "react-redux";
 
 const NewFilter = ({
   inputField,
@@ -33,6 +34,7 @@ const NewFilter = ({
   const [showFilter, setShowFilter] = useState(
     showfilter !== undefined ? showfilter : true
   );
+  const validTill = useSelector((state) => state.user.details.validTill);
 
   const { data: fiscalYearOptions, isLoading } = useFiscalYearGet({});
 
@@ -193,7 +195,7 @@ const NewFilter = ({
           <div style={{ paddingTop: "16px" }}>
             <Formik
               initialValues={initialValues}
-              validationSchema={validate}
+              validationSchema={validate(validTill)}
               onSubmit={(values) => {
                 searchCallBack(values);
               }}
