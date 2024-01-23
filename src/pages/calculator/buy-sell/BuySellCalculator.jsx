@@ -1,67 +1,90 @@
-import React, { useState } from 'react';
-import { Box, Grid, Typography, useTheme } from '@mui/material';
+import React, { useState } from "react";
+import {
+  RadioGroup,
+  Box,
+  Divider,
+  FormControl,
+  Grid,
+  Typography,
+  useTheme,
+  FormControlLabel,
+  Radio,
+} from "@mui/material";
 
-import BuyCalculator from './BuyCalculator';
-import CustomizedSwitches from '../../../components/switch/NotificationSwitch';
-import SellCalculator from './SellCalculator';
+import BuyCalculator from "./BuyCalculator";
+import SellCalculator from "./SellCalculator";
 
 const BuySellCalculator = () => {
   const theme = useTheme();
+  const [selectedValue, setSelectedValue] = useState("buy");
 
-  const [transactionType, setTransactionType] = useState(false);
-  const handleTransactionTypeChange = () => {
-    setTransactionType((prev) => !prev);
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setSelectedValue(value);
   };
+
   return (
     <div
       style={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '16px',
+        display: "flex",
+        flexDirection: "column",
+        gap: "16px",
       }}
     >
-      <Grid
-        container
-        style={{
-          backgroundColor: theme.palette.background.alt,
-          padding: '12px',
-          borderRadius: '6px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '1rem',
-        }}
-      >
-        <Typography
-          variant='h4'
-          style={{
-            color: theme.palette.text.light,
-            fontWeight: '800',
+      <Box>
+        <Box
+          sx={{
+            backgroundColor: "#fff",
+            padding: " 16px 32px",
           }}
         >
-          {transactionType ? 'Sell Calculator' : 'Buy Calculator'}
-        </Typography>
-      </Grid>
-      <Box
-        sx={{
-          backgroundColor: theme.palette.background.alt,
-          padding: ' 16px 32px',
-        }}
-      >
-        <Grid>
-          <Grid item xs={12}>
-            <CustomizedSwitches
-              checked={transactionType}
-              onChange={handleTransactionTypeChange}
-              name='transactionType'
-              id='transactionType'
-              multiLabelEnable
-              trueLabel='Sell'
-              falseLabel='Buy'
-              formLabel='Choose Transaction Type'
-            />
+          <Grid>
+            <Grid item xs={12}>
+              <Typography
+                variant="h4"
+                style={{
+                  color: theme.palette.text.light,
+                  fontWeight: "800",
+                  marginBottom: "16px",
+                }}
+              >
+                Share Calculator
+              </Typography>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Typography variant="h6">Transaction Type</Typography>
+                <FormControl>
+                  <RadioGroup
+                    row
+                    aria-labelledby="demo-row-radio-buttons-group-label"
+                    name="row-radio-buttons-group"
+                    value={selectedValue}
+                    onChange={handleChange}
+                  >
+                    <FormControlLabel
+                      value="buy"
+                      control={<Radio />}
+                      label="Buy"
+                    />
+                    <FormControlLabel
+                      value="sell"
+                      control={<Radio />}
+                      label="Sell"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </Grid>
+              <br />
+              <Divider />
+            </Grid>
           </Grid>
-        </Grid>
-        {!transactionType ? <BuyCalculator /> : <SellCalculator />}
+        </Box>
+        <br />
+        {selectedValue === "buy" ? <BuyCalculator /> : <SellCalculator />}
       </Box>
     </div>
   );
