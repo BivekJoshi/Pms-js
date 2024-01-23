@@ -50,16 +50,16 @@ const Transactions = ({ tradeDate }) => {
 
   const transactionType = [
     {
-      label: t('Sell'),
-      id: 'S',
+      label: t("Sell"),
+      id: "S",
     },
     {
-      label: t('Purchase'),
-      id: 'P',
+      label: t("Purchase"),
+      id: "P",
     },
     {
-      label: t('Both'),
-      id: 'B',
+      label: t("Both"),
+      id: "B",
     },
   ];
 
@@ -159,8 +159,6 @@ const Transactions = ({ tradeDate }) => {
     },
   ];
 
-
-
   const handleSearch = (formValues) => {
     setTrType(formValues?.transactionType);
     const dateFrom = formValues.dateFrom
@@ -210,11 +208,11 @@ const Transactions = ({ tradeDate }) => {
         <div>
           <Typography variant="h4">{t("Transaction Report")}</Typography>
           <Typography variant="h7">
-            {t("Last Transaction Date")} {" "} : {" "} <b>{tradeDate}</b>
+            {t("Last Transaction Date")} : <b>{tradeDate}</b>
           </Typography>
           <br />
           <Typography variant="h7">
-            {t("Transaction Type")}{" "}:{" "}
+            {t("Transaction Type")} :{" "}
             <b>
               {trType === "P"
                 ? "Purchase"

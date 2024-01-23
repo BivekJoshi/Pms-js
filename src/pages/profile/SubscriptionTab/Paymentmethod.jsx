@@ -9,8 +9,8 @@ const Paymentmethod = ({ onClose }) => {
   return (
     <>
       <Grid container justifyContent="space-between" direction="row">
-        <Typography variant="h5">
-          <b>Choose Payment Method</b>
+        <Typography variant="h5" fontWeight={700}>
+          Choose Payment Method
         </Typography>
         <CloseIcon
           onClick={onClose}
@@ -35,7 +35,7 @@ const Paymentmethod = ({ onClose }) => {
             border: "1px solid rgb(171, 180, 188)",
             borderRadius: "4px",
             width: "100%",
-            height: "59px",
+            height: "70px",
             padding: "14px",
           }}
         >
@@ -51,7 +51,7 @@ const Paymentmethod = ({ onClose }) => {
             border: "1px solid rgb(171, 180, 188)",
             borderRadius: "4px",
             width: "100%",
-            height: "59px",
+            height: "70px",
             padding: "14px",
           }}
         >
@@ -67,7 +67,7 @@ const Paymentmethod = ({ onClose }) => {
             border: "1px solid rgb(171, 180, 188)",
             borderRadius: "4px",
             width: "100%",
-            height: "59px",
+            height: "70px",
             padding: "14px",
           }}
         >

@@ -1,22 +1,31 @@
-import Axios from 'axios';
-import { getBaseUrl } from '../utility/getBaseUrl';
-import { logout } from '../utility/logout';
-import store from '../redux/store';
+import Axios from "axios";
+import { getBaseUrl } from "../utility/getBaseUrl";
+import { logout } from "../utility/logout";
+import store from "../redux/store";
+const envType = import.meta.env.MODE;
 
 const BASEURL = getBaseUrl();
 const UNAUTHORIZED = 401;
+
+const navigateOnError = () => {
+  if (envType === "development") {
+    return window.location.replace("/#/login");
+  } else {
+    return window.location.replace("/pms/index.html#/");
+  }
+};
 
 export const axiosInstance = Axios.create({
   baseURL: BASEURL,
   timeout: 20000,
 });
 
-axiosInstance.defaults.headers['Access-Control-Allow-Origin'] = '*';
+axiosInstance.defaults.headers["Access-Control-Allow-Origin"] = "*";
 
 axiosInstance.interceptors.request.use(
   (config) => {
     try {
-      const authDataString = localStorage.getItem('auth');
+      const authDataString = localStorage.getItem("auth");
       const authData = JSON.parse(authDataString);
       let token = authData?.authToken;
       if (token) {
@@ -34,18 +43,28 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    store.dispatch({ type: 'HTTP_SET', payload: false });
+    store.dispatch({ type: "HTTP_SET", payload: false });
     return response;
   },
   (error) => {
-    store.dispatch({ type: 'HTTP_SET', payload: false });
+    store.dispatch({ type: "HTTP_SET", payload: false });
 
-    const { status } = error?.response;
+    if (error.code === "ERR_NETWORK") {
+      try {
+        store.dispatch({ type: "LOGOUT" });
+        logout();
+        navigateOnError();
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    const { status } = error.response;
     if (status === UNAUTHORIZED) {
       try {
-        store.dispatch({ type: 'LOGOUT' });
+        store.dispatch({ type: "LOGOUT" });
         logout();
-        console.log('unauthorized');
+        console.log("unauthorized");
       } catch (e) {
         console.log(e);
       }

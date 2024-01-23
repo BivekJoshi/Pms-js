@@ -31,7 +31,7 @@ const subscriptionCardData = [
         text: "Top 7 list of best and worst performer",
         bulletColor: "#D9D7DB",
       },
-      { text: "News portal access", bulletColor: "#D9D7DB" },
+      // { text: "News portal access", bulletColor: "#D9D7DB" },
       {
         text: "1 month access to ledger and reports (Bill, Receive and Payment / View report only)",
         bulletColor: "#D9D7DB",
