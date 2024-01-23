@@ -2,6 +2,7 @@ import React from "react";
 import {
   Box,
   Button,
+  Divider,
   Grid,
   MenuItem,
   Table,
@@ -11,10 +12,13 @@ import {
   TableRow,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { useSellForm } from "../../../form/calculator/Sell/useSellForm";
+import CustomBox from "../CustomBox";
 
 const SellCalculator = () => {
+  const theme = useTheme();
   const { formik } = useSellForm();
   function createData(heading, data) {
     return { heading, data };
@@ -30,8 +34,13 @@ const SellCalculator = () => {
   ];
   return (
     <>
-      <Box sx={{ backgroundColor: "#fff", padding: " 0px 32px" }}>
-        <Grid container spacing={3}>
+      <Box
+        sx={{
+          backgroundColor: theme.palette.background.alt,
+          padding: " 0px 32px",
+        }}
+      >
+        <Grid container spacing={2.5}>
           <Grid item xs={7}>
             <Typography variant="h6">Investor Type</Typography>
           </Grid>
@@ -64,6 +73,9 @@ const SellCalculator = () => {
                 Institution
               </MenuItem>
             </TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <Divider />
           </Grid>
           {formik.values.investorType === "individual" && (
             <>
@@ -102,6 +114,7 @@ const SellCalculator = () => {
               </Grid>
             </>
           )}
+
           <Grid item xs={7}>
             <Typography variant="h6">Share Quantity</Typography>
           </Grid>
@@ -128,6 +141,9 @@ const SellCalculator = () => {
               size="small"
             />
           </Grid>
+          <Grid item xs={12}>
+            <Divider />
+          </Grid>
           <Grid item xs={7}>
             <Typography variant="h6">Buy Price</Typography>
           </Grid>
@@ -152,6 +168,9 @@ const SellCalculator = () => {
               helperText={formik.touched.buyPrice && formik.errors.buyPrice}
               size="small"
             />
+          </Grid>
+          <Grid item xs={12}>
+            <Divider />
           </Grid>
           <Grid item xs={7}>
             <Typography variant="h6">Sell Price</Typography>
@@ -181,7 +200,9 @@ const SellCalculator = () => {
               size="small"
             />
           </Grid>
-
+          <Grid item xs={12}>
+            <Divider />
+          </Grid>
           <Grid
             container
             direction="row"
@@ -193,8 +214,11 @@ const SellCalculator = () => {
               variant="contained"
               type="submit"
               onClick={() => formik.handleSubmit()}
-              sx={{ ml: 1, textTransform: "none" }}
-              color="success"
+              sx={{
+                backgroundColor: theme.palette.background.btn,
+                color: theme.palette.text.alt,
+                textTransform: "none",
+              }}
             >
               Calculate
             </Button>
@@ -209,27 +233,23 @@ const SellCalculator = () => {
           </Grid>
         </Grid>
       </Box>
-
-      <Box
-        sx={{
-          backgroundColor: "#fff",
-          marginTop: "16px",
-          padding: " 0px 32px",
-        }}
-      >
-        <TableContainer borderRadius="4px 0">
-          <Table aria-label="simple table">
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.heading}>
-                  <TableCell>{row.heading}</TableCell>
-                  <TableCell>{row.data}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
+      <CustomBox
+          title="Details :"
+          body={
+            <TableContainer borderRadius="4px 0">
+              <Table aria-label="simple table">
+                <TableBody>
+                  {rows.map((row) => (
+                    <TableRow key={row.heading}>
+                      <TableCell>{row.heading}</TableCell>
+                      <TableCell>{row.data}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          }
+        />
     </>
   );
 };

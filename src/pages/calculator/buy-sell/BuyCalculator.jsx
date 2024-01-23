@@ -11,11 +11,14 @@ import {
   TableRow,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { useBuySellForm } from "../../../form/calculator/buySell/useBuySellForm";
+import CustomBox from "../CustomBox";
 
 const BuyCalculator = () => {
   const { formik } = useBuySellForm();
+  const theme = useTheme();
   function createData(heading, data) {
     return { heading, data };
   }
@@ -30,7 +33,7 @@ const BuyCalculator = () => {
   ];
   return (
     <>
-      <Box sx={{ backgroundColor: "#fff", padding: " 0px 32px" }}>
+      <Box sx={{ backgroundColor: theme.palette.background.alt, padding: " 0px 32px" }}>
         <Grid container spacing={3} alignItems="center">
           <Grid item xs={7}>
             <Typography variant="h6">Share Quantity</Typography>
@@ -101,10 +104,13 @@ const BuyCalculator = () => {
               variant="contained"
               type="submit"
               onClick={() => formik.handleSubmit()}
-              sx={{ ml: 1, textTransform: "none" }}
-              color="success"
+              sx={{
+                backgroundColor: theme.palette.background.btn,
+                color: theme.palette.text.alt,
+                textTransform: "none",
+              }}
             >
-              Submit
+              Calculate
             </Button>
             <Button
               variant="contained"
@@ -118,14 +124,25 @@ const BuyCalculator = () => {
         </Grid>
       </Box>
 
-      <Box
-        sx={{
-          backgroundColor: "#fff",
-          marginTop: "16px",
-          padding: " 0px 32px",
-        }}
-      >
-        {/* <Table>
+      <CustomBox
+        title="Details :"
+        body={
+          <TableContainer borderRadius="4px 0">
+            <Table aria-label="simple table">
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row.heading}>
+                    <TableCell>{row.heading}</TableCell>
+                    <TableCell>{row.data}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        }
+      />
+
+      {/* <Table>
           <TableBody>
             {Object.entries(formik.values).map(([key, value]) => (
               <TableRow key={key}>
@@ -137,19 +154,6 @@ const BuyCalculator = () => {
             ))}
           </TableBody>
         </Table> */}
-        <TableContainer borderRadius="4px 0">
-          <Table aria-label="simple table">
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.heading}>
-                  <TableCell>{row.heading}</TableCell>
-                  <TableCell>{row.data}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Box>
     </>
   );
 };
