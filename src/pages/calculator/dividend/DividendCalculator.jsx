@@ -22,13 +22,13 @@ const DividendCalculator = () => {
   function createData(heading, data) {
     return { heading, data };
   }
-
+  console.log(formik?.values, "formikkkkkkkkkkkkkk ma chai ");
   const rows = [
-    createData("Cash Amount", formik?.values?.futureValue),
-    createData("Bonus Share Tax(5%)", formik?.values?.totalAmountInvested),
-    createData("Cash Amounut Tax(5%)", formik?.values?.totalGain),
-    createData("Total Payable Tax", formik?.values?.totalGainPercent),
-    createData("Receivable Bonus Quantity", formik?.values?.totalGainPercent),
+    createData("Cash Amount", formik?.values?.cashAmount),
+    createData("Bonus Share Tax(5%)", formik?.values?.bonusShareTax),
+    createData("Cash Amounut Tax(5%)", formik?.values?.cashAmountTax),
+    createData("Total Payable Tax", formik?.values?.totalPayableTax),
+    createData("Receivable Bonus Quantity", formik?.values?.receivableBonusQuantity),
   ];
   return (
     <div
@@ -86,8 +86,7 @@ const DividendCalculator = () => {
                   Boolean(formik.errors.shareQuantity)
                 }
                 helperText={
-                  formik.touched.shareQuantity &&
-                  formik.errors.shareQuantity
+                  formik.touched.shareQuantity && formik.errors.shareQuantity
                 }
                 size="small"
               />
@@ -155,8 +154,7 @@ const DividendCalculator = () => {
                   Boolean(formik.errors.cashDividend)
                 }
                 helperText={
-                  formik.touched.cashDividend &&
-                  formik.errors.cashDividend
+                  formik.touched.cashDividend && formik.errors.cashDividend
                 }
                 size="small"
               />
@@ -172,7 +170,7 @@ const DividendCalculator = () => {
                 id="paidUpValue"
                 name="paidUpValue"
                 label="Numbers Only"
-                type="number"
+                select
                 variant="outlined"
                 sx={{ width: "100%" }}
                 required
@@ -185,10 +183,22 @@ const DividendCalculator = () => {
                     formik.handleChange(e);
                   }
                 }}
-                error={formik.touched.paidUpValue && Boolean(formik.errors.paidUpValue)}
-                helperText={formik.touched.paidUpValue && formik.errors.paidUpValue}
+                error={
+                  formik.touched.paidUpValue &&
+                  Boolean(formik.errors.paidUpValue)
+                }
+                helperText={
+                  formik.touched.paidUpValue && formik.errors.paidUpValue
+                }
                 size="small"
-              />
+              >
+                <MenuItem key="paidUpValue" value="10">
+                  10
+                </MenuItem>
+                <MenuItem key="paidUpValue" value="100">
+                  100
+                </MenuItem>
+              </TextField>
             </Grid>
             <Grid
               container
