@@ -28,24 +28,23 @@ const BuySellCalculator = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: "16px",
+        gap: "10px",
       }}
     >
       <Box>
         <Box
           sx={{
-            backgroundColor: "#fff",
+            backgroundColor: theme.palette.background.alt,
             padding: " 16px 32px",
           }}
         >
-          <Grid>
+          <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography
                 variant="h4"
                 style={{
                   color: theme.palette.text.light,
                   fontWeight: "800",
-                  marginBottom: "16px",
                 }}
               >
                 Share Calculator
