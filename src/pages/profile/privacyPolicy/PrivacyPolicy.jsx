@@ -80,16 +80,14 @@ const PrivacyPolicy = () => {
                     );
                   })}
                 </ul>
-                <br></br>
-                <Typography variant="h5">
-                  By using this site and our services you are consenting to the
-                  use of your personal information as set out in this Privacy
-                  Policy.
-                </Typography>
               </Grid>
             </div>
           );
         })}
+        <Typography variant="h5" sx={{ fontWeight: 600, color: "#7348A6" }}>
+          By using this site and our services you are consenting to the use of
+          your personal information as set out in this Privacy Policy.
+        </Typography>
       </Grid>
     </Box>
   );
