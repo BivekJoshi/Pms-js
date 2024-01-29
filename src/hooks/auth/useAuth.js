@@ -33,7 +33,6 @@ export const useLogin = ({ onSuccess }) => {
         );
 
         if (data?.data?.user?.tempPasswordStatus) {
-          // toast.loading('Please change password to continue');
           history("/change/password");
         } else {
           history("/profile");
