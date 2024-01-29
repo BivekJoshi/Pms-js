@@ -1,8 +1,6 @@
 import { Chip, Grid, Typography, useTheme } from "@mui/material";
-import React, { useState } from "react";
 
 const Footer = () => {
-  const [open, setOpen] = useState(false);
   const theme = useTheme();
 
   return (
@@ -22,8 +20,6 @@ const Footer = () => {
       </Typography>
       <Chip label="Version : 1.0" sx={{ fontSize: "13px" }} />
     </Grid>
-
-    
   );
 };
 
