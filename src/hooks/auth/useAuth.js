@@ -1,6 +1,6 @@
-import { useMutation } from 'react-query';
-import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import {
   login,
   register,
@@ -9,35 +9,35 @@ import {
   resetPassword,
   resendVerification,
   verifyResetPassword,
-} from '../../api/auth/auth-api';
-import { useDispatch } from 'react-redux';
-import { getErrorMessage } from '../../utility/getErrorMessage';
+} from "../../api/auth/auth-api";
+import { useDispatch } from "react-redux";
+import { getErrorMessage } from "../../utility/getErrorMessage";
 
 export const useLogin = ({ onSuccess }) => {
   const history = useNavigate();
   const dispatch = useDispatch();
   return useMutation(
-    ['login'],
+    ["login"],
     ({ email, brokerNo, password }) => login(email, brokerNo, password),
     {
       onSuccess: (data, variables, context) => {
-        dispatch({ type: 'USER_LOGIN', payload: data.data });
+        dispatch({ type: "USER_LOGIN", payload: data.data });
         window.localStorage.setItem(
-          'auth',
+          "auth",
           JSON.stringify({
             authToken: data.data.auth,
             refreshToken: data.data.refresh,
             startDate: data.data.startDate,
-            tempPassword: data?.data?.user?.tempPasswordStatus
+            tempPassword: data?.data?.user?.tempPasswordStatus,
           })
-        ); 
+        );
 
         if (data?.data?.user?.tempPasswordStatus) {
-          toast.loading('Please change password to continue');
-          history('/change/password');
+          // toast.loading('Please change password to continue');
+          history("/change/password");
         } else {
-          history('/profile');
-          toast.success('Login Successful');
+          history("/profile");
+          toast.success("Login Successful");
         }
         onSuccess && onSuccess(data, variables, context);
       },
@@ -52,12 +52,12 @@ export const useRegister = ({ onSuccess }) => {
   const history = useNavigate();
 
   return useMutation(
-    ['register'],
+    ["register"],
     ({ email, brokerNo, nepseCode, mobileNo }) =>
       register(email, brokerNo, nepseCode, mobileNo),
     {
       onSuccess: (data, variables, context) => {
-        toast.success('Registration Successful');
+        toast.success("Registration Successful");
         history(`/verification/${data?.id}`);
         onSuccess && onSuccess(data, variables, context);
       },
@@ -72,11 +72,10 @@ export const useApplication = ({ onSuccess }) => {
   const history = useNavigate();
 
   return useMutation(
-    ['login'],
+    ["login"],
     ({ email, submissionNo }) => application(email, submissionNo),
     {
       onSuccess: (data, variables, context) => {
-        
         toast.success(data?.status);
         history(`/status/message/${data?.status}`);
         onSuccess && onSuccess(data, variables, context);
@@ -91,10 +90,10 @@ export const useApplication = ({ onSuccess }) => {
 export const useVerification = ({ onSuccess }) => {
   const history = useNavigate();
 
-  return useMutation(['verification'], ({ id, otp }) => verification(id, otp), {
+  return useMutation(["verification"], ({ id, otp }) => verification(id, otp), {
     onSuccess: (data, variables, context) => {
-      toast.success('status fetched Successfully');
-      history('/otp/verification');
+      toast.success("status fetched Successfully");
+      history("/otp/verification");
       onSuccess && onSuccess(data, variables, context);
     },
     onError: (err, _variables, _context) => {
@@ -104,9 +103,9 @@ export const useVerification = ({ onSuccess }) => {
 };
 
 export const useResendVerification = ({ onSuccess }) => {
-  return useMutation(['verification'], ({ id }) => resendVerification(id), {
+  return useMutation(["verification"], ({ id }) => resendVerification(id), {
     onSuccess: (data, variables, context) => {
-      toast.success('code re-send Successfully');
+      toast.success("code re-send Successfully");
       onSuccess && onSuccess(data, variables, context);
     },
     onError: (err, _variables, _context) => {
@@ -119,12 +118,12 @@ export const useResetPassword = ({ onSuccess }) => {
   const history = useNavigate();
 
   return useMutation(
-    ['resetPassword'],
+    ["resetPassword"],
     ({ brokerNo, email, nepseCode }) =>
       resetPassword(brokerNo, email, nepseCode),
     {
       onSuccess: (data, variables, context) => {
-        toast.success('Code sent to your email successfully');
+        toast.success("Code sent to your email successfully");
         history(`/login`);
         onSuccess && onSuccess(data, variables, context);
       },
@@ -139,12 +138,12 @@ export const useVerifyResetPassword = ({ id, onSuccess }) => {
   const navigate = useNavigate();
 
   return useMutation(
-    ['changePassword'],
+    ["changePassword"],
     ({ newPassword, confirmPassword }) =>
       verifyResetPassword(id, newPassword, confirmPassword),
     {
       onSuccess: (data, variables, context) => {
-        toast.success('Password changed successfully');
+        toast.success("Password changed successfully");
         navigate(`/login`);
         onSuccess && onSuccess(data, variables, context);
       },
