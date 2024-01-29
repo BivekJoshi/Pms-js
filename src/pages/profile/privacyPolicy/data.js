@@ -1,23 +1,11 @@
 import { head } from "lodash";
- 
+
 export const policyData = [
   {
     id: 1,
     title: "Information We Collect",
-    subTitle: "We may collect the following types of information: ",
-    desc: [
-      {
-        head: "Personal Information",
-        description:
-          "This includes your name, email address, contact number, and other identifiable information provided voluntarily when you register or use our PMS. ",
-      },
-      {
-        head: "Financial Information",
-        description:
-          "We may collect information about your financial assets, investment preferences, and transaction history to provide portfolio management services. ",
-      },
-    ],
-    descOnly: null,
+    subTitle:
+      "We may collect your personal information like name, email address, contact number and other identifiable information. These Information are collected in order to complete your registration or enquiry forms. Please do not submit your personal information if you do not wish us to use it.  ",
   },
   {
     id: 2,
@@ -26,8 +14,7 @@ export const policyData = [
     desc: [
       {
         head: "Providing Services",
-        description:
-          "To provide portfolio management services, including investment advice, asset allocation, and performance analysis. ",
+        description: "To provide portfolio management service including.",
       },
       {
         head: "Communication",
@@ -37,7 +24,7 @@ export const policyData = [
       {
         head: "Improvement",
         description:
-          "To improve our services, user experience, and customer support based on your feedback. ",
+          "To improve our services, user experience, and customer support based on your feedback.",
       },
     ],
     descOnly: null,
@@ -45,25 +32,33 @@ export const policyData = [
   {
     id: 3,
     title: "Information Sharing",
-    subTitle: "We do not sell, trade, or otherwise transfer your personal or financial information to outside parties. However, we may share your information with trusted third parties who assist us in operating our PMS, conducting our business, or servicing you, as long as those parties agree to keep this information confidential. ",
+    subTitle:
+      "We do not sell, trade, or otherwise transfer your personal or financial information to outside parties. However, we may share your information with trusted third parties who assist us in operating our PMS, conducting our business, or servicing you, as long as those parties agree to keep this information confidential. ",
     desc: null,
-    descOnly:
-      "",
+    descOnly: "",
   },
   {
     id: 4,
     title: "Data Security",
-    subTitle: "We implement a variety of security measures to maintain the safety of your personal and financial information. We use encryption, firewalls, and regular security reviews to safeguard your data. ",
+    subTitle:
+      "We implement a variety of security measures to maintain the safety of your personal and financial information. We use encryption, firewalls, and regular security reviews to safeguard your data.",
     desc: null,
-    descOnly:
-      "",
+    descOnly: "",
   },
   {
-    id: 4,
+    id: 5,
     title: "Your Choices",
-    subTitle: "You can review and edit your personal information at any time by logging into your account. If you wish to delete your account, please contact us at e-mail: dgtrade.io tel: +01000.",
+    subTitle:
+      "You can review and edit your personal information at any time by logging into your account. If you wish to delete your account, please contact your respective Broker office.",
     desc: null,
-    descOnly:
-      "",
+    descOnly: "",
+  },
+  {
+    id: 6,
+    title: "Changes to Privacy Policy ",
+    subTitle:
+      "We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated revision date.",
+    desc: null,
+    descOnly: "",
   },
 ];
