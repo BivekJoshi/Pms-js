@@ -26,12 +26,10 @@ const SellCalculator = () => {
 
   const rows = [
     createData("Total Amount", formik?.values?.totalAmount),
-
     createData("Broker Commission", formik?.values?.brokerCommission),
     createData("Sebbon Fee Amount", formik?.values?.sebbonFeeAmount),
     createData("DP Fee", formik?.values?.dp_Fee),
     createData("Capital Gain Tax", formik?.values?.capitalGainTax),
-
     createData("Total Amount Receivable", formik?.values?.sellAmountReceivable),
   ];
   return (
