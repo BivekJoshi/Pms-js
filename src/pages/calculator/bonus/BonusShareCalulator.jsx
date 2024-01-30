@@ -46,7 +46,13 @@ const BonusShareCalulator = () => {
         <CustomBox
           title="Bonus Share Adjustment Calculator"
           body={
-            <Grid container spacing={2}>
+            <Grid
+              container
+              spacing={2}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <Grid item xs={6}>
                 <Typography variant="h6">
                   Market Price (Before Book Closure)
@@ -148,7 +154,7 @@ const BonusShareCalulator = () => {
             </Grid>
           }
         />
-
+        <br />
         <CustomBox
           title="Details :"
           body={

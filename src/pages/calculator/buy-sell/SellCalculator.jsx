@@ -42,7 +42,13 @@ const SellCalculator = () => {
           padding: " 0px 32px",
         }}
       >
-        <Grid container spacing={2.5}>
+        <Grid
+          container
+          spacing={2}
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
           <Grid item xs={7}>
             <Typography variant="h6">Investor Type</Typography>
           </Grid>
@@ -235,6 +241,7 @@ const SellCalculator = () => {
           </Grid>
         </Grid>
       </Box>
+      <br />
       <CustomBox
         title="Details :"
         body={

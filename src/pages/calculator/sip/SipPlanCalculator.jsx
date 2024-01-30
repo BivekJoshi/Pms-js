@@ -42,7 +42,13 @@ const SipPlanCalulator = () => {
         <CustomBox
           title="Systematic Investment Plan (SIP) Calculator"
           body={
-            <Grid container spacing={2}>
+            <Grid
+              container
+              spacing={2}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <Grid item xs={6}>
                 <Typography variant="h6">Investment Period</Typography>
               </Grid>
@@ -221,6 +227,7 @@ const SipPlanCalulator = () => {
             </Grid>
           }
         />
+        <br />
         <CustomBox
           title="Details :"
           body={

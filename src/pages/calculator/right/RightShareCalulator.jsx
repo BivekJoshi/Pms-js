@@ -48,7 +48,13 @@ const RightShareCalulator = () => {
         <CustomBox
           title="Right Share Adjustment Calculator"
           body={
-            <Grid container spacing={2}>
+            <Grid
+              container
+              spacing={2}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <Grid item xs={6}>
                 <Typography variant="h6">
                   Market Price (Before Book Closure)
@@ -172,7 +178,6 @@ const RightShareCalulator = () => {
                   variant="contained"
                   type="submit"
                   onClick={() => formik.handleSubmit()}
-                  color="success"
                   sx={{
                     backgroundColor: theme.palette.background.btn,
                     color: theme.palette.text.alt,
@@ -193,6 +198,7 @@ const RightShareCalulator = () => {
             </Grid>
           }
         />
+        <br />
         <CustomBox
           title="Details :"
           body={
