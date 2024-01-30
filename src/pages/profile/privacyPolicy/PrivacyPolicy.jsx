@@ -37,7 +37,7 @@ const PrivacyPolicy = () => {
           xl={12}
           sx={{ marginBottom: "2rem" }}
         >
-          <Typography variant="h3" sx={{ fontWeight: "400", fontSize: "16px" }}>
+          <Typography variant="h4" sx={{ fontWeight: "400", fontSize: "16px" }}>
             This privacy policy explains how Digi Hub Pvt. Ltd. collects, uses,
             discloses, and protects personal and financial information obtained
             from users of our Portfolio Management System (PMS). By accessing or
@@ -52,7 +52,7 @@ const PrivacyPolicy = () => {
             <div key={index}>
               <Grid item lg={12} md={12} sm={12} sx={{ marginBottom: "2rem" }}>
                 <Typography
-                  variant="h3"
+                  variant="h5"
                   sx={{
                     marginBottom: "1rem",
                     fontWeight: 600,
@@ -62,18 +62,18 @@ const PrivacyPolicy = () => {
                   {index + 1}. {information?.title}
                 </Typography>
                 <Typography
-                  variant="h3"
+                  variant="h5"
                   sx={{ fontWeight: "400", fontSize: "16px" }}
                 >
                   {information?.subTitle}
                 </Typography>
-                <Typography variant="h3">{information?.descOnly}</Typography>
+                <Typography variant="h4">{information?.descOnly}</Typography>
 
                 <ul>
                   {information?.desc?.map((subInfo, index) => {
                     return (
                       <li key={index}>
-                        <Typography variant="h5">
+                        <Typography variant="h6">
                           <b>{subInfo?.head} :</b> {subInfo?.description}
                         </Typography>
                       </li>
