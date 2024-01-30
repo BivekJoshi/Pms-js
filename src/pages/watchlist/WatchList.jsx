@@ -19,7 +19,6 @@ import WatchListMasterField from '../../form/formComponent/watchlist/WatchListMa
 import { useState } from 'react';
 import WatchTable from './WatchTable';
 import { useWatchListDetailForm } from '../../hooks/watchList/useWatchListForm/useWatchListDetailForm';
-import toast from 'react-hot-toast';
 import FormModal from '../../components/formModal/FormModal';
 import { MoreVert } from '@mui/icons-material';
 import WatchListModal from './WatchListModal';
@@ -227,6 +226,7 @@ const WatchList = () => {
                     shrink: true,
                     style: { color: theme.palette.text.main },
                   }}
+                  fullWidth
 
                   // sx={{width:'auto'}}
                 />

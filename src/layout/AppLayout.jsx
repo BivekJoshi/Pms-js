@@ -68,7 +68,7 @@ const AppLayout = () => {
               padding: '16px',
               minHeight: '94dvh',
             }}
-            data-aos='fade-right'
+            // data-aos='fade-right'
           >
             <Outlet />
           </section>
