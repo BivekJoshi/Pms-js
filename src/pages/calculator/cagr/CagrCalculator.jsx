@@ -71,7 +71,13 @@ const CAGRCalculator = () => {
         <CustomBox
           title="CAGR Calculator"
           body={
-            <Grid container spacing={2}>
+            <Grid
+              container
+              spacing={2}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <Grid item xs={7}>
                 <Typography variant="h6">Initial Investment</Typography>
               </Grid>
@@ -210,6 +216,7 @@ const CAGRCalculator = () => {
             </Grid>
           }
         />
+        <br />
         <CustomBox
           title="Details :"
           body={

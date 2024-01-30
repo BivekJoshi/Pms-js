@@ -23,7 +23,6 @@ const DividendCalculator = () => {
   function createData(heading, data) {
     return { heading, data };
   }
-  console.log(formik?.values, "formikkkkkkkkkkkkkk ma chai ");
   const rows = [
     createData("Cash Amount", formik?.values?.cashAmount),
     createData("Bonus Share Tax(5%)", formik?.values?.bonusShareTax),
@@ -46,7 +45,13 @@ const DividendCalculator = () => {
         <CustomBox
           title="Dividend Calculator"
           body={
-            <Grid container spacing={2}>
+            <Grid
+              container
+              spacing={2}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <Grid item xs={6}>
                 <Typography variant="h6">Share Quanatity</Typography>
               </Grid>
@@ -221,6 +226,7 @@ const DividendCalculator = () => {
             </Grid>
           }
         />
+        <br />
         <CustomBox
           title="Details :"
           body={

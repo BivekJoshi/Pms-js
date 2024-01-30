@@ -8,7 +8,7 @@ const CustomBox = ({ title, body }) => {
     <div style={{ backgroundColor: theme.palette.background.alt, }}>
       <Box
         sx={{
-          marginTop: "16px",
+          // marginTop: "16px",
           padding: " 16px 32px 8px 32px",
           borderLeft: `5px solid ${color}`,
         }}
