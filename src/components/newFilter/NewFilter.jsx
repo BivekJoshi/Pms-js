@@ -195,7 +195,7 @@ const NewFilter = ({
           <div style={{ paddingTop: "16px" }}>
             <Formik
               initialValues={initialValues}
-              validationSchema={validate(validTill)}
+              validationSchema={validate && validate(validTill)}
               onSubmit={(values) => {
                 searchCallBack(values);
               }}

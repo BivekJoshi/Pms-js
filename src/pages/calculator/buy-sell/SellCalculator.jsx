@@ -25,12 +25,14 @@ const SellCalculator = () => {
   }
 
   const rows = [
+    createData("Total Amount", formik?.values?.totalAmount),
+
     createData("Broker Commission", formik?.values?.brokerCommission),
-    createData("Buy Price", formik?.values?.buyPrice),
     createData("Sebbon Fee Amount", formik?.values?.sebbonFeeAmount),
-    createData("Sell Amount Receivable", formik?.values?.sellAmountReceivable),
-    createData("Sell Price", formik?.values?.sellPrice),
-    createData("Share Quantity", formik?.values?.shareQty),
+    createData("DP Fee", formik?.values?.dp_Fee),
+    createData("Capital Gain Tax", formik?.values?.capitalGainTax),
+
+    createData("Total Amount Receivable", formik?.values?.sellAmountReceivable),
   ];
   return (
     <>
@@ -234,22 +236,22 @@ const SellCalculator = () => {
         </Grid>
       </Box>
       <CustomBox
-          title="Details :"
-          body={
-            <TableContainer borderRadius="4px 0">
-              <Table aria-label="simple table">
-                <TableBody>
-                  {rows.map((row) => (
-                    <TableRow key={row.heading}>
-                      <TableCell>{row.heading}</TableCell>
-                      <TableCell>{row.data}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          }
-        />
+        title="Details :"
+        body={
+          <TableContainer borderRadius="4px 0">
+            <Table aria-label="simple table">
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row.heading}>
+                    <TableCell>{row.heading}</TableCell>
+                    <TableCell>{row.data}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        }
+      />
     </>
   );
 };

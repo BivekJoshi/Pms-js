@@ -19,21 +19,26 @@ import CustomBox from "../CustomBox";
 const BuyCalculator = () => {
   const { formik } = useBuySellForm();
   const theme = useTheme();
-  function createData(heading, data) {
-    return { heading, data };
+  function createData(heading, data, isBold) {
+    return { heading, data, isBold };
   }
 
   const rows = [
-    createData("Broker Commission", formik?.values?.brokerCommission),
-    createData("Amount Payable", formik?.values?.buyAmountPayable),
-    createData("Buy Price", formik?.values?.buyPrice),
     createData("Total Amount", formik?.values?.buyTotalAmount),
+    createData("Broker Commission", formik?.values?.brokerCommission),
     createData("Sebbon Fee Amount", formik?.values?.sebbonFeeAmount),
-    createData("Share Quantity", formik?.values?.shareQty),
+    createData("DP Fee", formik?.values?.dp_Fee),
+    createData("Amount Payable", formik?.values?.buyAmountPayable, true),
+    createData("Cost Per Share", formik?.values?.costPerShare),
   ];
   return (
     <>
-      <Box sx={{ backgroundColor: theme.palette.background.alt, padding: " 0px 32px" }}>
+      <Box
+        sx={{
+          backgroundColor: theme.palette.background.alt,
+          padding: " 0px 32px",
+        }}
+      >
         <Grid container spacing={3} alignItems="center">
           <Grid item xs={7}>
             <Typography variant="h6">Share Quantity</Typography>
@@ -132,8 +137,12 @@ const BuyCalculator = () => {
               <TableBody>
                 {rows.map((row) => (
                   <TableRow key={row.heading}>
-                    <TableCell>{row.heading}</TableCell>
-                    <TableCell>{row.data}</TableCell>
+                    <TableCell style={{ width: "50%" }}>
+                      {row.isBold ? <b>{row.heading}</b> : row.heading}
+                    </TableCell>
+                    <TableCell align="left" style={{ width: "50%" }}>
+                      {row.isBold ? <b>{row.data}</b> : row.data}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

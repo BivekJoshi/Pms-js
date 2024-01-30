@@ -13,18 +13,21 @@ export const useSellForm = () => {
       sellPrice: "",
       brokerCommission: "",
       sebbonFeeAmount: "",
-      sellAmountReceivable: 0, 
+      sellAmountReceivable: "",
       holdingPeriod: "",
       investorType: "",
+      totalAmount: "",
     },
     // validationSchema: buySellSchema,
     onSubmit: (values) => {
       const totalAmount = values.shareQty * values.sellPrice;
       const brokerCommission = brokerComission(totalAmount);
       const sebbonFeeAmount = getSebbonFee(totalAmount);
+      formik.setFieldValue("totalAmount", totalAmount);
+      formik.setFieldValue("brokerCommission", brokerCommission.toFixed(2));
+      formik.setFieldValue("sebbonFeeAmount", sebbonFeeAmount.toFixed(2));
+      formik.setFieldValue("dp_Fee", DP_FEE);
 
-      formik.setFieldValue('brokerCommission', brokerCommission.toFixed(2));
-      formik.setFieldValue('sebbonFeeAmount', sebbonFeeAmount.toFixed(2));
       const grossProfit = totalAmount - values.buyPrice * values.shareQty;
 
       let capitalGainTax;
@@ -48,7 +51,7 @@ export const useSellForm = () => {
 
       const sellAmountReceivable = (
         totalAmount -
-        brokerCommission-
+        brokerCommission -
         sebbonFeeAmount -
         DP_FEE -
         capitalGainTax
