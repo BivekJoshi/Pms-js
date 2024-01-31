@@ -6,6 +6,52 @@ import {
 } from "../../../utility/calculatorValues";
 
 export const useSellForm = () => {
+  const calculateValues = (values) => {
+    const totalAmount = values.shareQty * values.sellPrice;
+
+    const brokerCommissionValue = brokerComission(totalAmount);
+    const sebbonFeeAmountValue = getSebbonFee(totalAmount);
+
+    const grossProfit = totalAmount - values.buyPrice * values.shareQty;
+
+    let capitalGainTax = 0;
+    const capitalGaintaxInComplete =
+      grossProfit - brokerCommissionValue - sebbonFeeAmountValue - DP_FEE;
+
+    if (values.investorType === "institution") {
+      capitalGainTax = capitalGaintaxInComplete * 0.1;
+    } else if (
+      values.investorType === "individual" &&
+      values.holdingPeriod === "short-period"
+    ) {
+      capitalGainTax = capitalGaintaxInComplete * 0.075;
+    } else if (
+      values.investorType === "individual" &&
+      values.holdingPeriod === "long-period"
+    ) {
+      capitalGainTax = capitalGaintaxInComplete * 0.05;
+    }
+
+    const sellAmountReceivable =
+      totalAmount -
+      brokerCommissionValue -
+      sebbonFeeAmountValue -
+      DP_FEE -
+      capitalGainTax;
+
+    const profitLoss = sellAmountReceivable - values.buyPrice * values.shareQty;
+
+    return {
+      totalAmount: totalAmount.toFixed(2),
+      brokerCommission: brokerCommissionValue.toFixed(2),
+      sebbonFeeAmount: sebbonFeeAmountValue.toFixed(2),
+      dp_Fee: DP_FEE,
+      capitalGainTax: capitalGainTax.toFixed(2),
+      sellAmountReceivable: sellAmountReceivable.toFixed(2),
+      profitLoss: profitLoss.toFixed(2),
+    };
+  };
+
   const formik = useFormik({
     initialValues: {
       shareQty: "",
@@ -17,48 +63,20 @@ export const useSellForm = () => {
       holdingPeriod: "",
       investorType: "",
       totalAmount: "",
+      profitLoss: "",
     },
     // validationSchema: buySellSchema,
     onSubmit: (values) => {
-      const totalAmount = values.shareQty * values.sellPrice;
-      const brokerCommission = brokerComission(totalAmount);
-      const sebbonFeeAmount = getSebbonFee(totalAmount);
-      formik.setFieldValue("totalAmount", totalAmount);
-      formik.setFieldValue("brokerCommission", brokerCommission.toFixed(2));
-      formik.setFieldValue("sebbonFeeAmount", sebbonFeeAmount.toFixed(2));
-      formik.setFieldValue("dp_Fee", DP_FEE);
-
-      const grossProfit = totalAmount - values.buyPrice * values.shareQty;
-
-      let capitalGainTax;
-      const capitalGaintaxInComplete =
-        grossProfit - brokerCommission - sebbonFeeAmount - DP_FEE;
-      if (values.investorType === "institution") {
-        capitalGainTax = capitalGaintaxInComplete * 0.1;
-      } else if (
-        values.investorType === "individual" &&
-        values.holdingPeriod === "short-period"
-      ) {
-        capitalGainTax = capitalGaintaxInComplete * 0.075;
-      } else if (
-        values.investorType === "individual" &&
-        values.holdingPeriod === "long-period"
-      ) {
-        capitalGainTax = capitalGaintaxInComplete * 0.05;
+      try {
+        const calculatedValues = calculateValues(values);
+        formik.setValues({
+          ...values,
+          ...calculatedValues,
+        });
+      } catch (error) {
+        // Handle errors
+        console.error("An error occurred:", error);
       }
-
-      formik.setFieldValue("capitalGainTax", capitalGainTax);
-
-      const sellAmountReceivable = (
-        totalAmount -
-        brokerCommission -
-        sebbonFeeAmount -
-        DP_FEE -
-        capitalGainTax
-      ).toFixed(2);
-      formik.setFieldValue("sellAmountReceivable", sellAmountReceivable);
-
-      // return capitalGainTax;
     },
   });
 

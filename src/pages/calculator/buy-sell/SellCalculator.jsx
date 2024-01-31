@@ -20,6 +20,7 @@ import CustomBox from "../CustomBox";
 const SellCalculator = () => {
   const theme = useTheme();
   const { formik } = useSellForm();
+  console.log("🚀 ~ SellCalculator ~ formik:", formik);
   function createData(heading, data) {
     return { heading, data };
   }
@@ -31,6 +32,7 @@ const SellCalculator = () => {
     createData("DP Fee", formik?.values?.dp_Fee),
     createData("Capital Gain Tax", formik?.values?.capitalGainTax),
     createData("Total Amount Receivable", formik?.values?.sellAmountReceivable),
+    createData("Profit / Loss", formik?.values?.profitLoss),
   ];
   return (
     <>
@@ -70,6 +72,7 @@ const SellCalculator = () => {
               helperText={
                 formik.touched.investorType && formik.errors.investorType
               }
+              InputLabelProps={{ shrink: Boolean(formik.values.investorType) }}
               size="small"
             >
               <MenuItem key="individual" value="individual">
@@ -105,6 +108,9 @@ const SellCalculator = () => {
                     formik.touched.holdingPeriod &&
                     Boolean(formik.errors.holdingPeriod)
                   }
+                  InputLabelProps={{
+                    shrink: Boolean(formik.values.holdingPeriod),
+                  }}
                   helperText={
                     formik.touched.holdingPeriod && formik.errors.holdingPeriod
                   }
@@ -133,6 +139,7 @@ const SellCalculator = () => {
               variant="outlined"
               sx={{ width: "100%" }}
               required
+              InputLabelProps={{ shrink: Boolean(formik.values.shareQty) }}
               value={formik.values.shareQty}
               onChange={(e) => {
                 const inputValue = e.target.value;
@@ -160,6 +167,7 @@ const SellCalculator = () => {
               label="Buy Price"
               type="number"
               variant="outlined"
+              InputLabelProps={{ shrink: Boolean(formik.values.buyPrice) }}
               sx={{ width: "100%" }}
               required
               onChange={(e) => {
@@ -189,6 +197,7 @@ const SellCalculator = () => {
               type="number"
               variant="outlined"
               sx={{ width: "100%" }}
+              InputLabelProps={{ shrink: Boolean(formik.values.sellPrice) }}
               required
               onChange={(e) => {
                 const inputValue = e.target.value;
@@ -241,17 +250,35 @@ const SellCalculator = () => {
       </Box>
       <br />
       <CustomBox
-        title="Details :"
+        title="Details"
         body={
           <TableContainer borderRadius="4px 0">
             <Table aria-label="simple table">
               <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.heading}>
-                    <TableCell>{row.heading}</TableCell>
-                    <TableCell>{row.data}</TableCell>
-                  </TableRow>
-                ))}
+                {rows.map((row) => {
+                  const isProfit =
+                    row.heading === "Profit / Loss" && row.data >= 0
+                      ? true
+                      : false;
+                  return (
+                    <TableRow key={row.heading}>
+                      <TableCell style={{ width: "50%" }}>
+                        {isProfit ? (
+                          <span style={{ color: "green" }}>{row.heading}</span>
+                        ) : (
+                          row.heading
+                        )}
+                      </TableCell>
+                      <TableCell style={{ width: "50%" }}>
+                        {isProfit ? (
+                          <span style={{ color: "green" }}>{row.data}</span>
+                        ) : (
+                          row.data
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>

@@ -136,7 +136,7 @@ const BuyCalculator = () => {
       </Box>
       <br />
       <CustomBox
-        title="Details :"
+        title="Details"
         body={
           <TableContainer borderRadius="4px 0">
             <Table aria-label="simple table">

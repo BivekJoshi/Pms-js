@@ -7,6 +7,29 @@ import {
 import { buySellSchema } from "./buySellSchema";
 
 export const useBuySellForm = () => {
+  const calculateBuyValues = (values) => {
+    const buyTotalAmount = values.buyPrice * values.shareQty;
+    const brokerCommissionValue = brokerComission(buyTotalAmount);
+    const sebbonFeeAmountValue = getSebbonFee(buyTotalAmount);
+    const totalPayable = (
+      buyTotalAmount +
+      brokerCommissionValue +
+      sebbonFeeAmountValue +
+      DP_FEE
+    ).toFixed(2);
+
+    const costPerShare = (totalPayable / values.shareQty).toFixed(2);
+
+    return {
+      brokerCommission: brokerCommissionValue.toFixed(2),
+      sebbonFeeAmount: sebbonFeeAmountValue.toFixed(2),
+      dp_Fee: DP_FEE,
+      buyTotalAmount: buyTotalAmount.toFixed(2),
+      buyAmountPayable: totalPayable,
+      costPerShare,
+    };
+  };
+
   const formik = useFormik({
     initialValues: {
       shareQty: "",
@@ -19,27 +42,19 @@ export const useBuySellForm = () => {
     },
     validationSchema: buySellSchema,
     onSubmit: (values) => {
-      const buyTotalAmount = values.buyPrice * values.shareQty;
-      const brokerCommission = brokerComission(buyTotalAmount);
-      const sebbonFeeAmount = getSebbonFee(buyTotalAmount);
-      const totalPayable = (
-        buyTotalAmount +
-        brokerCommission +
-        sebbonFeeAmount +
-        DP_FEE
-      ).toFixed(2);
+      try {
+        const calculatedBuyValues = calculateBuyValues(values);
+        // Update formik state with the new values
+        formik.setValues({
+          ...values,
+          ...calculatedBuyValues,
+        });
 
-      const costPerShare = (totalPayable / values.shareQty).toFixed(2);
-
-      formik.setFieldValue("brokerCommission", brokerCommission.toFixed(2));
-      formik.setFieldValue("sebbonFeeAmount", sebbonFeeAmount.toFixed(2));
-      formik.setFieldValue("dp_Fee", DP_FEE);
-      // Update formik state with the new values
-      formik.setFieldValue("buyTotalAmount", buyTotalAmount.toFixed(2));
-      formik.setFieldValue("buyAmountPayable", totalPayable);
-      formik.setFieldValue("costPerShare", costPerShare);
-
-      // Your other form submission logic
+        // Your other form submission logic
+      } catch (error) {
+        // Handle errors
+        console.error("An error occurred:", error);
+      }
     },
   });
 
