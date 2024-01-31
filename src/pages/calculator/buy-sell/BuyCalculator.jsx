@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { useBuySellForm } from "../../../form/calculator/buySell/useBuySellForm";
 import CustomBox from "../CustomBox";
+import { DetailsBox } from "../DetailsBox";
 
 const BuyCalculator = () => {
   const { formik } = useBuySellForm();
@@ -135,27 +136,7 @@ const BuyCalculator = () => {
         </Grid>
       </Box>
       <br />
-      <CustomBox
-        title="Details"
-        body={
-          <TableContainer borderRadius="4px 0">
-            <Table aria-label="simple table">
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.heading}>
-                    <TableCell style={{ width: "50%" }}>
-                      {row.isBold ? <b>{row.heading}</b> : row.heading}
-                    </TableCell>
-                    <TableCell align="left" style={{ width: "50%" }}>
-                      {row.isBold ? <b>{row.data}</b> : row.data}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        }
-      />
+      <DetailsBox rows={rows} />
 
       {/* <Table>
           <TableBody>

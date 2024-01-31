@@ -5,7 +5,7 @@ const CustomBox = ({ title, body }) => {
   const theme = useTheme();
   const color = theme.palette.background.btn;
   return (
-    <div style={{ backgroundColor: theme.palette.background.alt, }}>
+    <div style={{ backgroundColor: theme.palette.background.alt }}>
       <Box
         sx={{
           // marginTop: "16px",

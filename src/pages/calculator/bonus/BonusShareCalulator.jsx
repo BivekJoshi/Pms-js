@@ -15,6 +15,7 @@ import {
 import React from "react";
 import { useBonusForm } from "../../../form/calculator/bonus/useBonusForm";
 import CustomBox from "../CustomBox";
+import { DetailsBox } from "../DetailsBox";
 
 const BonusShareCalulator = () => {
   const theme = useTheme();
@@ -155,23 +156,7 @@ const BonusShareCalulator = () => {
           }
         />
         <br />
-        <CustomBox
-          title="Details :"
-          body={
-            <TableContainer borderRadius="4px 0">
-              <Table aria-label="simple table">
-                <TableBody>
-                  {rows.map((row) => (
-                    <TableRow key={row.heading}>
-                      <TableCell>{row.heading}</TableCell>
-                      <TableCell>{row.data}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          }
-        />
+        <DetailsBox rows={rows} />
       </Box>
     </div>
   );

@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import { useSellForm } from "../../../form/calculator/Sell/useSellForm";
 import CustomBox from "../CustomBox";
+import { DetailsBox } from "../DetailsBox";
 
 const SellCalculator = () => {
   const theme = useTheme();
@@ -249,41 +250,7 @@ const SellCalculator = () => {
         </Grid>
       </Box>
       <br />
-      <CustomBox
-        title="Details"
-        body={
-          <TableContainer borderRadius="4px 0">
-            <Table aria-label="simple table">
-              <TableBody>
-                {rows.map((row) => {
-                  const isProfit =
-                    row.heading === "Profit / Loss" && row.data >= 0
-                      ? true
-                      : false;
-                  return (
-                    <TableRow key={row.heading}>
-                      <TableCell style={{ width: "50%" }}>
-                        {isProfit ? (
-                          <span style={{ color: "green" }}>{row.heading}</span>
-                        ) : (
-                          row.heading
-                        )}
-                      </TableCell>
-                      <TableCell style={{ width: "50%" }}>
-                        {isProfit ? (
-                          <span style={{ color: "green" }}>{row.data}</span>
-                        ) : (
-                          row.data
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        }
-      />
+      <DetailsBox rows={rows} />
     </>
   );
 };

@@ -16,6 +16,7 @@ import {
 import React from "react";
 import { useRightForm } from "../../../form/calculator/right/useRightForm";
 import CustomBox from "../CustomBox";
+import { DetailsBox } from "../DetailsBox";
 
 const RightShareCalulator = () => {
   const theme = useTheme();
@@ -29,7 +30,7 @@ const RightShareCalulator = () => {
       "Market Price (Before Book Closure)",
       formik?.values?.marketPrice
     ),
-    createData("% of Bonus Share", formik?.values?.rightShare),
+    createData("% of Bonus Share", `${formik?.values?.rightShare}%`),
     createData("Paid-up value per Share", formik?.values?.paidUpPerValue),
     createData(
       "Market Price after Right Adjustment",
@@ -199,23 +200,7 @@ const RightShareCalulator = () => {
           }
         />
         <br />
-        <CustomBox
-          title="Details :"
-          body={
-            <TableContainer borderRadius="4px 0">
-              <Table aria-label="simple table">
-                <TableBody>
-                  {rows.map((row) => (
-                    <TableRow key={row.heading}>
-                      <TableCell>{row.heading}</TableCell>
-                      <TableCell>{row.data}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          }
-        />
+        <DetailsBox rows={rows} />
       </Box>
     </div>
   );
