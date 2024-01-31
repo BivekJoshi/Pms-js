@@ -4,17 +4,11 @@ import {
   Button,
   Divider,
   Grid,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
   TextField,
   Typography,
   useTheme,
 } from "@mui/material";
 import { useBuySellForm } from "../../../form/calculator/buySell/useBuySellForm";
-import CustomBox from "../CustomBox";
 import { DetailsBox } from "../DetailsBox";
 
 const BuyCalculator = () => {

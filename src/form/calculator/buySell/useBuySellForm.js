@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import {
   DP_FEE,
   brokerComission,
+  getNumberIntoCurrency,
   getSebbonFee,
 } from "../../../utility/calculatorValues";
 import { buySellSchema } from "./buySellSchema";
@@ -21,12 +22,12 @@ export const useBuySellForm = () => {
     const costPerShare = (totalPayable / values.shareQty).toFixed(2);
 
     return {
-      brokerCommission: brokerCommissionValue.toFixed(2),
-      sebbonFeeAmount: sebbonFeeAmountValue.toFixed(2),
+      brokerCommission: getNumberIntoCurrency(brokerCommissionValue),
+      sebbonFeeAmount: getNumberIntoCurrency(sebbonFeeAmountValue),
       dp_Fee: DP_FEE,
-      buyTotalAmount: buyTotalAmount.toFixed(2),
-      buyAmountPayable: totalPayable,
-      costPerShare,
+      buyTotalAmount: getNumberIntoCurrency(buyTotalAmount),
+      buyAmountPayable: getNumberIntoCurrency(totalPayable),
+      costPerShare: getNumberIntoCurrency(costPerShare),
     };
   };
 

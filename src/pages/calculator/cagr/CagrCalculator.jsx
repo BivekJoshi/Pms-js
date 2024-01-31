@@ -235,7 +235,7 @@ const CAGRCalculator = () => {
                   width={chartOptions.chart.width}
                 />
                 <Typography variant="h5">
-                  <b>{FinalPercent}%</b>
+                  <b>{FinalPercent && `${FinalPercent}%`}</b>
                 </Typography>
               </div>
             )

@@ -1,3 +1,5 @@
+import { isNumber, lowerCase } from "lodash";
+
 export const DP_FEE = 25;
 export const SEBBON_FEE = 0.00015;
 
@@ -22,4 +24,37 @@ export const brokerComission = (amount) => {
       ? 10
       : commission.rate * amount
     : 0;
+};
+
+export const getNumberIntoCurrency = (number) => {
+  try {
+    if (number && number < 0.01 && number > -0.01) return 0;
+    if (number) {
+      let num = number;
+      let isnumber = isNumber(num);
+      if (isnumber) {
+        let retValue = new Intl.NumberFormat("en-IN", {
+          maximumFractionDigits: 2,
+        }).format(number);
+        return retValue !== "NaN" ? retValue : number;
+      } else {
+        let numCopy = number;
+        let bracketsIncluded = false;
+        if (numCopy.includes("(")) {
+          numCopy = numCopy.replace(/[()]/g, "");
+          bracketsIncluded = true;
+        }
+        let ret = new Intl.NumberFormat("en-IN", {
+          maximumFractionDigits: 2,
+        }).format(parseFloat(numCopy));
+        if (lowerCase(number.toString()).includes("dr")) return ret + " DR";
+        else if (lowerCase(number.toString()).includes("cr"))
+          return ret + " CR";
+        else if (bracketsIncluded) return "(" + ret + ")";
+        else return ret !== "NaN" ? ret : number;
+      }
+    } else return number;
+  } catch {
+    return number;
+  }
 };
