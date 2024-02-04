@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   RadioGroup,
   Box,
@@ -15,8 +15,7 @@ import BuyCalculator from "./BuyCalculator";
 import SellCalculator from "./SellCalculator";
 import CustomBox from "../CustomBox";
 
-const BuySellCalculator = () => {
-  const theme = useTheme();
+const BuySellCalculator = (props) => {
   const [selectedValue, setSelectedValue] = useState("buy");
 
   const handleChange = (event) => {

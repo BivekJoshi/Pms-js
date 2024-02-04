@@ -15,13 +15,11 @@ import {
   useTheme,
 } from "@mui/material";
 import { useSellForm } from "../../../form/calculator/Sell/useSellForm";
-import CustomBox from "../CustomBox";
 import { DetailsBox } from "../DetailsBox";
 
 const SellCalculator = () => {
   const theme = useTheme();
   const { formik } = useSellForm();
-  console.log("🚀 ~ SellCalculator ~ formik:", formik);
   function createData(heading, data) {
     return { heading, data };
   }

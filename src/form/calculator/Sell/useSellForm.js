@@ -4,33 +4,25 @@ import {
   brokerComission,
   getSebbonFee,
 } from "../../../utility/calculatorValues";
+import useCommissionData from "../../../utility/useCommissionData";
 
 export const useSellForm = () => {
+  const { calculateCommission, calculateCGT } = useCommissionData();
+
   const calculateValues = (values) => {
     const totalAmount = values.shareQty * values.sellPrice;
 
-    const brokerCommissionValue = brokerComission(totalAmount);
+    const brokerCommissionValue = calculateCommission(totalAmount);
     const sebbonFeeAmountValue = getSebbonFee(totalAmount);
 
     const grossProfit = totalAmount - values.buyPrice * values.shareQty;
-
-    let capitalGainTax = 0;
     const capitalGaintaxInComplete =
       grossProfit - brokerCommissionValue - sebbonFeeAmountValue - DP_FEE;
-
-    if (values.investorType === "institution") {
-      capitalGainTax = capitalGaintaxInComplete * 0.1;
-    } else if (
-      values.investorType === "individual" &&
-      values.holdingPeriod === "short-period"
-    ) {
-      capitalGainTax = capitalGaintaxInComplete * 0.075;
-    } else if (
-      values.investorType === "individual" &&
-      values.holdingPeriod === "long-period"
-    ) {
-      capitalGainTax = capitalGaintaxInComplete * 0.05;
-    }
+    const capitalGainTax = calculateCGT(
+      values.investorType,
+      values.holdingPeriod,
+      capitalGaintaxInComplete
+    );
 
     const sellAmountReceivable =
       totalAmount -

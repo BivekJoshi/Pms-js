@@ -1,11 +1,12 @@
-import { combineReducers } from 'redux';
-import httpResponseReducer from './httpResponseReducer';
-import brokerReducer from './bokerReducer';
-import themeReducer from './themeReducer';
-import userReducer from './userReducer';
-import genericReducer from './genericReducer';
-import languageReducer from './languageReducer';
-import PaginatedSelectReducer from './paginatedTableReducer';
+import { combineReducers } from "redux";
+import httpResponseReducer from "./httpResponseReducer";
+import brokerReducer from "./bokerReducer";
+import themeReducer from "./themeReducer";
+import userReducer from "./userReducer";
+import genericReducer from "./genericReducer";
+import languageReducer from "./languageReducer";
+import PaginatedSelectReducer from "./paginatedTableReducer";
+import matCrudReducer from "./basicTableReducer";
 
 export default combineReducers({
   httpResponse: httpResponseReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   user: userReducer,
   generic: genericReducer,
   paginatedTable: PaginatedSelectReducer,
+  basicTable: matCrudReducer,
 });

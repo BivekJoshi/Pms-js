@@ -1,34 +1,45 @@
 import { useFormik } from "formik";
 import {
   DP_FEE,
-  brokerComission,
   getNumberIntoCurrency,
   getSebbonFee,
 } from "../../../utility/calculatorValues";
 import { buySellSchema } from "./buySellSchema";
+import useCommissionData from "../../../utility/useCommissionData";
 
 export const useBuySellForm = () => {
+  const { calculateCommission } = useCommissionData();
   const calculateBuyValues = (values) => {
-    const buyTotalAmount = values.buyPrice * values.shareQty;
-    const brokerCommissionValue = brokerComission(buyTotalAmount);
-    const sebbonFeeAmountValue = getSebbonFee(buyTotalAmount);
-    const totalPayable = (
-      buyTotalAmount +
-      brokerCommissionValue +
-      sebbonFeeAmountValue +
-      DP_FEE
-    ).toFixed(2);
+    const buyTotalAmount = Number(values.buyPrice) * Number(values.shareQty);
 
-    const costPerShare = (totalPayable / values.shareQty).toFixed(2);
+    try {
+      const brokerCommissionValue = calculateCommission(buyTotalAmount);
 
-    return {
-      brokerCommission: getNumberIntoCurrency(brokerCommissionValue),
-      sebbonFeeAmount: getNumberIntoCurrency(sebbonFeeAmountValue),
-      dp_Fee: DP_FEE,
-      buyTotalAmount: getNumberIntoCurrency(buyTotalAmount),
-      buyAmountPayable: getNumberIntoCurrency(totalPayable),
-      costPerShare: getNumberIntoCurrency(costPerShare),
-    };
+      const sebbonFeeAmountValue = getSebbonFee(buyTotalAmount);
+      const totalPayable =
+        buyTotalAmount + brokerCommissionValue + sebbonFeeAmountValue + DP_FEE;
+
+      const costPerShare = (totalPayable / Number(values.shareQty)).toFixed(2);
+
+      return {
+        brokerCommission: getNumberIntoCurrency(brokerCommissionValue),
+        sebbonFeeAmount: getNumberIntoCurrency(sebbonFeeAmountValue),
+        dp_Fee: DP_FEE,
+        buyTotalAmount: getNumberIntoCurrency(buyTotalAmount),
+        buyAmountPayable: getNumberIntoCurrency(totalPayable),
+        costPerShare: getNumberIntoCurrency(costPerShare),
+      };
+    } catch (error) {
+      console.error("An error occurred:", error);
+      return {
+        brokerCommission: "N/A",
+        sebbonFeeAmount: "N/A",
+        dp_Fee: DP_FEE,
+        buyTotalAmount: "N/A",
+        buyAmountPayable: "N/A",
+        costPerShare: "N/A",
+      };
+    }
   };
 
   const formik = useFormik({
@@ -37,14 +48,14 @@ export const useBuySellForm = () => {
       buyPrice: "",
       brokerCommission: "",
       sebbonFeeAmount: "",
-      buyTotalAmount: "", // Initialize with 0
-      buyAmountPayable: "", // Initialize with 0
+      buyTotalAmount: "",
+      buyAmountPayable: "",
       costPerShare: "",
     },
     validationSchema: buySellSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       try {
-        const calculatedBuyValues = calculateBuyValues(values);
+        const calculatedBuyValues = await calculateBuyValues(values);
         // Update formik state with the new values
         formik.setValues({
           ...values,

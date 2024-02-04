@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 
 export const DetailsBox = ({ rows }) => {
-  console.log("🚀 ~ DetailsBox ~ rows:", rows);
   const theme = useTheme();
   const color = theme.palette.background.btn;
   return (

@@ -1,4 +1,7 @@
 import { isNumber, lowerCase } from "lodash";
+import { axiosInstance } from "./../api/axiosInterceptor";
+import { fetchTable } from "../redux/actions/fetchTable";
+import { useDispatch } from "react-redux";
 
 export const DP_FEE = 25;
 export const SEBBON_FEE = 0.00015;
@@ -7,23 +10,42 @@ export const getSebbonFee = (amount) => {
   return amount * SEBBON_FEE;
 };
 
-export const brokerComission = (amount) => {
-  const commissionRates = [
-    { maxAmount: 50000, rate: 0.004 },
-    { maxAmount: 500000, rate: 0.0037 },
-    { maxAmount: 2000000, rate: 0.0034 },
-    { maxAmount: 10000000, rate: 0.003 },
-    { maxAmount: Infinity, rate: 0.0027 },
-  ];
+const fetchCommissionData = async () => {
+  try {
+    const { data } = await axiosInstance.get("/commission");
+    return data;
+  } catch (err) {
+    console.error("🚀 ~ fetchCommissionData ~ err:", err);
+    throw err; // Rethrow the error to be handled by the calling function
+  }
+};
 
-  const commission = commissionRates.find(
-    ({ maxAmount }) => amount <= maxAmount
-  );
-  return commission
-    ? commission.rate * amount < 10
-      ? 10
-      : commission.rate * amount
-    : 0;
+export const brokerComission = async (amount) => {
+  try {
+    const commissionData = await fetchCommissionData();
+
+    const brokerData = commissionData?.filter(
+      (item) => item.activeStatus && item.stockType === "EQ"
+    );
+
+    const commission = brokerData.find(({ amountFrom, amountTo }) => {
+      return amount >= amountFrom && amount <= amountTo;
+    });
+    console.log("🚀 ~ commission ~ commission:", commission);
+
+    if (commission) {
+      const calculatedCommission = commission.percentage * amount;
+
+      return calculatedCommission < commission.minimumAmount
+        ? commission.minimumAmount
+        : calculatedCommission / 100;
+    }
+  } catch (err) {
+    console.log("🚀 ~ brokerComission ~ err:", err);
+  }
+
+  // If no matching commission found or an error occurred, return 0
+  return 0;
 };
 
 export const getNumberIntoCurrency = (number) => {
