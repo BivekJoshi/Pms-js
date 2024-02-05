@@ -31,14 +31,13 @@ axiosInstance.interceptors.request.use(
       if (token) {
         if (!checkIfExpired(token)) {
           config.headers.Authorization = `Bearer ${token}`;
-
-          return config;
         } else {
           store.dispatch({ type: "LOGOUT" });
           logout();
           navigateOnError();
         }
       }
+      return config;
     } catch (err) {
       console.log(err);
     }
@@ -66,8 +65,7 @@ axiosInstance.interceptors.response.use(
       }
     }
 
-    const { status } = error.response;
-    if (status === UNAUTHORIZED) {
+    if (error.response === UNAUTHORIZED) {
       try {
         store.dispatch({ type: "LOGOUT" });
         logout();
