@@ -3,7 +3,7 @@ import { getBaseUrl } from "../utility/getBaseUrl";
 import { logout } from "../utility/logout";
 import store from "../redux/store";
 const envType = import.meta.env.MODE;
-
+import { jwtDecode } from "jwt-decode";
 const BASEURL = getBaseUrl();
 const UNAUTHORIZED = 401;
 
@@ -29,9 +29,16 @@ axiosInstance.interceptors.request.use(
       const authData = JSON.parse(authDataString);
       let token = authData?.authToken;
       if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        if (!checkIfExpired(token)) {
+          config.headers.Authorization = `Bearer ${token}`;
+
+          return config;
+        } else {
+          store.dispatch({ type: "LOGOUT" });
+          logout();
+          navigateOnError();
+        }
       }
-      return config;
     } catch (err) {
       console.log(err);
     }
@@ -73,20 +80,20 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-// const checkIfExpired = (token) => {
-//   if (token && jwt.decode(token)) {
-//     const decoded = jwt.decode(token);
-//     const exp = decoded.exp;
-//     const iat = decoded.iat;
-//     const now = new Date();
-//     if (now.getTime() > exp * 1000) {
-//       return true;
-//     }
-//     if (now.getTime() < iat * 10 - 60000) {
-//       alert('Wrong System Time \n Please correct your system time');
-//       return true;
-//     }
-//     return false;
-//   }
-//   return true;
-// };
+const checkIfExpired = (token) => {
+  if (token && jwtDecode(token)) {
+    const decoded = jwtDecode(token);
+    const exp = decoded.exp;
+    const iat = decoded.iat;
+    const now = new Date();
+    if (now.getTime() > exp * 1000) {
+      return true;
+    }
+    if (now.getTime() < iat * 10 - 60000) {
+      alert("Wrong System Time \n Please correct your system time");
+      return true;
+    }
+    return false;
+  }
+  return true;
+};
