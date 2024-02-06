@@ -7,29 +7,23 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { useCagrForm } from "../../../form/calculator/cagr/useCagrForm";
 import ReactApexChart from "react-apexcharts";
 import CustomBox from "../CustomBox";
 
 const CAGRCalculator = () => {
   const theme = useTheme();
-
+  // compounded annual growth rate
   const { formik } = useCagrForm();
-  const formikValues = formik?.values;
+  console.log("🚀 ~ CAGRCalculator ~ formik:", formik);
 
-  let initialInvestment = null;
-  let finalInvestment = null;
-  let FinalPercent = null;
-
-  if (formikValues) {
-    initialInvestment = formikValues["initialInvestment"];
-    finalInvestment = formikValues["finalInvestment"];
-    FinalPercent = formikValues["FinalPercent"];
-  }
-  console.log(FinalPercent, "FinalPercentFinalPercent");
   const chartOptions = {
-    series: [initialInvestment, finalInvestment],
+    series: [
+      formik?.values?.initialInvestment,
+      formik?.values?.finalInvestment,
+    ],
+    labels: ["Initial Investment", "Final Investment"],
     chart: {
       width: 240,
       type: "donut",
@@ -43,6 +37,9 @@ const CAGRCalculator = () => {
 
     legend: {
       show: false,
+    },
+    dataLabels: {
+      enabled: true,
     },
     responsive: [
       {
@@ -220,24 +217,33 @@ const CAGRCalculator = () => {
         <CustomBox
           title="Details :"
           body={
-            formikValues && (
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <ReactApexChart
-                  options={chartOptions}
-                  series={chartOptions.series}
-                  type={chartOptions.chart.type}
-                  width={chartOptions.chart.width}
-                />
-                <Typography variant="h5">
-                  <b>{FinalPercent && `${FinalPercent}%`}</b>
-                </Typography>
-              </div>
+            formik?.values?.FinalPercent && (
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <ReactApexChart
+                    options={chartOptions}
+                    series={chartOptions.series}
+                    labels={chartOptions.labels}
+                    type={chartOptions.chart.type}
+                    width={chartOptions.chart.width}
+                  />
+                </div>
+                <br></br>
+                {formik?.values?.FinalPercent && (
+                  <Typography variant="h5" textAlign={"center"}>
+                    Compounded Annual Growth Rate:
+                    <span>
+                      <b> {formik?.values?.FinalPercent}</b>
+                    </span>
+                  </Typography>
+                )}
+              </>
             )
           }
         />

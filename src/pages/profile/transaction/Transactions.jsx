@@ -69,7 +69,7 @@ const Transactions = ({ tradeDate }) => {
         id: 1,
         accessorKey: "trDate",
         header: "Date",
-        size: 100,
+        size: 50,
         sortable: false,
         Footer: () => {
           return <span>{text}</span>;
@@ -77,13 +77,6 @@ const Transactions = ({ tradeDate }) => {
       },
       {
         id: 2,
-        accessorKey: "transactionNo",
-        header: "Transaction Number",
-        size: 120,
-        sortable: false,
-      },
-      {
-        id: 3,
         accessorKey: "transactionType",
         header: "Transaction Type",
         size: 100,
@@ -96,6 +89,14 @@ const Transactions = ({ tradeDate }) => {
           } else return row?.original?.transactionType;
         },
       },
+      // {
+      //   id: 3,
+      //   accessorKey: "transactionNo",
+      //   header: "Transaction Number",
+      //   size: 120,
+      //   sortable: false,
+      // },
+
       {
         id: 4,
         accessorKey: "script",
@@ -220,7 +221,7 @@ const Transactions = ({ tradeDate }) => {
                 ? "Sell"
                 : trType === "B"
                 ? "Both"
-                : "--"}
+                : "Both"}
             </b>
           </Typography>
         </div>

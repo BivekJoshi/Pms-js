@@ -70,50 +70,20 @@ const BillDetail = ({ rowData }) => {
         size: 100,
         sortable: false,
       },
-      {
-        id: 7,
-        accessorKey: 'amount',
-        header: 'Amount',
-        size: 100,
-        sortable: false,
-      },
-      {
-        id: 8,
-        accessorKey: 'rate',
-        header: 'Rate',
-        size: 100,
-        sortable: false,
-      },
-      {
-        id: 9,
-        accessorKey: 'trDate',
-        header: 'Tr Date',
-        size: 100,
-        sortable: false,
-      },
-      {
-        id: 10,
-        accessorKey: 'transactionType',
-        header: 'Tr Type',
-        size: 100,
-        sortable: false,
-      },
     ],
     []
   );
-
-  const theme = useTheme();
 
   return (
     <div>
       <Box>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <Typography variant="h4">Bill Detail</Typography>
-          <div style={{ display: "flex", gap: "1rem" }}>
+          {/* <div style={{ display: "flex", gap: "1rem" }}>
             <PictureAsPdfOutlinedIcon />
             <PrintOutlinedIcon />
             <EmailOutlinedIcon />
-          </div>
+          </div> */}
         </div>
         <br />
         <Divider />
@@ -130,15 +100,18 @@ const BillDetail = ({ rowData }) => {
             </Typography>
           </div>
           <div>
-            <Typography variant="h6">
-              <b>Total CGT : </b>
-              {""} {Number(tableData?.totalCgt).toFixed(2)}
-            </Typography>
+            {rowData?.original?.trType === "S" && (
+              <Typography variant="h6">
+                <b>Total CGT : </b>
+                {""} {Number(tableData?.totalCgt).toFixed(2)}
+              </Typography>
+            )}
             <Typography variant="h6">
               <b>Total Commission : </b>
               {""} {Number(tableData?.totalCommission).toFixed(2)}
             </Typography>
           </div>
+
           <div></div>
         </div>
         <br />

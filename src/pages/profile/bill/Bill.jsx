@@ -37,7 +37,7 @@ const Bill = ({ tradeDate }) => {
   const [amount, setAmount] = useState();
   const [commission, setCommission] = useState();
   const [text, setText] = useState();
-  
+
   useEffect(() => {
     const data = Object.values(tableData);
     const newData = data.length;
@@ -50,7 +50,7 @@ const Bill = ({ tradeDate }) => {
         },
         { totalAmount: 0, totalCommission: 0 }
       );
-    
+
       setAmount(totalAmount);
       setCommission(parseFloat(totalCommission.toFixed(2)));
       setText("Total Amount");
@@ -59,22 +59,20 @@ const Bill = ({ tradeDate }) => {
       setCommission("");
       setText("");
     }
-    
-    
   }, [tableData]);
-  
+
   const transactionType = [
     {
-      label: t('Sell'),
-      id: 'S',
+      label: t("Sell"),
+      id: "S",
     },
     {
-      label: t('Purchase'),
-      id: 'P',
+      label: t("Purchase"),
+      id: "P",
     },
     {
-      label: t('Both'),
-      id: 'B',
+      label: t("Both"),
+      id: "B",
     },
   ];
 
@@ -84,7 +82,7 @@ const Bill = ({ tradeDate }) => {
         id: 1,
         accessorKey: "trDate",
         header: "Date",
-        size: 100,
+        size: 50,
         sortable: false,
         Footer: () => {
           return <span>{text}</span>;
@@ -97,7 +95,7 @@ const Bill = ({ tradeDate }) => {
         size: 120,
         sortable: false,
         // Cell:(value)=>{
-          
+
         // }
       },
       {
@@ -114,21 +112,20 @@ const Bill = ({ tradeDate }) => {
           }
         },
       },
-      {
-        id: 4,
-        accessorKey: "script",
-        header: "Script",
-        size: 100,
-        sortable: false,
-       
-      },
-      {
-        id: 5,
-        accessorKey: "rate",
-        header: "Rate",
-        size: 100,
-        sortable: false,
-      },
+      // {
+      //   id: 4,
+      //   accessorKey: "script",
+      //   header: "Script",
+      //   size: 100,
+      //   sortable: false,
+      // },
+      // {
+      //   id: 5,
+      //   accessorKey: "rate",
+      //   header: "Rate",
+      //   size: 100,
+      //   sortable: false,
+      // },
       {
         id: 6,
         accessorKey: "amount",
@@ -136,13 +133,13 @@ const Bill = ({ tradeDate }) => {
         size: 100,
         sortable: false,
       },
-      {
-        id: 7,
-        accessorKey: "commission",
-        header: "Comission",
-        size: 100,
-        sortable: false,
-      },
+      // {
+      //   id: 7,
+      //   accessorKey: "commission",
+      //   header: "Comission",
+      //   size: 100,
+      //   sortable: false,
+      // },
       {
         id: 8,
         accessorKey: "isSettled",
@@ -151,9 +148,9 @@ const Bill = ({ tradeDate }) => {
         sortable: false,
         Cell: (value) => {
           if (value?.cell?.row?.original?.isSettled === true) {
-            return (<b style={{color:"green"}}>Settled</b>);
+            return <b style={{ color: "green" }}>Settled</b>;
           } else {
-            return (<b style={{color:"red"}}>Unsettled</b>);
+            return <b style={{ color: "red" }}>Unsettled</b>;
           }
         },
       },
@@ -209,7 +206,7 @@ const Bill = ({ tradeDate }) => {
           fetchPaginatedTable(
             Bill_TRANSACTION,
             updatedFormValues,
-            null,            
+            null,
             "billNo"
           )
         );
@@ -242,17 +239,13 @@ const Bill = ({ tradeDate }) => {
         <div>
           <Typography variant="h4">{t("Bill Report")}</Typography>
           <Typography variant="h7">
-            {t("Last Transaction Date")} {" "} : <b>{tradeDate}</b>
+            {t("Last Transaction Date")} : <b>{tradeDate}</b>
           </Typography>
-          <br/>
+          <br />
           <Typography variant="h7">
-            {t("Transaction Type")} {" "} : {" "}
+            {t("Transaction Type")} :{" "}
             <b>
-              {trType === "P"
-                ? "Purchase"
-                : trType === "S"
-                ? "Sell"
-                : "--"}
+              {trType === "P" ? "Purchase" : trType === "S" ? "Sell" : "Both"}
             </b>
           </Typography>
         </div>

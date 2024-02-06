@@ -42,9 +42,16 @@ const ReceiptPayment = ({ tradeDate }) => {
       {
         id: 2,
         accessorKey: "voucherType",
-        header: "Voucher",
+        header: "Type",
         size: 20,
         sortable: false,
+        Cell: ({ renderedCellValue }) => {
+          if (renderedCellValue === "RCV") {
+            return "Receipt";
+          } else {
+            return "Payment";
+          }
+        },
       },
       {
         id: 3,
@@ -52,6 +59,9 @@ const ReceiptPayment = ({ tradeDate }) => {
         header: "Particulars",
         size: 130,
         sortable: false,
+        Cell: ({ renderedCellValue }) => (
+          <span style={{ whiteSpace: "normal" }}>{renderedCellValue}</span>
+        ),
       },
       {
         id: 4,
@@ -61,13 +71,13 @@ const ReceiptPayment = ({ tradeDate }) => {
         sortable: false,
       },
 
-      {
-        id: 5,
-        accessorKey: "voucherNo",
-        header: "Voucher No",
-        size: 80,
-        sortable: false,
-      },
+      // {
+      //   id: 5,
+      //   accessorKey: "voucherNo",
+      //   header: "Voucher No",
+      //   size: 80,
+      //   sortable: false,
+      // },
       {
         id: 5,
         accessorKey: "amount",
@@ -81,16 +91,16 @@ const ReceiptPayment = ({ tradeDate }) => {
 
   const receiptPaymentType = [
     {
-      label: t('Receipt'),
-      id: 'R',
+      label: t("Receipt"),
+      id: "R",
     },
     {
-      label: t('Payment'),
-      id: 'P',
+      label: t("Payment"),
+      id: "P",
     },
     {
-      label: t('Both'),
-      id: 'B',
+      label: t("Both"),
+      id: "B",
     },
   ];
 
@@ -168,13 +178,13 @@ const ReceiptPayment = ({ tradeDate }) => {
         }}
       >
         <div>
-          <Typography variant="h4">{t("Receipt/Payment Report")}</Typography>
+          <Typography variant="h4">{t("Receipt / Payment Report")}</Typography>
           <Typography variant="h7">
             {t("Last Transaction Date")} : <b>{tradeDate}</b>
           </Typography>
           <br />
           <Typography variant="h7">
-            {t("Transaction Type")} : {" "}
+            {t("Transaction Type")} :{" "}
             <b>
               {trType === "P"
                 ? "Payment"
@@ -182,7 +192,7 @@ const ReceiptPayment = ({ tradeDate }) => {
                 ? "Receipt"
                 : trType === "B"
                 ? "Both"
-                : "--"}
+                : " Both"}
             </b>
           </Typography>
         </div>

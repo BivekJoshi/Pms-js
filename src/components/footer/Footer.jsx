@@ -16,7 +16,7 @@ const Footer = () => {
       position="relative"
     >
       <Typography variant="h7">
-        DG TRADE © DIGIHUB | Sumeru Securities Pvt. Ltd.
+        DG TRADE © DIGIHUB | Demo Securities Pvt. Ltd.
       </Typography>
       <Chip label="Version : 1.0" sx={{ fontSize: "13px" }} />
     </Grid>
