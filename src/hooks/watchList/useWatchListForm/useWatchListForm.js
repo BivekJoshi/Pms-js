@@ -16,8 +16,7 @@ export const useWatchListForm = ({ onClose }) => {
           onClose();
           formik.resetForm();
         },
-      }),
-        setOpenSubmitModal(true);
+      })
     },
   });
   return { formik };

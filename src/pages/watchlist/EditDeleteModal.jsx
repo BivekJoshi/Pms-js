@@ -10,7 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import { TextField } from "@mui/material";
 import { useUpdateWatchListname } from "../../hooks/watchList/useWatchListForm/useWatchListForm";
-import { deleteWatchName } from "../../api/watchlist/watchlist-api";
+// import { deleteWatchName } from "../../api/watchlist/watchlist-api";
 import { useRemoveWatchListName } from "../../hooks/watchList/useWatchList";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
@@ -134,9 +134,12 @@ const EditDeleteModal = (props) => {
                 formik.touched.watchlistName && formik.errors.watchlistName
               }
               required
-              variant='outlined'
+              variant="outlined"
               // autoFocus
-              InputLabelProps={{ shrink: true, style: { color: theme.palette.text.main }}}
+              InputLabelProps={{
+                shrink: true,
+                style: { color: theme.palette.text.main },
+              }}
             />
           )}
         </DialogContent>

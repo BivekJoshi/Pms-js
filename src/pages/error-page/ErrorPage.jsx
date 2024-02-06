@@ -7,10 +7,10 @@ import { useSelector } from 'react-redux';
 const ErrorPage = () => {
   const navigate = useNavigate();
   const brokerOption = useSelector((state) => state?.brokerList?.brokerOption);
-  console.log(
-    '🚀 ~ file: ErrorPage.jsx:10 ~ ErrorPage ~ brokerOption:',
-    brokerOption
-  );
+  // console.log(
+  //   '🚀 ~ file: ErrorPage.jsx:10 ~ ErrorPage ~ brokerOption:',
+  //   brokerOption
+  // );
 
   return (
     <div

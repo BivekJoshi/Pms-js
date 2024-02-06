@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  RadioGroup,
-  Box,
-  Divider,
-  FormControl,
-  Grid,
-  Typography,
-  useTheme,
-  FormControlLabel,
-  Radio,
-} from "@mui/material";
-
+import { RadioGroup, Box, Divider, FormControl } from "@mui/material";
+import { Grid, Typography, FormControlLabel, Radio } from "@mui/material";
 import BuyCalculator from "./BuyCalculator";
 import SellCalculator from "./SellCalculator";
 import CustomBox from "../CustomBox";
