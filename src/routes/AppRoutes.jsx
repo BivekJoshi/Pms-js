@@ -7,6 +7,7 @@ import RightShareCalulator from "../pages/calculator/right/RightShareCalulator";
 import CAGRCalculator from "../pages/calculator/cagr/CAGRCalculator";
 import SipPlanCalculator from "../pages/calculator/sip/SipPlanCalculator";
 import DividendCalculator from "../pages/calculator/dividend/DividendCalculator";
+import WeightedAveCal from "../pages/calculator/weighted/WeightedAveCal";
 
 const LoginLayout = React.lazy(() => import("../layout/LoginLayout"));
 const AppLayout = React.lazy(() => import("../layout/AppLayout"));
@@ -124,6 +125,10 @@ export default function AppRoutes() {
               <Route
                 path="/dividend-calculator"
                 element={<DividendCalculator />}
+              />
+              <Route
+                path="/weighted-average-calculator"
+                element={<WeightedAveCal />}
               />
             </Route>
             {/* <Route path='/error-page' element={<ErrorPage />} /> */}

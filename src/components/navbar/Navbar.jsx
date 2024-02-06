@@ -126,6 +126,11 @@ const navItems = [
         item: t("Dividend Calulator"),
         path: "/dividend-calculator",
       },
+      {
+        id: 7,
+        item: t("Weighted Average Calculator"),
+        path: "/weighted-average-calculator",
+      },
     ],
   },
 ];
@@ -140,8 +145,15 @@ const Navbar = () => {
   const { data: childDetailData } = useGetUserChildDetail();
   const themeMode = useSelector((state) => state.theme?.mode);
   const { pathname = "" } = useLocation();
-  const currentTime = new Date().getHours();
-  const marketOpen = currentTime >= 15 || currentTime <= 11 ? false : true;
+  const currentTime = new Date();
+  const currentDay = new Date();
+  const currentHour = currentTime.getHours();
+  const currentMinute = currentTime.getMinutes();
+  const isWeekend = currentDay === 5 || currentDay === 6;
+  const isWeekdayAndGreenTime = !isWeekend && currentHour >= 11 && currentHour <= 14;
+
+  // Set marketOpen accordingly
+  const marketOpen = isWeekdayAndGreenTime ? true : false;
 
   const [submenuAnchors, setSubmenuAnchors] = useState({});
   const [isNavigating, setIsNavigating] = useState(false);

@@ -6,15 +6,15 @@ const PortfolioChart = ({ data, userData }) => {
   const mode = theme.palette.mode;
   const isDarkMode = mode === 'dark';
   const sector = data && data.map((script) => script?.sector);
-  console.log(
-    '🚀 ~ file: PortfolioChart.jsx:9 ~ PortfolioChart ~ sector:',
-    sector
-  );
-  const quantity = userData && userData.map((script) => script?.quantity);
-  console.log(
-    '🚀 ~ file: PortfolioChart.jsx:10 ~ PortfolioChart ~ quantity:',
-    quantity
-  );
+  // console.log(
+  //   '🚀 ~ file: PortfolioChart.jsx:9 ~ PortfolioChart ~ sector:',
+  //   sector
+  // );
+  // const quantity = userData && userData.map((script) => script?.quantity);
+  // console.log(
+  //   '🚀 ~ file: PortfolioChart.jsx:10 ~ PortfolioChart ~ quantity:',
+  //   quantity
+  // );
   // console.log(data)
   const chartOptions = {
     chart: {

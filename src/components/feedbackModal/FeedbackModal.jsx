@@ -37,24 +37,26 @@ const FeedbackModal = ({ onClose }) => {
       <br />
       <Box component="form">
         <Autocomplete
-          id="problemType"
-          name="problemType"
+          id="type"
+          name="type"
           options={top100Films.map((film) => film.label)}
           required
-          onChange={(event, newValue) =>
-            formik.setFieldValue("problemType", newValue)
-          }
+          onChange={(event, newValue) => {
+            // Extract the first letter from the selected label
+            const firstLetter = newValue ? newValue[0] : '';
+            formik.setFieldValue("type", firstLetter);
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
               label="Problem Type"
-              value={formik.values.problemType}
+              value={formik.values.type}
               onChange={formik.handleChange}
               error={
-                formik.touched.problemType && Boolean(formik.errors.problemType)
+                formik.touched.type && Boolean(formik.errors.type)
               }
               helperText={
-                formik.touched.problemType && formik.errors.problemType
+                formik.touched.type && formik.errors.type
               }
             />
           )}
@@ -62,20 +64,20 @@ const FeedbackModal = ({ onClose }) => {
       </Box>
       <Grid sx={{ paddingTop: "1.5rem" }}>
         <TextField
-          id="description"
-          name="description"
+          id="message"
+          name="message"
           label="Message"
           multiline
           rows={5}
           variant="filled"
           sx={{ width: "100%" }}
           required
-          value={formik.values.description}
+          value={formik.values.message}
           onChange={formik.handleChange}
           error={
-            formik.touched.description && Boolean(formik.errors.description)
+            formik.touched.message && Boolean(formik.errors.message)
           }
-          helperText={formik.touched.description && formik.errors.description}
+          helperText={formik.touched.message && formik.errors.message}
         />
       </Grid>
       <br />

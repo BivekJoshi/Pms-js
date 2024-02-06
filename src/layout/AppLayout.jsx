@@ -1,29 +1,24 @@
-import {
-  CssBaseline,
-  IconButton,
-  ThemeProvider,
-  Tooltip,
-  createTheme,
-} from '@mui/material';
-import Navbar from '../components/navbar/Navbar';
+import { CssBaseline, IconButton, ThemeProvider } from "@mui/material";
+import { Tooltip, createTheme } from "@mui/material";
+import Navbar from "../components/navbar/Navbar";
 
-import React, { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { themeSettings } from './../theme';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { useGetTheme } from '../hooks/brokerTheme/useBrokerTheme';
-import Spinner from '../components/spinner/Spinner';
-import Footer from '../components/footer/Footer';
-import MarketIndexNav from '../components/navbar/MarketIndexNav';
-import FormModal from '../components/formModal/FormModal';
-import FeedbackModal from '../components/feedbackModal/FeedbackModal';
-import Support from '../assets/support.png';
+import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { themeSettings } from "./../theme";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useGetTheme } from "../hooks/brokerTheme/useBrokerTheme";
+import Spinner from "../components/spinner/Spinner";
+import Footer from "../components/footer/Footer";
+import MarketIndexNav from "../components/navbar/MarketIndexNav";
+import FormModal from "../components/formModal/FormModal";
+import FeedbackModal from "../components/feedbackModal/FeedbackModal";
+import Support from "../assets/support.png";
 
 const AppLayout = () => {
   const dispatch = useDispatch();
   const mode = useSelector((state) => state?.theme?.mode);
   const brokerId = useSelector((state) => state?.user.details?.brokerNo);
-  const authDataString = localStorage.getItem('auth');
+  const authDataString = localStorage.getItem("auth");
   const authData = JSON.parse(authDataString);
   const authToken = authData?.authToken;
   const navigate = useNavigate();
@@ -32,14 +27,14 @@ const AppLayout = () => {
 
   useEffect(() => {
     if (!authToken) {
-      navigate('/login');
+      navigate("/login");
     } else if (authData?.tempPassword) {
-      navigate('change/password');
+      navigate("change/password");
     } else {
       refetch();
     }
     if (data) {
-      dispatch({ type: 'SET_BROKER_THEME', payload: data?.web });
+      dispatch({ type: "SET_BROKER_THEME", payload: data?.web });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, isLoading, authToken]);
@@ -58,15 +53,15 @@ const AppLayout = () => {
       {/* <ErrorBoundary> */}
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: "relative" }}>
           <Navbar />
 
           <MarketIndexNav />
           {/* <Container fixed> */}
           <section
             style={{
-              padding: '16px',
-              minHeight: '94dvh',
+              padding: "16px",
+              minHeight: "94dvh",
             }}
             // data-aos='fade-right'
           >
@@ -75,14 +70,17 @@ const AppLayout = () => {
           {/* </Container> */}
           <Footer />
         </div>
-        <div style={{ position: 'fixed', bottom: '50px', right: '32px' }}>
+        <div style={{ position: "fixed", bottom: "50px", right: "32px" }}>
           <IconButton>
-            <Tooltip title='Give Feedback' arrow placement='left-start'>
+            <Tooltip title="Give Feedback" arrow placement="left-start">
               <img
                 src={Support}
-                alt='support.png'
+                alt="support.png"
                 onClick={() => setFeedbackModal(true)}
-                style={{boxShadow:"1px 1px 1px 1px #c3caf0", borderRadius:"30px"}}
+                style={{
+                  boxShadow: "1px 1px 1px 1px #c3caf0",
+                  borderRadius: "30px",
+                }}
               />
             </Tooltip>
           </IconButton>
@@ -91,7 +89,7 @@ const AppLayout = () => {
         <FormModal
           open={feedbackModal}
           onClose={() => setFeedbackModal(false)}
-          width='378px'
+          width="378px"
           formComponent={
             <FeedbackModal onClose={() => setFeedbackModal(false)} />
           }

@@ -7,8 +7,8 @@ export const useFeedbackForm = ({ onClose }) => {
     const { mutate } = useAddFeedback({});
     const formik = useFormik({
       initialValues: {
-        problemType: "",
-        description:"",
+        type: "",
+        message:"",
       },
       validationSchema: feedbackSchema,
       onSubmit: (values) => {
