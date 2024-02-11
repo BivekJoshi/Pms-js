@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import PrintOutlinedIcon from "@mui/icons-material/PrintOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PictureAsPdfOutlinedIcon from "@mui/icons-material/PictureAsPdfOutlined";
+import { getNumberIntoCurrency } from "../../../utility/calculatorValues";
 
 const BillDetail = ({ rowData }) => {
   const dispatch = useDispatch();
@@ -69,6 +70,9 @@ const BillDetail = ({ rowData }) => {
         header: "Amount",
         size: 100,
         sortable: false,
+        Cell: ({ renderedCellValue }) => (
+          <span>{getNumberIntoCurrency(renderedCellValue)}</span>
+        ),
       },
     ],
     []
@@ -128,6 +132,8 @@ const BillDetail = ({ rowData }) => {
           columns={columns}
           data={tableData.detail}
           isLoading={isLoading}
+          exportAsCSV
+          exportAsPdf
           enablePagination={false}
           enableEditing={false}
           enableColumnResizing={false}

@@ -1,4 +1,4 @@
-import { useTheme } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,6 +13,7 @@ import {
 import { FLOOR_SHEET_DETAILS } from '../../../../api/urls/urls';
 import { useEffect } from 'react';
 import { getErrorMessage } from '../../../../utility/getErrorMessage';
+import { getNumberIntoCurrency } from '../../../../utility/calculatorValues';
 
 const Floorsheet = ({ companyData }) => {
   const { t } = useTranslation();
@@ -83,6 +84,9 @@ const Floorsheet = ({ companyData }) => {
         header: 'Amount',
         size: 120,
         sortable: false,
+      Cell: ({renderedCellValue}) => (
+        <span>{getNumberIntoCurrency(renderedCellValue)}</span>
+      ),
       },
       {
         id: 3,
@@ -138,6 +142,8 @@ const Floorsheet = ({ companyData }) => {
             title='Market Date'
             columns={columns}
             isLoading={isLoading}
+            exportAsCSV
+            exportAsPdf
             data={Object.values(tableData)}
             pageSize={pageSize}
             // headerColor={theme.palette.text.main}

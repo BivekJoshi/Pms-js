@@ -126,14 +126,14 @@ const Statement = ({ tradeDate }) => {
       {
         id: 9,
         accessorKey: "balance",
-        header: "Balance",
+        header: "Balance", 
         size: 60,
         sortable: false,
         Cell: ({renderedCellValue}) => (
           <span>{getNumberIntoCurrency(renderedCellValue)}</span>
         ),
         Footer: () => {
-          return <Typography style={{ width: "auto" }}>{amount}</Typography>;
+          return <Typography style={{ width: "auto" }}>{getNumberIntoCurrency(amount)}</Typography>;
         },
       },
     ],
