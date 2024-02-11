@@ -200,7 +200,7 @@ const CustomTable = (props) => {
             >
               <Typography variant="h3">{props?.title}</Typography>
               <div>
-                {props?.exportAsCSV && (
+                {props?.exportAsPdf && (
                   <Tooltip title="Download as PDF" arrow placement="bottom">
                     <IconButton
                       onClick={() => {
@@ -256,7 +256,7 @@ const CustomTable = (props) => {
                     </IconButton>
                   </Tooltip>
                 )}
-                {props?.exportAsPdf && (
+                {props?.exportAsCSV && (
                   <Tooltip title="Download as CSV" arrow placement="bottom">
                     <IconButton
                       onClick={() => {

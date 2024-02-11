@@ -44,7 +44,8 @@ import PrivacyPolicy from "./privacyPolicy/PrivacyPolicy";
 
 const Profile = () => {
   const theme = useTheme();
-  const [value, setValue] = useState("1");
+  const [value, setValue] = useState(0);
+  console.log("🚀 ~ Profile ~ value:", value);
   const [openDrawer, setOpenDrawer] = useState(false);
   const { t } = useTranslation();
   // const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -60,6 +61,120 @@ const Profile = () => {
     setOpenDrawer(false);
     window.scrollTo(0, 0);
   };
+
+  const sideBarMenuItems = [
+    {
+      id: "head-1",
+      name: "General",
+      items: [
+        {
+          title: "Update Profile",
+          id: 0,
+          icon: UpdateProfile,
+        },
+        {
+          title: "Notification Configuration",
+          id: 1,
+          icon: Notification,
+        },
+        {
+          title: "Subscription",
+          id: 2,
+          icon: Subscription,
+        },
+        {
+          title: "Change Password",
+          id: 3,
+          icon: Security,
+        },
+      ],
+    },
+    {
+      id: "head-2",
+      name: "Activities",
+      items: [
+        {
+          title: "Transaction",
+          id: 4,
+          icon: Transaction,
+        },
+        {
+          title: "Bill",
+          id: 5,
+          icon: Bills,
+        },
+        {
+          title: "Statement",
+          id: 6,
+          icon: Statements,
+        },
+        {
+          title: "Receipt / Payment",
+          id: 7,
+          icon: Payment,
+        },
+      ],
+    },
+    {
+      id: "head-3",
+      name: "More",
+      items: [
+        {
+          title: "Terms & Conditions",
+          id: 8,
+          icon: Terms,
+        },
+        {
+          title: "Privacy Policy",
+          id: 9,
+          icon: Terms,
+        },
+      ],
+    },
+  ];
+
+  const componentList = [
+    {
+      id: 0,
+      component: <ProfileInfo data={userInfoData} />,
+    },
+    {
+      id: 1,
+      component: <ProfileNotification />,
+    },
+    {
+      id: 2,
+      component: <SubscriptionTab />,
+    },
+    {
+      id: 3,
+      component: <ChangePassword />,
+    },
+    {
+      id: 4,
+      component: <Transactions tradeDate={tradeDates?.lastTransactionDate} />,
+    },
+    {
+      id: 5,
+      component: <Bill tradeDate={tradeDates?.lastBillDate} />,
+    },
+    {
+      id: 6,
+      component: <Statement tradeDate={tradeDates?.lastStatementDate} />,
+    },
+    {
+      id: 7,
+      component: <ReceiptPayment tradeDate={tradeDates?.lastStatementDate} />,
+    },
+    {
+      id: 8,
+      component: <TermsCondition />,
+    },
+    {
+      id: 9,
+      component: <PrivacyPolicy />,
+    },
+  ];
 
   return (
     <Box
@@ -111,271 +226,52 @@ const Profile = () => {
               borderRadius="8px"
               width="100%"
             >
-              <Grid display="flex" flexDirection="column">
-                <Typography variant="h4" p="12px 0">
-                  {t("General")}
-                </Typography>
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  aria-label="lab API tabs example"
-                  sx={{ display: "flex", flexDirection: "column" }}
-                  orientation="vertical"
-                >
-                  <Tab
-                    label={
-                      <Grid className="profileIcon">
-                        <img src={UpdateProfile} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("Update Profile")}
-                        </Typography>
-                      </Grid>
-                    }
-                    value="1"
-                    style={{
-                      color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
-                      backgroundColor:
-                        value === "1"
-                          ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem 0 0 .5rem ",
-                      textTransform: "none",
-                    }}
-                  />
-                  <Tab
-                    label={
-                      <Grid className="profileIcon">
-                        <img src={Notification} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("Notification Configuration")}
-                        </Typography>
-                      </Grid>
-                    }
-                    value="2"
-                    style={{
-                      color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
-                      backgroundColor:
-                        value === "2"
-                          ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem 0 0 .5rem ",
-                      textTransform: "none",
-                    }}
-                  />
-                  <Tab
-                    label={
-                      <Grid className="profileIcon">
-                        <img src={Subscription} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("Subscription")}
-                        </Typography>
-                      </Grid>
-                    }
-                    value="3"
-                    style={{
-                      color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
-                      backgroundColor:
-                        value === "3"
-                          ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem 0 0 .5rem ",
-                      textTransform: "none",
-                    }}
-                  />
-                  <Tab
-                    label={
-                      <Grid className="profileIcon">
-                        <img src={Security} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("Change Password")}
-                        </Typography>
-                      </Grid>
-                    }
-                    value="4"
-                    style={{
-                      color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
-                      backgroundColor:
-                        value === "4"
-                          ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem 0 0 .5rem ",
-                      textTransform: "none",
-                    }}
-                  />
-                </Tabs>
-              </Grid>
-              <Divider />
-              <Grid display="flex" flexDirection="column">
-                <Typography variant="h4" p="12px 0">
-                  {t("Activities")}
-                </Typography>
-                <Tabs
-                  value={value}
-                  orientation="vertical"
-                  onChange={handleChange}
-                  aria-label="lab API tabs example"
-                  sx={{ display: "flex", flexDirection: "column" }}
-                >
-                  <Tab
-                    label={
-                      <Grid className="profileIcon">
-                        <img src={Transaction} alt="UpdateProfile" />
-                        <Typography variant="h7">{t("Transaction")}</Typography>
-                      </Grid>
-                    }
-                    value="5"
-                    style={{
-                      color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      backgroundColor:
-                        value === "5"
-                          ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem 0 0 .5rem ",
-                      textTransform: "none",
-                    }}
-                  />
-                  <Tab
-                    label={
-                      <Grid className="profileIcon">
-                        <img src={Bills} alt="UpdateProfile" />
-                        <Typography variant="h7">{t("Bill")}</Typography>
-                      </Grid>
-                    }
-                    value="6"
-                    style={{
-                      color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
-                      backgroundColor:
-                        value === "6"
-                          ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem 0 0 .5rem ",
-                      textTransform: "none",
-                    }}
-                  />
-                  <Tab
-                    label={
-                      <Grid className="profileIcon">
-                        <img src={Statements} alt="UpdateProfile" />
-                        <Typography variant="h7">{t("Statement")}</Typography>
-                      </Grid>
-                    }
-                    value="7"
-                    style={{
-                      color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
-                      backgroundColor:
-                        value === "7"
-                          ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem 0 0 .5rem ",
-                      textTransform: "none",
-                    }}
-                  />
-                  <Tab
-                    label={
-                      <Grid className="profileIcon">
-                        <img src={Payment} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("Receipt/Payment")}
-                        </Typography>
-                      </Grid>
-                    }
-                    value="8"
-                    style={{
-                      color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
-                      backgroundColor:
-                        value === "8"
-                          ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem 0 0 .5rem ",
-                      textTransform: "none",
-                    }}
-                  />
-                </Tabs>
-              </Grid>
-              <Divider />
-
-              <Grid>
-                <Typography variant="h4" p="12px 0">
-                  {t("More")}
-                </Typography>
-                <Tabs
-                  value={value}
-                  orientation="vertical"
-                  onChange={handleChange}
-                  aria-label="lab API tabs example"
-                  sx={{ display: "flex", flexDirection: "column" }}
-                >
-                  <Tab
-                    label={
-                      <Grid className="profileIcon">
-                        <img src={Terms} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("Terms & Conditions")}
-                        </Typography>
-                      </Grid>
-                    }
-                    value="9"
-                    style={{
-                      color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
-                      backgroundColor:
-                        value === "9"
-                          ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem 0 0 .5rem ",
-                      textTransform: "none",
-                    }}
-                  />
-                  <Tab
-                    label={
-                      <Grid className="profileIcon">
-                        <img src={Update} alt="UpdateProfile" />
-                        <Typography variant="h7">
-                          {t("Privacy Policy")}
-                        </Typography>
-                      </Grid>
-                    }
-                    value="10"
-                    style={{
-                      color: theme.palette.text.main,
-                      height: "0",
-                      alignItems: "flex-start",
-                      padding: ".2",
-                      backgroundColor:
-                        value === "10"
-                          ? theme.palette.primary.main
-                          : "transparent",
-                      borderRadius: ".5rem 0 0 .5rem ",
-                      textTransform: "none",
-                    }}
-                  />
-                </Tabs>
-              </Grid>
+              {sideBarMenuItems.map((menuItem, i) => {
+                return (
+                  <Grid display="flex" flexDirection="column" key={i}>
+                    <Typography variant="h4" p="12px 0" key={i}>
+                      {t(`${menuItem?.name}`)}
+                    </Typography>
+                    <Tabs
+                      value={value}
+                      onChange={handleChange}
+                      aria-label="lab API tabs example"
+                      sx={{ display: "flex", flexDirection: "column" }}
+                      orientation="vertical"
+                    >
+                      {menuItem.items.map((item, i) => {
+                        return (
+                          <Tab
+                            key={i}
+                            label={
+                              <Grid className="profileIcon">
+                                <img src={item.icon} alt="UpdateProfile" />
+                                <Typography variant="h7">
+                                  {t(`${item.title}`)}
+                                </Typography>
+                              </Grid>
+                            }
+                            value={item?.id}
+                            style={{
+                              color: theme.palette.text.main,
+                              height: "0",
+                              alignItems: "flex-start",
+                              padding: ".2",
+                              backgroundColor:
+                                value === item?.id
+                                  ? theme.palette.primary.main
+                                  : "transparent",
+                              borderRadius: ".5rem 0 0 .5rem ",
+                              textTransform: "none",
+                            }}
+                          />
+                        );
+                      })}
+                    </Tabs>
+                    <Divider />
+                  </Grid>
+                );
+              })}
             </Grid>
           </Grid>
         </Grid>
@@ -689,36 +585,14 @@ const Profile = () => {
             </Grid>
           </Grid>
         </Drawer>
-        <TabPanel sx={{ p: 0 }} value="1">
-          <ProfileInfo data={userInfoData} />
-        </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="2">
-          <ProfileNotification />
-        </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="3">
-          <SubscriptionTab />
-        </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="4">
-          <ChangePassword />
-        </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="5">
-          <Transactions tradeDate={tradeDates?.lastTransactionDate} />
-        </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="6">
-          <Bill tradeDate={tradeDates?.lastBillDate} />
-        </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="7">
-          <Statement tradeDate={tradeDates?.lastStatementDate} />
-        </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="8">
-          <ReceiptPayment tradeDate={tradeDates?.lastStatementDate} />
-        </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="9">
-          <TermsCondition />
-        </TabPanel>
-        <TabPanel sx={{ p: 0 }} value="10">
-          <PrivacyPolicy />
-        </TabPanel>
+
+        {componentList.map((item, i) => {
+          return (
+            <TabPanel sx={{ p: 0 }} value={i} key={i}>
+              {item?.component}
+            </TabPanel>
+          );
+        })}
       </TabContext>
     </Box>
   );
