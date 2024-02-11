@@ -17,11 +17,15 @@ export const getUserInfo = async () => {
   const response = await axiosInstance.get(`/app-user`);
   return response.data;
 };
+
+export const getUserTransactionDate = async () => {
+  const response = await axiosInstance.get(`/transaction/last-date`);
+  console.log("🚀 ~ getUserTransactionDate ~ response:", response);
+  return response.data;
+};
 /*________________________Change Profile_____________________________________*/
 export const postChangeProfile = async () => {
-  const data = await axiosInstance.post(
-    "app-user/upload/profile-photo",
-  );
+  const data = await axiosInstance.post("app-user/upload/profile-photo");
   return data;
 };
 

@@ -1,18 +1,19 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import toast from 'react-hot-toast';
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import toast from "react-hot-toast";
 import {
   getTransactionPortfolio,
   getUserChildDetail,
   getUserInfo,
   getUserPortfolio,
+  getUserTransactionDate,
   postChangeProfile,
-} from '../../api/portfolio/portfolio-api';
-import { getErrorMessage } from '../../utility/getErrorMessage';
+} from "../../api/portfolio/portfolio-api";
+import { getErrorMessage } from "../../utility/getErrorMessage";
 
 /*________________________GET TRANSACTION PORTFOLIO_____________________________________*/
 export const useGetTransactionPortfolio = () => {
   return useQuery(
-    ['getTransactionPortfolio'],
+    ["getTransactionPortfolio"],
     () => getTransactionPortfolio(),
     {
       cacheTime: 10000,
@@ -24,7 +25,7 @@ export const useGetTransactionPortfolio = () => {
 
 /*________________________GET TRANSACTION PORTFOLIO_____________________________________*/
 export const useGetUserenPortfolio = () => {
-  return useQuery(['getUserenPortfolio'], () => getUserPortfolio(), {
+  return useQuery(["getUserenPortfolio"], () => getUserPortfolio(), {
     cacheTime: 10000,
     refetchInterval: false,
     refetchOnWindowFocus: false,
@@ -33,7 +34,15 @@ export const useGetUserenPortfolio = () => {
 
 /*________________________GET TRANSACTION PORTFOLIO_____________________________________*/
 export const useGetUserInfo = () => {
-  return useQuery(['getUserInfo'], () => getUserInfo(), {
+  return useQuery(["getUserInfo"], () => getUserInfo(), {
+    cacheTime: 10000,
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+  });
+};
+
+export const useGetUserTransactionDate = () => {
+  return useQuery(["getUserTransactionDate"], () => getUserTransactionDate(), {
     cacheTime: 10000,
     refetchInterval: false,
     refetchOnWindowFocus: false,
@@ -42,7 +51,7 @@ export const useGetUserInfo = () => {
 
 /*________________________GET CHILD DETAIL_____________________________________*/
 export const useGetUserChildDetail = () => {
-  return useQuery(['getUserChildDetail'], () => getUserChildDetail(), {
+  return useQuery(["getUserChildDetail"], () => getUserChildDetail(), {
     cacheTime: 10000,
     refetchInterval: false,
     refetchOnWindowFocus: false,
@@ -50,9 +59,9 @@ export const useGetUserChildDetail = () => {
 };
 
 export const usePostChangeProfile = ({ onSuccess }) => {
-  return useMutation(['addAlert'], () => postChangeProfile(), {
+  return useMutation(["addAlert"], () => postChangeProfile(), {
     onSuccess: (data, variables, context) => {
-      toast.success('Succesfully Change Profile');
+      toast.success("Succesfully Change Profile");
       onSuccess && onSuccess(data, variables, context);
     },
     onError: (err) => {

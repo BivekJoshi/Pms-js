@@ -90,13 +90,13 @@ const Statement = ({ tradeDate }) => {
         size: 90,
         sortable: false,
       },
-      {
-        id: 5,
-        accessorKey: "voucherNo",
-        header: "Voucher No.",
-        size: 90,
-        sortable: false,
-      },
+      // {
+      //   id: 5,
+      //   accessorKey: "voucherNo",
+      //   header: "Voucher No.",
+      //   size: 90,
+      //   sortable: false,
+      // },
       {
         id: 6,
         accessorKey: "particulars",
