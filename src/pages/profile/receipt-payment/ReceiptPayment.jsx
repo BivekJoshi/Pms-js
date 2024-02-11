@@ -10,8 +10,7 @@ import CustomPagination from "../../../components/customPagination/CustomPaginat
 import { fetchPaginatedTable } from "../../../redux/actions/paginatedTable";
 import { useTranslation } from "react-i18next";
 import { filterDateValidationSchema } from "../../../form/validations/filterDateValidate";
-import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
-import DownloadIcon from "@mui/icons-material/Download";
+import { getNumberIntoCurrency } from "../../../utility/calculatorValues";
 
 const ReceiptPayment = ({ tradeDate }) => {
   const theme = useTheme();
@@ -84,6 +83,16 @@ const ReceiptPayment = ({ tradeDate }) => {
         header: "Amount",
         size: 80,
         sortable: false,
+        Cell: ({ renderedCellValue}) => (
+          <span>{getNumberIntoCurrency(renderedCellValue)}</span>
+        ),
+        // Footer: () => {
+        //   return (
+        //     <Typography style={{ width: "auto" }}>
+        //       {getNumberIntoCurrency(amount)}
+        //     </Typography>
+        //   );
+        // },
       },
     ],
     []
@@ -196,10 +205,6 @@ const ReceiptPayment = ({ tradeDate }) => {
             </b>
           </Typography>
         </div>
-        <div style={{ display: "flex", gap: "7px" }}>
-          <LocalPrintshopOutlinedIcon />
-          <DownloadIcon />
-        </div>
       </Box>
       <br />
       <NewFilter
@@ -216,6 +221,8 @@ const ReceiptPayment = ({ tradeDate }) => {
               title={t("Receipt/Payment Report")}
               columns={columns}
               isLoading={isLoading}
+              exportAsCSV
+              exportAsPdf
               data={Object.values(tableData)}
               pageSize={pageSize}
             />

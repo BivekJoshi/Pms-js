@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { filterDateValidationSchema } from "../../../form/validations/filterDateValidate";
 
 import { useEffect } from "react";
+import { getNumberIntoCurrency } from "../../../utility/calculatorValues";
 
 const Bill = ({ tradeDate }) => {
   const dispatch = useDispatch();
@@ -131,6 +132,9 @@ const Bill = ({ tradeDate }) => {
         header: "Amount",
         size: 100,
         sortable: false,
+        Cell: ({renderedCellValue}) => (
+          <span>{getNumberIntoCurrency(renderedCellValue)}</span>
+        ),
         Footer: () => {
           return <Typography style={{ width: "auto" }}>{amount}</Typography>;
         },
@@ -267,6 +271,8 @@ const Bill = ({ tradeDate }) => {
               title={t("Bill Report")}
               columns={columns}
               isLoading={isLoading}
+              exportAsCSV
+              exportAsPdf
               data={Object.values(tableData)}
               pageSize={pageSize}
               onRowClick={handleRowClick}
