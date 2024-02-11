@@ -10,8 +10,7 @@ import { useTranslation } from "react-i18next";
 import { filterDateValidationSchema } from "../../../form/validations/filterDateValidate";
 import { fetchPaginatedTable } from "../../../redux/actions/paginatedTable";
 import CustomPagination from "../../../components/customPagination/CustomPagination";
-import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
-import DownloadIcon from "@mui/icons-material/Download";
+import { getNumberIntoCurrency } from "../../../utility/calculatorValues";
 
 const Transactions = ({ tradeDate }) => {
   const theme = useTheme();
@@ -69,7 +68,7 @@ const Transactions = ({ tradeDate }) => {
         id: 1,
         accessorKey: "trDate",
         header: "Date",
-        size: 50,
+        size: 80,
         sortable: false,
         Footer: () => {
           return <span>{text}</span>;
@@ -81,12 +80,12 @@ const Transactions = ({ tradeDate }) => {
         header: "Transaction Type",
         size: 100,
         sortable: false,
-        Cell: ({ row }) => {
-          if (row?.original?.transactionType === "P") {
+        Cell: ({ renderedCellValue }) => {
+          if (renderedCellValue === "P") {
             return "Purchase";
-          } else if (row?.original?.transactionType === "S") {
+          } else if (renderedCellValue === "S") {
             return "Sell";
-          } else return row?.original?.transactionType;
+          } else return renderedCellValue;
         },
       },
       // {
@@ -101,7 +100,7 @@ const Transactions = ({ tradeDate }) => {
         id: 4,
         accessorKey: "script",
         header: "Script",
-        size: 100,
+        size: 80,
         sortable: false,
       },
 
@@ -109,7 +108,7 @@ const Transactions = ({ tradeDate }) => {
         id: 5,
         accessorKey: "quantity",
         header: "Quantity",
-        size: 100,
+        size: 80,
         sortable: false,
       },
       {
@@ -125,8 +124,15 @@ const Transactions = ({ tradeDate }) => {
         header: "Amount",
         size: 100,
         sortable: false,
+        Cell: ({ renderedCellValue }) => (
+          <span>{getNumberIntoCurrency(renderedCellValue)}</span>
+        ),
         Footer: () => {
-          return <Typography style={{ width: "auto" }}>{amount}</Typography>;
+          return (
+            <Typography style={{ width: "auto" }}>
+              {getNumberIntoCurrency(amount)}
+            </Typography>
+          );
         },
       },
     ],
@@ -225,10 +231,6 @@ const Transactions = ({ tradeDate }) => {
             </b>
           </Typography>
         </div>
-        <div style={{ display: "flex", gap: "7px" }}>
-          <LocalPrintshopOutlinedIcon />
-          <DownloadIcon />
-        </div>
       </Box>
       <br />
       <NewFilter
@@ -245,6 +247,8 @@ const Transactions = ({ tradeDate }) => {
               title={t("Transaction Report")}
               columns={columns}
               isLoading={isLoading}
+              exportAsCSV
+              exportAsPdf
               data={Object.values(tableData)}
               pageSize={pageSize}
             />

@@ -16,7 +16,6 @@ const CAGRCalculator = () => {
   const theme = useTheme();
   // compounded annual growth rate
   const { formik } = useCagrForm();
-  console.log("🚀 ~ CAGRCalculator ~ formik:", formik);
 
   const chartOptions = {
     series: [

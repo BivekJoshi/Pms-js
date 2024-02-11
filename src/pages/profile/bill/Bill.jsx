@@ -11,8 +11,7 @@ import { fetchPaginatedTable } from "../../../redux/actions/paginatedTable";
 import CustomPagination from "../../../components/customPagination/CustomPagination";
 import { useTranslation } from "react-i18next";
 import { filterDateValidationSchema } from "../../../form/validations/filterDateValidate";
-import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
-import DownloadIcon from "@mui/icons-material/Download";
+
 import { useEffect } from "react";
 
 const Bill = ({ tradeDate }) => {
@@ -42,7 +41,7 @@ const Bill = ({ tradeDate }) => {
     const data = Object.values(tableData);
     const newData = data.length;
     if (newData > 0) {
-      const { totalAmount, totalCommission } = Object.values(tableData)?.reduce(
+      const { totalAmount, totalCommission } = Object.values(tableData).reduce(
         (acc, curr) => {
           acc.totalAmount += curr.amount ?? 0;
           acc.totalCommission += curr.rate ?? 0;
@@ -132,6 +131,9 @@ const Bill = ({ tradeDate }) => {
         header: "Amount",
         size: 100,
         sortable: false,
+        Footer: () => {
+          return <Typography style={{ width: "auto" }}>{amount}</Typography>;
+        },
       },
       // {
       //   id: 7,
@@ -248,10 +250,6 @@ const Bill = ({ tradeDate }) => {
               {trType === "P" ? "Purchase" : trType === "S" ? "Sell" : "Both"}
             </b>
           </Typography>
-        </div>
-        <div style={{ display: "flex", gap: "7px" }}>
-          <LocalPrintshopOutlinedIcon />
-          <DownloadIcon />
         </div>
       </Box>
       <br />
