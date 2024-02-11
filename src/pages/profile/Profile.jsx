@@ -21,7 +21,6 @@ import Bills from "../../assets/Bill.png";
 import Statements from "../../assets/Statement.png";
 import Payment from "../../assets/Payment.png";
 import Terms from "../../assets/Terms.png";
-import Update from "../../assets/Update.png";
 import ProfileInfo from "./ProfileTab/ProfileInfo";
 import ChangePassword from "./ProfileTab/changePassword/ChangePassword";
 import ProfileNotification from "./ProfileTab/ProfileNotification";
@@ -48,9 +47,6 @@ const Profile = () => {
   console.log("🚀 ~ Profile ~ value:", value);
   const [openDrawer, setOpenDrawer] = useState(false);
   const { t } = useTranslation();
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const [image, setImage] = useState();
-  // const [editedDocument, setEditedDocument] = useState({});
 
   const { data: userInfoData, isLoading: loading } = useGetUserInfo();
   const { data: tradeDates } = useGetUserTransactionDate();
