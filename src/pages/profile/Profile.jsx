@@ -44,7 +44,6 @@ import PrivacyPolicy from "./privacyPolicy/PrivacyPolicy";
 const Profile = () => {
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  console.log("🚀 ~ Profile ~ value:", value);
   const [openDrawer, setOpenDrawer] = useState(false);
   const { t } = useTranslation();
 
