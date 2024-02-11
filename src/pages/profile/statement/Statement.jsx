@@ -8,8 +8,6 @@ import CustomTable from "../../../components/customTable/CustomTable";
 import { Box, Typography, useTheme } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { filterDateValidationSchema } from "../../../form/validations/filterDateValidate";
-import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
-import DownloadIcon from "@mui/icons-material/Download";
 import { fetchPaginatedTable } from "../../../redux/actions/paginatedTable";
 import CustomPagination from "../../../components/customPagination/CustomPagination";
 import { useEffect } from "react";
@@ -17,6 +15,7 @@ import { Chip } from "@mui/material";
 import { Button } from "@mui/material";
 import FormModal from "./../../../components/formModal/FormModal";
 import Paymentmethod from "./../SubscriptionTab/Paymentmethod";
+import { getNumberIntoCurrency } from "../../../utility/calculatorValues";
 
 const Statement = ({ tradeDate }) => {
   const theme = useTheme();
@@ -130,6 +129,9 @@ const Statement = ({ tradeDate }) => {
         header: "Balance",
         size: 60,
         sortable: false,
+        Cell: ({renderedCellValue}) => (
+          <span>{getNumberIntoCurrency(renderedCellValue)}</span>
+        ),
         Footer: () => {
           return <Typography style={{ width: "auto" }}>{amount}</Typography>;
         },
@@ -223,10 +225,6 @@ const Statement = ({ tradeDate }) => {
             </Button>
           </div>
         </div>
-        <div style={{ display: "flex", gap: "7px" }}>
-          <LocalPrintshopOutlinedIcon />
-          <DownloadIcon />
-        </div>
       </Box>
       <br />
       <NewFilter
@@ -244,6 +242,8 @@ const Statement = ({ tradeDate }) => {
               title={t("Statement Report")}
               columns={columns}
               isLoading={isLoading}
+              exportAsCSV
+              exportAsPdf
               data={Object.values(tableData)}
               pageSize={100}
             />
