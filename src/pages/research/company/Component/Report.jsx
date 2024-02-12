@@ -54,6 +54,8 @@ const Report = () => {
       columns={columns}
       //   isLoading={isLoading}
       data={dataCourse}
+      exportAsCSV
+      exportAsPdf
       //   pageSize={pageSize}
       //   onRowClick={handleRowClick}
       headerBackgroundColor="#401686"

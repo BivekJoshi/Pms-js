@@ -166,6 +166,8 @@ const PriceHistory = ({ companyData }) => {
             title="Market Date"
             columns={columns}
             isLoading={isLoading}
+            exportAsCSV
+            exportAsPdf
             data={Object.values(tableData)}
             pageSize={pageSize}
             // onRowClick={handleRowClick}

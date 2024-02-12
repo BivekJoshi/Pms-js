@@ -9,6 +9,8 @@ const ViewByAlertType = () => {
       enableColumnActions
       columns={columns}
       isLoading={true}
+      exportAsCSV
+      exportAsPdf
       enableEditing={true}
       state={{
         isLoading: isLoading,

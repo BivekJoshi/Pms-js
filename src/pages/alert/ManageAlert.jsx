@@ -207,6 +207,8 @@ const ManageAlert = (props) => {
                       enableColumnActions
                       columns={columns}
                       isLoading={isLoading}
+                      exportAsCSV
+                      exportAsPdf
                       enableEditing={true}
                       headerBackgroundColor="#401686"
                       headerColor={theme.palette.text.alt}

@@ -49,6 +49,8 @@ const PerformanceTable = ({ title, data }) => {
         title={title}
         columns={columns}
         data={data}
+        exportAsCSV
+        exportAsPdf
         enablePagination={false}
         enableEditing={false}
         enableColumnResizing={false}
