@@ -20,6 +20,7 @@ const Bill = ({ tradeDate }) => {
   const theme = useTheme();
   const [tableShow, setTableShow] = useState(false);
   const tableData = useSelector((store) => store?.paginatedTable?.data);
+  console.log("🚀 ~ Bill ~ tableData:", tableData);
   const isLoading = useSelector((store) => store?.paginatedTable?.processing);
 
   const totalData = useSelector((store) => store?.paginatedTable?.total);
@@ -132,11 +133,15 @@ const Bill = ({ tradeDate }) => {
         header: "Amount",
         size: 100,
         sortable: false,
-        Cell: ({renderedCellValue}) => (
+        Cell: ({ renderedCellValue }) => (
           <span>{getNumberIntoCurrency(renderedCellValue)}</span>
         ),
         Footer: () => {
-          return <Typography style={{ width: "auto" }}>{amount}</Typography>;
+          return (
+            <Typography style={{ width: "auto" }}>
+              {getNumberIntoCurrency(amount)}
+            </Typography>
+          );
         },
       },
       // {

@@ -1,12 +1,15 @@
 import { Grid, Typography, useTheme } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import CustomTable from "../customTable/CustomTable";
-import { BestPerformanceColumns, WorstPerformanceColumns } from "../../pages/dashboard/dashBoardItems";
+import {
+  BestPerformanceColumns,
+  WorstPerformanceColumns,
+} from "../../pages/dashboard/dashBoardItems";
 
 const PerformanceTable = ({ title, data }) => {
   const theme = useTheme();
   const [columns, setColumns] = useState([]);
-  
+
   useEffect(() => {
     if (title === "Best Performance") {
       setColumns(BestPerformanceColumns);
@@ -16,7 +19,6 @@ const PerformanceTable = ({ title, data }) => {
       return [];
     }
   }, [title]);
-
 
   const headerBackgroundColorMapping = {
     "Best Performance": "#006E17",
