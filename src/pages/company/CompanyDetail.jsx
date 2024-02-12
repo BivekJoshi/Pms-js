@@ -108,6 +108,8 @@ useEffect(() => {
       title=''
       columns={columns}
       data={filteredData}
+      exportAsCSV
+      exportAsPdf
       enablePagination={false}
       enableEditing={false}
       enableColumnResizing={false}
@@ -159,6 +161,8 @@ export const Bonus = ({ companyData }) => {
       title=''
       columns={columns}
       data={filteredData}
+      exportAsCSV
+      exportAsPdf
       enablePagination={false}
       enableEditing={false}
       enableColumnResizing={false}
@@ -204,6 +208,8 @@ export const RightShare = ({ companyData }) => {
       title=''
       columns={columns}
       data={filteredData}
+      exportAsCSV
+      exportAsPdf
       enablePagination={false}
       enableEditing={false}
       enableColumnResizing={false}

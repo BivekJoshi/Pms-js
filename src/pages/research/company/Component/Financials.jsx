@@ -105,6 +105,8 @@ const Financials = () => {
       data={dataCourse}
       //   pageSize={pageSize}
       //   onRowClick={handleRowClick}
+      exportAsCSV
+      exportAsPdf
       headerBackgroundColor="#401686"
       headerColor={theme.palette.text.alt}
       enablePagination={false}

@@ -61,6 +61,8 @@ const AlertScriptTable = ({ script }) => {
         columns={columns}
         // isLoading={isLoading}
         isLoading={true}
+        exportAsCSV
+        exportAsPdf
         enableTopToolbar={false}
         enableBottomToolbar={false}
         enableColumnActions={false}

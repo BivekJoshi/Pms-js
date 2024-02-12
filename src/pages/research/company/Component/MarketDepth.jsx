@@ -97,6 +97,8 @@ const MarketDepth = () => {
         //   isLoading={isLoading}
         title="Buyer"
         data={salerDataWithTotal}
+        exportAsCSV
+        exportAsPdf
         enableTopToolbar={true}
         enablePagination={false}
         enableEditing={false}
@@ -127,6 +129,8 @@ const MarketDepth = () => {
         //   isLoading={isLoading}
         title="Seller"
         data={BayerDataWithTotal}
+        exportAsCSV
+        exportAsPdf
         boldTotalRow={true}
         enableTopToolbar={true}
         enablePagination={false}

@@ -71,6 +71,8 @@ const CourseofSale = () => {
         // title="CourseofSale"
         //   isLoading={isLoading}
         data={data}
+        exportAsCSV
+        exportAsPdf
         enablePagination={false}
         enableTopToolbar={false}
         enableEditing={false}

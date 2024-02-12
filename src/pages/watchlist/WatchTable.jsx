@@ -134,6 +134,8 @@ const WatchTable = (watchid) => {
             showSkeletons: isLoading,
           }}
           isLoading={isLoading}
+          exportAsCSV
+          exportAsPdf
           headerBackgroundColor="#401686"
           headerColor={theme.palette.text.alt}
           enableColumnActions

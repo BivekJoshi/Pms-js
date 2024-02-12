@@ -253,6 +253,8 @@ const Portfolio = () => {
             // enableRowColorChange={["red", "green"]}
             data={userPorfolioData}
             isLoading={isLoading}
+            exportAsCSV
+            exportAsPdf
             enableFullScreenToggle
             headerBackgroundColor="#401686"
             headerColor={theme.palette.text.alt}

@@ -58,6 +58,8 @@ const MarketNews = () => {
         data={data}
         //   pageSize={pageSize}
         //   onRowClick={handleRowClick}
+        exportAsCSV
+        exportAsPdf
         headerBackgroundColor="#401686"
         headerColor={theme.palette.text.alt}
         enablePagination={false}
