@@ -8,6 +8,8 @@ import CAGRCalculator from "../pages/calculator/cagr/CAGRCalculator";
 import SipPlanCalculator from "../pages/calculator/sip/SipPlanCalculator";
 import DividendCalculator from "../pages/calculator/dividend/DividendCalculator";
 import WeightedAveCal from "../pages/calculator/weighted/WeightedAveCal";
+import KycForm from "../kyc/pages/KycForm";
+import CorporateDetailsDp from "../kyc/dp/forms/corporate/CorporateDetailsDp";
 
 const LoginLayout = React.lazy(() => import("../layout/LoginLayout"));
 const AppLayout = React.lazy(() => import("../layout/AppLayout"));
@@ -85,6 +87,9 @@ export default function AppRoutes() {
                 element={<ApplicationMessage />}
               />
             </Route>
+
+            <Route path="/kyc/i" element={<KycForm />} />
+            <Route path="/kyc/c" element={<CorporateDetailsDp />} />
 
             <Route path="/" element={<AppLayout />}>
               <Route path="dashboard" element={<Dashboard />} />
