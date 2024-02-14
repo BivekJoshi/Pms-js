@@ -10,6 +10,7 @@ import DividendCalculator from "../pages/calculator/dividend/DividendCalculator"
 import WeightedAveCal from "../pages/calculator/weighted/WeightedAveCal";
 import KycForm from "../kyc/pages/KycForm";
 import CorporateDetailsDp from "../kyc/dp/forms/corporate/CorporateDetailsDp";
+import AddressIndividualDp from "../kyc/dp/forms/individual/AddressIndividualDp";
 
 const LoginLayout = React.lazy(() => import("../layout/LoginLayout"));
 const AppLayout = React.lazy(() => import("../layout/AppLayout"));
@@ -89,6 +90,7 @@ export default function AppRoutes() {
             </Route>
 
             <Route path="/kyc/i" element={<KycForm />} />
+            <Route path="/kyc/i/address" element={<AddressIndividualDp />} />
             <Route path="/kyc/c" element={<CorporateDetailsDp />} />
 
             <Route path="/" element={<AppLayout />}>
