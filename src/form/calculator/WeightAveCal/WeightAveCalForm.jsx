@@ -14,13 +14,15 @@ const WeightAveCalForm = () => {
       quantity * faceValue;
 
     const updatedWegCal = values.wegCal.map((section, index) => {
+      const FaceValue = values.faceValue;
+
       const totalAmountRate = calculateTotalAmountRate(
         section.quantity,
         section.rate
       );
       const totalAmountValue = calculateTotalAmountValue(
         section.quantity,
-        section.faceValue
+        FaceValue
       );
       const brokerCommissionValue = calculateCommission(totalAmountRate);
       const sebbonFeeAmountValue = getSebbonFee(totalAmountRate);
@@ -37,7 +39,6 @@ const WeightAveCalForm = () => {
       const Right = section.shareType === "Right" ? totalAmountValue : 0;
       const Bonus = section.shareType === "Bonus" ? totalAmountValue : 0;
       const Auction = section.shareType === "Auction" ? totalAmountRate : 0;
-      const FaceValue = values.faceValue;
 
       totalQuantity += Number(section.quantity);
 
@@ -92,7 +93,7 @@ const WeightAveCalForm = () => {
     initialValues: {
       wegCal: [
         {
-          shareType: "",
+          shareType: "IPO",
           quantity: "",
           rate: "",
           totalAmountRate: "",

@@ -11,22 +11,23 @@ import AddIcon from "@mui/icons-material/Add";
 const WeightedAveCal = () => {
   const theme = useTheme();
   const { formik, handleAddSection, handleBlur } = WeightAveCalForm();
-  const [weightedAveragePrice, setWeightedAveragePrice] = useState(0);
+  const [weightedAveragePrice, setWeightedAveragePrice] = useState(0); // State to manage weighted average
 
-  const [calculateClicked, setCalculateClicked] = useState(false);
-
-  const calculateWeightedAveragePrice = () => {
-    if (formik.submitCount >= 1) {
-      const weightedAverage =
-        formik.values.totalWeightedAmount / formik.values.totalQuantity;
-      setWeightedAveragePrice(weightedAverage.toFixed(2));
+  const calculateWeightedAverage = () => {
+    if (formik.values.totalQuantity !== 0) {
+      return formik.values.totalWeightedAmount
+        ? (
+            formik.values.totalWeightedAmount / formik.values.totalQuantity
+          ).toFixed(2)
+        : 0;
     }
+    return 0;
   };
-
-  const handleCalculateClick = () => {
-    setCalculateClicked(true);
-    calculateWeightedAveragePrice();
-  };
+  useEffect(() => {
+    // Update weighted average whenever formik values change
+    const weightedAverage = calculateWeightedAverage();
+    setWeightedAveragePrice(weightedAverage);
+  }, [formik.values]);
 
   return (
     <div
@@ -47,10 +48,10 @@ const WeightedAveCal = () => {
               alignItems="center"
               spacing={2}
             >
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <Typography variant="h6">Select Face Value</Typography>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   id="faceValue"
                   name="faceValue"
@@ -96,25 +97,25 @@ const WeightedAveCal = () => {
               <Grid item xs={12}>
                 <Divider />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <Typography variant="h6">Share Details</Typography>
               </Grid>
               <Grid item xs={12}>
                 <Divider />
               </Grid>
-              <Grid item xs={2}>
+              <Grid item md={2} sm={2} xs={6}>
                 <Typography variant="h6">Share Type</Typography>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item md={3} sm={2} xs={6}>
                 <Typography variant="h6">Quantity</Typography>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item md={3} sm={2} xs={6}>
                 <Typography variant="h6">Rate (Rs.)</Typography>
               </Grid>
-              <Grid item xs={3}>
+              <Grid item md={3} xs={6}>
                 <Typography variant="h6">Total (Rs.)</Typography>
               </Grid>
-              <Grid item xs={1}>
+              <Grid item md={1} sm={2} xs={0}>
                 <Typography variant="h6"></Typography>
               </Grid>
             </Grid>
@@ -131,7 +132,7 @@ const WeightedAveCal = () => {
                       spacing={2}
                       mt={1}
                     >
-                      <Grid item xs={2}>
+                      <Grid item md={2} sm={2} xs={6}>
                         <TextField
                           id={`wegCal[${index}].shareType`}
                           name={`wegCal[${index}].shareType`}
@@ -164,14 +165,14 @@ const WeightedAveCal = () => {
                           </MenuItem>
                         </TextField>
                       </Grid>
-                      <Grid item xs={3}>
+                      <Grid item md={3} sm={2} xs={6}>
                         <TextField
                           id={`wegCal[${index}].quantity`}
                           name={`wegCal[${index}].quantity`}
                           value={section.quantity}
                           onChange={formik.handleChange}
                           onBlur={() => handleBlur(index)}
-                          label="Numbers Only"
+                          label="Quantity"
                           variant="outlined"
                           sx={{ width: "100%" }}
                           required
@@ -179,7 +180,7 @@ const WeightedAveCal = () => {
                           size="small"
                         />
                       </Grid>
-                      <Grid item xs={3}>
+                      <Grid item md={3} sm={2} xs={6}>
                         {section.shareType === "Right" ||
                         section.shareType === "Bonus" ? (
                           <TextField
@@ -193,9 +194,7 @@ const WeightedAveCal = () => {
                                 value
                               );
 
-                              // Update faceValue based on the selected shareType
                               let updatedFaceValue = ""; // Define default faceValue here
-                              // Add logic to update faceValue based on the selected shareType
                               if (value === "Right" || value === "Bonus") {
                                 updatedFaceValue = formik.values.faceValue; // Use formik's faceValue here
                               }
@@ -205,7 +204,7 @@ const WeightedAveCal = () => {
                               );
                             }}
                             onBlur={() => handleBlur(index)}
-                            label="Numbers Only"
+                            label="Face Value"
                             variant="outlined"
                             sx={{ width: "100%" }}
                             required
@@ -220,7 +219,7 @@ const WeightedAveCal = () => {
                             value={section.rate}
                             onChange={formik.handleChange}
                             onBlur={() => handleBlur(index)}
-                            label="Numbers Only"
+                            label="Rate (Rs.)"
                             variant="outlined"
                             sx={{ width: "100%" }}
                             required
@@ -229,85 +228,109 @@ const WeightedAveCal = () => {
                           />
                         )}
                       </Grid>
-                      <Grid item xs={3}>
+                      <Grid item sm={3} xs={6}>
                         {section.shareType === "IPO" ? (
                           <TextField
                             className="total(Rs)"
                             id={`wegCal[${index}].iop`}
                             name={`wegCal[${index}].iop`}
-                            // label="Numbers Only"
+                            label="Total (Rs.)"
                             variant="outlined"
                             sx={{ width: "100%" }}
                             value={section.ipo}
                             disabled
                             size="small"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
                           />
                         ) : section.shareType === "Secondary" ? (
                           <TextField
                             className="total(Rs)"
                             id={`wegCal[${index}].secondary`}
                             name={`wegCal[${index}].secondary`}
-                            // label="Numbers Only"
+                            label="Total (Rs.)"
                             variant="outlined"
                             sx={{ width: "100%" }}
                             value={section.secondary}
                             disabled
                             size="small"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
                           />
                         ) : section.shareType === "FPO" ? (
                           <TextField
                             className="total(Rs)"
                             id={`wegCal[${index}].fpo`}
                             name={`wegCal[${index}].fpo`}
-                            // label="Numbers Only"
+                            label="Total (Rs.)"
                             variant="outlined"
                             sx={{ width: "100%" }}
                             value={section.fpo}
                             disabled
                             size="small"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
                           />
                         ) : section.shareType === "Right" ? (
                           <TextField
                             className="total(Rs)"
                             id={`wegCal[${index}].right`}
                             name={`wegCal[${index}].right`}
-                            // label="Numbers Only"
-                            value={section.faceValue * section.quantity}
+                            label="Total (Rs.)"
                             variant="outlined"
                             sx={{ width: "100%" }}
+                            value={(
+                              section.quantity * section.faceValue
+                            ).toFixed(2)}
                             // value={section.right}
+                            onBlur={() => handleBlur(index)}
                             disabled
                             size="small"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
                           />
                         ) : section.shareType === "Bonus" ? (
                           <TextField
                             className="total(Rs)"
                             id={`wegCal[${index}].bonus`}
                             name={`wegCal[${index}].bonus`}
-                            // label="Numbers Only"
-                            value={section.faceValue * section.quantity}
+                            label="Total (Rs.)"
                             variant="outlined"
                             sx={{ width: "100%" }}
+                            value={(
+                              section.quantity * section.faceValue
+                            ).toFixed(2)}
                             // value={section.bonus}
+                            onBlur={() => handleBlur(index)}
                             disabled
                             size="small"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
                           />
                         ) : section.shareType === "Auction" ? (
                           <TextField
                             className="total(Rs)"
                             id={`wegCal[${index}].auction`}
                             name={`wegCal[${index}].auction`}
-                            // label="Numbers Only"
+                            label="Total (Rs.)"
                             variant="outlined"
                             sx={{ width: "100%" }}
                             value={section.auction}
                             disabled
                             size="small"
+                            InputLabelProps={{
+                              shrink: true,
+                            }}
                           />
                         ) : (
                           <TextField
                             className="total(Rs)"
-                            label="Numbers Only"
+                            label="Total (Rs.)"
                             variant="outlined"
                             sx={{ width: "100%" }}
                             disabled
@@ -315,7 +338,7 @@ const WeightedAveCal = () => {
                           />
                         )}
                       </Grid>
-                      <Grid item xs={1}>
+                      <Grid item md={1} sm={2} xs={12}>
                         <div
                           style={{
                             display: "flex",
@@ -326,6 +349,10 @@ const WeightedAveCal = () => {
                             onClick={() => handleAddSection()}
                             // onClick={() => formik.handleSubmit()}
                             disabled={index !== formik.values.wegCal.length - 1}
+                            sx={{
+                              color: theme.palette.background.btn,
+                              textTransform: "none",
+                            }}
                           >
                             <AddIcon style={{ width: "2rem" }} />
                           </Button>
@@ -333,7 +360,13 @@ const WeightedAveCal = () => {
                           {formik.values.wegCal.length > 1 && (
                             <Button
                               type="button"
-                              onClick={() => arrayHelpers.remove(index)}
+                              onClick={() => {
+                                arrayHelpers.remove(index);
+                                // Recalculate the weighted average after removing the section
+                                const weightedAverage =
+                                  calculateWeightedAverage();
+                                setWeightedAveragePrice(weightedAverage);
+                              }}
                             >
                               <DeleteIcon
                                 style={{ width: "2rem", color: "red" }}
@@ -356,14 +389,12 @@ const WeightedAveCal = () => {
                       type="submit"
                       onClick={() => {
                         formik.handleSubmit();
-                        handleCalculateClick();
                       }}
                       sx={{
                         backgroundColor: theme.palette.background.btn,
                         color: theme.palette.text.alt,
                         textTransform: "none",
                       }}
-                      // handleBlur={handleBlur}
                     >
                       Calculate
                     </Button>
@@ -376,10 +407,16 @@ const WeightedAveCal = () => {
               direction="row"
               justifyContent="center"
               alignItems="center"
+              mt={4}
+              p={2}
+              sx={{
+                backgroundColor: theme.palette.background.btn,
+                color: theme.palette.text.alt,
+                textTransform: "none",
+              }}
             >
               <Typography variant="h5" fontWeight={600}>
-                The weighted average price of the stock:
-                {weightedAveragePrice}
+                The weighted average price of the stock: {weightedAveragePrice}
               </Typography>
             </Grid>
           </FormikProvider>

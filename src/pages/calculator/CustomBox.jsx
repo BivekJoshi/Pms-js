@@ -9,7 +9,7 @@ const CustomBox = ({ title, body }) => {
       <Box
         sx={{
           // marginTop: "16px",
-          padding: " 16px 32px 8px 32px",
+          padding: { md: " 16px 32px 8px 32px", sm:"5px" },
           borderLeft: `5px solid ${color}`,
         }}
       >
@@ -25,7 +25,7 @@ const CustomBox = ({ title, body }) => {
       </Box>
       <Box
         sx={{
-          padding: " 8px 32px 10px 32px",
+          padding:{sm: " 8px 32px 10px 32px", xs:"5px"},
         }}
       >
         {body}
