@@ -21,11 +21,12 @@ const CorporateDetailsDp = () => {
   return (
     <div style={{ paddingBottom: "250px", padding: "5rem" }}>
       <form>
-        <Grid container>
+        <Grid container spacing={2}>
           {CorporateField?.map((d, index) => {
             return (
               <Grid
                 key={index}
+                item
                 xs={12}
                 sm={d.type === "switch" ? 12 : d.engLabel && d.label ? 8 : 4}
               >
@@ -57,32 +58,21 @@ const CorporateDetailsDp = () => {
                       label={d.label}
                     />
                     {console.log("Switch checked:", checkedOptions[d.name])}
-                    {(checkedOptions[d.name] !== false ||
-                      checkedOptions[d.name] !== undefined) &&
-                      d.watchFor && (
-                        <TextField
-                          placeholder={d.placeholder}
-                          label={d.label}
-                          type={d.type}
-                          required
-                          fullWidth
-                          id={d.name}
-                          variant="outlined"
-                          disabled={!checkedOptions[d.name]}
-                        />
-                      )}
+                    {checkedOptions[d.name] && d.watchFor && (
+                      <TextField
+                        placeholder={d.placeholder}
+                        label={d.label}
+                        type={d.type}
+                        required
+                        fullWidth
+                        id={d.name}
+                        variant="outlined"
+                        disabled={!checkedOptions[d.name]}
+                      />
+                    )}
                   </>
                 ) : d.engLabel && d.label ? (
-                  <Grid display="flex">
-                    <TextField
-                      placeholder={d.engPlaceholder}
-                      label={d.engLabel}
-                      type={d.type}
-                      required
-                      fullWidth
-                      id={d.name + "_eng"} // Unique id for the English TextField
-                      variant="outlined"
-                    />
+                  <Grid display="flex" gap={2}>
                     <TextField
                       placeholder={d.placeholder}
                       label={d.label}
@@ -90,6 +80,15 @@ const CorporateDetailsDp = () => {
                       required
                       fullWidth
                       id={d.name + "_local"} // Unique id for the local TextField
+                      variant="outlined"
+                    />
+                    <TextField
+                      placeholder={d.engPlaceholder}
+                      label={d.engLabel}
+                      type={d.type}
+                      required
+                      fullWidth
+                      id={d.name + "_eng"} // Unique id for the English TextField
                       variant="outlined"
                     />
                   </Grid>
