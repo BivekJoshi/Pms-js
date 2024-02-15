@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import AsyncDropDown from "./AsyncDropDown";
 
 const RenderInput = ({ inputField, formik }) => {
+  console.log(inputField);
   const getComponentToRender = (element) => {
     switch (element.type) {
       case "text":
@@ -76,6 +77,19 @@ const RenderInput = ({ inputField, formik }) => {
               formik.touched[element.name] && formik.errors[element.name]
             }
           />
+        );
+      case "switch":
+        return (
+          <FormControlLabel
+          control={
+            <Switch
+              checked={checkedOptions[element?.name]}
+              onChange={formik.handleChange}
+              name={element?.name}
+            />
+          }
+          label={element?.label}
+        />
         );
       case "asyncDropDown":
         return <AsyncDropDown element={element} formik={formik} />;
