@@ -36,7 +36,9 @@ const ResearchCompany = React.lazy(() =>
 const WatchList = React.lazy(() => import("../pages/watchlist/WatchList"));
 
 const LoginPage = React.lazy(() => import("../pages/auth/LoginPage"));
-const RegisterPage = React.lazy(() => import("../pages/auth/RegisterPage"));
+const NewRegisterPage = React.lazy(() =>
+  import("../pages/auth/NewRegisterPage")
+);
 const ApplicationPage = React.lazy(() =>
   import("../pages/auth/ApplicationPage")
 );
@@ -73,7 +75,7 @@ export default function AppRoutes() {
           <Routes>
             <Route path="/" element={<LoginLayout />}>
               <Route path="login" element={<LoginPage />} />
-              <Route path="register" element={<RegisterPage />} />
+              <Route path="register" element={<NewRegisterPage />} />
               <Route path="application/status" element={<ApplicationPage />} />
               <Route path="verification/:id" element={<Verification />} />
               <Route path="otp/verification" element={<OtpVerification />} />
