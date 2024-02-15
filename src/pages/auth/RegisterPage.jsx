@@ -1,14 +1,14 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
-import { Box, MenuItem, InputAdornment, Typography, Grid } from '@mui/material';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import { LoadingButton } from '@mui/lab';
-import { useSelector } from 'react-redux';
-import { useRegisterForm } from '../../form/auth/register/useRegisterForm';
-import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
-import CallOutlinedIcon from '@mui/icons-material/CallOutlined';
-import SignUpPage from '../../assets/signUpPage.png';
-import { useNavigate } from 'react-router';
+import React from "react";
+import TextField from "@mui/material/TextField";
+import { Box, MenuItem, InputAdornment, Grid } from "@mui/material";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import { LoadingButton } from "@mui/lab";
+import { useSelector } from "react-redux";
+import { useRegisterForm } from "../../form/auth/register/useRegisterForm";
+import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
+import CallOutlinedIcon from "@mui/icons-material/CallOutlined";
+import SignUpPage from "../../assets/signUpPage.png";
+import { useNavigate } from "react-router";
 
 const RegisterPage = () => {
   const brokerOption = useSelector((state) => state.brokerList.brokerOption);
@@ -16,59 +16,59 @@ const RegisterPage = () => {
   const { formik, loading } = useRegisterForm();
 
   const handleClick = () => {
-    history('/login');
+    history("/login");
   };
 
   return (
     <Box
-      className='paddingOuter'
-      position='relative'
-      alignSelf='center'
-      padding={{ xs: '0 20px 20px 20px', md: '50px 22px 96px 22px' }}
-      boxShadow='0 4px 8px 3px rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3)'
-      width={{ xs: '90%', sm: '80%' }}
-      bgcolor='#fdf8fd'
-      borderRadius='32px'
+      className="paddingOuter"
+      position="relative"
+      alignSelf="center"
+      padding={{ xs: "0 20px 20px 20px", md: "50px 22px 96px 22px" }}
+      boxShadow="0 4px 8px 3px rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3)"
+      width={{ xs: "90%", sm: "80%" }}
+      bgcolor="#fdf8fd"
+      borderRadius="32px"
     >
-      <Grid padding={{ sm: '2rem', xs: '0' }} className='paddingOuterLayer'>
+      <Grid padding={{ sm: "2rem", xs: "0" }} className="paddingOuterLayer">
         <Grid
-          className='paddingOuter'
-          display='flex'
-          justifyContent='center'
-          paddingBottom={{ lg: '2rem', md: '1rem', xs: '.25rem' }}
+          className="paddingOuter"
+          display="flex"
+          justifyContent="center"
+          paddingBottom={{ lg: "2rem", md: "1rem", xs: ".25rem" }}
         >
-          <img src={SignUpPage} alt='SignUpPage' className='registerImg' />
+          <img src={SignUpPage} alt="SignUpPage" className="registerImg" />
         </Grid>
         <Grid
-          display='flex'
-          flexDirection='column'
-          alignItems='start'
-          paddingBottom={{ lg: '2rem', md: '.75rem', xs: '2rem' }}
+          display="flex"
+          flexDirection="column"
+          alignItems="start"
+          paddingBottom={{ lg: "2rem", md: ".75rem", xs: "2rem" }}
         >
-          <div style={{ color: '#875923' }} className='displayLarge'>
+          <div style={{ color: "#875923" }} className="displayLarge">
             Sign Up
           </div>
-          <div className='title1624'>Your account to continue</div>
+          <div className="title1624">Your account to continue</div>
         </Grid>
         <Grid
-          component='form'
+          component="form"
           noValidate
-          display='flex'
-          flexDirection='column'
-          gap={{ lg: '1.25rem', md: '.5rem', xs: '1.5rem' }}
+          display="flex"
+          flexDirection="column"
+          gap={{ lg: "1.25rem", md: ".5rem", xs: "1.5rem" }}
         >
           <TextField
-            id='brokerNo'
+            id="brokerNo"
             select
-            name='brokerNo'
-            label='Select Broker'
-            placeholder='Choose Broker No.'
+            name="brokerNo"
+            label="Select Broker"
+            placeholder="Choose Broker No."
             fullWidth
             value={formik.values.brokerNo}
             onChange={formik.handleChange}
             error={formik.touched.brokerNo && Boolean(formik.errors.brokerNo)}
             helperText={formik.touched.brokerNo && formik.errors.brokerNo}
-            variant='outlined'
+            variant="outlined"
           >
             {brokerOption?.map((option) => (
               <MenuItem key={option?.id} value={option?.id}>
@@ -82,14 +82,14 @@ const RegisterPage = () => {
             onChange={formik.handleChange}
             error={formik.touched.nepseCode && Boolean(formik.errors.nepseCode)}
             helperText={formik.touched.nepseCode && formik.errors.nepseCode}
-            name='nepseCode'
-            label='Enter NEPSE Code'
+            name="nepseCode"
+            label="Enter NEPSE Code"
             fullWidth
-            variant='outlined'
-            type='text'
+            variant="outlined"
+            type="text"
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position="end">
                   <PermIdentityOutlinedIcon />
                 </InputAdornment>
               ),
@@ -101,15 +101,15 @@ const RegisterPage = () => {
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-            name='email'
-            autoComplete='username'
-            label='E-mail'
+            name="email"
+            autoComplete="username"
+            label="E-mail"
             fullWidth
-            variant='outlined'
-            type='text'
+            variant="outlined"
+            type="text"
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position="end">
                   <MailOutlineIcon />
                 </InputAdornment>
               ),
@@ -121,15 +121,15 @@ const RegisterPage = () => {
             onChange={formik.handleChange}
             error={formik.touched.mobileNo && Boolean(formik.errors.mobileNo)}
             helperText={formik.touched.mobileNo && formik.errors.mobileNo}
-            name='mobileNo'
-            label='Enter your number'
+            name="mobileNo"
+            label="Enter your number"
             fullWidth
-            variant='outlined'
-            type='number'
-            maxLength='10'
+            variant="outlined"
+            type="number"
+            maxLength="10"
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position="end">
                   <CallOutlinedIcon />
                 </InputAdornment>
               ),
@@ -137,27 +137,27 @@ const RegisterPage = () => {
           />
 
           <LoadingButton
-            className='titleMedium  bg-purple-700'
+            className="titleMedium  bg-purple-700"
             fullWidth
             onClick={() => formik.submitForm()}
-            variant='contained'
+            variant="contained"
             loading={loading}
             sx={{
-              background: '#6750a4',
+              background: "#6750a4",
             }}
           >
-            <div className='titleMedium' style={{ margin: '.25rem 0' }}>
-              {' '}
+            <div className="titleMedium" style={{ margin: ".25rem 0" }}>
+              {" "}
               Sign Up
             </div>
           </LoadingButton>
         </Grid>
-        <Grid style={{ textAlign: 'center' }} marginTop='.5rem'>
-          <div className='bodySmall '>
-            Already have an account?{' '}
+        <Grid style={{ textAlign: "center" }} marginTop=".5rem">
+          <div className="bodySmall ">
+            Already have an account?{" "}
             <span
-              className='labelMedium'
-              style={{ color: '#3838d0', cursor: 'pointer' }}
+              className="labelMedium"
+              style={{ color: "#3838d0", cursor: "pointer" }}
               onClick={handleClick}
             >
               Sign In
