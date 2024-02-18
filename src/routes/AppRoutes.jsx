@@ -67,6 +67,7 @@ const BuySellCalculator = React.lazy(() =>
 const DevelopmentPage = React.lazy(() =>
   import("../pages/DevlopmentPage/DevlopmentPage")
 );
+import IndividualDocument from "./../kyc/pages/IndividualDocument";
 
 export default function AppRoutes() {
   return (
@@ -92,6 +93,10 @@ export default function AppRoutes() {
               />
             </Route>
             <Route path="/kyc" element={<KycLayout />}>
+              <Route
+                path="demat-registration/i/document-details"
+                element={<IndividualDocument />}
+              />
               <Route
                 path="demat-registration/i/basic-details"
                 element={<KycForm />}
