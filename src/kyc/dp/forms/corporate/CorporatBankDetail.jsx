@@ -15,11 +15,11 @@ const CorporatBankDetail = () => {
       mapId: "bankName",
       options: [],
       id: nanoid(),
-      dependentAction: {
-        fetch: true,
-        api: "/utility/bank-master",
-        method: "GET",
-      },
+      // dependentAction: {
+      //   fetch: true,
+      //   api: "/utility/bank-master",
+      //   method: "GET",
+      // },
     },
     {
       name: "accountNumber",
