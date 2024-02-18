@@ -174,7 +174,9 @@ const KycLayout = () => {
                         to={item.path}
                         key={i}
                         style={({ isActive }) =>
-                          isActive ? activeStyle : undefined
+                          isActive
+                            ? activeStyle
+                            : { color: theme.palette.text.main }
                         }
                       >
                         <Grid className="profileIcon">
