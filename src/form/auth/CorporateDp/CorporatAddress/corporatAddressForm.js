@@ -24,7 +24,6 @@ export const corporatAddressForm = (props) => {
     },
     validationSchema: corporatAddressValidationSchema,
     onSubmit: (values) => {
-      console.log("Form submitted with values:", values);
       handleSubmit(values);
       setLoading(true);
       resetForm();

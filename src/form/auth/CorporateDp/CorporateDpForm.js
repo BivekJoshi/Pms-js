@@ -35,7 +35,6 @@ export const CorporateDpForm = (props) => {
     },
     validationSchema: corporateDpValidationSchema,
     onSubmit: (values) => {
-        console.log("hiiiiiiiiiii", values);
       handleSubmit(values);
       setLoading(true);
       resetForm();

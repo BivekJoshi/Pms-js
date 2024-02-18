@@ -15,6 +15,7 @@ import KycNavbar from "../components/navbar/KycNavbar";
 import { useTranslation } from "react-i18next";
 import "./layout.css";
 import permanentAddress from "../assets/permanentAddress.png";
+import Bankdetail from "../assets/Bankdetail.png";
 const KycLayout = () => {
   const mode = useSelector((state) => state?.theme?.mode);
   const { t } = useTranslation();
@@ -198,7 +199,7 @@ const KycLayout = () => {
           />
         </svg>
       ),
-      path: "/kyc/demat-registration/i/document-details",
+      path: "/kyc/demat-registration/c/document-details",
       title: "Document Upload",
     },
     {
@@ -206,6 +207,12 @@ const KycLayout = () => {
       image: permanentAddress,
       path: "/kyc/demat-registration/c/corporate-address",
       title: "Permanent Address",
+    },
+    {
+      id: 4,
+      image: Bankdetail,
+      path: "/kyc/demat-registration/c/corporate-bank-detail",
+      title: "Bank Detail",
     },
   ];
 
