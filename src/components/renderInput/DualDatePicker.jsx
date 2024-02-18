@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 import { Grid } from "@mui/material";
 
 const DualDatePicker = ({ element, formik }) => {
-  console.log("🚀 ~ DualDatePicker ~ formik:", formik);
   const [nepaliDate, setNepaliDate] = useState(
     dateConverter(new Date(), "AD_BS")
   );

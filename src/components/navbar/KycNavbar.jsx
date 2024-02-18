@@ -13,7 +13,6 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 
 const KycNavbar = () => {
   const theme = useTheme();
-  console.log("🚀 ~ KycNavbar ~ theme:", theme);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [state, setState] = React.useState({
     right: false,

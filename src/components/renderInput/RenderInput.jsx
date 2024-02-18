@@ -103,31 +103,14 @@ const RenderInput = ({ inputField, formik, checkedOptions }) => {
         );
 
       case "datePicker":
-        // Convert the string date to a Date object
-        const dateObject = new Date(formik.values[element.name]);
-
-        // Format the date object
-        const formattedDate = dateObject
-          .toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "2-digit",
-          })
-          .replace(",", "");
         return (
           <Grid display={"flex"} gap={2}>
             <DatePicker
               sx={{ width: "100%" }}
-              label={formattedDate}
+              label={element.label}
               value={formik.values || ""}
               onChange={formik.handleChange}
             />
-            <DatePicker
-              sx={{ width: "100%" }}
-              label={element?.engLabel}
-              value={formik.values || ""}
-              onChange={formik.handleChange}
-            />{" "}
           </Grid>
         );
 
@@ -146,7 +129,6 @@ const RenderInput = ({ inputField, formik, checkedOptions }) => {
     <div>
       <Grid container spacing={2} alignItems="flex-end">
         {inputField?.map((element, index) => {
-          console.log("🚀 ~ {inputField?.map ~ element:", element);
           return (
             <Grid
               item
