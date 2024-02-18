@@ -7,10 +7,9 @@ import {
   CORPORATE_ACCOUNT_TYPE,
 } from "../../../../utility/kycData";
 import RenderInput from "../../../../components/renderInput/RenderInput";
-import { CorporateDpForm } from "../../../../form/auth/CorporateDp/CorporateDpForm";
+import useCorporateDetailsForm from "./../../hooks/useCorporateDetailsForm";
 
 const CorporateDetailsDp = () => {
-  const { formik, loading } = CorporateDpForm();
   const CorporateField = [
     {
       name: "corporateAccountType",
@@ -89,11 +88,12 @@ const CorporateDetailsDp = () => {
       id: nanoid(),
       md: 4,
       sm: 12,
+      customMarginBottom: "6px",
     },
     {
       name: "incorporationDate",
-      label: "Incorporation Date (समावेश मिति) (B.S.)",
-      type: "datePicker",
+      nepaliLabel: "Incorporation Date (समावेश मिति) (B.S.)",
+      type: "dualDate",
       dualDate: true,
       engLabel: "Incorporation Date (समावेश मिति) (A.D.)",
       required: true,
@@ -249,27 +249,23 @@ const CorporateDetailsDp = () => {
       },
     },
   ];
-  const [checkedOptions, setCheckedOptions] = React.useState({});
 
-  // Function to handle change in the checked status of options
-  const handleChange = (name) => (event) => {
-    setCheckedOptions({
-      ...checkedOptions,
-      [name]: event.target.checked, // Update the checked status for the specific option
-    });
-  };
+  const { formik } = useCorporateDetailsForm();
+
   return (
     <div style={{ paddingBottom: "250px", padding: "5rem" }}>
-      <form onSubmit={formik.handleSubmit}>
-        <Grid align="center">
-          <RenderInput
-            inputField={CorporateField}
-            formik={formik}
-            checkedOptions={checkedOptions}
-          />
-        </Grid>
-        <button type="submit"> save</button>
-      </form>
+      {/*  <form onSubmit={formik.handleSubmit}>
+         <Grid align="center">
+           <RenderInput
+             inputField={CorporateField}
+             formik={formik}
+           />
+         </Grid>
+         <button type="submit"> save</button>
+       </form> */}
+      <Grid align="center">
+        <RenderInput inputField={CorporateField} formik={formik} />
+      </Grid>
     </div>
   );
 };

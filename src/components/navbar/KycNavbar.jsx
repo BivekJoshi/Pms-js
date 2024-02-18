@@ -82,7 +82,7 @@ const KycNavbar = () => {
             onClick={toggleMenu}
             sx={{
               display: { sm: "block", md: "none", xs: "block" }, // Show on small screens
-              color: theme.mode === "dark" ? "#fff" : "#0000008a",
+              color: theme.palette.mode === "dark" ? "#fff" : "#0000008a",
             }}
           >
             {isMenuOpen ? (

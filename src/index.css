@@ -208,3 +208,27 @@ body {
   background: radial-gradient(2240.45% 100% at 0% 50%, #E0AA3E 0%, rgba(224, 171, 63, 0.80) 53.01%, #E0AB3F 100%);
   /* Other CSS properties here */
 }
+
+.nepali-date-picker {
+  width: 100%;
+}
+
+/* styles.css */
+.global-datepicker-input {
+  width: 97%;
+  padding: 12px 0 12px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease-in-out;
+  background-color: transparent;
+  margin-bottom: 8px;
+}
+
+.text-white {
+  color: #fff;
+}
+.text-black {
+  color: #000;
+}
