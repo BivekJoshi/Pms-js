@@ -10,17 +10,9 @@ const corporateDpValidationSchema = Yup.object({
   companyCeoName: Yup.string()
     .typeError("Please enter company CEO name")
     .required("Please enter company CEO name"),
-    // .matches(
-    //   /^[A-Za-z\s'-]+$/,
-    //   "CEO name must not include any number or special character"
-    // ),
   companySecretaryName: Yup.string()
     .typeError("Please enter secretary name")
     .required("Please enter secretary name"),
-    // .matches(
-    //   /^(?:[0-9\-/]+|null|NaN)?$/,
-    //   "Secretary name must not include any number or special character"
-    // ),
   companyType: Yup.string()
     .typeError("Please select company type")
     .required("Please select company type"),
@@ -73,10 +65,8 @@ const corporateDpValidationSchema = Yup.object({
     .notRequired(),
   nrbRegistration: Yup.string()
     .min(0)
-    // .transform((_, val) => (val.length !== 0 ? val : null))
     .nullable(true)
     .matches(/^(?:[0-9\-/]+|null|NaN)?$/, "PAN number must be a number")
-    // .typeError("Pan number must be a number")
     .notRequired(),
 }).required();
 

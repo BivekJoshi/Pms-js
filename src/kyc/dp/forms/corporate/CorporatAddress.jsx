@@ -2,8 +2,11 @@ import React from "react";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { nanoid } from "@reduxjs/toolkit";
 import { COUNTRIES, PROVINCE } from "../../../../utility/kycData";
+import { corporatAddressForm } from "../../../../form/auth/CorporateDp/CorporatAddress/corporatAddressForm";
+import { Button, Grid } from "@mui/material";
 
 const CorporatAddress = () => {
+  const { formik, loading } = corporatAddressForm();
   const AddressFields = [
     {
       name: "country",
@@ -175,19 +178,19 @@ const CorporatAddress = () => {
       id: nanoid(),
       setValueField: ["longitude", "latitude"],
     },
-    {
-      name: "have_different_permanent_address",
-      label:
-        "Do you have different Temporary Address? (के तपाइँको फरक अस्थायी ठेगाना छ?)",
-      type: "switch",
-      col: 12,
-      id: nanoid(),
-      dependentAction: {
-        type: "HIDDEN",
-        condition: "index",
-        value: 1,
-      },
-    },
+    // {
+    //   name: "have_different_permanent_address",
+    //   label:
+    //     "Do you have different Temporary Address? (के तपाइँको फरक अस्थायी ठेगाना छ?)",
+    //   type: "switch",
+    //   col: 12,
+    //   id: nanoid(),
+    //   dependentAction: {
+    //     type: "HIDDEN",
+    //     condition: "index",
+    //     value: 1,
+    //   },
+    // },
   ];
   const NrNAddressFields = [
     {
@@ -313,41 +316,42 @@ const CorporatAddress = () => {
       id: nanoid(),
       setValueField: ["longitude", "latitude"],
     },
-    {
-      name: "have_different_permanent_address",
-      label:
-        "Do you have different Temporary Address? (के तपाइँको फरक अस्थायी ठेगाना छ?)",
-      type: "switch",
-      col: 12,
-      id: nanoid(),
-      dependentAction: {
-        type: "HIDDEN",
-        condition: "index",
-        value: 1,
-      },
-    },
+    // {
+    //   name: "have_different_permanent_address",
+    //   label:
+    //     "Do you have different Temporary Address? (के तपाइँको फरक अस्थायी ठेगाना छ?)",
+    //   type: "switch",
+    //   col: 12,
+    //   id: nanoid(),
+    //   dependentAction: {
+    //     type: "HIDDEN",
+    //     condition: "index",
+    //     value: 1,
+    //   },
+    // },
   ];
   return (
     <div>
-      {!userData?.user?.isNrn ? (
-        <form onSubmit={handleSubmit(onSubmit)}>
+      {AddressFields ? (
+        <form onSubmit={formik.handleSubmit}>
           <Grid align="center">
-            {fields.map((address, i) => {
-              return (
-                <Grid align="center" key={address.id}>
-                  <RenderInput inputField={AddressFields} formik={formik} />
-                </Grid>
-              );
-            })}
-            <Grid.Col span={12}>
-              <Group position="right" mt={"md"}>
-                <Button onClick={() => onBack()}>Back</Button>
-                <Button type={"submit"}>Next</Button>
-              </Group>
-            </Grid.Col>
+            <Grid align="center">
+              <RenderInput inputField={AddressFields} formik={formik} />
+            </Grid>
+
+            <Button type={"submit"}>Save</Button>
           </Grid>
         </form>
-      ) : null}
+      ) : (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Grid align="center">
+            <Grid align="center">
+              <RenderInput inputField={NrNAddressFields} formik={formik} />
+            </Grid>
+            <Button type={"submit"}>Save</Button>
+          </Grid>
+        </form>
+      )}
     </div>
   );
 };

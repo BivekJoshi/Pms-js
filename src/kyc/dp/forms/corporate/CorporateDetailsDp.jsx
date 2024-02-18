@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  FormControlLabel,
-  Grid,
-  MenuItem,
-  Switch,
-  TextField,
-} from "@mui/material";
+import { Grid } from "@mui/material";
 import { nanoid } from "nanoid";
 import {
   BUSINESS_OPTIONS,
@@ -104,7 +98,7 @@ const CorporateDetailsDp = () => {
       engLabel: "Incorporation Date (समावेश मिति) (A.D.)",
       required: true,
       id: nanoid(),
-      md:8,
+      md: 8,
       sm: 12,
     },
     {
@@ -134,7 +128,7 @@ const CorporateDetailsDp = () => {
       dualDate: true,
       required: true,
       id: nanoid(),
-      md:8,
+      md: 8,
       sm: 12,
     },
     {
@@ -195,7 +189,7 @@ const CorporateDetailsDp = () => {
       dualDate: true,
       id: nanoid(),
       maxLength: 75,
-      md:8,
+      md: 8,
       sm: 12,
     },
 
@@ -246,7 +240,7 @@ const CorporateDetailsDp = () => {
       dualDate: true,
       required: true,
       id: nanoid(),
-      md:8,
+      md: 8,
       sm: 12,
       watchFor: "isListed",
       dependentAction: {
@@ -268,7 +262,11 @@ const CorporateDetailsDp = () => {
     <div style={{ paddingBottom: "250px", padding: "5rem" }}>
       <form onSubmit={formik.handleSubmit}>
         <Grid align="center">
-          <RenderInput inputField={CorporateField} formik={formik} checkedOptions={checkedOptions}/>
+          <RenderInput
+            inputField={CorporateField}
+            formik={formik}
+            checkedOptions={checkedOptions}
+          />
         </Grid>
         <button type="submit"> save</button>
       </form>
