@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import KycNavbar from "../components/navbar/KycNavbar";
 import { useTranslation } from "react-i18next";
 import "./layout.css";
+import permanentAddress from "../assets/permanentAddress.png";
 const KycLayout = () => {
   const mode = useSelector((state) => state?.theme?.mode);
   const { t } = useTranslation();
@@ -200,6 +201,12 @@ const KycLayout = () => {
       path: "/kyc/demat-registration/i/document-details",
       title: "Document Upload",
     },
+    {
+      id: 3,
+      image: permanentAddress,
+      path: "/kyc/demat-registration/c/corporate-address",
+      title: "Permanent Address",
+    },
   ];
 
   const activeStyle = {
@@ -272,7 +279,11 @@ const KycLayout = () => {
                             }
                           >
                             <Grid className="profileIcon">
-                              {item.icon}
+                              {item.icon ? (
+                                item.icon
+                              ) : (
+                                <img src={item.image} alt={item.image} />
+                              )}
                               <Typography variant="h7">
                                 {t(`${item.title}`)}
                               </Typography>

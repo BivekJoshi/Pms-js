@@ -11,7 +11,7 @@ const CorporatAddress = () => {
     {
       name: "country",
       label: "Country (देश)",
-      type: "select",
+      type: "dropDown",
       placeholder: "Select country",
       required: "Please select country",
       col: 12,
@@ -22,7 +22,7 @@ const CorporatAddress = () => {
     {
       name: "province",
       label: "Province (प्रदेश)",
-      type: "select",
+      type: "dropDown",
       placeholder: "Select province",
       required: "Please select province",
       col: 12,
@@ -34,7 +34,7 @@ const CorporatAddress = () => {
     {
       name: "district",
       label: "District (जिल्ला)",
-      type: "select",
+      type: "dropDown",
       placeholder: "Select district",
       required: "Please select district",
       col: 12,
@@ -55,7 +55,7 @@ const CorporatAddress = () => {
       name: "municipality",
       label:
         "Rural Municipality/Municipality/Sub Metropolitan City/Metropolitan City (गा.पा/न.पा/ उ.म .न.पा / म.न .पा)",
-      type: "select",
+      type: "dropDown",
       placeholder:
         "Select rural municipality/municipality/sub metropolitan city/metropolitan city",
       required:
@@ -75,7 +75,7 @@ const CorporatAddress = () => {
     {
       name: "wordNo",
       label: "Ward No. (वडा नं.)",
-      type: "wordNo",
+      type: "number",
       placeholder: "Enter ward number",
       required: "Please enter ward number",
       col: 12,
@@ -107,7 +107,7 @@ const CorporatAddress = () => {
     {
       name: "mobileNo",
       label: "Mobile Number (मोबाइल नम्बर)",
-      type: "mobileNo",
+      type: "number",
       placeholder: "Enter mobile number",
       required: "Please enter mobile number",
       col: 12,
@@ -119,7 +119,7 @@ const CorporatAddress = () => {
     {
       name: "telephoneNo",
       label: "Telephone number (टेलिफोन नम्बर)",
-      type: "phoneNo",
+      type: "number",
       placeholder: "Enter telephone number",
       col: 12,
       sm: 4,
@@ -130,7 +130,7 @@ const CorporatAddress = () => {
     {
       name: "email",
       label: "Email Address (इ-मेल ठेगाना)",
-      type: "email",
+      type: "text",
       placeholder: "Enter email address",
       required: "Please enter email address",
       col: 12,
