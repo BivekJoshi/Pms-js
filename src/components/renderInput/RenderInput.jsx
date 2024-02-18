@@ -8,9 +8,9 @@ import {
 import React from "react";
 import AsyncDropDown from "./AsyncDropDown";
 import { DatePicker } from "@mui/x-date-pickers";
+import DualDatePicker from "./DualDatePicker";
 
 const RenderInput = ({ inputField, formik, checkedOptions }) => {
-  console.log(inputField);
   const getComponentToRender = (element) => {
     switch (element.type) {
       case "text":
@@ -32,6 +32,7 @@ const RenderInput = ({ inputField, formik, checkedOptions }) => {
             }
           />
         );
+
       case "dropDown":
         return (
           <Autocomplete
@@ -92,7 +93,7 @@ const RenderInput = ({ inputField, formik, checkedOptions }) => {
             control={
               <Switch
                 sx={{ textAlign: "left" }}
-                checked={checkedOptions[element?.name]}
+                checked={formik.values[element?.name]}
                 onChange={formik.handleChange}
                 name={element?.name}
               />
@@ -130,6 +131,9 @@ const RenderInput = ({ inputField, formik, checkedOptions }) => {
           </Grid>
         );
 
+      case "dualDate":
+        return <DualDatePicker element={element} formik={formik} />;
+
       case "asyncDropDown":
         return <AsyncDropDown element={element} formik={formik} />;
 
@@ -142,6 +146,7 @@ const RenderInput = ({ inputField, formik, checkedOptions }) => {
     <div>
       <Grid container spacing={2} alignItems="flex-end">
         {inputField?.map((element, index) => {
+          console.log("🚀 ~ {inputField?.map ~ element:", element);
           return (
             <Grid
               item
@@ -149,7 +154,10 @@ const RenderInput = ({ inputField, formik, checkedOptions }) => {
               xs={element?.xs || element?.sm}
               md={element?.md}
               key={index}
-              sx={{ textAlign: "left" }}
+              sx={{
+                marginBottom:
+                  element.customMarginBottom && element.customMarginBottom,
+              }}
             >
               {getComponentToRender(element)}
             </Grid>
