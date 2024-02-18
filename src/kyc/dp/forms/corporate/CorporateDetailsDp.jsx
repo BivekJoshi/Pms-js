@@ -105,6 +105,10 @@ const CorporateDetailsDp = () => {
       required: true,
       id: nanoid(),
       md: 8,
+      engMd: 6,
+      engSm: 12,
+      nepMd: 6,
+      nepSm: 12,
       sm: 12,
     },
     {

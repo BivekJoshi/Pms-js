@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import GlobalNepaliDatePicker from "./GlobalNepaliDatePicker";
 import dateConverter from "../../utility/dateConverter";
 import dayjs from "dayjs";
+import { Grid } from "@mui/material";
 
 const DualDatePicker = ({ element, formik }) => {
   console.log("🚀 ~ DualDatePicker ~ formik:", formik);
@@ -35,9 +36,15 @@ const DualDatePicker = ({ element, formik }) => {
   }, [nepaliDate]);
 
   return (
-    <div style={{ display: "flex", gap: "16px" }}>
-      <span style={{ marginTop: "12px" }}>
+    <Grid container spacing={2}>
+      <Grid
+        item
+        style={{ marginTop: "12px", width: "100%" }}
+        md={element.engMd}
+        sm={element.engSm}
+      >
         <DatePicker
+          sx={{ width: "100%" }}
           name={element.name}
           label={element.engLabel}
           onChange={handleEnglishDateChange}
@@ -52,14 +59,16 @@ const DualDatePicker = ({ element, formik }) => {
             },
           }}
         />
-      </span>
+      </Grid>
       <GlobalNepaliDatePicker
         name={element.name}
+        md={element.nepMd}
+        sm={element.nepSm}
         label={element.nepaliLabel}
         value={nepaliDate}
         handleChange={handleNepaliDateChange}
       />
-    </div>
+    </Grid>
   );
 };
 
