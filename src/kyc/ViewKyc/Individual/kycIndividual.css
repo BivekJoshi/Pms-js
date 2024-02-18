@@ -1,0 +1,278 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  /* font-size: 14px !important; */
+  font-size: 16px !important;
+  color: #000;
+}
+.kyctms,
+body {
+  font-size: 14px !important;
+}
+.page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  /* box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5); */
+  /* padding: 100px; */
+  page-break-after: always;
+}
+@media print {
+  .office-stamp > p {
+    margin-top: -150px;
+  }
+
+  div {
+    break-inside: avoid;
+  }
+  .dpkyc,
+  body {
+    font-size: 16px !important;
+  }
+  .kyctms,
+  body {
+    font-size: 14px !important;
+  }
+  @page {
+    margin: 2cm 0;
+  }
+  .DPB {
+    text-align: left;
+  }
+}
+
+.page[size="A4"] {
+  width: 100%;
+  max-width: 21cm;
+  height: 29.7cm;
+}
+
+.aggrement-header {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+.aggrement-content {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.br-1px {
+  border-right: 1px solid #000;
+}
+
+.box {
+  border: 1px solid #000;
+  height: 200px;
+  width: 100%;
+}
+/*# sourceMappingURL=styles.css.map */
+
+@media (max-width: 890px) {
+  .profile-photo {
+    float: right;
+    margin-top: 12px;
+  }
+
+  /* .client-signature {
+      position: unset;
+      width: 50%;
+    } */
+}
+
+
+
+
+
+
+@import url(bootstrap-print.css);
+
+.dotted-underline {
+  border-bottom: 2px dotted gray;
+}
+
+.signature-holder {
+  width: 200px;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px dotted gray;
+}
+
+.center-y {
+  display: flex;
+  align-items: center;
+}
+.center-xy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.location-map {
+  height: 30rem;
+}
+.location-map-ITK {
+  margin: 0 0.8rem;
+}
+.office-stamp {
+  height: 195px;
+  width: 210px;
+}
+
+.letter-space-3 {
+  /* 
+    1 = 1px
+    2 = 2px
+    3 = 6px
+    4 = 12px
+    */
+  letter-spacing: 6px;
+}
+
+.letter-box-container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(25, 1fr);
+  gap: 5px;
+}
+
+.letter-box-container > div {
+  background-color: #ccc;
+  text-align: center;
+}
+
+/* .form-check {
+  margin-bottom: 1rem !important;
+} */
+
+.kyc-secondary-header {
+  color: #fff;
+  background: rgb(23, 23, 23);
+  padding: 0.4rem 0;
+  /* margin-bottom: 0.5rem; */
+}
+
+.passport-photo {
+  width: 2in;
+  height: 2in;
+  border: 1px solid black;
+  margin-bottom: 0rem !important;
+}
+
+@page {
+  margin-top: 5cm;
+  /* size: A4; */
+}
+
+/* Print media query */
+@media print {
+  /* :root {
+    --cui-body-font-size: 7rem;
+  } */
+
+  .kyc-secondary-header {
+    width: 102.5%;
+  }
+  .avoid-page-break {
+    page-break-inside: avoid;
+  }
+
+  .location-map {
+    height: 15rem;
+    /* padding: 1rem; */
+  }
+
+  .location-map-ITK {
+    margin: 0 2rem 0 3.2rem;
+  }
+  html,
+  body {
+    height: 99%;
+  }
+  /* .pb-print-1 {
+    padding-bottom: 0 !important;
+  } */
+
+  .mb-5 {
+    margin-bottom: 5px !important;
+  }
+
+  .p-4 {
+    padding: 5px !important;
+  }
+
+  section {
+    padding-top: 0.5cm;
+    page-break-inside: avoid !important;
+  }
+  .meroShare {
+    padding-top: 1cm !important;
+    padding: 01rem;
+  }
+
+  .pb-5 {
+    padding-bottom: 5px !important;
+  }
+
+  p {
+    margin-bottom: 2px !important;
+  }
+
+  /* .signature-holder {
+    height: 50px;
+  } */
+
+  h2 {
+    font-size: 16pt !important;
+  }
+
+  .mt-4 {
+    margin-top: 5px !important;
+  }
+
+  .signature-kyc {
+    width: 250px;
+    height: 100px;
+  }
+
+  .employee-pp-photo-kyc {
+    height: 150px !important;
+    width: 150px !important;
+  }
+
+  .col-print-md-6 {
+    width: 33% !important;
+  }
+
+  .col-print-half {
+    width: 50% !important;
+  }
+
+  /* .letter-box-container {
+    display: block !important;
+    height: auto;
+    width: 100%;
+    padding-left: 0.5rem;
+  }
+
+  .letter-box-container * {
+    display: inline-block;
+  } */
+
+  .letter-box-container {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(20, 1fr);
+    gap: 5px;
+  }
+
+  .letter-box-container > div {
+    background-color: #cabcbc;
+    text-align: center;
+  }
+}
+
+.form-label {
+  text-transform: capitalize;
+}

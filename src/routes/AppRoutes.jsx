@@ -11,8 +11,7 @@ import WeightedAveCal from "../pages/calculator/weighted/WeightedAveCal";
 import KycForm from "../kyc/pages/KycForm";
 import CorporateDetailsDp from "../kyc/dp/forms/corporate/CorporateDetailsDp";
 import AddressIndividualDp from "../kyc/dp/forms/individual/AddressIndividualDp";
-import FamilyIndividualDpForms from "../kyc/dp/forms/individual/FamilyIndividualDpForms";
-import BankIndividualDpForms from "../kyc/dp/forms/individual/BankIndividualDpForms";
+import KycLayout from "../layout/KycLayout";
 
 const LoginLayout = React.lazy(() => import("../layout/LoginLayout"));
 const AppLayout = React.lazy(() => import("../layout/AppLayout"));
@@ -68,6 +67,10 @@ const BuySellCalculator = React.lazy(() =>
 const DevelopmentPage = React.lazy(() =>
   import("../pages/DevlopmentPage/DevlopmentPage")
 );
+import IndividualDocument from "./../kyc/pages/IndividualDocument";
+import BankIndividualDpForms from "../kyc/dp/forms/individual/BankIndividualDpForms";
+import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
+import IndividualDPKyc from "../kyc/ViewKyc/Individual/IndividualDPKyc";
 
 export default function AppRoutes() {
   return (
@@ -92,10 +95,32 @@ export default function AppRoutes() {
                 element={<ApplicationMessage />}
               />
             </Route>
-
-            <Route path="/kyc/i" element={<KycForm />} />
-            <Route path="/kyc/i/address" element={<AddressIndividualDp />} />
-            <Route path="/kyc/c" element={<CorporateDetailsDp />} />
+            <Route path="/kyc" element={<KycLayout />}>
+              <Route
+                path="demat-registration/i/document-details"
+                element={<IndividualDocument />}
+              />
+              <Route
+                path="demat-registration/i/basic-details"
+                element={<KycForm />}
+              />
+              <Route
+                path="demat-registration/i/address-details"
+                element={<AddressIndividualDp />}
+              />
+              <Route
+                path="demat-registration/i/bank-details"
+                element={<BankIndividualDpForms />}
+              />
+                    <Route
+                path="demat-registration/i/detail-verification"
+                element={<IndividualDPKyc />}
+              />
+              <Route
+                path="demat-registration/c/corporate-details"
+                element={<CorporateDetailsDp />}
+              />
+            </Route>
 
             <Route path="/" element={<AppLayout />}>
               <Route path="dashboard" element={<Dashboard />} />
@@ -141,7 +166,6 @@ export default function AppRoutes() {
                 path="/weighted-average-calculator"
                 element={<WeightedAveCal />}
               />
-              <Route path="family-kyc" element={<BankIndividualDpForms />} />
             </Route>
             {/* <Route path='/error-page' element={<ErrorPage />} /> */}
             <Route path="*" element={<ErrorPage />} />
