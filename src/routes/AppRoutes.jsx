@@ -10,7 +10,7 @@ import DividendCalculator from "../pages/calculator/dividend/DividendCalculator"
 import WeightedAveCal from "../pages/calculator/weighted/WeightedAveCal";
 import KycForm from "../kyc/pages/KycForm";
 import CorporateDetailsDp from "../kyc/dp/forms/corporate/CorporateDetailsDp";
-import AddressIndividualDp from "../kyc/dp/forms/individual/AddressIndividualDp";
+import AddressIndividualDp from "../kyc/dp/forms/individual/AddressIndividual/AddressIndividualDp";
 
 const LoginLayout = React.lazy(() => import("../layout/LoginLayout"));
 const AppLayout = React.lazy(() => import("../layout/AppLayout"));
