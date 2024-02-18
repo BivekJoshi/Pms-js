@@ -1,8 +1,8 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import enTranslation from './src/locales/en/translation.json'; // English translations
-import npTranslation from './src/locales/np/translation.json'; // Nepali translations
-import store from './src/redux/store';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import enTranslation from "./src/locales/en/translation.json"; // English translations
+import npTranslation from "./src/locales/np/translation.json"; // Nepali translations
+import store from "./src/redux/store";
 
 // Create a function to set the language based on Redux store
 export const setLanguageFromStore = () => {
@@ -20,9 +20,9 @@ i18n.use(initReactI18next).init({
       translation: npTranslation,
     },
   },
-  fallbackLng: 'EN',
+  fallbackLng: "EN",
   lng: store.getState().language.mode,
-  debug: true,
+  debug: false,
   interpolation: {
     escapeValue: false,
   },
