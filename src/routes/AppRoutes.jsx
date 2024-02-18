@@ -36,7 +36,9 @@ const ResearchCompany = React.lazy(() =>
 const WatchList = React.lazy(() => import("../pages/watchlist/WatchList"));
 
 const LoginPage = React.lazy(() => import("../pages/auth/LoginPage"));
-const RegisterPage = React.lazy(() => import("../pages/auth/RegisterPage"));
+const NewRegisterPage = React.lazy(() =>
+  import("../pages/auth/NewRegisterPage")
+);
 const ApplicationPage = React.lazy(() =>
   import("../pages/auth/ApplicationPage")
 );
@@ -64,6 +66,7 @@ const BuySellCalculator = React.lazy(() =>
 const DevelopmentPage = React.lazy(() =>
   import("../pages/DevlopmentPage/DevlopmentPage")
 );
+import IndividualDocument from "./../kyc/pages/IndividualDocument";
 
 export default function AppRoutes() {
   return (
@@ -73,7 +76,7 @@ export default function AppRoutes() {
           <Routes>
             <Route path="/" element={<LoginLayout />}>
               <Route path="login" element={<LoginPage />} />
-              <Route path="register" element={<RegisterPage />} />
+              <Route path="register" element={<NewRegisterPage />} />
               <Route path="application/status" element={<ApplicationPage />} />
               <Route path="verification/:id" element={<Verification />} />
               <Route path="otp/verification" element={<OtpVerification />} />
@@ -88,10 +91,24 @@ export default function AppRoutes() {
                 element={<ApplicationMessage />}
               />
             </Route>
-
-            <Route path="/kyc/i" element={<KycForm />} />
-            <Route path="/kyc/i/address" element={<AddressIndividualDp />} />
-            <Route path="/kyc/c" element={<CorporateDetailsDp />} />
+            <Route path="/kyc" element={<KycLayout />}>
+              <Route
+                path="demat-registration/i/document-details"
+                element={<IndividualDocument />}
+              />
+              <Route
+                path="demat-registration/i/basic-details"
+                element={<KycForm />}
+              />
+              <Route
+                path="demat-registration/i/address-details"
+                element={<AddressIndividualDp />}
+              />
+              <Route
+                path="demat-registration/c/corporate-details"
+                element={<CorporateDetailsDp />}
+              />
+            </Route>
 
             <Route path="/" element={<AppLayout />}>
               <Route path="dashboard" element={<Dashboard />} />
