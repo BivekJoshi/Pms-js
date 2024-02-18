@@ -1,6 +1,7 @@
 import React from "react";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { nanoid } from "@reduxjs/toolkit";
+import { COUNTRIES, PROVINCE } from "../../../../utility/kycData";
 
 const CorporatAddress = () => {
   const AddressFields = [
