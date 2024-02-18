@@ -11,6 +11,8 @@ import WeightedAveCal from "../pages/calculator/weighted/WeightedAveCal";
 import KycForm from "../kyc/pages/KycForm";
 import CorporateDetailsDp from "../kyc/dp/forms/corporate/CorporateDetailsDp";
 import AddressIndividualDp from "../kyc/dp/forms/individual/AddressIndividualDp";
+import FamilyIndividualDpForms from "../kyc/dp/forms/individual/FamilyIndividualDpForms";
+import BankIndividualDpForms from "../kyc/dp/forms/individual/BankIndividualDpForms";
 
 const LoginLayout = React.lazy(() => import("../layout/LoginLayout"));
 const AppLayout = React.lazy(() => import("../layout/AppLayout"));
@@ -139,6 +141,7 @@ export default function AppRoutes() {
                 path="/weighted-average-calculator"
                 element={<WeightedAveCal />}
               />
+              <Route path="family-kyc" element={<BankIndividualDpForms />} />
             </Route>
             {/* <Route path='/error-page' element={<ErrorPage />} /> */}
             <Route path="*" element={<ErrorPage />} />
