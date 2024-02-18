@@ -68,6 +68,7 @@ const DevelopmentPage = React.lazy(() =>
   import("../pages/DevlopmentPage/DevlopmentPage")
 );
 import IndividualDocument from "./../kyc/pages/IndividualDocument";
+import CorporatAddress from "../kyc/dp/forms/corporate/CorporatAddress";
 
 export default function AppRoutes() {
   return (
@@ -108,6 +109,10 @@ export default function AppRoutes() {
               <Route
                 path="demat-registration/c/corporate-details"
                 element={<CorporateDetailsDp />}
+              />
+              <Route
+                path="demat-registration/c/corporate-address"
+                element={<CorporatAddress />}
               />
             </Route>
 
