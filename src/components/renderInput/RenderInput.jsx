@@ -1,9 +1,15 @@
-import { Autocomplete, Grid, TextField } from "@mui/material";
-import { Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import {
+  Autocomplete,
+  FormControlLabel,
+  Grid,
+  Switch,
+  TextField,
+} from "@mui/material";
+import React from "react";
 import AsyncDropDown from "./AsyncDropDown";
+import { DatePicker } from "@mui/x-date-pickers";
 
-const RenderInput = ({ inputField, formik }) => {
+const RenderInput = ({ inputField, formik, checkedOptions }) => {
   console.log(inputField);
   const getComponentToRender = (element) => {
     switch (element.type) {
@@ -45,6 +51,7 @@ const RenderInput = ({ inputField, formik }) => {
                 <TextField
                   {...params}
                   label={element.label}
+                  fullWidth
                   error={
                     formik.touched[element.name] &&
                     Boolean(formik.errors[element.name])
@@ -81,16 +88,48 @@ const RenderInput = ({ inputField, formik }) => {
       case "switch":
         return (
           <FormControlLabel
-          control={
-            <Switch
-              checked={checkedOptions[element?.name]}
-              onChange={formik.handleChange}
-              name={element?.name}
-            />
-          }
-          label={element?.label}
-        />
+            sx={{ textAlign: "left" }}
+            control={
+              <Switch
+                sx={{ textAlign: "left" }}
+                checked={checkedOptions[element?.name]}
+                onChange={formik.handleChange}
+                name={element?.name}
+              />
+            }
+            label={element?.label}
+          />
         );
+
+      case "datePicker":
+        // Convert the string date to a Date object
+        const dateObject = new Date(formik.values[element.name]);
+
+        // Format the date object
+        const formattedDate = dateObject
+          .toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "2-digit",
+          })
+          .replace(",", "");
+        return (
+          <Grid display={"flex"} gap={2}>
+            <DatePicker
+              sx={{ width: "100%" }}
+              label={formattedDate}
+              value={formik.values || ""}
+              onChange={formik.handleChange}
+            />
+            <DatePicker
+              sx={{ width: "100%" }}
+              label={element?.engLabel}
+              value={formik.values || ""}
+              onChange={formik.handleChange}
+            />{" "}
+          </Grid>
+        );
+
       case "asyncDropDown":
         return <AsyncDropDown element={element} formik={formik} />;
 
@@ -101,7 +140,7 @@ const RenderInput = ({ inputField, formik }) => {
 
   return (
     <div>
-      <Grid container spacing={2} alignItems={"center"}>
+      <Grid container spacing={2} alignItems="flex-end">
         {inputField?.map((element, index) => {
           return (
             <Grid
@@ -110,6 +149,7 @@ const RenderInput = ({ inputField, formik }) => {
               xs={element?.xs || element?.sm}
               md={element?.md}
               key={index}
+              sx={{ textAlign: "left" }}
             >
               {getComponentToRender(element)}
             </Grid>
