@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import "./layout.css";
 import permanentAddress from "../assets/permanentAddress.png";
 import Bankdetail from "../assets/Bankdetail.png";
+import boStatement from "../assets/boStatement.png";
 const KycLayout = () => {
   const mode = useSelector((state) => state?.theme?.mode);
   const { t } = useTranslation();
@@ -213,6 +214,12 @@ const KycLayout = () => {
       image: Bankdetail,
       path: "/kyc/demat-registration/c/corporate-bank-detail",
       title: "Bank Detail",
+    },
+    {
+      id: 5,
+      image: boStatement,
+      path: "/kyc/demat-registration/c/corporate-bo-statement",
+      title: "Bo Statement",
     },
   ];
 

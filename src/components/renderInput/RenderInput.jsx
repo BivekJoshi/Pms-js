@@ -1,7 +1,10 @@
 import {
   Autocomplete,
   FormControlLabel,
+  FormLabel,
   Grid,
+  Radio,
+  RadioGroup,
   Switch,
   TextField,
 } from "@mui/material";
@@ -9,6 +12,7 @@ import React from "react";
 import AsyncDropDown from "./AsyncDropDown";
 import { DatePicker } from "@mui/x-date-pickers";
 import DualDatePicker from "./DualDatePicker";
+import { FormControl } from "@mui/base";
 
 const RenderInput = ({ inputField, formik, checkedOptions }) => {
   const getComponentToRender = (element) => {
@@ -100,6 +104,33 @@ const RenderInput = ({ inputField, formik, checkedOptions }) => {
             }
             label={element?.label}
           />
+        );
+      case "radio":
+        return (
+          <FormControl>
+            <FormLabel id="demo-radio-buttons-group-label">
+              {element.label}
+            </FormLabel>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              onChange={formik.handleChange}
+              name={element?.name}
+            >
+              {element.radio.map((radio) => (
+                <FormControlLabel
+                  value={radio.value}
+                  control={<Radio />}
+                  label={radio.label}
+                />
+              ))}
+            </RadioGroup>
+            {/* <Switch
+              sx={{ textAlign: "left" }}
+              checked={formik.values[element?.name]}
+              onChange={formik.handleChange}
+              name={element?.name}
+            /> */}
+          </FormControl>
         );
 
       case "datePicker":

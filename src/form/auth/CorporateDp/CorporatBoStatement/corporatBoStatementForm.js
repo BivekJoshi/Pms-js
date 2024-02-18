@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import corporatBankDetailFormValidationSchema from "./corporatBankDetailFormValidationSchema";
 
-
-export const corporatBankDetailForm = (props) => {
+export const corporatBoStatementForm = (props) => {
   const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues: {
-      bankName: "",
-      accountNumber: "",
-      accountType: "",
-      branchAddress: "",
+      isStandingInstructionForAutomaticTxn: "",
+      accountStatementPeriod: "",
     },
-    validationSchema: corporatBankDetailFormValidationSchema,
+    // validationSchema: corporatBankDetailFormValidationSchema,
     onSubmit: (values) => {
+        console.log("hiiiiii", values);
       handleSubmit(values);
       setLoading(true);
       resetForm();
