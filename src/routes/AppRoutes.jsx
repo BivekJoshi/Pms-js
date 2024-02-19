@@ -11,6 +11,7 @@ import WeightedAveCal from "../pages/calculator/weighted/WeightedAveCal";
 import KycForm from "../kyc/pages/KycForm";
 import CorporateDetailsDp from "../kyc/dp/forms/corporate/CorporateDetailsDp";
 import AddressIndividualDp from "../kyc/dp/forms/individual/AddressIndividual/AddressIndividualDp";
+import KycLayout from "../layout/KycLayout"
 
 const LoginLayout = React.lazy(() => import("../layout/LoginLayout"));
 const AppLayout = React.lazy(() => import("../layout/AppLayout"));
