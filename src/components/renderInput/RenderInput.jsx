@@ -111,25 +111,20 @@ const RenderInput = ({ inputField, formik, checkedOptions }) => {
             <FormLabel id="demo-radio-buttons-group-label">
               {element.label}
             </FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              onChange={formik.handleChange}
-              name={element?.name}
-            >
+            <RadioGroup row onChange={formik.handleChange} name={element?.name}>
               {element.radio.map((radio) => (
                 <FormControlLabel
                   value={radio.value}
                   control={<Radio />}
                   label={radio.label}
+                  disabled={
+                    element.name === "accountStatementPeriod" &&
+                    formik.values.isStandingInstructionForAutomaticTxn ===
+                      "false"
+                  }
                 />
               ))}
             </RadioGroup>
-            {/* <Switch
-              sx={{ textAlign: "left" }}
-              checked={formik.values[element?.name]}
-              onChange={formik.handleChange}
-              name={element?.name}
-            /> */}
           </FormControl>
         );
 

@@ -5,7 +5,7 @@ import { corporatBoStatementForm } from "../../../../form/auth/CorporateDp/Corpo
 import { nanoid } from "nanoid";
 
 const CorporatBoStatement = () => {
-    const { formik } = corporatBoStatementForm()
+  const { formik } = corporatBoStatementForm();
   const StatementsField = [
     {
       name: "isStandingInstructionForAutomaticTxn",
@@ -31,8 +31,6 @@ const CorporatBoStatement = () => {
     {
       name: "accountStatementPeriod",
       label: "Account Statement Period (खाता विवरण अवधि)",
-      placeholder: "Select account statement type",
-      required: "Please select account statement type",
       type: "radio",
       radio: [
         {
@@ -71,7 +69,11 @@ const CorporatBoStatement = () => {
     <div style={{ paddingBottom: "250px", padding: "5rem" }}>
       <form onSubmit={formik.handleSubmit}>
         <Grid>
-          <RenderInput inputField={StatementsField} formik={formik} />
+          <RenderInput
+            inputField={StatementsField}
+            formik={formik}
+           
+          />
         </Grid>
         <button type="submit"> save</button>
       </form>
