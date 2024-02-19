@@ -1,7 +1,10 @@
 import {
   Autocomplete,
   FormControlLabel,
+  FormLabel,
   Grid,
+  Radio,
+  RadioGroup,
   Switch,
   TextField,
 } from "@mui/material";
@@ -256,6 +259,27 @@ const RenderInput = ({
             }
             label={element?.label}
           />
+        );
+      case "radio":
+        return (
+          <FormControl>
+            <FormLabel id="demo-radio-buttons-group-label">
+              {element.label}
+            </FormLabel>
+            <RadioGroup row onChange={formik.handleChange} name={element?.name}>
+              {element.radio.map((radio) => (
+                <FormControlLabel
+                  value={radio.value}
+                  control={<Radio />}
+                  label={radio.label}
+                  disabled={
+                    element.name === "accountStatementPeriod" &&
+                    formik.values.isStandingInstructionForAutomaticTxn === "false"
+                  }
+                />
+              ))}
+            </RadioGroup>
+          </FormControl>
         );
 
       case "datePicker":

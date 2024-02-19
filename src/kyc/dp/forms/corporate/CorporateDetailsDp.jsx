@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  FormControlLabel,
-  Grid,
-  MenuItem,
-  Switch,
-  TextField,
-} from "@mui/material";
+import { Grid } from "@mui/material";
 import { nanoid } from "nanoid";
 import {
   BUSINESS_OPTIONS,
@@ -100,15 +94,13 @@ const CorporateDetailsDp = () => {
       name: "incorporationDate",
       nepaliLabel: "Incorporation Date (समावेश मिति) (B.S.)",
       type: "dualDate",
-      dualDate: true,
       engLabel: "Incorporation Date (समावेश मिति) (A.D.)",
-      required: true,
       id: nanoid(),
-      md: 8,
       engMd: 6,
       engSm: 12,
       nepMd: 6,
       nepSm: 12,
+      md: 8,
       sm: 12,
     },
     {
@@ -132,12 +124,15 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "registrationDate",
-      label: "Registration Date (दर्ता मिति) (B.S.)",
-      type: "datePicker",
+      nepaliLabel: "Registration Date (दर्ता मिति) (B.S.)",
+      type: "dualDate",
       engLabel: "Registration Date (दर्ता मिति) (A.D.)",
-      dualDate: true,
       required: true,
       id: nanoid(),
+      engMd: 6,
+      engSm: 12,
+      nepMd: 6,
+      nepSm: 12,
       md: 8,
       sm: 12,
     },
@@ -193,12 +188,15 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "nrbApproval",
-      label: "NRB Approval Date (नेपाल राष्ट्र बैंकको स्वीकृत मिति) (B.S.)",
-      type: "datePicker",
+      nepaliLabel: "NRB Approval Date (नेपाल राष्ट्र बैंकको स्वीकृत मिति) (B.S.)",
+      type: "dualDate",
       engLabel: "NRB Approval Date (नेपाल राष्ट्र बैंकको स्वीकृत मिति) (A.D.)",
-      dualDate: true,
       id: nanoid(),
       maxLength: 75,
+      engMd: 6,
+      engSm: 12,
+      nepMd: 6,
+      nepSm: 12,
       md: 8,
       sm: 12,
     },
@@ -244,12 +242,16 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "listingDate",
-      label: "Listing Date (सूचीकरण मिति) (B.S.)",
-      type: "datePicker",
+      nepaliLabel: "Listing Date (सूचीकरण मिति) (B.S.)",
+      type: "dualDate",
       engLabel: "Listing Date (सूचीकरण मिति) (A.D.)",
-      dualDate: true,
+
       required: true,
       id: nanoid(),
+      engMd: 6,
+      engSm: 12,
+      nepMd: 6,
+      nepSm: 12,
       md: 8,
       sm: 12,
       watchFor: "isListed",
@@ -264,9 +266,18 @@ const CorporateDetailsDp = () => {
 
   return (
     <div style={{ paddingBottom: "250px", padding: "5rem" }}>
-      <Grid align="center">
+       <form onSubmit={formik.handleSubmit}>
+         <Grid >
+           <RenderInput
+             inputField={CorporateField}
+             formik={formik}
+           />
+         </Grid>
+         <button type="submit"> save</button>
+       </form>
+      {/* <Grid align="center">
         <RenderInput inputField={CorporateField} formik={formik} />
-      </Grid>
+      </Grid> */}
     </div>
   );
 };

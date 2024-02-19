@@ -7,17 +7,30 @@ import {
   createTheme,
   useMediaQuery,
 } from "@mui/material";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { themeSettings } from "../theme";
 import { useSelector } from "react-redux";
 import KycNavbar from "../components/navbar/KycNavbar";
 import { useTranslation } from "react-i18next";
 import "./layout.css";
+import { corporatKycDematList, individualKycDematList } from "./kycMenuList";
+import KycProfileCard from "../kyc/components/KycProfileCard";
 const KycLayout = () => {
   const mode = useSelector((state) => state?.theme?.mode);
   const { t } = useTranslation();
+  const clientType = "C";
+  const [menuList, setMenuList] = useState([]);
 
+  useEffect(() => {
+    if (clientType === "I") {
+      setMenuList(individualKycDematList);
+    } else if (clientType === "C") {
+      setMenuList(corporatKycDematList);
+    } else {
+      setMenuList([]);
+    }
+  }, []);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const isSm = useMediaQuery(theme.breakpoints.down("md"));
   const individualKycDematList = [
@@ -237,7 +250,7 @@ const KycLayout = () => {
         <Box
           sx={{
             gridTemplateRows: isSm ? "4% 1fr" : "1fr",
-            gridTemplateColumns: !isSm ? "2fr 10fr" : "1fr",
+            gridTemplateColumns: !isSm ? "2.5fr 10fr" : "1fr",
             minHeight: "94dvh",
           }}
           color={theme.palette.text.main}
@@ -252,18 +265,7 @@ const KycLayout = () => {
             }}
           >
             <Grid display="flex" flexDirection="column" gap="16px">
-              <Grid
-                display="flex"
-                color={theme.palette.text.main}
-                bgcolor={theme.palette.background.alt}
-                alignItems="center"
-                justifyContent="space-evenly"
-                borderRadius="6px"
-                position="relative"
-                padding="16px"
-              >
-                img
-              </Grid>
+              <KycProfileCard clientType={clientType} nature={"DP"} />
               <Grid
                 p="12px"
                 bgcolor={theme.palette.background.alt}
@@ -273,7 +275,7 @@ const KycLayout = () => {
                 width="100%"
               >
                 <Grid display="flex" flexDirection="column">
-                  {individualKycDematList.map((item, i) => {
+                  {menuList.map((item, i) => {
                     return (
                       <NavLink
                         className="navlinks-list"

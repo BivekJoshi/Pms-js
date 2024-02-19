@@ -71,6 +71,10 @@ import IndividualDocument from "./../kyc/pages/IndividualDocument";
 import BankIndividualDpForms from "../kyc/dp/forms/individual/BankIndividualDpForms";
 import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
 import IndividualDPKyc from "../kyc/ViewKyc/Individual/IndividualDPKyc";
+import CorporatAddress from "../kyc/dp/forms/corporate/CorporatAddress";
+import CorporatBankDetail from "../kyc/dp/forms/corporate/CorporatBankDetail";
+import CorporatBoStatement from "../kyc/dp/forms/corporate/CorporatBoStatement";
+import CorporatOwnershipDetails from "../kyc/dp/forms/corporate/CorporatOwnershipDetails";
 
 export default function AppRoutes() {
   return (
@@ -119,6 +123,22 @@ export default function AppRoutes() {
               <Route
                 path="demat-registration/c/corporate-details"
                 element={<CorporateDetailsDp />}
+              />
+              <Route
+                path="demat-registration/c/corporate-address"
+                element={<CorporatAddress />}
+              />
+              <Route
+                path="demat-registration/c/corporate-bank-detail"
+                element={<CorporatBankDetail />}
+              />
+              <Route
+                path="demat-registration/c/corporate-bo-statement"
+                element={<CorporatBoStatement />}
+              />
+              <Route
+                path="demat-registration/c/corporate-ownership-details"
+                element={<CorporatOwnershipDetails />}
               />
             </Route>
 
