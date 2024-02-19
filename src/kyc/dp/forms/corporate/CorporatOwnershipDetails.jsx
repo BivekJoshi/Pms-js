@@ -413,31 +413,60 @@ const CorporatOwnershipDetails = () => {
     },
   ];
   const { formik, loading } = corporatOwnershipDetailsForm();
+  
+  const getAddButtonStatus = (index) => index === bodDetailsFields.length - 1;
+
+  const getRemoveButtonStatus = (index) => {
+    return index > 0 && index === bodDetailsFields.length - 1;
+  };
   return (
     <div style={{ paddingBottom: "250px", padding: "5rem" }}>
       <form onSubmit={formik.handleSubmit}>
         <Grid>
           <>
-            <Typography variant="h5"  style={{ margin: "1rem 0" }}>
+            <Typography variant="h5" style={{ margin: "1rem 0" }}>
               CEO Details
             </Typography>
             <RenderInput inputField={DETAILS} formik={formik} />
           </>
           <>
-            <Typography variant="h5"  style={{ margin: "1rem 0" }}>
+            <Typography variant="h5" style={{ margin: "1rem 0" }}>
               {" "}
               Company Secretary Details
             </Typography>
             <RenderInput inputField={DETAILS} formik={formik} />
           </>
           <>
-            <Typography variant="h5"  style={{ margin: "1rem 0" }}>
+            <Typography variant="h5" style={{ margin: "1rem 0" }}>
               BOD Details
             </Typography>
             <RenderInput inputField={OwnershipField} formik={formik} />
-            <Button variant="outlined" style={{ margin: "1rem 0" }}>
-              <Typography color="black">+ Add</Typography>{" "}
-            </Button>
+            {getAddButtonStatus(index) && (
+              <Stack className="my-3">
+                <Grid align="end">
+                  <Grid.Col span={2} sm={2}>
+                    <Button
+                      variant="outline"
+                      color="blue"
+                      onClick={() => append()}
+                    >
+                      + Add
+                    </Button>
+                  </Grid.Col>
+                  {getRemoveButtonStatus(index) && (
+                    <Grid.Col span={2} sm={2}>
+                      <Button
+                        variant="outline"
+                        color="red"
+                        onClick={() => remove(index)}
+                      >
+                        - Remove
+                      </Button>
+                    </Grid.Col>
+                  )}
+                </Grid>
+              </Stack>
+            )}
           </>
         </Grid>
         <button type="submit"> save</button>
