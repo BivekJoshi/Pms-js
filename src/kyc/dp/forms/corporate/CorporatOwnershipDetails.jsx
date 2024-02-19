@@ -441,7 +441,7 @@ const CorporatOwnershipDetails = () => {
               BOD Details
             </Typography>
             <RenderInput inputField={OwnershipField} formik={formik} />
-            {getAddButtonStatus(index) && (
+            {/* {getAddButtonStatus(index) && (
               <Stack className="my-3">
                 <Grid align="end">
                   <Grid.Col span={2} sm={2}>
@@ -466,7 +466,7 @@ const CorporatOwnershipDetails = () => {
                   )}
                 </Grid>
               </Stack>
-            )}
+            )} */}
           </>
         </Grid>
         <button type="submit"> save</button>
