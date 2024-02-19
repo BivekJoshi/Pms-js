@@ -46,6 +46,7 @@ import {
   
     const handleChange = (e) => {
       setOpenModal(e.target.checked);
+      // formik.setFieldValue('fieldType', e.target.checked ? 'isMinor' : '');
     };
    
     return (

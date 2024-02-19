@@ -24,6 +24,7 @@ const BasicIndividualDpForms = () => {
     };
     determineFields();
   }, [formik.values.fieldType]);
+  
 
   return (
     <div style={{ margin: "2rem" }}>

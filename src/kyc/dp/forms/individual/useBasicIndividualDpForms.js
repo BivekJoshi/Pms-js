@@ -7,14 +7,14 @@ export const useBasicIndividualDpForms = () => {
 
   const formik = useFormik({
     initialValues: {
-      fieldType: "isNrn",
+      fieldType: "isMinor",
       firstName: "",
       middleName: "",
       lastName: "",
       clientNameNepali: "",
       gender: "",
       dob: "",
-      isNrn: true,
+      isNrn: false,
     },
     onSubmit: (values) => {
       //   setLoading(true);
