@@ -10,7 +10,7 @@ import { Button } from "@mui/base";
 const AddressIndividualDp = () => {
   const { formik } = useAddressForm();
   return (
-    <div>
+    <div data-aos="zoom-in-right">
       <div style={{ padding: "1rem" }}>
         <Typography
           sx={{ fontSize: "24px", lineHeight: "32px", fontWeight: "400" }}
