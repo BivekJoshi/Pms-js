@@ -1,7 +1,7 @@
 import { nanoid } from "@reduxjs/toolkit";
 import React from "react";
 import { corporatOwnershipDetailsForm } from "../../../../form/auth/CorporateDp/CorporatOwnershipDetails/corporatOwnershipDetailsForm";
-import { Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { FieldArray, FormikProvider } from "formik";
 
@@ -281,6 +281,8 @@ const CorporatOwnershipDetails = () => {
     },
   ];
 
+  const theme = useTheme();
+
   const FirstContactField = [
     {
       name: "fcpName",
@@ -421,7 +423,24 @@ const CorporatOwnershipDetails = () => {
     return index > 0 && index === bodDetailsFields.length - 1;
   };
   return (
-    <div style={{ paddingBottom: "250px", padding: "5rem" }}>
+    <div data-aos="zoom-in-right">
+      <Box
+        sx={{
+          marginBottom: "16px",
+          padding: { md: "12px", sm: "5px" },
+          borderLeft: `4px solid ${theme.palette.background.btn}`,
+        }}
+      >
+        <Typography
+          variant="h4"
+          style={{
+            color: theme.palette.text.light,
+            fontWeight: "800",
+          }}
+        >
+          Ownership Details
+        </Typography>
+      </Box>
       <form onSubmit={formik.handleSubmit}>
         <Grid>
           <>

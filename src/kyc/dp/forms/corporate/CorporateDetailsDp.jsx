@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { nanoid } from "nanoid";
 import {
   BUSINESS_OPTIONS,
@@ -8,6 +8,7 @@ import {
 } from "../../../../utility/kycData";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import useCorporateDetailsForm from "./../../hooks/useCorporateDetailsForm";
+import { useTheme } from "@emotion/react";
 
 const CorporateDetailsDp = () => {
   const CorporateField = [
@@ -188,7 +189,8 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "nrbApproval",
-      nepaliLabel: "NRB Approval Date (नेपाल राष्ट्र बैंकको स्वीकृत मिति) (B.S.)",
+      nepaliLabel:
+        "NRB Approval Date (नेपाल राष्ट्र बैंकको स्वीकृत मिति) (B.S.)",
       type: "dualDate",
       engLabel: "NRB Approval Date (नेपाल राष्ट्र बैंकको स्वीकृत मिति) (A.D.)",
       id: nanoid(),
@@ -261,20 +263,34 @@ const CorporateDetailsDp = () => {
       },
     },
   ];
-
+  const theme = useTheme();
   const { formik } = useCorporateDetailsForm();
 
   return (
-    <div style={{ paddingBottom: "250px", padding: "5rem" }}>
-       <form onSubmit={formik.handleSubmit}>
-         <Grid >
-           <RenderInput
-             inputField={CorporateField}
-             formik={formik}
-           />
-         </Grid>
-         <button type="submit"> save</button>
-       </form>
+    <div data-aos="zoom-in-right">
+      <Box
+        sx={{
+          marginBottom: "16px",
+          padding: { md: "12px", sm: "5px" },
+          borderLeft: `4px solid ${theme.palette.background.btn}`,
+        }}
+      >
+        <Typography
+          variant="h4"
+          style={{
+            color: theme.palette.text.light,
+            fontWeight: "800",
+          }}
+        >
+          Corporate Details
+        </Typography>
+      </Box>
+      <form onSubmit={formik.handleSubmit}>
+        <Grid>
+          <RenderInput inputField={CorporateField} formik={formik} />
+        </Grid>
+        <button type="submit"> save</button>
+      </form>
       {/* <Grid align="center">
         <RenderInput inputField={CorporateField} formik={formik} />
       </Grid> */}
