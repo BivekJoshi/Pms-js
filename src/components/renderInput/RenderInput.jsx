@@ -29,6 +29,7 @@ const MarkerLocationFieldArray = ({
   setValueField,
   index,
   fieldArrayName,
+  isFieldArray,
 }) => {
   const markerRef = useRef();
   const map = useMap();
@@ -274,7 +275,8 @@ const RenderInput = ({
                   label={radio.label}
                   disabled={
                     element.name === "accountStatementPeriod" &&
-                    formik.values.isStandingInstructionForAutomaticTxn === "false"
+                    formik.values.isStandingInstructionForAutomaticTxn ===
+                      "false"
                   }
                 />
               ))}

@@ -3,6 +3,7 @@ import React from "react";
 import { corporatOwnershipDetailsForm } from "../../../../form/auth/CorporateDp/CorporatOwnershipDetails/corporatOwnershipDetailsForm";
 import { Button, Grid, Typography } from "@mui/material";
 import RenderInput from "../../../../components/renderInput/RenderInput";
+import { FieldArray, FormikProvider } from "formik";
 
 const CorporatOwnershipDetails = () => {
   const DETAILS = [
@@ -440,33 +441,67 @@ const CorporatOwnershipDetails = () => {
             <Typography variant="h5" style={{ margin: "1rem 0" }}>
               BOD Details
             </Typography>
-            <RenderInput inputField={OwnershipField} formik={formik} />
-            {/* {getAddButtonStatus(index) && (
-              <Stack className="my-3">
-                <Grid align="end">
-                  <Grid.Col span={2} sm={2}>
-                    <Button
-                      variant="outline"
-                      color="blue"
-                      onClick={() => append()}
-                    >
-                      + Add
-                    </Button>
-                  </Grid.Col>
-                  {getRemoveButtonStatus(index) && (
-                    <Grid.Col span={2} sm={2}>
-                      <Button
-                        variant="outline"
-                        color="red"
-                        onClick={() => remove(index)}
-                      >
-                        - Remove
-                      </Button>
-                    </Grid.Col>
-                  )}
-                </Grid>
-              </Stack>
-            )} */}
+            <FormikProvider value={formik} {...formik}>
+              <FieldArray name="bodDetails">
+                {({ push, remove }) =>
+                  formik.values.bodDetails &&
+                  formik.values?.bodDetails.map((bodDetail, index) => {
+                    const field = OwnershipField.map((d) => {
+                      return {
+                        ...d,
+                        name: `addresses.${index}.${d.name}`,
+                      };
+                    });
+                    // console.log(bodDetail);
+                    // console.log("OwnershipField",OwnershipField);
+                    return (
+                      <div key={index}>
+                        <RenderInput
+                          inputField={field}
+                          formik={formik}
+                          index={index}
+                          // isFieldArray={true}
+                          fieldArrayName="bodDetails"
+                        />
+                        <Grid margin="1rem 0" display="flex" gap={2}>
+                          <Button
+                            variant="outlined"
+                            color="primary"
+                            style={{border:"1px solid #79747E"}}
+                            disabled={
+                              index !== formik.values.bodDetails.length - 1
+                            }
+                            onClick={() =>
+                              push({
+                                id: nanoid(),
+                                ...OwnershipField.reduce((acc, field) => {
+                                  acc[field.name] = ""; // Initialize all fields with an empty string
+                                  return acc;
+                                }, {}),
+                              })
+                            }
+                          >
+                            <Typography color="#6750A4">+ Add</Typography>
+                            
+                          </Button>
+                          {index !== 0 && (
+                            <Button
+                              variant="outlined"
+                              color="secondary"
+                              style={{border:"1px solid #B4271F"}}
+                              onClick={() => remove(index)}
+                              disabled={index === 0}
+                            >
+                             <Typography color="#B4271F">Remove</Typography>  
+                            </Button>
+                          )}
+                        </Grid>
+                      </div>
+                    );
+                  })
+                }
+              </FieldArray>
+            </FormikProvider>
           </>
           <>
             <Typography variant="h5" style={{ margin: "1rem 0" }}>

@@ -18,10 +18,26 @@ export const corporatOwnershipDetailsForm = () => {
       mobileNo: "",
       email: "",
       panNo: "",
+      bodDetails: [
+        {
+          designation: "",
+          firstName: "",
+          lastName: "",
+          fatherName: "",
+          grandFather: "",
+          spouseName: "",
+          permanentAddress: "",
+          currentAddress: "",
+          telephoneNo: "",
+          mobileNo: "",
+          email: "",
+          panNo: "",
+        },
+      ],
     },
     validationSchema: corporatOwnershipDetailsValidationSchema,
     onSubmit: (values) => {
-        console.log("values", values);
+      console.log("values", values);
       handleSubmit(values);
       setLoading(true);
       resetForm();
