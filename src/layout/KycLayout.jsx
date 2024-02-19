@@ -17,6 +17,7 @@ import "./layout.css";
 import permanentAddress from "../assets/permanentAddress.png";
 import Bankdetail from "../assets/Bankdetail.png";
 import boStatement from "../assets/boStatement.png";
+import ownershipdetail from "../assets/ownershipdetail.png";
 const KycLayout = () => {
   const mode = useSelector((state) => state?.theme?.mode);
   const { t } = useTranslation();
@@ -220,6 +221,12 @@ const KycLayout = () => {
       image: boStatement,
       path: "/kyc/demat-registration/c/corporate-bo-statement",
       title: "Bo Statement",
+    },
+    {
+      id: 6,
+      image: ownershipdetail,
+      path: "/kyc/demat-registration/c/corporate-ownership-details",
+      title: "Ownership Details",
     },
   ];
 
