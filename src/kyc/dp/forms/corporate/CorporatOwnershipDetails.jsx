@@ -287,7 +287,7 @@ const CorporatOwnershipDetails = () => {
       type: "text",
       placeholder: "Enter full name",
       required: "Please enter first contact person name",
-      md: 4,
+      md: 6,
       sm: 12,
       maxLength: 75,
       id: nanoid(),
@@ -298,7 +298,7 @@ const CorporatOwnershipDetails = () => {
       type: "text",
       placeholder: "Enter designation",
       required: true,
-      md: 4,
+      md: 6,
       sm: 12,
       maxLength: 75,
       id: nanoid(),
@@ -309,7 +309,7 @@ const CorporatOwnershipDetails = () => {
       type: "text",
       placeholder: "Enter father's name",
       required: "Please enter first contact person father's name",
-      md: 4,
+      md: 6,
       sm: 12,
       maxLength: 75,
       id: nanoid(),
@@ -320,7 +320,7 @@ const CorporatOwnershipDetails = () => {
       type: "text",
       placeholder: "Enter grandfather's name",
       required: "Please enter first contact person grandfather's name",
-      md: 4,
+      md: 6,
       sm: 12,
       maxLength: 75,
       id: nanoid(),
@@ -333,7 +333,7 @@ const CorporatOwnershipDetails = () => {
       label: "Full Name (पुरा नाम)",
       type: "text",
       placeholder: "Enter full name",
-      md: 4,
+      md: 6,
       sm: 12,
       maxLength: 75,
       id: nanoid(),
@@ -343,7 +343,7 @@ const CorporatOwnershipDetails = () => {
       label: "Designation (पद)",
       type: "text",
       placeholder: "Enter designation",
-      md: 4,
+      md: 6,
       sm: 12,
       maxLength: 75,
       id: nanoid(),
@@ -353,7 +353,7 @@ const CorporatOwnershipDetails = () => {
       label: "Father's Name (बुवाको नाम)",
       type: "text",
       placeholder: "Enter father's name ",
-      md: 4,
+      md: 6,
       sm: 12,
       maxLength: 75,
       id: nanoid(),
@@ -363,7 +363,7 @@ const CorporatOwnershipDetails = () => {
       label: "Grandfather's Name (हजुरबुबाको नाम)",
       type: "text",
       placeholder: "Enter grandfather's name",
-      md: 4,
+      md: 6,
       sm: 12,
       maxLength: 75,
       id: nanoid(),
@@ -376,7 +376,7 @@ const CorporatOwnershipDetails = () => {
       label: "Full Name (पुरा नाम)",
       type: "text",
       placeholder: "Enter full name",
-      md: 4,
+      md: 6,
       sm: 12,
       maxLength: 75,
       id: nanoid(),
@@ -386,7 +386,7 @@ const CorporatOwnershipDetails = () => {
       label: "Designation (पद)",
       type: "text",
       placeholder: "Enter designation",
-      md: 4,
+      md: 6,
       sm: 12,
       maxLength: 75,
       id: nanoid(),
@@ -396,7 +396,7 @@ const CorporatOwnershipDetails = () => {
       label: "Father's Name (बुवाको नाम)",
       type: "text",
       placeholder: "Enter father's name ",
-      md: 4,
+      md: 6,
       sm: 12,
       maxLength: 75,
       id: nanoid(),
@@ -406,14 +406,14 @@ const CorporatOwnershipDetails = () => {
       label: "Grandfather's Name (हजुरबुबाको नाम)",
       type: "text",
       placeholder: "Enter grandfather's name",
-      md: 4,
+      md: 6,
       sm: 12,
       maxLength: 75,
       id: nanoid(),
     },
   ];
   const { formik, loading } = corporatOwnershipDetailsForm();
-  
+
   const getAddButtonStatus = (index) => index === bodDetailsFields.length - 1;
 
   const getRemoveButtonStatus = (index) => {
@@ -467,6 +467,24 @@ const CorporatOwnershipDetails = () => {
                 </Grid>
               </Stack>
             )} */}
+          </>
+          <>
+            <Typography variant="h5" style={{ margin: "1rem 0" }}>
+              First Contact Person (पहिलो सम्पर्क व्यक्ति)
+            </Typography>
+            <RenderInput inputField={FirstContactField} formik={formik} />
+          </>
+          <>
+            <Typography variant="h5" style={{ margin: "1rem 0" }}>
+              Second Contact Person (दोस्रो सम्पर्क व्यक्ति )
+            </Typography>
+            <RenderInput inputField={SecondContactField} formik={formik} />
+          </>
+          <>
+            <Typography variant="h5" style={{ margin: "1rem 0" }}>
+              Third Contact Person (तेस्रो सम्पर्क व्यक्ति)
+            </Typography>
+            <RenderInput inputField={ThirdContactField} formik={formik} />
           </>
         </Grid>
         <button type="submit"> save</button>
