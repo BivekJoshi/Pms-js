@@ -13,6 +13,7 @@ import AsyncDropDown from "./AsyncDropDown";
 import { DatePicker } from "@mui/x-date-pickers";
 import DualDatePicker from "./DualDatePicker";
 import { FormControl } from "@mui/base";
+import ToggleSwitchForm from './ToggleSwitchForm';
 
 const RenderInput = ({ inputField, formik, checkedOptions }) => {
   const getComponentToRender = (element) => {
@@ -145,7 +146,8 @@ const RenderInput = ({ inputField, formik, checkedOptions }) => {
 
       case "asyncDropDown":
         return <AsyncDropDown element={element} formik={formik} />;
-
+        case "toggle":
+          return <ToggleSwitchForm element={element} formik={formik} />;  
       default:
         return <TextField name={element?.name} label={element?.label} />;
     }

@@ -267,7 +267,8 @@ const CorporateDetailsDp = () => {
   return (
     <div style={{ paddingBottom: "250px", padding: "5rem" }}>
        <form onSubmit={formik.handleSubmit}>
-         <Grid >
+         <Grid>
+          {/* {corporate} */}
            <RenderInput
              inputField={CorporateField}
              formik={formik}
