@@ -43,10 +43,10 @@ const IndividualDocument = () => {
           <>
             <Grid container>
               <Grid item xs={6}>
-                <DropZoneUploadFile />
+                <DropZoneUploadFile title="Front Side" />
               </Grid>
               <Grid item xs={6}>
-                <DropZoneUploadFile />
+                <DropZoneUploadFile title="Back Side" />
               </Grid>
             </Grid>
           </>

@@ -1,5 +1,13 @@
 import React from "react";
-import { Box, Button, Divider, Grid, Modal, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Grid,
+  IconButton,
+  Modal,
+  Typography,
+} from "@mui/material";
 import { useTheme } from "@emotion/react";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -40,21 +48,20 @@ const FormModal = ({
         {header && (
           <>
             <Grid container direction="row" justifyContent="space-between">
-              <Typography variant="h4">
-                <b>{header}</b>
-              </Typography>
-              <Button onClick={onClose}>
+              <Typography variant="h5">{header}</Typography>
+              <IconButton onClick={onClose}>
                 <CloseIcon />
-              </Button>
+              </IconButton>
             </Grid>
             <Divider />
+            <br />
           </>
         )}
         {formComponent}
-        <Grid container direction="row" justifyContent="flex-end" gap="1rem">
+        {/* <Grid container direction="row" justifyContent="flex-end" gap="1rem">
           <Button variant="contained">Addd</Button>
           <Button variant="contained">CloseButton</Button>
-        </Grid>
+        </Grid> */}
       </Box>
     </Modal>
   );

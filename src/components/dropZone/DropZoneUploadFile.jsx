@@ -4,14 +4,16 @@ import Picture from "../../assets/Picture.png";
 import DottedBoder from "../../assets/DottedBoder.png";
 import { Typography } from "@mui/material";
 
-const DropZoneUploadFile = () => {
+const DropZoneUploadFile = ({ title }) => {
   const [file, setFile] = useState(null);
+  const [showDelete, setShowDelete] = useState(false);
 
   const handleUpload = (acceptedFiles) => {
     console.log("logging drop/selected file", acceptedFiles);
 
     const url = "https://api.escuelajs.co/api/v1/files/upload";
     const formData = new FormData();
+
     formData.append("file", acceptedFiles[0]);
 
     fetch(url, {
@@ -34,17 +36,19 @@ const DropZoneUploadFile = () => {
     <div>
       {file ? (
         <>
-          <Typography
-            variant="h4"
-            sx={{
-              width: "338px",
-              display: "flex",
-              justifyContent: "center",
-              paddingBottom: "9px",
-            }}
-          >
-            Front Side
-          </Typography>
+          {title && (
+            <Typography
+              variant="h4"
+              sx={{
+                width: "338px",
+                display: "flex",
+                justifyContent: "center",
+                paddingBottom: "9px",
+              }}
+            >
+              {title}
+            </Typography>
+          )}
           <div
             style={{
               padding: "16px",
@@ -58,6 +62,7 @@ const DropZoneUploadFile = () => {
               width: "350px",
               cursor: "pointer",
             }}
+            onMouseOver={(e) => setShowDelete(true)}
           >
             <div
               style={{
@@ -68,7 +73,33 @@ const DropZoneUploadFile = () => {
                 height: "192px",
               }}
             >
-              <img src={URL.createObjectURL(file)} alt="Uploaded file" style={{width:"100%",height:"100%"}}/>
+              <img
+                src={URL.createObjectURL(file)}
+                alt="Uploaded file"
+                style={{ width: "100%", height: "100%" }}
+              />
+              {showDelete && (
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    right: 0,
+                    backgroundColor: "rgb(0, 0, 0)",
+                    width: "100%",
+                    height: "54px",
+                    textAlign: "end",
+                    padding: "10px",
+                    opacity: 0.6,
+                  }}
+                >
+                  <div
+                    style={{ opacity: 1, color: "#ffff" }}
+                    onClick={() => setFile(null)}
+                  >
+                    Delete
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </>
@@ -76,8 +107,8 @@ const DropZoneUploadFile = () => {
         <Dropzone
           onDrop={handleUpload}
           accept="image/*"
-          minSize={1024}
-          maxSize={3072000}
+          // minSize={1024}
+          // maxSize={3000000}
         >
           {({ getRootProps, getInputProps, isDragAccept, isDragReject }) => {
             const additionalClass = isDragAccept
@@ -88,17 +119,19 @@ const DropZoneUploadFile = () => {
 
             return (
               <>
-                <Typography
-                  variant="h4"
-                  sx={{
-                    width: "338px",
-                    display: "flex",
-                    justifyContent: "center",
-                    paddingBottom: "9px",
-                  }}
-                >
-                  Front Side
-                </Typography>
+                {title && (
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      width: "338px",
+                      display: "flex",
+                      justifyContent: "center",
+                      paddingBottom: "9px",
+                    }}
+                  >
+                    {title}
+                  </Typography>
+                )}
                 <div
                   {...getRootProps({})}
                   style={{
