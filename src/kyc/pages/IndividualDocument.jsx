@@ -41,20 +41,14 @@ const IndividualDocument = () => {
         header="Document Form"
         formComponent={
           <>
-            {/* <BillDetail rowData={selectedRowData} />
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  setIsModalOpen(false);
-                }}
-                sx={{ mt: 3, ml: 1, textTransform: "none" }}
-                color="error"
-              >
-                {t("Close")}
-              </Button>
-            </Box> */}
-            <DropZoneUploadFile/>
+            <Grid container>
+              <Grid item xs={6}>
+                <DropZoneUploadFile />
+              </Grid>
+              <Grid item xs={6}>
+                <DropZoneUploadFile />
+              </Grid>
+            </Grid>
           </>
         }
       />

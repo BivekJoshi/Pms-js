@@ -34,11 +34,43 @@ const DropZoneUploadFile = () => {
     <div>
       {file ? (
         <>
-          <img
-            src={URL.createObjectURL(file)}
-            // className="img-container"
-            alt="Uploaded file"
-          />
+          <Typography
+            variant="h4"
+            sx={{
+              width: "338px",
+              display: "flex",
+              justifyContent: "center",
+              paddingBottom: "9px",
+            }}
+          >
+            Front Side
+          </Typography>
+          <div
+            style={{
+              padding: "16px",
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              backgroundImage: `url(${DottedBoder})`,
+              position: "relative",
+              backgroundRepeat: "no-repeat",
+              minHeight: "200px",
+              width: "350px",
+              cursor: "pointer",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                top: 1,
+                left: 0,
+                width: "340px",
+                height: "192px",
+              }}
+            >
+              <img src={URL.createObjectURL(file)} alt="Uploaded file" style={{width:"100%",height:"100%"}}/>
+            </div>
+          </div>
         </>
       ) : (
         <Dropzone
@@ -62,7 +94,7 @@ const DropZoneUploadFile = () => {
                     width: "338px",
                     display: "flex",
                     justifyContent: "center",
-                    paddingBottom:"9px"
+                    paddingBottom: "9px",
                   }}
                 >
                   Front Side
@@ -79,7 +111,7 @@ const DropZoneUploadFile = () => {
                     backgroundRepeat: "no-repeat",
                     minHeight: "200px",
                     width: "350px",
-                    cursor:"pointer"
+                    cursor: "pointer",
                   }}
                 >
                   <div style={{ position: "absolute", top: 1, left: 0 }}>
