@@ -3,6 +3,8 @@ import { Button, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import FormModal from "../../components/formModal/FormModal";
+import Dropzone from "react-dropzone";
+import DropZoneUploadFile from "../../components/dropZone/DropZoneUploadFile";
 
 const IndividualDocument = () => {
   const theme = useTheme();
@@ -36,6 +38,7 @@ const IndividualDocument = () => {
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         width={1400}
+        header="Document Form"
         formComponent={
           <>
             {/* <BillDetail rowData={selectedRowData} />
@@ -51,7 +54,7 @@ const IndividualDocument = () => {
                 {t("Close")}
               </Button>
             </Box> */}
-            <p>cnjdsncksdc</p>
+            <DropZoneUploadFile/>
           </>
         }
       />
