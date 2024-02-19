@@ -258,6 +258,41 @@ const RenderInput = ({
             label={element?.label}
           />
         );
+      case "switchWithFields":
+        return (
+          <>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={formik.values[element?.name]}
+                  onChange={formik.handleChange}
+                  name={element?.name}
+                />
+              }
+              label={element?.label}
+            />
+            {formik.values[element?.name] &&
+              element.newFields?.map((element, index) => {
+                return (
+                  <Grid
+                    item
+                    sm={element?.sm}
+                    xs={element?.xs || element?.sm}
+                    md={element?.md}
+                    lg={element?.lg}
+                    key={index}
+                    sx={{
+                      marginBottom:
+                        element.customMarginBottom &&
+                        element.customMarginBottom,
+                    }}
+                  >
+                    {getComponentToRender(element)}
+                  </Grid>
+                );
+              })}
+          </>
+        );
       case "radio":
         return (
           <FormControl>

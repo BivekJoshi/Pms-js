@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Grid, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { nanoid } from "nanoid";
 import {
   BUSINESS_OPTIONS,
@@ -113,16 +113,7 @@ const CorporateDetailsDp = () => {
       md: 4,
       sm: 12,
     },
-    {
-      name: "registrationOffice",
-      label: "Registration Office (दर्ता कार्यालय)",
-      type: "text",
-      required: "Please enter office where company is registered",
-      id: nanoid(),
-      maxLength: 75,
-      md: 4,
-      sm: 12,
-    },
+
     {
       name: "registrationDate",
       nepaliLabel: "Registration Date (दर्ता मिति) (B.S.)",
@@ -135,6 +126,16 @@ const CorporateDetailsDp = () => {
       nepMd: 6,
       nepSm: 12,
       md: 8,
+      sm: 12,
+    },
+    {
+      name: "registrationOffice",
+      label: "Registration Office (दर्ता कार्यालय)",
+      type: "text",
+      required: "Please enter office where company is registered",
+      id: nanoid(),
+      maxLength: 75,
+      md: 4,
       sm: 12,
     },
     {
@@ -202,70 +203,68 @@ const CorporateDetailsDp = () => {
       md: 8,
       sm: 12,
     },
+    {
+      name: "isListed",
+      label: "Is Company Listed? (कम्पनी सूचीबद्ध छ?)",
+      type: "switchWithFields",
+      required: "Please specify whether company is listed or not",
+      id: nanoid(),
+      sm: 12,
+      newFields: [
+        {
+          name: "listingDate",
+          nepaliLabel: "Listing Date (सूचीकरण मिति) (B.S.)",
+          type: "dualDate",
+          engLabel: "Listing Date (सूचीकरण मिति) (A.D.)",
+          required: true,
+          id: nanoid(),
+          engMd: 6,
+          engSm: 12,
+          nepMd: 6,
+          nepSm: 12,
+          md: 8,
+          sm: 12,
+        },
+      ],
+    },
+
+    {
+      name: "isSubsidiary",
+      label: "Is Subsidiary?",
+      type: "switchWithFields",
+      required: "Please specify whether company is subsidiary or not",
+      id: nanoid(),
+      sm: 12,
+      newFields: [
+        {
+          name: "mainCompanyName",
+          label: "Main Company Name",
+          type: "text",
+          required: "Please enter main company name",
+          id: nanoid(),
+
+          md: 4,
+          sm: 12,
+        },
+      ],
+    },
 
     {
       name: "isMF",
-      label: "Is Mutual Fund? (म्युचुअल फण्ड हो?)",
+      label: "Is Mutual Fund?",
       type: "switch",
       required: "Please specify whether company is mutual fund or not",
       id: nanoid(),
       sm: 12,
     },
-    {
-      name: "isSubsidiary",
-      label: "Is Subsidiary? (सहायक हो?)",
-      type: "switch",
-      required: "Please specify whether company is subsidiary or not",
-      id: nanoid(),
-      sm: 12,
-    },
-    {
-      name: "mainCompanyName",
-      label: "Main Company Name (मुख्य कम्पनी नाम)",
-      type: "text",
-      required: "Please enter main company name",
-      id: nanoid(),
-      watchFor: "isSubsidiary",
-      dependentAction: {
-        type: "HIDDEN",
-        condition: false,
-      },
-      maxLength: 75,
-      md: 4,
-      sm: 12,
-    },
-    {
-      name: "isListed",
-      label: "Is Company Listed? (कम्पनी सूचीबद्ध छ?)",
-      type: "switch",
-      required: "Please specify whether company is listed or not",
-      id: nanoid(),
-      sm: 12,
-    },
-    {
-      name: "listingDate",
-      nepaliLabel: "Listing Date (सूचीकरण मिति) (B.S.)",
-      type: "dualDate",
-      engLabel: "Listing Date (सूचीकरण मिति) (A.D.)",
-
-      required: true,
-      id: nanoid(),
-      engMd: 6,
-      engSm: 12,
-      nepMd: 6,
-      nepSm: 12,
-      md: 8,
-      sm: 12,
-      watchFor: "isListed",
-      dependentAction: {
-        type: "HIDDEN",
-        condition: false,
-      },
-    },
   ];
+
   const theme = useTheme();
   const { formik } = useCorporateDetailsForm();
 
+  // useEffect(() => {
+
+  // }, [formik.values.isListed, formik.values.isSubsidiary, formik.values.isMF]);
   return (
     <div data-aos="zoom-in-right">
       <Box
@@ -285,15 +284,18 @@ const CorporateDetailsDp = () => {
           Corporate Details
         </Typography>
       </Box>
-      <form onSubmit={formik.handleSubmit}>
-        <Grid>
-          <RenderInput inputField={CorporateField} formik={formik} />
-        </Grid>
-        <button type="submit"> save</button>
-      </form>
-      {/* <Grid align="center">
+      <Grid>
         <RenderInput inputField={CorporateField} formik={formik} />
-      </Grid> */}
+        <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={formik.handleSubmit}
+            variant="contained"
+            color="secondary"
+          >
+            Next
+          </Button>
+        </Grid>
+      </Grid>
     </div>
   );
 };
