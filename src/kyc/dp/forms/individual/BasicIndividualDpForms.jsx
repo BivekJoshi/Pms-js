@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Grid, Stack, Typography } from "@mui/material";
-import { basicData, minorData, nrnData } from "./basicInputData";
+import { basicData } from "./basicInputData";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { useBasicIndividualDpForms } from "./useBasicIndividualDpForms";
 
@@ -9,7 +9,7 @@ const BasicIndividualDpForms = () => {
 
   return (
     <div>
-      <Typography>Basic Information</Typography>
+      <Typography sx={{borderLeft: "2px solid blue", paddingLeft: "4px", marginBottom: "0.8rem"}} variant='h4'>Basic Information</Typography>
 
       <form onSubmit={formik.handleSubmit}>
         <Grid>
