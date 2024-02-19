@@ -119,8 +119,7 @@ const RenderInput = ({ inputField, formik, checkedOptions }) => {
                   label={radio.label}
                   disabled={
                     element.name === "accountStatementPeriod" &&
-                    formik.values.isStandingInstructionForAutomaticTxn ===
-                      "false"
+                    formik.values.isStandingInstructionForAutomaticTxn === "false"
                   }
                 />
               ))}
