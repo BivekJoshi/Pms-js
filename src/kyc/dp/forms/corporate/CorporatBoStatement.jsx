@@ -7,7 +7,6 @@ import { nanoid } from "nanoid";
 const CorporatBoStatement = () => {
   const theme = useTheme();
   const { formik } = corporatBoStatementForm();
-  console.log("🚀 ~ CorporatBoStatement ~ formik:", formik);
   const StatementsField = [
     {
       name: "isStandingInstructionForAutomaticTxn",
