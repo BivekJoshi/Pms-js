@@ -10,21 +10,18 @@ const BasicIndividualDpForms = () => {
 
   useEffect(() => {
     const determineFields = () => {
-      switch (formik.values.fieldType) {
+      switch (formik.values.isNrn) {
         case "isMinor":
           setFields([...basicData, ...minorData]);
-          break;
         case "isNrn":
           setFields([...basicData, ...nrnData]);
-          break;
         default:
           setFields([...basicData]);
           break;
       }
     };
     determineFields();
-  }, [formik.values.fieldType]);
-  
+  }, [formik.values.isNrn]);
 
   return (
     <div style={{ margin: "2rem" }}>
