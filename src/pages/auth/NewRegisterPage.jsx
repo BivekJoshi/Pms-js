@@ -54,14 +54,6 @@ const NewRegisterPage = () => {
       required: true,
       type: "number",
     },
-    {
-      name: "mobileNumber",
-      label: "Mobile Number",
-      md: 12,
-      sm: 12,
-      required: true,
-      type: "switch",
-    },
   ];
 
   const tmsInputFields = [
