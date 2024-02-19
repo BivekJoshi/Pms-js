@@ -14,7 +14,7 @@ import AsyncDropDown from "./AsyncDropDown";
 import { DatePicker } from "@mui/x-date-pickers";
 import DualDatePicker from "./DualDatePicker";
 import { FormControl } from "@mui/base";
-import ToggleSwitchForm from './ToggleSwitchForm';
+import ToggleSwitchForm from "./ToggleSwitchForm";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import mapIcon from "../../assets/marker-icon.png";
@@ -109,7 +109,15 @@ const RenderInput = ({
   removeArray,
   fieldArrayName,
 }) => {
+  const [switchStates, setSwitchStates] = useState(false);
   const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
+
+  const toggleSwitch = (fieldName) => {
+    setSwitchStates((prevState) => ({
+      ...prevState,
+      [fieldName]: !prevState[fieldName],
+    }));
+  };
 
   const getComponentToRender = (element) => {
     const formVaues = isFieldArray
@@ -138,6 +146,7 @@ const RenderInput = ({
             disabled={element.disabled}
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
+            sx={{width: "100%"}}
           />
         );
       case "fieldArraySwitch":
@@ -300,8 +309,8 @@ const RenderInput = ({
 
       case "asyncDropDown":
         return <AsyncDropDown element={element} formik={formik} />;
-        case "toggle":
-          return <ToggleSwitchForm element={element} formik={formik} />;  
+      case "toggle":
+        return <ToggleSwitchForm element={element} formik={formik} />;
       default:
         return <TextField name={element?.name} label={element?.label} />;
     }
@@ -310,7 +319,39 @@ const RenderInput = ({
   return (
     <div>
       <Grid container spacing={2} alignItems="flex-end">
-        {inputField?.map((element, index) => {
+        {inputField.map((element, index) => {
+          if (element.type === "switch") {
+            return (
+              <Grid
+                item
+                sm={element.sm}
+                xs={element.xs || element.sm}
+                md={element.md}
+                lg={element.lg}
+                key={index}
+                
+              >
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={switchStates[element.name] || false}
+                      onChange={() => toggleSwitch(element.name)}
+                    />
+                  }
+                  label={element.label}
+                />
+              </Grid>
+            );
+          }
+
+          if (
+            element.dependentAction &&
+            element.dependentAction.type === "HIDDEN" &&
+            !switchStates[element.watchFor]
+          ) {
+            return null; // if switch is off and action is hidden disappear field
+          }
+
           return (
             <Grid
               item

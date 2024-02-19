@@ -268,14 +268,6 @@ const CorporateDetailsDp = () => {
     <div style={{ paddingBottom: "250px", padding: "5rem" }}>
        <form onSubmit={formik.handleSubmit}>
          <Grid>
-          {CorporateField.map((d,index) => {
-            return (
-              <RenderInput
-              inputField={d}
-
-              />
-            )
-          })}
            <RenderInput
              inputField={CorporateField}
              formik={formik}

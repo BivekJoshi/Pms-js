@@ -7,6 +7,7 @@ import {
   } from "@mui/material";
   import React, { useState } from "react";
   import RenderInput from "../renderInput/RenderInput";
+import { width } from '@mui/system';
   
   const ToggleSwitchForm = ({ element, formik }) => {
     const [openModal, setOpenModal] = useState(false);
@@ -50,9 +51,9 @@ import {
     };
    
     return (
-      <Grid container spacing={2} alignItems={"center"}>
-        <Grid item xs={12} sm={12} md={12} lg={12}>
+      
           <FormControlLabel
+          
             name={element?.name}
             label={element?.label}
             value={formik.values[element.name]}
@@ -61,10 +62,9 @@ import {
                 defaultChecked={openModal}
                 onChange={handleChange}
               />
+          
             }
           />
-        </Grid>
-      </Grid>
     );
   };
   
