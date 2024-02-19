@@ -10,7 +10,7 @@ import AsyncDropDown from "./AsyncDropDown";
 import { DatePicker } from "@mui/x-date-pickers";
 import DualDatePicker from "./DualDatePicker";
 
-const RenderInput = ({ inputField, formik, checkedOptions }) => {
+const RenderInput = ({ inputField, formik }) => {
   const getComponentToRender = (element) => {
     switch (element.type) {
       case "text":
