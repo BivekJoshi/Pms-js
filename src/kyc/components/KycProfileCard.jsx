@@ -1,0 +1,74 @@
+import { useTheme } from "@emotion/react";
+import { Grid, Typography } from "@mui/material";
+import React from "react";
+
+const KycProfileCard = ({ clientType, nature }) => {
+  const theme = useTheme();
+  const accountType = clientType === "I" ? "Individual" : "Corporate";
+  const accountNature = nature === "DP" ? "Demat" : "TMS";
+  return (
+    <Grid
+      display="flex"
+      color={theme.palette.text.main}
+      bgcolor={theme.palette.background.alt}
+      borderRadius="6px"
+      padding="16px"
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+        }}
+      >
+        <span style={{ position: "relative" }}>
+          <svg
+            width="101"
+            height="100"
+            viewBox="0 0 101 100"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect x="0.5" width="100" height="100" rx="50" fill="#CAC5CA" />
+            <path
+              d="M37.2578 57.8516C41.8672 55.9766 46.2812 55.0391 50.5 55.0391C54.7188 55.0391 59.0938 55.9766 63.625 57.8516C68.2344 59.6484 70.5391 62.0312 70.5391 65V70.0391H30.4609V65C30.4609 62.0312 32.7266 59.6484 37.2578 57.8516ZM57.5312 47.0703C55.5781 49.0234 53.2344 50 50.5 50C47.7656 50 45.4219 49.0234 43.4688 47.0703C41.5156 45.1172 40.5391 42.7734 40.5391 40.0391C40.5391 37.3047 41.5156 34.9609 43.4688 33.0078C45.4219 30.9766 47.7656 29.9609 50.5 29.9609C53.2344 29.9609 55.5781 30.9766 57.5312 33.0078C59.4844 34.9609 60.4609 37.3047 60.4609 40.0391C60.4609 42.7734 59.4844 45.1172 57.5312 47.0703Z"
+              fill="white"
+            />
+          </svg>
+          <span style={{ position: "absolute", bottom: 0, right: 0 }}>
+            <svg
+              width="25"
+              height="24"
+              viewBox="0 0 25 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="1.5"
+                y="1"
+                width="22"
+                height="22"
+                rx="11"
+                fill="#088720"
+              />
+              <path
+                d="M18.5 13H13.5V18C13.5 18.55 13.05 19 12.5 19C11.95 19 11.5 18.55 11.5 18V13H6.5C5.95 13 5.5 12.55 5.5 12C5.5 11.45 5.95 11 6.5 11H11.5V6C11.5 5.45 11.95 5 12.5 5C13.05 5 13.5 5.45 13.5 6V11H18.5C19.05 11 19.5 11.45 19.5 12C19.5 12.55 19.05 13 18.5 13Z"
+                fill="white"
+              />
+            </svg>
+          </span>
+        </span>
+        <Typography variant="h6" mt="8px">
+          Client AQBC
+        </Typography>
+        <Typography variant="h6">
+          {accountType + " " + accountNature + " Account"}
+        </Typography>
+      </div>
+    </Grid>
+  );
+};
+
+export default KycProfileCard;
