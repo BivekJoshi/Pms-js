@@ -27,6 +27,7 @@ const FormModal = ({ open, onClose, formComponent, sx,width, bgcolors }) => {
       aria-describedby='modal-modal-description'
       sx={sx}
     >
+      
       <Box sx={style}>{formComponent}</Box>
     </Modal>
   );

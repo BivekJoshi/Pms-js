@@ -110,6 +110,8 @@ const KycLayout = () => {
     },
     {
       id: 3,
+      path: "/kyc/demat-registration/i/address-details",
+      title: "Address Details",
       icon: (
         <svg
           width="28"
@@ -157,8 +159,8 @@ const KycLayout = () => {
           />
         </svg>
       ),
-      path: "/kyc/demat-registration/i/bank-details",
-      title: "Bank Details",
+      // path: "/kyc/demat-registration/i/bank-details",
+      // title: "Bank Details",
     },
     {
       id: 4,
@@ -297,7 +299,18 @@ const KycLayout = () => {
             </Grid>
           </Grid>
 
-          <Outlet />
+          <Box
+            color={theme.palette.text.main}
+            bgcolor={theme.palette.background.alt}
+            sx={{
+              borderRadius: "6px",
+              padding: "16px",
+              boxShadow:
+                "0 1px 3px rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
+            }}
+          >
+            <Outlet />
+          </Box>
         </Box>
       </section>
     </ThemeProvider>
