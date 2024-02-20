@@ -12,6 +12,9 @@ import FormModal from "../../components/formModal/FormModal";
 import CloseIcon from "@mui/icons-material/Close";
 import CustomImageUpload from "./CustomImageUpload";
 import "./imageupload.css";
+import DropZoneUploadFile from "../../components/dropZone/DropZoneUploadFile";
+
+
 const KycProfileCard = ({ clientType, nature }) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -115,90 +118,73 @@ const KycProfileCard = ({ clientType, nature }) => {
         <FormModal
           open={open}
           setOpen={() => setOpen(false)}
-          width="378px"
+          onClose={() => setOpen(false)}
+          width="410px"
+          header="Upload Profile Picture"
           formComponent={
             <div>
-              <div
-                style={{
-                  display: "flex",
-                  width: "100%",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                }}
-              >
-                <Typography
-                  variant="h4"
-                  style={{
-                    color: theme.palette.text.light,
-                    paddingBottom: ".5rem",
-                  }}
-                >
-                  Upload Profile Picture
-                </Typography>
-                <CloseIcon
-                  onClick={() => {
-                    setOpen(false);
-                    if (stream) {
-                      stream.getTracks().forEach((track) => track.stop());
-                    }
-                  }}
-                  sx={{ cursor: "pointer" }}
+              {/* <CustomImageUpload imgPreview={capturedImage} /> */}
+              {capturedImage ? (
+                <img
+                  src={capturedImage}
+                  alt="Captured Img"
+                  style={{ width: "100%", height: "100%", borderRadius: "6px" }}
                 />
-              </div>
-              <br />
-              <Divider />
-              <br />
-              <div>
-                <CustomImageUpload imgPreview={capturedImage} />
-                <div className="separator">
-                  <Typography variant="p">OR</Typography>
-                </div>
-                {!stream?.active ? (
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="secondary"
-                    onClick={openCamera}
-                  >
-                    Take Picture
-                  </Button>
-                ) : (
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => {
-                      if (stream) {
-                        stream?.getTracks().forEach((track) => track.stop());
-                        setStream(null);
-                      }
+              ) : (
+                <DropZoneUploadFile />
+              )}
+              {!capturedImage && (
+                <>
+                  <div className="separator">
+                    <Typography variant="p">OR</Typography>
+                  </div>
+                  {!stream?.active ? (
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      color="secondary"
+                      onClick={openCamera}
+                    >
+                      Take Picture
+                    </Button>
+                  ) : (
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => {
+                        if (stream) {
+                          stream?.getTracks().forEach((track) => track.stop());
+                          setStream(null);
+                        }
+                      }}
+                    >
+                      Disable Webcam
+                    </Button>
+                  )}
+
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    style={{
+                      width: "100%",
+                      display: stream?.active ? "block" : "none",
+                      margin: "8px 0",
                     }}
-                  >
-                    Disable Webcam
-                  </Button>
-                )}
+                  />
 
-                <video
-                  ref={videoRef}
-                  autoPlay
-                  style={{
-                    width: "100%",
-                    display: stream?.active ? "block" : "none",
-                    margin: "8px 0",
-                  }}
-                />
-
-                {stream?.active && (
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    onClick={capturePicture}
-                  >
-                    Capture Picture
-                  </Button>
-                )}
-              </div>
+                  {stream?.active && (
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      onClick={capturePicture}
+                    >
+                      Capture Picture
+                    </Button>
+                  )}
+                </>
+              )}
             </div>
           }
         />

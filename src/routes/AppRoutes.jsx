@@ -67,6 +67,11 @@ const DevelopmentPage = React.lazy(() =>
   import("../pages/DevlopmentPage/DevlopmentPage")
 );
 import IndividualDocument from "./../kyc/pages/IndividualDocument";
+import BankIndividualDpForms from "../kyc/dp/forms/individual/BankIndividualDpForms";
+import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
+import IndividualDPKyc from "../kyc/ViewKyc/Individual/IndividualDPKyc";
+
+// import CorporatAddress from "../kyc/dp/forms/corporate/CorporatAddress";
 import CorporatBankDetail from "../kyc/dp/forms/corporate/CorporatBankDetail";
 import CorporatBoStatement from "../kyc/dp/forms/corporate/CorporatBoStatement";
 import CorporatOwnershipDetails from "../kyc/dp/forms/corporate/CorporatOwnershipDetails";
@@ -113,6 +118,22 @@ export default function AppRoutes() {
                <Route
                 path="demat-registration/i/family-details"
                 element={<IndividualFamilyDetails />}
+              />
+              <Route
+                path="demat-registration/i/bank-details"
+                element={<BankIndividualDpForms />}
+              />
+                    <Route
+                path="demat-registration/i/detail-verification"
+                element={<IndividualDPKyc />}
+              />
+              <Route
+                path="demat-registration/i/bank-details"
+                element={<BankIndividualDpForms />}
+              />
+                    <Route
+                path="demat-registration/i/detail-verification"
+                element={<IndividualDPKyc />}
               />
               <Route
                 path="demat-registration/c/corporate-details"
