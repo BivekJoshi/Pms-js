@@ -265,7 +265,7 @@ const RenderInput = ({
             <FormControlLabel
               control={
                 <Switch
-                  checked={formik.values[element?.name]}
+                  checked={Boolean(formik.values[element?.name])}
                   onChange={formik.handleChange}
                   name={element?.name}
                 />

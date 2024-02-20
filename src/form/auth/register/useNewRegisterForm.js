@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import {
+  dematOnly,
   dematRegisterSchema,
-  pmsRegisterSchema,
-  tmsRegisterSchema,
+  tmsOnly,
+  tmsanddematRegisterSchema,
 } from "./registerValidationSchema";
 import { useRegister } from "../../../hooks/auth/useAuth";
 
@@ -13,14 +14,14 @@ export const useNewRegisterForm = () => {
   const { mutate } = useRegister({});
   const formik = useFormik({
     initialValues: {
-      accountType: "",
+      dematNoExist: false,
+      tmsNoExist: false,
       clientType: "",
       name: "",
       email: "",
       mobileNumber: "",
       branch: "",
-      boidNumber: "",
-      dpId: "",
+      tmsNo: "",
       dematNumber: "",
     },
     validationSchema: schema,
@@ -40,21 +41,20 @@ export const useNewRegisterForm = () => {
 
   useEffect(() => {
     const determineFields = () => {
-      switch (formik.values.accountType) {
-        case "TMS":
-          setSchema(tmsRegisterSchema);
-          break;
-        case "PMS":
-          setSchema(pmsRegisterSchema);
-          break;
-        default:
-          setSchema(dematRegisterSchema);
-          break;
+      if (formik.values.tmsNoExist && formik.values.dematNoExist) {
+        setSchema(tmsanddematRegisterSchema);
+      } else if (formik.values.tmsNoExist) {
+        setSchema(tmsOnly);
+      } else if (formik.values.dematNoExist) {
+        setSchema(dematOnly);
+      } else {
+        setSchema(dematRegisterSchema);
       }
     };
 
     determineFields();
-  }, [formik.values.accountType]);
+  }, [formik.values.tmsNoExist, formik.values.dematNoExist]);
+  console.log("🚀 ~ useNewRegisterForm ~ formik:", formik);
 
   return {
     handleRegister,
