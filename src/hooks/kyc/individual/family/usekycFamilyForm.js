@@ -8,18 +8,19 @@ export const useKycFamilyForm = () => {
       {
         memberName: "",
         relation: "",
-        relation: "",
         mobileNumber: "",
+        email: "",
       },
     ],
     // validationSchema: watchlistMasterSchema,
     onSubmit: (values) => {
-      const formData = { ...values };
-      mutate(formData, {
-        onSuccess: (data) => {
-          formik.resetForm();
-        },
-      });
+      console.log(values)
+      // const formData = { ...values };
+      // mutate(formData, {
+      //   onSuccess: (data) => {
+      //     formik.resetForm();
+      //   },
+      // });
     },
   });
   return { formik };
