@@ -16,7 +16,8 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import mapIcon from "../../assets/marker-icon.png";
 import L from "leaflet";
-import DualDatePicker from './DualDatePicker';
+import DualDatePicker from "./DualDatePicker";
+import { DatePicker } from "@mui/x-date-pickers";
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -106,9 +107,11 @@ const RenderInput = ({
   pushArray,
   removeArray,
   fieldArrayName,
+  age,
 }) => {
   const [switchStates, setSwitchStates] = useState(false);
   const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
+  const [newAge, setNewAge] = useState(false);
 
   const toggleSwitch = (fieldName) => {
     setSwitchStates((prevState) => ({
@@ -116,6 +119,13 @@ const RenderInput = ({
       [fieldName]: !prevState[fieldName],
     }));
   };
+  useEffect(() => {
+    if (age > 16) {
+      setNewAge(true);
+    } else {
+      setNewAge(false);
+    }
+  }, [age]);
 
   const getComponentToRender = (element) => {
     const formVaues = isFieldArray
@@ -144,7 +154,7 @@ const RenderInput = ({
             disabled={element.disabled}
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
-            sx={{width: "100%"}}
+            sx={{ width: "100%" }}
           />
         );
       case "fieldArraySwitch":
@@ -300,6 +310,62 @@ const RenderInput = ({
               })}
           </>
         );
+      case "minorSwitch":
+        return (
+          <>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={formik.values[element?.name]}
+                  onChange={(event) => {
+                    formik.setFieldValue(element?.name, event.target.checked);
+                  }}
+                  name={element?.name}
+                  disabled={age >= 16 || !age}
+                />
+              }
+              label={element?.label}
+            />
+            {formik.values[element?.name] &&
+              (age<16) &&
+              // Render additional fields if switch is checked and newAge is true
+              element.newFields?.map((field, index) => (
+                <Grid
+                  item
+                  sm={field?.sm}
+                  xs={field?.xs || field?.sm}
+                  md={field?.md}
+                  lg={field?.lg}
+                  key={index}
+                  sx={{
+                    marginBottom:
+                      field.customMarginBottom && field.customMarginBottom,
+                  }}
+                >
+                  {getComponentToRender(field)}
+                </Grid>
+              ))}
+            {
+              
+              // Render notMinorFields if newAge is false
+              element.notMinorFields?.map((field, index) => (
+                <Grid
+                  item
+                  sm={field?.sm}
+                  xs={field?.xs || field?.sm}
+                  md={field?.md}
+                  lg={field?.lg}
+                  key={index}
+                  sx={{
+                    marginBottom:
+                      field.customMarginBottom && field.customMarginBottom,
+                  }}
+                >
+                  {getComponentToRender(field)}
+                </Grid>
+              ))}
+          </>
+        );
       case "radio":
         return (
           <FormControl>
@@ -323,15 +389,18 @@ const RenderInput = ({
             </RadioGroup>
           </FormControl>
         );
-
       case "datePicker":
         return (
           <Grid display={"flex"} gap={2}>
             <DatePicker
-              sx={{ width: "100%" }}
+              name={element?.name}
               label={element.label}
-              value={formik.values || ""}
+              value={formik.values}
               onChange={formik.handleChange}
+              fullWidth
+              required={element.required}
+              error={formTouched && Boolean(formError)}
+              helperText={formTouched && formError}
             />
           </Grid>
         );
@@ -361,7 +430,6 @@ const RenderInput = ({
                 md={element.md}
                 lg={element.lg}
                 key={index}
-                
               >
                 <FormControlLabel
                   control={
