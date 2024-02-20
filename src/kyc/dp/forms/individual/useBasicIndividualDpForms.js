@@ -1,23 +1,17 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 
-export const useBasicIndividualDpForms = (age) => {
-  //   const [loading, setLoading] = useState(false);
-  //   const [schema, setSchema] = useState();
-  
-
+export const useBasicIndividualDpForms = () => {
   const formik = useFormik({
     initialValues: {
-      fieldType: "isNrn",
+      isNrn: false,
       firstName: "",
       middleName: "",
       lastName: "",
       clientNameNepali: "",
       gender: "",
       dob: "",
-      isNrn: false,
-      isMinor: "",
-      citizenship: "",
+      isMinor: false,
     },
     onSubmit: (values) => {
       //   setLoading(true);
@@ -32,7 +26,7 @@ export const useBasicIndividualDpForms = (age) => {
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
-  };  
+  };
 
   return {
     handleRegister,
