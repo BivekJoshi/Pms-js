@@ -8,7 +8,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { themeSettings } from "../theme";
 import { useSelector } from "react-redux";
 import KycNavbar from "../components/navbar/KycNavbar";
@@ -20,18 +20,27 @@ import KycProfileCard from "../kyc/components/KycProfileCard";
 const KycLayout = () => {
   const mode = useSelector((state) => state?.theme?.mode);
   const { t } = useTranslation();
-  const clientType = "C";
+  const { pathname } = useLocation();
+  const [clientType, setClientType] = useState();
   const [menuList, setMenuList] = useState([]);
 
   useEffect(() => {
-    if (clientType === "I") {
-      setMenuList(individualKycDematList);
-    } else if (clientType === "C") {
-      setMenuList(corporatKycDematList);
-    } else {
-      setMenuList([]);
+    if (pathname) {
+      setClientType(pathname.split("/")[pathname.split("/").length - 2]);
     }
-  }, []);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (clientType) {
+      if (clientType === "i") {
+        setMenuList(individualKycDematList);
+      } else if (clientType === "c") {
+        setMenuList(corporatKycDematList);
+      } else {
+        setMenuList([]);
+      }
+    }
+  }, [clientType]);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const isSm = useMediaQuery(theme.breakpoints.down("md"));
   const individualKycDematList = [

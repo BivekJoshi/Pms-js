@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   TextField,
   IconButton,
@@ -6,17 +6,17 @@ import {
   Button,
   CircularProgress,
   Typography,
-} from '@mui/material';
-import { Grid, Box, MenuItem, InputAdornment } from '@mui/material';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { LoadingButton } from '@mui/lab';
-import { useSelector } from 'react-redux';
-import { useLoginForm } from '../../form/auth/login/useLoginForm';
-import { useNavigate } from 'react-router-dom';
-import CheckStatus from '../../assets/checkStatus.png';
-import Bear from '../../assets/bull--.png';
-import { useEffect } from 'react';
+} from "@mui/material";
+import { Grid, Box, MenuItem, InputAdornment } from "@mui/material";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
+import { useSelector } from "react-redux";
+import { useLoginForm } from "../../form/auth/login/useLoginForm";
+import { useNavigate } from "react-router-dom";
+import CheckStatus from "../../assets/checkStatus.png";
+import Bear from "../../assets/bull--.png";
+import { useEffect } from "react";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -32,54 +32,54 @@ const LoginPage = () => {
   } = useLoginForm();
 
   const handleClick = () => {
-    navigate('/register');
+    navigate("/register");
   };
 
   return (
     <Box
-      className='paddingOuter'
-      padding={{ xs: '20px', sm: '96px 22px' }}
-      boxShadow='0 4px 8px 3px rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3)'
-      width={{ xs: '90%', sm: '80%' }}
-      bgcolor='#fdf8fd'
-      borderRadius='32px'
-      position='relative'
-      alignSelf='center'
+      className="paddingOuter"
+      padding={{ xs: "20px", sm: "96px 22px" }}
+      boxShadow="0 4px 8px 3px rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3)"
+      width={{ xs: "90%", sm: "80%" }}
+      bgcolor="#fdf8fd"
+      borderRadius="32px"
+      position="relative"
+      alignSelf="center"
     >
       <img
         src={Bear}
-        alt='bear--.png'
-        style={{ position: 'absolute', left: '140px', top: '80px' }}
+        alt="bear--.png"
+        style={{ position: "absolute", left: "140px", top: "80px" }}
       />
-      <Grid padding={{ sm: '2rem', xs: '0' }} className='paddingOuterLayer'>
+      <Grid padding={{ sm: "2rem", xs: "0" }} className="paddingOuterLayer">
         <Grid
-          display='flex'
-          flexDirection='column'
-          alignItems='start'
-          paddingBottom='2.5rem'
+          display="flex"
+          flexDirection="column"
+          alignItems="start"
+          paddingBottom="2.5rem"
         >
-          <div style={{ color: '#875923' }} className='displayLarge'>
+          <div style={{ color: "#875923" }} className="displayLarge">
             Log In
           </div>
-          <div className='titleMedium'>your account to continue</div>
+          <div className="titleMedium">your account to continue</div>
         </Grid>
         <Grid
-          component='form'
+          component="form"
           noValidate
-          sx={{ mt: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}
+          sx={{ mt: 1, display: "flex", flexDirection: "column", gap: "1rem" }}
         >
           <TextField
-            id='brokerNo'
+            id="brokerNo"
             select
-            name='brokerNo'
-            label='Select Broker'
-            placeholder='Choose Broker No.'
+            name="brokerNo"
+            label="Select Broker"
+            placeholder="Choose Broker No."
             fullWidth
             value={formik.values.brokerNo}
             onChange={formik.handleChange}
             error={formik.touched.brokerNo && Boolean(formik.errors.brokerNo)}
             helperText={formik.touched.brokerNo && formik.errors.brokerNo}
-            variant='outlined'
+            variant="outlined"
           >
             {isLoading ? (
               <MenuItem disabled>
@@ -103,14 +103,14 @@ const LoginPage = () => {
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-            name='email'
-            label='E-mail'
+            name="email"
+            label="E-mail"
             fullWidth
-            variant='outlined'
-            type='text'
+            variant="outlined"
+            type="text"
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position="end">
                   <MailOutlineIcon />
                 </InputAdornment>
               ),
@@ -118,30 +118,30 @@ const LoginPage = () => {
           />
           <TextField
             required
-            variant='outlined'
-            label='Password'
-            name='password'
+            variant="outlined"
+            label="Password"
+            name="password"
             fullWidth
             value={formik.values.password}
             onChange={formik.handleChange}
             onKeyPress={(ev) => {
-              if (ev.key === 'Enter') {
+              if (ev.key === "Enter") {
                 formik.handleSubmit();
                 ev.preventDefault();
               }
             }}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
-            type={showValues.showPassword ? 'text' : 'password'}
-            sx={{ minWidth: '10vw', mt: 1 }}
+            type={showValues.showPassword ? "text" : "password"}
+            sx={{ minWidth: "10vw", mt: 1 }}
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position="end">
                   <IconButton
-                    aria-label='toggle password visibility'
+                    aria-label="toggle password visibility"
                     onClick={handleClickShowPassword}
                     onMouseDown={handleMouseDownPassword}
-                    edge='end'
+                    edge="end"
                   >
                     {showValues.showPassword ? (
                       <VisibilityOff />
@@ -155,65 +155,67 @@ const LoginPage = () => {
           />
           <Grid>
             <Grid
-              display='flex'
-              justifyContent='space-between'
-              alignItems='center'
-              paddingBottom='.5rem'
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              paddingBottom=".5rem"
             >
               <Grid
-                display='flex'
-                flexDirection='row'
-                justifyContent='space-between'
-                alignItems='center'
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+                alignItems="center"
               >
-                <Checkbox defaultChecked sx={{ padding: '0' }} />
-                <div className='bodySmall ' fontSize='12px'>
+                <Checkbox defaultChecked sx={{ padding: "0" }} />
+                <div className="bodySmall " fontSize="12px">
                   Remember me
                 </div>
               </Grid>
               <div
-                className='bodySmall'
-                onClick={() => navigate('/reset/password')}
-                style={{ color: '#3838D0', cursor: 'pointer' }}
+                className="bodySmall"
+                onClick={() => navigate("/reset/password")}
+                style={{ color: "#3838D0", cursor: "pointer" }}
               >
                 Forgot password?
               </div>
             </Grid>
             <Grid>
               <Button
-                component='label'
-                variant='outlined'
-                color='info'
-                sx={{ color: '#000000', textTransform: 'none' }}
-                startIcon={<img src={CheckStatus} alt='CheckStatus' />}
-                onClick={() => navigate('/application/status')}
+                component="label"
+                variant="outlined"
+                color="info"
+                sx={{ color: "#000000", textTransform: "none" }}
+                startIcon={<img src={CheckStatus} alt="CheckStatus" />}
+                onClick={() => navigate("/application/status")}
               >
                 Check Status
               </Button>
             </Grid>
           </Grid>
           <LoadingButton
-            className='titleMedium '
+            className="titleMedium "
             fullWidth
             onClick={() => formik.submitForm()}
-            variant='contained'
+            variant="contained"
             loading={loading}
             sx={{
-              background: '#6750a4',
+              background: "#6750a4",
             }}
           >
-            <div className='titleMedium ' style={{ margin: '.25rem 0' }}>
+            <div className="titleMedium " style={{ margin: ".25rem 0" }}>
               Login
             </div>
           </LoadingButton>
         </Grid>
-        <Grid sx={{ textAlign: 'center' }} marginTop='.5rem'>
-          <div className='bodySmall '>
+        <Grid sx={{ textAlign: "center" }} marginTop=".5rem">
+          <Button onClick={() => navigate("/kyc/home")}>Goto Kyc</Button>
+
+          <div className="bodySmall ">
             Don't have an account?
-            {'   '}
+            {"   "}
             <span
-              className='labelMedium'
-              style={{ color: '#3838d0', cursor: 'pointer' }}
+              className="labelMedium"
+              style={{ color: "#3838d0", cursor: "pointer" }}
               onClick={handleClick}
             >
               Sign Up
