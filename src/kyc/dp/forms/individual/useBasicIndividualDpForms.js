@@ -15,7 +15,7 @@ export const useBasicIndividualDpForms = () => {
       gender: "",
       dob: "",
       isNrn: false,
-      isMinor: false,
+      isMinor: true,
     },
     onSubmit: (values) => {
       //   setLoading(true);

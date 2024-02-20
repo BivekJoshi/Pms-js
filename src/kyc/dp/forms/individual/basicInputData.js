@@ -583,6 +583,44 @@ export const FAMILY_RELATION = [
   },
 ];
 
+export const PROVINCE_OPTIONS = [
+  {
+    value: "Koshi Pradesh",
+    label: "Koshi Pradesh",
+    id: 1,
+  },
+  {
+    value: "Madhesh Pradesh",
+    label: "Madhesh Pradesh",
+    id: 2,
+  },
+  {
+    value: "Bagmati Pradesh",
+    label: "Bagmati Pradesh",
+    id: 3,
+  },
+  {
+    value: "Gandaki Pradesh",
+    label: "Gandaki Pradesh",
+    id: 4,
+  },
+  {
+    value: "Lumbini Pradesh",
+    label: "Lumbini Pradesh",
+    id: 5,
+  },
+  {
+    value: "Karnali Pradesh",
+    label: "Karnali Pradesh",
+    id: 6,
+  },
+  {
+    value: "Sudurpashchim Pradesh",
+    label: "Sudurpashchim Pradesh",
+    id: 7,
+  },
+];
+
 export const basicData = [
   {
     name: "firstName",
