@@ -1,17 +1,57 @@
 import { useTheme } from "@emotion/react";
-import { Grid, Typography } from "@mui/material";
-import React from "react";
-
+import {
+  Button,
+  Divider,
+  Grid,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import FormModal from "../../components/formModal/FormModal";
+import CloseIcon from "@mui/icons-material/Close";
+import CustomImageUpload from "./CustomImageUpload";
+import "./imageupload.css";
 const KycProfileCard = ({ clientType, nature }) => {
   const theme = useTheme();
+  const [open, setOpen] = useState(false);
+  const [stream, setStream] = useState(null);
+  const videoRef = useRef();
   const accountType = clientType === "I" ? "Individual" : "Corporate";
   const accountNature = nature === "DP" ? "Demat" : "TMS";
+  const [capturedImage, setCapturedImage] = useState(null);
+  const openCamera = async () => {
+    try {
+      const mediaStream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+      });
+      setStream(mediaStream);
+      videoRef.current.srcObject = mediaStream;
+    } catch (error) {
+      console.error("Error accessing camera: ", error);
+    }
+  };
+
+  const capturePicture = () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = videoRef.current.videoWidth;
+    canvas.height = videoRef.current.videoHeight;
+    canvas.getContext("2d").drawImage(videoRef.current, 0, 0);
+    const imageUrl = canvas.toDataURL("image/png");
+    setCapturedImage(imageUrl);
+  };
+
+  useEffect(() => {
+    return () => {
+      setCapturedImage(null);
+    };
+  }, [open]);
+
   return (
     <Grid
       display="flex"
       color={theme.palette.text.main}
       bgcolor={theme.palette.background.alt}
-      borderRadius="6px"
       padding="16px"
     >
       <div
@@ -38,26 +78,30 @@ const KycProfileCard = ({ clientType, nature }) => {
             />
           </svg>
           <span style={{ position: "absolute", bottom: 0, right: 0 }}>
-            <svg
-              width="25"
-              height="24"
-              viewBox="0 0 25 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="1.5"
-                y="1"
-                width="22"
-                height="22"
-                rx="11"
-                fill="#088720"
-              />
-              <path
-                d="M18.5 13H13.5V18C13.5 18.55 13.05 19 12.5 19C11.95 19 11.5 18.55 11.5 18V13H6.5C5.95 13 5.5 12.55 5.5 12C5.5 11.45 5.95 11 6.5 11H11.5V6C11.5 5.45 11.95 5 12.5 5C13.05 5 13.5 5.45 13.5 6V11H18.5C19.05 11 19.5 11.45 19.5 12C19.5 12.55 19.05 13 18.5 13Z"
-                fill="white"
-              />
-            </svg>
+            <IconButton onClick={() => setOpen(true)}>
+              <Tooltip arrow placement="right-end" title="Uplaod Image">
+                <svg
+                  width="25"
+                  height="24"
+                  viewBox="0 0 25 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="1.5"
+                    y="1"
+                    width="22"
+                    height="22"
+                    rx="11"
+                    fill="#088720"
+                  />
+                  <path
+                    d="M18.5 13H13.5V18C13.5 18.55 13.05 19 12.5 19C11.95 19 11.5 18.55 11.5 18V13H6.5C5.95 13 5.5 12.55 5.5 12C5.5 11.45 5.95 11 6.5 11H11.5V6C11.5 5.45 11.95 5 12.5 5C13.05 5 13.5 5.45 13.5 6V11H18.5C19.05 11 19.5 11.45 19.5 12C19.5 12.55 19.05 13 18.5 13Z"
+                    fill="white"
+                  />
+                </svg>
+              </Tooltip>
+            </IconButton>
           </span>
         </span>
         <Typography variant="h6" mt="8px">
@@ -67,6 +111,98 @@ const KycProfileCard = ({ clientType, nature }) => {
           {accountType + " " + accountNature + " Account"}
         </Typography>
       </div>
+      {open && (
+        <FormModal
+          open={open}
+          setOpen={() => setOpen(false)}
+          width="378px"
+          formComponent={
+            <div>
+              <div
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Typography
+                  variant="h4"
+                  style={{
+                    color: theme.palette.text.light,
+                    paddingBottom: ".5rem",
+                  }}
+                >
+                  Upload Profile Picture
+                </Typography>
+                <CloseIcon
+                  onClick={() => {
+                    setOpen(false);
+                    if (stream) {
+                      stream.getTracks().forEach((track) => track.stop());
+                    }
+                  }}
+                  sx={{ cursor: "pointer" }}
+                />
+              </div>
+              <br />
+              <Divider />
+              <br />
+              <div>
+                <CustomImageUpload imgPreview={capturedImage} />
+                <div className="separator">
+                  <Typography variant="p">OR</Typography>
+                </div>
+                {!stream?.active ? (
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    onClick={openCamera}
+                  >
+                    Take Picture
+                  </Button>
+                ) : (
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => {
+                      if (stream) {
+                        stream?.getTracks().forEach((track) => track.stop());
+                        setStream(null);
+                      }
+                    }}
+                  >
+                    Disable Webcam
+                  </Button>
+                )}
+
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  style={{
+                    width: "100%",
+                    display: stream?.active ? "block" : "none",
+                    margin: "8px 0",
+                  }}
+                />
+
+                {stream?.active && (
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    onClick={capturePicture}
+                  >
+                    Capture Picture
+                  </Button>
+                )}
+              </div>
+            </div>
+          }
+        />
+      )}
     </Grid>
   );
 };
