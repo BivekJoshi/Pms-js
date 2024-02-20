@@ -16,6 +16,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import mapIcon from "../../assets/marker-icon.png";
 import L from "leaflet";
+import DualDatePicker from './DualDatePicker';
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
