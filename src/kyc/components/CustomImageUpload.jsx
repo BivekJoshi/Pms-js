@@ -1,34 +1,45 @@
 import React, { useRef, useState } from "react";
-import thumbnail from "../../assets/uploadThumbnail.png";
 import { Button, Slider, Typography } from "@mui/material";
 import { useTheme } from "@emotion/react";
 import Cropper from "react-easy-crop";
+import DropZoneUploadFile from "../../components/dropZone/DropZoneUploadFile";
 
 const CustomImageUpload = ({ imgPreview }) => {
-  console.log("🚀 ~ CustomImageUpload ~ imgPreview:", imgPreview);
+  // console.log("🚀 ~ CustomImageUpload ~ imgPreview:", imgPreview);
   const theme = useTheme();
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
-  const [croppedImage, setCroppedImage] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(false);
   const cropperRef = useRef(null);
+  const [cropSize, setCropSize] = useState(null);
+
+  // console.log(cropperRef?.current?.imageRef?.current);
 
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     // You can use croppedAreaPixels to get the cropped image details
-    console.log(croppedAreaPixels);
+    // console.log(croppedAreaPixels, "croppedAreaPixels");
+    setCropSize(croppedAreaPixels);
   };
 
   const handleCropImage = async () => {
-    if (!imgPreview || !cropperRef.current) return;
+    const canvas = document.createElement("canvas");
+    canvas.width = cropSize?.width;
+    canvas.height = cropSize?.height;
+    canvas.x = cropSize?.x;
+    canvas.y = cropSize?.y;
+    canvas
+      .getContext("2d")
+      .drawImage(cropperRef?.current?.imageRef?.current, 0, 0);
+    const croppedImg = canvas.toDataURL("image/png");
+    console.log(croppedImg, "sxasxasxasxasxasx");
 
-    setCroppedImage();
+    // if (!imgPreview || !cropperRef.current) return;
+    setCroppedImage(true);
   };
 
   return (
     <div
       style={{
-        border: "1px dashed #b1bfd0",
-        padding: "16px",
-        borderRadius: "6px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -60,36 +71,34 @@ const CustomImageUpload = ({ imgPreview }) => {
         </>
       ) : (
         <>
-          <img src={thumbnail} alt="thumbnail" height="100px" width="100px" />
-          <Typography variant="p">
-            Drop your image here, or{" "}
-            <span
-              style={{
-                color: theme.palette.secondary.main,
-              }}
-            >
-              Browse
-            </span>
-          </Typography>
+          <DropZoneUploadFile />
         </>
       )}
-      <Slider
-        value={zoom}
-        min={1}
-        max={3}
-        step={0.1}
-        aria-labelledby="Zoom"
-        onChange={(e, zoom) => setZoom(zoom)}
-      />
 
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleCropImage}
-        style={{ position: "absolute", bottom: 10, right: 10 }}
-      >
-        Crop Image
-      </Button>
+      {imgPreview && (
+        <>
+          {croppedImage && (
+            <Slider
+              value={zoom}
+              min={1}
+              max={3}
+              step={0.1}
+              aria-labelledby="Zoom"
+              onChange={(e, zoom) => setZoom(zoom)}
+            />
+          )}
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleCropImage}
+            fullWidth
+            style={{ marginTop: "12px" }}
+          >
+            Crop Image
+          </Button>
+        </>
+      )}
     </div>
   );
 };
