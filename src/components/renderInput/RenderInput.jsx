@@ -19,6 +19,7 @@ import mapIcon from "../../assets/marker-icon.png";
 import L from "leaflet";
 import DualDatePicker from "./DualDatePicker";
 import { DatePicker } from "@mui/lab";
+import DropZoneUploadFile from "../dropZone/DropZoneUploadFile";
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -334,6 +335,9 @@ const RenderInput = ({
 
       case "asyncDropDown":
         return <AsyncDropDown element={element} formik={formik} />;
+
+      case "documentUpload":
+        return <DropZoneUploadFile title={element?.title}/>;
 
       default:
         return <TextField name={element?.name} label={element?.label} />;
