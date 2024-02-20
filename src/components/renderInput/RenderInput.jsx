@@ -295,61 +295,6 @@ const RenderInput = ({
           </>
         );
 
-        return (
-          <>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={formik.values[element?.name]}
-                  onChange={(event) => {
-                    formik.setFieldValue(element?.name, event.target.checked);
-                  }}
-                  name={element?.name}
-                  disabled={age >= 16 || !age}
-                />
-              }
-              label={element?.label}
-            />
-            {formik.values[element?.name] &&
-              age < 16 &&
-              // Render additional fields if switch is checked and newAge is true
-              element.newFields?.map((field, index) => (
-                <Grid
-                  item
-                  sm={field?.sm}
-                  xs={field?.xs || field?.sm}
-                  md={field?.md}
-                  lg={field?.lg}
-                  key={index}
-                  sx={{
-                    marginBottom:
-                      field.customMarginBottom && field.customMarginBottom,
-                  }}
-                >
-                  {getComponentToRender(field)}
-                </Grid>
-              ))}
-            {
-              // Render notMinorFields if newAge is false
-              element.notMinorFields?.map((field, index) => (
-                <Grid
-                  item
-                  sm={field?.sm}
-                  xs={field?.xs || field?.sm}
-                  md={field?.md}
-                  lg={field?.lg}
-                  key={index}
-                  sx={{
-                    marginBottom:
-                      field.customMarginBottom && field.customMarginBottom,
-                  }}
-                >
-                  {getComponentToRender(field)}
-                </Grid>
-              ))
-            }
-          </>
-        );
       case "radio":
         return (
           <FormControl>
@@ -377,11 +322,11 @@ const RenderInput = ({
         return (
           <Grid display={"flex"} gap={2}>
             <DatePicker
+              sx={{ width: "100%" }}
               name={element?.name}
               label={element.label}
-              value={formik.values}
+              value={formik.values || ""}
               onChange={formik.handleChange}
-              fullWidth
               required={element.required}
               error={formTouched && Boolean(formError)}
               helperText={formTouched && formError}
@@ -403,7 +348,7 @@ const RenderInput = ({
   return (
     <div>
       <Grid container spacing={2} alignItems="flex-end">
-        {inputField.map((element, index) => {
+        {inputField?.map((element, index) => {
           return (
             <Grid
               item

@@ -210,7 +210,7 @@ const CorporateDetailsDp = () => {
       required: "Please specify whether company is listed or not",
       id: nanoid(),
       sm: 12,
-      c: [
+      newFields: [
         {
           name: "listingDate",
           nepaliLabel: "Listing Date (सूचीकरण मिति) (B.S.)",
@@ -225,25 +225,6 @@ const CorporateDetailsDp = () => {
           md: 8,
           sm: 12,
         },
-        {
-          name: "nrbApproval",
-          nepaliLabel:
-            "NRB Approval Date (नेपाल राष्ट्र बैंकको स्वीकृत मिति) (B.S.)",
-          type: "dualDate",
-          engLabel: "NRB Approval Date (नेपाल राष्ट्र बैंकको स्वीकृत मिति) (A.D.)",
-          id: nanoid(),
-          maxLength: 75,
-          engMd: 6,
-          engSm: 12,
-          nepMd: 6,
-          nepSm: 12,
-          md: 8,
-          sm: 12,
-        },
-        
-
-
-
       ],
     },
 
