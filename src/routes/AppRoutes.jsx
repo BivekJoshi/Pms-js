@@ -10,8 +10,7 @@ import DividendCalculator from "../pages/calculator/dividend/DividendCalculator"
 import WeightedAveCal from "../pages/calculator/weighted/WeightedAveCal";
 import KycForm from "../kyc/pages/KycForm";
 import CorporateDetailsDp from "../kyc/dp/forms/corporate/CorporateDetailsDp";
-import AddressIndividualDp from "../kyc/dp/forms/individual/AddressIndividual/AddressIndividualDp";
-import KycLayout from "../layout/KycLayout"
+import KycLayout from "../layout/KycLayout";
 
 const LoginLayout = React.lazy(() => import("../layout/LoginLayout"));
 const AppLayout = React.lazy(() => import("../layout/AppLayout"));
@@ -71,10 +70,13 @@ import IndividualDocument from "./../kyc/pages/IndividualDocument";
 import BankIndividualDpForms from "../kyc/dp/forms/individual/BankIndividualDpForms";
 import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
 import IndividualDPKyc from "../kyc/ViewKyc/Individual/IndividualDPKyc";
-import CorporatAddress from "../kyc/dp/forms/corporate/CorporatAddress";
+
+// import CorporatAddress from "../kyc/dp/forms/corporate/CorporatAddress";
 import CorporatBankDetail from "../kyc/dp/forms/corporate/CorporatBankDetail";
 import CorporatBoStatement from "../kyc/dp/forms/corporate/CorporatBoStatement";
 import CorporatOwnershipDetails from "../kyc/dp/forms/corporate/CorporatOwnershipDetails";
+import IndividualAddress from "../kyc/pages/IndividualAddress";
+import CorporateAddress from "../kyc/pages/CorporateAddress";
 
 export default function AppRoutes() {
   return (
@@ -110,7 +112,15 @@ export default function AppRoutes() {
               />
               <Route
                 path="demat-registration/i/address-details"
-                element={<AddressIndividualDp />}
+                element={<IndividualAddress />}
+              />
+              <Route
+                path="demat-registration/i/bank-details"
+                element={<BankIndividualDpForms />}
+              />
+                    <Route
+                path="demat-registration/i/detail-verification"
+                element={<IndividualDPKyc />}
               />
               <Route
                 path="demat-registration/i/bank-details"
@@ -126,7 +136,7 @@ export default function AppRoutes() {
               />
               <Route
                 path="demat-registration/c/corporate-address"
-                element={<CorporatAddress />}
+                element={<CorporateAddress />}
               />
               <Route
                 path="demat-registration/c/corporate-bank-detail"

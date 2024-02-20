@@ -1,32 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import RenderInput from "../../../../components/renderInput/RenderInput";
-import { Grid } from "@mui/material";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 import { corporatBoStatementForm } from "../../../../form/auth/CorporateDp/CorporatBoStatement/corporatBoStatementForm";
 import { nanoid } from "nanoid";
 
 const CorporatBoStatement = () => {
+  const theme = useTheme();
   const { formik } = corporatBoStatementForm();
   const StatementsField = [
     {
       name: "isStandingInstructionForAutomaticTxn",
-      label:
-        "Do you want Standing Instruction For The Automatic Transaction? (निक्षेप सदस्यले हितग्राहीको खातामा भएको घटबढ स्वचालितरुपमा गराउने/नगराउने)",
-      type: "radio",
+      label: "Do you want Standing Instruction For The Automatic Transaction?",
+      type: "switch",
       col: 12,
       id: nanoid(),
-      radio: [
-        {
-          value: "true",
-          label: "Yes",
-          id: nanoid(),
-        },
-        {
-          value: "false",
-          label: "No",
-          id: nanoid(),
-        },
-      ],
-      onChangeClearValue: ["accountStatementPeriod"],
     },
     {
       name: "accountStatementPeriod",
@@ -57,23 +44,42 @@ const CorporatBoStatement = () => {
       sm: 6,
       col: 12,
       id: nanoid(),
-      watchFor: "isStandingInstructionForAutomaticTxn",
-      dependentAction: {
-        type: "DISABLE",
-        disable: true,
-      },
     },
   ];
 
+  const [fields, setFields] = useState(StatementsField);
+
+  useEffect(() => {
+    if (!formik.values.isStandingInstructionForAutomaticTxn) {
+      setFields(StatementsField.slice(0, 1));
+    } else {
+      setFields(StatementsField);
+      formik.setFieldValue("accountStatementPeriod", "");
+    }
+  }, [formik.values.isStandingInstructionForAutomaticTxn]);
+
   return (
-    <div style={{ paddingBottom: "250px", padding: "5rem" }}>
+    <div data-aos="zoom-in-right">
+      <Box
+        sx={{
+          marginBottom: "16px",
+          padding: { md: "12px", sm: "5px" },
+          borderLeft: `4px solid ${theme.palette.background.btn}`,
+        }}
+      >
+        <Typography
+          variant="h4"
+          style={{
+            color: theme.palette.text.light,
+            fontWeight: "800",
+          }}
+        >
+          BO Details
+        </Typography>
+      </Box>
       <form onSubmit={formik.handleSubmit}>
         <Grid>
-          <RenderInput
-            inputField={StatementsField}
-            formik={formik}
-           
-          />
+          <RenderInput inputField={fields} formik={formik} />
         </Grid>
         <button type="submit"> save</button>
       </form>

@@ -248,10 +248,8 @@ const RenderInput = ({
       case "switch":
         return (
           <FormControlLabel
-            sx={{ textAlign: "left" }}
             control={
               <Switch
-                sx={{ textAlign: "left" }}
                 checked={formik.values[element?.name]}
                 onChange={formik.handleChange}
                 name={element?.name}
@@ -260,6 +258,41 @@ const RenderInput = ({
             label={element?.label}
           />
         );
+      case "switchWithFields":
+        return (
+          <>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={formik.values[element?.name]}
+                  onChange={formik.handleChange}
+                  name={element?.name}
+                />
+              }
+              label={element?.label}
+            />
+            {formik.values[element?.name] &&
+              element.newFields?.map((element, index) => {
+                return (
+                  <Grid
+                    item
+                    sm={element?.sm}
+                    xs={element?.xs || element?.sm}
+                    md={element?.md}
+                    lg={element?.lg}
+                    key={index}
+                    sx={{
+                      marginBottom:
+                        element.customMarginBottom &&
+                        element.customMarginBottom,
+                    }}
+                  >
+                    {getComponentToRender(element)}
+                  </Grid>
+                );
+              })}
+          </>
+        );
       case "radio":
         return (
           <FormControl>
@@ -267,14 +300,16 @@ const RenderInput = ({
               {element.label}
             </FormLabel>
             <RadioGroup row onChange={formik.handleChange} name={element?.name}>
-              {element.radio.map((radio) => (
+              {element.radio.map((radio, i) => (
                 <FormControlLabel
                   value={radio.value}
                   control={<Radio />}
+                  key={i}
                   label={radio.label}
                   disabled={
                     element.name === "accountStatementPeriod" &&
-                    formik.values.isStandingInstructionForAutomaticTxn === "false"
+                    formik.values.isStandingInstructionForAutomaticTxn ===
+                      "false"
                   }
                 />
               ))}
