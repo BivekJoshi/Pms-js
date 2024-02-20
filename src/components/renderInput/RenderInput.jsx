@@ -14,12 +14,11 @@ import AsyncDropDown from "./AsyncDropDown";
 import { FormControl } from "@mui/base";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-
 import mapIcon from "../../assets/marker-icon.png";
 import L from "leaflet";
 import DualDatePicker from "./DualDatePicker";
-import { DatePicker } from "@mui/lab";
 import DropZoneUploadFile from "../dropZone/DropZoneUploadFile";
+import { DatePicker } from "@mui/x-date-pickers";
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -139,6 +138,7 @@ const RenderInput = ({
             disabled={element.disabled}
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
+            sx={{ width: "100%" }}
           />
         );
       case "fieldArraySwitch":
@@ -251,6 +251,7 @@ const RenderInput = ({
           <FormControlLabel
             control={
               <Switch
+                disabled={element?.isDisabled}
                 checked={formik.values[element?.name]}
                 onChange={formik.handleChange}
                 name={element?.name}
@@ -294,6 +295,7 @@ const RenderInput = ({
               })}
           </>
         );
+
       case "radio":
         return (
           <FormControl>
@@ -317,15 +319,18 @@ const RenderInput = ({
             </RadioGroup>
           </FormControl>
         );
-
       case "datePicker":
         return (
           <Grid display={"flex"} gap={2}>
             <DatePicker
               sx={{ width: "100%" }}
+              name={element?.name}
               label={element.label}
               value={formik.values || ""}
               onChange={formik.handleChange}
+              required={element.required}
+              error={formTouched && Boolean(formError)}
+              helperText={formTouched && formError}
             />
           </Grid>
         );
@@ -337,7 +342,7 @@ const RenderInput = ({
         return <AsyncDropDown element={element} formik={formik} />;
 
       case "documentUpload":
-        return <DropZoneUploadFile title={element?.title}/>;
+        return <DropZoneUploadFile title={element?.title} />;
 
       default:
         return <TextField name={element?.name} label={element?.label} />;

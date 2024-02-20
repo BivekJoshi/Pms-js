@@ -20,7 +20,7 @@ const KycProfileCard = ({ clientType, nature }) => {
   const [open, setOpen] = useState(false);
   const [stream, setStream] = useState(null);
   const videoRef = useRef();
-  const accountType = clientType === "I" ? "Individual" : "Corporate";
+  const accountType = clientType === "i" ? "Individual" : "Corporate";
   const accountNature = nature === "DP" ? "Demat" : "TMS";
   const [capturedImage, setCapturedImage] = useState(null);
   const openCamera = async () => {
