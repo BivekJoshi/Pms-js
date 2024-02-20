@@ -31,7 +31,7 @@ const DocumentFieldDp = () => {
         {formik?.values?.docType === "panCard" && (
           <RenderInput inputField={PanCardFiled} formik={formik} />
         )}
-        <Button onClick={formik.handleSubmit}>Submit</Button>
+        <Button variant="contained" onClick={formik.handleSubmit}>Submit</Button>
       </Grid>
     </Grid>
   );
