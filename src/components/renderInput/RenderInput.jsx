@@ -107,25 +107,8 @@ const RenderInput = ({
   pushArray,
   removeArray,
   fieldArrayName,
-  age,
 }) => {
-  const [switchStates, setSwitchStates] = useState(false);
   const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
-  const [newAge, setNewAge] = useState(false);
-
-  const toggleSwitch = (fieldName) => {
-    setSwitchStates((prevState) => ({
-      ...prevState,
-      [fieldName]: !prevState[fieldName],
-    }));
-  };
-  useEffect(() => {
-    if (age > 16) {
-      setNewAge(true);
-    } else {
-      setNewAge(false);
-    }
-  }, [age]);
 
   const getComponentToRender = (element) => {
     const formVaues = isFieldArray
@@ -267,6 +250,7 @@ const RenderInput = ({
           <FormControlLabel
             control={
               <Switch
+                disabled={element?.isDisabled}
                 checked={formik.values[element?.name]}
                 onChange={formik.handleChange}
                 name={element?.name}
@@ -310,7 +294,7 @@ const RenderInput = ({
               })}
           </>
         );
-      case "minorSwitch":
+
         return (
           <>
             <FormControlLabel
@@ -327,7 +311,7 @@ const RenderInput = ({
               label={element?.label}
             />
             {formik.values[element?.name] &&
-              (age<16) &&
+              age < 16 &&
               // Render additional fields if switch is checked and newAge is true
               element.newFields?.map((field, index) => (
                 <Grid
@@ -346,7 +330,6 @@ const RenderInput = ({
                 </Grid>
               ))}
             {
-              
               // Render notMinorFields if newAge is false
               element.notMinorFields?.map((field, index) => (
                 <Grid
@@ -363,7 +346,8 @@ const RenderInput = ({
                 >
                   {getComponentToRender(field)}
                 </Grid>
-              ))}
+              ))
+            }
           </>
         );
       case "radio":
@@ -410,8 +394,7 @@ const RenderInput = ({
 
       case "asyncDropDown":
         return <AsyncDropDown element={element} formik={formik} />;
-      case "toggle":
-        return <ToggleSwitchForm element={element} formik={formik} />;
+
       default:
         return <TextField name={element?.name} label={element?.label} />;
     }
@@ -421,37 +404,6 @@ const RenderInput = ({
     <div>
       <Grid container spacing={2} alignItems="flex-end">
         {inputField.map((element, index) => {
-          if (element.type === "switch") {
-            return (
-              <Grid
-                item
-                sm={element.sm}
-                xs={element.xs || element.sm}
-                md={element.md}
-                lg={element.lg}
-                key={index}
-              >
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={switchStates[element.name] || false}
-                      onChange={() => toggleSwitch(element.name)}
-                    />
-                  }
-                  label={element.label}
-                />
-              </Grid>
-            );
-          }
-
-          if (
-            element.dependentAction &&
-            element.dependentAction.type === "HIDDEN" &&
-            !switchStates[element.watchFor]
-          ) {
-            return null; // if switch is off and action is hidden disappear field
-          }
-
           return (
             <Grid
               item
