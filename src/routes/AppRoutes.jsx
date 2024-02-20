@@ -72,6 +72,7 @@ import CorporatBoStatement from "../kyc/dp/forms/corporate/CorporatBoStatement";
 import CorporatOwnershipDetails from "../kyc/dp/forms/corporate/CorporatOwnershipDetails";
 import IndividualAddress from "../kyc/pages/IndividualAddress";
 import CorporateAddress from "../kyc/pages/CorporateAddress";
+import IndividualFamilyDetails from '../kyc/pages/individualFamilyDetails';
 
 export default function AppRoutes() {
   return (
@@ -108,6 +109,10 @@ export default function AppRoutes() {
               <Route
                 path="demat-registration/i/address-details"
                 element={<IndividualAddress />}
+              />
+               <Route
+                path="demat-registration/i/family-details"
+                element={<IndividualFamilyDetails />}
               />
               <Route
                 path="demat-registration/c/corporate-details"
