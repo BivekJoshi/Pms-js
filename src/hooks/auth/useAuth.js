@@ -50,21 +50,16 @@ export const useLogin = ({ onSuccess }) => {
 export const useRegister = ({ onSuccess }) => {
   const history = useNavigate();
 
-  return useMutation(
-    ["register"],
-    ({ email, brokerNo, nepseCode, mobileNo }) =>
-      register(email, brokerNo, nepseCode, mobileNo),
-    {
-      onSuccess: (data, variables, context) => {
-        toast.success("Registration Successful");
-        history(`/verification/${data?.id}`);
-        onSuccess && onSuccess(data, variables, context);
-      },
-      onError: (err, _variables, _context) => {
-        toast.error(getErrorMessage(err));
-      },
-    }
-  );
+  return useMutation(["register"], (formData) => register(formData), {
+    onSuccess: (data, variables, context) => {
+      toast.success("Registration Successful");
+      history(`/verification/${data?.id}`);
+      onSuccess && onSuccess(data, variables, context);
+    },
+    onError: (err, _variables, _context) => {
+      toast.error(getErrorMessage(err));
+    },
+  });
 };
 
 export const useApplication = ({ onSuccess }) => {
