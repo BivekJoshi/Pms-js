@@ -271,33 +271,36 @@ const RenderInput = ({
             <FormControlLabel
               control={
                 <Switch
-                  checked={formik.values[element?.name]}
+                  checked={Boolean(formik.values[element?.name])}
                   onChange={formik.handleChange}
                   name={element?.name}
                 />
               }
               label={element?.label}
             />
-            {formik.values[element?.name] &&
-              element.newFields?.map((element, index) => {
-                return (
-                  <Grid
-                    item
-                    sm={element?.sm}
-                    xs={element?.xs || element?.sm}
-                    md={element?.md}
-                    lg={element?.lg}
-                    key={index}
-                    sx={{
-                      marginBottom:
-                        element.customMarginBottom &&
-                        element.customMarginBottom,
-                    }}
-                  >
-                    {getComponentToRender(element)}
-                  </Grid>
-                );
-              })}
+            {formik.values[element?.name] && (
+              <Grid container spacing={2} alignItems="flex-end">
+                {element.newFields?.map((element, index) => {
+                  return (
+                    <Grid
+                      item
+                      sm={element?.sm}
+                      xs={element?.xs || element?.sm}
+                      md={element?.md}
+                      lg={element?.lg}
+                      key={index}
+                      sx={{
+                        marginBottom:
+                          element.customMarginBottom &&
+                          element.customMarginBottom,
+                      }}
+                    >
+                      {getComponentToRender(element)}
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            )}
           </>
         );
 

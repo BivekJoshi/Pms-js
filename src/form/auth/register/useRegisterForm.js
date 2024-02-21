@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useFormik } from 'formik';
-import { registerSchema } from './registerValidationSchema';
-import { useRegister } from '../../../hooks/auth/useAuth';
+import { useState } from "react";
+import { useFormik } from "formik";
+import { registerSchema } from "./registerValidationSchema";
+import { useRegister } from "../../../hooks/auth/useAuth";
 
 export const useRegisterForm = () => {
   const [loading, setLoading] = useState(false);
@@ -9,10 +9,10 @@ export const useRegisterForm = () => {
   const { mutate } = useRegister({});
   const formik = useFormik({
     initialValues: {
-      nepseCode: '',
-      email: '',
-      brokerNo: '',
-      mobileNo: '',
+      nepseCode: "",
+      email: "",
+      brokerNo: "",
+      mobileNo: "",
     },
     validationSchema: registerSchema,
     onSubmit: (values) => {
@@ -22,11 +22,9 @@ export const useRegisterForm = () => {
   });
 
   const handleRegister = (values) => {
-    const { email, brokerNo, nepseCode, mobileNo } = values;
-    mutate(
-      { email, brokerNo, nepseCode, mobileNo },
-      { onSettled: () => setLoading(false) }
-    );
+    console.log("🚀 ~ handleRegister ~ values:", values);
+
+    mutate(values, { onSettled: () => setLoading(false) });
   };
 
   const handleMouseDownPassword = (event) => {

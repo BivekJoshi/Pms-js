@@ -30,10 +30,15 @@ const AsyncDropDown = ({ element, formik }) => {
     <Autocomplete
       id={element.name}
       name={element.name}
-      options={asyncOptions.map((option) => option.label)}
-      value={formik.values[element.name]}
+      options={asyncOptions}
+      getOptionLabel={(option) => option?.label || ""}
+      // value={formik.values[element.name]}
+
+      value={asyncOptions?.find(
+        (option) => option?.value === formik.values[element.name]
+      )}
       onChange={(event, newValue) => {
-        formik.setFieldValue(element.name, newValue);
+        formik.setFieldValue(element.name, newValue?.value || "");
       }}
       fullWidth
       renderInput={(params) => (
