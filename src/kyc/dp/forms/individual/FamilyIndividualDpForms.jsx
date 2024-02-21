@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Grid, Button, Typography, useTheme, Stack } from "@mui/material";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { useKycFamilyForm } from "../../../../hooks/kyc/individual/family/usekycFamilyForm";
-import { nanoid } from 'nanoid';
+import { nanoid } from "nanoid";
+import { FieldArray, FormikProvider } from "formik";
 
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();
@@ -10,10 +11,11 @@ const FamilyIndividualDpForms = () => {
 
   const referalFields = [
     {
-      type: "textWithValue",
+      type: "dropDown",
       name: "relation",
-      value: "referralPerson",
-      label: "Referral Person",
+      options: [
+        {id: nanoid(), label: "Referral Person", value: "referralPerson"}
+      ],
       disabled: true,
       col: 12,
       xs: 12,
@@ -48,7 +50,7 @@ const FamilyIndividualDpForms = () => {
       id: nanoid(),
     },
   ];
-  const fatherFields = [
+  const fatherDetails = [
     {
       type: "text",
       label: "Father",
@@ -70,13 +72,40 @@ const FamilyIndividualDpForms = () => {
       sm: 6,
       id: nanoid(),
     },
-  
-  ];
-  const [fields, setFields] = useState(referalFields);
+  ]
 
-  useEffect(() => {
-    setFields([...referalFields, ...fatherFields]);
-  }, []);
+  const staticFields = [
+    {
+      type: "textWithValue",
+      name: "relation",
+      label: "Fathers Name",
+      disabled: true,
+      col: 12,
+      xs: 12,
+      sm: 6,
+      id: nanoid(),
+    },
+    {
+      type: "text",
+      name: "relation",
+      label: "Fathers Name",
+      disabled: true,
+      col: 12,
+      xs: 12,
+      sm: 6,
+      id: nanoid(),
+    },
+  ]
+
+  const handleAddMore = () => {
+    formik.setValues({
+      ...formik.values,
+      familyDetails: [...formik.values.familyDetails, { ...staticFields }],
+    });
+  };
+
+  const handleRemove = () => {
+  };
 
   return (
     <div data-aos="zoom-in-right">
@@ -102,7 +131,40 @@ const FamilyIndividualDpForms = () => {
           </Typography>
         </Grid>
       </Grid>
-      <RenderInput inputField={fields} formik={formik} />
+      <FormikProvider value={formik} {...formik}>
+        <FieldArray name="familyDetails">
+          {({ push, remove }) => {
+            return (
+              formik.values.familyDetails &&
+              formik.values?.familyDetails.map((address, index) => {
+                const fieldArray = referalFields.map((d) => {
+                  if (index === 0) {
+                    return d;
+                  }
+                })
+                const field = fieldArray.map((d) => {
+                  return {
+                    ...d,
+                    name: `familyDetails.${index}.${d.name}`,
+                  }
+                })
+
+                return (
+                <RenderInput
+                  inputField={field}
+                  formik={formik}
+                  index={index}
+                  isFieldArray={true}
+                  fieldArrayName="familyDetails"
+                  pushArray={() => push({})}
+                  removeArray={() => remove()}
+                />
+                )
+              })
+            );
+          }}
+        </FieldArray>
+      </FormikProvider>
       <Stack
         mt={2}
         sx={{
@@ -112,6 +174,12 @@ const FamilyIndividualDpForms = () => {
         }}
       >
         <Grid>
+          <Button onClick={handleAddMore} variant="contained" color="primary">
+            Add More
+          </Button>
+          <Button onClick={handleRemove} variant="contained" color="primary">
+            Remove
+          </Button>
         </Grid>
         <Grid>
           <Button
