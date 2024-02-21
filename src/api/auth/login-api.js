@@ -1,8 +1,8 @@
-import { axiosInstance } from '../axiosInterceptor';
+import { axiosInstance } from "../axiosInterceptor";
 
 export const login = async (email, brokerNo, password) => {
-  const { data } = await axiosInstance.post('/public/login', {
-    email,
+  const { data } = await axiosInstance.post("/login", {
+    loginId: email,
     brokerNo,
     password,
   });

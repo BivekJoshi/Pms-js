@@ -68,7 +68,7 @@ const LoginPage = () => {
           noValidate
           sx={{ mt: 1, display: "flex", flexDirection: "column", gap: "1rem" }}
         >
-          <TextField
+          {/* <TextField
             id="brokerNo"
             select
             name="brokerNo"
@@ -95,7 +95,7 @@ const LoginPage = () => {
                 </MenuItem>
               ))
             )}
-          </TextField>
+          </TextField> */}
 
           <TextField
             required

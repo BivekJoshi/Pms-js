@@ -15,7 +15,7 @@ const AddressIndividualDp = () => {
         sx={{
           marginBottom: "16px",
           padding: { md: "12px", sm: "5px" },
-          borderLeft: `4px solid ${theme.palette.background.btn}`,
+          borderLeft: `4px solid ${theme.palette.secondary.main}`,
         }}
       >
         <Typography
@@ -62,7 +62,25 @@ const AddressIndividualDp = () => {
                       index={index}
                       isFieldArray={true}
                       fieldArrayName="addresses"
-                      pushArray={() => push({})}
+                      pushArray={() =>
+                        push({
+                          country: "",
+                          province: "",
+                          district: "",
+                          municipality: "",
+                          wardNo: "",
+                          tole: "",
+                          streetNo: "",
+                          mobileNo: "",
+                          telephoneNo: "",
+                          email: "",
+                          website: "",
+                          longitude: "",
+                          latitude: "",
+                          houseNo: "",
+                          have_different_permanent_address: false,
+                        })
+                      }
                       removeArray={() => remove()}
                     />
                   </Grid>

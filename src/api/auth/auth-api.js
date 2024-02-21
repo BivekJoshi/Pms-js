@@ -1,22 +1,19 @@
 import { axiosInstance } from "../axiosInterceptor";
 
 export const login = async (email, brokerNo, password) => {
-  const data = await axiosInstance.post("/public/login", {
-    email,
+  const data = await axiosInstance.post("/login", {
+    loginId: email,
     brokerNo,
     password,
   });
   return data;
 };
 
-export const register = async (email, brokerNo, nepseCode, mobileNo) => {
-  const { data } = await axiosInstance.post("/public/register", {
-    email,
-    brokerNo,
-    nepseCode,
-    mobileNo,
-  });
-  return data;
+export const register = async (values) => {
+  if (values) {
+    const data = await axiosInstance.post("/registration", values);
+    return data;
+  }
 };
 
 export const application = async (email, submissionNo) => {
@@ -35,7 +32,9 @@ export const verification = async (id, otp) => {
 
 export const resendVerification = async (id) => {
   if (id) {
-    const { data } = await axiosInstance.post(`/public/register/re-send-otp/${id}`);
+    const { data } = await axiosInstance.post(
+      `/public/register/re-send-otp/${id}`
+    );
     return data;
   }
 };

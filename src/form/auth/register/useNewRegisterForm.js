@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import {
+  dematOnly,
   dematRegisterSchema,
-  pmsRegisterSchema,
-  tmsRegisterSchema,
+  tmsOnly,
+  tmsanddematRegisterSchema,
 } from "./registerValidationSchema";
 import { useRegister } from "../../../hooks/auth/useAuth";
 
@@ -13,15 +14,16 @@ export const useNewRegisterForm = () => {
   const { mutate } = useRegister({});
   const formik = useFormik({
     initialValues: {
-      accountType: "",
+      dematExist: false,
+      nepseExist: false,
       clientType: "",
       name: "",
       email: "",
-      mobileNumber: "",
-      branch: "",
-      boidNumber: "",
+      phoneNo: "",
+      branchId: "",
+      nepseCode: "",
       dpId: "",
-      dematNumber: "",
+      dematNo: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -31,30 +33,29 @@ export const useNewRegisterForm = () => {
   });
 
   const handleRegister = (values) => {
-    mutate({ values }, { onSettled: () => setLoading(false) });
+    mutate(values, { onSettled: () => setLoading(false) });
   };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
+  console.log("🚀 ~ useNewRegisterForm ~ formik:", formik);
   useEffect(() => {
     const determineFields = () => {
-      switch (formik.values.accountType) {
-        case "TMS":
-          setSchema(tmsRegisterSchema);
-          break;
-        case "PMS":
-          setSchema(pmsRegisterSchema);
-          break;
-        default:
-          setSchema(dematRegisterSchema);
-          break;
+      if (formik.values.nepseExist && formik.values.dematExist) {
+        setSchema(tmsanddematRegisterSchema);
+      } else if (formik.values.nepseExist) {
+        setSchema(tmsOnly);
+      } else if (formik.values.dematExist) {
+        setSchema(dematOnly);
+      } else {
+        setSchema(dematRegisterSchema);
       }
     };
 
     determineFields();
-  }, [formik.values.accountType]);
+  }, [formik.values.nepseExist, formik.values.dematExist]);
 
   return {
     handleRegister,
