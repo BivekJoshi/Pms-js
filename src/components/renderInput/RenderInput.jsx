@@ -1,4 +1,5 @@
 import {
+  Alert,
   Autocomplete,
   FormControlLabel,
   FormLabel,
@@ -114,7 +115,7 @@ const RenderInput = ({
   const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
   const mode = useSelector((state) => state?.theme?.mode);
 
-  const getComponentToRender = (element) => {
+  const getComponentToRender = (element, disableField) => {
     const formVaues = isFieldArray
       ? getIn(formik.values, element.name)
       : formik.values[element.name];
@@ -279,17 +280,28 @@ const RenderInput = ({
         );
       case "switch":
         return (
-          <FormControlLabel
-            control={
-              <Switch
-                disabled={element?.isDisabled}
-                checked={formik.values[element?.name]}
-                onChange={formik.handleChange}
-                name={element?.name}
-              />
-            }
-            label={element?.label}
-          />
+          <div style={{ display: "flex" }}>
+            <FormControlLabel
+              control={
+                <Switch
+                  disabled={element?.isDisabled}
+                  checked={formik.values[element?.name]}
+                  onChange={formik.handleChange}
+                  name={element?.name}
+                />
+              }
+              label={element?.label}
+            />
+            {element.infoAlert && (
+              <Alert
+                variant="standard"
+                sx={{ bgcolor: "background.default" }}
+                severity="info"
+              >
+                {element.infoAlert}
+              </Alert>
+            )}
+          </div>
         );
       case "switchWithFields":
         return (
@@ -300,32 +312,13 @@ const RenderInput = ({
                   checked={Boolean(formik.values[element?.name])}
                   onChange={formik.handleChange}
                   name={element?.name}
+                  disabled={disableField}
                 />
               }
               label={element?.label}
             />
             {formik.values[element?.name] && (
-              <Grid container spacing={2} alignItems="flex-end">
-                {element.newFields?.map((element, index) => {
-                  return (
-                    <Grid
-                      item
-                      sm={element?.sm}
-                      xs={element?.xs || element?.sm}
-                      md={element?.md}
-                      lg={element?.lg}
-                      key={index}
-                      sx={{
-                        marginBottom:
-                          element.customMarginBottom &&
-                          element.customMarginBottom,
-                      }}
-                    >
-                      {getComponentToRender(element)}
-                    </Grid>
-                  );
-                })}
-              </Grid>
+              <RenderInput inputField={element.newFields} formik={formik} />
             )}
           </>
         );
@@ -387,6 +380,11 @@ const RenderInput = ({
     <div>
       <Grid container spacing={2} alignItems="flex-end">
         {inputField?.map((element, index) => {
+          const isDisabled = element?.disableOnChange?.name.some(
+            (item, i) =>
+              element.disableOnChange.value[i] === formik.values[item]
+          );
+
           return (
             <Grid
               item
@@ -400,7 +398,7 @@ const RenderInput = ({
                   element.customMarginBottom && element.customMarginBottom,
               }}
             >
-              {getComponentToRender(element)}
+              {getComponentToRender(element, isDisabled)}
             </Grid>
           );
         })}

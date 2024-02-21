@@ -710,5 +710,6 @@ export const basicData = [
     sm: 12,
     col: 12,
     id: nanoid(),
+    infoAlert: "Will be enabled when DOB is less than 16 years!",
   },
 ];
