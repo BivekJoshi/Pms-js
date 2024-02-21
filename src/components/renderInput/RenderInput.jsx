@@ -142,23 +142,30 @@ const RenderInput = ({
             sx={{ width: "100%" }}
           />
         );
-        case "textWithValue":
-          return (
-            <TextField
-              name={`${fieldArrayName}.${index}.${element.name}`}
-              label={element?.label}
-              value={element?.value}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              fullWidth
-              required={element.required}
-              // variant="outlined"
-              disabled={element.disabled}
-              error={formTouched && Boolean(formError)}
-              helperText={formTouched && formError}
-              sx={{ width: "100%" }}
-            />
-          );
+      case "dropDownWithValue":
+        return (
+          <Autocomplete
+            id={element.name}
+            name={element.name}
+            disabled={element?.isDisabled}
+            options={element?.options}
+            getOptionLabel={(option) => option?.label || element?.label}
+            value={element?.value}
+            onChange={formik.handleChange}
+            fullWidth
+            renderInput={(params) => {
+              return (
+                <TextField
+                  {...params}
+                  label={element.label}
+                  error={formTouched && Boolean(formError)}
+                  required={element.required}
+                  helperText={formTouched && formError}             
+                />
+              );
+            }}
+          />
+        );
       case "fieldArraySwitch":
         return (
           <FormControl>

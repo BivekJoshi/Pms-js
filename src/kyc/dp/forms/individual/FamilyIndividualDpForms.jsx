@@ -11,12 +11,10 @@ const FamilyIndividualDpForms = () => {
 
   const referalFields = [
     {
-      type: "dropDown",
-      name: "relation",
-      options: [
-        {id: nanoid(), label: "Referral Person", value: "referralPerson"}
-      ],
-      disabled: true,
+      type: "dropDownWithValue",
+      name: "relation",     
+      options: [{label: "Referral Person", value: "referralPerson"}],
+      isDisabled: true,
       col: 12,
       xs: 12,
       sm: 6,
@@ -50,13 +48,13 @@ const FamilyIndividualDpForms = () => {
       id: nanoid(),
     },
   ];
-  const fatherDetails = [
+
+  const staticFields = [
     {
-      type: "text",
-      label: "Father",
+      type: "dropDown",
       name: "relation",
-      required: true,
-      disabled: true,
+      label: "Relation",
+      // disabled: true,
       col: 12,
       xs: 12,
       sm: 6,
@@ -65,47 +63,13 @@ const FamilyIndividualDpForms = () => {
     {
       type: "text",
       name: "memberName",
-      label: "Father's Name",
-      required: true,
+      label: "Enter Name",
       col: 12,
       xs: 12,
       sm: 6,
       id: nanoid(),
     },
-  ]
-
-  const staticFields = [
-    {
-      type: "textWithValue",
-      name: "relation",
-      label: "Fathers Name",
-      disabled: true,
-      col: 12,
-      xs: 12,
-      sm: 6,
-      id: nanoid(),
-    },
-    {
-      type: "text",
-      name: "relation",
-      label: "Fathers Name",
-      disabled: true,
-      col: 12,
-      xs: 12,
-      sm: 6,
-      id: nanoid(),
-    },
-  ]
-
-  const handleAddMore = () => {
-    formik.setValues({
-      ...formik.values,
-      familyDetails: [...formik.values.familyDetails, { ...staticFields }],
-    });
-  };
-
-  const handleRemove = () => {
-  };
+  ];
 
   return (
     <div data-aos="zoom-in-right">
@@ -131,57 +95,98 @@ const FamilyIndividualDpForms = () => {
           </Typography>
         </Grid>
       </Grid>
+
+      <RenderInput inputField={referalFields} formik={formik} />
+
       <FormikProvider value={formik} {...formik}>
         <FieldArray name="familyDetails">
           {({ push, remove }) => {
             return (
               formik.values.familyDetails &&
               formik.values?.familyDetails.map((address, index) => {
-                const fieldArray = referalFields.map((d) => {
-                  if (index === 0) {
-                    return d;
-                  }
-                })
-                const field = fieldArray.map((d) => {
+                const field = staticFields.map((d) => {
                   return {
                     ...d,
+                    options: index <= 2 ? [
+                      { value: "father", label: "Father" },
+                      { value: "mother", label: "Mother" },
+                      { value: "grandFather", label: "Grand Father" },
+                    ] : [
+                      { value: "spouse", label: "Spouse" },
+                      { value: "sonInLaw", label: "Son In Law" },
+                      { value: "motherInLaw", label: "Mother In Law" },
+                    ],
+                    isDisabled: index <= 2,
                     name: `familyDetails.${index}.${d.name}`,
-                  }
-                })
-
+                  };
+                });
                 return (
-                <RenderInput
-                  inputField={field}
-                  formik={formik}
-                  index={index}
-                  isFieldArray={true}
-                  fieldArrayName="familyDetails"
-                  pushArray={() => push({})}
-                  removeArray={() => remove()}
-                />
-                )
+                  <>
+                    <Grid mt={2}>
+                      <RenderInput
+                        inputField={field}
+                        formik={formik}
+                        index={index}
+                        isFieldArray={true}
+                        fieldArrayName="familyDetails"
+                        pushArray={() => push({})}
+                        removeArray={() => remove()}
+                      />
+                    </Grid>
+                    {index >= 1 &&
+                      index === formik.values.familyDetails.length - 1 && (
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          style={{
+                            border: "1px solid #6C49B4",
+                            margin: "0  0 1rem 0",
+                          }}
+                          onClick={() =>
+                            push({
+                              relation: "",
+                              memberName: "",
+                            })
+                          }
+                        >
+                          <Typography
+                            color={
+                              index < formik.values?.familyDetails.length + 1
+                                ? theme.palette.info
+                                : "#6C49B4"
+                            }
+                            fontWeight={600}
+                          >
+                            + Add
+                          </Typography>
+                        </Button>
+                      )}
+                    {index >= 3 && formik.values.familyDetails.length > 3 && (
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        style={{
+                          border: "1px solid #B4271F",
+                          margin: "0 0 1rem",
+                        }}
+                        onClick={() => {
+                          remove(index);
+                          console.log(index);
+                        }}
+                      >
+                        <Typography color="#B4271F" fontWeight={600}>
+                          Remove
+                        </Typography>
+                      </Button>
+                    )}
+                  </>
+                );
               })
             );
           }}
         </FieldArray>
-      </FormikProvider>
-      <Stack
-        mt={2}
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <Grid>
-          <Button onClick={handleAddMore} variant="contained" color="primary">
-            Add More
-          </Button>
-          <Button onClick={handleRemove} variant="contained" color="primary">
-            Remove
-          </Button>
-        </Grid>
-        <Grid>
+
+        <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             onClick={formik.handleSubmit}
             variant="contained"
@@ -190,7 +195,7 @@ const FamilyIndividualDpForms = () => {
             Next
           </Button>
         </Grid>
-      </Stack>
+      </FormikProvider>
     </div>
   );
 };

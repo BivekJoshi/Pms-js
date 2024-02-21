@@ -6,8 +6,23 @@ export const useKycFamilyForm = () => {
 
   const formik = useFormik({
     initialValues: {
+      email:"",
+      mobileNumber:"",
+      memberName: "",
+      relation: "referralPerson",
       familyDetails: [
-        { id: "", memberName: "", relation: "", mobileNumber: "", email: "" },
+        {
+          memberName: "",
+          relation: "father",
+        },
+        {
+          memberName: "",
+          relation: "mother",      
+        },
+        {
+          memberName: "",
+          relation: "grandFather",      
+        },
       ],
     },
     onSubmit: (values) => {
