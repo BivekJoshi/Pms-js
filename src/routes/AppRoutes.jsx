@@ -79,6 +79,7 @@ import IndividualAddress from "../kyc/pages/IndividualAddress";
 import CorporateAddress from "../kyc/pages/CorporateAddress";
 import FamilyIndividualDpForms from '../kyc/dp/forms/individual/FamilyIndividualDpForms';
 import KycHomePage from "../kyc/pages/KyCHomePage";
+import OccupationsIndividualForms from '../kyc/dp/forms/individual/OccupationsIndividualForms';
 
 export default function AppRoutes() {
   return (
@@ -132,6 +133,10 @@ export default function AppRoutes() {
               <Route
                 path="demat-registration/i/bank-details"
                 element={<BankIndividualDpForms />}
+              />
+               <Route
+                path="demat-registration/i/occupation-details"
+                element={<OccupationsIndividualForms />}
               />
               <Route
                 path="demat-registration/i/detail-verification"
