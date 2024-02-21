@@ -18,6 +18,7 @@ import mapIcon from "../../assets/marker-icon.png";
 import L from "leaflet";
 import DualDatePicker from "./DualDatePicker";
 import { DatePicker } from "@mui/x-date-pickers";
+import { useSelector } from "react-redux";
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -109,6 +110,7 @@ const RenderInput = ({
   fieldArrayName,
 }) => {
   const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
+  const mode = useSelector((state) => state?.theme?.mode);
 
   const getComponentToRender = (element) => {
     const formVaues = isFieldArray
@@ -174,10 +176,14 @@ const RenderInput = ({
                     Choose a location
                   </label>
                 </div>
-                <div style={{ height: "400px", display: "flex" }}>
+                <div style={{ height: "400px", display: "flex" }} key={mode}>
                   <MapContainer
                     style={{
                       width: "100%",
+                      ...(mode === "dark" && {
+                        filter:
+                          "invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)",
+                      }),
                     }}
                     id="map"
                     center={{ lat: latLong[0], lng: latLong[1] }}
