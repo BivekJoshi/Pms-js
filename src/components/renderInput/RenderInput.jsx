@@ -109,7 +109,6 @@ const RenderInput = ({
   fieldArrayName,
 }) => {
   const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
-
   const getComponentToRender = (element) => {
     const formVaues = isFieldArray
       ? getIn(formik.values, element.name)
@@ -117,7 +116,6 @@ const RenderInput = ({
     const formError = isFieldArray
       ? getIn(formik.errors, element.name)
       : formik.errors[element.name];
-
     const formTouched = isFieldArray
       ? getIn(formik.touched, element.name)
       : formik.touched[element.name];
@@ -140,6 +138,23 @@ const RenderInput = ({
             sx={{ width: "100%" }}
           />
         );
+        case "textWithValue":
+          return (
+            <TextField
+              name={`${fieldArrayName}.${index}.${element.name}`}
+              label={element?.label}
+              value={element?.value}
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              fullWidth
+              required={element.required}
+              // variant="outlined"
+              disabled={element.disabled}
+              error={formTouched && Boolean(formError)}
+              helperText={formTouched && formError}
+              sx={{ width: "100%" }}
+            />
+          );
       case "fieldArraySwitch":
         return (
           <FormControl>

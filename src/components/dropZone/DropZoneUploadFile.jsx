@@ -9,8 +9,6 @@ const DropZoneUploadFile = ({ title }) => {
   const [showDelete, setShowDelete] = useState(false);
 
   const handleUpload = (acceptedFiles) => {
-    console.log("logging drop/selected file", acceptedFiles);
-
     const url = "https://api.escuelajs.co/api/v1/files/upload";
     const formData = new FormData();
 

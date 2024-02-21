@@ -21,7 +21,6 @@ export const corporatOwnershipDetailsForm = () => {
     },
     validationSchema: corporatOwnershipDetailsValidationSchema,
     onSubmit: (values) => {
-        console.log("values", values);
       handleSubmit(values);
       setLoading(true);
       resetForm();
