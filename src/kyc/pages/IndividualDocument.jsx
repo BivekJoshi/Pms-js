@@ -122,7 +122,7 @@ const IndividualDocument = () => {
       <FormModal
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        width={1400}
+        // width={"calc(100vw-10rem)"}
         header="Document Form"
         formComponent={
           <>
