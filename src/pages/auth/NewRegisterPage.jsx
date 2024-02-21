@@ -27,15 +27,15 @@ const NewRegisterPage = () => {
       type: "text",
     },
     {
-      name: "mobileNumber",
+      name: "phoneNo",
       label: "Mobile Number",
       md: 12,
       sm: 12,
       required: true,
-      type: "number",
+      type: "text",
     },
     {
-      name: "branch",
+      name: "branchId",
       label: "Branch",
       md: 12,
       sm: 12,
@@ -43,19 +43,30 @@ const NewRegisterPage = () => {
       type: "asyncDropDown",
       required: true,
       responseLabel: "branchName",
-      responseId: "branchCode",
+      responseId: "id",
     },
     {
-      name: "dematNoExist",
-      label: "Do you have Demat account?",
+      name: "nepseExist",
+      label: "Do you have Trading account?",
       type: "switchWithFields",
       md: 12,
       sm: 12,
       newFields: [
         {
-          name: "dematNumber",
-          type: "number",
-          label: "Demat No",
+          name: "dpId",
+          label: "Depository Participant",
+          md: 12,
+          sm: 12,
+          path: "http://103.94.159.144:8084/kyc/api/utility/dp-details",
+          type: "asyncDropDown",
+          required: true,
+          responseLabel: "dpName",
+          responseId: "id",
+        },
+        {
+          name: "nepseCode",
+          type: "text",
+          label: "NEPSE Code",
           required: true,
           id: nanoid(),
           md: 12,
@@ -64,16 +75,16 @@ const NewRegisterPage = () => {
       ],
     },
     {
-      name: "tmsNoExist",
-      label: "Do you have TMS account?",
+      name: "dematExist",
+      label: "Do you have Demat account?",
       type: "switchWithFields",
       md: 12,
       sm: 12,
       newFields: [
         {
-          name: "tmsNo",
+          name: "dematNo",
           type: "number",
-          label: "TMS No",
+          label: "Demat No",
           required: true,
           id: nanoid(),
           md: 12,
@@ -95,12 +106,12 @@ const NewRegisterPage = () => {
   const [fields, setFields] = useState(inputFields);
 
   useEffect(() => {
-    if (formik.values.dematNoExist || formik.values.tmsNoExist) {
+    if (formik.values.dematExist || formik.values.nepseExist) {
       setFields([...inputFields, clientTypeField]);
     } else {
       setFields(inputFields);
     }
-  }, [formik.values.tmsNoExist, formik.values.dematNoExist]);
+  }, [formik.values.nepseExist, formik.values.dematExist]);
 
   return (
     <Box

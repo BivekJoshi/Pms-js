@@ -14,15 +14,16 @@ export const useNewRegisterForm = () => {
   const { mutate } = useRegister({});
   const formik = useFormik({
     initialValues: {
-      dematNoExist: false,
-      tmsNoExist: false,
+      dematExist: false,
+      nepseExist: false,
       clientType: "",
       name: "",
       email: "",
-      mobileNumber: "",
-      branch: "",
-      tmsNo: "",
-      dematNumber: "",
+      phoneNo: "",
+      branchId: "",
+      nepseCode: "",
+      dpId: "",
+      dematNo: "",
     },
     validationSchema: schema,
     onSubmit: (values) => {
@@ -32,20 +33,21 @@ export const useNewRegisterForm = () => {
   });
 
   const handleRegister = (values) => {
-    mutate({ values }, { onSettled: () => setLoading(false) });
+    mutate(values, { onSettled: () => setLoading(false) });
   };
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
+  console.log("🚀 ~ useNewRegisterForm ~ formik:", formik);
   useEffect(() => {
     const determineFields = () => {
-      if (formik.values.tmsNoExist && formik.values.dematNoExist) {
+      if (formik.values.nepseExist && formik.values.dematExist) {
         setSchema(tmsanddematRegisterSchema);
-      } else if (formik.values.tmsNoExist) {
+      } else if (formik.values.nepseExist) {
         setSchema(tmsOnly);
-      } else if (formik.values.dematNoExist) {
+      } else if (formik.values.dematExist) {
         setSchema(dematOnly);
       } else {
         setSchema(dematRegisterSchema);
@@ -53,8 +55,7 @@ export const useNewRegisterForm = () => {
     };
 
     determineFields();
-  }, [formik.values.tmsNoExist, formik.values.dematNoExist]);
-  console.log("🚀 ~ useNewRegisterForm ~ formik:", formik);
+  }, [formik.values.nepseExist, formik.values.dematExist]);
 
   return {
     handleRegister,
