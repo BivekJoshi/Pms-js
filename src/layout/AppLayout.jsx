@@ -28,9 +28,11 @@ const AppLayout = () => {
   useEffect(() => {
     if (!authToken) {
       navigate("/login");
-    } else if (authData?.tempPassword) {
-      navigate("change/password");
-    } else {
+    }
+    // else if (authData?.tempPassword) {
+    //   navigate("change/password");
+    // }
+    else {
       refetch();
     }
     if (data) {
