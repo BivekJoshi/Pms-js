@@ -6,19 +6,33 @@ export const corporatOwnershipDetailsForm = () => {
   const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues: {
-      designation: "",
-      firstName: "",
-      lastName: "",
-      fatherName: "",
-      grandFather: "",
-      spouseName: "",
-      permanentAddress: "",
-      currentAddress: "",
-      telephoneNo: "",
-      mobileNo: "",
-      email: "",
-      panNo: "",
-      bodDetails: [
+      details: [
+        {
+          designation: "CEO",
+          firstName: "",
+          lastName: "",
+          fatherName: "",
+          grandFather: "",
+          spouseName: "",
+          permanentAddress: "",
+          currentAddress: "",
+          telephoneNo: "",
+          mobileNo: "",
+          email: "",
+        },
+        {
+          designation: "Secretary",
+          firstName: "",
+          lastName: "",
+          fatherName: "",
+          grandFather: "",
+          spouseName: "",
+          permanentAddress: "",
+          currentAddress: "",
+          telephoneNo: "",
+          mobileNo: "",
+          email: "",
+        },
         {
           designation: "",
           firstName: "",
@@ -31,13 +45,24 @@ export const corporatOwnershipDetailsForm = () => {
           telephoneNo: "",
           mobileNo: "",
           email: "",
-          panNo: "",
         },
       ],
+      fcpName: "",
+      fcpDesignation: "",
+      fcpFatherName: "",
+      fcpGrandFatherName: "",
+      scpName: "",
+      scpDesignation: "",
+      scpFatherName: "",
+      scpGrandFatherName: "",
+      trdName: "",
+      trdDesignation: "",
+      trdFatherName: "",
+      trdGrandFatherName: "",
     },
     validationSchema: corporatOwnershipDetailsValidationSchema,
     onSubmit: (values) => {
-      console.log("values", values);
+      console.log("values", values); // Log the form values
       handleSubmit(values);
       setLoading(true);
       resetForm();
