@@ -18,6 +18,7 @@ import "leaflet/dist/leaflet.css";
 import mapIcon from "../../assets/marker-icon.png";
 import L from "leaflet";
 import DualDatePicker from "./DualDatePicker";
+import DropZoneUploadFile from "../dropZone/DropZoneUploadFile";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useSelector } from "react-redux";
 const icon = L.icon({ iconUrl: mapIcon });
@@ -30,6 +31,7 @@ const MarkerLocationFieldArray = ({
   setValueField,
   index,
   fieldArrayName,
+  isFieldArray,
 }) => {
   const markerRef = useRef();
   const map = useMap();
@@ -214,6 +216,7 @@ const RenderInput = ({
           <Autocomplete
             id={element.name}
             name={element.name}
+            disabled={element?.isDisabled}
             options={element?.options}
             getOptionLabel={(option) => option?.label || ""}
             value={element?.options.find(
@@ -341,6 +344,9 @@ const RenderInput = ({
 
       case "asyncDropDown":
         return <AsyncDropDown element={element} formik={formik} />;
+
+      case "documentUpload":
+        return <DropZoneUploadFile title={element?.title} />;
 
       default:
         return <TextField name={element?.name} label={element?.label} />;
