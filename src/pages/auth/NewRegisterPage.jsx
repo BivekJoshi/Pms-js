@@ -5,31 +5,11 @@ import { useNewRegisterForm } from "../../form/auth/register/useNewRegisterForm"
 import { LoadingButton } from "@mui/lab";
 import RenderInput from "../../components/renderInput/RenderInput";
 import { createAccountFor, kycClientType } from "./../../utility/kycData";
+import { nanoid } from "nanoid";
 
 const NewRegisterPage = () => {
   const { formik, loading } = useNewRegisterForm();
-
-  const [fields, setFields] = useState([]);
-
   const inputFields = [
-    {
-      name: "accountType",
-      label: "Create Account For",
-      md: 6,
-      sm: 12,
-      type: "dropDown",
-      required: true,
-      options: createAccountFor,
-    },
-    {
-      name: "clientType",
-      label: "Client type",
-      md: 6,
-      sm: 12,
-      type: "dropDown",
-      required: true,
-      options: kycClientType,
-    },
     {
       name: "name",
       label: "Full Name",
@@ -54,80 +34,73 @@ const NewRegisterPage = () => {
       required: true,
       type: "number",
     },
-  ];
-
-  const tmsInputFields = [
     {
-      name: "dpId",
-      label: "Depository Participant",
-      md: 6,
+      name: "branch",
+      label: "Branch",
+      md: 12,
       sm: 12,
-      path: "http://103.94.159.144:8084/kyc/api/utility/dp-details",
+      path: "http://103.94.159.144:8084/kyc/api/utility/branch",
       type: "asyncDropDown",
       required: true,
-      responseLabel: "dpName",
-      responseId: "id",
+      responseLabel: "branchName",
+      responseId: "branchCode",
     },
     {
-      name: "dematNumber",
-      label: "Demat Number",
-      md: 6,
+      name: "dematNoExist",
+      label: "Do you have Demat account?",
+      type: "switchWithFields",
+      md: 12,
       sm: 12,
-      type: "number",
-      required: true,
+      newFields: [
+        {
+          name: "dematNumber",
+          type: "number",
+          label: "Demat No",
+          required: true,
+          id: nanoid(),
+          md: 12,
+          sm: 12,
+        },
+      ],
+    },
+    {
+      name: "tmsNoExist",
+      label: "Do you have TMS account?",
+      type: "switchWithFields",
+      md: 12,
+      sm: 12,
+      newFields: [
+        {
+          name: "tmsNo",
+          type: "number",
+          label: "TMS No",
+          required: true,
+          id: nanoid(),
+          md: 12,
+          sm: 12,
+        },
+      ],
     },
   ];
 
-  const branchField = {
-    name: "branch",
-    label: "Branch",
+  const clientTypeField = {
+    name: "clientType",
+    label: "Client type",
     md: 12,
     sm: 12,
-    path: "http://103.94.159.144:8084/kyc/api/utility/branch",
-    type: "asyncDropDown",
+    type: "dropDown",
     required: true,
-    responseLabel: "branchName",
-    responseId: "branchCode",
+    options: kycClientType,
   };
+  const [fields, setFields] = useState(inputFields);
 
   useEffect(() => {
-    const determineFields = () => {
-      switch (formik.values.accountType) {
-        case "TMS":
-          setFields([...inputFields, ...tmsInputFields, branchField]);
-          break;
-        case "PMS":
-          setFields([
-            {
-              name: "accountType",
-              label: "Create Account For",
-              md: 12,
-              sm: 12,
-              type: "dropDown",
-              required: true,
-              options: createAccountFor,
-            },
-
-            {
-              name: "boidNumber",
-              label: "BOID Number",
-              md: 12,
-              sm: 12,
-              type: "number",
-              required: true,
-            },
-
-            ...inputFields.splice(2),
-          ]);
-          break;
-        default:
-          setFields([...inputFields, branchField]);
-          break;
-      }
-    };
-
-    determineFields();
-  }, [formik.values.accountType]);
+    if (formik.values.dematNoExist || formik.values.tmsNoExist) {
+      setFields([...inputFields, clientTypeField]);
+    } else {
+      setFields(inputFields);
+    }
+  }, [formik.values.tmsNoExist, formik.values.dematNoExist]);
 
   return (
     <Box
