@@ -2,12 +2,12 @@ import * as yup from "yup";
 
 const dematRegisterSchema = yup.object().shape({
   name: yup.string().required("Required"),
-  branch: yup.string().required("Required"),
+  branchId: yup.string().required("Required"),
   email: yup
     .string()
     .email("Enter valid email address")
     .required("Email is required"),
-  mobileNumber: yup
+  phoneNo: yup
     .string()
     .min(10, "Mobile number must have at least 10 digits")
     .required("Mobile number is required")
@@ -17,15 +17,15 @@ const dematRegisterSchema = yup.object().shape({
 
 const tmsanddematRegisterSchema = yup.object().shape({
   name: yup.string().required("Required"),
-  branch: yup.string().required("Required"),
-  dematNumber: yup.string().required("Required"),
-  tmsNo: yup.string().required("Required"),
+  branchId: yup.string().required("Required"),
+  dematNo: yup.string().required("Required"),
+  nepseCode: yup.string().required("Required"),
   clientType: yup.string().required("Required"),
   email: yup
     .string()
     .email("Enter valid email address")
     .required("Email is required"),
-  mobileNumber: yup
+  phoneNo: yup
     .string()
     .min(10, "Mobile number must have at least 10 digits")
     .required("Mobile number is required")
@@ -35,14 +35,14 @@ const tmsanddematRegisterSchema = yup.object().shape({
 
 const tmsOnly = yup.object().shape({
   name: yup.string().required("Required"),
-  tmsNo: yup.string().required("Required"),
-  branch: yup.string().required("Required"),
+  nepseCode: yup.string().required("Required"),
+  branchId: yup.string().required("Required"),
   email: yup
     .string()
     .email("Enter valid email address")
     .required("Email is required"),
   clientType: yup.string().required("Required"),
-  mobileNumber: yup
+  phoneNo: yup
     .string()
     .min(10, "Mobile number must have at least 10 digits")
     .required("Mobile number is required")
@@ -52,14 +52,14 @@ const tmsOnly = yup.object().shape({
 
 const dematOnly = yup.object().shape({
   name: yup.string().required("Required"),
-  dematNumber: yup.string().required("Required"),
-  branch: yup.string().required("Required"),
+  dematNo: yup.string().required("Required"),
+  branchId: yup.string().required("Required"),
   email: yup
     .string()
     .email("Enter valid email address")
     .required("Email is required"),
   clientType: yup.string().required("Required"),
-  mobileNumber: yup
+  phoneNo: yup
     .string()
     .min(10, "Mobile number must have at least 10 digits")
     .required("Mobile number is required")

@@ -1,8 +1,8 @@
 import { axiosInstance } from "../axiosInterceptor";
 
 export const login = async (email, brokerNo, password) => {
-  const data = await axiosInstance.post("/public/login", {
-    email,
+  const data = await axiosInstance.post("/login", {
+    loginId: email,
     brokerNo,
     password,
   });
@@ -11,8 +11,7 @@ export const login = async (email, brokerNo, password) => {
 
 export const register = async (values) => {
   if (values) {
-    const { data } = await axiosInstance.post("/registration", values);
-    console.log("🚀 ~ register ~ data:", data);
+    const data = await axiosInstance.post("/registration", values);
     return data;
   }
 };

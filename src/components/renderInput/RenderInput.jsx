@@ -18,6 +18,7 @@ import mapIcon from "../../assets/marker-icon.png";
 import L from "leaflet";
 import DualDatePicker from "./DualDatePicker";
 import { DatePicker } from "@mui/x-date-pickers";
+import { useSelector } from "react-redux";
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -28,6 +29,7 @@ const MarkerLocationFieldArray = ({
   setValueField,
   index,
   fieldArrayName,
+  isFieldArray,
 }) => {
   const markerRef = useRef();
   const map = useMap();
@@ -109,6 +111,8 @@ const RenderInput = ({
   fieldArrayName,
 }) => {
   const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
+  const mode = useSelector((state) => state?.theme?.mode);
+
   const getComponentToRender = (element) => {
     const formVaues = isFieldArray
       ? getIn(formik.values, element.name)
@@ -189,10 +193,14 @@ const RenderInput = ({
                     Choose a location
                   </label>
                 </div>
-                <div style={{ height: "400px", display: "flex" }}>
+                <div style={{ height: "400px", display: "flex" }} key={mode}>
                   <MapContainer
                     style={{
                       width: "100%",
+                      ...(mode === "dark" && {
+                        filter:
+                          "invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)",
+                      }),
                     }}
                     id="map"
                     center={{ lat: latLong[0], lng: latLong[1] }}
@@ -222,6 +230,7 @@ const RenderInput = ({
           <Autocomplete
             id={element.name}
             name={element.name}
+            disabled={element?.isDisabled}
             options={element?.options}
             getOptionLabel={(option) => option?.label || ""}
             value={element?.options.find(
@@ -287,26 +296,29 @@ const RenderInput = ({
               }
               label={element?.label}
             />
-            {formik.values[element?.name] &&
-              element.newFields?.map((element, index) => {
-                return (
-                  <Grid
-                    item
-                    sm={element?.sm}
-                    xs={element?.xs || element?.sm}
-                    md={element?.md}
-                    lg={element?.lg}
-                    key={index}
-                    sx={{
-                      marginBottom:
-                        element.customMarginBottom &&
-                        element.customMarginBottom,
-                    }}
-                  >
-                    {getComponentToRender(element)}
-                  </Grid>
-                );
-              })}
+            {formik.values[element?.name] && (
+              <Grid container spacing={2} alignItems="flex-end">
+                {element.newFields?.map((element, index) => {
+                  return (
+                    <Grid
+                      item
+                      sm={element?.sm}
+                      xs={element?.xs || element?.sm}
+                      md={element?.md}
+                      lg={element?.lg}
+                      key={index}
+                      sx={{
+                        marginBottom:
+                          element.customMarginBottom &&
+                          element.customMarginBottom,
+                      }}
+                    >
+                      {getComponentToRender(element)}
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            )}
           </>
         );
 
