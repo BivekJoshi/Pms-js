@@ -329,6 +329,11 @@ const CorporatOwnershipDetails = () => {
                     name: `details.${index}.${d.name}`,
                   };
                 });
+                console.log(
+                  formik?.touched &&
+                    formik?.errors?.details &&
+                    formik?.errors?.details[index] !== undefined
+                );
                 return (
                   <>
                     <Grid
@@ -340,36 +345,29 @@ const CorporatOwnershipDetails = () => {
                       key={index}
                       marginBottom="1rem"
                     >
-                      <Accordion>
-                        {index === 0 && (
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel2-content"
-                            id="panel2-header"
-                          >
-                            <Typography variant="h5">CEO Details</Typography>
-                          </AccordionSummary>
-                        )}
-                        {index === 1 && (
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel3-content"
-                            id="panel3-header"
-                          >
-                            <Typography variant="h5">
-                              Company Secretary Details
-                            </Typography>
-                          </AccordionSummary>
-                        )}
-                        {index >= 2 && (
-                          <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel4-content"
-                            id="panel4-header"
-                          >
-                            <Typography variant="h5">BOD Details</Typography>
-                          </AccordionSummary>
-                        )}
+                      <Accordion
+                        expanded={
+                          (
+                            formik?.errors?.details &&
+                            formik?.errors?.details[index] !== undefined) ===
+                          true
+                          //   ? true
+                          //   : false
+                        }
+                      >
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls={`panel${index}-content`}
+                          id={`panel${index}-header`}
+                        >
+                          <Typography variant="h5">
+                            {index === 0
+                              ? "CEO Details"
+                              : index === 1
+                              ? "Company Secretary Details"
+                              : "BOD Details"}
+                          </Typography>
+                        </AccordionSummary>
                         <AccordionDetails>
                           <RenderInput
                             inputField={field}
@@ -459,7 +457,9 @@ const CorporatOwnershipDetails = () => {
             </AccordionDetails>
           </Accordion>
         ))}
-        <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Grid
+          sx={{ display: "flex", justifyContent: "flex-end", margin: "1rem 0" }}
+        >
           <Button
             onClick={formik.handleSubmit}
             variant="contained"

@@ -3,9 +3,8 @@ import { Button, Grid, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useMemo, useState } from "react";
 import FormModal from "../../components/formModal/FormModal";
-import Dropzone from "react-dropzone";
-import DropZoneUploadFile from "../../components/dropZone/DropZoneUploadFile";
 import CustomTable from "../../components/customTable/CustomTable";
+import DocumentFieldDp from "../dp/forms/individual/DocumentIndividual/DocumentFieldDp";
 
 const IndividualDocument = () => {
   const theme = useTheme();
@@ -92,7 +91,7 @@ const IndividualDocument = () => {
             backgroundColor: theme.palette.background.btn,
             color: theme.palette.text.alt,
             textTransform: "none",
-            height:"42px"
+            height: "42px",
           }}
           onClick={() => setIsModalOpen(true)}
         >
@@ -127,14 +126,7 @@ const IndividualDocument = () => {
         header="Document Form"
         formComponent={
           <>
-            <Grid container>
-              <Grid item xs={6}>
-                <DropZoneUploadFile title="Front Side" />
-              </Grid>
-              <Grid item xs={6}>
-                <DropZoneUploadFile title="Back Side" />
-              </Grid>
-            </Grid>
+            <DocumentFieldDp />
           </>
         }
       />

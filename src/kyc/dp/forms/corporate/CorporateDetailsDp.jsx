@@ -271,7 +271,7 @@ const CorporateDetailsDp = () => {
         sx={{
           marginBottom: "16px",
           padding: { md: "12px", sm: "5px" },
-          borderLeft: `4px solid ${theme.palette.background.btn}`,
+          borderLeft: `4px solid ${theme.palette.secondary.main}`,
         }}
       >
         <Typography

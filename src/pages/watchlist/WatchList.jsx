@@ -12,17 +12,17 @@ import {
   TextField,
   Typography,
   useTheme,
-} from '@mui/material';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import WatchListMasterField from '../../form/formComponent/watchlist/WatchListMasterField';
-import { useState } from 'react';
-import WatchTable from './WatchTable';
-import { useWatchListDetailForm } from '../../hooks/watchList/useWatchListForm/useWatchListDetailForm';
-import FormModal from '../../components/formModal/FormModal';
-import { MoreVert } from '@mui/icons-material';
-import WatchListModal from './WatchListModal';
-import { useTranslation } from 'react-i18next';
+} from "@mui/material";
+import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import WatchListMasterField from "../../form/formComponent/watchlist/WatchListMasterField";
+import { useState } from "react";
+import WatchTable from "./WatchTable";
+import { useWatchListDetailForm } from "../../hooks/watchList/useWatchListForm/useWatchListDetailForm";
+import FormModal from "../../components/formModal/FormModal";
+import { MoreVert } from "@mui/icons-material";
+import WatchListModal from "./WatchListModal";
+import { useTranslation } from "react-i18next";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -80,7 +80,7 @@ const WatchList = () => {
           variant="contained"
           onClick={() => setOpen(true)}
           sx={{
-            backgroundColor: theme.palette.background.btn,
+            backgroundColor: theme.palette.secondary.main,
             color: theme.palette.text.alt,
             marginTop: "1rem",
             textTransform: "none",
@@ -214,7 +214,7 @@ const WatchList = () => {
                   {option.symbol}
                 </li>
               )}
-              sx={{width:{md: 300}}}
+              sx={{ width: { md: 300 } }}
               // style={{ width: 300 }}
               renderInput={(params) => (
                 <TextField
@@ -243,7 +243,7 @@ const WatchList = () => {
             variant="contained"
             disabled={!watchlist}
             style={{
-              backgroundColor: theme.palette.background.btn,
+              backgroundColor: theme.palette.secondary.main,
               color: theme.palette.text.alt,
               textTransform: "none",
               marginTop: ".2rem",

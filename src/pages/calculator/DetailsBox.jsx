@@ -11,7 +11,7 @@ import {
 
 export const DetailsBox = ({ rows }) => {
   const theme = useTheme();
-  const color = theme.palette.background.btn;
+  const color = theme.palette.secondary.main;
   return (
     <div style={{ backgroundColor: theme.palette.background.alt }}>
       <Box
