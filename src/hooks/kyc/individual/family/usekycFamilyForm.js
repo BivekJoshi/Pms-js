@@ -3,24 +3,32 @@ import { useAddWatchListMaster } from "../../../watchList/useWatchList";
 
 export const useKycFamilyForm = () => {
   const { mutate } = useAddWatchListMaster({});
+
   const formik = useFormik({
-    initialValues: [
-      {
-        memberName: "",
-        relation: "",
-        relation: "",
-        mobileNumber: "",
-      },
-    ],
-    // validationSchema: watchlistMasterSchema,
-    onSubmit: (values) => {
-      const formData = { ...values };
-      mutate(formData, {
-        onSuccess: (data) => {
-          formik.resetForm();
+    initialValues: {
+      email:"",
+      mobileNumber:"",
+      memberName: "",
+      relation: "referralPerson",
+      familyDetails: [
+        {
+          memberName: "",
+          relation: "father",
         },
-      });
+        {
+          memberName: "",
+          relation: "mother",      
+        },
+        {
+          memberName: "",
+          relation: "grandFather",      
+        },
+      ],
+    },
+    onSubmit: (values) => {
+      console.log(values);
     },
   });
+
   return { formik };
 };

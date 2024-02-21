@@ -113,7 +113,6 @@ const WeightAveCalForm = () => {
       });
     },
   });
-  console.log("Values have been updated:", formik);
 
   return {
     formik,

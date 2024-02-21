@@ -121,7 +121,6 @@ const RenderInput = ({
     const formError = isFieldArray
       ? getIn(formik.errors, element.name)
       : formik.errors[element.name];
-
     const formTouched = isFieldArray
       ? getIn(formik.touched, element.name)
       : formik.touched[element.name];
@@ -142,6 +141,30 @@ const RenderInput = ({
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
             sx={{ width: "100%" }}
+          />
+        );
+      case "dropDownWithValue":
+        return (
+          <Autocomplete
+            id={element.name}
+            name={element.name}
+            // disabled={element?.isDisabled}
+            options={element?.options}
+            getOptionLabel={(option) => option?.label || element?.label}
+            value={element?.value}
+            onChange={formik.handleChange}
+            fullWidth
+            renderInput={(params) => {
+              return (
+                <TextField
+                  {...params}
+                  label={element.label}
+                  error={formTouched && Boolean(formError)}
+                  required={element.required}
+                  helperText={formTouched && formError}             
+                />
+              );
+            }}
           />
         );
       case "fieldArraySwitch":

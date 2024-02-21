@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import "./layout.css";
 import { corporatKycDematList, individualKycDematList } from "./kycMenuList";
 import KycProfileCard from "../kyc/components/KycProfileCard";
+
 const KycLayout = () => {
   const mode = useSelector((state) => state?.theme?.mode);
   const { t } = useTranslation();

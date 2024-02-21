@@ -20,7 +20,6 @@ export const getUserInfo = async () => {
 
 export const getUserTransactionDate = async () => {
   const response = await axiosInstance.get(`/transaction/last-date`);
-  console.log("🚀 ~ getUserTransactionDate ~ response:", response);
   return response.data;
 };
 /*________________________Change Profile_____________________________________*/
