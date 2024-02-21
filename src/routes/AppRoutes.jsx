@@ -10,8 +10,7 @@ import DividendCalculator from "../pages/calculator/dividend/DividendCalculator"
 import WeightedAveCal from "../pages/calculator/weighted/WeightedAveCal";
 import KycForm from "../kyc/pages/KycForm";
 import CorporateDetailsDp from "../kyc/dp/forms/corporate/CorporateDetailsDp";
-import AddressIndividualDp from "../kyc/dp/forms/individual/AddressIndividual/AddressIndividualDp";
-import KycLayout from "../layout/KycLayout"
+import KycLayout from "../layout/KycLayout";
 
 const LoginLayout = React.lazy(() => import("../layout/LoginLayout"));
 const AppLayout = React.lazy(() => import("../layout/AppLayout"));
@@ -68,10 +67,12 @@ const DevelopmentPage = React.lazy(() =>
   import("../pages/DevlopmentPage/DevlopmentPage")
 );
 import IndividualDocument from "./../kyc/pages/IndividualDocument";
-import CorporatAddress from "../kyc/dp/forms/corporate/CorporatAddress";
 import CorporatBankDetail from "../kyc/dp/forms/corporate/CorporatBankDetail";
 import CorporatBoStatement from "../kyc/dp/forms/corporate/CorporatBoStatement";
 import CorporatOwnershipDetails from "../kyc/dp/forms/corporate/CorporatOwnershipDetails";
+import IndividualAddress from "../kyc/pages/IndividualAddress";
+import CorporateAddress from "../kyc/pages/CorporateAddress";
+import KycHomePage from "../kyc/pages/KyCHomePage";
 
 export default function AppRoutes() {
   return (
@@ -97,6 +98,7 @@ export default function AppRoutes() {
               />
             </Route>
             <Route path="/kyc" element={<KycLayout />}>
+              <Route path="home" element={<KycHomePage />} />
               <Route
                 path="demat-registration/i/document-details"
                 element={<IndividualDocument />}
@@ -107,7 +109,7 @@ export default function AppRoutes() {
               />
               <Route
                 path="demat-registration/i/address-details"
-                element={<AddressIndividualDp />}
+                element={<IndividualAddress />}
               />
               <Route
                 path="demat-registration/c/corporate-details"
@@ -115,7 +117,7 @@ export default function AppRoutes() {
               />
               <Route
                 path="demat-registration/c/corporate-address"
-                element={<CorporatAddress />}
+                element={<CorporateAddress />}
               />
               <Route
                 path="demat-registration/c/corporate-bank-detail"

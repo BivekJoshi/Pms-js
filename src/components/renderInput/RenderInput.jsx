@@ -14,11 +14,11 @@ import AsyncDropDown from "./AsyncDropDown";
 import { FormControl } from "@mui/base";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-
 import mapIcon from "../../assets/marker-icon.png";
 import L from "leaflet";
 import DualDatePicker from "./DualDatePicker";
-import { DatePicker } from "@mui/lab";
+import { DatePicker } from "@mui/x-date-pickers";
+import { useSelector } from "react-redux";
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -111,6 +111,7 @@ const RenderInput = ({
   fieldArrayName,
 }) => {
   const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
+  const mode = useSelector((state) => state?.theme?.mode);
 
   const getComponentToRender = (element) => {
     const formVaues = isFieldArray
@@ -139,6 +140,7 @@ const RenderInput = ({
             disabled={element.disabled}
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
+            sx={{ width: "100%" }}
           />
         );
       case "fieldArraySwitch":
@@ -175,10 +177,14 @@ const RenderInput = ({
                     Choose a location
                   </label>
                 </div>
-                <div style={{ height: "400px", display: "flex" }}>
+                <div style={{ height: "400px", display: "flex" }} key={mode}>
                   <MapContainer
                     style={{
                       width: "100%",
+                      ...(mode === "dark" && {
+                        filter:
+                          "invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%)",
+                      }),
                     }}
                     id="map"
                     center={{ lat: latLong[0], lng: latLong[1] }}
@@ -252,6 +258,7 @@ const RenderInput = ({
           <FormControlLabel
             control={
               <Switch
+                disabled={element?.isDisabled}
                 checked={formik.values[element?.name]}
                 onChange={formik.handleChange}
                 name={element?.name}
@@ -260,6 +267,45 @@ const RenderInput = ({
             label={element?.label}
           />
         );
+      case "switchWithFields":
+        return (
+          <>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={Boolean(formik.values[element?.name])}
+                  onChange={formik.handleChange}
+                  name={element?.name}
+                />
+              }
+              label={element?.label}
+            />
+            {formik.values[element?.name] && (
+              <Grid container spacing={2} alignItems="flex-end">
+                {element.newFields?.map((element, index) => {
+                  return (
+                    <Grid
+                      item
+                      sm={element?.sm}
+                      xs={element?.xs || element?.sm}
+                      md={element?.md}
+                      lg={element?.lg}
+                      key={index}
+                      sx={{
+                        marginBottom:
+                          element.customMarginBottom &&
+                          element.customMarginBottom,
+                      }}
+                    >
+                      {getComponentToRender(element)}
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            )}
+          </>
+        );
+
       case "radio":
         return (
           <FormControl>
@@ -283,15 +329,18 @@ const RenderInput = ({
             </RadioGroup>
           </FormControl>
         );
-
       case "datePicker":
         return (
           <Grid display={"flex"} gap={2}>
             <DatePicker
               sx={{ width: "100%" }}
+              name={element?.name}
               label={element.label}
               value={formik.values || ""}
               onChange={formik.handleChange}
+              required={element.required}
+              error={formTouched && Boolean(formError)}
+              helperText={formTouched && formError}
             />
           </Grid>
         );

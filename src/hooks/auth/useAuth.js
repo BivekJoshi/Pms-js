@@ -21,23 +21,33 @@ export const useLogin = ({ onSuccess }) => {
     ({ email, brokerNo, password }) => login(email, brokerNo, password),
     {
       onSuccess: (data, variables, context) => {
-        dispatch({ type: "USER_LOGIN", payload: data.data });
+        console.log("🚀 ~ useLogin ~ data:", data);
+        // dispatch({ type: "USER_LOGIN", payload: data.data });
+        // window.localStorage.setItem(
+        //   "auth",
+        //   JSON.stringify({
+        //     authToken: data.data.auth,
+        //     refreshToken: data.data.refresh,
+        //     startDate: data.data.startDate,
+        //     tempPassword: data?.data?.user?.tempPasswordStatus,
+        //   })
+        // );
+
+        // if (data?.data?.user?.tempPasswordStatus) {
+        //   history("/change/password");
+        // } else {
+        //   history("/profile");
+        //   toast.success("Login Successful");
+        // }
+
+        dispatch({ type: "USER_LOGIN", payload: data.data?.user });
         window.localStorage.setItem(
           "auth",
           JSON.stringify({
-            authToken: data.data.auth,
-            refreshToken: data.data.refresh,
-            startDate: data.data.startDate,
-            tempPassword: data?.data?.user?.tempPasswordStatus,
+            authToken: data.data.token,
           })
         );
 
-        if (data?.data?.user?.tempPasswordStatus) {
-          history("/change/password");
-        } else {
-          history("/profile");
-          toast.success("Login Successful");
-        }
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
@@ -50,21 +60,16 @@ export const useLogin = ({ onSuccess }) => {
 export const useRegister = ({ onSuccess }) => {
   const history = useNavigate();
 
-  return useMutation(
-    ["register"],
-    ({ email, brokerNo, nepseCode, mobileNo }) =>
-      register(email, brokerNo, nepseCode, mobileNo),
-    {
-      onSuccess: (data, variables, context) => {
-        toast.success("Registration Successful");
-        history(`/verification/${data?.id}`);
-        onSuccess && onSuccess(data, variables, context);
-      },
-      onError: (err, _variables, _context) => {
-        toast.error(getErrorMessage(err));
-      },
-    }
-  );
+  return useMutation(["register"], (formData) => register(formData), {
+    onSuccess: (data, variables, context) => {
+      toast.success("Registration Successful");
+      history(`/verification/${data?.id}`);
+      onSuccess && onSuccess(data, variables, context);
+    },
+    onError: (err, _variables, _context) => {
+      toast.error(getErrorMessage(err));
+    },
+  });
 };
 
 export const useApplication = ({ onSuccess }) => {
