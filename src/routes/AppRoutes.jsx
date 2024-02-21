@@ -66,15 +66,28 @@ const BuySellCalculator = React.lazy(() =>
 const DevelopmentPage = React.lazy(() =>
   import("../pages/DevlopmentPage/DevlopmentPage")
 );
-import IndividualDocument from "./../kyc/pages/IndividualDocument";
-import BankIndividualDpForms from "../kyc/dp/forms/individual/BankIndividualDpForms";
+const IndividualDocument = React.lazy(() =>
+  import("./../kyc/pages/IndividualDocument")
+);
+const BankIndividualDpForms = React.lazy(() =>
+  import("../kyc/dp/forms/individual/BankIndividualDpForms")
+);
+const IndividualDPKyc = React.lazy(() =>
+  import("../kyc/ViewKyc/Individual/IndividualDPKyc")
+);
+const CorporatBankDetail = React.lazy(() =>
+  import("../kyc/dp/forms/corporate/CorporatBankDetail")
+);
+const CorporatBoStatement = React.lazy(() =>
+  import("../kyc/dp/forms/corporate/CorporatBoStatement")
+);
+const CorporatOwnershipDetails = React.lazy(() =>
+  import("../kyc/dp/forms/corporate/CorporatOwnershipDetails")
+);
+
 import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
-import IndividualDPKyc from "../kyc/ViewKyc/Individual/IndividualDPKyc";
 
 // import CorporatAddress from "../kyc/dp/forms/corporate/CorporatAddress";
-import CorporatBankDetail from "../kyc/dp/forms/corporate/CorporatBankDetail";
-import CorporatBoStatement from "../kyc/dp/forms/corporate/CorporatBoStatement";
-import CorporatOwnershipDetails from "../kyc/dp/forms/corporate/CorporatOwnershipDetails";
 import IndividualAddress from "../kyc/pages/IndividualAddress";
 import CorporateAddress from "../kyc/pages/CorporateAddress";
 import KycHomePage from "../kyc/pages/KyCHomePage";
