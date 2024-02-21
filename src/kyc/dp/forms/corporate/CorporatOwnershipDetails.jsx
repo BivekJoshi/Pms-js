@@ -295,7 +295,7 @@ const CorporatOwnershipDetails = () => {
     },
   ];
   const { formik } = corporatOwnershipDetailsForm();
-  console.log(formik, "hi");
+  console.log(formik.values, "hi");
   return (
     <div style={{ paddingBottom: "250px", padding: "5rem" }}>
       <FormikProvider value={formik} {...formik}>

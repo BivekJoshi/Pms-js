@@ -8,7 +8,6 @@ import Picture from "../../assets/Picture.png";
 import Dropzone from "react-dropzone";
 
 const CustomImageUpload = ({ imgPreview }) => {
-  // console.log("🚀 ~ CustomImageUpload ~ imgPreview:", imgPreview);
   const theme = useTheme();
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
