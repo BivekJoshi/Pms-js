@@ -2,15 +2,29 @@ import React, { Suspense } from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
 import Spinner from "../components/spinner/Spinner";
 import ScrollToTop from "../utility/ScrollToTop";
-import BonusShareCalulator from "../pages/calculator/bonus/BonusShareCalulator";
-import RightShareCalulator from "../pages/calculator/right/RightShareCalulator";
-import CAGRCalculator from "../pages/calculator/cagr/CAGRCalculator";
-import SipPlanCalculator from "../pages/calculator/sip/SipPlanCalculator";
-import DividendCalculator from "../pages/calculator/dividend/DividendCalculator";
-import WeightedAveCal from "../pages/calculator/weighted/WeightedAveCal";
+
 import KycForm from "../kyc/pages/KycForm";
 import CorporateDetailsDp from "../kyc/dp/forms/corporate/CorporateDetailsDp";
 import KycLayout from "../layout/KycLayout";
+
+const BonusShareCalulator = React.lazy(() =>
+  import("../pages/calculator/bonus/BonusShareCalulator")
+);
+const RightShareCalulator = React.lazy(() =>
+  import("../pages/calculator/right/RightShareCalulator")
+);
+const CAGRCalculator = React.lazy(() =>
+  import("../pages/calculator/cagr/CAGRCalculator")
+);
+const SipPlanCalculator = React.lazy(() =>
+  import("../pages/calculator/sip/SipPlanCalculator")
+);
+const DividendCalculator = React.lazy(() =>
+  import("../pages/calculator/dividend/DividendCalculator")
+);
+const WeightedAveCal = React.lazy(() =>
+  import("../pages/calculator/weighted/WeightedAveCal")
+);
 
 const LoginLayout = React.lazy(() => import("../layout/LoginLayout"));
 const AppLayout = React.lazy(() => import("../layout/AppLayout"));
@@ -66,20 +80,36 @@ const BuySellCalculator = React.lazy(() =>
 const DevelopmentPage = React.lazy(() =>
   import("../pages/DevlopmentPage/DevlopmentPage")
 );
-import IndividualDocument from "./../kyc/pages/IndividualDocument";
-import BankIndividualDpForms from "../kyc/dp/forms/individual/BankIndividualDpForms";
+const IndividualDocument = React.lazy(() =>
+  import("./../kyc/pages/IndividualDocument")
+);
+const BankIndividualDpForms = React.lazy(() =>
+  import("../kyc/dp/forms/individual/BankIndividualDpForms")
+);
+const IndividualDPKyc = React.lazy(() =>
+  import("../kyc/ViewKyc/Individual/IndividualDPKyc")
+);
+const CorporatBankDetail = React.lazy(() =>
+  import("../kyc/dp/forms/corporate/CorporatBankDetail")
+);
+const CorporatBoStatement = React.lazy(() =>
+  import("../kyc/dp/forms/corporate/CorporatBoStatement")
+);
+const CorporatOwnershipDetails = React.lazy(() =>
+  import("../kyc/dp/forms/corporate/CorporatOwnershipDetails")
+);
+const IndividualAddress = React.lazy(() =>
+  import("../kyc/pages/IndividualAddress")
+);
+const CorporateAddress = React.lazy(() =>
+  import("../kyc/pages/CorporateAddress")
+);
+const FamilyIndividualDpForms = React.lazy(() =>
+  import("../kyc/dp/forms/individual/FamilyIndividualDpForms")
+);
+const KycHomePage = React.lazy(() => import("../kyc/pages/KyCHomePage"));
+const OccupationsIndividualForms = React.lazy(() => import('../kyc/dp/forms/individual/OccupationsIndividualForms'));
 import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
-import IndividualDPKyc from "../kyc/ViewKyc/Individual/IndividualDPKyc";
-
-// import CorporatAddress from "../kyc/dp/forms/corporate/CorporatAddress";
-import CorporatBankDetail from "../kyc/dp/forms/corporate/CorporatBankDetail";
-import CorporatBoStatement from "../kyc/dp/forms/corporate/CorporatBoStatement";
-import CorporatOwnershipDetails from "../kyc/dp/forms/corporate/CorporatOwnershipDetails";
-import IndividualAddress from "../kyc/pages/IndividualAddress";
-import CorporateAddress from "../kyc/pages/CorporateAddress";
-import FamilyIndividualDpForms from '../kyc/dp/forms/individual/FamilyIndividualDpForms';
-import KycHomePage from "../kyc/pages/KyCHomePage";
-import OccupationsIndividualForms from '../kyc/dp/forms/individual/OccupationsIndividualForms';
 
 export default function AppRoutes() {
   return (
