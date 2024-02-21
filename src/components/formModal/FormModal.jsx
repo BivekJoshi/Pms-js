@@ -1,8 +1,25 @@
-import React from 'react';
-import { Box, Modal } from '@mui/material';
-import { useTheme } from '@emotion/react';
+import React from "react";
+import {
+  Box,
+  Button,
+  Divider,
+  Grid,
+  IconButton,
+  Modal,
+  Typography,
+} from "@mui/material";
+import { useTheme } from "@emotion/react";
+import CloseIcon from "@mui/icons-material/Close";
 
-const FormModal = ({ open, onClose, formComponent, sx,width, bgcolors }) => {
+const FormModal = ({
+  open,
+  onClose,
+  formComponent,
+  sx,
+  width,
+  bgcolors,
+  header,
+}) => {
   const theme = useTheme();
 
   const style = {
@@ -23,11 +40,29 @@ const FormModal = ({ open, onClose, formComponent, sx,width, bgcolors }) => {
     <Modal
       open={open}
       onClose={onClose}
-      aria-labelledby='modal-modal-title'
-      aria-describedby='modal-modal-description'
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
       sx={sx}
     >
-      <Box sx={style}>{formComponent}</Box>
+      <Box sx={style}>
+        {header && (
+          <>
+            <Grid container direction="row" justifyContent="space-between">
+              <Typography variant="h5">{header}</Typography>
+              <IconButton onClick={onClose}>
+                <CloseIcon />
+              </IconButton>
+            </Grid>
+            <Divider />
+            <br />
+          </>
+        )}
+        {formComponent}
+        {/* <Grid container direction="row" justifyContent="flex-end" gap="1rem">
+          <Button variant="contained">Addd</Button>
+          <Button variant="contained">CloseButton</Button>
+        </Grid> */}
+      </Box>
     </Modal>
   );
 };
