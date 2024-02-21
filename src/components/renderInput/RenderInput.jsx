@@ -148,7 +148,7 @@ const RenderInput = ({
           <Autocomplete
             id={element.name}
             name={element.name}
-            disabled={element?.isDisabled}
+            // disabled={element?.isDisabled}
             options={element?.options}
             getOptionLabel={(option) => option?.label || element?.label}
             value={element?.value}
