@@ -193,7 +193,7 @@ const CAGRCalculator = () => {
                   type="submit"
                   onClick={() => formik.handleSubmit()}
                   sx={{
-                    backgroundColor: theme.palette.background.btn,
+                    backgroundColor: theme.palette.secondary.main,
                     color: theme.palette.text.alt,
                     textTransform: "none",
                   }}

@@ -233,7 +233,7 @@ const Portfolio = () => {
         <Button
           variant="contained"
           style={{
-            backgroundColor: theme.palette.background.btn,
+            backgroundColor: theme.palette.secondary.main,
             color: theme.palette.text.alt,
             textTransform: "none",
           }}

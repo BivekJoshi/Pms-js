@@ -227,7 +227,7 @@ const NewFilter = ({
                         startIcon={<SearchIcon />}
                         sx={{
                           mt: 2,
-                          backgroundColor: theme.palette.background.btn,
+                          backgroundColor: theme.palette.secondary.main,
                           color: theme.palette.text.alt,
                           textTransform: "none",
                         }}
