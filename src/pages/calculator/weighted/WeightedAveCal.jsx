@@ -350,7 +350,7 @@ const WeightedAveCal = () => {
                             // onClick={() => formik.handleSubmit()}
                             disabled={index !== formik.values.wegCal.length - 1}
                             sx={{
-                              color: theme.palette.background.btn,
+                              color: theme.palette.secondary.main,
                               textTransform: "none",
                             }}
                           >
@@ -391,7 +391,7 @@ const WeightedAveCal = () => {
                         formik.handleSubmit();
                       }}
                       sx={{
-                        backgroundColor: theme.palette.background.btn,
+                        backgroundColor: theme.palette.secondary.main,
                         color: theme.palette.text.alt,
                         textTransform: "none",
                       }}
@@ -410,7 +410,7 @@ const WeightedAveCal = () => {
               mt={4}
               p={2}
               sx={{
-                backgroundColor: theme.palette.background.btn,
+                backgroundColor: theme.palette.secondary.main,
                 color: theme.palette.text.alt,
                 textTransform: "none",
               }}
