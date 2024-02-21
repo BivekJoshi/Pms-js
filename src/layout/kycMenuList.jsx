@@ -288,7 +288,7 @@ export const individualKycDematList = [
   },
   {
     id: 8,
-    path: "/kyc/demat-registration/i/details-verification",
+    path: "/kyc/demat-registration/i/detail-verification",
     title: "Details Verifications",
     icon: (
       <svg
