@@ -39,7 +39,7 @@ const KycProfileCard = ({ clientType, nature }) => {
     canvas.height = videoRef.current.videoHeight;
     canvas.getContext("2d").drawImage(videoRef.current, 0, 0);
     const imageUrl = canvas.toDataURL("image/png");
-    
+
     setCapturedImage(imageUrl);
     if (stream) {
       stream?.getTracks().forEach((track) => track.stop());
