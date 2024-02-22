@@ -17,29 +17,6 @@ body {
   /* padding: 100px; */
   page-break-after: always;
 }
-@media print {
-  .office-stamp > p {
-    margin-top: -150px;
-  }
-
-  div {
-    break-inside: avoid;
-  }
-  .dpkyc,
-  body {
-    font-size: 16px !important;
-  }
-  .kyctms,
-  body {
-    font-size: 14px !important;
-  }
-  @page {
-    margin: 2cm 0;
-  }
-  .DPB {
-    text-align: left;
-  }
-}
 
 .page[size="A4"] {
   width: 100%;
@@ -48,9 +25,9 @@ body {
 }
 
 .aggrement-header {
-  font-weight: 600;
-  font-size: 15px;
-  margin-bottom: 10px;
+  font-weight: 800;
+  font-size: 12px;
+  margin-bottom: 0 !important;
 }
 .aggrement-content {
   font-size: 14px;
@@ -114,12 +91,6 @@ body {
 }
 
 .letter-space-3 {
-  /* 
-    1 = 1px
-    2 = 2px
-    3 = 6px
-    4 = 12px
-    */
   letter-spacing: 6px;
 }
 
@@ -145,11 +116,14 @@ body {
   background: rgb(23, 23, 23) !important;
   padding: 0.4rem 0 !important;
   font-size: 1.25rem !important;
-  padding: .5rem 0 !important;
+  padding: 0.5rem 0 !important;
   text-transform: capitalize;
 }
 .fs13 {
   font-size: 13.5px !important;
+}
+.fs18 {
+  font-size: 18px !important;
 }
 .p2 {
   padding: 2px !important;
@@ -172,10 +146,23 @@ body {
   /* :root {
     --cui-body-font-size: 7rem;
   } */
-
-  .kyc-secondary-header {
-    width: 102.5%;
+  @page {
+    margin-top: .5cm;
+    /* size: A4; */
   }
+  .container {
+    padding: 0 2rem !important;
+    max-width: 1250px !important;
+  }
+  .kyc-page {
+    font-size: 12px !important;
+  }
+  .body2{
+    font-size: 8px !important;
+  }
+.fs13{
+  font-size: 13px !important;
+}
   .avoid-page-break {
     page-break-inside: avoid;
   }
@@ -188,10 +175,10 @@ body {
   .location-map-ITK {
     margin: 0 2rem 0 3.2rem;
   }
-  html,
+  /* html,
   body {
     height: 99%;
-  }
+  } */
   /* .pb-print-1 {
     padding-bottom: 0 !important;
   } */
@@ -274,8 +261,42 @@ body {
     background-color: #cabcbc;
     text-align: center;
   }
-}
 
+  .office-stamp > p {
+    margin-top: -150px;
+  }
+
+  div {
+    break-inside: avoid;
+  }
+  .dpkyc,
+  body {
+    font-size: 16px !important;
+  }
+  .kyctms,
+  body {
+    font-size: 14px !important;
+  }
+  /* @page {
+    margin: 2cm 0;
+  } */
+  .DPB {
+    text-align: left;
+  }
+
+  .office-location {
+    margin-top: 5rem;
+  }
+  @page {
+    margin: 0.2cm 0.5cm 0.5cm 0.77cm !important;
+  }
+  body {
+    margin: 0cm 0.5cm 0.5 0.77cm !important;
+  }
+  .ceoCOntant {
+    margin-top: 0.5rem !important;
+  }
+}
 .form-label {
   text-transform: capitalize;
 }
