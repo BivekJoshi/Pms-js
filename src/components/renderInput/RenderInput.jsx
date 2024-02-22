@@ -111,6 +111,7 @@ const RenderInput = ({
   pushArray,
   removeArray,
   fieldArrayName,
+  align,
 }) => {
   const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
   const mode = useSelector((state) => state?.theme?.mode);
@@ -147,26 +148,26 @@ const RenderInput = ({
       case "dropDownWithValue":
         return (
           <Autocomplete
-          id={element.name}
-          name={element.name}
-          disabled={element?.isDisabled}
-          options={element?.options}
-          getOptionLabel={(option) => option?.label || element?.label}
-          value={element?.options[0]}
-          onChange={formik.handleChange}
-          fullWidth
-          renderInput={(params) => {
-            return (
-              <TextField
-                {...params}
-                label={element.label}
-                error={formTouched && Boolean(formError)}
-                required={element.required}
-                helperText={formTouched && formError}             
-              />
-            );
-          }}
-        />
+            id={element.name}
+            name={element.name}
+            disabled={element?.isDisabled}
+            options={element?.options}
+            getOptionLabel={(option) => option?.label || element?.label}
+            value={element?.options[0]}
+            onChange={formik.handleChange}
+            fullWidth
+            renderInput={(params) => {
+              return (
+                <TextField
+                  {...params}
+                  label={element.label}
+                  error={formTouched && Boolean(formError)}
+                  required={element.required}
+                  helperText={formTouched && formError}
+                />
+              );
+            }}
+          />
         );
       case "fieldArraySwitch":
         return (
@@ -282,6 +283,7 @@ const RenderInput = ({
         return (
           <div style={{ display: "flex" }}>
             <FormControlLabel
+              style={{ display: element?.display, flexDirection: element?.direction, marginLeft: element?.marginLeft }}
               control={
                 <Switch
                   disabled={element?.isDisabled}
@@ -292,7 +294,7 @@ const RenderInput = ({
               }
               label={element?.label}
             />
-            {element.infoAlert && (
+            {(element?.infoAlert && !formik.values.isMinor) && (
               <Alert
                 variant="standard"
                 sx={{ bgcolor: "background.default" }}
@@ -315,6 +317,7 @@ const RenderInput = ({
                   disabled={disableField}
                 />
               }
+              labelPlacement={align ? align : "end"}
               label={element?.label}
             />
             {formik.values[element?.name] && (
@@ -325,7 +328,13 @@ const RenderInput = ({
 
       case "radio":
         return (
-          <FormControl>
+          <FormControl
+            style={{
+              display: element?.display,
+              alignItems: element?.align,
+              gap: element?.gap,
+            }}
+          >
             <FormLabel id="demo-radio-buttons-group-label">
               {element.label}
             </FormLabel>
