@@ -80,11 +80,6 @@ body {
     } */
 }
 
-
-
-
-
-
 @import url(bootstrap-print.css);
 
 .dotted-underline {
@@ -146,12 +141,20 @@ body {
 } */
 
 .kyc-secondary-header {
-  color: #fff;
-  background: rgb(23, 23, 23);
-  padding: 0.4rem 0;
-  /* margin-bottom: 0.5rem; */
+  color: #fff !important;
+  background: rgb(23, 23, 23) !important;
+  padding: 0.4rem 0 !important;
+  font-size: 1.25rem !important;
+  padding: .5rem 0 !important;
+  text-transform: capitalize;
 }
-
+.fs13 {
+  font-size: 13.5px !important;
+}
+.p2 {
+  padding: 2px !important;
+  text-align: center !important;
+}
 .passport-photo {
   width: 2in;
   height: 2in;
