@@ -128,7 +128,6 @@ const FamilyIndividualDpForms = () => {
                         formik={formik}
                         index={index}
                         isFieldArray={true}
-                        isDisabled={isDisabled}
                         fieldArrayName="familyDetails"
                         pushArray={() => push({})}
                         removeArray={() => remove()}
