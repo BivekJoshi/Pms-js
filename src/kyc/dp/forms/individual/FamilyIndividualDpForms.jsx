@@ -116,7 +116,7 @@ const FamilyIndividualDpForms = () => {
                       { value: "sonInLaw", label: "Son In Law" },
                       { value: "motherInLaw", label: "Mother In Law" },
                     ],
-                    isDisabled: index <= 2,
+                    // isDisabled: index <= 2,
                     name: `familyDetails.${index}.${d.name}`,
                   };
                 });
