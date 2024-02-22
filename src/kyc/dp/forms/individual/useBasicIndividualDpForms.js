@@ -3,16 +3,9 @@ import * as Yup from "yup";
 import { fullnameRegex } from "../static/RegExp";
 
 const basicSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .required("First Name is required")
-    .matches(fullnameRegex, "Please enter valid first name"),
-  middleName: Yup.string().matches(
-    fullnameRegex,
-    "Please enter valid middle name"
-  ),
-  lastName: Yup.string()
-    .required("Last Name is required")
-    .matches(fullnameRegex, "Please enter valid last name"),
+  firstName: Yup.string().required("First Name is required"),
+  middleName: Yup.string().matches(fullnameRegex, "Please enter valid middle name"),
+  lastName: Yup.string().required("Last Name is required"),
 });
 
 export const useBasicIndividualDpForms = () => {

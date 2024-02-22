@@ -654,7 +654,7 @@ export const basicData = [
   {
     name: "clientNameNepali",
     label: "Name (Devnagari)",
-    type: "text",
+    type: "nepaliTypeText",
     sm: 12,
     md: 4,
     id: nanoid(),
