@@ -1,12 +1,12 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { nanoid } from "nanoid";
 import { useNomineeForm } from "./useNomineeForm";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
 
 const NomineeDpForms = () => {
   const { formik } = useNomineeForm();
-  
+
   const NOMINEEFIELDS = [
     {
       name: "haveNominee",
@@ -79,6 +79,21 @@ const NomineeDpForms = () => {
           md: 4,
           sm: 12,
         },
+        // {
+        //   name: "dob",
+        //   label: "Date of Birth (B.S.) (जन्म मिति) (B.S.)",
+        //   type: "dualDate",
+        //   placeholder: "Select date of birth (B.S)",
+        //   engMd: 6,
+        //   engSm: 12,
+        //   nepMd: 6,
+        //   nepSm: 12,
+        //   md: 8,
+        //   sm: 12,
+        //   engLabel: "Date of Birth (A.D.)",
+        //   required: true,
+        //   id: nanoid(),
+        // },
         {
           name: "citizenshipIssudeDate",
           label: "Citizenship Issued Date (A.D.)",
@@ -195,9 +210,15 @@ const NomineeDpForms = () => {
   return (
     <form onSubmit={handleSubmit}>
       <RenderInput inputField={NOMINEEFIELDS} formik={formik} />
-      <Button variant="contained" onClick={formik.handleSubmit}>
-        Submit
-      </Button>
+      <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button
+          onClick={formik.handleSubmit}
+          variant="contained"
+          color="secondary"
+        >
+          Next
+        </Button>
+      </Grid>
     </form>
   );
 };
