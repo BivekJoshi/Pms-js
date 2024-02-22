@@ -108,8 +108,13 @@ const FamilyIndividualDpForms = React.lazy(() =>
   import("../kyc/dp/forms/individual/FamilyIndividualDpForms")
 );
 const KycHomePage = React.lazy(() => import("../kyc/pages/KyCHomePage"));
-const OccupationsIndividualForms = React.lazy(() => import('../kyc/dp/forms/individual/OccupationsIndividualForms'));
+const OccupationsIndividualForms = React.lazy(() =>
+  import("../kyc/dp/forms/individual/OccupationsIndividualForms")
+);
 import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
+const NomineeDpForms = React.lazy(() =>
+  import("../kyc/dp/forms/individual/NomineeIndividual/NomineeDpForms")
+);
 
 export default function AppRoutes() {
   return (
@@ -157,6 +162,10 @@ export default function AppRoutes() {
                 element={<BankIndividualDpForms />}
               />
               <Route
+                path="demat-registration/i/nominee-details"
+                element={<NomineeDpForms />}
+              />
+              <Route
                 path="demat-registration/i/detail-verification"
                 element={<IndividualDPKyc />}
               />
@@ -164,7 +173,7 @@ export default function AppRoutes() {
                 path="demat-registration/i/bank-details"
                 element={<BankIndividualDpForms />}
               />
-               <Route
+              <Route
                 path="demat-registration/i/occupation-details"
                 element={<OccupationsIndividualForms />}
               />
