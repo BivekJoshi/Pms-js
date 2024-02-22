@@ -40,7 +40,6 @@ export const useNewRegisterForm = () => {
     event.preventDefault();
   };
 
-  console.log("🚀 ~ useNewRegisterForm ~ formik:", formik);
   useEffect(() => {
     const determineFields = () => {
       if (formik.values.nepseExist && formik.values.dematExist) {

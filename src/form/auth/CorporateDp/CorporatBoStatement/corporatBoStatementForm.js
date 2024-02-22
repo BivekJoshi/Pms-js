@@ -10,7 +10,6 @@ export const corporatBoStatementForm = (props) => {
     },
     // validationSchema: corporatBankDetailFormValidationSchema,
     onSubmit: (values) => {
-      console.log("hiiiiii", values);
       handleSubmit(values);
       setLoading(true);
       resetForm();

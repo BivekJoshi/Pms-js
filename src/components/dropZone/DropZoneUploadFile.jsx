@@ -140,9 +140,10 @@ const DropZoneUploadFile = ({ title, urlDocType, urlId }) => {
                     display: "flex",
                     alignItems: "center",
                     flexDirection: "column",
-                    backgroundImage: `url(${DottedBoder})`,
+                    // backgroundImage: `url(${DottedBoder})`,
                     position: "relative",
-                    backgroundRepeat: "no-repeat",
+                    // backgroundRepeat: "no-repeat",
+
                     minHeight: "200px",
                     width: "350px",
                     cursor: "pointer",
@@ -150,11 +151,14 @@ const DropZoneUploadFile = ({ title, urlDocType, urlId }) => {
                 >
                   <div style={{ position: "absolute", top: 1, left: 0 }}>
                     <div
+                      className="hover-effect"
                       style={{
                         width: "120%",
                         height: "190px",
                         display: "flex",
                         flexDirection: "column",
+                        border: "1px dashed #b1bfd0",
+                        borderRadius: "16px",
                         alignItems: "center",
                       }}
                     >

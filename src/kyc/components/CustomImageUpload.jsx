@@ -8,7 +8,6 @@ import Picture from "../../assets/Picture.png";
 import Dropzone from "react-dropzone";
 
 const CustomImageUpload = ({ imgPreview }) => {
-  // console.log("🚀 ~ CustomImageUpload ~ imgPreview:", imgPreview);
   const theme = useTheme();
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -19,7 +18,7 @@ const CustomImageUpload = ({ imgPreview }) => {
   const [file, setFile] = useState(null);
   const [showDelete, setShowDelete] = useState(false);
 
-  console.log(file,"fileeeeeeeeee");
+  console.log(file, "fileeeeeeeeee");
 
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     // You can use croppedAreaPixels to get the cropped image details
@@ -98,35 +97,35 @@ const CustomImageUpload = ({ imgPreview }) => {
               {file ? (
                 <>
                   <div
-                    // style={{
-                    //   padding: "16px",
-                    //   display: "flex",
-                    //   alignItems: "center",
-                    //   flexDirection: "column",
-                    //   backgroundImage: `url(${DottedBoder})`,
-                    //   position: "relative",
-                    //   backgroundRepeat: "no-repeat",
-                    //   minHeight: "200px",
-                    //   width: "350px",
-                    //   cursor: "pointer",
-                    // }}
-                    // onMouseOver={(e) => setShowDelete(true)}
+                  // style={{
+                  //   padding: "16px",
+                  //   display: "flex",
+                  //   alignItems: "center",
+                  //   flexDirection: "column",
+                  //   backgroundImage: `url(${DottedBoder})`,
+                  //   position: "relative",
+                  //   backgroundRepeat: "no-repeat",
+                  //   minHeight: "200px",
+                  //   width: "350px",
+                  //   cursor: "pointer",
+                  // }}
+                  // onMouseOver={(e) => setShowDelete(true)}
                   >
                     <div
-                      // style={{
-                      //   position: "absolute",
-                      //   top: 1,
-                      //   left: 0,
-                      //   width: "340px",
-                      //   height: "192px",
-                      // }}
+                    // style={{
+                    //   position: "absolute",
+                    //   top: 1,
+                    //   left: 0,
+                    //   width: "340px",
+                    //   height: "192px",
+                    // }}
                     >
                       {/* <img
                         src={URL.createObjectURL(file)}
                         alt="Uploaded file"
                         style={{ width: "100%", height: "100%" }}
                       /> */}
-                      <FinalImageSelect file={file}/>
+                      <FinalImageSelect file={file} />
                       {/* {showDelete && (
                         <div
                           style={{
@@ -175,15 +174,18 @@ const CustomImageUpload = ({ imgPreview }) => {
                       <>
                         <div
                           {...getRootProps({})}
+                          className="hover-effect"
                           style={{
                             padding: "16px",
                             display: "flex",
                             alignItems: "center",
                             flexDirection: "column",
-                            backgroundImage: `url(${DottedBoder})`,
+                            // backgroundImage: `url(${DottedBoder})`,
                             position: "relative",
-                            backgroundRepeat: "no-repeat",
+                            // backgroundRepeat: "no-repeat",
                             minHeight: "200px",
+                            border: "1px dashed #b1bfd0",
+                            borderRadius: "16px",
                             width: "350px",
                             cursor: "pointer",
                           }}
