@@ -21,6 +21,7 @@ import DualDatePicker from "./DualDatePicker";
 import DropZoneUploadFile from "../dropZone/DropZoneUploadFile";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useSelector } from "react-redux";
+import NepaliInputText from '../inputType/NepaliInputText';
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -126,7 +127,7 @@ const RenderInput = ({
     const formTouched = isFieldArray
       ? getIn(formik.touched, element.name)
       : formik.touched[element.name];
-console.log(element)
+
     switch (element.type) {
       case "text":
         return (
@@ -145,6 +146,8 @@ console.log(element)
             sx={{ width: "100%" }}
           />
         );
+        case "nepaliTypeText":
+          return <NepaliInputText element={element} formik={formik} />;
       case "dropDownWithValue":
         return (
           <Autocomplete
