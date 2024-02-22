@@ -4,11 +4,12 @@ import SignUpPage from "../../assets/signUpPage.png";
 import { useNewRegisterForm } from "../../form/auth/register/useNewRegisterForm";
 import { LoadingButton } from "@mui/lab";
 import RenderInput from "../../components/renderInput/RenderInput";
-import { createAccountFor, kycClientType } from "./../../utility/kycData";
+import { kycClientType } from "./../../utility/kycData";
 import { nanoid } from "nanoid";
 
 const NewRegisterPage = () => {
   const { formik, loading } = useNewRegisterForm();
+  console.log("🚀 ~ NewRegisterPage ~ formik:", formik);
   const inputFields = [
     {
       name: "name",
@@ -46,23 +47,22 @@ const NewRegisterPage = () => {
       responseId: "id",
     },
     {
+      name: "clientType",
+      label: "Client type",
+      md: 12,
+      sm: 12,
+      type: "dropDown",
+      required: true,
+      options: kycClientType,
+    },
+    {
       name: "nepseExist",
       label: "Do you have Trading account?",
       type: "switchWithFields",
       md: 12,
       sm: 12,
+
       newFields: [
-        {
-          name: "dpId",
-          label: "Depository Participant",
-          md: 12,
-          sm: 12,
-          path: "http://103.94.159.144:8084/kyc/api/utility/dp-details",
-          type: "asyncDropDown",
-          required: true,
-          responseLabel: "dpName",
-          responseId: "id",
-        },
         {
           name: "nepseCode",
           type: "text",
@@ -80,7 +80,22 @@ const NewRegisterPage = () => {
       type: "switchWithFields",
       md: 12,
       sm: 12,
+      disableOnChange: {
+        name: ["nepseExist"],
+        value: [true],
+      },
       newFields: [
+        {
+          name: "dpId",
+          label: "Depository Participant",
+          md: 12,
+          sm: 12,
+          path: "http://103.94.159.144:8084/kyc/api/utility/dp-details",
+          type: "asyncDropDown",
+          required: true,
+          responseLabel: "dpName",
+          responseId: "id",
+        },
         {
           name: "dematNo",
           type: "number",
@@ -94,24 +109,13 @@ const NewRegisterPage = () => {
     },
   ];
 
-  const clientTypeField = {
-    name: "clientType",
-    label: "Client type",
-    md: 12,
-    sm: 12,
-    type: "dropDown",
-    required: true,
-    options: kycClientType,
-  };
-  const [fields, setFields] = useState(inputFields);
-
   useEffect(() => {
-    if (formik.values.dematExist || formik.values.nepseExist) {
-      setFields([...inputFields, clientTypeField]);
-    } else {
-      setFields(inputFields);
+    if (formik.values.nepseExist) {
+      formik.setFieldValue("dematExist", false);
+      formik.setFieldValue("dpId", "");
+      formik.setFieldValue("dematNo", "");
     }
-  }, [formik.values.nepseExist, formik.values.dematExist]);
+  }, [formik.values.nepseExist]);
 
   return (
     <Box
@@ -151,7 +155,7 @@ const NewRegisterPage = () => {
           flexDirection="column"
           gap={{ lg: "1.25rem", md: ".5rem", xs: "1.5rem" }}
         >
-          <RenderInput inputField={fields} formik={formik} />
+          <RenderInput inputField={inputFields} formik={formik} />
           <LoadingButton
             className="titleMedium  bg-purple-700"
             fullWidth

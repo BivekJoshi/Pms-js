@@ -17,8 +17,7 @@ const FinalImageSelect = ({ finalImage, file }) => {
     >
       <div
         style={{
-          backgroundImage: `url(${DottedBorder})`,
-          backgroundRepeat: "no-repeat",
+          // backgroundImage: `url(${DottedBorder})`,
           height: "200px",
           width: "350px",
           cursor: "pointer",

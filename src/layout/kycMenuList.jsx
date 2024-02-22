@@ -532,4 +532,56 @@ export const corporatKycDematList = [
     path: "/kyc/demat-registration/c/corporate-ownership-details",
     title: "Ownership Details",
   },
+  {
+    id: 7,
+    icon: (
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 28 28"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect
+          x="0.5"
+          y="0.5"
+          width="27"
+          height="27"
+          rx="3.5"
+          fill="#EADDFF"
+        />
+        <rect
+          x="0.5"
+          y="0.5"
+          width="27"
+          height="27"
+          rx="3.5"
+          stroke="#25005A"
+        />
+        <path
+          d="M15.6641 6.5V9.83333C15.6641 10.0543 15.7519 10.2663 15.9081 10.4226C16.0644 10.5789 16.2764 10.6667 16.4974 10.6667H19.8307"
+          stroke="#25005A"
+          stroke-width="1.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M13.9974 13.1667V18.1667M18.1641 21.5H9.83073C9.3887 21.5 8.96478 21.3244 8.65222 21.0118C8.33966 20.6993 8.16406 20.2754 8.16406 19.8333V8.16667C8.16406 7.72464 8.33966 7.30072 8.65222 6.98816C8.96478 6.67559 9.3887 6.5 9.83073 6.5H15.6641L19.8307 10.6667V19.8333C19.8307 20.2754 19.6551 20.6993 19.3426 21.0118C19.03 21.3244 18.6061 21.5 18.1641 21.5Z"
+          stroke="#25005A"
+          stroke-width="1.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M11.9141 15.2513L13.9974 13.168L16.0807 15.2513"
+          stroke="#25005A"
+          stroke-width="1.25"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    ),
+    path: "/kyc/demat-registration/i/detail-verification",
+    title: "Detail Verification",
+  },
 ];
