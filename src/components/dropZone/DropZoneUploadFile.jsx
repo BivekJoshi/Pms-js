@@ -8,10 +8,7 @@ const DropZoneUploadFile = ({ title, urlDocType, urlId }) => {
   const [file, setFile] = useState(null);
   const [showDelete, setShowDelete] = useState(false);
 
-  // console.log(file);
   const handleUpload = (acceptedFiles) => {
-    console.log("logging drop/selected file", acceptedFiles);
-
     const url = "https://api.escuelajs.co/api/v1/files/upload"; //Random Api Post Here
     const formData = new FormData();
 
