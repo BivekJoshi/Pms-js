@@ -1,8 +1,8 @@
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import RenderInput from "../../../../components/renderInput/RenderInput";
-import { useOccupationsIndividualForm } from "./useOccupationsIndividualForm";
+import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { nanoid } from "nanoid";
+import { useOccupationsIndividualForm } from "./useOccupationsIndividualForm";
 
 const OccupationsIndividualForms = () => {
   const theme = useTheme();

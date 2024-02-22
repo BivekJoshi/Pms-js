@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Button, Typography, useTheme, Stack } from "@mui/material";
-import RenderInput from "../../../../components/renderInput/RenderInput";
-import { useKycFamilyForm } from "../../../../hooks/kyc/individual/family/usekycFamilyForm";
+import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { nanoid } from "nanoid";
 import { FieldArray, FormikProvider } from "formik";
+import { useKycFamilyForm } from "./usekycFamilyForm";
 
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();

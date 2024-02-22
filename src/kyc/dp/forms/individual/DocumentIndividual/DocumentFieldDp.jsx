@@ -18,7 +18,9 @@ const DocumentFieldDp = () => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <RenderInput inputField={DocumentField} formik={formik} />
+        {!formik?.values?.docType && (
+          <RenderInput inputField={DocumentField} formik={formik} />
+        )}
         {formik?.values?.docType === "citizenship" && (
           <RenderInput inputField={CitizenshipFiled} formik={formik} />
         )}
@@ -31,7 +33,22 @@ const DocumentFieldDp = () => {
         {formik?.values?.docType === "panCard" && (
           <RenderInput inputField={PanCardFiled} formik={formik} />
         )}
-        <Button variant="contained" onClick={formik.handleSubmit}>Submit</Button>
+        <Grid sx={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
+          <Button
+            onClick={formik.handleSubmit}
+            variant="outlined"
+            color="secondary"
+          >
+            Reset
+          </Button>
+          <Button
+            onClick={formik.handleSubmit}
+            variant="contained"
+            color="secondary"
+          >
+            Add
+          </Button>
+        </Grid>
       </Grid>
     </Grid>
   );
