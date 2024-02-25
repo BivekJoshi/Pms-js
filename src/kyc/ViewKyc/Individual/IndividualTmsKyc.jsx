@@ -1,5 +1,7 @@
 import React, { useRef } from "react";
 import "./kycIndividual.css";
+import ReactToPrint from "react-to-print";
+import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 
 const IndividualTmsKyc = ({ userData }) => {
   const componentRef = useRef();
@@ -15,13 +17,9 @@ const IndividualTmsKyc = ({ userData }) => {
             userData={userData}
             extraInfo={extraInfo}
           /> */}
-          {/* <ReactToPrint
+          <ReactToPrint
             // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
-            trigger={() => (
-              <ActionIcon>
-                <IconPrinter />
-              </ActionIcon>
-            )}
+            trigger={() => <LocalPrintshopIcon />}
             content={() => componentRef.current}
             documentTitle="download.pdf"
             // pageStyle="print"
@@ -30,7 +28,7 @@ const IndividualTmsKyc = ({ userData }) => {
             contentStyle={{
               marginTop: "500px",
             }}
-          /> */}
+          />
         </div>
         <div className="kyc-page " id="pdf" ref={componentRef}>
           {/* Header */}
@@ -74,8 +72,8 @@ const IndividualTmsKyc = ({ userData }) => {
                   <h2>कार्यालय प्रयोजनका लागि मात्र (For official use only)</h2>
                 </div>
 
-                <div className="container">
-                  <div className="row mt-4">
+                {/* <div className="container"> */}
+                  <div className="row m-0 p-0 mt-4">
                     <div className="col-4 col-md-4 col-lg-4 border center-y ">
                       <div>
                         <div>
@@ -103,10 +101,10 @@ const IndividualTmsKyc = ({ userData }) => {
                       </div>
                     </div>
                   </div>
-                </div>
+                {/* </div> */}
               </div>
-              <div className="container">
-                <div className="row">
+              {/* <div className="container"> */}
+                <div className="row m-0 p-0">
                   <div className="col-12 col-md-3 border border center-y">
                     <div>हितग्राहीको खाता नं. (BOID No):</div>
                   </div>
@@ -114,7 +112,7 @@ const IndividualTmsKyc = ({ userData }) => {
                     {/* {user?.boid} */}
                   </div>
                 </div>
-              </div>
+              {/* </div> */}
             </div>
             <div className="container">
               <div className="row">
@@ -215,8 +213,8 @@ const IndividualTmsKyc = ({ userData }) => {
               ग्राहकको विवरण (Client Details)
             </h2>
 
-            <div className="container">
-              <div className="row ">
+            {/* <div className="container"> */}
+              <div className="row m-0 p-0">
                 {/* <!-- ! name row --> */}
                 <div className="col-4 col-md-4 border center-y">
                   <div>Name (In block letters)</div>
@@ -445,7 +443,7 @@ const IndividualTmsKyc = ({ userData }) => {
                   {/* {individualDetail?.nrnNo || ""} */}
                 </div>
               </div>
-            </div>
+            {/* </div> */}
           </section>
           {/* Address */}
           {/* Permanent address */}
@@ -454,8 +452,8 @@ const IndividualTmsKyc = ({ userData }) => {
               स्थायी ठेगाना (Permanent Address)
             </h2>
 
-            <div className="container">
-              <div className="row">
+            {/* <div className="container"> */}
+              <div className="row m-0 p-0">
                 {/* <!-- Country --> */}
                 <div className="col-6 col-md-3 border center-y ">
                   <div>
@@ -488,7 +486,7 @@ const IndividualTmsKyc = ({ userData }) => {
                     </div>
                   </div>
                 </div>
-                <div className=" col-6 border-start-0 center-y">
+                <div className=" col-6 border center-y">
                   {/* {permanentAddressDetails?.[0]?.municipality} */}
                 </div>
 
@@ -553,7 +551,7 @@ const IndividualTmsKyc = ({ userData }) => {
                   {/* {permanentAddressDetails?.[0]?.email} */}
                 </div>
               </div>
-            </div>
+            {/* </div> */}
           </section>
           {/* Temporary Address */}
           <section className="container pb-2">
@@ -561,8 +559,8 @@ const IndividualTmsKyc = ({ userData }) => {
               हालको ठेगाना (Current Address){" "}
             </h2>
 
-            <div className="container">
-              <div className="row">
+            {/* <div className="container"> */}
+              <div className="row m-0 p-0">
                 {/* <!-- Country --> */}
                 <div className="col-6 col-md-3 border center-y ">
                   <div>
@@ -595,7 +593,7 @@ const IndividualTmsKyc = ({ userData }) => {
                     </div>
                   </div>
                 </div>
-                <div className=" col-6 border-start-0 center-y">
+                <div className=" col-6 border center-y">
                   {/* {currentAddressDetails?.[0]?.municipality} */}
                 </div>
 
@@ -660,7 +658,7 @@ const IndividualTmsKyc = ({ userData }) => {
                   {/* {currentAddressDetails?.[0]?.email} */}
                 </div>
               </div>
-            </div>
+            {/* </div> */}
           </section>
           {/* Map */}
           <section
@@ -709,8 +707,8 @@ const IndividualTmsKyc = ({ userData }) => {
               </h2>
             </div>
 
-            <div className="container">
-              <div className="row border">
+            {/* <div className="container"> */}
+              <div className="row m-0 p-0 border">
                 {/* <!-- grand father's name (nep)--> */}
 
                 {/* <!-- grand father's name (eng)--> */}
@@ -811,7 +809,7 @@ const IndividualTmsKyc = ({ userData }) => {
                   {/* {memberList?.["motherInLaw"]} */}
                 </div>
               </div>
-            </div>
+            {/* </div> */}
           </section>
           {/* BankDetails */}
           <section className="container pb-1">
@@ -821,8 +819,8 @@ const IndividualTmsKyc = ({ userData }) => {
               </h2>
             </div>
 
-            <div className="container">
-              <div className="row">
+            {/* <div className="container"> */}
+              <div className="row m-0 p-0">
                 {/* <!-- types of bank account --> */}
                 <div className="col-6 col-md-4  border">
                   <div>
@@ -912,7 +910,7 @@ const IndividualTmsKyc = ({ userData }) => {
                   {/* {bankDetails?.branchAddress} */}
                 </div>
               </div>
-            </div>
+            {/* </div> */}
           </section>
           {/* Details of Occupation */}
           <section className="container pb-2 avoid-page-break">
@@ -920,8 +918,8 @@ const IndividualTmsKyc = ({ userData }) => {
               <h2>पेशागत विवरण (Details of Occupation)</h2>
             </div>
 
-            <div className="container">
-              <div className="row border">
+            {/* <div className="container"> */}
+              <div className="row m-0 p-0 border">
                 {/* <!-- occupation --> */}
                 <div className="col-3 col-md-3 border center-y">
                   <div>
@@ -1354,14 +1352,14 @@ const IndividualTmsKyc = ({ userData }) => {
                   )} */}
                 </div>
               </div>
-            </div>
+            {/* </div> */}
           </section>
 
           {/* pointInfo */}
           <section className="container pb-2">
             <div>
               <div className="d-flex gap-2">
-                <div style={{ width: "48.5%" }}>
+                <div style={{ width: "48.5%" }} mt={2}>
                   <p style={{ fontSize: "14px", fontWeight: "bold" }}>
                     धितोपत्र कारोवारको सम्बन्धमा तपशिल बमोजिमको स्वघोषणा गर्दछु
                     ।
@@ -1449,7 +1447,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </p>
               </div>
             </div>
-            <div className="row my-4 justify-content-between">
+            <div className="row my-4 justify-content-between m-0 p-0">
               <div
                 className="col-4 text-center text-capitalize border"
                 style={{ width: "10cm" }}
@@ -1528,7 +1526,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 कार्यालयको प्रयोजनको लागि (For Official Use)
               </h2>
 
-              <div className="border row pb-0">
+              <div className="border row m-0 p-0 pb-0">
                 <div className="col-4 col-md-4">
                   <h3>रुजु गर्ने</h3>
 
@@ -1599,7 +1597,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </figure> */}
             </div>
 
-            <div className="row  border text-capitalize">
+            <div className="row m-0 p-0 border text-capitalize">
               {/* <!-- name / surname  --> */}
               <div className="col-12 col-md-6 border ">
                 <div>नाम/ थर ( name / surname) :(in block letter)</div>
@@ -1767,7 +1765,7 @@ const IndividualTmsKyc = ({ userData }) => {
               shall be entitled to the balance of my demat account
             </p>
 
-            <div className="row border text-capitalize">
+            <div className="row m-0 p-0 border text-capitalize">
               {/* <!-- name / surname  --> */}
               <div className="col-12 col-md-6 border  center-y">
                 <div>
@@ -1938,6 +1936,7 @@ const IndividualTmsKyc = ({ userData }) => {
 
             <div className="text-center" style={{ width: "fit-content" }}>
               <div
+              className='row m-0 p-0'
                 style={{
                   height: "150px",
                   display: "flex",
@@ -1966,7 +1965,7 @@ const IndividualTmsKyc = ({ userData }) => {
           {/* KYCAGGREMENT */}
           <section className="container" style={{ fontSize: "14px" }}>
             {/* <!-- Header section --> */}
-            <header className="text-center">
+            <div className="text-center">
               <p>
                 <b>
                   (धितोपत्र कारोबार सञ्चालन विनियमावली २०७५ को विनियम १० संग
@@ -1977,7 +1976,7 @@ const IndividualTmsKyc = ({ userData }) => {
               <p>
                 <b>(कारोवार सदस्य र ग्राहक बिचको सम्झौतापत्र )</b>
               </p>
-            </header>
+            </div>
             <div className="my-2">
               <p className="mx-3 text-start aggrement-content">
                 कम्पनी रजिस्ट्रारको कार्यलयमा दर्ता भई नेपाल धितोपत्र बोर्डबाट
@@ -2223,6 +2222,7 @@ const IndividualTmsKyc = ({ userData }) => {
               </p>
             </div>
           </section>
+          
           <section className="container" style={{ fontSize: "14px" }}>
             <div className="row">
               <p>
