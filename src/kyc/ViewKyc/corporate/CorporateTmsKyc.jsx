@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useRef } from "react";
+import ReactToPrint from "react-to-print";
+import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 
 const CorporateTmsKyc = () => {
   const componentRef = useRef();
@@ -25,12 +27,10 @@ const CorporateTmsKyc = () => {
           userData={userData}
           extraInfo={extraInfo}
         /> */}
-          {/* <ReactToPrint
+          <ReactToPrint
           // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
           trigger={() => (
-            <ActionIcon>
-              <IconPrinter />
-            </ActionIcon>
+            <LocalPrintshopIcon />
           )}
           content={() => componentRef.current}
           documentTitle="download.pdf"
@@ -40,7 +40,7 @@ const CorporateTmsKyc = () => {
           contentStyle={{
             marginTop: "500px",
           }}
-        /> */}
+        />
         </div>
         <div className="kyc-page" id="pdf" ref={componentRef}>
           {/* Header */}
@@ -65,8 +65,7 @@ const CorporateTmsKyc = () => {
                   कार्यालय प्रयोजनका लागि मात्र (For official use only)
                 </div>
 
-                <div className="container">
-                  <div className="row mt-1">
+                  <div className="row m-0 p-0">
                     <div className="col-4 col-md-4 col-lg-4 border center-y ">
                       <div>
                         आवेदन नं. (App No.):
@@ -93,7 +92,6 @@ const CorporateTmsKyc = () => {
                       </div>
                     </div>
                   </div>
-                </div>
               </div>
               {/* {userData?.user?.nature === "TMS" && ( */}
               <div className="container">
@@ -205,13 +203,12 @@ const CorporateTmsKyc = () => {
             </div>
           </section>
           {/* ClientDetails */}
-          <section className="container pb-1">
+          <section className="container pb-1 ">
             <h2 className="text-center kyc-secondary-header">
-              कम्पनीको थप विवरण (Details of Company)
+            ग्राहकको विवरण (Client Details)
             </h2>
 
-            <div className="container">
-              <div className="row ">
+              <div className="row m-0 p-0">
                 {/* <!-- ! name row --> */}
                 <div className="col-6 border center-y ">
                   <div>
@@ -397,11 +394,10 @@ const CorporateTmsKyc = () => {
                   </div>
                 </div>
               </div>
-            </div>
           </section>
           {/* Details of Company */}
-          <section className="container pb-1">
-            <h2 className="text-center kyc-secondary-header">
+          <section className="container pb-1  mt-2">
+            <h2 className="text-center kyc-secondary-headercontainer_p10">
               कम्पनीको थप विवरण (Details of Company)
             </h2>
 
@@ -1285,7 +1281,7 @@ const CorporateTmsKyc = () => {
                 </div>
                 <div className="col-4 col-md-4">
                   <div className="center-y">
-                    <div className="office-stamp border p-4 center-xy">
+                    <div className="office-stamp border center-xy">
                       <p
                         className="text-center"
                         style={{ marginBottom: "9rem" }}

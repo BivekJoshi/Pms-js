@@ -1728,7 +1728,7 @@ const IndividualDPKyc = () => {
                         </div>
                         <div className="col-4 col-md-4">
                           <div className="center-y">
-                            <div className="office-stamp border p-4 center-xy">
+                            <div className="office-stamp border center-xy">
                               <p
                                 className="text-center"
                                 style={{ marginBottom: "9rem" }}
