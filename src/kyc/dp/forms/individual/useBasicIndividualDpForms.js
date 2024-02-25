@@ -1,11 +1,13 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { fullnameRegex } from "../static/RegExp";
+import {onlyTextRegex } from "../static/RegExp";
 
 const basicSchema = Yup.object().shape({
-  firstName: Yup.string().required("First Name is required"),
-  middleName: Yup.string().matches(fullnameRegex, "Please enter valid middle name"),
-  lastName: Yup.string().required("Last Name is required"),
+  firstName: Yup.string().required("First Name is required").matches(onlyTextRegex, "Please enter valid middle name"),
+  middleName: Yup.string().matches(onlyTextRegex, "Please enter valid middle name"),
+  lastName: Yup.string().required("Last Name is required").matches(onlyTextRegex, "Please enter valid middle name"),
+  dob: Yup.string().required("Date of Birth is required"),
+  gender: Yup.string().required("Gender is required"),
 });
 
 export const useBasicIndividualDpForms = () => {

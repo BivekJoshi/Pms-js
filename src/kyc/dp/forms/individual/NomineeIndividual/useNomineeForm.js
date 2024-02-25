@@ -6,39 +6,39 @@ const NomineeSchema = Yup.object().shape({
   name: Yup.string().when("haveNominee", {
     is: true,
     then: Yup.string()
-      .required("Please enter full name")
+      .required("Full Name is required")
       .matches(fullnameRegex, "Please enter valid name"),
     otherwise: Yup.string().nullable(),
   }),
   fatherName: Yup.string().when("haveNominee", {
     is: true,
     then: Yup.string()
-      .required("Please enter father's name")
+      .required("Father's Name is required")
       .matches(fullnameRegex, "Please enter valid father name"),
     otherwise: Yup.string().nullable(),
   }),
   grandfatherName: Yup.string().when("haveNominee", {
     is: true,
     then: Yup.string()
-      .required("Please enter grandfather's name")
+      .required("grandfather's Name is required")
       .matches(
         fullnameRegex,
-        "Grandfather name must not include any number or special character"
+        "Please enter valid grandfather's name"
       ),
     otherwise: Yup.string().nullable(),
   }),
   citizenShipNo: Yup.string().when("haveNominee", {
     is: true,
     then: Yup.string()
-      .required("Please enter citizenship number")
-      .matches(citizenExp, "Citizenship number must be a number"),
+      .required("Citizenship Number is required")
+      .matches(citizenExp, "Please enter valid citizenship number"),
     otherwise: Yup.string().nullable(),
   }),
   address: Yup.string().when('haveNominee', {
     is: true,
     then: Yup
       .string()
-      .required('Please enter correspondence address'),
+      .required('Correspondence Address is required'),
     otherwise: Yup.string().nullable(),
   }),
   age: Yup.string().when('haveNominee', {
@@ -53,7 +53,7 @@ const NomineeSchema = Yup.object().shape({
     is: true,
     then: Yup
       .string()
-      .required('Please select citizenship issued place'),
+      .required('Citizenship Issued District is required'),
     otherwise: Yup.string().nullable(),
   }),
 //   issuedDate: Yup.mixed().when('haveNominee', {
@@ -65,29 +65,29 @@ const NomineeSchema = Yup.object().shape({
     is: true,
     then: Yup
       .string()
-      .required('Please enter relation'),
+      .required('Relation is required'),
     otherwise: Yup.string().nullable(),
   }),
   country: Yup.string().when('haveNominee', {
     is: true,
     then: Yup
       .string()
-      .typeError('Please select country')
-      .required('Please select country'),
+      .typeError('Country is required')
+      .required('Country is required'),
     otherwise: Yup.string().nullable(),
   }),
   province: Yup.string().when('haveNominee', {
     is: true,
     then: Yup
       .string()
-      .required('Please select province'),
+      .required('Province is required'),
     otherwise: Yup.string().nullable(),
   }),
   district: Yup.string().when('haveNominee', {
     is: true,
     then: Yup
       .string()
-      .required('Please select district'),
+      .required('District is required'),
     otherwise: Yup.string().nullable(),
   }),
   municipality: Yup.string().when('haveNominee', {
@@ -95,7 +95,7 @@ const NomineeSchema = Yup.object().shape({
     then: Yup
       .string()
       .required(
-        'Please select rural municipality/municipality/sub metropolitan city/metropolitan city'
+        'Rural municipality/Municipality/Sub Metropolitan city/Metropolitan city is required'
       ),
     otherwise: Yup.string().nullable(),
   }),
@@ -104,7 +104,7 @@ const NomineeSchema = Yup.object().shape({
     then: Yup
       .string()
       .matches(phoneRegExp, 'Enter valid mobile number')
-      .required('Please enter mobile number'),
+      .required('Mobile Number is required'),
     otherwise: Yup.string().nullable(),
   }),
   email: Yup.string().when("haveNominee", {
@@ -113,7 +113,7 @@ const NomineeSchema = Yup.object().shape({
       .string()
       .email("Please enter a valid email")
       .matches(emailRegex, "Please enter valid email")
-      .required("Please enter email address"),
+      .required("Email Address is required"),
     otherwise: Yup.string().nullable(),
   }),
   panNo: Yup
