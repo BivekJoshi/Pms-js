@@ -34,6 +34,7 @@ const BasicIndividualDpForms = () => {
         sx={{
           marginBottom: "16px",
           padding: { md: "12px", sm: "5px" },
+          borderRadius: "0 6px 6px 0",
           borderLeft: `4px solid ${theme.palette.secondary.main}`,
         }}
       >
@@ -48,18 +49,28 @@ const BasicIndividualDpForms = () => {
         </Typography>
       </Box>
 
-      <Grid>
+      <Box
+        color={theme.palette.text.main}
+        bgcolor={theme.palette.background.alt}
+        sx={{
+          borderRadius: "0 6px 6px 0",
+          padding: "16px",
+          boxShadow:
+            "0 1px 3px rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
+        }}
+      >
         <RenderInput inputField={basicData} formik={formik} />
-      </Grid>
-      <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
-        <Button
-          onClick={formik.handleSubmit}
-          variant="contained"
-          color="secondary"
-        >
-          Next
-        </Button>
-      </Grid>
+
+        <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={formik.handleSubmit}
+            variant="contained"
+            color="secondary"
+          >
+            Next
+          </Button>
+        </Grid>
+      </Box>
     </div>
   );
 };
