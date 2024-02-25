@@ -1,113 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import SignUpPage from "../../assets/signUpPage.png";
 import { useNewRegisterForm } from "../../form/auth/register/useNewRegisterForm";
 import { LoadingButton } from "@mui/lab";
 import RenderInput from "../../components/renderInput/RenderInput";
 import { kycClientType } from "./../../utility/kycData";
 import { nanoid } from "nanoid";
+import { useNavigate } from "react-router-dom";
+import StepOne from "./registerSteps/StepOne";
+import StepTwo from "./registerSteps/StepTwo";
+import StepThree from "./registerSteps/StepThree";
+import StepFour from "./registerSteps/StepFour";
 
 const NewRegisterPage = () => {
   const { formik, loading } = useNewRegisterForm();
-  console.log("🚀 ~ NewRegisterPage ~ formik:", formik);
-  const inputFields = [
-    {
-      name: "name",
-      label: "Full Name",
-      md: 12,
-      sm: 12,
-      required: true,
-      type: "text",
-    },
-    {
-      name: "email",
-      label: "Email Address",
-      md: 12,
-      sm: 12,
-      required: true,
-      type: "text",
-    },
-    {
-      name: "phoneNo",
-      label: "Mobile Number",
-      md: 12,
-      sm: 12,
-      required: true,
-      type: "text",
-    },
-    {
-      name: "branchId",
-      label: "Branch",
-      md: 12,
-      sm: 12,
-      path: "http://103.94.159.144:8084/kyc/api/utility/branch",
-      type: "asyncDropDown",
-      required: true,
-      responseLabel: "branchName",
-      responseId: "id",
-    },
-    {
-      name: "clientType",
-      label: "Client type",
-      md: 12,
-      sm: 12,
-      type: "dropDown",
-      required: true,
-      options: kycClientType,
-    },
-    {
-      name: "nepseExist",
-      label: "Do you have Trading account?",
-      type: "switchWithFields",
-      md: 12,
-      sm: 12,
-
-      newFields: [
-        {
-          name: "nepseCode",
-          type: "text",
-          label: "NEPSE Code",
-          required: true,
-          id: nanoid(),
-          md: 12,
-          sm: 12,
-        },
-      ],
-    },
-    {
-      name: "dematExist",
-      label: "Do you have Demat account?",
-      type: "switchWithFields",
-      md: 12,
-      sm: 12,
-      disableOnChange: {
-        name: ["nepseExist"],
-        value: [true],
-      },
-      newFields: [
-        {
-          name: "dpId",
-          label: "Depository Participant",
-          md: 12,
-          sm: 12,
-          path: "http://103.94.159.144:8084/kyc/api/utility/dp-details",
-          type: "asyncDropDown",
-          required: true,
-          responseLabel: "dpName",
-          responseId: "id",
-        },
-        {
-          name: "dematNo",
-          type: "number",
-          label: "Demat No",
-          required: true,
-          id: nanoid(),
-          md: 12,
-          sm: 12,
-        },
-      ],
-    },
-  ];
+  const [currentStep, setCurrentStep] = useState(1);
+  console.log("🚀 ~ NewRegisterPage ~ currentStep:", currentStep);
 
   useEffect(() => {
     if (formik.values.nepseExist) {
@@ -116,6 +24,16 @@ const NewRegisterPage = () => {
       formik.setFieldValue("dematNo", "");
     }
   }, [formik.values.nepseExist]);
+  const navigate = useNavigate();
+  const navigateLogin = () => {
+    navigate("/login");
+  };
+
+  const handleNextStep = () => {
+    if (currentStep >= 4) return;
+
+    setCurrentStep((previousValue) => previousValue + 1);
+  };
 
   return (
     <Box
@@ -155,8 +73,20 @@ const NewRegisterPage = () => {
           flexDirection="column"
           gap={{ lg: "1.25rem", md: ".5rem", xs: "1.5rem" }}
         >
-          <RenderInput inputField={inputFields} formik={formik} />
-          <LoadingButton
+          {currentStep === 1 && <StepOne formik={formik} />}
+
+          {currentStep === 2 && <StepTwo />}
+          {currentStep === 3 && <StepThree formik={formik} />}
+          {currentStep === 4 && <StepFour formik={formik} />}
+          <Button
+            fullWidth
+            variant="contained"
+            onClick={handleNextStep}
+            color="secondary"
+          >
+            Next
+          </Button>
+          {/* <LoadingButton
             className="titleMedium  bg-purple-700"
             fullWidth
             onClick={() => formik.submitForm()}
@@ -169,7 +99,19 @@ const NewRegisterPage = () => {
             <div className="titleMedium" style={{ margin: ".25rem 0" }}>
               Sign Up
             </div>
-          </LoadingButton>
+          </LoadingButton> */}
+        </Grid>
+        <Grid style={{ textAlign: "center" }} marginTop=".5rem">
+          <div className="bodySmall ">
+            Already have an account?{" "}
+            <span
+              className="labelMedium"
+              style={{ color: "#3838d0", cursor: "pointer" }}
+              onClick={navigateLogin}
+            >
+              Sign In
+            </span>
+          </div>
         </Grid>
       </Grid>
     </Box>

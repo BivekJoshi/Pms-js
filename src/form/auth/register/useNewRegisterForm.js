@@ -18,6 +18,7 @@ export const useNewRegisterForm = () => {
       nepseExist: false,
       clientType: "",
       name: "",
+      accountType: "",
       email: "",
       phoneNo: "",
       branchId: "",

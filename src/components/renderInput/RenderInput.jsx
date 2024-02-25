@@ -8,6 +8,8 @@ import {
   RadioGroup,
   Switch,
   TextField,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
 import { Field, getIn } from "formik";
 import React, { useEffect, useMemo, useRef, useState } from "react";
@@ -21,7 +23,7 @@ import DualDatePicker from "./DualDatePicker";
 import DropZoneUploadFile from "../dropZone/DropZoneUploadFile";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useSelector } from "react-redux";
-import NepaliInputText from '../inputType/NepaliInputText';
+import NepaliInputText from "../inputType/NepaliInputText";
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -146,8 +148,42 @@ const RenderInput = ({
             sx={{ width: "100%" }}
           />
         );
-        case "nepaliTypeText":
-          return <NepaliInputText element={element} formik={formik} />;
+      case "toggleButton":
+        return (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+            }}
+          >
+            <div>{element.label}</div>
+            <ToggleButtonGroup
+              color="primary"
+              name={element.name}
+              value={formik.values[element.name]}
+              exclusive
+              onChange={(event, value) => {
+                formik.handleChange(element.name)(value); // Manually update Formik state
+              }}
+            >
+              {element.options.map((item, index) => {
+                return (
+                  <ToggleButton
+                    key={index}
+                    sx={{ borderRadius: "14px" }}
+                    value={item.value}
+                  >
+                    {item.label}
+                  </ToggleButton>
+                );
+              })}
+            </ToggleButtonGroup>
+          </div>
+        );
+
+      case "nepaliTypeText":
+        return <NepaliInputText element={element} formik={formik} />;
       case "dropDownWithValue":
         return (
           <Autocomplete
@@ -240,33 +276,33 @@ const RenderInput = ({
         );
       case "dropDown":
         return (
-            <Autocomplete
-              id={element.name}
-              name={element.name}
-              disabled={element?.isDisabled}
-              options={element?.options}
-              getOptionLabel={(option) => option?.label || ""}
-              value={element?.options.find(
-                (option) => option?.value === formVaues
-              )}
-              onChange={(event, newValue) => {
-                formik.setFieldValue(element.name, newValue?.value || ""); // Set value to newValue's value property or empty string if undefined
-              }}
-              fullWidth
-              renderInput={(params) => {
-                return (
-                  <TextField
-                    {...params}
-                    label={element.label}
-                    disabled={element?.isDisabled}
-                    error={formTouched && Boolean(formError)}
-                    required={element.required}
-                    helperText={formTouched && formError}
-                    variant="outlined"
-                  />
-                );
-              }}
-            />
+          <Autocomplete
+            id={element.name}
+            name={element.name}
+            disabled={element?.isDisabled}
+            options={element?.options}
+            getOptionLabel={(option) => option?.label || ""}
+            value={element?.options.find(
+              (option) => option?.value === formVaues
+            )}
+            onChange={(event, newValue) => {
+              formik.setFieldValue(element.name, newValue?.value || ""); // Set value to newValue's value property or empty string if undefined
+            }}
+            fullWidth
+            renderInput={(params) => {
+              return (
+                <TextField
+                  {...params}
+                  label={element.label}
+                  disabled={element?.isDisabled}
+                  error={formTouched && Boolean(formError)}
+                  required={element.required}
+                  helperText={formTouched && formError}
+                  variant="outlined"
+                />
+              );
+            }}
+          />
         );
       case "number":
         return (
