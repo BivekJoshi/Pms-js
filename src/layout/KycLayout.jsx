@@ -47,7 +47,6 @@ const KycLayout = () => {
   const activeStyle = {
     color: theme.palette.text.main,
     backgroundColor: theme.palette.primary.main,
-
     borderRadius: ".5rem ",
     textTransform: "none",
     fontWeight: 700,
@@ -87,7 +86,7 @@ const KycLayout = () => {
                 bgcolor={theme.palette.background.alt}
                 display="flex"
                 flexDirection="column"
-                borderRadius="8px"
+                borderRadius="6px 0px 0px 6px"
                 width="100%"
               >
                 <Grid display="flex" flexDirection="column">
