@@ -60,6 +60,9 @@ const KycProfileCard = ({ clientType, nature }) => {
       color={theme.palette.text.main}
       bgcolor={theme.palette.background.alt}
       padding="16px"
+      sx={{
+        borderRadius: "6px 0px 0px 6px",
+      }}
     >
       <div
         style={{
