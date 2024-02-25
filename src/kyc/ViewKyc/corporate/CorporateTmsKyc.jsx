@@ -28,19 +28,17 @@ const CorporateTmsKyc = () => {
           extraInfo={extraInfo}
         /> */}
           <ReactToPrint
-          // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
-          trigger={() => (
-            <LocalPrintshopIcon />
-          )}
-          content={() => componentRef.current}
-          documentTitle="download.pdf"
-          // pageStyle="print"
-          // pageStyle='@page { margin: minimum }'
-          copyStyles
-          contentStyle={{
-            marginTop: "500px",
-          }}
-        />
+            // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
+            trigger={() => <LocalPrintshopIcon />}
+            content={() => componentRef.current}
+            documentTitle="download.pdf"
+            // pageStyle="print"
+            // pageStyle='@page { margin: minimum }'
+            copyStyles
+            contentStyle={{
+              marginTop: "500px",
+            }}
+          />
         </div>
         <div className="kyc-page" id="pdf" ref={componentRef}>
           {/* Header */}
@@ -49,10 +47,10 @@ const CorporateTmsKyc = () => {
             <header className="text-center" style={{ position: "relative" }}>
               <h2 className="">अनुसूची १२</h2>
               <p className="">(विनिमय २० संग सम्बन्धित)</p>
-              <h2 className="text-decoration-underline ">
+              <h2 className="text-decoration-underline fs18">
                 कम्पनी वा संस्थाको परिचय विवरण
               </h2>
-              <h3 className=" text-decoration-underline ">
+              <h3 className=" text-decoration-underline fs18">
                 DETAILS OF COMPANY OF INSTITUTION
               </h3>
             </header>
@@ -65,35 +63,34 @@ const CorporateTmsKyc = () => {
                   कार्यालय प्रयोजनका लागि मात्र (For official use only)
                 </div>
 
-                  <div className="row m-0 p-0">
-                    <div className="col-4 col-md-4 col-lg-4 border center-y ">
-                      <div>
-                        आवेदन नं. (App No.):
-                        {/* {userData?.user?.submissionNo} */}
-                      </div>
+                <div className="row m-0 p-0">
+                  <div className="col-4 col-md-4 col-lg-4 border center-y ">
+                    <div>
+                      आवेदन नं. (App No.):
+                      {/* {userData?.user?.submissionNo} */}
                     </div>
+                  </div>
 
-                    <div className="col-4 col-md-4 col-lg-4 border ">
+                  <div className="col-4 col-md-4 col-lg-4 border ">
+                    <div>
+                      <div></div>
                       <div>
-                        <div></div>
-                        <div>
-                          संकेत नं. (Ref Number):
-                          {/* {userData?.user?.referenceNumber} */}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-4 col-md-4 col-lg-4 border ">
-                      <div>
-                        <div>
-                          मिति (Date):
-                          {/* {user?.submittedDate} */}
-                        </div>
+                        संकेत नं. (Ref Number):
+                        {/* {userData?.user?.referenceNumber} */}
                       </div>
                     </div>
                   </div>
+
+                  <div className="col-4 col-md-4 col-lg-4 border ">
+                    <div>
+                      <div>
+                        मिति (Date):
+                        {/* {user?.submittedDate} */}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              {/* {userData?.user?.nature === "TMS" && ( */}
               <div className="container">
                 <div className="row">
                   <div className="col-12  p-1 border border center-y">
@@ -102,13 +99,12 @@ const CorporateTmsKyc = () => {
                   </div>
                 </div>
               </div>
-              {/* )} */}
             </div>
             <div className="container">
               <div className="row">
                 <div className="col-12">
                   <p
-                    className="my-2 mt-4"
+                    className="my-2 mt-4 fs13"
                     style={{ fontSize: "15px", fontWeight: "600" }}
                   >
                     तल उल्लेखित सम्पूर्ण विवरण राम्रोसंग भर्नु पर्नेछ । आफूसंग
@@ -117,7 +113,7 @@ const CorporateTmsKyc = () => {
                   </p>
 
                   <p
-                    className="mb-4"
+                    className="mb-3 fs13"
                     style={{ fontSize: "18px", fontWeight: "600" }}
                   >
                     Please complete all details and strike out the
@@ -205,310 +201,305 @@ const CorporateTmsKyc = () => {
           {/* ClientDetails */}
           <section className="container pb-1 ">
             <h2 className="text-center kyc-secondary-header">
-            ग्राहकको विवरण (Client Details)
+              ग्राहकको विवरण (Client Details)
             </h2>
+            <div className="row m-0 p-0">
+              {/* <!-- ! name row --> */}
+              <div className="col-6 border center-y ">
+                <div>
+                  हितग्राही कम्पनीको नाम (Name of Beneficial Owner Company)
+                </div>
+              </div>
 
-              <div className="row m-0 p-0">
-                {/* <!-- ! name row --> */}
-                <div className="col-6 border center-y ">
-                  <div>
-                    हितग्राही कम्पनीको नाम (Name of Beneficial Owner Company)
-                  </div>
+              <div className="col-6 border center-y text-uppercase">
+                <div className="letter-box-container">
+                  {/* {corporateDetails?.companyName?.toUpperCase()}{" "} */}
                 </div>
+              </div>
+              <div className="col-6 border center-y ">
+                <div>
+                  पहिलो आधिकारीक प्रतिनिधिको नाम (Name of First Authorized
+                  Person)
+                </div>
+              </div>
 
-                <div className="col-6 border center-y text-uppercase">
-                  <div className="letter-box-container">
-                    {/* {corporateDetails?.companyName?.toUpperCase()}{" "} */}
-                  </div>
+              <div className="col-6  border center-y   ">
+                {/* <div>{userData?.corporateBodDetails?.fcpName}</div> */}
+              </div>
+              <div className="col-6 border center-y ">
+                <div>
+                  दोश्रो आधिकारीक प्रतिनिधिको नाम (Name of Second Authorized
+                  Person)
                 </div>
-                <div className="col-6 border center-y ">
-                  <div>
-                    पहिलो आधिकारीक प्रतिनिधिको नाम (Name of First Authorized
-                    Person)
-                  </div>
-                </div>
+              </div>
 
-                <div className="col-6  border center-y   ">
-                  {/* <div>{userData?.corporateBodDetails?.fcpName}</div> */}
-                </div>
-                <div className="col-6 border center-y ">
-                  <div>
-                    दोश्रो आधिकारीक प्रतिनिधिको नाम (Name of Second Authorized
-                    Person)
-                  </div>
-                </div>
+              <div className="col-6  border center-y   ">
+                {/* <div>{userData?.corporateBodDetails?.scpName}</div> */}
+              </div>
 
-                <div className="col-6  border center-y   ">
-                  {/* <div>{userData?.corporateBodDetails?.scpName}</div> */}
+              <div className="col-6 border center-y ">
+                <div>
+                  तेस्रो आधिकारीक प्रतिनिधिको नाम (Name of Third Authorized
+                  Person)
                 </div>
+              </div>
 
-                <div className="col-6 border center-y ">
-                  <div>
-                    तेस्रो आधिकारीक प्रतिनिधिको नाम (Name of Third Authorized
-                    Person)
-                  </div>
+              <div className="col-6  border center-y   ">
+                {/* <div>{userData?.corporateBodDetails?.trdName}</div> */}
+              </div>
+              <div className="col-6 border center-y ">
+                <div>
+                  प्रमुख आधिकारीक प्रतिनिधिको नाम(Chief Operating Officer&apos;s
+                  Name)
                 </div>
+              </div>
 
-                <div className="col-6  border center-y   ">
-                  {/* <div>{userData?.corporateBodDetails?.trdName}</div> */}
-                </div>
-                <div className="col-6 border center-y ">
-                  <div>
-                    प्रमुख आधिकारीक प्रतिनिधिको नाम(Chief Operating
-                    Officer&apos;s Name)
-                  </div>
-                </div>
+              <div className="col-6  border center-y   ">
+                {/* {corporateDetails?.companyCeoName?.toUpperCase()}*/}
+              </div>
+              <div className="col-6 border center-y ">
+                <div>कम्पनी सचिवको नाम (Company Secretary&apos;s Name)</div>
+              </div>
 
-                <div className="col-6  border center-y   ">
-                  {/* {corporateDetails?.companyCeoName?.toUpperCase()}*/}
-                </div>
-                <div className="col-6 border center-y ">
-                  <div>कम्पनी सचिवको नाम (Company Secretary&apos;s Name)</div>
-                </div>
+              <div className="col-6  border center-y   ">
+                {/* <div>{userData?.companySecretaryName?.fcpName}</div> */}
+              </div>
+              {/* <!-- ! date of birth --> */}
+              <div className="col-4 border  center-y">
+                कम्पनी स्थापना मिति (Date of Incorporation)
+              </div>
 
-                <div className="col-6  border center-y   ">
-                  {/* <div>{userData?.companySecretaryName?.fcpName}</div> */}
-                </div>
-                {/* <!-- ! date of birth --> */}
-                <div className="col-4 border  center-y">
-                  कम्पनी स्थापना मिति (Date of Incorporation)
-                </div>
-
-                <div className="col-8 border">
-                  <div className="row  ">
-                    <div className="col-6">
-                      <div className="">
-                        <label className="form-check-label" htmlFor="bs">
-                          बि. सं. (B.S.):
-                        </label>
-                        {/* {userData?.corporateDetails?.incorporationDate &&
+              <div className="col-8 border">
+                <div className="row  ">
+                  <div className="col-6">
+                    <div className="">
+                      <label className="form-check-label" htmlFor="bs">
+                        बि. सं. (B.S.):
+                      </label>
+                      {/* {userData?.corporateDetails?.incorporationDate &&
                           corporateDetails?.incorporationDate} */}
-                      </div>
                     </div>
+                  </div>
 
-                    <div className="col-6">
-                      <div className="">
-                        <label className="form-check-label" htmlFor="ad">
-                          इ. सं (A.D.):{" "}
-                        </label>
-                        {/*{dateConverter(
+                  <div className="col-6">
+                    <div className="">
+                      <label className="form-check-label" htmlFor="ad">
+                        इ. सं (A.D.):{" "}
+                      </label>
+                      {/*{dateConverter(
                           corporateDetails?.incorporationDate,
                           "BS_AD"
                         )} */}
-                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* <!-- ! gender --> */}
-                <div className="col-4 border center-y ">
-                  कम्पनीको किसिम (Types of Company)
+              {/* <!-- ! gender --> */}
+              <div className="col-4 border center-y ">
+                कम्पनीको किसिम (Types of Company)
+              </div>
+
+              <div className="col-8 border d-flex  gap-4">
+                {/* <!-- <form action="" className="d-flex justify-content-center align-items-center gap-4"> --> */}
+                <div className="form-check">
+                  <label className="form-check-label" htmlFor="male">
+                    प्राइभेट लि. <br /> (Pvt. Ltd.)
+                  </label>
+                  <input
+                    type="radio"
+                    className="form-check-input "
+                    //   checked={corporateDetails?.companyType === "PVT"}
+                    readOnly
+                  />
                 </div>
 
-                <div className="col-8 border d-flex  gap-4">
-                  {/* <!-- <form action="" className="d-flex justify-content-center align-items-center gap-4"> --> */}
-                  <div className="form-check">
-                    <label className="form-check-label" htmlFor="male">
-                      प्राइभेट लि. <br /> (Pvt. Ltd.)
-                    </label>
-                    <input
-                      type="radio"
-                      className="form-check-input "
-                      //   checked={corporateDetails?.companyType === "PVT"}
-                      readOnly
-                    />
-                  </div>
-
-                  <div className="form-check">
-                    <label className="form-check-label" htmlFor="female">
-                      पब्लिक लि. <br /> (Public Ltd.)
-                    </label>
-                    <input
-                      type="radio"
-                      className="form-check-input"
-                      //                             checked={corporateDetails?.companyType === "PUB"}
-                      readOnly
-                    />
-                  </div>
-                  <div className="form-check">
-                    <label className="form-check-label" htmlFor="female">
-                      सरकारी स्वामित्व भएको <br /> (Govt. Owned)
-                    </label>
-                    <input
-                      type="radio"
-                      className="form-check-input"
-                      //  checked={corporateDetails?.companyType === "GOV"}
-                      readOnly
-                    />
-                  </div>
-                  <div className="form-check">
-                    <label
-                      className="form-check-label"
-                      htmlFor="others"
-                      style={{ paddingLeft: "8px" }} //Check default padding missing in classname
-                    >
-                      अन्य (Others)
-                    </label>
-                    <input
-                      type="radio"
-                      className="form-check-input"
-                      readOnly
-                      //  checked={corporateDetails?.companyType === "OTHER"}
-                    />
-                  </div>
-                  {/* <!-- </form> --> */}
+                <div className="form-check">
+                  <label className="form-check-label" htmlFor="female">
+                    पब्लिक लि. <br /> (Public Ltd.)
+                  </label>
+                  <input
+                    type="radio"
+                    className="form-check-input"
+                    //                             checked={corporateDetails?.companyType === "PUB"}
+                    readOnly
+                  />
                 </div>
-                <div className="col-4 border  center-y">
-                  कम्पनी दर्ता भएको देश (Country of Registration)
+                <div className="form-check">
+                  <label className="form-check-label" htmlFor="female">
+                    सरकारी स्वामित्व भएको <br /> (Govt. Owned)
+                  </label>
+                  <input
+                    type="radio"
+                    className="form-check-input"
+                    //  checked={corporateDetails?.companyType === "GOV"}
+                    readOnly
+                  />
+                </div>
+                <div className="form-check">
+                  <label
+                    className="form-check-label"
+                    htmlFor="others"
+                    style={{ paddingLeft: "8px" }} //Check default padding missing in classname
+                  >
+                    अन्य (Others)
+                  </label>
+                  <input
+                    type="radio"
+                    className="form-check-input"
+                    readOnly
+                    //  checked={corporateDetails?.companyType === "OTHER"}
+                  />
+                </div>
+                {/* <!-- </form> --> */}
+              </div>
+              <div className="col-4 border  center-y">
+                कम्पनी दर्ता भएको देश (Country of Registration)
+              </div>
+
+              <div className="col-8 border d-flex  gap-4">
+                <div className="form-check">
+                  <label className="form-check-label" htmlFor="male">
+                    नेपाल <br /> (Nepal)
+                  </label>
+                  <input
+                    type="radio"
+                    className="form-check-input "
+                    // checked={corporateDetails?.countryReg === "Nepal"}
+                    readOnly
+                  />
                 </div>
 
-                <div className="col-8 border d-flex  gap-4">
-                  <div className="form-check">
-                    <label className="form-check-label" htmlFor="male">
-                      नेपाल <br /> (Nepal)
-                    </label>
-                    <input
-                      type="radio"
-                      className="form-check-input "
-                      // checked={corporateDetails?.countryReg === "Nepal"}
-                      readOnly
-                    />
-                  </div>
-
-                  <div className="form-check">
-                    <label className="form-check-label" htmlFor="female">
-                      अन्य (नेपाल बाहेक अन्य देश भएमा उल्लेख गर्ने) <br />{" "}
-                      (thers(Please mention if other than Nepal))
-                      {/* <span className="input-semi-dotted">
+                <div className="form-check">
+                  <label className="form-check-label" htmlFor="female">
+                    अन्य (नेपाल बाहेक अन्य देश भएमा उल्लेख गर्ने) <br />{" "}
+                    (thers(Please mention if other than Nepal))
+                    {/* <span className="input-semi-dotted">
                           {corporateDetails?.countryReg !== "Nepal"
                             ? corporateDetails?.countryReg
                             : ""}
                         </span> */}
-                    </label>
-                    <input
-                      type="radio"
-                      className="form-check-input"
-                      //  {corporateDetails?.countryReg !== "Nepal"}
-                      readOnly
-                    />
-                  </div>
+                  </label>
+                  <input
+                    type="radio"
+                    className="form-check-input"
+                    //  {corporateDetails?.countryReg !== "Nepal"}
+                    readOnly
+                  />
                 </div>
               </div>
+            </div>
           </section>
           {/* Details of Company */}
-          <section className="container pb-1  mt-2">
-            <h2 className="text-center kyc-secondary-headercontainer_p10">
+          <section className="container pb-1 container_p10">
+            <h2 className="text-center kyc-secondary-header">
               कम्पनीको थप विवरण (Details of Company)
             </h2>
+            <div className="row m-0 p-0">
+              {/* <!-- ! name row --> */}
+              <div className="col-6 border center-y ">
+                <div>दर्ता गर्ने कार्यालय (Registration Office) </div>
+              </div>
+              <div className="col-6 border center-y text-uppercase">
+                <div className="letter-box-container">
+                  {/*{corporateDetails?.registrationOffice?.toUpperCase()}*/}
+                </div>
+              </div>
 
-            <div className="container">
-              <div className="row ">
-                {/* <!-- ! name row --> */}
-                <div className="col-6 border center-y ">
-                  <div>दर्ता गर्ने कार्यालय (Registration Office) </div>
-                </div>
-                <div className="col-6 border center-y text-uppercase">
-                  <div className="letter-box-container">
-                    {/*{corporateDetails?.registrationOffice?.toUpperCase()}*/}
-                  </div>
-                </div>
+              <div className="col-6 border center-y ">
+                <div>दर्ता नं. ( Registration No.)</div>
+              </div>
+              <div className="col-6  border center-y   ">
+                {/* {corporateDetails?.registrationNo}*/}
+              </div>
 
-                <div className="col-6 border center-y ">
-                  <div>दर्ता नं. ( Registration No.)</div>
-                </div>
-                <div className="col-6  border center-y   ">
-                  {/* {corporateDetails?.registrationNo}*/}
-                </div>
+              <div className="col-6 border center-y ">
+                <div>दर्ता मिति. (Registration Date.)</div>
+              </div>
+              <div className="col-6  border center-y   ">
+                {/*  {corporateDetails?.registrationDate}*/}
+              </div>
 
-                <div className="col-6 border center-y ">
-                  <div>दर्ता मिति. (Registration Date.)</div>
-                </div>
-                <div className="col-6  border center-y   ">
-                  {/*  {corporateDetails?.registrationDate}*/}
-                </div>
+              <div className="col-6 border center-y ">
+                <div>स्थायी लेखा नं. (PAN No.)</div>
+              </div>
+              <div className="col-6  border center-y   ">
+                {/* {corporateDetails?.panNo}*/}
+              </div>
 
-                <div className="col-6 border center-y ">
-                  <div>स्थायी लेखा नं. (PAN No.)</div>
-                </div>
-                <div className="col-6  border center-y   ">
-                  {/* {corporateDetails?.panNo}*/}
-                </div>
+              <div className="col-6 border center-y ">
+                मूल्य अभिबृद्धि कर दर्ता नं. (VAT Registration No)
+              </div>
+              <div className="col-6  border center-y   ">
+                {/* <div>{userData?.companySecretaryName?.fcpName}</div>   {corporateDetails?.vatRegistration && corporateDetails?.vatRegistration}*/}
+              </div>
 
-                <div className="col-6 border center-y ">
-                  मूल्य अभिबृद्धि कर दर्ता नं. (VAT Registration No)
+              <div className="col-6 border center-y ">
+                <div>
+                  सहायक कम्पनी भएमा मुख्य कम्पनीको नाम र ठेगाना ( Name and
+                  Address of Main Company in case of Subsidiary Company Office)
                 </div>
-                <div className="col-6  border center-y   ">
-                  {/* <div>{userData?.companySecretaryName?.fcpName}</div>   {corporateDetails?.vatRegistration && corporateDetails?.vatRegistration}*/}
-                </div>
-
-                <div className="col-6 border center-y ">
-                  <div>
-                    सहायक कम्पनी भएमा मुख्य कम्पनीको नाम र ठेगाना ( Name and
-                    Address of Main Company in case of Subsidiary Company
-                    Office)
-                  </div>
-                </div>
-                <div className="col-6 border center-y text-uppercase">
-                  <div className="letter-box-container">
-                    {/* {corporateDetails?.isSubsidiary === true
+              </div>
+              <div className="col-6 border center-y text-uppercase">
+                <div className="letter-box-container">
+                  {/* {corporateDetails?.isSubsidiary === true
                           ? corporateDetails?.mainCompanyName
                           : ""}, {corporateDetails?.isSubsidiary === true
                           ? userData?.corporateDetails?.address
                           : ""}*/}
-                  </div>
                 </div>
+              </div>
 
-                <div className="col-6 border center-y ">
-                  <div>
-                    कम्पनीको व्‍यवसायको किसिम (Types of business of the company)
-                  </div>
+              <div className="col-6 border center-y ">
+                <div>
+                  कम्पनीको व्‍यवसायको किसिम (Types of business of the company)
                 </div>
-                <div className="col-6  border center-y   ">
-                  {/* {corporateDetails?.businessType &&
+              </div>
+              <div className="col-6  border center-y   ">
+                {/* {corporateDetails?.businessType &&
                         corporateDetails?.businessType === "MANU"
                           ? "Manufacturing"
                           : corporateDetails?.businessType === "SEV"
                           ? "Service Oriented"
                           : ""}{" "}*/}
-                </div>
+              </div>
 
-                <div className="col-6 border center-y ">
-                  <div>कार्य क्षेत्र (Area of Work)</div>
-                </div>
-                <div className="col-6  border center-y   ">
-                  {/*{corporateDetails?.workArea}*/}
-                </div>
+              <div className="col-6 border center-y ">
+                <div>कार्य क्षेत्र (Area of Work)</div>
+              </div>
+              <div className="col-6  border center-y   ">
+                {/*{corporateDetails?.workArea}*/}
+              </div>
 
-                <div className="col-6 border center-y ">
-                  <div>धितोपत्र बजारमा सूचीकरण भए / नभएको (Listed Yes/No)</div>
-                </div>
-                <div className="col-6  border center-y   ">
-                  {/*  {corporateDetails?.isListed ? "Yes" : "No"}*/}
-                </div>
+              <div className="col-6 border center-y ">
+                <div>धितोपत्र बजारमा सूचीकरण भए / नभएको (Listed Yes/No)</div>
+              </div>
+              <div className="col-6  border center-y   ">
+                {/*  {corporateDetails?.isListed ? "Yes" : "No"}*/}
+              </div>
 
-                <div className="col-6 border center-y ">
-                  <div>सूचीकरण मिति (SEBON Registration Date)</div>
-                </div>
-                <div className="col-6  border center-y   ">
-                  {/*  {corporateDetails?.listingDate}*/}
-                </div>
+              <div className="col-6 border center-y ">
+                <div>सूचीकरण मिति (SEBON Registration Date)</div>
+              </div>
+              <div className="col-6  border center-y   ">
+                {/*  {corporateDetails?.listingDate}*/}
+              </div>
 
-                <div className="col-6 border center-y ">
-                  नेपाल राष्ट्र बैंकमा दर्ता भएको भए दर्ता नं. (NRB Registration
-                  No.)
-                </div>
-                <div className="col-6  border center-y   ">
-                  {/*{corporateDetails?.nrbRegistration &&
+              <div className="col-6 border center-y ">
+                नेपाल राष्ट्र बैंकमा दर्ता भएको भए दर्ता नं. (NRB Registration
+                No.)
+              </div>
+              <div className="col-6  border center-y   ">
+                {/*{corporateDetails?.nrbRegistration &&
                           corporateDetails?.nrbRegistration}{" "}*/}
-                </div>
+              </div>
 
-                <div className="col-6 border center-y ">
-                  नेपाल राष्ट्र बैंकको स्वीकृत मिति. (NRB Approval Date.)
-                </div>
-                <div className="col-6  border center-y   ">
-                  {/*{corporateDetails?.nrbApproval &&
+              <div className="col-6 border center-y ">
+                नेपाल राष्ट्र बैंकको स्वीकृत मिति. (NRB Approval Date.)
+              </div>
+              <div className="col-6  border center-y   ">
+                {/*{corporateDetails?.nrbApproval &&
                           corporateDetails?.nrbApproval}*/}
-                </div>
               </div>
             </div>
           </section>
@@ -518,115 +509,113 @@ const CorporateTmsKyc = () => {
               कम्पनीको हालको ठेगाना (Current Address of Company){" "}
             </h2>
 
-            <div className="container">
-              <div className="row">
-                {/* <!-- Country --> */}
-                <div className="col-6 col-md-3 border center-y ">
-                  देश (Country)
-                </div>
+            <div className="row m-0 p-0">
+              {/* <!-- Country --> */}
+              <div className="col-6 col-md-3 border center-y ">
+                देश (Country)
+              </div>
 
-                <div className="col-6 col-md-3 border center-y">
-                  {/* {currentAddressDetails?.[0]?.country} */}
-                </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/* {currentAddressDetails?.[0]?.country} */}
+              </div>
 
-                {/* <!-- Province --> */}
-                <div className="col-6 col-md-3 border center-y ">
-                  प्रदेश (Province)
-                </div>
-                <div className="col-6 col-md-3 border center-y">
-                  {/* {userData.addressDetails?.[0]
+              {/* <!-- Province --> */}
+              <div className="col-6 col-md-3 border center-y ">
+                प्रदेश (Province)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/* {userData.addressDetails?.[0]
                             ?.perAndCurAddressSame === false
                             ? currentAddressDetails?.[0]?.province
                             : userData.addressDetails?.[0]?.province} */}
-                </div>
+              </div>
 
-                {/* <!-- Pality --> */}
-                <div className="col-6 border center-y">
-                  गा.पा. / न.पा. / उ.म.न.पा / म.न.पा. (Rural Municipality /
-                  Municipality / Sub Metropolitan city / Metropolitan city )
-                </div>
-                <div className=" col-6 border-start-0 center-y">
-                  {/* {userData.addressDetails?.[0]
+              {/* <!-- Pality --> */}
+              <div className="col-6 border center-y">
+                गा.पा. / न.पा. / उ.म.न.पा / म.न.पा. (Rural Municipality /
+                Municipality / Sub Metropolitan city / Metropolitan city )
+              </div>
+              <div className=" col-6 border-start-0 center-y">
+                {/* {userData.addressDetails?.[0]
                             ?.perAndCurAddressSame === false
                             ? currentAddressDetails?.[0]?.municipality
                             : userData.addressDetails?.[0]?.municipality}*/}
-                </div>
+              </div>
 
-                {/* <!-- ! District --> */}
-                <div className="col-6 col-md-2 border center-y">
-                  जिल्ला (District)
-                </div>
-                <div className="col-6 col-md-3 border center-y text-capitalize">
-                  {/*   {userData.addressDetails?.[0]
+              {/* <!-- ! District --> */}
+              <div className="col-6 col-md-2 border center-y">
+                जिल्ला (District)
+              </div>
+              <div className="col-6 col-md-3 border center-y text-capitalize">
+                {/*   {userData.addressDetails?.[0]
                             ?.perAndCurAddressSame === false
                             ? currentAddressDetails?.[0]?.district
                             : userData.addressDetails?.[0]?.district} */}
-                </div>
+              </div>
 
-                {/* <!-- ! Ward Nol --> */}
-                <div className="col-6 col-md-2 border center-y ">
-                  वडा नं. (Ward No.)
-                </div>
-                <div className="col-6 col-md-1 border center-y">
-                  {/* {userData.addressDetails?.[0]
+              {/* <!-- ! Ward Nol --> */}
+              <div className="col-6 col-md-2 border center-y ">
+                वडा नं. (Ward No.)
+              </div>
+              <div className="col-6 col-md-1 border center-y">
+                {/* {userData.addressDetails?.[0]
                             ?.perAndCurAddressSame === false
                             ? currentAddressDetails?.[0]?.wordNo
                             : userData.addressDetails?.[0]?.wordNo}*/}
-                </div>
+              </div>
 
-                {/* <!-- Tole --> */}
-                <div className="col-6 col-md-2 border center-y">टोल (Tole)</div>
-                <div className="col-6 col-md-2 border text-capitalize center-y">
-                  {/* {userData.addressDetails?.[0]
+              {/* <!-- Tole --> */}
+              <div className="col-6 col-md-2 border center-y">टोल (Tole)</div>
+              <div className="col-6 col-md-2 border text-capitalize center-y">
+                {/* {userData.addressDetails?.[0]
                             ?.perAndCurAddressSame === false
                             ? currentAddressDetails?.[0]?.tole
                             : userData.addressDetails?.[0]?.tole}*/}
-                </div>
+              </div>
 
-                {/* <!-- Telephone --> */}
+              {/* <!-- Telephone --> */}
 
-                <div className="col-6 col-md-3 border center-y ">
-                  टेलिफोन नं. (Telephone No.)
-                </div>
-                <div className="col-6 col-md-3 border center-y">
-                  {/* {userData.addressDetails?.[0]
+              <div className="col-6 col-md-3 border center-y ">
+                टेलिफोन नं. (Telephone No.)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/* {userData.addressDetails?.[0]
                             ?.perAndCurAddressSame === false
                             ? currentAddressDetails?.[0]?.telephoneNo
                             : userData.addressDetails?.[0]?.telephoneNo}*/}
-                </div>
-                {/* <!-- Telephone --> */}
+              </div>
+              {/* <!-- Telephone --> */}
 
-                <div className="col-6 col-md-3 border center-y ">
-                  मोबाईल नं. (Mobile No.)
-                </div>
-                <div className="col-6 col-md-3 border center-y">
-                  {/* {userData.addressDetails?.[0]
+              <div className="col-6 col-md-3 border center-y ">
+                मोबाईल नं. (Mobile No.)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/* {userData.addressDetails?.[0]
                             ?.perAndCurAddressSame === false
                             ? currentAddressDetails?.[0]?.mobileNo
                             : userData.addressDetails?.[0]?.mobileNo}*/}
-                </div>
+              </div>
 
-                {/* <!-- email --> */}
-                <div className="col-6 col-md-3 border  center-y">
-                  इमेल (Email)
-                </div>
-                <div className="col-6 col-md-3 border center-y">
-                  {/* {userData.addressDetails?.[0]
+              {/* <!-- email --> */}
+              <div className="col-6 col-md-3 border  center-y">
+                इमेल (Email)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/* {userData.addressDetails?.[0]
                             ?.perAndCurAddressSame === false
                             ? currentAddressDetails?.[0]?.email
                             : userData.addressDetails?.[0]?.email}*/}
-                </div>
+              </div>
 
-                {/* <!-- Website --> */}
-                <div className="col-6 col-md-3 border center-y ">
-                  वेबसाइट (Website)
-                </div>
-                <div className="col-6 col-md-3 border center-y">
-                  {/*{userData.addressDetails?.[0]
+              {/* <!-- Website --> */}
+              <div className="col-6 col-md-3 border center-y ">
+                वेबसाइट (Website)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/*{userData.addressDetails?.[0]
                             ?.perAndCurAddressSame === false
                             ? currentAddressDetails?.[0]?.website
                             : userData.addressDetails?.[0]?.website} */}
-                </div>
               </div>
             </div>
           </section>
@@ -673,118 +662,116 @@ const CorporateTmsKyc = () => {
           {/* Permanent Address */}
           <section className="container pb-1">
             <h2 className="text-center kyc-secondary-header">
-              कम्पनीको हालको ठेगाना (Current Address of Company){" "}
+              कम्पनी दर्ता हुँदाको ठेगाना ( Permanent Address of Company)
             </h2>
 
-            <div className="container">
-              <div className="row">
-                {/* <!-- Country --> */}
-                <div className="col-6 col-md-3 border center-y ">
-                  देश (Country)
-                </div>
+            <div className="row m-0 p-0">
+              {/* <!-- Country --> */}
+              <div className="col-6 col-md-3 border center-y ">
+                देश (Country)
+              </div>
 
-                <div className="col-6 col-md-3 border center-y">
-                  {/* {currentAddressDetails?.[0]?.country} */}
-                </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/* {currentAddressDetails?.[0]?.country} */}
+              </div>
 
-                {/* <!-- Province --> */}
-                <div className="col-6 col-md-3 border center-y ">
-                  प्रदेश (Province)
-                </div>
-                <div className="col-6 col-md-3 border center-y">
-                  {/* {userData.addressDetails?.[0]?.perAndCurAddressSame ===
+              {/* <!-- Province --> */}
+              <div className="col-6 col-md-3 border center-y ">
+                प्रदेश (Province)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/* {userData.addressDetails?.[0]?.perAndCurAddressSame ===
                         false
                           ? permanentAddressDetails?.[0].province
                           : userData.addressDetails?.[0]?.province} */}
-                </div>
+              </div>
 
-                {/* <!-- Pality --> */}
-                <div className="col-6 border center-y">
-                  गा.पा. / न.पा. / उ.म.न.पा / म.न.पा. (Rural Municipality /
-                  Municipality / Sub Metropolitan city / Metropolitan city )
-                </div>
-                <div className=" col-6 border-start-0 center-y">
-                  {/* {userData.addressDetails?.[0]?.perAndCurAddressSame ===
+              {/* <!-- Pality --> */}
+              <div className="col-6 border center-y">
+                गा.पा. / न.पा. / उ.म.न.पा / म.न.पा. (Rural Municipality /
+                Municipality / Sub Metropolitan city / Metropolitan city )
+              </div>
+              <div className=" col-6 border-start-0 center-y">
+                {/* {userData.addressDetails?.[0]?.perAndCurAddressSame ===
                         false
                           ? permanentAddressDetails?.[0].municipality
                           : userData.addressDetails?.[0]?.municipality}*/}
-                </div>
+              </div>
 
-                {/* <!-- ! District --> */}
-                <div className="col-6 col-md-2 border center-y">
-                  जिल्ला (District)
-                </div>
-                <div className="col-6 col-md-3 border center-y text-capitalize">
-                  {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
+              {/* <!-- ! District --> */}
+              <div className="col-6 col-md-2 border center-y">
+                जिल्ला (District)
+              </div>
+              <div className="col-6 col-md-3 border center-y text-capitalize">
+                {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
                         false
                           ? permanentAddressDetails?.[0].district
                           : userData.addressDetails?.[0]?.district} */}
-                </div>
+              </div>
 
-                {/* <!-- ! Ward Nol --> */}
-                <div className="col-6 col-md-2 border center-y ">
-                  वडा नं. (Ward No.)
-                </div>
-                <div className="col-6 col-md-1 border center-y">
-                  {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
+              {/* <!-- ! Ward Nol --> */}
+              <div className="col-6 col-md-2 border center-y ">
+                वडा नं. (Ward No.)
+              </div>
+              <div className="col-6 col-md-1 border center-y">
+                {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
                         false
                           ? permanentAddressDetails?.[0]?.wordNo
                           : userData.addressDetails?.[0]?.wordNo}*/}
-                </div>
+              </div>
 
-                {/* <!-- Tole --> */}
-                <div className="col-6 col-md-2 border center-y">टोल (Tole)</div>
-                <div className="col-6 col-md-2 border text-capitalize center-y">
-                  {/* {userData.addressDetails?.[0]?.perAndCurAddressSame ===
+              {/* <!-- Tole --> */}
+              <div className="col-6 col-md-2 border center-y">टोल (Tole)</div>
+              <div className="col-6 col-md-2 border text-capitalize center-y">
+                {/* {userData.addressDetails?.[0]?.perAndCurAddressSame ===
                         false
                           ? permanentAddressDetails?.[0].tole
                           : userData.addressDetails?.[0]?.tole}*/}
-                </div>
+              </div>
 
-                {/* <!-- Telephone --> */}
+              {/* <!-- Telephone --> */}
 
-                <div className="col-6 col-md-3 border center-y ">
-                  टेलिफोन नं. (Telephone No.)
-                </div>
-                <div className="col-6 col-md-3 border center-y">
-                  {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
+              <div className="col-6 col-md-3 border center-y ">
+                टेलिफोन नं. (Telephone No.)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
                         false
                           ? permanentAddressDetails?.[0].telephoneNo
                           : userData.addressDetails?.[0]?.telephoneNo}*/}
-                </div>
-                {/* <!-- Mobile --> */}
+              </div>
+              {/* <!-- Mobile --> */}
 
-                <div className="col-6 col-md-3 border center-y ">
-                  मोबाईल नं. (Mobile No.)
-                </div>
-                <div className="col-6 col-md-3 border center-y">
-                  {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
+              <div className="col-6 col-md-3 border center-y ">
+                मोबाईल नं. (Mobile No.)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
                         false
                           ? permanentAddressDetails?.[0].mobileNo
                           : userData.addressDetails?.[0]?.mobileNo}*/}
-                </div>
+              </div>
 
-                {/* <!-- email --> */}
-                <div className="col-6 col-md-3 border  center-y">
-                  इमेल (Email)
-                </div>
-                <div className="col-6 col-md-3 border center-y">
-                  {/* {userData.addressDetails?.[0]?.perAndCurAddressSame ===
+              {/* <!-- email --> */}
+              <div className="col-6 col-md-3 border  center-y">
+                इमेल (Email)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/* {userData.addressDetails?.[0]?.perAndCurAddressSame ===
                         false
                           ? permanentAddressDetails?.[0]?.email
                           : userData.addressDetails?.[0]?.email}*/}
-                </div>
+              </div>
 
-                {/* <!-- Website --> */}
-                <div className="col-6 col-md-3 border center-y ">
-                  वेबसाइट (Website)
-                </div>
-                <div className="col-6 col-md-3 border center-y">
-                  {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
+              {/* <!-- Website --> */}
+              <div className="col-6 col-md-3 border center-y ">
+                वेबसाइट (Website)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
                         false
                           ? permanentAddressDetails?.[0]?.website
                           : userData.addressDetails?.[0]?.website} */}
-                </div>
               </div>
             </div>
           </section>
@@ -883,89 +870,75 @@ const CorporateTmsKyc = () => {
               बैंक खाताको विवरण(bank account details)
             </div>
 
-            <div className="container">
-              <div className="row">
-                {/* <!-- types of bank account --> */}
-                <div className="col-6 col-md-5 border">
-                  बैंक खाताको किसिम (Types of Bank Account)
+            <div className="row m-0 p-0">
+              {/* <!-- types of bank account --> */}
+              <div className="col-6 col-md-5 border">
+                बैंक खाताको किसिम (Types of Bank Account)
+              </div>
+
+              <div className="col-6 col-md-7 border d-flex justify-content gap-4">
+                <div className="form-check">
+                  <label className="form-check-label" htmlFor="saving_account">
+                    बचत खाता
+                  </label>
+                  <label className="form-check-label" htmlFor="saving_account">
+                    &nbsp; (Saving Account)
+                  </label>
+                  <input
+                    type="radio"
+                    className="form-check-input"
+                    id="saving_account"
+                    name="account_type"
+                    //   checked={userData.bankDetails?.accountType === "S"}
+                  />
                 </div>
 
-                <div className="col-6 col-md-7 border d-flex justify-content gap-4">
-                  <div className="form-check">
-                    <label
-                      className="form-check-label"
-                      htmlFor="saving_account"
-                    >
-                      बचत खाता
-                    </label>
-                    <label
-                      className="form-check-label"
-                      htmlFor="saving_account"
-                    >
-                      &nbsp; (Saving Account)
-                    </label>
-                    <input
-                      type="radio"
-                      className="form-check-input"
-                      id="saving_account"
-                      name="account_type"
-                      //   checked={userData.bankDetails?.accountType === "S"}
-                    />
-                  </div>
-
-                  <div className="form-check">
-                    <label
-                      className="form-check-label"
-                      htmlFor="current_account"
-                    >
-                      चल्ती खाता
-                    </label>
-                    <label
-                      className="form-check-label"
-                      htmlFor="current_account"
-                    >
-                      &nbsp;(Current Account)
-                    </label>
-                    <input
-                      type="radio"
-                      className="form-check-input"
-                      id="current_account"
-                      name="account_type"
-                      //   checked={userData.bankDetails?.accountType === "C"}
-                    />
-                  </div>
+                <div className="form-check">
+                  <label className="form-check-label" htmlFor="current_account">
+                    चल्ती खाता
+                  </label>
+                  <label className="form-check-label" htmlFor="current_account">
+                    &nbsp;(Current Account)
+                  </label>
+                  <input
+                    type="radio"
+                    className="form-check-input"
+                    id="current_account"
+                    name="account_type"
+                    //   checked={userData.bankDetails?.accountType === "C"}
+                  />
                 </div>
+              </div>
 
-                {/* <!-- ! bank account number --> */}
-                <div className="col-6 col-md-5 border center-y ">
-                  <div className="text-capitalize">
-                    बैंक खाता नं. (bank account number)
-                  </div>
+              {/* <!-- ! bank account number --> */}
+              <div className="col-6 col-md-5 border center-y ">
+                <div className="text-capitalize">
+                  बैंक खाता नं. (bank account number)
                 </div>
+              </div>
 
-                <div className="col-6 col-md-7 border center-y">
-                  {/*   {userData.bankDetails?.accountNumber} */}
-                </div>
+              <div className="col-6 col-md-7 border center-y">
+                {/*   {userData.bankDetails?.accountNumber} */}
+              </div>
 
-                {/* <!-- ! name and address of bank --> */}
-                <div className="col-6 col-md-5 border  center-y">
-                  <div>बैंक खाताभएको बैंकको नाम (Name of Bank)</div>
-                </div>
+              {/* <!-- ! name and address of bank --> */}
+              <div className="col-6 col-md-5 border  center-y">
+                <div>बैंक खाताभएको बैंकको नाम (Name of Bank)</div>
+              </div>
 
-                <div className="col-6 col-md-7 border center-y text-capitalize">
-                  {/* {bankList &&
+              <div className="col-6 col-md-7 border center-y text-capitalize">
+                {/* {bankList &&
                   bankList?.data?.find(
                     (d) => d.value === userData.bankDetails?.bankName
                   )?.label}
                 {", "} */}
-                </div>
-                <div className="col-6 col-md-5 border  center-y">
-                  <div>बैंक खाताभएको बैंकको ठेगाना (Address of Bank)</div>
-                </div>
+              </div>
+              <div className="col-6 col-md-5 border  center-y">
+                <div>बैंक खाताभएको बैंकको ठेगाना (Address of Bank)</div>
+              </div>
 
-                <div className="col-6 col-md-7 border center-y text-capitalize">
-                  {/* {userData.bankDetails?.branchAddress} */}
-                </div>
+              <div className="col-6 col-md-7 border center-y text-capitalize">
+                {/* {userData.bankDetails?.branchAddress} */}
               </div>
             </div>
           </section>
@@ -1314,21 +1287,20 @@ const CorporateTmsKyc = () => {
             </div>
           </section>
           {/* KYCAGGREMENT */}
-          <section className="container" style={{ fontSize: "14px" }}>
+          <section className="container" style={{ fontSize: "10px" }}>
             {/* <!-- Header section --> */}
-            <header className="text-center">
-              <p>
+            <div >
+              <p className="text-center">
                 <b>
                   (धितोपत्र कारोबार सञ्चालन विनियमावली २०७५ को विनियम १० संग
                   सम्बन्धित )
                 </b>
               </p>
 
-              <p>
+              <p className="text-center">
                 <b>(कारोवार सदस्य र ग्राहक बिचको सम्झौतापत्र )</b>
               </p>
-            </header>
-            <div className="my-2">
+
               <p className="mx-3 text-start aggrement-content">
                 कम्पनी रजिस्ट्रारको कार्यलयमा दर्ता भई नेपाल धितोपत्र बोर्डबाट
                 धितोपत्र दलाल ब्यवसायीको इजाजत प्राप्त गरी नेपाल स्टक एक्सचेञ्ज
@@ -1573,7 +1545,7 @@ const CorporateTmsKyc = () => {
               </p>
             </div>
           </section>
-          <section className="container" style={{ fontSize: "14px" }}>
+          <section className="container" style={{ fontSize: "10px" }}>
             <div className="row">
               <p>
                 २०. दोस्रो पक्षका ेनामवाट कारोवार भए पश्चात दोस्रो पक्षको मृत्यु
@@ -1613,7 +1585,8 @@ const CorporateTmsKyc = () => {
                 ख. टेलिफोन
                 ........................................................
                 <br />
-                &emsp;&nbsp;&nbsp;&nbsp; ग. मोबाइलफोन{" "}........................................................
+                &emsp;&nbsp;&nbsp;&nbsp; ग. मोबाइलफोन{" "}
+                ........................................................
                 {/* {user?.phoneNo ? user?.phoneNo : "..................."} */}
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 घ. इमेल ........................................................
@@ -1708,14 +1681,14 @@ const CorporateTmsKyc = () => {
                 ४०. यो सम्झौता राम्ररी पढी, बुझी दुवै पक्ष हस्ताक्षर गर्न मञ्जुर
                 गर्दछौं ।
               </p>
-              <div className="col-6 col-md-6 col-sm-12">
+              <div className="col-6 ">
                 <h4 className="aggrement-header">सम्झौताका प्रथम पक्ष </h4>
                 <p></p>
                 {/* <p>व्यक्तिको नाम: {"  " + orgData && orgData?.name}</p> */}
                 <p>दस्तखत: </p>
                 <p>कम्पनीको छाप : </p>
               </div>
-              <div className="col-6 col-md-6 col-sm-12">
+              <div className="col-6 ">
                 <h4 className="aggrement-header">
                   सम्झौताका दोस्रो पक्ष (हितग्राहिको तर्फबाट अधिकार प्राप्त){" "}
                 </h4>
