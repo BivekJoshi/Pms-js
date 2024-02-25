@@ -147,26 +147,26 @@ const RenderInput = ({
       case "dropDownWithValue":
         return (
           <Autocomplete
-          id={element.name}
-          name={element.name}
-          disabled={element?.isDisabled}
-          options={element?.options}
-          getOptionLabel={(option) => option?.label || element?.label}
-          value={element?.options[0]}
-          onChange={formik.handleChange}
-          fullWidth
-          renderInput={(params) => {
-            return (
-              <TextField
-                {...params}
-                label={element.label}
-                error={formTouched && Boolean(formError)}
-                required={element.required}
-                helperText={formTouched && formError}             
-              />
-            );
-          }}
-        />
+            id={element.name}
+            name={element.name}
+            disabled={element?.isDisabled}
+            options={element?.options}
+            getOptionLabel={(option) => option?.label || element?.label}
+            value={element?.options[0]}
+            onChange={formik.handleChange}
+            fullWidth
+            renderInput={(params) => {
+              return (
+                <TextField
+                  {...params}
+                  label={element.label}
+                  error={formTouched && Boolean(formError)}
+                  required={element.required}
+                  helperText={formTouched && formError}
+                />
+              );
+            }}
+          />
         );
       case "fieldArraySwitch":
         return (
@@ -336,16 +336,13 @@ const RenderInput = ({
                   control={<Radio />}
                   key={i}
                   label={radio.label}
-                  disabled={
-                    element.name === "accountStatementPeriod" &&
-                    formik.values.isStandingInstructionForAutomaticTxn ===
-                      "false"
-                  }
+                  disabled={disableField}
                 />
               ))}
             </RadioGroup>
           </FormControl>
         );
+
       case "datePicker":
         return (
           <Grid display={"flex"} gap={2}>
