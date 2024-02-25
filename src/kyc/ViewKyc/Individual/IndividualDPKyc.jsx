@@ -329,7 +329,7 @@ const IndividualDPKyc = () => {
                     <div className="col-8 border d-flex  gap-4">
                       {/* <!-- <form action="" className="d-flex justify-content-center align-items-center gap-4"> --> */}
                       <div>
-                        <div className="form-check d-flex">
+                        <div className="form-check">
                           <label className="form-check-label" htmlFor="male">
                             पुरुष (Male)
                           </label>
@@ -337,7 +337,6 @@ const IndividualDPKyc = () => {
                           <input
                             type="radio"
                             className="form-check-input "
-                            style={{ width: "20px", height: "20px" }}
                             //   checked={checkGender("M")}
                             readOnly
                           />
