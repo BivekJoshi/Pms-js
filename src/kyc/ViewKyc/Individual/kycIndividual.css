@@ -135,7 +135,6 @@ body {
   /* :root {
     --cui-body-font-size: 7rem;
   } */
-
   .container {
     padding: 0 2rem !important;
     max-width: 1250px !important;
@@ -147,10 +146,13 @@ body {
     padding-top: 2rem !important;
   }
   .kyc-page {
-    font-size: 11px !important;
+    font-size: 10px !important;
   }
   .body1 {
     font-size: 11px !important;
+  }
+  .fs10 {
+    font-size: 10.15px !important;
   }
   .fs13 {
     font-size: 13px !important;

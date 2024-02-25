@@ -1,5 +1,4 @@
 import {
-  Grid,
   Table,
   TableBody,
   TableCell,
@@ -625,7 +624,7 @@ const CorporateTmsKyc = () => {
               </div>
             </div>
           </section>
-          {/* Map values in this section wit lat and long */}
+          {/* Map values in this section wit lat and long */}   
           <section
             className="container mt-2 container_p10"
             // key={currentAddressDetails}
