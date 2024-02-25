@@ -7,6 +7,7 @@ import CorporateTmsKyc from "../corporate/CorporateTmsKyc";
 import CorporateDpkyc from "../corporate/CorporateDpKyc";
 import ReactToPrint from "react-to-print";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
+import IndividualKycPdf from "../../pdf/component/IndividualKycPdf";
 
 const IndividualDPKyc = () => {
   const componentRef = useRef();
@@ -33,11 +34,7 @@ const IndividualDPKyc = () => {
             <div className="bg-white text-dark p-md-3 font1 dpkyc">
               <div className="d-flex justify-content-end mb-2">
                 {/* {' '} */}
-                {/* <NewIndividualKyc
-          imageURL={mapImage}
-          userData={userData}
-          extraInfo={extraInfo}
-        /> */}
+                <IndividualKycPdf />
                 <ReactToPrint
                   // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
                   trigger={() => <LocalPrintshopIcon />}
