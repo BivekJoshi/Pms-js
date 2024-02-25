@@ -1963,21 +1963,20 @@ const IndividualTmsKyc = ({ userData }) => {
           </section>
           {/* )} */}
           {/* KYCAGGREMENT */}
-          <section className="container" style={{ fontSize: "14px" }}>
+          <section className="container fs10" >
             {/* <!-- Header section --> */}
-            <div className="text-center">
-              <p>
+            <div>
+              <p className="text-center">
                 <b>
                   (धितोपत्र कारोबार सञ्चालन विनियमावली २०७५ को विनियम १० संग
                   सम्बन्धित )
                 </b>
               </p>
 
-              <p>
+              <p className="text-center">
                 <b>(कारोवार सदस्य र ग्राहक बिचको सम्झौतापत्र )</b>
               </p>
-            </div>
-            <div className="my-2">
+
               <p className="mx-3 text-start aggrement-content">
                 कम्पनी रजिस्ट्रारको कार्यलयमा दर्ता भई नेपाल धितोपत्र बोर्डबाट
                 धितोपत्र दलाल ब्यवसायीको इजाजत प्राप्त गरी नेपाल स्टक एक्सचेञ्ज
@@ -2222,8 +2221,7 @@ const IndividualTmsKyc = ({ userData }) => {
               </p>
             </div>
           </section>
-          
-          <section className="container" style={{ fontSize: "14px" }}>
+          <section className="container fs10" >
             <div className="row">
               <p>
                 २०. दोस्रो पक्षका ेनामवाट कारोवार भए पश्चात दोस्रो पक्षको मृत्यु
@@ -2264,9 +2262,11 @@ const IndividualTmsKyc = ({ userData }) => {
                 ........................................................
                 <br />
                 &emsp;&nbsp;&nbsp;&nbsp; ग. मोबाइलफोन{" "}
+                ........................................................
                 {/* {user?.phoneNo ? user?.phoneNo : "..................."} */}
-                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;
-                {/* घ. इमेल {user?.email ? user?.email : ".................."} */}
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                घ. इमेल ........................................................
+                {/*  {user?.email ? user?.email : ".................."} */}
                 <br />
                 &emsp;&nbsp;&nbsp; ङ. दोश्रो पक्ष्यको उजरनेम
                 ....................................................
@@ -2276,6 +2276,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 <br />
                 &emsp;&nbsp;&nbsp; छ. अन्य बिद्युतीय माध्यम
                 .........................................................
+                <br />
                 <br />
                 प्रथम पक्षले उल्लिखित माध्यमबाट आएका आदेशहरुलाई मात्र वैधानिक
                 मान्यता दिई प्राथमिकताका आधारमा कारोबार प्रणालीमा आदेश प्रविष्टी
@@ -2356,14 +2357,14 @@ const IndividualTmsKyc = ({ userData }) => {
                 ४०. यो सम्झौता राम्ररी पढी, बुझी दुवै पक्ष हस्ताक्षर गर्न मञ्जुर
                 गर्दछौं ।
               </p>
-              <div className="col-6 col-md-6 col-sm-12">
+              <div className="col-6 ">
                 <h4 className="aggrement-header">सम्झौताका प्रथम पक्ष </h4>
                 <p></p>
                 {/* <p>व्यक्तिको नाम: {"  " + orgData && orgData?.name}</p> */}
                 <p>दस्तखत: </p>
                 <p>कम्पनीको छाप : </p>
               </div>
-              <div className="col-6 col-md-6 col-sm-12">
+              <div className="col-6 ">
                 <h4 className="aggrement-header">
                   सम्झौताका दोस्रो पक्ष (हितग्राहिको तर्फबाट अधिकार प्राप्त){" "}
                 </h4>
