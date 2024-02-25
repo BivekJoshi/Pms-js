@@ -203,9 +203,9 @@ const CorporateTmsKyc = () => {
             </div>
           </section>
           {/* ClientDetails */}
-          <section className="container pb-1">
+          <section className="container pb-1 ">
             <h2 className="text-center kyc-secondary-header">
-              कम्पनीको थप विवरण (Details of Company)
+            ग्राहकको विवरण (Client Details)
             </h2>
 
               <div className="row m-0 p-0">
@@ -396,8 +396,8 @@ const CorporateTmsKyc = () => {
               </div>
           </section>
           {/* Details of Company */}
-          <section className="container pb-1">
-            <h2 className="text-center kyc-secondary-header">
+          <section className="container pb-1  mt-2">
+            <h2 className="text-center kyc-secondary-headercontainer_p10">
               कम्पनीको थप विवरण (Details of Company)
             </h2>
 
@@ -1281,7 +1281,7 @@ const CorporateTmsKyc = () => {
                 </div>
                 <div className="col-4 col-md-4">
                   <div className="center-y">
-                    <div className="office-stamp border p-4 center-xy">
+                    <div className="office-stamp border center-xy">
                       <p
                         className="text-center"
                         style={{ marginBottom: "9rem" }}

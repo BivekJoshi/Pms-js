@@ -1528,7 +1528,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 कार्यालयको प्रयोजनको लागि (For Official Use)
               </h2>
 
-              <div className="border row p-4 pb-0">
+              <div className="border row pb-0">
                 <div className="col-4 col-md-4">
                   <h3>रुजु गर्ने</h3>
 
@@ -1550,7 +1550,7 @@ const IndividualTmsKyc = ({ userData }) => {
                   className="col-4 col-md-4 center-y"
                   style={{ height: "15rem" }}
                 >
-                  <div className="office-stamp border p-4 center-xy">
+                  <div className="office-stamp border center-xy">
                     <p style={{ marginBottom: "9rem" }}>
                       कार्यालयको नाम तथा छाप
                     </p>

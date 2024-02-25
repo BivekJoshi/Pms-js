@@ -204,7 +204,7 @@ const CorporateTmsKyc = () => {
           {/* ClientDetails */}
           <section className="container pb-1">
             <h2 className="text-center kyc-secondary-header">
-              कम्पनीको थप विवरण (Details of Company)
+              ग्राहकको विवरण (Client Details)
             </h2>
 
             <div className="row m-0 p-0">
@@ -395,8 +395,8 @@ const CorporateTmsKyc = () => {
             </div>
           </section>
           {/* Details of Company */}
-          <section className="container pb-1">
-            <h2 className="text-center kyc-secondary-header">
+          <section className="container pb-1 container_p10">
+            <h2 className="text-center kyc-secondary-header ">
               कम्पनीको थप विवरण (Details of Company)
             </h2>
 
@@ -508,163 +508,9 @@ const CorporateTmsKyc = () => {
               </div>
             </div>
           </section>
-          {/* Company current Address */}
-          <section className="container pb-1">
-            <h2 className="text-center kyc-secondary-header">
-              कम्पनीको हालको ठेगाना (Current Address of Company){" "}
-            </h2>
-            <div className="row m-0 p-0">
-              {/* <!-- Country --> */}
-              <div className="col-6 col-md-3 border center-y ">
-                देश (Country)
-              </div>
 
-              <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.country} */}
-              </div>
-
-              {/* <!-- Province --> */}
-              <div className="col-6 col-md-3 border center-y ">
-                प्रदेश (Province)
-              </div>
-              <div className="col-6 col-md-3 border center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.province
-                            : userData.addressDetails?.[0]?.province} */}
-              </div>
-
-              {/* <!-- Pality --> */}
-              <div className="col-6 border center-y">
-                गा.पा. / न.पा. / उ.म.न.पा / म.न.पा. (Rural Municipality /
-                Municipality / Sub Metropolitan city / Metropolitan city )
-              </div>
-              <div className=" col-6 border-start-0 center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.municipality
-                            : userData.addressDetails?.[0]?.municipality}*/}
-              </div>
-
-              {/* <!-- ! District --> */}
-              <div className="col-6 col-md-2 border center-y">
-                जिल्ला (District)
-              </div>
-              <div className="col-6 col-md-3 border center-y text-capitalize">
-                {/*   {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.district
-                            : userData.addressDetails?.[0]?.district} */}
-              </div>
-
-              {/* <!-- ! Ward Nol --> */}
-              <div className="col-6 col-md-2 border center-y ">
-                वडा नं. (Ward No.)
-              </div>
-              <div className="col-6 col-md-1 border center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.wordNo
-                            : userData.addressDetails?.[0]?.wordNo}*/}
-              </div>
-
-              {/* <!-- Tole --> */}
-              <div className="col-6 col-md-2 border center-y">टोल (Tole)</div>
-              <div className="col-6 col-md-2 border text-capitalize center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.tole
-                            : userData.addressDetails?.[0]?.tole}*/}
-              </div>
-
-              {/* <!-- Telephone --> */}
-
-              <div className="col-6 col-md-3 border center-y ">
-                टेलिफोन नं. (Telephone No.)
-              </div>
-              <div className="col-6 col-md-3 border center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.telephoneNo
-                            : userData.addressDetails?.[0]?.telephoneNo}*/}
-              </div>
-              {/* <!-- Telephone --> */}
-
-              <div className="col-6 col-md-3 border center-y ">
-                मोबाईल नं. (Mobile No.)
-              </div>
-              <div className="col-6 col-md-3 border center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.mobileNo
-                            : userData.addressDetails?.[0]?.mobileNo}*/}
-              </div>
-
-              {/* <!-- email --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                इमेल (Email)
-              </div>
-              <div className="col-6 col-md-3 border center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.email
-                            : userData.addressDetails?.[0]?.email}*/}
-              </div>
-
-              {/* <!-- Website --> */}
-              <div className="col-6 col-md-3 border center-y ">
-                वेबसाइट (Website)
-              </div>
-              <div className="col-6 col-md-3 border center-y">
-                {/*{userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.website
-                            : userData.addressDetails?.[0]?.website} */}
-              </div>
-            </div>
-          </section>
-          {/* Map values in this section wit lat and long */}
-          <section
-            className="container mt-2"
-            // key={currentAddressDetails}
-          >
-            <b>हाल बसोबास रहेको स्थानको नक्सा (Location map)</b>
-            <div
-              className="location-map border d-flex flex-column justify-content-between mb-3"
-              style={{ height: "10cm" }}
-              // ref={mapRef}
-              // key={currentAddressDetails}
-            >
-              {/* <KycMap
-              latitude={
-                currentAddressDetails && currentAddressDetails[0]?.latitude
-                  ? currentAddressDetails[0]?.latitude
-                  : 0
-              }
-              longitude={
-                currentAddressDetails && currentAddressDetails[0]?.longitude
-                  ? currentAddressDetails[0]?.longitude
-                  : 0
-              }
-            /> */}
-              <div className="row mt-2">
-                <div className="col-6 text-capitalize">
-                  latitude :{" "}
-                  {/* {currentAddressDetails && currentAddressDetails[0]?.latitude
-                  ? currentAddressDetails[0]?.latitude
-                  : "0"} */}
-                </div>
-                <div className="col-6 text-capitalize text-end">
-                  longitude :{" "}
-                  {/* {currentAddressDetails && currentAddressDetails[0]?.longitude
-                  ? currentAddressDetails[0]?.longitude
-                  : 0} */}
-                </div>
-              </div>
-            </div>
-          </section>
-          {/* Permanent Address */}
-          <section className="container pb-1">
+          {/* Company current Address  */}
+          <section className="container pb-1 container_p10">
             <h2 className="text-center kyc-secondary-header">
               कम्पनीको हालको ठेगाना (Current Address of Company){" "}
             </h2>
@@ -779,8 +625,164 @@ const CorporateTmsKyc = () => {
               </div>
             </div>
           </section>
+          {/* Map values in this section wit lat and long */}
+          <section
+            className="container mt-2 container_p10"
+            // key={currentAddressDetails}
+          >
+            <b>हाल बसोबास रहेको स्थानको नक्सा (Location map)</b>
+            <div
+              className="location-map border d-flex flex-column justify-content-between mb-3"
+              style={{ height: "10cm" }}
+              // ref={mapRef}
+              // key={currentAddressDetails}
+            >
+              {/* <KycMap
+              latitude={
+                currentAddressDetails && currentAddressDetails[0]?.latitude
+                  ? currentAddressDetails[0]?.latitude
+                  : 0
+              }
+              longitude={
+                currentAddressDetails && currentAddressDetails[0]?.longitude
+                  ? currentAddressDetails[0]?.longitude
+                  : 0
+              }
+            /> */}
+              <div className="row mt-2">
+                <div className="col-6 text-capitalize">
+                  latitude :{" "}
+                  {/* {currentAddressDetails && currentAddressDetails[0]?.latitude
+                  ? currentAddressDetails[0]?.latitude
+                  : "0"} */}
+                </div>
+                <div className="col-6 text-capitalize text-end">
+                  longitude :{" "}
+                  {/* {currentAddressDetails && currentAddressDetails[0]?.longitude
+                  ? currentAddressDetails[0]?.longitude
+                  : 0} */}
+                </div>
+              </div>
+            </div>
+          </section>
+          {/*Permanent Address */}
+          <section className="container pb-1 container_p10">
+            <h2 className="text-center kyc-secondary-header">
+              कम्पनी दर्ता हुँदाको ठेगाना ( Permanent Address of Company)
+            </h2>
+            <div className="row m-0 p-0">
+              {/* <!-- Country --> */}
+              <div className="col-6 col-md-3 border center-y ">
+                देश (Country)
+              </div>
+
+              <div className="col-6 col-md-3 border center-y">
+                {/* {currentAddressDetails?.[0]?.country} */}
+              </div>
+
+              {/* <!-- Province --> */}
+              <div className="col-6 col-md-3 border center-y ">
+                प्रदेश (Province)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/* {userData.addressDetails?.[0]
+                            ?.perAndCurAddressSame === false
+                            ? currentAddressDetails?.[0]?.province
+                            : userData.addressDetails?.[0]?.province} */}
+              </div>
+
+              {/* <!-- Pality --> */}
+              <div className="col-6 border center-y">
+                गा.पा. / न.पा. / उ.म.न.पा / म.न.पा. (Rural Municipality /
+                Municipality / Sub Metropolitan city / Metropolitan city )
+              </div>
+              <div className=" col-6 border-start-0 center-y">
+                {/* {userData.addressDetails?.[0]
+                            ?.perAndCurAddressSame === false
+                            ? currentAddressDetails?.[0]?.municipality
+                            : userData.addressDetails?.[0]?.municipality}*/}
+              </div>
+
+              {/* <!-- ! District --> */}
+              <div className="col-6 col-md-2 border center-y">
+                जिल्ला (District)
+              </div>
+              <div className="col-6 col-md-3 border center-y text-capitalize">
+                {/*   {userData.addressDetails?.[0]
+                            ?.perAndCurAddressSame === false
+                            ? currentAddressDetails?.[0]?.district
+                            : userData.addressDetails?.[0]?.district} */}
+              </div>
+
+              {/* <!-- ! Ward Nol --> */}
+              <div className="col-6 col-md-2 border center-y ">
+                वडा नं. (Ward No.)
+              </div>
+              <div className="col-6 col-md-1 border center-y">
+                {/* {userData.addressDetails?.[0]
+                            ?.perAndCurAddressSame === false
+                            ? currentAddressDetails?.[0]?.wordNo
+                            : userData.addressDetails?.[0]?.wordNo}*/}
+              </div>
+
+              {/* <!-- Tole --> */}
+              <div className="col-6 col-md-2 border center-y">टोल (Tole)</div>
+              <div className="col-6 col-md-2 border text-capitalize center-y">
+                {/* {userData.addressDetails?.[0]
+                            ?.perAndCurAddressSame === false
+                            ? currentAddressDetails?.[0]?.tole
+                            : userData.addressDetails?.[0]?.tole}*/}
+              </div>
+
+              {/* <!-- Telephone --> */}
+
+              <div className="col-6 col-md-3 border center-y ">
+                टेलिफोन नं. (Telephone No.)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/* {userData.addressDetails?.[0]
+                            ?.perAndCurAddressSame === false
+                            ? currentAddressDetails?.[0]?.telephoneNo
+                            : userData.addressDetails?.[0]?.telephoneNo}*/}
+              </div>
+              {/* <!-- Telephone --> */}
+
+              <div className="col-6 col-md-3 border center-y ">
+                मोबाईल नं. (Mobile No.)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/* {userData.addressDetails?.[0]
+                            ?.perAndCurAddressSame === false
+                            ? currentAddressDetails?.[0]?.mobileNo
+                            : userData.addressDetails?.[0]?.mobileNo}*/}
+              </div>
+
+              {/* <!-- email --> */}
+              <div className="col-6 col-md-3 border  center-y">
+                इमेल (Email)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/* {userData.addressDetails?.[0]
+                            ?.perAndCurAddressSame === false
+                            ? currentAddressDetails?.[0]?.email
+                            : userData.addressDetails?.[0]?.email}*/}
+              </div>
+
+              {/* <!-- Website --> */}
+              <div className="col-6 col-md-3 border center-y ">
+                वेबसाइट (Website)
+              </div>
+              <div className="col-6 col-md-3 border center-y">
+                {/*{userData.addressDetails?.[0]
+                            ?.perAndCurAddressSame === false
+                            ? currentAddressDetails?.[0]?.website
+                            : userData.addressDetails?.[0]?.website} */}
+              </div>
+            </div>
+          </section>
+
           {/* (Branch/Number Of Office And Main Branches/Office Location) */}
-          <section className="container pb-1">
+          <section className="container pb-1 container_p10">
             <TableContainer>
               <Table className="kyc-table m-0 border">
                 <TableHead>
@@ -869,7 +871,7 @@ const CorporateTmsKyc = () => {
             </TableContainer>
           </section>
           {/* BankDetails */}
-          <section className="container pb-1">
+          <section className="container pb-1 container_p10">
             <div className="text-center kyc-secondary-header">
               बैंक खाताको विवरण(bank account details)
             </div>
@@ -1038,7 +1040,7 @@ const CorporateTmsKyc = () => {
             </div>
           </section>
           {/* (Details Of Directors,CEO, And Authorised Account Operators) */}
-          <section className="container pb-1 mt-4">
+          <section className="container pb-1 container_p10">
             <p>
               (तीनवटा भन्दा बढी भएका छुट्टै विवरण पेश गर्न सकिने छ / Separate
               details can be submitted in case of more than three.)
@@ -1266,7 +1268,7 @@ const CorporateTmsKyc = () => {
                 justifyContent: "space-between",
               }}
             >
-              <div style={{ width: "48%" }}>
+              <div style={{ width: "48%" }} className="aggrement-content">
                 <Typography
                   variant="body1"
                   style={{ fontSize: "14px", fontWeight: "bold" }}
@@ -1349,7 +1351,7 @@ const CorporateTmsKyc = () => {
                 </div>
                 <div className="col-4 col-md-4">
                   <div className="center-y">
-                    <div className="office-stamp border p-4 center-xy">
+                    <div className="office-stamp border center-xy">
                       <p
                         className="text-center"
                         style={{ marginBottom: "9rem" }}
@@ -1382,7 +1384,7 @@ const CorporateTmsKyc = () => {
             </div>
           </section>
           {/* DPAGGREMENT */}
-          <section className="container pb-5" >
+          <section className="container pb-5 container_p">
             {/* <!-- Header section --> */}
             <header className="text-center">
               <h4 className=""> अनुसूची - १५ </h4>
@@ -1431,7 +1433,7 @@ const CorporateTmsKyc = () => {
                 सम्झौता गरिएको छ |
               </p>
             </div>
-            <body className="body2" >
+            <body className="body2">
               <h6 className="aggrement-header">१.सामान्य प्रावधान </h6>
               <p className="mx-3 text-start  aggrement-content">
                 {" "}
