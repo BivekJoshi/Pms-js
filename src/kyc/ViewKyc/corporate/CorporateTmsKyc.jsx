@@ -1287,7 +1287,7 @@ const CorporateTmsKyc = () => {
             </div>
           </section>
           {/* KYCAGGREMENT */}
-          <section className="container" style={{ fontSize: "10px" }}>
+          <section className="container fs10" >
             {/* <!-- Header section --> */}
             <div >
               <p className="text-center">
@@ -1545,7 +1545,7 @@ const CorporateTmsKyc = () => {
               </p>
             </div>
           </section>
-          <section className="container" style={{ fontSize: "10px" }}>
+          <section className="container fs10" >
             <div className="row">
               <p>
                 २०. दोस्रो पक्षका ेनामवाट कारोवार भए पश्चात दोस्रो पक्षको मृत्यु

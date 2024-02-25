@@ -5,6 +5,8 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import IndividualTmsKyc from "./IndividualTmsKyc";
 import CorporateTmsKyc from "../corporate/CorporateTmsKyc";
 import CorporateDpkyc from "../corporate/CorporateDpKyc";
+import ReactToPrint from "react-to-print";
+import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 
 const IndividualDPKyc = () => {
   const componentRef = useRef();
@@ -36,38 +38,34 @@ const IndividualDPKyc = () => {
           userData={userData}
           extraInfo={extraInfo}
         /> */}
-                {/* <ReactToPrint
-          // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
-          trigger={() => (
-            <ActionIcon>
-              <IconPrinter />
-            </ActionIcon>
-          )}
-          content={() => componentRef.current}
-          documentTitle="download.pdf"
-          // pageStyle="print"
-          // pageStyle='@page { margin: minimum }'
-          copyStyles
-          contentStyle={{
-            marginTop: "500px",
-          }}
-        /> */}
+                <ReactToPrint
+                  // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
+                  trigger={() => <LocalPrintshopIcon />}
+                  content={() => componentRef.current}
+                  documentTitle="download.pdf"
+                  // pageStyle="print"
+                  // pageStyle='@page { margin: minimum }'
+                  copyStyles
+                  contentStyle={{
+                    marginTop: "500px",
+                  }}
+                />
               </div>
               {/* <div id="pdf" ref={componentRef}> */}
-              <div className="kyc-page" id="pdf" ref={componentRef}>
+              <div className="kyc-page mt-4" id="pdf" ref={componentRef}>
                 {/* Header */}
-                <section className="container pb-1 pb-print-1">
+                <section className="container pb-1">
                   {/* <!-- Header section --> */}
                   <header
                     className="text-center"
                     style={{ position: "relative" }}
                   >
                     <h2 className="">अनुसूची १२</h2>
-                    <p className="">(विनिमय २० संग सम्बन्धित)</p>
-                    <h2 className="text-decoration-underline ">
+                    <p className="">(विनियम २० संग सम्बन्धित)</p>
+                    <h2 className="text-decoration-underline fs18">
                       प्राकृतिक व्यक्तिको हितग्राही खाता खोल्ने निवेदन
                     </h2>
-                    <h3 className=" text-decoration-underline ">
+                    <h3 className=" text-decoration-underline fs18">
                       ACCOUNT OPENING FORM FOR INDIVIDUAL BENEFICIAL OWNER
                     </h3>
                     {/* <!-- ! signature div --> */}
@@ -102,58 +100,58 @@ const IndividualDPKyc = () => {
                 <section className="pb-1">
                   <div className="container">
                     <div>
-                      <div className="text-center kyc-secondary-header text-capitalize mr-1">
+                      <div className="text-center kyc-secondary-header text-capitalize">
                         <h2>
                           कार्यालय प्रयोजनका लागि मात्र (For official use only)
                         </h2>
                       </div>
 
-                      <div className="container">
-                        <div className="row mt-1">
-                          <div className="col-4 col-md-4 col-lg-4 border center-y ">
+                      {/* <div className="container"> */}
+                      <div className="row m-0 p-0">
+                        <div className="col-4 col-md-4 col-lg-4 border center-y ">
+                          <div>
+                            आवेदन नं. (App No.):
+                            {/* {user?.submissionNo} */}
+                          </div>
+                        </div>
+
+                        <div className="col-4 col-md-4 col-lg-4 border ">
+                          <div>
+                            <div></div>
                             <div>
-                              आवेदन नं. (App No.):
-                              {/* {user?.submissionNo} */}
+                              संकेत नं. (Ref Number):
+                              {/* {user?.referenceNumber} */}
                             </div>
                           </div>
+                        </div>
 
-                          <div className="col-4 col-md-4 col-lg-4 border ">
+                        <div className="col-4 col-md-4 col-lg-4 border ">
+                          <div>
                             <div>
-                              <div></div>
-                              <div>
-                                संकेत नं. (Ref Number):
-                                {/* {user?.referenceNumber} */}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="col-4 col-md-4 col-lg-4 border ">
-                            <div>
-                              <div>
-                                मिति (Date):
-                                {/* {user?.submittedDate} */}
-                              </div>
+                              मिति (Date):
+                              {/* {user?.submittedDate} */}
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    {/* </div> */}
                     {/* {userData?.user?.nature === "TMS" && ( */}
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-12  p-1 border border center-y">
-                          हितग्राहीको खाता नं. (BOID No):
-                          {/* {user?.boid} */}
-                        </div>
+                    {/* <div className="container"> */}
+                    <div className="row m-0 p-0">
+                      <div className="col-12  p-1 border border center-y">
+                        हितग्राहीको खाता नं. (BOID No):
+                        {/* {user?.boid} */}
                       </div>
                     </div>
+                    {/* </div> */}
                     {/* )} */}
                   </div>
                   <div className="container">
                     <div className="row">
                       <div className="col-12">
                         <p
-                          className="my-2 mt-4"
+                          className="my-2 mt-4 fs13"
                           style={{ fontSize: "17px", fontWeight: "600" }}
                         >
                           तल उल्लेखित सम्पूर्ण विवरण राम्रोसंग भर्नु पर्नेछ ।
@@ -162,7 +160,7 @@ const IndividualDPKyc = () => {
                         </p>
 
                         <p
-                          className="mb-4"
+                          className="mb-4 fs13"
                           style={{ fontSize: "18px", fontWeight: "600" }}
                         >
                           Please complete all details and strike out the
@@ -194,14 +192,14 @@ const IndividualDPKyc = () => {
                   </div>
                   <div className="container">
                     <div className="row">
-                      <div className="col-2 col-md-2 col-lg-2 center-y ">
+                      <div className="col-2 center-y ">
                         <div>
                           <div>खाताको किसिम :</div>
                           <div className="text-inline">Types of Account:</div>
                         </div>
                       </div>
                       <div className="col-10">
-                        <div className="row">
+                        <div className="row check-box">
                           <div className="col-4 d-flex">
                             <input
                               type="checkbox"
@@ -254,16 +252,16 @@ const IndividualDPKyc = () => {
                     ग्राहकको विवरण (Client Details)
                   </h2>
 
-                  <div className="container">
-                    <div className="row ">
-                      {/* <!-- ! name row --> */}
-                      <div className="col-4 col-md-4 border center-y ">
-                        <div> नाम (Name in block letters)</div>
-                      </div>
+                  {/* <div className="container"> */}
+                  <div className="row m-0 p-0">
+                    {/* <!-- ! name row --> */}
+                    <div className="col-4 col-md-4 border center-y ">
+                      <div> नाम (Name in block letters)</div>
+                    </div>
 
-                      <div className="col-8 col-md-8 border center-y text-uppercase">
-                        <div className="letter-box-container">
-                          {/* {individualDetail?.middleName === null
+                    <div className="col-8 col-md-8 border center-y text-uppercase">
+                      <div className="letter-box-container">
+                        {/* {individualDetail?.middleName === null
                     ? individualDetail?.firstName
                         .split("")
                         .map((letter, index) => (
@@ -282,106 +280,104 @@ const IndividualDPKyc = () => {
                             {letter}
                           </div>
                         ))} */}
-                        </div>
-                      </div>
-                      <div className="col-4 border center-y ">
-                        <div>देवनागरी (Name in Nepali) </div>
-                      </div>
-
-                      <div className="col-8  border center-y   ">
-                        {/* <div>{individualDetail?.clientNameNepali}</div> */}
-                      </div>
-
-                      {/* <!-- ! date of birth --> */}
-                      <div className="col-4 border  center-y">
-                        <div>
-                          <div>जन्म मिति (Date of Birth)</div>
-                        </div>
-                      </div>
-
-                      <div className="col-8 border">
-                        <div className="row  ">
-                          <div className="col-6">
-                            <div className="">
-                              <label className="form-check-label" htmlFor="bs">
-                                बि. सं. (B.S.):
-                              </label>
-                              {/* &nbsp;{individualDetail?.dob} */}
-                            </div>
-                          </div>
-
-                          <div className="col-6">
-                            <div className="">
-                              <label className="form-check-label" htmlFor="ad">
-                                इ. सं (A.D.):{" "}
-                              </label>
-                              {/* &nbsp;{dateConverter(individualDetail?.dob, "BS_AD")} */}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* <!-- ! gender --> */}
-                      <div className="col-4 border center-y ">
-                        <div>
-                          <div>लिङ्ग (Gender)</div>
-                        </div>
-                      </div>
-
-                      <div className="col-8 border d-flex  gap-4">
-                        {/* <!-- <form action="" className="d-flex justify-content-center align-items-center gap-4"> --> */}
-                        <div>
-                          <div className="form-check">
-                            <label className="form-check-label" htmlFor="male">
-                              पुरुष (Male)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input "
-                              //   checked={checkGender("M")}
-                              readOnly
-                            />
-                          </div>
-                        </div>
-
-                        <div>
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="female"
-                            >
-                              महिला (Female)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              //   checked={checkGender("F")}
-                              readOnly
-                            />
-                          </div>
-                        </div>
-
-                        <div>
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="others"
-                              style={{ paddingLeft: "8px" }} //Check default padding missing in classname
-                            >
-                              अन्य (Others)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              readOnly
-                              //   checked={checkGender("O")}
-                            />
-                          </div>
-                        </div>
-                        {/* <!-- </form> --> */}
                       </div>
                     </div>
+                    <div className="col-4 border center-y ">
+                      <div>देवनागरी (Name in Nepali) </div>
+                    </div>
+
+                    <div className="col-8  border center-y   ">
+                      {/* <div>{individualDetail?.clientNameNepali}</div> */}
+                    </div>
+
+                    {/* <!-- ! date of birth --> */}
+                    <div className="col-4 border  center-y">
+                      <div>
+                        <div>जन्म मिति (Date of Birth)</div>
+                      </div>
+                    </div>
+
+                    <div className="col-8 border">
+                      <div className="row  ">
+                        <div className="col-6">
+                          <div className="">
+                            <label className="form-check-label" htmlFor="bs">
+                              बि. सं. (B.S.):
+                            </label>
+                            {/* &nbsp;{individualDetail?.dob} */}
+                          </div>
+                        </div>
+
+                        <div className="col-6">
+                          <div className="">
+                            <label className="form-check-label" htmlFor="ad">
+                              इ. सं (A.D.):{" "}
+                            </label>
+                            {/* &nbsp;{dateConverter(individualDetail?.dob, "BS_AD")} */}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* <!-- ! gender --> */}
+                    <div className="col-4 border center-y ">
+                      <div>
+                        <div>लिङ्ग (Gender)</div>
+                      </div>
+                    </div>
+
+                    <div className="col-8 border d-flex  gap-4">
+                      {/* <!-- <form action="" className="d-flex justify-content-center align-items-center gap-4"> --> */}
+                      <div>
+                        <div className="form-check">
+                          <label className="form-check-label" htmlFor="male">
+                            पुरुष (Male)
+                          </label>
+
+                          <input
+                            type="radio"
+                            className="form-check-input "
+                            //   checked={checkGender("M")}
+                            readOnly
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="form-check">
+                          <label className="form-check-label" htmlFor="female">
+                            महिला (Female)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            //   checked={checkGender("F")}
+                            readOnly
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="others"
+                            style={{ paddingLeft: "8px" }} //Check default padding missing in classname
+                          >
+                            अन्य (Others)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            readOnly
+                            //   checked={checkGender("O")}
+                          />
+                        </div>
+                      </div>
+                      {/* <!-- </form> --> */}
+                    </div>
                   </div>
+                  {/* </div> */}
                   {/* MoreClientDetails */}
                   <div className="container">
                     <div className="row">
@@ -1773,7 +1769,7 @@ const IndividualDPKyc = () => {
 
                       <h2>Guardian's Details (In case of Minor Only)</h2>
                     </div>
-{/* 
+                    {/* 
                     <figure style={{ textAlign: "right" }}>
                       <img
                         src="https://picsum.photos/200/200"

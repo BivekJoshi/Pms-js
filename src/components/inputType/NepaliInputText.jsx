@@ -53,7 +53,7 @@ const NepaliInputText = ({ element, formik }) => {
   };
 
   return (
-    <div>
+    <div className='devnagiri-input-text'>
     <Combobox
       {...element}
       data={options}

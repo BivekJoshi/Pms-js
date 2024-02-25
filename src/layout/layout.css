@@ -1,4 +1,7 @@
 .navlinks-list{
     padding: 0px 12px;
     text-decoration: none;
+    border-bottom: 1px solid rgb(234, 221, 255);
+
+    /* position: relative; */
 }
