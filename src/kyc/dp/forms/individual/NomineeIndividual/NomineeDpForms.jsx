@@ -1,10 +1,12 @@
 import React from "react";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { nanoid } from "nanoid";
 import { useNomineeForm } from "./useNomineeForm";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
+import { Box, useTheme } from "@mui/system";
 
 const NomineeDpForms = () => {
+  const theme = useTheme();
   const { formik } = useNomineeForm();
 
   const NOMINEEFIELDS = [
@@ -209,6 +211,24 @@ const NomineeDpForms = () => {
   const handleSubmit = () => {};
   return (
     <form onSubmit={handleSubmit}>
+      <Box
+        sx={{
+          marginBottom: "16px",
+          padding: { md: "12px", sm: "5px" },
+          borderRadius: "0 6px 6px 0",
+          borderLeft: `4px solid ${theme.palette.secondary.main}`,
+        }}
+      >
+        <Typography
+          variant="h4"
+          style={{
+            color: theme.palette.text.light,
+            fontWeight: "800",
+          }}
+        >
+          Nominee Details
+        </Typography>
+      </Box>
       <RenderInput inputField={NOMINEEFIELDS} formik={formik} />
       <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
