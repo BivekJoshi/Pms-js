@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Grid, Button } from "@mui/material";
 import { Formik } from "formik";
-import RenderInput from "../../../../components/renderInput/RenderInput";
-import { useKycBankForm } from "../../../../hooks/kyc/individual/bank/usekycBankForm";
+import RenderInput from "../../../../../components/renderInput/RenderInput";
+import { useKycBankForm } from "./usekycBankForm";
 
 const BankIndividualDpForms = () => {
   const { formik } = useKycBankForm();
@@ -57,9 +57,15 @@ const BankIndividualDpForms = () => {
   return (
     <form onSubmit={handleSubmit}>
       <RenderInput inputField={FAMILYFIELDS} formik={formik} />
-      <Button variant="contained" onClick={formik.handleSubmit}>
-        Submit
-      </Button>
+      <Grid sx={{ display: "flex", justifyContent: "flex-end",marginTop:"12px" }}>
+        <Button
+          onClick={formik.handleSubmit}
+          variant="contained"
+          color="secondary"
+        >
+          Next
+        </Button>
+      </Grid>
     </form>
   );
 };

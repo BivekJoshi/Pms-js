@@ -1,6 +1,5 @@
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  /* font-size: 14px !important; */
   font-size: 16px !important;
   color: #000;
 }
@@ -13,32 +12,7 @@ body {
   display: block;
   margin: 0 auto;
   margin-bottom: 0.5cm;
-  /* box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5); */
-  /* padding: 100px; */
   page-break-after: always;
-}
-@media print {
-  .office-stamp > p {
-    margin-top: -150px;
-  }
-
-  div {
-    break-inside: avoid;
-  }
-  .dpkyc,
-  body {
-    font-size: 16px !important;
-  }
-  .kyctms,
-  body {
-    font-size: 14px !important;
-  }
-  @page {
-    margin: 2cm 0;
-  }
-  .DPB {
-    text-align: left;
-  }
 }
 
 .page[size="A4"] {
@@ -48,15 +22,17 @@ body {
 }
 
 .aggrement-header {
-  font-weight: 600;
-  font-size: 15px;
-  margin-bottom: 10px;
+  font-weight: 800;
+  font-size: 12px;
+  margin-bottom: 0 !important;
 }
 .aggrement-content {
-  font-size: 14px;
+  font-size: 11px;
   margin-bottom: 10px;
 }
-
+.overright_margin {
+  padding-top: 30px;
+}
 .br-1px {
   border-right: 1px solid #000;
 }
@@ -66,24 +42,13 @@ body {
   height: 200px;
   width: 100%;
 }
-/*# sourceMappingURL=styles.css.map */
 
 @media (max-width: 890px) {
   .profile-photo {
     float: right;
     margin-top: 12px;
   }
-
-  /* .client-signature {
-      position: unset;
-      width: 50%;
-    } */
 }
-
-
-
-
-
 
 @import url(bootstrap-print.css);
 
@@ -119,12 +84,6 @@ body {
 }
 
 .letter-space-3 {
-  /* 
-    1 = 1px
-    2 = 2px
-    3 = 6px
-    4 = 12px
-    */
   letter-spacing: 6px;
 }
 
@@ -141,17 +100,24 @@ body {
   text-align: center;
 }
 
-/* .form-check {
-  margin-bottom: 1rem !important;
-} */
-
 .kyc-secondary-header {
-  color: #fff;
-  background: rgb(23, 23, 23);
-  padding: 0.4rem 0;
-  /* margin-bottom: 0.5rem; */
+  color: #fff !important;
+  background: rgb(23, 23, 23) !important;
+  padding: 0.4rem 0 !important;
+  font-size: 1.25rem !important;
+  padding: 0.5rem 0 !important;
+  text-transform: capitalize;
 }
-
+.fs13 {
+  font-size: 13.5px !important;
+}
+.fs18 {
+  font-size: 18px !important;
+}
+.p2 {
+  padding: 2px !important;
+  text-align: center !important;
+}
 .passport-photo {
   width: 2in;
   height: 2in;
@@ -170,8 +136,24 @@ body {
     --cui-body-font-size: 7rem;
   } */
 
-  .kyc-secondary-header {
-    width: 102.5%;
+  .container {
+    padding: 0 2rem !important;
+    max-width: 1250px !important;
+  }
+  .container_p10 {
+    padding-top: .9rem !important;
+  }
+  .container_p {
+    padding-top: 2rem !important;
+  }
+  .kyc-page {
+    font-size: 11px !important;
+  }
+  .body1 {
+    font-size: 11px !important;
+  }
+  .fs13 {
+    font-size: 13px !important;
   }
   .avoid-page-break {
     page-break-inside: avoid;
@@ -185,22 +167,6 @@ body {
   .location-map-ITK {
     margin: 0 2rem 0 3.2rem;
   }
-  html,
-  body {
-    height: 99%;
-  }
-  /* .pb-print-1 {
-    padding-bottom: 0 !important;
-  } */
-
-  .mb-5 {
-    margin-bottom: 5px !important;
-  }
-
-  .p-4 {
-    padding: 5px !important;
-  }
-
   section {
     padding-top: 0.5cm;
     page-break-inside: avoid !important;
@@ -217,10 +183,6 @@ body {
   p {
     margin-bottom: 2px !important;
   }
-
-  /* .signature-holder {
-    height: 50px;
-  } */
 
   h2 {
     font-size: 16pt !important;
@@ -248,17 +210,6 @@ body {
     width: 50% !important;
   }
 
-  /* .letter-box-container {
-    display: block !important;
-    height: auto;
-    width: 100%;
-    padding-left: 0.5rem;
-  }
-
-  .letter-box-container * {
-    display: inline-block;
-  } */
-
   .letter-box-container {
     height: 100%;
     width: 100%;
@@ -271,8 +222,40 @@ body {
     background-color: #cabcbc;
     text-align: center;
   }
-}
 
+  .office-stamp > p {
+    margin-top: -150px;
+  }
+
+  div {
+    break-inside: avoid;
+  }
+  .dpkyc,
+  body {
+    font-size: 16px !important;
+  }
+  .kyctms,
+  body {
+    font-size: 14px !important;
+  }
+
+  .DPB {
+    text-align: left;
+  }
+
+  .office-location {
+    margin-top: 5rem;
+  }
+  @page {
+    margin: 0.2cm 0.5cm 0.5cm 0.77cm !important;
+  }
+  body {
+    margin: 0cm 0.5cm 0.5 0.77cm !important;
+  }
+  .ceoCOntant {
+    margin-top: 0.5rem !important;
+  }
+}
 .form-label {
   text-transform: capitalize;
 }

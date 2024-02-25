@@ -1,37 +1,30 @@
-import { useEffect, useState } from "react";
 import { useFormik } from "formik";
+import * as Yup from "yup";
+import { fullnameRegex } from "../static/RegExp";
+
+const basicSchema = Yup.object().shape({
+  firstName: Yup.string().required("First Name is required"),
+  middleName: Yup.string().matches(fullnameRegex, "Please enter valid middle name"),
+  lastName: Yup.string().required("Last Name is required"),
+});
 
 export const useBasicIndividualDpForms = () => {
   const formik = useFormik({
     initialValues: {
-      isNrn: false,
       firstName: "",
       middleName: "",
       lastName: "",
       clientNameNepali: "",
       gender: "",
       dob: "",
+      isNrn: false,
       isMinor: false,
     },
+    validationSchema: basicSchema,
     onSubmit: (values) => {
-      //   setLoading(true);
-      handleRegister(values);
+      console.log(values, "Valueee");
     },
   });
 
-  const handleRegister = (values) => {
-    console.log(values, "values");
-    // mutate({ values }, { onSettled: () => setLoading(false) });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  return {
-    handleRegister,
-    formik,
-    // loading,
-    handleMouseDownPassword,
-  };
+  return { formik };
 };
