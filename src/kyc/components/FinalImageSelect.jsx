@@ -3,6 +3,7 @@ import React from "react";
 import DottedBorder from "../../assets/DottedBoder.png";
 
 const FinalImageSelect = ({ finalImage, file }) => {
+  console.log(finalImage);
   const handleSubmit = () => {
     console.log("I am Clicked");
   };
