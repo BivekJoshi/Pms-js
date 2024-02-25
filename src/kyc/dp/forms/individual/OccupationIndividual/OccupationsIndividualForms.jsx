@@ -8,7 +8,7 @@ const OccupationsIndividualForms = () => {
   const theme = useTheme();
   const { formik } = useOccupationsIndividualForm();
   const [disabled, setDisabled] = useState(false);
-  console.log(disabled, "disabled");
+ 
   useEffect(() => {
     if (formik.values.occupation === "STUDENT") {
       setDisabled(true);
@@ -80,7 +80,7 @@ const OccupationsIndividualForms = () => {
           sm: 12,
           md: 4,
           id: nanoid(),
-          isDisabled: disabled,
+          
         },
     formik.values.occupation === "STUDENT" ||
     formik.values.occupation === "HOUSEWIFE" ||
@@ -94,7 +94,7 @@ const OccupationsIndividualForms = () => {
           sm: 12,
           md: 4,
           id: nanoid(),
-          isDisabled: disabled,
+          
         },
     formik.values.occupation === "STUDENT" ||
     formik.values.occupation === "HOUSEWIFE" ||
@@ -108,7 +108,7 @@ const OccupationsIndividualForms = () => {
           sm: 12,
           md: 4,
           id: nanoid(),
-          isDisabled: disabled,
+          
         },
     formik.values.occupation === "STUDENT" ||
     formik.values.occupation === "HOUSEWIFE" ||
@@ -122,7 +122,7 @@ const OccupationsIndividualForms = () => {
           sm: 12,
           md: 4,
           id: nanoid(),
-          isDisabled: disabled,
+          
         },
     formik.values.occupation === "STUDENT" ||
     formik.values.occupation === "HOUSEWIFE" ||
@@ -136,7 +136,7 @@ const OccupationsIndividualForms = () => {
           sm: 12,
           md: 4,
           id: nanoid(),
-          isDisabled: disabled,
+          
         },
     {
       name: "financialDetails",

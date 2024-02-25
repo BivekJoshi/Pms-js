@@ -5,7 +5,7 @@ import dateConverter from "../../utility/dateConverter";
 import dayjs from "dayjs";
 import { Grid } from "@mui/material";
 
-const DualDatePicker = ({ element, formik }) => {
+export const DualDatePicker = ({ element, formik }) => {
   const [nepaliDate, setNepaliDate] = useState(
     dateConverter(new Date(), "AD_BS")
   );
@@ -71,4 +71,31 @@ const DualDatePicker = ({ element, formik }) => {
   );
 };
 
-export default DualDatePicker;
+export const PickDate = ({ element, formik }) => {
+  const handleChange = (e) => {
+    const date = new Date(e);
+    const adjustedDate = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000
+    );
+    const newDate = adjustedDate.toISOString().substring(0, 10);
+    formik.setFieldValue(element.name, newDate);
+  }
+  return (
+    <Grid display={"flex"} gap={2}>
+      <DatePicker
+        sx={{ width: "100%" }}
+        name={element?.name}
+        label={element.label}
+        value={formik.values[element.name] || null}
+        onChange={handleChange}
+        required={element.required}
+        slotProps={{
+          textField: {
+            error:
+              formik.touched[element.name] && !!formik.errors[element.name],
+            helperText:
+              formik.touched[element.name] && formik.errors[element.name],
+          }}}/>
+    </Grid>
+  );
+};
