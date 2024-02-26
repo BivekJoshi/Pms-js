@@ -13,9 +13,9 @@ import StepThree from "./registerSteps/StepThree";
 import StepFour from "./registerSteps/StepFour";
 
 const NewRegisterPage = () => {
-  const { formik, loading } = useNewRegisterForm();
+  const { formik, loading, handleStepOne } = useNewRegisterForm();
+  console.log("🚀 ~ NewRegisterPage ~ formik:", formik);
   const [currentStep, setCurrentStep] = useState(1);
-  console.log("🚀 ~ NewRegisterPage ~ currentStep:", currentStep);
 
   useEffect(() => {
     if (formik.values.nepseExist) {
@@ -30,6 +30,9 @@ const NewRegisterPage = () => {
   };
 
   const handleNextStep = () => {
+    if (currentStep === 1) {
+      // handleStepOne(formik.values);
+    }
     if (currentStep >= 4) return;
 
     setCurrentStep((previousValue) => previousValue + 1);
@@ -75,7 +78,7 @@ const NewRegisterPage = () => {
         >
           {currentStep === 1 && <StepOne formik={formik} />}
 
-          {currentStep === 2 && <StepTwo />}
+          {currentStep === 2 && <StepTwo formik={formik} />}
           {currentStep === 3 && <StepThree formik={formik} />}
           {currentStep === 4 && <StepFour formik={formik} />}
           <Button
