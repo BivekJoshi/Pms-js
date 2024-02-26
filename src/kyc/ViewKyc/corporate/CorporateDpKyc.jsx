@@ -13,6 +13,7 @@ import { useRef } from "react";
 import DpMeroShare from "../DpMeroShare";
 import ReactToPrint from "react-to-print";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
+import IndividualKycPdf from "../../pdf/component/IndividualKycPdf";
 
 const CorporateTmsKyc = () => {
   const componentRef = useRef();
@@ -24,11 +25,7 @@ const CorporateTmsKyc = () => {
       >
         <div className="d-flex justify-content-end mb-2">
           {/* {' '} */}
-          {/* <NewIndividualKyc
-          imageURL={mapImage}
-          userData={userData}
-          extraInfo={extraInfo}
-        /> */}
+          <IndividualKycPdf />
           <ReactToPrint
             // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
             trigger={() => <LocalPrintshopIcon />}
