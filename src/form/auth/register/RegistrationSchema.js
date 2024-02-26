@@ -26,5 +26,8 @@ export const ThirdStepSchema = Yup.object().shape({
     is: (val) => val === 11400,
     then: Yup.string().required("Required"),
   }),
-  accountType: Yup.string().required("Required"),
+  accountType: Yup.string().when("dpId", {
+    is: (val) => val !== 11400,
+    then: Yup.string().required("Required"),
+  }),,
 });
