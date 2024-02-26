@@ -47,7 +47,7 @@ const CorporateTmsKyc = () => {
             {/* <!-- Header section --> */}
             <header className="text-center" style={{ position: "relative" }}>
               <h2 className="">अनुसूची १२</h2>
-              <p className="">(विनिमय २० संग सम्बन्धित)</p>
+              <p className="">(विनियम २० संग सम्बन्धित)</p>
               <h2 className="text-decoration-underline fs18">
                 प्राकृतिक व्यक्ति बाहेक अन्य संस्थाको हितग्राही खाता खोल्ने
                 निवेदन
