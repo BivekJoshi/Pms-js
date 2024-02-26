@@ -7,6 +7,10 @@ body {
 body {
   font-size: 14px !important;
 }
+.check-box input{
+  width: 8% !important;
+}
+
 .page {
   background: white;
   display: block;

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Button, Typography, useTheme, Stack } from "@mui/material";
-import RenderInput from "../../../../components/renderInput/RenderInput";
-import { useKycFamilyForm } from "../../../../hooks/kyc/individual/family/usekycFamilyForm";
+import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { nanoid } from "nanoid";
 import { FieldArray, FormikProvider } from "formik";
+import { useKycFamilyForm } from "./usekycFamilyForm";
 
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();
@@ -54,7 +54,6 @@ const FamilyIndividualDpForms = () => {
       type: "dropDown",
       name: "relation",
       label: "Relation",
-      // disabled: true,
       col: 12,
       xs: 12,
       sm: 6,
@@ -64,6 +63,7 @@ const FamilyIndividualDpForms = () => {
       type: "text",
       name: "memberName",
       label: "Enter Name",
+      isDisabled: false,
       col: 12,
       xs: 12,
       sm: 6,
@@ -116,7 +116,7 @@ const FamilyIndividualDpForms = () => {
                       { value: "sonInLaw", label: "Son In Law" },
                       { value: "motherInLaw", label: "Mother In Law" },
                     ],
-                    isDisabled: index <= 2,
+                    isDisabled: address?.relation == "father" && address?.relation == "mother" && address?.relation == "grandFather",
                     name: `familyDetails.${index}.${d.name}`,
                   };
                 });
@@ -201,3 +201,4 @@ const FamilyIndividualDpForms = () => {
 };
 
 export default FamilyIndividualDpForms;
+

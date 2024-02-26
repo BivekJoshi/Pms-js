@@ -8,16 +8,18 @@ import { useTheme } from "@emotion/react";
 const BasicIndividualDpForms = () => {
   const theme = useTheme();
   const { formik } = useBasicIndividualDpForms();
+
   useEffect(() => {
     const calculateAge = (dob) => {
       const dobDate = new Date(dob);
       const now = new Date();
       const diff = now.getTime() - dobDate.getTime();
       const ageInYears = diff / (1000 * 60 * 60 * 24 * 365.25);
-
       return ageInYears;
     };
+
     const dob = formik.values.dob;
+    
     if (dob) {
       const personAge = calculateAge(dob);
       if (personAge < 16) {

@@ -17,10 +17,11 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import mapIcon from "../../assets/marker-icon.png";
 import L from "leaflet";
-import DualDatePicker from "./DualDatePicker";
+import { PickDate, DualDatePicker } from "./DualDatePicker";
 import DropZoneUploadFile from "../dropZone/DropZoneUploadFile";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useSelector } from "react-redux";
+import NepaliInputText from '../inputType/NepaliInputText';
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -111,6 +112,7 @@ const RenderInput = ({
   pushArray,
   removeArray,
   fieldArrayName,
+  align,
 }) => {
   const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
   const mode = useSelector((state) => state?.theme?.mode);
@@ -138,7 +140,7 @@ const RenderInput = ({
             fullWidth
             required={element.required}
             variant="outlined"
-            disabled={element.disabled}
+            disabled={element.isDisabled}
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
             sx={{ width: "100%" }}
@@ -236,32 +238,33 @@ const RenderInput = ({
         );
       case "dropDown":
         return (
-          <Autocomplete
-            id={element.name}
-            name={element.name}
-            disabled={element?.isDisabled}
-            options={element?.options}
-            getOptionLabel={(option) => option?.label || ""}
-            value={element?.options.find(
-              (option) => option?.value === formVaues
-            )}
-            onChange={(event, newValue) => {
-              formik.setFieldValue(element.name, newValue?.value || ""); // Set value to newValue's value property or empty string if undefined
-            }}
-            fullWidth
-            renderInput={(params) => {
-              return (
-                <TextField
-                  {...params}
-                  label={element.label}
-                  error={formTouched && Boolean(formError)}
-                  required={element.required}
-                  helperText={formTouched && formError}
-                  variant="outlined"
-                />
-              );
-            }}
-          />
+            <Autocomplete
+              id={element.name}
+              name={element.name}
+              disabled={element?.isDisabled}
+              options={element?.options}
+              getOptionLabel={(option) => option?.label || ""}
+              value={element?.options.find(
+                (option) => option?.value === formVaues
+              )}
+              onChange={(event, newValue) => {
+                formik.setFieldValue(element.name, newValue?.value || ""); // Set value to newValue's value property or empty string if undefined
+              }}
+              fullWidth
+              renderInput={(params) => {
+                return (
+                  <TextField
+                    {...params}
+                    label={element.label}
+                    disabled={element?.isDisabled}
+                    error={formTouched && Boolean(formError)}
+                    required={element.required}
+                    helperText={formTouched && formError}
+                    variant="outlined"
+                  />
+                );
+              }}
+            />
         );
       case "number":
         return (
@@ -282,6 +285,11 @@ const RenderInput = ({
         return (
           <div style={{ display: "flex" }}>
             <FormControlLabel
+              style={{
+                display: element?.display,
+                flexDirection: element?.direction,
+                marginLeft: element?.marginLeft,
+              }}
               control={
                 <Switch
                   disabled={element?.isDisabled}
@@ -292,7 +300,7 @@ const RenderInput = ({
               }
               label={element?.label}
             />
-            {element.infoAlert && (
+            {element?.infoAlert && !formik.values.isMinor && (
               <Alert
                 variant="standard"
                 sx={{ bgcolor: "background.default" }}
@@ -315,6 +323,7 @@ const RenderInput = ({
                   disabled={disableField}
                 />
               }
+              labelPlacement={align ? align : "end"}
               label={element?.label}
             />
             {formik.values[element?.name] && (
@@ -325,7 +334,13 @@ const RenderInput = ({
 
       case "radio":
         return (
-          <FormControl>
+          <FormControl
+            style={{
+              display: element?.display,
+              alignItems: element?.align,
+              gap: element?.gap,
+            }}
+          >
             <FormLabel id="demo-radio-buttons-group-label">
               {element.label}
             </FormLabel>
@@ -344,24 +359,11 @@ const RenderInput = ({
         );
 
       case "datePicker":
-        return (
-          <Grid display={"flex"} gap={2}>
-            <DatePicker
-              sx={{ width: "100%" }}
-              name={element?.name}
-              label={element.label}
-              value={formik.values || ""}
-              onChange={formik.handleChange}
-              required={element.required}
-              error={formTouched && Boolean(formError)}
-              helperText={formTouched && formError}
-            />
-          </Grid>
-        );
-
+        return <PickDate element={element} formik={formik} />;
       case "dualDate":
         return <DualDatePicker element={element} formik={formik} />;
-
+        case "nepaliTypeText":
+          return <NepaliInputText element={element} formik={formik} />;
       case "asyncDropDown":
         return <AsyncDropDown element={element} formik={formik} />;
 

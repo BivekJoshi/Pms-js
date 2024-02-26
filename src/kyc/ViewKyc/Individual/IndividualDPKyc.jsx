@@ -5,6 +5,9 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import IndividualTmsKyc from "./IndividualTmsKyc";
 import CorporateTmsKyc from "../corporate/CorporateTmsKyc";
 import CorporateDpkyc from "../corporate/CorporateDpKyc";
+import ReactToPrint from "react-to-print";
+import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
+import IndividualKycPdf from "../../pdf/component/IndividualKycPdf";
 
 const IndividualDPKyc = () => {
   const componentRef = useRef();
@@ -31,43 +34,35 @@ const IndividualDPKyc = () => {
             <div className="bg-white text-dark p-md-3 font1 dpkyc">
               <div className="d-flex justify-content-end mb-2">
                 {/* {' '} */}
-                {/* <NewIndividualKyc
-          imageURL={mapImage}
-          userData={userData}
-          extraInfo={extraInfo}
-        /> */}
-                {/* <ReactToPrint
-          // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
-          trigger={() => (
-            <ActionIcon>
-              <IconPrinter />
-            </ActionIcon>
-          )}
-          content={() => componentRef.current}
-          documentTitle="download.pdf"
-          // pageStyle="print"
-          // pageStyle='@page { margin: minimum }'
-          copyStyles
-          contentStyle={{
-            marginTop: "500px",
-          }}
-        /> */}
+                <IndividualKycPdf />
+                <ReactToPrint
+                  // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
+                  trigger={() => <LocalPrintshopIcon />}
+                  content={() => componentRef.current}
+                  documentTitle="download.pdf"
+                  // pageStyle="print"
+                  // pageStyle='@page { margin: minimum }'
+                  copyStyles
+                  contentStyle={{
+                    marginTop: "500px",
+                  }}
+                />
               </div>
               {/* <div id="pdf" ref={componentRef}> */}
-              <div className="kyc-page" id="pdf" ref={componentRef}>
+              <div className="kyc-page mt-4" id="pdf" ref={componentRef}>
                 {/* Header */}
-                <section className="container pb-1 pb-print-1">
+                <section className="container pb-1">
                   {/* <!-- Header section --> */}
                   <header
                     className="text-center"
                     style={{ position: "relative" }}
                   >
                     <h2 className="">अनुसूची १२</h2>
-                    <p className="">(विनिमय २० संग सम्बन्धित)</p>
-                    <h2 className="text-decoration-underline ">
+                    <p className="">(विनियम २० संग सम्बन्धित)</p>
+                    <h2 className="text-decoration-underline fs18">
                       प्राकृतिक व्यक्तिको हितग्राही खाता खोल्ने निवेदन
                     </h2>
-                    <h3 className=" text-decoration-underline ">
+                    <h3 className=" text-decoration-underline fs18">
                       ACCOUNT OPENING FORM FOR INDIVIDUAL BENEFICIAL OWNER
                     </h3>
                     {/* <!-- ! signature div --> */}
@@ -102,58 +97,58 @@ const IndividualDPKyc = () => {
                 <section className="pb-1">
                   <div className="container">
                     <div>
-                      <div className="text-center kyc-secondary-header text-capitalize mr-1">
+                      <div className="text-center kyc-secondary-header text-capitalize">
                         <h2>
                           कार्यालय प्रयोजनका लागि मात्र (For official use only)
                         </h2>
                       </div>
 
-                      <div className="container">
-                        <div className="row mt-1">
-                          <div className="col-4 col-md-4 col-lg-4 border center-y ">
+                      {/* <div className="container"> */}
+                      <div className="row m-0 p-0">
+                        <div className="col-4 col-md-4 col-lg-4 border center-y ">
+                          <div>
+                            आवेदन नं. (App No.):
+                            {/* {user?.submissionNo} */}
+                          </div>
+                        </div>
+
+                        <div className="col-4 col-md-4 col-lg-4 border ">
+                          <div>
+                            <div></div>
                             <div>
-                              आवेदन नं. (App No.):
-                              {/* {user?.submissionNo} */}
+                              संकेत नं. (Ref Number):
+                              {/* {user?.referenceNumber} */}
                             </div>
                           </div>
+                        </div>
 
-                          <div className="col-4 col-md-4 col-lg-4 border ">
+                        <div className="col-4 col-md-4 col-lg-4 border ">
+                          <div>
                             <div>
-                              <div></div>
-                              <div>
-                                संकेत नं. (Ref Number):
-                                {/* {user?.referenceNumber} */}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="col-4 col-md-4 col-lg-4 border ">
-                            <div>
-                              <div>
-                                मिति (Date):
-                                {/* {user?.submittedDate} */}
-                              </div>
+                              मिति (Date):
+                              {/* {user?.submittedDate} */}
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    {/* </div> */}
                     {/* {userData?.user?.nature === "TMS" && ( */}
-                    <div className="container">
-                      <div className="row">
-                        <div className="col-12  p-1 border border center-y">
-                          हितग्राहीको खाता नं. (BOID No):
-                          {/* {user?.boid} */}
-                        </div>
+                    {/* <div className="container"> */}
+                    <div className="row m-0 p-0">
+                      <div className="col-12  p-1 border border center-y">
+                        हितग्राहीको खाता नं. (BOID No):
+                        {/* {user?.boid} */}
                       </div>
                     </div>
+                    {/* </div> */}
                     {/* )} */}
                   </div>
                   <div className="container">
                     <div className="row">
                       <div className="col-12">
                         <p
-                          className="my-2 mt-4"
+                          className="my-2 mt-4 fs13"
                           style={{ fontSize: "17px", fontWeight: "600" }}
                         >
                           तल उल्लेखित सम्पूर्ण विवरण राम्रोसंग भर्नु पर्नेछ ।
@@ -162,7 +157,7 @@ const IndividualDPKyc = () => {
                         </p>
 
                         <p
-                          className="mb-4"
+                          className="mb-4 fs13"
                           style={{ fontSize: "18px", fontWeight: "600" }}
                         >
                           Please complete all details and strike out the
@@ -194,14 +189,14 @@ const IndividualDPKyc = () => {
                   </div>
                   <div className="container">
                     <div className="row">
-                      <div className="col-2 col-md-2 col-lg-2 center-y ">
+                      <div className="col-2 center-y ">
                         <div>
                           <div>खाताको किसिम :</div>
                           <div className="text-inline">Types of Account:</div>
                         </div>
                       </div>
                       <div className="col-10">
-                        <div className="row">
+                        <div className="row check-box">
                           <div className="col-4 d-flex">
                             <input
                               type="checkbox"
@@ -254,16 +249,16 @@ const IndividualDPKyc = () => {
                     ग्राहकको विवरण (Client Details)
                   </h2>
 
-                  <div className="container">
-                    <div className="row ">
-                      {/* <!-- ! name row --> */}
-                      <div className="col-4 col-md-4 border center-y ">
-                        <div> नाम (Name in block letters)</div>
-                      </div>
+                  {/* <div className="container"> */}
+                  <div className="row m-0 p-0">
+                    {/* <!-- ! name row --> */}
+                    <div className="col-4 col-md-4 border center-y ">
+                      <div> नाम (Name in block letters)</div>
+                    </div>
 
-                      <div className="col-8 col-md-8 border center-y text-uppercase">
-                        <div className="letter-box-container">
-                          {/* {individualDetail?.middleName === null
+                    <div className="col-8 col-md-8 border center-y text-uppercase">
+                      <div className="letter-box-container">
+                        {/* {individualDetail?.middleName === null
                     ? individualDetail?.firstName
                         .split("")
                         .map((letter, index) => (
@@ -282,158 +277,156 @@ const IndividualDPKyc = () => {
                             {letter}
                           </div>
                         ))} */}
-                        </div>
-                      </div>
-                      <div className="col-4 border center-y ">
-                        <div>देवनागरी (Name in Nepali) </div>
-                      </div>
-
-                      <div className="col-8  border center-y   ">
-                        {/* <div>{individualDetail?.clientNameNepali}</div> */}
-                      </div>
-
-                      {/* <!-- ! date of birth --> */}
-                      <div className="col-4 border  center-y">
-                        <div>
-                          <div>जन्म मिति (Date of Birth)</div>
-                        </div>
-                      </div>
-
-                      <div className="col-8 border">
-                        <div className="row  ">
-                          <div className="col-6">
-                            <div className="">
-                              <label className="form-check-label" htmlFor="bs">
-                                बि. सं. (B.S.):
-                              </label>
-                              {/* &nbsp;{individualDetail?.dob} */}
-                            </div>
-                          </div>
-
-                          <div className="col-6">
-                            <div className="">
-                              <label className="form-check-label" htmlFor="ad">
-                                इ. सं (A.D.):{" "}
-                              </label>
-                              {/* &nbsp;{dateConverter(individualDetail?.dob, "BS_AD")} */}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* <!-- ! gender --> */}
-                      <div className="col-4 border center-y ">
-                        <div>
-                          <div>लिङ्ग (Gender)</div>
-                        </div>
-                      </div>
-
-                      <div className="col-8 border d-flex  gap-4">
-                        {/* <!-- <form action="" className="d-flex justify-content-center align-items-center gap-4"> --> */}
-                        <div>
-                          <div className="form-check">
-                            <label className="form-check-label" htmlFor="male">
-                              पुरुष (Male)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input "
-                              //   checked={checkGender("M")}
-                              readOnly
-                            />
-                          </div>
-                        </div>
-
-                        <div>
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="female"
-                            >
-                              महिला (Female)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              //   checked={checkGender("F")}
-                              readOnly
-                            />
-                          </div>
-                        </div>
-
-                        <div>
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="others"
-                              style={{ paddingLeft: "8px" }} //Check default padding missing in classname
-                            >
-                              अन्य (Others)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              readOnly
-                              //   checked={checkGender("O")}
-                            />
-                          </div>
-                        </div>
-                        {/* <!-- </form> --> */}
                       </div>
                     </div>
-                  </div>
-                  {/* MoreClientDetails */}
-                  <div className="container">
-                    <div className="row">
-                      {/* <!-- Nationality row --> */}
-                      <div className="col-4 border">
-                        राष्ट्रियता (Nationality)
+                    <div className="col-4 border center-y ">
+                      <div>देवनागरी (Name in Nepali) </div>
+                    </div>
+
+                    <div className="col-8  border center-y   ">
+                      {/* <div>{individualDetail?.clientNameNepali}</div> */}
+                    </div>
+
+                    {/* <!-- ! date of birth --> */}
+                    <div className="col-4 border  center-y">
+                      <div>
+                        <div>जन्म मिति (Date of Birth)</div>
                       </div>
-                      <div className="col-8 d-flex gap-4 border d-flex ">
-                        <div>
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="nepalese"
-                            >
-                              नेपाली (Nepalese)
+                    </div>
+
+                    <div className="col-8 border">
+                      <div className="row  ">
+                        <div className="col-6">
+                          <div className="">
+                            <label className="form-check-label" htmlFor="bs">
+                              बि. सं. (B.S.):
                             </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              readOnly
-                              //   checked={!individualDetail?.isNrn}
-                            />
+                            {/* &nbsp;{individualDetail?.dob} */}
                           </div>
                         </div>
-                        <div>
-                          {/* if nrn true then show country name */}
 
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="other_nationality"
-                            >
-                              अन्य (Others) खुलाउने (if any){" "}
-                              {/* {individualDetail?.isNrn && (
+                        <div className="col-6">
+                          <div className="">
+                            <label className="form-check-label" htmlFor="ad">
+                              इ. सं (A.D.):{" "}
+                            </label>
+                            {/* &nbsp;{dateConverter(individualDetail?.dob, "BS_AD")} */}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* <!-- ! gender --> */}
+                    <div className="col-4 border center-y ">
+                      <div>
+                        <div>लिङ्ग (Gender)</div>
+                      </div>
+                    </div>
+
+                    <div className="col-8 border d-flex  gap-4">
+                      {/* <!-- <form action="" className="d-flex justify-content-center align-items-center gap-4"> --> */}
+                      <div>
+                        <div className="form-check">
+                          <label className="form-check-label" htmlFor="male">
+                            पुरुष (Male)
+                          </label>
+
+                          <input
+                            type="radio"
+                            className="form-check-input "
+                            //   checked={checkGender("M")}
+                            readOnly
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="form-check">
+                          <label className="form-check-label" htmlFor="female">
+                            महिला (Female)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            //   checked={checkGender("F")}
+                            readOnly
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="others"
+                            style={{ paddingLeft: "8px" }} //Check default padding missing in classname
+                          >
+                            अन्य (Others)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            readOnly
+                            //   checked={checkGender("O")}
+                          />
+                        </div>
+                      </div>
+                      {/* <!-- </form> --> */}
+                    </div>
+                  </div>
+                  {/* </div> */}
+                  {/* MoreClientDetails */}
+                  {/* <div className="container"> */}
+                  <div className="row m-0 p-0">
+                    {/* <!-- Nationality row --> */}
+                    <div className="col-4 border">
+                      राष्ट्रियता (Nationality)
+                    </div>
+                    <div className="col-8 d-flex gap-4 border d-flex ">
+                      <div>
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="nepalese"
+                          >
+                            नेपाली (Nepalese)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            readOnly
+                            //   checked={!individualDetail?.isNrn}
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        {/* if nrn true then show country name */}
+
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="other_nationality"
+                          >
+                            अन्य (Others) खुलाउने (if any){" "}
+                            {/* {individualDetail?.isNrn && (
                         <span className="dotted-underline">
                           {individualDetail?.isNrn}
                         </span>
                       )} */}
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              id="other_nationality"
-                              name="nationality"
-                              //   checked={individualDetail?.isNrn}
-                            />
-                          </div>
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            id="other_nationality"
+                            name="nationality"
+                            //   checked={individualDetail?.isNrn}
+                          />
                         </div>
                       </div>
                     </div>
+                    {/* </div> */}
 
-                    <div className="row">
+                    <div className="row m-0 p-0">
                       {/* <!-- Citizenship number  --> */}
                       <div className="col-4 border  center-y">
                         <div>
@@ -447,7 +440,7 @@ const IndividualDPKyc = () => {
                   : ""} */}
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row m-0 p-0">
                       <div className="col-4 border ">
                         <div>
                           <div>जारी जिल्ला (Issued District)</div>
@@ -458,7 +451,7 @@ const IndividualDPKyc = () => {
                         {/* {individualDetail?.issuedDistrict} */}
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row m-0 p-0">
                       <div className="col-4 border center-y ">
                         <div>
                           <div>जारी मिति (Issued Date)</div>
@@ -469,7 +462,7 @@ const IndividualDPKyc = () => {
                         {/* {individualDetail?.issuedDate} */}
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row m-0 p-0">
                       {/* <!-- ! Beneficiary ID No. --> */}
                       <div className="col-4 border center-y ">
                         <div>
@@ -483,7 +476,7 @@ const IndividualDPKyc = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row m-0 p-0">
                       {/* <!-- ! Permanent Account Number (PAN) --> */}
                       <div className="col-4 border center-y ">
                         <div>
@@ -497,10 +490,10 @@ const IndividualDPKyc = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="row">
+                    <div className="row m-0 p-0">
                       {/* <!-- ! Identification Number and Address --> */}
                       {/* {individualDetail?.nrnNo !== "" && ( */}
-                      <div className="col-6 col-md-4 border center-y ">
+                      <div className="col-4 border center-y ">
                         <div>
                           <div>गैरआवासिय नेपालीको हकमा परिचयपत्र </div>
                           <div className="text-capitalize">
@@ -515,12 +508,12 @@ const IndividualDPKyc = () => {
                 </div>
               )} */}
                       {/* {individualDetail?.nrnNo !== "" && ( */}
-                      <div className="col-6 col-md-4 border center-y ">
+                      <div className="col-8 border center-y ">
                         <div>
-                          <div>गैरआवासिय नेपालीको हकमा ठेगाना</div>
+                          {/* <div>गैरआवासिय नेपालीको हकमा ठेगाना</div>
                           <div className="text-capitalize">
                             Address (Incase of NRN)
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                       {/* )} */}
@@ -539,214 +532,214 @@ const IndividualDPKyc = () => {
                     स्थायी ठेगाना (Permanent Address)
                   </h2>
 
-                  <div className="container">
-                    <div className="row">
-                      {/* <!-- Country --> */}
-                      <div className="col-6 col-md-3 border center-y ">
-                        <div>
-                          <div>देश (Country)</div>
-                        </div>
-                      </div>
-
-                      <div className="col-6 col-md-3 border center-y">
-                        {/* {permanentAddressDetails?.[0]?.country &&
-                  permanentAddressDetails?.[0]?.country} */}
-                      </div>
-
-                      {/* <!-- Province --> */}
-                      <div className="col-6 col-md-3 border center-y ">
-                        <div>
-                          <div>प्रदेश (Province)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border center-y">
-                        {/* {permanentAddressDetails?.[0]?.province} */}
-                      </div>
-
-                      {/* <!-- Pality --> */}
-                      <div className="col-6 border   center-y">
-                        <div>
-                          <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.</div>
-
-                          <div>
-                            Rural Municipality / Municipality / Sub Metropolitan
-                            city / Metropolitan city :
-                          </div>
-                        </div>
-                      </div>
-                      <div className=" col-6 border-start-0 center-y">
-                        {/* {permanentAddressDetails?.[0]?.municipality} */}
-                      </div>
-
-                      {/* <!-- ! District --> */}
-                      <div className="col-6 col-md-3 border center-y">
-                        <div>
-                          <div>जिल्ला (District)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border center-y text-capitalize">
-                        {/* {permanentAddressDetails?.[0]?.district} */}
-                      </div>
-
-                      {/* <!-- ! Ward Nol --> */}
-                      <div className="col-6 col-md-3 border center-y ">
-                        <div>
-                          <div>वडा नं. (Ward No.)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border center-y">
-                        {/* {permanentAddressDetails?.[0]?.wordNo} */}
-                      </div>
-
-                      {/* <!-- Tole --> */}
-                      <div className="col-6 col-md-3 border center-y ">
-                        <div>
-                          <div>टोल (Tole)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border text-capitalize center-y">
-                        {/* {permanentAddressDetails?.[0]?.tole} */}
-                      </div>
-
-                      {/* <!-- Telephone --> */}
-
-                      <div className="col-6 col-md-3 border center-y ">
-                        <div>
-                          <div>टेलिफोन नं. (Telephone No.)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border center-y">
-                        {/* {permanentAddressDetails?.[0]?.telephoneNo} */}
-                      </div>
-
-                      {/* <!-- MObile --> */}
-                      <div className="col-6 col-md-3 border center-y ">
-                        <div>
-                          <div>मोबाईल नं. (Mobile No.)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border center-y">
-                        {/* {permanentAddressDetails?.[0]?.mobileNo} */}
-                      </div>
-
-                      {/* <!-- email --> */}
-                      <div className="col-6 col-md-3 border  center-y">
-                        <div>
-                          <div>इमेल (Email)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border center-y">
-                        {/* {permanentAddressDetails?.[0]?.email} */}
+                  {/* <div className="container"> */}
+                  <div className="row m-0 p-0">
+                    {/* <!-- Country --> */}
+                    <div className="col-6 col-md-3 border center-y ">
+                      <div>
+                        <div>देश (Country)</div>
                       </div>
                     </div>
+
+                    <div className="col-6 col-md-3 border center-y">
+                      {/* {permanentAddressDetails?.[0]?.country &&
+                  permanentAddressDetails?.[0]?.country} */}
+                    </div>
+
+                    {/* <!-- Province --> */}
+                    <div className="col-6 col-md-3 border center-y ">
+                      <div>
+                        <div>प्रदेश (Province)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border center-y">
+                      {/* {permanentAddressDetails?.[0]?.province} */}
+                    </div>
+
+                    {/* <!-- Pality --> */}
+                    <div className="col-6 border   center-y">
+                      <div>
+                        <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.</div>
+
+                        <div>
+                          Rural Municipality / Municipality / Sub Metropolitan
+                          city / Metropolitan city :
+                        </div>
+                      </div>
+                    </div>
+                    <div className=" col-6 border center-y">
+                      {/* {permanentAddressDetails?.[0]?.municipality} */}
+                    </div>
+
+                    {/* <!-- ! District --> */}
+                    <div className="col-6 col-md-3 border center-y">
+                      <div>
+                        <div>जिल्ला (District)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border center-y text-capitalize">
+                      {/* {permanentAddressDetails?.[0]?.district} */}
+                    </div>
+
+                    {/* <!-- ! Ward Nol --> */}
+                    <div className="col-6 col-md-3 border center-y ">
+                      <div>
+                        <div>वडा नं. (Ward No.)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border center-y">
+                      {/* {permanentAddressDetails?.[0]?.wordNo} */}
+                    </div>
+
+                    {/* <!-- Tole --> */}
+                    <div className="col-6 col-md-3 border center-y ">
+                      <div>
+                        <div>टोल (Tole)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border text-capitalize center-y">
+                      {/* {permanentAddressDetails?.[0]?.tole} */}
+                    </div>
+
+                    {/* <!-- Telephone --> */}
+
+                    <div className="col-6 col-md-3 border center-y ">
+                      <div>
+                        <div>टेलिफोन नं. (Telephone No.)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border center-y">
+                      {/* {permanentAddressDetails?.[0]?.telephoneNo} */}
+                    </div>
+
+                    {/* <!-- MObile --> */}
+                    <div className="col-6 col-md-3 border center-y ">
+                      <div>
+                        <div>मोबाईल नं. (Mobile No.)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border center-y">
+                      {/* {permanentAddressDetails?.[0]?.mobileNo} */}
+                    </div>
+
+                    {/* <!-- email --> */}
+                    <div className="col-6 col-md-3 border  center-y">
+                      <div>
+                        <div>इमेल (Email)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border center-y">
+                      {/* {permanentAddressDetails?.[0]?.email} */}
+                    </div>
                   </div>
+                  {/* </div> */}
                 </section>
                 {/* Temporary Address */}
-                <section className="container pb-1">
+                <section className="container pb-1 mt-4">
                   <h2 className="text-center kyc-secondary-header">
                     हालको ठेगाना (Current Address){" "}
                   </h2>
 
-                  <div className="container">
-                    <div className="row">
-                      {/* <!-- Country --> */}
-                      <div className="col-6 col-md-3 border center-y ">
-                        <div>
-                          <div>देश (Country)</div>
-                        </div>
-                      </div>
-
-                      <div className="col-6 col-md-3 border center-y">
-                        {/* {currentAddressDetails?.[0]?.country} */}
-                      </div>
-
-                      {/* <!-- Province --> */}
-                      <div className="col-6 col-md-3 border center-y ">
-                        <div>
-                          <div>प्रदेश (Province)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border center-y">
-                        {/* {currentAddressDetails?.[0]?.province} */}
-                      </div>
-
-                      {/* <!-- Pality --> */}
-                      <div className="col-6 border center-y">
-                        <div>
-                          <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.</div>
-
-                          <div>
-                            Rural Municipality / Municipality / Sub Metropolitan
-                            city / Metropolitan city :
-                          </div>
-                        </div>
-                      </div>
-                      <div className=" col-6 border-start-0 center-y">
-                        {/* {currentAddressDetails?.[0]?.municipality} */}
-                      </div>
-
-                      {/* <!-- ! District --> */}
-                      <div className="col-6 col-md-3 border center-y">
-                        <div>
-                          <div>जिल्ला (District)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border center-y text-capitalize">
-                        {/* {currentAddressDetails?.[0]?.district} */}
-                      </div>
-
-                      {/* <!-- ! Ward Nol --> */}
-                      <div className="col-6 col-md-3 border center-y ">
-                        <div>
-                          <div>वडा नं. (Ward No.)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border center-y">
-                        {/* {currentAddressDetails?.[0]?.wordNo} */}
-                      </div>
-
-                      {/* <!-- Tole --> */}
-                      <div className="col-6 col-md-3 border center-y">
-                        <div>
-                          <div>टोल (Tole)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border text-capitalize center-y">
-                        {/* {currentAddressDetails?.[0]?.tole} */}
-                      </div>
-
-                      {/* <!-- Telephone --> */}
-
-                      <div className="col-6 col-md-3 border center-y ">
-                        <div>
-                          <div>टेलिफोन नं. (Telephone No.)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border center-y">
-                        {/* {currentAddressDetails?.[0]?.telephoneNo} */}
-                      </div>
-
-                      {/* <!-- MObile --> */}
-                      <div className="col-6 col-md-3 border center-y ">
-                        <div>
-                          <div>मोबाईल नं. (Mobile No.)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border center-y">
-                        {/* {currentAddressDetails?.[0]?.mobileNo} */}
-                      </div>
-
-                      {/* <!-- email --> */}
-                      <div className="col-6 col-md-3 border  center-y">
-                        <div>
-                          <div>इमेल (Email)</div>
-                        </div>
-                      </div>
-                      <div className="col-6 col-md-3 border center-y">
-                        {/* {currentAddressDetails?.[0]?.email} */}
+                  {/* <div className="container"> */}
+                  <div className="row m-0 p-0">
+                    {/* <!-- Country --> */}
+                    <div className="col-6 col-md-3 border center-y ">
+                      <div>
+                        <div>देश (Country)</div>
                       </div>
                     </div>
+
+                    <div className="col-6 col-md-3 border center-y">
+                      {/* {currentAddressDetails?.[0]?.country} */}
+                    </div>
+
+                    {/* <!-- Province --> */}
+                    <div className="col-6 col-md-3 border center-y ">
+                      <div>
+                        <div>प्रदेश (Province)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border center-y">
+                      {/* {currentAddressDetails?.[0]?.province} */}
+                    </div>
+
+                    {/* <!-- Pality --> */}
+                    <div className="col-6 border center-y">
+                      <div>
+                        <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.</div>
+
+                        <div>
+                          Rural Municipality / Municipality / Sub Metropolitan
+                          city / Metropolitan city :
+                        </div>
+                      </div>
+                    </div>
+                    <div className=" col-6 border center-y">
+                      {/* {currentAddressDetails?.[0]?.municipality} */}
+                    </div>
+
+                    {/* <!-- ! District --> */}
+                    <div className="col-6 col-md-3 border center-y">
+                      <div>
+                        <div>जिल्ला (District)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border center-y text-capitalize">
+                      {/* {currentAddressDetails?.[0]?.district} */}
+                    </div>
+
+                    {/* <!-- ! Ward Nol --> */}
+                    <div className="col-6 col-md-3 border center-y ">
+                      <div>
+                        <div>वडा नं. (Ward No.)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border center-y">
+                      {/* {currentAddressDetails?.[0]?.wordNo} */}
+                    </div>
+
+                    {/* <!-- Tole --> */}
+                    <div className="col-6 col-md-3 border center-y">
+                      <div>
+                        <div>टोल (Tole)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border text-capitalize center-y">
+                      {/* {currentAddressDetails?.[0]?.tole} */}
+                    </div>
+
+                    {/* <!-- Telephone --> */}
+
+                    <div className="col-6 col-md-3 border center-y ">
+                      <div>
+                        <div>टेलिफोन नं. (Telephone No.)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border center-y">
+                      {/* {currentAddressDetails?.[0]?.telephoneNo} */}
+                    </div>
+
+                    {/* <!-- MObile --> */}
+                    <div className="col-6 col-md-3 border center-y ">
+                      <div>
+                        <div>मोबाईल नं. (Mobile No.)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border center-y">
+                      {/* {currentAddressDetails?.[0]?.mobileNo} */}
+                    </div>
+
+                    {/* <!-- email --> */}
+                    <div className="col-6 col-md-3 border  center-y">
+                      <div>
+                        <div>इमेल (Email)</div>
+                      </div>
+                    </div>
+                    <div className="col-6 col-md-3 border center-y">
+                      {/* {currentAddressDetails?.[0]?.email} */}
+                    </div>
                   </div>
+                  {/* </div> */}
                 </section>
                 {/* Map values in this section wit lat and long */}
                 <section
@@ -796,107 +789,107 @@ const IndividualDPKyc = () => {
                     </h2>
                   </div>
 
-                  <div className="container">
-                    <div className="row border">
-                      {/* <!-- grand father's name (eng)--> */}
-                      <div className="col-4 center-y  border text-capitalize">
-                        बाजेको नाम (grand father&apos;s name)
-                      </div>
+                  {/* <div className="container"> */}
+                  <div className="row m-0 p-0 border">
+                    {/* <!-- grand father's name (eng)--> */}
+                    <div className="col-4 center-y  border text-capitalize">
+                      बाजेको नाम (grand father&apos;s name)
+                    </div>
 
-                      <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                        {/* {memberList?.["grandfather"]} */}
-                      </div>
+                    <div className="col-8  center-y text-uppercase letter-space-3 border ">
+                      {/* {memberList?.["grandfather"]} */}
+                    </div>
 
-                      {/* <!-- father's name (nep)--> */}
+                    {/* <!-- father's name (nep)--> */}
 
-                      {/* <!-- father's name (eng)--> */}
-                      <div className="col-4 center-y  border text-capitalize">
-                        बुवाको नाम (father&apos;s name)
-                      </div>
+                    {/* <!-- father's name (eng)--> */}
+                    <div className="col-4 center-y  border text-capitalize">
+                      बुवाको नाम (father&apos;s name)
+                    </div>
 
-                      <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                        {/* {memberList?.["father"]} */}
-                      </div>
+                    <div className="col-8  center-y text-uppercase letter-space-3 border ">
+                      {/* {memberList?.["father"]} */}
+                    </div>
 
-                      {/* <!-- mother's name (nep)--> */}
+                    {/* <!-- mother's name (nep)--> */}
 
-                      {/* <!-- mother's name (eng)--> */}
-                      <div className="col-4 center-y  border text-capitalize">
-                        आमाको नाम (mother&apos;s name){" "}
-                      </div>
+                    {/* <!-- mother's name (eng)--> */}
+                    <div className="col-4 center-y  border text-capitalize">
+                      आमाको नाम (mother&apos;s name){" "}
+                    </div>
 
-                      <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                        {/* {memberList?.["mother"]} */}
-                      </div>
+                    <div className="col-8  center-y text-uppercase letter-space-3 border ">
+                      {/* {memberList?.["mother"]} */}
+                    </div>
 
-                      {/* <!-- spouse's name (nep)--> */}
+                    {/* <!-- spouse's name (nep)--> */}
 
-                      {/* <!-- spouse's name (eng)--> */}
-                      <div className="col-4  center-y border text-capitalize">
-                        पति / पत्‍नीको नाम (spouse&apos;s name)
-                      </div>
+                    {/* <!-- spouse's name (eng)--> */}
+                    <div className="col-4  center-y border text-capitalize">
+                      पति / पत्‍नीको नाम (spouse&apos;s name)
+                    </div>
 
-                      <div className="col-8  center-y text-uppercase letter-space-3 border">
-                        {/* {memberList?.["spouse"]} */}
-                      </div>
+                    <div className="col-8  center-y text-uppercase letter-space-3 border">
+                      {/* {memberList?.["spouse"]} */}
+                    </div>
 
-                      {/* <!-- daughter's name (eng)--> */}
+                    {/* <!-- daughter's name (eng)--> */}
 
-                      {/* <!-- daughters's name (nep)--> */}
+                    {/* <!-- daughters's name (nep)--> */}
 
-                      <div className="col-4   center-y border text-capitalize">
-                        छोरीको नाम (daughter&apos;s name)
-                      </div>
+                    <div className="col-4   center-y border text-capitalize">
+                      छोरीको नाम (daughter&apos;s name)
+                    </div>
 
-                      <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                        {/* {multiMemberName("daughter")} */}
-                      </div>
+                    <div className="col-8  center-y text-uppercase letter-space-3 border ">
+                      {/* {multiMemberName("daughter")} */}
+                    </div>
 
-                      {/* <!-- son's name (nep)--> */}
+                    {/* <!-- son's name (nep)--> */}
 
-                      {/* <!-- son's name (eng)--> */}
-                      <div className="col-4 center-y  border text-capitalize">
-                        छोराको नाम (son&apos;s name)
-                      </div>
+                    {/* <!-- son's name (eng)--> */}
+                    <div className="col-4 center-y  border text-capitalize">
+                      छोराको नाम (son&apos;s name)
+                    </div>
 
-                      <div className="col-8  center-y text-uppercase letter-space-3 border">
-                        {/* {multiMemberName("son")} */}
-                      </div>
+                    <div className="col-8  center-y text-uppercase letter-space-3 border">
+                      {/* {multiMemberName("son")} */}
+                    </div>
 
-                      {/* <!-- daughter in law's name (nep)--> */}
+                    {/* <!-- daughter in law's name (nep)--> */}
 
-                      {/* <!-- daughter in law's name (eng)--> */}
-                      <div className="col-4   center-y border text-capitalize">
-                        बुहारीको नाम (daughter in Law&apos;s name)
-                      </div>
+                    {/* <!-- daughter in law's name (eng)--> */}
+                    <div className="col-4   center-y border text-capitalize">
+                      बुहारीको नाम (daughter in Law&apos;s name)
+                    </div>
 
-                      <div className="col-8 center-y text-uppercase letter-space-3 border ">
-                        {/* {multiMemberName("daughterInLaw")} */}
-                      </div>
+                    <div className="col-8 center-y text-uppercase letter-space-3 border ">
+                      {/* {multiMemberName("daughterInLaw")} */}
+                    </div>
 
-                      {/* <!-- father in law's name (nep)--> */}
+                    {/* <!-- father in law's name (nep)--> */}
 
-                      {/* <!-- father in law's name (eng)--> */}
-                      <div className="col-4 center-y  border text-capitalize">
-                        ससुराको नाम (father In Law&apos;s name)
-                      </div>
+                    {/* <!-- father in law's name (eng)--> */}
+                    <div className="col-4 center-y  border text-capitalize">
+                      ससुराको नाम (father In Law&apos;s name)
+                    </div>
 
-                      <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                        {/* {memberList?.["fatherInLaw"]} */}
-                      </div>
+                    <div className="col-8  center-y text-uppercase letter-space-3 border ">
+                      {/* {memberList?.["fatherInLaw"]} */}
+                    </div>
 
-                      {/* <!-- mother in law's name (nep)--> */}
+                    {/* <!-- mother in law's name (nep)--> */}
 
-                      {/* <!-- mother in law's name (eng)--> */}
-                      <div className="col-4 center-y   border text-capitalize">
-                        सासुको नाम (mother In Law&apos;s name)
-                      </div>
+                    {/* <!-- mother in law's name (eng)--> */}
+                    <div className="col-4 center-y   border text-capitalize">
+                      सासुको नाम (mother In Law&apos;s name)
+                    </div>
 
-                      <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                        {/* {memberList?.["motherInLaw"]} */}
-                      </div>
+                    <div className="col-8  center-y text-uppercase letter-space-3 border ">
+                      {/* {memberList?.["motherInLaw"]} */}
                     </div>
                   </div>
+                  {/* </div> */}
                 </section>
                 {/* BankDetails */}
                 <section className="container pb-1">
@@ -906,462 +899,444 @@ const IndividualDPKyc = () => {
                     </h2>
                   </div>
 
-                  <div className="container">
-                    <div className="row">
-                      {/* <!-- types of bank account --> */}
-                      <div className="col-6 col-md-4  border">
-                        <div>बैंक खाताको किसिम (Types of Bank Account)</div>
-                      </div>
+                  {/* <div className="container"> */}
+                  <div className="row m-0 p-0">
+                    {/* <!-- types of bank account --> */}
+                    <div className="col-6 col-md-4  border">
+                      <div>बैंक खाताको किसिम (Types of Bank Account)</div>
+                    </div>
 
-                      <div className="col-6 col-md-8 border d-flex justify-content gap-4">
-                        <div>
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="saving_account"
-                            >
-                              बचत खाता
-                            </label>
-                            <label
-                              className="form-check-label"
-                              htmlFor="saving_account"
-                            >
-                              &nbsp; (Saving Account)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              id="saving_account"
-                              name="account_type"
-                              //   checked={checkAccountType("S")}
-                            />
-                          </div>
-                        </div>
-
-                        <div>
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="current_account"
-                            >
-                              चल्ती खाता
-                            </label>
-                            <label
-                              className="form-check-label"
-                              htmlFor="current_account"
-                            >
-                              &nbsp;(Current Account)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              id="current_account"
-                              name="account_type"
-                              //   checked={checkAccountType("C")}
-                            />
-                          </div>
+                    <div className="col-6 col-md-8 border d-flex justify-content gap-4">
+                      <div>
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="saving_account"
+                          >
+                            बचत खाता
+                          </label>
+                          <label
+                            className="form-check-label"
+                            htmlFor="saving_account"
+                          >
+                            &nbsp; (Saving Account)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            id="saving_account"
+                            name="account_type"
+                            //   checked={checkAccountType("S")}
+                          />
                         </div>
                       </div>
 
-                      {/* <!-- ! bank account number --> */}
-                      <div className="col-6 col-md-4 border center-y ">
-                        <div className="text-capitalize">
-                          बैंक खाता नं. (bank account number)
+                      <div>
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="current_account"
+                          >
+                            चल्ती खाता
+                          </label>
+                          <label
+                            className="form-check-label"
+                            htmlFor="current_account"
+                          >
+                            &nbsp;(Current Account)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            id="current_account"
+                            name="account_type"
+                            //   checked={checkAccountType("C")}
+                          />
                         </div>
                       </div>
+                    </div>
 
-                      <div className="col-6 col-md-8 border center-y">
-                        {/* {bankDetails?.accountNumber} */}
+                    {/* <!-- ! bank account number --> */}
+                    <div className="col-6 col-md-4 border center-y ">
+                      <div className="text-capitalize">
+                        बैंक खाता नं. (bank account number)
                       </div>
+                    </div>
 
-                      {/* <!-- ! name and address of bank --> */}
-                      <div className="col-6 col-md-6 border  center-y">
-                        <div>बैंक खाताभएको बैंकको नाम (Name of Bank)</div>
-                      </div>
+                    <div className="col-6 col-md-8 border center-y">
+                      {/* {bankDetails?.accountNumber} */}
+                    </div>
 
-                      <div className="col-6 col-md-6 border center-y text-capitalize">
-                        {/* {bankList &&
+                    {/* <!-- ! name and address of bank --> */}
+                    <div className="col-6 col-md-6 border  center-y">
+                      <div>बैंक खाताभएको बैंकको नाम (Name of Bank)</div>
+                    </div>
+
+                    <div className="col-6 col-md-6 border center-y text-capitalize">
+                      {/* {bankList &&
                   bankList?.data?.find(
                     (d) => d.value === userData.bankDetails?.bankName
                   )?.label}
                 {", "} */}
-                      </div>
-                      <div className="col-6 col-md-6 border  center-y">
-                        <div>बैंक खाताभएको बैंकको ठेगाना (Address of Bank)</div>
-                      </div>
+                    </div>
+                    <div className="col-6 col-md-6 border  center-y">
+                      <div>बैंक खाताभएको बैंकको ठेगाना (Address of Bank)</div>
+                    </div>
 
-                      <div className="col-6 col-md-6 border center-y text-capitalize">
-                        {/* {bankDetails?.branchAddress} */}
-                      </div>
+                    <div className="col-6 col-md-6 border center-y text-capitalize">
+                      {/* {bankDetails?.branchAddress} */}
                     </div>
                   </div>
+                  {/* </div> */}
                 </section>
                 {/* Details of Occupation */}
-                <section className="container pb-1 avoid-page-break">
+                <section className="container pb-1 avoid-page-break mt-4">
                   <div className="kyc-secondary-header text-center">
                     <h2>पेशागत विवरण (Details of Occupation)</h2>
                   </div>
 
-                  <div className="container">
-                    <div className="row border">
-                      {/* <!-- occupation --> */}
-                      <div className="col-3 col-md-3 border center-y ">
-                        <div>
-                          <div>पेशा (Occupation)</div>
-                        </div>
+                  {/* <div className="container"> */}
+                  <div className="row m-0 p-0 ">
+                    {/* <!-- occupation --> */}
+                    <div className="col-3 col-md-3 border center-y ">
+                      <div>
+                        <div>पेशा (Occupation)</div>
                       </div>
-                      <div
-                        className="col-9 col-md-9 row border ms-0 on-print"
-                        style={{ rowGap: "1rem" }}
-                      >
-                        <div className="col-3 col-md-6 col-lg-3 ">
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="service"
-                            >
-                              सेवा
-                            </label>
-                            <br />
-                            <label
-                              className="form-check-label"
-                              htmlFor="service"
-                            >
-                              (Service)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              //   checked={checkOccupation("SERVICE")}
-                              readOnly
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-3 col-md-6 col-lg-3 ">
-                          <div className="form-check">
-                            <label className="form-check-label" htmlFor="govt">
-                              सरकारी
-                            </label>
-                            <br />
-                            <label className="form-check-label" htmlFor="govt">
-                              (Government Service)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              //   checked={checkOccupation("Government Services")}
-                              readOnly
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-3 col-md-6 col-lg-3 ">
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="public_private_sector"
-                            >
-                              सार्वजनिक क्षेत्र
-                            </label>
-                            <br />
-                            <label
-                              className="form-check-label"
-                              htmlFor="public_private_sector"
-                            >
-                              (Public sector)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              readOnly
-                              //   checked={checkOccupation("Public Sector")}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-3 col-md-6 col-lg-3 ">
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="ngo_ingo"
-                            >
-                              निजी क्षेत्र
-                            </label>
-                            <br />
-                            <label
-                              className="form-check-label"
-                              htmlFor="ngo_ingo"
-                            >
-                              (Private Sector)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              readOnly
-                              //   checked={checkOccupation("Private Sector")}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-3 col-md-6 col-lg-3 ">
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="business_person"
-                            >
-                              व्यापार
-                            </label>
-                            <br />
-                            <label
-                              className="form-check-label"
-                              htmlFor="business_person"
-                            >
-                              (Business)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              readOnly
-                              //   checked={checkOccupation("BUSINESS")}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-3 col-md-6 col-lg-3 ">
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="agriculture"
-                            >
-                              कृषि
-                            </label>
-                            <br />
-                            <label
-                              className="form-check-label"
-                              htmlFor="agriculture"
-                            >
-                              (Agriculture)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              readOnly
-                              //   checked={checkOccupation("FARMER")}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-3 col-md-6 col-lg-3 ">
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="retired"
-                            >
-                              सेवा निवृत
-                            </label>
-                            <br />
-                            <label
-                              className="form-check-label"
-                              htmlFor="retired"
-                            >
-                              (Retired)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              readOnly
-                              //   checked={checkOccupation("RETIRED")}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-3 col-md-6 col-lg-3 ">
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="house_wife"
-                            >
-                              व्यावसायिक
-                            </label>
-                            <br />
-                            <label
-                              className="form-check-label"
-                              htmlFor="house_wife"
-                            >
-                              (Professional)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              readOnly
-                              //   checked={checkOccupation("PROFESSIONAL")}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-3 col-md-6 col-lg-3 ">
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="house_wife"
-                            >
-                              गृहिणी
-                            </label>
-                            <br />
-                            <label
-                              className="form-check-label"
-                              htmlFor="house_wife"
-                            >
-                              (Housewife)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              readOnly
-                              //   checked={checkOccupation("HOUSEWIFE")}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-3 col-md-6 col-lg-3 ">
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="student"
-                            >
-                              विद्यार्थी
-                            </label>
-                            <br />
-                            <label
-                              className="form-check-label"
-                              htmlFor="student"
-                            >
-                              (Student)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              readOnly
-                              //   checked={checkOccupation("STUDENT")}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="col-3 col-md-6 col-lg-3 ">
-                          <div className="form-check">
-                            <label
-                              className="form-check-label"
-                              htmlFor="occupation_others"
-                            >
-                              अन्य
-                            </label>
-                            <br />
-                            <label
-                              className="form-check-label"
-                              htmlFor="occupation_others"
-                            >
-                              (Others)
-                            </label>
-                            <input
-                              type="radio"
-                              className="form-check-input"
-                              readOnly
-                              //   checked={checkOccupation("OTHERS")}
-                            />
-                          </div>
-                        </div>
-                        <div className="col-3 col-md-6 col-lg-3  mt-4 text-capitalize">
-                          {/* {occupationDetails?.ifOthers} */}
+                    </div>
+                    <div
+                      className="col-9 col-md-9 row border ms-0 on-print"
+                      style={{ rowGap: "1rem" }}
+                    >
+                      <div className="col-3 col-md-6 col-lg-3 ">
+                        <div className="form-check">
+                          <label className="form-check-label" htmlFor="service">
+                            सेवा
+                          </label>
+                          <br />
+                          <label className="form-check-label" htmlFor="service">
+                            (Service)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            //   checked={checkOccupation("SERVICE")}
+                            readOnly
+                          />
                         </div>
                       </div>
 
-                      {/* <!-- type of business --> */}
-                      <div className="col-4 col-md-3 border center-y ">
-                        <div>
-                          <div>व्यापारको प्रकार (Types of Business)</div>
+                      <div className="col-3 col-md-6 col-lg-3 ">
+                        <div className="form-check">
+                          <label className="form-check-label" htmlFor="govt">
+                            सरकारी
+                          </label>
+                          <br />
+                          <label className="form-check-label" htmlFor="govt">
+                            (Government Service)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            //   checked={checkOccupation("Government Services")}
+                            readOnly
+                          />
                         </div>
                       </div>
-                      <div
-                        className="col-8 col-md-9 border row ms-0"
-                        style={{ rowGap: "1rem" }}
-                      >
-                        <div className="form-check col-12 col-md-6 col-lg-4 col-print-md-6 ">
+
+                      <div className="col-3 col-md-6 col-lg-3 ">
+                        <div className="form-check">
                           <label
                             className="form-check-label"
-                            htmlFor="manifacturing"
+                            htmlFor="public_private_sector"
                           >
-                            उत्पादन (Manufacturing)
+                            सार्वजनिक क्षेत्र
                           </label>
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            readOnly
-                            // checked={checkBusiness("MA")}
-                          />
-                        </div>
-
-                        <div className="form-check col-12 col-md-6 col-lg-4 col-print-md-6  ">
+                          <br />
                           <label
                             className="form-check-label"
-                            htmlFor="service_oriented"
+                            htmlFor="public_private_sector"
                           >
-                            सेवामुखी (Service oriented)
+                            (Public sector)
                           </label>
                           <input
                             type="radio"
                             className="form-check-input"
                             readOnly
-                            // checked={checkBusiness("SO")}
+                            //   checked={checkOccupation("Public Sector")}
                           />
                         </div>
+                      </div>
 
-                        <div className="form-check col-12 col-md-6 col-lg-4 col-print-md-6  ">
-                          <label className="form-check-label" htmlFor="others">
-                            अन्य (Others)
+                      <div className="col-3 col-md-6 col-lg-3 ">
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="ngo_ingo"
+                          >
+                            निजी क्षेत्र
+                          </label>
+                          <br />
+                          <label
+                            className="form-check-label"
+                            htmlFor="ngo_ingo"
+                          >
+                            (Private Sector)
                           </label>
                           <input
                             type="radio"
                             className="form-check-input"
                             readOnly
-                            // checked={checkBusiness("O")}
+                            //   checked={checkOccupation("Private Sector")}
                           />
                         </div>
-                        {/* <div className="col-12 col-md-6 col-lg-3 col-print-md-6 mt-4 text-capitalize">
+                      </div>
+
+                      <div className="col-3 col-md-6 col-lg-3 ">
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="business_person"
+                          >
+                            व्यापार
+                          </label>
+                          <br />
+                          <label
+                            className="form-check-label"
+                            htmlFor="business_person"
+                          >
+                            (Business)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            readOnly
+                            //   checked={checkOccupation("BUSINESS")}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="col-3 col-md-6 col-lg-3 ">
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="agriculture"
+                          >
+                            कृषि
+                          </label>
+                          <br />
+                          <label
+                            className="form-check-label"
+                            htmlFor="agriculture"
+                          >
+                            (Agriculture)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            readOnly
+                            //   checked={checkOccupation("FARMER")}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="col-3 col-md-6 col-lg-3 ">
+                        <div className="form-check">
+                          <label className="form-check-label" htmlFor="retired">
+                            सेवा निवृत
+                          </label>
+                          <br />
+                          <label className="form-check-label" htmlFor="retired">
+                            (Retired)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            readOnly
+                            //   checked={checkOccupation("RETIRED")}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-3 col-md-6 col-lg-3 ">
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="house_wife"
+                          >
+                            व्यावसायिक
+                          </label>
+                          <br />
+                          <label
+                            className="form-check-label"
+                            htmlFor="house_wife"
+                          >
+                            (Professional)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            readOnly
+                            //   checked={checkOccupation("PROFESSIONAL")}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-3 col-md-6 col-lg-3 ">
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="house_wife"
+                          >
+                            गृहिणी
+                          </label>
+                          <br />
+                          <label
+                            className="form-check-label"
+                            htmlFor="house_wife"
+                          >
+                            (Housewife)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            readOnly
+                            //   checked={checkOccupation("HOUSEWIFE")}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="col-3 col-md-6 col-lg-3 ">
+                        <div className="form-check">
+                          <label className="form-check-label" htmlFor="student">
+                            विद्यार्थी
+                          </label>
+                          <br />
+                          <label className="form-check-label" htmlFor="student">
+                            (Student)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            readOnly
+                            //   checked={checkOccupation("STUDENT")}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="col-3 col-md-6 col-lg-3 ">
+                        <div className="form-check">
+                          <label
+                            className="form-check-label"
+                            htmlFor="occupation_others"
+                          >
+                            अन्य
+                          </label>
+                          <br />
+                          <label
+                            className="form-check-label"
+                            htmlFor="occupation_others"
+                          >
+                            (Others)
+                          </label>
+                          <input
+                            type="radio"
+                            className="form-check-input"
+                            readOnly
+                            //   checked={checkOccupation("OTHERS")}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-3 col-md-6 col-lg-3  mt-4 text-capitalize">
+                        {/* {occupationDetails?.ifOthers} */}
+                      </div>
+                    </div>
+
+                    {/* <!-- type of business --> */}
+                    <div className="col-4 col-md-3 border center-y ">
+                      <div>
+                        <div>व्यापारको प्रकार (Types of Business)</div>
+                      </div>
+                    </div>
+                    <div
+                      className="col-8 col-md-9 border row ms-0"
+                      style={{ rowGap: "1rem" }}
+                    >
+                      <div className="form-check col-12 col-md-6 col-lg-4 col-print-md-6 ">
+                        <label
+                          className="form-check-label"
+                          htmlFor="manifacturing"
+                        >
+                          उत्पादन (Manufacturing)
+                        </label>
+                        <input
+                          type="radio"
+                          className="form-check-input"
+                          readOnly
+                          // checked={checkBusiness("MA")}
+                        />
+                      </div>
+
+                      <div className="form-check col-12 col-md-6 col-lg-4 col-print-md-6  ">
+                        <label
+                          className="form-check-label"
+                          htmlFor="service_oriented"
+                        >
+                          सेवामुखी (Service oriented)
+                        </label>
+                        <input
+                          type="radio"
+                          className="form-check-input"
+                          readOnly
+                          // checked={checkBusiness("SO")}
+                        />
+                      </div>
+
+                      <div className="form-check col-12 col-md-6 col-lg-4 col-print-md-6  ">
+                        <label className="form-check-label" htmlFor="others">
+                          अन्य (Others)
+                        </label>
+                        <input
+                          type="radio"
+                          className="form-check-input"
+                          readOnly
+                          // checked={checkBusiness("O")}
+                        />
+                      </div>
+                      {/* <div className="col-12 col-md-6 col-lg-3 col-print-md-6 mt-4 text-capitalize">
             {ifOthersBusiness}
           </div> */}
+                    </div>
+                    {/* <!-- organization's name --> */}
+                    <div className="col-4  border  center-y">
+                      <div>
+                        <div>संस्थाको नाम (Organization's Name)</div>
                       </div>
-                      {/* <!-- organization's name --> */}
-                      <div className="col-4  border  center-y">
-                        <div>
-                          <div>संस्थाको नाम (Organization's Name)</div>
-                        </div>
+                    </div>
+                    <div className="col-8 border text-capitalize center-y">
+                      {/* {occupationDetails?.orgName} */}
+                    </div>
+                    <div className="col-4  border  center-y">
+                      <div>
+                        <div>ठेगाना ( Address)</div>
                       </div>
-                      <div className="col-8 border text-capitalize center-y">
-                        {/* {occupationDetails?.orgName} */}
-                      </div>
-                      <div className="col-4  border  center-y">
-                        <div>
-                          <div>ठेगाना ( Address)</div>
-                        </div>
-                      </div>
-                      <div className="col-8 border text-capitalize center-y">
-                        {/* {occupationDetails?.address} */}
-                      </div>
-                      {/* <!-- address --> */}
+                    </div>
+                    <div className="col-8 border text-capitalize center-y">
+                      {/* {occupationDetails?.address} */}
+                    </div>
+                    {/* <!-- address --> */}
 
-                      <div className="col-3 col-md-3 center-y">
-                        <div>
-                          <div>आर्थिक विवरण</div>
+                    <div className="col-3 col-md-3 border center-y">
+                      <div>
+                        <div>आर्थिक विवरण</div>
 
-                          <div className="text-capitalize">
-                            (financial Details)
-                          </div>
+                        <div className="text-capitalize">
+                          (financial Details)
                         </div>
                       </div>
-                      <div className="col-9 col-md-9 border">
-                        <p className="text-start">
-                          आयको सीमा वार्षिक विवरण (Income Limit Annual Details)
-                        </p>
-                        {/* {user?.nature === "TMS" ? (
+                    </div>
+                    <div className="col-9 col-md-9 border">
+                      <p className="text-start">
+                        आयको सीमा वार्षिक विवरण (Income Limit Annual Details)
+                      </p>
+                      {/* {user?.nature === "TMS" ? (
                   <div className="row">
                     <div className="col-12 col-md-6 col-lg-6 col-print-md-6">
                       <div className="form-check">
@@ -1500,9 +1475,9 @@ const IndividualDPKyc = () => {
                     </div>
                   </div>
                 )} */}
-                      </div>
                     </div>
-                    <div className="row">
+                    {/* </div> */}
+                    <div className="row m-0 p-0">
                       <div className="col-12  border">
                         <div>
                           <div>
@@ -1611,7 +1586,7 @@ const IndividualDPKyc = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="row my-2">
+                    <div className="row m-0 p-0">
                       <p className="text-start">
                         {" "}
                         म/हामीले निक्षेप सदस्य र हितग्राहीको करारनामा प्रचलित
@@ -1644,9 +1619,7 @@ const IndividualDPKyc = () => {
 
                         <div className="row col-6" style={{ width: "10cm" }}>
                           <div className="col-6 center-xy border">
-                            <div
-                            // style={{ height: !extraInfo && "250px" }}
-                            >
+                            <div style={{ height: "180px" }}>
                               {" "}
                               <p>बायाँ (left)</p>
                               {/* {userData?.clientDocument?.leftThumb && extraInfo && (
@@ -1662,9 +1635,7 @@ const IndividualDPKyc = () => {
                             </div>
                           </div>
                           <div className="col-6 center-xy border">
-                            <div
-                            // style={{ height: !extraInfo && "250px" }}
-                            >
+                            <div style={{ height: "180px" }}>
                               <p>दायाँ (right)</p>
 
                               {/* {userData?.clientDocument?.rightThumb && extraInfo && (
@@ -1682,8 +1653,7 @@ const IndividualDPKyc = () => {
                         </div>
                       </div>
                       <div
-                        className="row col-5 align-self-end 
-             justify-content-end text-end"
+                        className="row col-5 align-self-end justify-content-end text-end"
                       >
                         <div className="text-center">
                           {/* {userData?.clientDocument?.signature && extraInfo && (
@@ -1706,15 +1676,15 @@ const IndividualDPKyc = () => {
                     </div>
 
                     {/* <!-- ! htmlFor office use only --> */}
-                    <div>
+                    <div className='m-0 p-0'>
                       <h2
                         className="text-center kyc-secondary-header mb-0 classNam"
-                        style={{ width: "102.5%" }}
+                        // style={{ width: "102.5%" }}
                       >
                         कार्यालयको प्रयोजनको लागि (For Official Use)
                       </h2>
 
-                      <div className="border row p-2">
+                      <div className="border row m-0 p-0 p-2">
                         <div className="col-4 col-md-4">
                           <h3>रुजु गर्ने</h3>
 
@@ -1773,7 +1743,7 @@ const IndividualDPKyc = () => {
 
                       <h2>Guardian's Details (In case of Minor Only)</h2>
                     </div>
-{/* 
+                    {/* 
                     <figure style={{ textAlign: "right" }}>
                       <img
                         src="https://picsum.photos/200/200"
@@ -1785,7 +1755,7 @@ const IndividualDPKyc = () => {
                     </figure> */}
                   </div>
 
-                  <div className="row  border text-capitalize">
+                  <div className="row m-0 p-0 border text-capitalize">
                     {/* <!-- name / surname  --> */}
                     <div className="col-12 col-md-6 border ">
                       <div>नाम/ थर ( name / surname) :(in block letter)</div>
@@ -1939,7 +1909,7 @@ const IndividualDPKyc = () => {
                 />
               )} */}
                     <div
-                      className="signature-holder"
+                      className="signature-holder mt-5"
                       // style={{ height: extraInfo ? "0px" : "40px" }}
                     ></div>
                     <div>संरक्षकको हस्ताक्षर</div>
@@ -1949,7 +1919,7 @@ const IndividualDPKyc = () => {
                 {/* )} */}
                 {/* {dpNomineeDetails?.haveNominee === true && ( */}
                 <section className="container pb-1 avoid-page-break">
-                  <div className="text-center kyc-secondary-header mb-2">
+                  <div className="row m-0 p-0 text-center kyc-secondary-header mb-2">
                     <h2>इच्छाएको व्यक्ति सम्बन्धि विवरण (Nominee's Details)</h2>
                   </div>
 
@@ -1963,7 +1933,7 @@ const IndividualDPKyc = () => {
                     nominee shall be entitled to the balance of my demat account
                   </p>
 
-                  <div className="row border text-capitalize">
+                  <div className="row m-0 p-0 border text-capitalize">
                     {/* <!-- name / surname  --> */}
                     <div className="col-12 col-md-6 border  center-y">
                       <div>
@@ -2155,7 +2125,7 @@ const IndividualDPKyc = () => {
                     }
                   />
                 )} */}
-                      <div className="signature-holder"></div>
+                      <div className="signature-holder mt-5"></div>
                       <p>उम्मेदवारको हस्ताक्षर (Signature)</p>
                     </div>
                   </div>

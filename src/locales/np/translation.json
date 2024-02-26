@@ -55,8 +55,6 @@
   "Depository participant": "संग्रही प्रतिभूतकर्ता",
   "Demat Number": "डिमेट नम्बर",
   "NEPSE code": "नेप्से कोड",
-  "Bank Details": "बैंक विवरण",
-  "Bank Name": "बैंकको नाम",
   "Account Number": "खाता नम्बर",
   "Verify Status": "स्थिति प्रमाणित गर्नुहोस्",
   "Basic Plan": "मूल योजना",
@@ -183,7 +181,12 @@
   "Technical Screener": "प्राविधिक स्क्रिनर",
   "End of the day Screener": "दिनको अन्त्य स्क्रिनर",
   "Website": "वेबसाइट",
-  "Reset":"रिसेट",
-  "Set Notification":"सूचना सेट गर्नुहोस्",
-  "Clear": "खाली"
+  "Reset": "रिसेट",
+  "Set Notification": "सूचना सेट गर्नुहोस्",
+  "Clear": "खाली",
+  
+  "it is just for comment sction = kyc-details": "2/22/2024 eng nepali translation for kyc details started",
+  "Bank Details": "बैंक विवरण",
+  "Address Details": "विवरण",
+  "Bank Name": "बैंकको नाम"
 }

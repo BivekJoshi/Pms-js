@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 export const useDocumentForm = () => {
   const formik = useFormik({
     initialValues: {
-      documentType: "",
+      docType: "",
     },
     onSubmit: (value) => {
       console.log(value,"Valuesssssssssssssssssssss");

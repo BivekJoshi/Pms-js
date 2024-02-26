@@ -84,7 +84,7 @@ const IndividualDocument = React.lazy(() =>
   import("./../kyc/pages/IndividualDocument")
 );
 const BankIndividualDpForms = React.lazy(() =>
-  import("../kyc/dp/forms/individual/BankIndividualDpForms")
+  import("../kyc/dp/forms/individual/BankIndividual/BankIndividualDpForms")
 );
 const IndividualDPKyc = React.lazy(() =>
   import("../kyc/ViewKyc/Individual/IndividualDPKyc")
@@ -105,11 +105,19 @@ const CorporateAddress = React.lazy(() =>
   import("../kyc/pages/CorporateAddress")
 );
 const FamilyIndividualDpForms = React.lazy(() =>
-  import("../kyc/dp/forms/individual/FamilyIndividualDpForms")
+  import("../kyc/dp/forms/individual/FamilyIndividual/FamilyIndividualDpForms")
 );
 const KycHomePage = React.lazy(() => import("../kyc/pages/KyCHomePage"));
-const OccupationsIndividualForms = React.lazy(() => import('../kyc/dp/forms/individual/OccupationsIndividualForms'));
+const OccupationsIndividualForms = React.lazy(() =>
+  import(
+    "../kyc/dp/forms/individual/OccupationIndividual/OccupationsIndividualForms"
+  )
+);
 import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
+import BoIndividualDetails from "../kyc/dp/forms/individual/BoIndividualDetails";
+const NomineeDpForms = React.lazy(() =>
+  import("../kyc/dp/forms/individual/NomineeIndividual/NomineeDpForms")
+);
 
 export default function AppRoutes() {
   return (
@@ -157,14 +165,14 @@ export default function AppRoutes() {
                 element={<BankIndividualDpForms />}
               />
               <Route
+                path="demat-registration/i/nominee-details"
+                element={<NomineeDpForms />}
+              />
+              <Route
                 path="demat-registration/i/detail-verification"
                 element={<IndividualDPKyc />}
               />
               <Route
-                path="demat-registration/i/bank-details"
-                element={<BankIndividualDpForms />}
-              />
-               <Route
                 path="demat-registration/i/occupation-details"
                 element={<OccupationsIndividualForms />}
               />
@@ -181,8 +189,12 @@ export default function AppRoutes() {
                 element={<CorporateAddress />}
               />
               <Route
-                path="demat-registration/c/corporate-bank-detail"
-                element={<CorporatBankDetail />}
+                path="demat-registration/i/bo-details"
+                element={<BoIndividualDetails />}
+              />
+              <Route
+                path="demat-registration/i/corporate-bo-statement"
+                element={<CorporatBoStatement />}
               />
               <Route
                 path="demat-registration/c/corporate-bo-statement"
