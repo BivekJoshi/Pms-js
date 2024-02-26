@@ -62,6 +62,7 @@ const KycProfileCard = ({ clientType, nature }) => {
       padding="16px"
       sx={{
         borderRadius: "6px 0px 0px 6px",
+       
       }}
     >
       <div

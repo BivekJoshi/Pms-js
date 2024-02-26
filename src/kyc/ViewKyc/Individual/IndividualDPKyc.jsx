@@ -25,9 +25,9 @@ const IndividualDPKyc = () => {
           variant="fullWidth"
         >
           <Tab label="Individual DP" value="1" />
-          <Tab label="Individual kyc" value="2" />
+          <Tab label="Individual TMS" value="2" />
           <Tab label="corporate dp" value="3" />
-          <Tab label="corporate kyc" value="4" />
+          <Tab label="corporate TMS" value="4" />
         </TabList>
         <TabPanel value="1">
           <div className="container dpkyc">

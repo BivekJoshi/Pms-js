@@ -59,6 +59,7 @@ const KycLayout = () => {
         style={{
           padding: "16px",
           minHeight: "94dvh",
+          position: "relative",
         }}
         // data-aos='fade-right'
       >
@@ -79,7 +80,19 @@ const KycLayout = () => {
               display: isSm ? "none" : "flex",
             }}
           >
-            <Grid display="flex" flexDirection="column" gap="16px">
+            <Grid
+              display="flex"
+              flexDirection="column"
+              gap="16px"
+              sx={{
+                borderRadius: "6px 0px 0px 6px",
+                position: "sticky",
+                top: "90px",
+                bottom: 0,
+                overflowY: "auto",
+                maxHeight: "90vh",
+              }}
+            >
               <KycProfileCard clientType={clientType} nature={"DP"} />
               <Grid
                 p="12px"
@@ -122,11 +135,11 @@ const KycLayout = () => {
                 width="100%"
               >
                 <Grid display="flex" flexDirection="column">
-                  <NavLink
-                    className="navlinks-list"
-                    to={"/"}
-                  >
-                    <Grid className="profileIcon" style={{textDecoration:'none'}}>
+                  <NavLink className="navlinks-list" to={"/"}>
+                    <Grid
+                      className="profileIcon"
+                      style={{ textDecoration: "none" }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="28"
@@ -155,7 +168,12 @@ const KycLayout = () => {
                           fill="#25005A"
                         />
                       </svg>
-                      <Typography variant="h7" style={{textDecoration:'none'}}>{t("Logout")}</Typography>
+                      <Typography
+                        variant="h7"
+                        style={{ textDecoration: "none" }}
+                      >
+                        {t("Logout")}
+                      </Typography>
                     </Grid>
                   </NavLink>
                 </Grid>

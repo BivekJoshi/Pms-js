@@ -1432,7 +1432,7 @@ const CorporateTmsKyc = () => {
                 सम्झौता गरिएको छ |
               </p>
             </div>
-            <body className="body2">
+            <body style={{ backgroundColor: "white" }}>
               <h6 className="aggrement-header">१.सामान्य प्रावधान </h6>
               <p className="mx-3 text-start  aggrement-content">
                 {" "}

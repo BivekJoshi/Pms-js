@@ -123,7 +123,7 @@ const FamilyIndividualDpForms = () => {
                       name: `familyDetails.${index}.${d.name}`,
                     };
                   } else {
-                    // Keep other fields as they are
+                    // Keep other fields as they are for the familymamber field
                     return {
                       ...d,
                       name: `familyDetails.${index}.${d.name}`,

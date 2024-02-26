@@ -6,6 +6,7 @@ body {
 .kyctms,
 body {
   font-size: 14px !important;
+  
 }
 .check-box input{
   width: 8% !important;
@@ -31,7 +32,7 @@ body {
   margin-bottom: 0 !important;
 }
 .aggrement-content {
-  font-size: 11px;
+  font-size: 13px;
   margin-bottom: 10px;
 }
 .overright_margin {
@@ -181,7 +182,9 @@ body {
     padding-top: 1cm !important;
     padding: 01rem;
   }
-
+  .aggrement-content {
+    font-size: 11px;
+  }
   .pb-5 {
     padding-bottom: 5px !important;
   }
