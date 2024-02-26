@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Combobox } from "react-widgets";
 import axios from "axios";
 import "./nepaliInputText.css";
-import { Autocomplete } from '@mui/material';
+import { Autocomplete, Grid } from "@mui/material";
 
 const NepaliInputText = ({ element, formik }) => {
   const [options, setOptions] = useState([]);
@@ -41,13 +41,13 @@ const NepaliInputText = ({ element, formik }) => {
 
   const handleKeyUp = async (e) => {
     const { value, onChange } = e.target;
-    if(value === ""){
+    if (value === "") {
+      setSearchValue("");
       setOptions([]);
       return;
     }
-    console.log(value)
-    setSearchValue(value); // Update the search field value
-   
+    setSearchValue(value);
+
     if (value.length >= 2 && e.keyCode !== 40 && e.keyCode !== 38) {
       if (e.keyCode === 32) {
         if (options.length >= 1) onChange(options[0] + " ");
@@ -60,27 +60,30 @@ const NepaliInputText = ({ element, formik }) => {
   };
 
   return (
-    <div className='devnagiri-input-text'>
-    <Combobox
-      {...element}
-      data={options}
-      value={searchValue}
-      placeholder={element?.label}
-      onChange={(value) => {
-        setSearchValue(value);
-        formik.handleChange({
-          target: {
-            name: element?.name,
-            value: value,
-          }
-        });
-      }}
-      busy={busy}
-      onKeyUp={handleKeyUp}
-      filter={() => true}
-      hideCaret={true}
-    />
-  </div>
+    <Grid container>
+      <Grid item sx={12} md={12} lg={12} className='devnagiri-input-text'>
+        <Combobox
+          {...element}
+          data={options}
+          value={searchValue}
+          placeholder={element?.label}
+          onChange={(value) => {
+            setSearchValue(value);
+            setOptions([]);
+            formik.handleChange({
+              target: {
+                name: element?.name,
+                value: value,
+              },
+            });
+          }}
+          busy={busy}
+          onKeyUp={handleKeyUp}
+          filter={() => true}
+          hideCaret={true}
+        />
+      </Grid>
+    </Grid>
   );
 };
 

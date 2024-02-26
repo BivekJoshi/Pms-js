@@ -1,4 +1,6 @@
 .devnagiri-input-text input {
+  width: 100%;
+  position: relative;
   margin-top: 8px;
   padding: 16px 98px 16px 12px;
   border-radius: 4px;
@@ -8,10 +10,14 @@
 }
 .rw-popup-container,
 .rw-slide-transition-exited {
+  width: fit-content;
   padding-left: 22px;
-  z-index: 222;
+  z-index: 99;
   width: 31%;
   position: absolute;
   background: #000;
   background: white;
+}
+.rw-list-empty{
+  display: none;
 }
