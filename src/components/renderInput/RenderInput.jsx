@@ -372,32 +372,50 @@ const RenderInput = ({
 
       case "radio":
         return (
-          <FormControl
-            style={{
-              display: element?.display,
-              alignItems: element?.align,
-              gap: element?.gap,
-            }}
-          >
-            <FormLabel id="demo-radio-buttons-group-label">
-              {element.label}
-            </FormLabel>
-            <RadioGroup row onChange={formik.handleChange} name={element?.name}>
-              {element.radio.map((radio, i) => (
-                <FormControlLabel
-                  value={radio.value}
-                  control={<Radio />}
-                  key={i}
-                  label={radio.label}
-                  disabled={
-                    element.name === "accountStatementPeriod" &&
-                    formik.values.isStandingInstructionForAutomaticTxn ===
-                      "false"
-                  }
-                />
-              ))}
-            </RadioGroup>
-          </FormControl>
+          <>
+            <FormControl
+              style={{
+                display: element?.display,
+                alignItems: element?.align,
+                gap: element?.gap,
+              }}
+            >
+              <FormLabel id="demo-radio-buttons-group-label">
+                {element.label}
+              </FormLabel>
+              <RadioGroup
+                row
+                name={element?.name}
+                value={formik.values[element.name]}
+                onChange={(event, value) => {
+                  formik.handleChange(element.name)(value); // Manually update Formik state
+                }}
+              >
+                {element.radio.map((radio, i) => (
+                  <FormControlLabel
+                    value={radio.value}
+                    control={<Radio />}
+                    key={i}
+                    label={radio.label}
+                    disabled={
+                      element.name === "accountStatementPeriod" &&
+                      formik.values.isStandingInstructionForAutomaticTxn ===
+                        "false"
+                    }
+                  />
+                ))}
+              </RadioGroup>
+            </FormControl>
+
+            {element.isDependent && formik.values[element?.name] === "true" ? (
+              <RenderInput inputField={element.trueNewFields} formik={formik} />
+            ) : (
+              <RenderInput
+                inputField={element.falseNewFields}
+                formik={formik}
+              />
+            )}
+          </>
         );
       case "datePicker":
         return (

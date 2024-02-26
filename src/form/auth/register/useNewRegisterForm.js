@@ -33,6 +33,10 @@ export const useNewRegisterForm = () => {
     },
   });
 
+  const handleStepOne = (values) => {
+    schema.validateSync(values);
+  };
+
   const handleRegister = (values) => {
     mutate(values, { onSettled: () => setLoading(false) });
   };
@@ -59,6 +63,7 @@ export const useNewRegisterForm = () => {
 
   return {
     handleRegister,
+    handleStepOne,
     formik,
     loading,
     handleMouseDownPassword,

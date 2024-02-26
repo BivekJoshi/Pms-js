@@ -7,43 +7,67 @@ import {
   TextField,
 } from "@mui/material";
 import React from "react";
+import { nanoid } from "nanoid";
+
 import RenderInput from "../../../components/renderInput/RenderInput";
 
-const StepTwo = () => {
+const StepTwo = ({ formik }) => {
+  const stepTwoFieds = [
+    {
+      name: "nepseExist",
+      label: "Already have Trading Account?",
+      type: "radio",
+      sm: 12,
+      col: 12,
+      id: nanoid(),
+      radio: [
+        {
+          value: true,
+          label: "Yes",
+        },
+        {
+          value: false,
+          label: "No",
+        },
+      ],
+      isDependent: true,
+      trueNewFields: [
+        {
+          name: "nepseCode",
+          type: "text",
+          label: "NEPSE Code",
+          required: true,
+          id: nanoid(),
+          md: 12,
+          sm: 12,
+        },
+      ],
+      falseNewFields: [
+        {
+          name: "dematExist",
+          label: "Already have Demat Account?",
+          type: "radio",
+          sm: 12,
+          col: 12,
+          id: nanoid(),
+          radio: [
+            {
+              value: true,
+              label: "Yes",
+            },
+            {
+              value: false,
+              label: "No",
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
   return (
     <div data-aos="fade-left">
-      <FormControl>
-        <FormLabel id="demo-radio-buttons-group-label">
-          Already have Trading Account?
-        </FormLabel>
-        <RadioGroup
-          row
-          aria-labelledby="demo-radio-buttons-group-label"
-          name="radio-buttons-group"
-        >
-          <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
-          <FormControlLabel value="No" control={<Radio />} label="No" />
-        </RadioGroup>
-      </FormControl>
-      <TextField
-        id="outlined-basic"
-        label="Enter NEPSE Code"
-        type="number"
-        variant="outlined"
-      />
-      <FormControl>
-        <FormLabel id="demo-radio-buttons-group-label">
-          Do you have DEMAT Account?
-        </FormLabel>
-        <RadioGroup
-          row
-          aria-labelledby="demo-radio-buttons-group-label"
-          name="radio-buttons-group"
-        >
-          <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
-          <FormControlLabel value="No" control={<Radio />} label="No" />
-        </RadioGroup>
-      </FormControl>
+      <RenderInput inputField={stepTwoFieds} formik={formik} />
     </div>
   );
 };

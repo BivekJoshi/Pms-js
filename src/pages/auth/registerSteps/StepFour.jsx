@@ -4,7 +4,6 @@ import React from "react";
 import RenderInput from "../../../components/renderInput/RenderInput";
 
 const StepFour = ({ formik }) => {
-  console.log("🚀 ~ StepFour ~ formik:", formik);
   const stepFourFields = [
     {
       name: "dpId",
