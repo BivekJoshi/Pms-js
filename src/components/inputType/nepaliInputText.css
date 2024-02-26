@@ -6,3 +6,12 @@
   background-color: transparent;
   width: 100% !important;
 }
+.rw-popup-container,
+.rw-slide-transition-exited {
+  padding-left: 22px;
+  z-index: 222;
+  width: 31%;
+  position: absolute;
+  background: #000;
+  background: white;
+}

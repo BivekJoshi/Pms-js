@@ -146,8 +146,6 @@ const RenderInput = ({
             sx={{ width: "100%" }}
           />
         );
-        case "nepaliTypeText":
-          return <NepaliInputText element={element} formik={formik} />;
       case "dropDownWithValue":
         return (
           <Autocomplete
@@ -367,7 +365,8 @@ const RenderInput = ({
         return <PickDate element={element} formik={formik} />;
       case "dualDate":
         return <DualDatePicker element={element} formik={formik} />;
-
+        case "nepaliTypeText":
+          return <NepaliInputText element={element} formik={formik} />;
       case "asyncDropDown":
         return <AsyncDropDown element={element} formik={formik} />;
 
