@@ -1,21 +1,23 @@
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import {
-  dematOnly,
-  dematRegisterSchema,
-  tmsOnly,
-  tmsanddematRegisterSchema,
-} from "./registerValidationSchema";
+
 import { useRegister } from "../../../hooks/auth/useAuth";
+import {
+  FirstStepSchema,
+  SecondSchema,
+  ThirdStepSchema,
+} from "./RegistrationSchema";
 
 export const useNewRegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const [schema, setSchema] = useState();
+  const [currentStep, setCurrentStep] = useState(1);
+
   const { mutate } = useRegister({});
   const formik = useFormik({
     initialValues: {
-      dematExist: false,
-      nepseExist: false,
+      dematExist: "",
+      nepseExist: "",
       clientType: "",
       name: "",
       accountType: "",
@@ -33,8 +35,11 @@ export const useNewRegisterForm = () => {
     },
   });
 
-  const handleStepOne = (values) => {
-    schema.validateSync(values);
+  const handleStep = (values) => {
+    const isValid = schema.isValidSync(values);
+    if (isValid) {
+      setCurrentStep((prevStep) => prevStep + 1);
+    }
   };
 
   const handleRegister = (values) => {
@@ -47,25 +52,19 @@ export const useNewRegisterForm = () => {
 
   useEffect(() => {
     const determineFields = () => {
-      if (formik.values.nepseExist && formik.values.dematExist) {
-        setSchema(tmsanddematRegisterSchema);
-      } else if (formik.values.nepseExist) {
-        setSchema(tmsOnly);
-      } else if (formik.values.dematExist) {
-        setSchema(dematOnly);
-      } else {
-        setSchema(dematRegisterSchema);
-      }
+      const schemasArray = [FirstStepSchema, SecondSchema, ThirdStepSchema];
+      setSchema(schemasArray[currentStep - 1]);
     };
 
     determineFields();
-  }, [formik.values.nepseExist, formik.values.dematExist]);
+  }, [currentStep]);
 
   return {
     handleRegister,
-    handleStepOne,
+    handleStep,
     formik,
     loading,
+    currentStep,
     handleMouseDownPassword,
   };
 };

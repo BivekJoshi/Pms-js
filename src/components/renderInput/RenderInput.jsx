@@ -10,6 +10,7 @@ import {
   TextField,
   ToggleButton,
   ToggleButtonGroup,
+  Typography,
 } from "@mui/material";
 import { Field, getIn } from "formik";
 import React, { useEffect, useMemo, useRef, useState } from "react";
@@ -129,7 +130,6 @@ const RenderInput = ({
     const formTouched = isFieldArray
       ? getIn(formik.touched, element.name)
       : formik.touched[element.name];
-
     switch (element.type) {
       case "text":
         return (
@@ -171,7 +171,11 @@ const RenderInput = ({
                 return (
                   <ToggleButton
                     key={index}
-                    sx={{ borderRadius: "14px" }}
+                    sx={{
+                      borderRadius: "14px",
+                      borderColor: formTouched && formError && "red",
+                      color: formTouched && formError && "red",
+                    }}
                     value={item.value}
                   >
                     {item.label}
@@ -179,6 +183,11 @@ const RenderInput = ({
                 );
               })}
             </ToggleButtonGroup>
+            {formTouched && Boolean(formError) && (
+              <Typography color="error" fontSize="12px" marginBottom={0.1}>
+                {formTouched && formError}
+              </Typography>
+            )}
           </div>
         );
 
@@ -411,7 +420,11 @@ const RenderInput = ({
               }}
             >
               <FormLabel id="demo-radio-buttons-group-label">
-                {element.label}
+                <Typography
+                  color={formTouched && Boolean(formError) && "error"}
+                >
+                  {element.label}
+                </Typography>
               </FormLabel>
               <RadioGroup
                 row
@@ -420,6 +433,7 @@ const RenderInput = ({
                 onChange={(event, value) => {
                   formik.handleChange(element.name)(value); // Manually update Formik state
                 }}
+                onError={formTouched && Boolean(formError)}
               >
                 {element.radio.map((radio, i) => (
                   <FormControlLabel
@@ -435,6 +449,12 @@ const RenderInput = ({
                   />
                 ))}
               </RadioGroup>
+
+              {formTouched && Boolean(formError) && (
+                <Typography color="error" fontSize="12px" marginBottom={1}>
+                  {formTouched && formError}
+                </Typography>
+              )}
             </FormControl>
 
             {element.isDependent && formik.values[element?.name] === "true" ? (
@@ -467,7 +487,26 @@ const RenderInput = ({
         return <DualDatePicker element={element} formik={formik} />;
 
       case "asyncDropDown":
-        return <AsyncDropDown element={element} formik={formik} />;
+        return (
+          <>
+            <AsyncDropDown element={element} formik={formik} />
+            <div style={{ marginTop: "0.5rem" }}>
+              {element.isDependent && formik.values[element?.name] ? (
+                <RenderInput
+                  inputField={element.trueNewFields}
+                  formik={formik}
+                />
+              ) : !element.isDependent && formik.values[element?.name] ? (
+                <RenderInput
+                  inputField={element.falseNewFields}
+                  formik={formik}
+                />
+              ) : (
+                ""
+              )}
+            </div>
+          </>
+        );
 
       case "documentUpload":
         return <DropZoneUploadFile title={element?.title} />;

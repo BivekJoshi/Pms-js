@@ -1,41 +1,66 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Box, Button, Grid } from "@mui/material";
 import SignUpPage from "../../assets/signUpPage.png";
 import { useNewRegisterForm } from "../../form/auth/register/useNewRegisterForm";
 import { LoadingButton } from "@mui/lab";
-import RenderInput from "../../components/renderInput/RenderInput";
-import { kycClientType } from "./../../utility/kycData";
-import { nanoid } from "nanoid";
+
 import { useNavigate } from "react-router-dom";
 import StepOne from "./registerSteps/StepOne";
 import StepTwo from "./registerSteps/StepTwo";
 import StepThree from "./registerSteps/StepThree";
 import StepFour from "./registerSteps/StepFour";
 
-const NewRegisterPage = () => {
-  const { formik, loading, handleStepOne } = useNewRegisterForm();
-  console.log("🚀 ~ NewRegisterPage ~ formik:", formik);
-  const [currentStep, setCurrentStep] = useState(1);
+const touchedField = (steps) => {
+  switch (steps) {
+    case 1:
+      return {
+        name: true,
+        email: true,
+        phoneNo: true,
+        clientType: true,
+        branchId: true,
+      };
+    case 2:
+      return {
+        nepseCode: true,
+        nepseExist: true,
+        dematExist: true,
+      };
+    case 3:
+      return {
+        dematNo: true,
+        dpId: true,
+        accountType: true,
+      };
+    default:
+      return {
+        name: true,
+        email: true,
+        phoneNo: true,
+        clientType: true,
+        branchId: true,
+      };
+  }
+};
 
+const NewRegisterPage = () => {
+  const { formik, loading, handleStep, currentStep } = useNewRegisterForm();
   useEffect(() => {
     if (formik.values.nepseExist) {
       formik.setFieldValue("dematExist", false);
       formik.setFieldValue("dpId", "");
       formik.setFieldValue("dematNo", "");
     }
-  }, [formik.values.nepseExist]);
+  }, [formik.values.nepseExist]); //eslint-disable-line
+
   const navigate = useNavigate();
   const navigateLogin = () => {
     navigate("/login");
   };
 
   const handleNextStep = () => {
-    if (currentStep === 1) {
-      // handleStepOne(formik.values);
-    }
-    if (currentStep >= 4) return;
-
-    setCurrentStep((previousValue) => previousValue + 1);
+    formik.setTouched(touchedField(currentStep));
+    handleStep(formik.values);
   };
 
   return (
@@ -80,29 +105,34 @@ const NewRegisterPage = () => {
 
           {currentStep === 2 && <StepTwo formik={formik} />}
           {currentStep === 3 && <StepThree formik={formik} />}
-          {currentStep === 4 && <StepFour formik={formik} />}
-          <Button
-            fullWidth
-            variant="contained"
-            onClick={handleNextStep}
-            color="secondary"
-          >
-            Next
-          </Button>
-          {/* <LoadingButton
-            className="titleMedium  bg-purple-700"
-            fullWidth
-            onClick={() => formik.submitForm()}
-            variant="contained"
-            loading={loading}
-            sx={{
-              background: "#6750a4",
-            }}
-          >
-            <div className="titleMedium" style={{ margin: ".25rem 0" }}>
-              Sign Up
-            </div>
-          </LoadingButton> */}
+
+          {formik.values.nepseExist === "true" ||
+          formik.values.dematExist === "false" ||
+          currentStep === 3 ? (
+            <LoadingButton
+              className="titleMedium  bg-purple-700"
+              fullWidth
+              onClick={() => formik.submitForm()}
+              variant="contained"
+              loading={loading}
+              sx={{
+                background: "#6750a4",
+              }}
+            >
+              <div className="titleMedium" style={{ margin: ".25rem 0" }}>
+                Sign Up
+              </div>
+            </LoadingButton>
+          ) : (
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={handleNextStep}
+              color="secondary"
+            >
+              Next
+            </Button>
+          )}
         </Grid>
         <Grid style={{ textAlign: "center" }} marginTop=".5rem">
           <div className="bodySmall ">
