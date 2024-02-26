@@ -7,6 +7,7 @@ import {
   tmsanddematRegisterSchema,
 } from "./registerValidationSchema";
 import { useRegister } from "../../../hooks/auth/useAuth";
+import { FirstStepSchema } from "./RegistrationSchema";
 
 export const useNewRegisterForm = () => {
   const [loading, setLoading] = useState(false);
@@ -26,7 +27,7 @@ export const useNewRegisterForm = () => {
       dpId: "",
       dematNo: "",
     },
-    validationSchema: schema,
+    validationSchema: FirstStepSchema,
     onSubmit: (values) => {
       setLoading(true);
       handleRegister(values);
