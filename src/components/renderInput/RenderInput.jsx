@@ -351,16 +351,13 @@ const RenderInput = ({
                   control={<Radio />}
                   key={i}
                   label={radio.label}
-                  disabled={
-                    element.name === "accountStatementPeriod" &&
-                    formik.values.isStandingInstructionForAutomaticTxn ===
-                      "false"
-                  }
+                  disabled={disableField}
                 />
               ))}
             </RadioGroup>
           </FormControl>
         );
+
       case "datePicker":
         return <PickDate element={element} formik={formik} />;
       case "dualDate":

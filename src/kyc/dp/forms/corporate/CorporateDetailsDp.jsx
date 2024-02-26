@@ -242,7 +242,6 @@ const CorporateDetailsDp = () => {
           type: "text",
           required: "Please enter main company name",
           id: nanoid(),
-
           md: 4,
           sm: 12,
         },
