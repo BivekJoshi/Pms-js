@@ -130,9 +130,6 @@ const RenderInput = ({
     const formTouched = isFieldArray
       ? getIn(formik.touched, element.name)
       : formik.touched[element.name];
-
-      console.log(element)
-
     switch (element.type) {
       case "text":
         return (
@@ -174,7 +171,11 @@ const RenderInput = ({
                 return (
                   <ToggleButton
                     key={index}
-                    sx={{ borderRadius: "14px" }}
+                    sx={{
+                      borderRadius: "14px",
+                      borderColor: formTouched && formError && "red",
+                      color: formTouched && formError && "red",
+                    }}
                     value={item.value}
                   >
                     {item.label}
@@ -182,6 +183,11 @@ const RenderInput = ({
                 );
               })}
             </ToggleButtonGroup>
+            {formTouched && Boolean(formError) && (
+              <Typography color="error" fontSize="12px" marginBottom={0.1}>
+                {formTouched && formError}
+              </Typography>
+            )}
           </div>
         );
 
@@ -460,11 +466,13 @@ const RenderInput = ({
                   inputField={element.trueNewFields}
                   formik={formik}
                 />
-              ) : (
+              ) : !element.isDependent && formik.values[element?.name] ? (
                 <RenderInput
                   inputField={element.falseNewFields}
                   formik={formik}
                 />
+              ) : (
+                ""
               )}
             </div>
           </>

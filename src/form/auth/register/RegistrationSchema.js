@@ -21,9 +21,10 @@ export const SecondSchema = Yup.object().shape({
 });
 
 export const ThirdStepSchema = Yup.object().shape({
-  dpId: Yup.number(),
+  dpId: Yup.number().required("Required"),
   dematNo: Yup.string().when("dpId", {
     is: (val) => val === 11400,
     then: Yup.string().required("Required"),
   }),
+  accountType: Yup.string().required("Required"),
 });

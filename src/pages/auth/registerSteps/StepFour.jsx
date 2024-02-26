@@ -16,21 +16,7 @@ const StepFour = ({ formik }) => {
       responseLabel: "dpName",
       responseId: "id",
     },
-    {
-      name: "accountType",
-      label: "Would you like to open DEMAT / TRADING Account?",
-      type: "toggleButton",
-      options: [
-        {
-          label: "DEMAT Account",
-          value: "DEMAT Account",
-        },
-        {
-          label: "TMS Account",
-          value: "TMS Account",
-        },
-      ],
-    },
+   
   ];
 
   return (

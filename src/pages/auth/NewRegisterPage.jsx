@@ -30,6 +30,7 @@ const touchedField = (steps) => {
       return {
         dematNo: true,
         dpId: true,
+        accountType: true,
       };
     default:
       return {
@@ -50,7 +51,7 @@ const NewRegisterPage = () => {
       formik.setFieldValue("dpId", "");
       formik.setFieldValue("dematNo", "");
     }
-  }, [formik.values.nepseExist]);//eslint-disable-line
+  }, [formik.values.nepseExist]); //eslint-disable-line
 
   const navigate = useNavigate();
   const navigateLogin = () => {
@@ -104,10 +105,10 @@ const NewRegisterPage = () => {
 
           {currentStep === 2 && <StepTwo formik={formik} />}
           {currentStep === 3 && <StepThree formik={formik} />}
-          {currentStep === 4 && <StepFour formik={formik} />}
 
           {formik.values.nepseExist === "true" ||
-          formik.values.dematExist === "false" ? (
+          formik.values.dematExist === "false" ||
+          currentStep === 3 ? (
             <LoadingButton
               className="titleMedium  bg-purple-700"
               fullWidth
