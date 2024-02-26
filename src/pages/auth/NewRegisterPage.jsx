@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import StepOne from "./registerSteps/StepOne";
 import StepTwo from "./registerSteps/StepTwo";
 import StepThree from "./registerSteps/StepThree";
-import StepFour from "./registerSteps/StepFour";
 
 const touchedField = (steps) => {
   switch (steps) {
