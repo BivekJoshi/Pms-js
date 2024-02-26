@@ -8,6 +8,9 @@ import {
   RadioGroup,
   Switch,
   TextField,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
 } from "@mui/material";
 import { Field, getIn } from "formik";
 import React, { useEffect, useMemo, useRef, useState } from "react";
@@ -129,7 +132,6 @@ const RenderInput = ({
     const formTouched = isFieldArray
       ? getIn(formik.touched, element.name)
       : formik.touched[element.name];
-
     switch (element.type) {
       case "text":
         return (
@@ -148,6 +150,51 @@ const RenderInput = ({
             sx={{ width: "100%" }}
           />
         );
+      case "toggleButton":
+        return (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+            }}
+          >
+            <div>{element.label}</div>
+            <ToggleButtonGroup
+              color="primary"
+              name={element.name}
+              value={formik.values[element.name]}
+              exclusive
+              onChange={(event, value) => {
+                formik.handleChange(element.name)(value); // Manually update Formik state
+              }}
+            >
+              {element.options.map((item, index) => {
+                return (
+                  <ToggleButton
+                    key={index}
+                    sx={{
+                      borderRadius: "14px",
+                      borderColor: formTouched && formError && "red",
+                      color: formTouched && formError && "red",
+                    }}
+                    value={item.value}
+                  >
+                    {item.label}
+                  </ToggleButton>
+                );
+              })}
+            </ToggleButtonGroup>
+            {formTouched && Boolean(formError) && (
+              <Typography color="error" fontSize="12px" marginBottom={0.1}>
+                {formTouched && formError}
+              </Typography>
+            )}
+          </div>
+        );
+
+      case "nepaliTypeText":
+        return <NepaliInputText element={element} formik={formik} />;
       case "dropDownWithValue":
         return (
           <Autocomplete
@@ -302,7 +349,7 @@ const RenderInput = ({
               }
               label={t(element?.label)}
             />
-            {element?.infoAlert && !formik.values.isMinor && (
+            {element?.infoAlert && !formik.values[element?.name] && (
               <Alert
                 variant="standard"
                 sx={{ bgcolor: "background.default" }}
@@ -310,6 +357,36 @@ const RenderInput = ({
               >
                 {t(element.infoAlert)}
               </Alert>
+            )}
+            {element?.hasRadio && formik.values[element.name] && (
+              <FormControl
+                style={{
+                  display: element?.radioDisplay,
+                  alignItems: element?.radioAlign,
+                  gap: element?.radioGap,
+                }}
+              >
+                <FormLabel id="demo-radio-buttons-group-label">
+                  {element.radioLabel}
+                </FormLabel>
+                <RadioGroup
+                  row
+                  name={element?.radioName}
+                  value={formik.values[element.radioName]}
+                  onChange={(event, value) => {
+                    formik.handleChange(element.radioName)(value); // Manually update Formik state
+                  }}
+                >
+                  {element.radio.map((radio, i) => (
+                    <FormControlLabel
+                      value={radio.value}
+                      control={<Radio />}
+                      key={i}
+                      label={radio.label}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
             )}
           </div>
         );
@@ -336,28 +413,61 @@ const RenderInput = ({
 
       case "radio":
         return (
-          <FormControl
-            style={{
-              display: element?.display,
-              alignItems: element?.align,
-              gap: element?.gap,
-            }}
-          >
-            <FormLabel id="demo-radio-buttons-group-label">
-              {element.label}
-            </FormLabel>
-            <RadioGroup row onChange={formik.handleChange} name={element?.name}>
-              {element.radio.map((radio, i) => (
-                <FormControlLabel
-                  value={radio.value}
-                  control={<Radio />}
-                  key={i}
-                  label={t(radio.label)}
-                  disabled={disableField}
-                />
-              ))}
-            </RadioGroup>
-          </FormControl>
+          <>
+            <FormControl
+              style={{
+                display: element?.display,
+                alignItems: element?.align,
+                gap: element?.gap,
+              }}
+            >
+              <FormLabel id="demo-radio-buttons-group-label">
+                <Typography
+                  color={formTouched && Boolean(formError) && "error"}
+                >
+                  {element.label}
+                </Typography>
+              </FormLabel>
+              <RadioGroup
+                row
+                name={element?.name}
+                value={formik.values[element.name]}
+                onChange={(event, value) => {
+                  formik.handleChange(element.name)(value); // Manually update Formik state
+                }}
+                onError={formTouched && Boolean(formError)}
+              >
+                {element.radio.map((radio, i) => (
+                  <FormControlLabel
+                    value={radio.value}
+                    control={<Radio />}
+                    key={i}
+                    label={radio.label}
+                    disabled={
+                      element.name === "accountStatementPeriod" &&
+                      formik.values.isStandingInstructionForAutomaticTxn ===
+                        "false"
+                    }
+                  />
+                ))}
+              </RadioGroup>
+
+              {formTouched && Boolean(formError) && (
+                <Typography color="error" fontSize="12px" marginBottom={1}>
+                  {formTouched && formError}
+                </Typography>
+              )}
+            </FormControl>
+
+            {element.isDependent && formik.values[element?.name] === "true" ? (
+              <RenderInput inputField={element.trueNewFields} formik={formik} />
+            ) : (
+              <RenderInput
+                inputField={element.falseNewFields}
+                formik={formik}
+              />
+            )}
+          </>
         );
 
       case "datePicker":
@@ -367,7 +477,26 @@ const RenderInput = ({
         case "nepaliTypeText":
           return <NepaliInputText element={element} formik={formik} />;
       case "asyncDropDown":
-        return <AsyncDropDown element={element} formik={formik} />;
+        return (
+          <>
+            <AsyncDropDown element={element} formik={formik} />
+            <div style={{ marginTop: "0.5rem" }}>
+              {element.isDependent && formik.values[element?.name] ? (
+                <RenderInput
+                  inputField={element.trueNewFields}
+                  formik={formik}
+                />
+              ) : !element.isDependent && formik.values[element?.name] ? (
+                <RenderInput
+                  inputField={element.falseNewFields}
+                  formik={formik}
+                />
+              ) : (
+                ""
+              )}
+            </div>
+          </>
+        );
 
       case "documentUpload":
         return <DropZoneUploadFile title={element?.title} />;
