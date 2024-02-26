@@ -1,5 +1,4 @@
 import {
-  Grid,
   Table,
   TableBody,
   TableCell,
@@ -13,6 +12,7 @@ import { useRef } from "react";
 import DpMeroShare from "../DpMeroShare";
 import ReactToPrint from "react-to-print";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
+import CorporateKycPdf from "../../pdf/component/CorporateKycPdf";
 
 const CorporateTmsKyc = () => {
   const componentRef = useRef();
@@ -24,11 +24,7 @@ const CorporateTmsKyc = () => {
       >
         <div className="d-flex justify-content-end mb-2">
           {/* {' '} */}
-          {/* <NewIndividualKyc
-          imageURL={mapImage}
-          userData={userData}
-          extraInfo={extraInfo}
-        /> */}
+          <CorporateKycPdf />
           <ReactToPrint
             // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
             trigger={() => <LocalPrintshopIcon />}
@@ -42,13 +38,13 @@ const CorporateTmsKyc = () => {
             }}
           />
         </div>
-        <div className="kyc-page mt-4" id="pdf" ref={componentRef}>
+        <div className="kyc-page mt-4 container_p10" id="pdf" ref={componentRef}>
           {/* Header */}
           <section className="container pb-1">
             {/* <!-- Header section --> */}
             <header className="text-center" style={{ position: "relative" }}>
               <h2 className="">अनुसूची १२</h2>
-              <p className="">(विनिमय २० संग सम्बन्धित)</p>
+              <p className="">(विनियम २० संग सम्बन्धित)</p>
               <h2 className="text-decoration-underline fs18">
                 प्राकृतिक व्यक्ति बाहेक अन्य संस्थाको हितग्राही खाता खोल्ने
                 निवेदन
@@ -625,7 +621,7 @@ const CorporateTmsKyc = () => {
               </div>
             </div>
           </section>
-          {/* Map values in this section wit lat and long */}
+          {/* Map values in this section wit lat and long */}   
           <section
             className="container mt-2 container_p10"
             // key={currentAddressDetails}

@@ -4,8 +4,10 @@ import GlobalNepaliDatePicker from "./GlobalNepaliDatePicker";
 import dateConverter from "../../utility/dateConverter";
 import dayjs from "dayjs";
 import { Grid } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 
-const DualDatePicker = ({ element, formik }) => {
+export const DualDatePicker = ({ element, formik }) => {
+  const { t } = useTranslation();
   const [nepaliDate, setNepaliDate] = useState(
     dateConverter(new Date(), "AD_BS")
   );
@@ -45,7 +47,7 @@ const DualDatePicker = ({ element, formik }) => {
         <DatePicker
           sx={{ width: "100%" }}
           name={element.name}
-          label={element.engLabel}
+          label={t(element.engLabel)}
           onChange={handleEnglishDateChange}
           value={dayjs(englishDate) || ""}
           required={element?.required}
@@ -63,7 +65,7 @@ const DualDatePicker = ({ element, formik }) => {
         name={element.name}
         md={element.nepMd}
         sm={element.nepSm}
-        label={element.nepaliLabel}
+        label={t(element.nepaliLabel)}
         value={nepaliDate}
         handleChange={handleNepaliDateChange}
       />
@@ -71,4 +73,32 @@ const DualDatePicker = ({ element, formik }) => {
   );
 };
 
-export default DualDatePicker;
+export const PickDate = ({ element, formik }) => {
+  const { t } = useTranslation();
+  const handleChange = (e) => {
+    const date = new Date(e);
+    const adjustedDate = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000
+    );
+    const newDate = adjustedDate.toISOString().substring(0, 10);
+    formik.setFieldValue(element.name, newDate);
+  }
+  return (
+    <Grid display={"flex"} gap={2}>
+      <DatePicker
+        sx={{ width: "100%" }}
+        name={element?.name}
+        label={t(element.label)}
+        value={formik.values[element.name] || null}
+        onChange={handleChange}
+        required={element.required}
+        slotProps={{
+          textField: {
+            error:
+              formik.touched[element.name] && !!formik.errors[element.name],
+            helperText:
+              formik.touched[element.name] && formik.errors[element.name],
+          }}}/>
+    </Grid>
+  );
+};
