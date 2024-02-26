@@ -4,10 +4,12 @@ import { basicData } from "./basicInputData";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { useBasicIndividualDpForms } from "./useBasicIndividualDpForms";
 import { useTheme } from "@emotion/react";
+import { useTranslation } from 'react-i18next';
 
 const BasicIndividualDpForms = () => {
   const theme = useTheme();
   const { formik } = useBasicIndividualDpForms();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const calculateAge = (dob) => {
@@ -47,7 +49,7 @@ const BasicIndividualDpForms = () => {
             fontWeight: "800",
           }}
         >
-          Basic Details
+          {t('Basic Details')}
         </Typography>
       </Box>
 
@@ -69,7 +71,7 @@ const BasicIndividualDpForms = () => {
             variant="contained"
             color="secondary"
           >
-            Next
+            {t('Next')}
           </Button>
         </Grid>
       </Box>

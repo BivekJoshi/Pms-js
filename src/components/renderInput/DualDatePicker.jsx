@@ -4,8 +4,10 @@ import GlobalNepaliDatePicker from "./GlobalNepaliDatePicker";
 import dateConverter from "../../utility/dateConverter";
 import dayjs from "dayjs";
 import { Grid } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 
 export const DualDatePicker = ({ element, formik }) => {
+  const { t } = useTranslation();
   const [nepaliDate, setNepaliDate] = useState(
     dateConverter(new Date(), "AD_BS")
   );
@@ -45,7 +47,7 @@ export const DualDatePicker = ({ element, formik }) => {
         <DatePicker
           sx={{ width: "100%" }}
           name={element.name}
-          label={element.engLabel}
+          label={t(element.engLabel)}
           onChange={handleEnglishDateChange}
           value={dayjs(englishDate) || ""}
           required={element?.required}
@@ -63,7 +65,7 @@ export const DualDatePicker = ({ element, formik }) => {
         name={element.name}
         md={element.nepMd}
         sm={element.nepSm}
-        label={element.nepaliLabel}
+        label={t(element.nepaliLabel)}
         value={nepaliDate}
         handleChange={handleNepaliDateChange}
       />
@@ -72,6 +74,7 @@ export const DualDatePicker = ({ element, formik }) => {
 };
 
 export const PickDate = ({ element, formik }) => {
+  const { t } = useTranslation();
   const handleChange = (e) => {
     const date = new Date(e);
     const adjustedDate = new Date(
@@ -85,7 +88,7 @@ export const PickDate = ({ element, formik }) => {
       <DatePicker
         sx={{ width: "100%" }}
         name={element?.name}
-        label={element.label}
+        label={t(element.label)}
         value={formik.values[element.name] || null}
         onChange={handleChange}
         required={element.required}

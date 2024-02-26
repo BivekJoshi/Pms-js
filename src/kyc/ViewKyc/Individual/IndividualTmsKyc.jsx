@@ -554,7 +554,7 @@ const IndividualTmsKyc = ({ userData }) => {
             {/* </div> */}
           </section>
           {/* Temporary Address */}
-          <section className="container pb-2">
+          <section className="container pb-2 mt-2">
             <h2 className="text-center kyc-secondary-header">
               हालको ठेगाना (Current Address){" "}
             </h2>
@@ -662,7 +662,8 @@ const IndividualTmsKyc = ({ userData }) => {
           </section>
           {/* Map */}
           <section
-            className="container mt-2"
+            className="container"
+            mt={2}
             // key={currentAddressDetails}
           >
             <b>हाल बसोबास रहेको स्थानको नक्सा (Location map)</b>

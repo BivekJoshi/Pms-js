@@ -5,8 +5,10 @@ import React, { useMemo, useState } from "react";
 import FormModal from "../../components/formModal/FormModal";
 import CustomTable from "../../components/customTable/CustomTable";
 import DocumentFieldDp from "../dp/forms/individual/DocumentIndividual/DocumentFieldDp";
+import { useTranslation } from 'react-i18next';
 
 const IndividualDocument = () => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -82,7 +84,7 @@ const IndividualDocument = () => {
               fontWeight: "800",
             }}
           >
-            Document Upload
+            {t('Document Upload')}
           </Typography>
         </Box>
         <Button

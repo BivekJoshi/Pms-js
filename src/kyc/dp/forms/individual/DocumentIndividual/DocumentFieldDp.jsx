@@ -13,7 +13,6 @@ import { useDocumentForm } from "./useDocumentForm";
 
 const DocumentFieldDp = () => {
   const { formik } = useDocumentForm();
-  console.log(formik?.values?.docType, "Firld");
 
   return (
     <Grid container>

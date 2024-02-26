@@ -22,6 +22,7 @@ import DropZoneUploadFile from "../dropZone/DropZoneUploadFile";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useSelector } from "react-redux";
 import NepaliInputText from '../inputType/NepaliInputText';
+import { useTranslation } from 'react-i18next';
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -116,6 +117,7 @@ const RenderInput = ({
 }) => {
   const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
   const mode = useSelector((state) => state?.theme?.mode);
+  const { t } = useTranslation();
 
   const getComponentToRender = (element, disableField) => {
     const formVaues = isFieldArray
@@ -133,7 +135,7 @@ const RenderInput = ({
         return (
           <TextField
             name={element?.name}
-            label={element?.label}
+            label={t(element?.label)}
             value={formVaues}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -161,7 +163,7 @@ const RenderInput = ({
               return (
                 <TextField
                   {...params}
-                  label={element.label}
+                  label={t(element.label)}
                   error={formTouched && Boolean(formError)}
                   required={element.required}
                   helperText={formTouched && formError}
@@ -175,7 +177,7 @@ const RenderInput = ({
           <FormControl>
             <FormControlLabel
               name={element?.name}
-              label={element?.label}
+              label={t(element?.label)}
               control={<Switch checked={formVaues} />}
               onChange={(e, value) => {
                 if (value) {
@@ -243,7 +245,7 @@ const RenderInput = ({
               name={element.name}
               disabled={element?.isDisabled}
               options={element?.options}
-              getOptionLabel={(option) => option?.label || ""}
+              getOptionLabel={(option) => t(option?.label) || ""}
               value={element?.options.find(
                 (option) => option?.value === formVaues
               )}
@@ -255,7 +257,7 @@ const RenderInput = ({
                 return (
                   <TextField
                     {...params}
-                    label={element.label}
+                    label={t(element.label)}
                     disabled={element?.isDisabled}
                     error={formTouched && Boolean(formError)}
                     required={element.required}
@@ -270,7 +272,7 @@ const RenderInput = ({
         return (
           <TextField
             name={element?.name}
-            label={element?.label}
+            label={t(element?.label)}
             value={formVaues}
             onChange={formik.handleChange}
             fullWidth
@@ -298,7 +300,7 @@ const RenderInput = ({
                   name={element?.name}
                 />
               }
-              label={element?.label}
+              label={t(element?.label)}
             />
             {element?.infoAlert && !formik.values.isMinor && (
               <Alert
@@ -306,7 +308,7 @@ const RenderInput = ({
                 sx={{ bgcolor: "background.default" }}
                 severity="info"
               >
-                {element.infoAlert}
+                {t(element.infoAlert)}
               </Alert>
             )}
           </div>
@@ -350,7 +352,7 @@ const RenderInput = ({
                   value={radio.value}
                   control={<Radio />}
                   key={i}
-                  label={radio.label}
+                  label={t(radio.label)}
                   disabled={disableField}
                 />
               ))}
@@ -371,7 +373,7 @@ const RenderInput = ({
         return <DropZoneUploadFile title={element?.title} />;
 
       default:
-        return <TextField name={element?.name} label={element?.label} />;
+        return <TextField name={element?.name} label={t(element?.label)} />;
     }
   };
 
