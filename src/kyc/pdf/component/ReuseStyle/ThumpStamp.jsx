@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   row: {
     border: "1px solid grey",
     padding: "6px 0 0 10px",
-    width: "150px",
+    width: "300px",
     display: "flex",
     justifyContent: "center",
     fontSize: "10px",
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   thumbRow: {
     border: "1px solid grey",
     padding: "6px 0 0 10px",
-    width: "100%",
+    width: "50%",
     display: "flex",
     justifyContent: "center",
     height: "8vh",
@@ -63,7 +63,7 @@ const ThumpStamp = ({ data }) => {
         <View style={styles.table}>
           {data?.clientDocument?.rightThumb && extraInfo ? (
             <View
-              style={[styles.thumbRow, { width: "150px", height: "100px" }]}
+              style={[styles.thumbRow, { width: "100px", height: "100px" }]}
             >
               <Text style={styles.text}>दायाँ (Right)</Text>
               {/* <Image src={imageThumbRightUrl} /> */}
@@ -73,7 +73,7 @@ const ThumpStamp = ({ data }) => {
           )}
           {data?.clientDocument?.leftThumb && extraInfo ? (
             <View
-              style={[styles.thumbRow, { width: "150px", height: "100px" }]}
+              style={[styles.thumbRow, { width: "100px", height: "100px" }]}
             >
               <Text style={styles.text}>बायाँ (Left)</Text>
               {/* <Image src={imageThumbLeftUrl} /> */}
