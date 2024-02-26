@@ -108,6 +108,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 <div className="col-9 col-md-9 border d-flex center-y p-0">
                   {/* {user?.boid} */}
                 </div>
+                {/* </div> */}
               </div>
               {/* </div> */}
             </div>

@@ -59,6 +59,7 @@ const KycLayout = () => {
         style={{
           padding: "16px",
           minHeight: "94dvh",
+          position: "relative",
         }}
         // data-aos='fade-right'
       >
@@ -79,7 +80,19 @@ const KycLayout = () => {
               display: isSm ? "none" : "flex",
             }}
           >
-            <Grid display="flex" flexDirection="column" gap="16px">
+            <Grid
+              display="flex"
+              flexDirection="column"
+              gap="16px"
+              sx={{
+                borderRadius: "6px 0px 0px 6px",
+                position: "sticky",
+                top: "90px",
+                bottom: 0,
+                overflowY: "auto",
+                maxHeight: "90vh",
+              }}
+            >
               <KycProfileCard clientType={clientType} nature={"DP"} />
               <Grid
                 p="12px"

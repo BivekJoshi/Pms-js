@@ -71,7 +71,6 @@ const FamilyIndividualDpForms = () => {
   const { formik } = useKycFamilyForm();
   console.log("hiiii", formik);
 
-
   return (
     <div data-aos="zoom-in-right">
       <Grid container>
