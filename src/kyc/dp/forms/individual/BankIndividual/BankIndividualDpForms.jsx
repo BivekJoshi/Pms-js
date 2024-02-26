@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Grid, Button } from "@mui/material";
+import { Grid, Button, useTheme, Typography } from "@mui/material";
 import { Formik } from "formik";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { useKycBankForm } from "./usekycBankForm";
+import { Box } from "@mui/system";
 
 const BankIndividualDpForms = () => {
+  const theme = useTheme();
   const { formik } = useKycBankForm();
   const FAMILYFIELDS = [
     {
@@ -32,16 +34,16 @@ const BankIndividualDpForms = () => {
       required: true,
       xs: 12,
       sm: 6,
-      options:[
+      options: [
         {
-          value:"s",
-          label:"Saving"
+          value: "s",
+          label: "Saving",
         },
         {
-          value:"c",
-          label:"Current"
+          value: "c",
+          label: "Current",
         },
-      ]
+      ],
     },
     {
       type: "text",
@@ -56,8 +58,28 @@ const BankIndividualDpForms = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <Box
+        sx={{
+          marginBottom: "16px",
+          padding: { md: "12px", sm: "5px" },
+          borderRadius: "0 6px 6px 0",
+          borderLeft: `4px solid ${theme.palette.secondary.main}`,
+        }}
+      >
+        <Typography
+          variant="h4"
+          style={{
+            color: theme.palette.text.light,
+            fontWeight: "800",
+          }}
+        >
+          Bank Details
+        </Typography>
+      </Box>
       <RenderInput inputField={FAMILYFIELDS} formik={formik} />
-      <Grid sx={{ display: "flex", justifyContent: "flex-end",marginTop:"12px" }}>
+      <Grid
+        sx={{ display: "flex", justifyContent: "flex-end", marginTop: "12px" }}
+      >
         <Button
           onClick={formik.handleSubmit}
           variant="contained"
