@@ -8,12 +8,12 @@ import { useKycFamilyForm } from "./usekycFamilyForm";
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();
   const { formik } = useKycFamilyForm();
-
+  console.log("hiiii", formik);
   const referalFields = [
     {
       type: "dropDownWithValue",
-      name: "relation",     
-      options: [{label: "Referral Person", value: "referralPerson"}],
+      name: "relation",
+      options: [{ label: "Referral Person", value: "referralPerson" }],
       isDisabled: true,
       col: 12,
       xs: 12,
@@ -63,7 +63,6 @@ const FamilyIndividualDpForms = () => {
       type: "text",
       name: "memberName",
       label: "Enter Name",
-      isDisabled: false,
       col: 12,
       xs: 12,
       sm: 6,
@@ -105,20 +104,31 @@ const FamilyIndividualDpForms = () => {
               formik.values.familyDetails &&
               formik.values?.familyDetails.map((address, index) => {
                 const field = staticFields.map((d) => {
-                  return {
-                    ...d,
-                    options: index <= 2 ? [
-                      { value: "father", label: "Father" },
-                      { value: "mother", label: "Mother" },
-                      { value: "grandFather", label: "Grand Father" },
-                    ] : [
-                      { value: "spouse", label: "Spouse" },
-                      { value: "sonInLaw", label: "Son In Law" },
-                      { value: "motherInLaw", label: "Mother In Law" },
-                    ],
-                    isDisabled: address?.relation == "father" && address?.relation == "mother" && address?.relation == "grandFather",
-                    name: `familyDetails.${index}.${d.name}`,
-                  };
+                  if (d.name === "relation") {
+                    return {
+                      ...d,
+                      options:
+                        index <= 2
+                          ? [
+                              { value: "father", label: "Father" },
+                              { value: "mother", label: "Mother" },
+                              { value: "grandFather", label: "Grand Father" },
+                            ]
+                          : [
+                              { value: "spouse", label: "Spouse" },
+                              { value: "sonInLaw", label: "Son In Law" },
+                              { value: "motherInLaw", label: "Mother In Law" },
+                            ],
+                      isDisabled: index <= 2,
+                      name: `familyDetails.${index}.${d.name}`,
+                    };
+                  } else {
+                    // Keep other fields as they are
+                    return {
+                      ...d,
+                      name: `familyDetails.${index}.${d.name}`,
+                    };
+                  }
                 });
                 return (
                   <>
@@ -140,7 +150,7 @@ const FamilyIndividualDpForms = () => {
                           color="primary"
                           style={{
                             border: "1px solid #6C49B4",
-                            margin: "0  0 1rem 0",
+                            margin: "1rem 1rem 1rem 0",
                           }}
                           onClick={() =>
                             push({
@@ -149,14 +159,7 @@ const FamilyIndividualDpForms = () => {
                             })
                           }
                         >
-                          <Typography
-                            color={
-                              index < formik.values?.familyDetails.length + 1
-                                ? theme.palette.info
-                                : "#6C49B4"
-                            }
-                            fontWeight={600}
-                          >
+                          <Typography color={"#6C49B4"} fontWeight={600}>
                             + Add
                           </Typography>
                         </Button>
@@ -167,7 +170,7 @@ const FamilyIndividualDpForms = () => {
                         color="secondary"
                         style={{
                           border: "1px solid #B4271F",
-                          margin: "0 0 1rem",
+                          margin: "1rem 0",
                         }}
                         onClick={() => {
                           remove(index);
@@ -201,4 +204,3 @@ const FamilyIndividualDpForms = () => {
 };
 
 export default FamilyIndividualDpForms;
-
