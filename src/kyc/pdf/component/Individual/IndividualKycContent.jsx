@@ -8,14 +8,14 @@ import {
 } from "@react-pdf/renderer";
 import React from "react";
 import notoSerifDevanagari from "../../../../assets/NotoSerifDevanagari-VariableFont_wdth,wght.ttf";
-import BasicInfoPdf from "../Page/BasicInfoPdf";
+import BasicInfoPdf from "../PageDp/BasicInfoPdf";
 import AddressComponent from "../ReuseStyle/AddressComponent";
-import FamilyInfoPdf from "../Page/FamilyInfoPdf";
-import BankInfoPdf from "../Page/BankInfoPdf";
+import FamilyInfoPdf from "../PageDp/FamilyInfoPdf";
+import BankInfoPdf from "../PageDp/BankInfoPdf";
 import OfficeStamp from "../ReuseStyle/OfficeStamp";
 import ThumpStamp from "../ReuseStyle/ThumpStamp";
-import UserAgreementDpPdf from "../Page/UserAggrementDpPdf";
-import RequestFormPdf from "../Page/RequestFormPdf";
+import UserAgreementDpPdf from "../UserAggrement/UserAggrementDpPdf";
+import RequestFormPdf from "../PageDp/RequestFormPdf";
 
 Font.register({
   family: "notoSerifDevnagari",
