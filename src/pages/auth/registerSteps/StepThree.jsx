@@ -1,9 +1,10 @@
-import { TextField } from "@mui/material";
-import { nanoid } from "@reduxjs/toolkit";
+
 import React from "react";
 import RenderInput from "../../../components/renderInput/RenderInput";
 
 const StepThree = ({ formik }) => {
+  const nepseCodeTrue = formik.values.dpId === 11400 ? true : false;
+
   const stepThreeFields = [
     {
       name: "dpId",
@@ -15,15 +16,18 @@ const StepThree = ({ formik }) => {
       required: true,
       responseLabel: "dpName",
       responseId: "id",
-    },
-    {
-      name: "dematNo",
-      type: "number",
-      label: "Demat No",
-      required: true,
-      id: 2,
-      md: 12,
-      sm: 12,
+      isDependent: nepseCodeTrue,
+      trueNewFields: [
+        {
+          name: "dematNo",
+          type: "number",
+          label: "Demat No",
+          required: true,
+          id: 2,
+          md: 12,
+          sm: 12,
+        },
+      ],
     },
   ];
   return (
