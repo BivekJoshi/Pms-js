@@ -44,13 +44,6 @@ const touchedField = (steps) => {
 
 const NewRegisterPage = () => {
   const { formik, loading, handleStep, currentStep } = useNewRegisterForm();
-  useEffect(() => {
-    if (formik.values.nepseExist) {
-      formik.setFieldValue("dematExist", false);
-      formik.setFieldValue("dpId", "");
-      formik.setFieldValue("dematNo", "");
-    }
-  }, [formik.values.nepseExist]); //eslint-disable-line
 
   const navigate = useNavigate();
   const navigateLogin = () => {
