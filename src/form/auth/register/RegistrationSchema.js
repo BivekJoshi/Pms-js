@@ -9,6 +9,7 @@ export const FirstStepSchema = Yup.object().shape({
     .matches(/^[0-9]{10}$/, "Invalid mobile number format")
     .matches(/^9\d{9}$/, "Mobile number must start from 9"),
   clientType: Yup.string().required("Required"),
+  branchId: Yup.number().required("Required"),
 });
 
 export const SecondSchema = Yup.object().shape({
@@ -29,5 +30,5 @@ export const ThirdStepSchema = Yup.object().shape({
   accountType: Yup.string().when("dpId", {
     is: (val) => val !== 11400,
     then: Yup.string().required("Required"),
-  }),,
+  }),
 });
