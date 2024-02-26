@@ -338,7 +338,7 @@ const RenderInput = ({
               }
               label={element?.label}
             />
-            {element?.infoAlert && !formik.values.isMinor && (
+            {element?.infoAlert && !formik.values[element?.name] && (
               <Alert
                 variant="standard"
                 sx={{ bgcolor: "background.default" }}
@@ -346,6 +346,36 @@ const RenderInput = ({
               >
                 {element.infoAlert}
               </Alert>
+            )}
+            {element?.hasRadio && formik.values[element.name] && (
+              <FormControl
+                style={{
+                  display: element?.radioDisplay,
+                  alignItems: element?.radioAlign,
+                  gap: element?.radioGap,
+                }}
+              >
+                <FormLabel id="demo-radio-buttons-group-label">
+                  {element.radioLabel}
+                </FormLabel>
+                <RadioGroup
+                  row
+                  name={element?.radioName}
+                  value={formik.values[element.radioName]}
+                  onChange={(event, value) => {
+                    formik.handleChange(element.radioName)(value); // Manually update Formik state
+                  }}
+                >
+                  {element.radio.map((radio, i) => (
+                    <FormControlLabel
+                      value={radio.value}
+                      control={<Radio />}
+                      key={i}
+                      label={radio.label}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
             )}
           </div>
         );

@@ -19,7 +19,7 @@ const BasicIndividualDpForms = () => {
     };
 
     const dob = formik.values.dob;
-    
+
     if (dob) {
       const personAge = calculateAge(dob);
       if (personAge < 16) {
