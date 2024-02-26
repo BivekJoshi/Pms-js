@@ -1,5 +1,4 @@
 import {
-  Grid,
   Table,
   TableBody,
   TableCell,
@@ -39,7 +38,7 @@ const CorporateTmsKyc = () => {
             }}
           />
         </div>
-        <div className="kyc-page mt-4" id="pdf" ref={componentRef}>
+        <div className="kyc-page mt-4 container_p10" id="pdf" ref={componentRef}>
           {/* Header */}
           <section className="container pb-1">
             {/* <!-- Header section --> */}
@@ -622,7 +621,7 @@ const CorporateTmsKyc = () => {
               </div>
             </div>
           </section>
-          {/* Map values in this section wit lat and long */}
+          {/* Map values in this section wit lat and long */}   
           <section
             className="container mt-2 container_p10"
             // key={currentAddressDetails}

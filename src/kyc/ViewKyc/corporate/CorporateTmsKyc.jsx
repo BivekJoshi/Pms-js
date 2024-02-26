@@ -1289,7 +1289,7 @@ const CorporateTmsKyc = () => {
           {/* KYCAGGREMENT */}
           <section className="container fs10" >
             {/* <!-- Header section --> */}
-            <div >
+            <div>
               <p className="text-center">
                 <b>
                   (धितोपत्र कारोबार सञ्चालन विनियमावली २०७५ को विनियम १० संग

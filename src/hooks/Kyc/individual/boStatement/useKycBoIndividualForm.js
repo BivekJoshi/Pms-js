@@ -1,11 +1,10 @@
 import { useFormik } from "formik";
 
 export const useKycBoIndividualForm = () => {
-
   const formik = useFormik({
     initialValues: {
-        isStandingInstructionForAutomaticTxn: '',
-        accountStatementPeriod: '',
+      isStandingInstructionForAutomaticTxn: false,
+      accountStatementPeriod: "",
     },
     onSubmit: (values) => {
       console.log(values);

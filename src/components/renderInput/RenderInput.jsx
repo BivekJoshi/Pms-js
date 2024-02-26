@@ -17,7 +17,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import mapIcon from "../../assets/marker-icon.png";
 import L from "leaflet";
-import DualDatePicker from "./DualDatePicker";
+import { PickDate, DualDatePicker } from "./DualDatePicker";
 import DropZoneUploadFile from "../dropZone/DropZoneUploadFile";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useSelector } from "react-redux";
@@ -146,8 +146,6 @@ const RenderInput = ({
             sx={{ width: "100%" }}
           />
         );
-        case "nepaliTypeText":
-          return <NepaliInputText element={element} formik={formik} />;
       case "dropDownWithValue":
         return (
           <Autocomplete
@@ -353,35 +351,19 @@ const RenderInput = ({
                   control={<Radio />}
                   key={i}
                   label={radio.label}
-                  disabled={
-                    element.name === "accountStatementPeriod" &&
-                    formik.values.isStandingInstructionForAutomaticTxn ===
-                      "false"
-                  }
+                  disabled={disableField}
                 />
               ))}
             </RadioGroup>
           </FormControl>
         );
-      case "datePicker":
-        return (
-          <Grid display={"flex"} gap={2}>
-            <DatePicker
-              sx={{ width: "100%" }}
-              name={element?.name}
-              label={element.label}
-              value={formik.values || ""}
-              onChange={formik.handleChange}
-              required={element.required}
-              error={formTouched && Boolean(formError)}
-              helperText={formTouched && formError}
-            />
-          </Grid>
-        );
 
+      case "datePicker":
+        return <PickDate element={element} formik={formik} />;
       case "dualDate":
         return <DualDatePicker element={element} formik={formik} />;
-
+        case "nepaliTypeText":
+          return <NepaliInputText element={element} formik={formik} />;
       case "asyncDropDown":
         return <AsyncDropDown element={element} formik={formik} />;
 
