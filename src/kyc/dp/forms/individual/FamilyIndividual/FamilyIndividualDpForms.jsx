@@ -5,70 +5,71 @@ import { nanoid } from "nanoid";
 import { FieldArray, FormikProvider } from "formik";
 import { useKycFamilyForm } from "./usekycFamilyForm";
 
+const referalFields = [
+  {
+    type: "dropDownWithValue",
+    name: "relation",
+    options: [{ label: "Referral Person", value: "referralPerson" }],
+    isDisabled: true,
+    col: 12,
+    xs: 12,
+    sm: 6,
+    id: nanoid(),
+  },
+  {
+    type: "text",
+    name: "memberName",
+    label: "Referral Name",
+    col: 12,
+    xs: 12,
+    sm: 6,
+    id: nanoid(),
+  },
+  {
+    type: "text",
+    name: "email",
+    label: "Referral Email",
+    col: 12,
+    xs: 12,
+    sm: 6,
+    id: nanoid(),
+  },
+  {
+    type: "text",
+    name: "mobileNumber",
+    label: "Referral Mobile Number",
+    col: 12,
+    xs: 12,
+    sm: 6,
+    id: nanoid(),
+  },
+];
+
+const staticFields = [
+  {
+    type: "dropDown",
+    name: "relation",
+    label: "Relation",
+    col: 12,
+    xs: 12,
+    sm: 6,
+    id: nanoid(),
+  },
+  {
+    type: "text",
+    name: "memberName",
+    label: "Enter Name",
+    col: 12,
+    xs: 12,
+    sm: 6,
+    id: nanoid(),
+  },
+];
+
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();
   const { formik } = useKycFamilyForm();
   console.log("hiiii", formik);
-  const referalFields = [
-    {
-      type: "dropDownWithValue",
-      name: "relation",
-      options: [{ label: "Referral Person", value: "referralPerson" }],
-      isDisabled: true,
-      col: 12,
-      xs: 12,
-      sm: 6,
-      id: nanoid(),
-    },
-    {
-      type: "text",
-      name: "memberName",
-      label: "Referral Name",
-      col: 12,
-      xs: 12,
-      sm: 6,
-      id: nanoid(),
-    },
-    {
-      type: "text",
-      name: "email",
-      label: "Referral Email",
-      col: 12,
-      xs: 12,
-      sm: 6,
-      id: nanoid(),
-    },
-    {
-      type: "text",
-      name: "mobileNumber",
-      label: "Referral Mobile Number",
-      col: 12,
-      xs: 12,
-      sm: 6,
-      id: nanoid(),
-    },
-  ];
-
-  const staticFields = [
-    {
-      type: "dropDown",
-      name: "relation",
-      label: "Relation",
-      col: 12,
-      xs: 12,
-      sm: 6,
-      id: nanoid(),
-    },
-    {
-      type: "text",
-      name: "memberName",
-      label: "Enter Name",
-      col: 12,
-      xs: 12,
-      sm: 6,
-      id: nanoid(),
-    },
-  ];
 
   return (
     <div data-aos="zoom-in-right">
@@ -116,14 +117,16 @@ const FamilyIndividualDpForms = () => {
                             ]
                           : [
                               { value: "spouse", label: "Spouse" },
-                              { value: "sonInLaw", label: "Son In Law" },
                               { value: "motherInLaw", label: "Mother In Law" },
+                              { value: "fatherInLaw", label: "Father In Law" },
+                              { value: "son", label: "Son" },
+                              { value: "daughter", label: "Daughter" },
                             ],
                       isDisabled: index <= 2,
                       name: `familyDetails.${index}.${d.name}`,
                     };
                   } else {
-                    // Keep other fields as they are for the familymamber field
+                    // Keep other fields as they are
                     return {
                       ...d,
                       name: `familyDetails.${index}.${d.name}`,

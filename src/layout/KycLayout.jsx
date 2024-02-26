@@ -135,11 +135,11 @@ const KycLayout = () => {
                 width="100%"
               >
                 <Grid display="flex" flexDirection="column">
-                  <NavLink className="navlinks-list" to={"/"}>
-                    <Grid
-                      className="profileIcon"
-                      style={{ textDecoration: "none" }}
-                    >
+                  <NavLink
+                    className="navlinks-list"
+                    to={"/"}
+                  >
+                    <Grid className="profileIcon" style={{textDecoration:'none'}}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="28"
@@ -168,12 +168,7 @@ const KycLayout = () => {
                           fill="#25005A"
                         />
                       </svg>
-                      <Typography
-                        variant="h7"
-                        style={{ textDecoration: "none" }}
-                      >
-                        {t("Logout")}
-                      </Typography>
+                      <Typography variant="h7" style={{textDecoration:'none'}}>{t("Logout")}</Typography>
                     </Grid>
                   </NavLink>
                 </Grid>

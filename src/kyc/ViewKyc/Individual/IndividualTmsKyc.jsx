@@ -31,15 +31,15 @@ const IndividualTmsKyc = ({ userData }) => {
           {/* Header */}
           <section className="container pb-2 pb-print-1">
             {/* <!-- Header section --> */}
-            <header className="text-center position-relative">
+            <header className="text-center" style={{position: "relative"}}>
               <h2 className="">अनुसूची १२</h2>
               <p className="">(विनियम २० संग सम्बन्धित)</p>
-              <h2 className="text-decoration-underline ">
+              <h2 className="text-decoration-underline fs18">
                 प्राकृतिक व्यक्तिको परिचय विवरण
               </h2>
-              <h2 className=" text-decoration-underline ">
+              <h3 className=" text-decoration-underline fs18">
                 DETAILS OF NATURAL PERSON
-              </h2>
+              </h3>
               <div id="photo" key={userData?.clientDocument?.ppSizePhoto}>
                 {userData?.clientDocument?.ppSizePhoto && (
                   <img
@@ -66,7 +66,7 @@ const IndividualTmsKyc = ({ userData }) => {
             <div className="container">
               <div>
                 <div className="text-center kyc-secondary-header">
-                  <h2>कार्यालय प्रयोजनका लागि मात्र (For official use only)</h2>
+                  कार्यालय प्रयोजनका लागि मात्र (For official use only)
                 </div>
 
                 {/* <div className="container"> */}
@@ -108,6 +108,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 <div className="col-9 col-md-9 border d-flex center-y p-0">
                   {/* {user?.boid} */}
                 </div>
+                {/* </div> */}
               </div>
               {/* </div> */}
             </div>
@@ -551,7 +552,7 @@ const IndividualTmsKyc = ({ userData }) => {
             {/* </div> */}
           </section>
           {/* Temporary Address */}
-          <section className="container pb-2">
+          <section className="container pb-2 mt-2">
             <h2 className="text-center kyc-secondary-header">
               हालको ठेगाना (Current Address){" "}
             </h2>
@@ -659,7 +660,8 @@ const IndividualTmsKyc = ({ userData }) => {
           </section>
           {/* Map */}
           <section
-            className="container mt-2"
+            className="container"
+            mt={2}
             // key={currentAddressDetails}
           >
             <b>हाल बसोबास रहेको स्थानको नक्सा (Location map)</b>
@@ -1438,8 +1440,8 @@ const IndividualTmsKyc = ({ userData }) => {
                   कानून बमोजिम सहुँला, बुझाउँला।
                 </p>
                 <p>
-                  I We hereby acknowledge that the above disclosed details are
-                  true. I further hereby consent to bear any legal actions in
+                  I/We hereby acknowledge that the above disclosed details are
+                  true. I/We further hereby consent to bear any legal actions in
                   case any false disclosure of information related to me/us.
                 </p>
               </div>
@@ -1458,6 +1460,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 <div className="row col-6" style={{ width: "10cm" }}>
                   <div className="col-6 center-xy border">
                     <div
+                    style={{ height: "180px", paddingTop: "12px" }}
                     // style={{ height: !extraInfo && "250px" }}
                     >
                       {" "}
@@ -1475,7 +1478,7 @@ const IndividualTmsKyc = ({ userData }) => {
                     </div>
                   </div>
                   <div className="col-6 center-xy border">
-                    <div style={{ height: "250px" }}>
+                    <div style={{ height: "180px", paddingTop: "12px" }}>
                       {" "}
                       <p>दायाँ (Right)</p>
                       {/* {userData?.clientDocument?.rightThumb && extraInfo && (

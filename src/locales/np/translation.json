@@ -187,6 +187,21 @@
   
   "it is just for comment sction = kyc-details": "2/22/2024 eng nepali translation for kyc details started",
   "Bank Details": "बैंक विवरण",
+  "Basic Details": "आधारभूत विवरण",
+  "First Name": "नाम",
+  "Middle Name": "बीचको नाम",
+  "Last Name": "थर",
+  "Name (Devnagari)": "नाम (देवनागरी)",
+  "Date of Birth (A.D.)": "जन्म मिति (ए.डी.)",
+  "Gender": "लिङ्ग",
+  "Male": "पुरुष",
+  "Female": "महिला",
+  "Others": "अन्य",
+  "Are you NRN?": "के तपाई NRN हुनुहुन्छ?",
+  "Are you Minor?": "के तपाई नाबालिग हुनुहुन्छ?",
+  "Will be enabled when DOB is less than 16 years!": "DOB 16 वर्ष भन्दा कम हुँदा सक्षम हुनेछ!",
+  "Document Upload": "कागजात अपलोड",
+  "Next": "अर्को",
   "Address Details": "विवरण",
   "Bank Name": "बैंकको नाम"
 }
