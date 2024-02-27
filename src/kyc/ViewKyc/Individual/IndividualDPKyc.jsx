@@ -8,6 +8,7 @@ import CorporateDpkyc from "../corporate/CorporateDpKyc";
 import ReactToPrint from "react-to-print";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import IndividualKycPdf from "../../pdf/component/IndividualKycPdf";
+import DpMeroShare from '../DpMeroShare';
 
 const IndividualDPKyc = () => {
   const componentRef = useRef();
@@ -98,9 +99,9 @@ const IndividualDPKyc = () => {
                   <div className="container">
                     <div>
                       <div className="text-center kyc-secondary-header text-capitalize">
-                        <h2>
+                     
                           कार्यालय प्रयोजनका लागि मात्र (For official use only)
-                        </h2>
+                       
                       </div>
 
                       {/* <div className="container"> */}
@@ -149,7 +150,7 @@ const IndividualDPKyc = () => {
                       <div className="col-12">
                         <p
                           className="my-2 mt-4 fs13"
-                          style={{ fontSize: "17px", fontWeight: "600" }}
+                          style={{ fontSize: "15px", fontWeight: "600" }}
                         >
                           तल उल्लेखित सम्पूर्ण विवरण राम्रोसंग भर्नु पर्नेछ ।
                           आफूसंग सरोकार नभएको विवरण उल्लेख गर्ने कोठामा तेर्सो
@@ -2330,16 +2331,17 @@ const IndividualDPKyc = () => {
                   </footer>
                 </section>
                 {/* Meroshare */}
-                {/* <DpMeroShare
-          applicantName={userData?.user?.name}
-          email={userData.user?.email}
-          mobileNo={userData.user?.phoneNo}
-          dpId={userData.user?.dpDetails?.dpId}
-          boid={userData.user?.boid}
-          addressDetails={permanentAddressDetails?.[0]}
-          date={userData.user?.submittedDate}
-          nepaliname={individualDetail?.clientNameNepali}
-        />{" "} */}
+                <section className="container pb-5">
+            <DpMeroShare
+            // applicantName={userData?.user?.name}
+            // email={userData.user?.email}
+            // mobileNo={userData.user?.phoneNo}
+            // dpId={userData.user?.dpDetails?.dpId}
+            // boid={userData.user?.boid}
+            // addressDetails={permanentAddressDetails?.[0]}
+            // date={userData.user?.submittedDate}
+            />
+          </section>
               </div>
             </div>
           </div>

@@ -87,7 +87,7 @@ const KycLayout = () => {
               sx={{
                 borderRadius: "6px 0px 0px 6px",
                 position: "sticky",
-                top: "90px",
+                top: "80px",
                 bottom: 0,
                 overflowY: "auto",
                 maxHeight: "90vh",

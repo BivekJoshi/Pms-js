@@ -11,6 +11,7 @@ import React from "react";
 import { useRef } from "react";
 import ReactToPrint from "react-to-print";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
+import CorporateKycPdf from "../../pdf/component/CorporateKycPdf";
 
 const CorporateTmsKyc = () => {
   const componentRef = useRef();
@@ -22,11 +23,7 @@ const CorporateTmsKyc = () => {
       >
         <div className="d-flex justify-content-end mb-2">
           {/* {' '} */}
-          {/* <NewIndividualKyc
-          imageURL={mapImage}
-          userData={userData}
-          extraInfo={extraInfo}
-        /> */}
+          <CorporateKycPdf />
           <ReactToPrint
             // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
             trigger={() => <LocalPrintshopIcon />}
@@ -1287,7 +1284,7 @@ const CorporateTmsKyc = () => {
             </div>
           </section>
           {/* KYCAGGREMENT */}
-          <section className="container fs10" >
+          <section className="container fs10">
             {/* <!-- Header section --> */}
             <div>
               <p className="text-center">
@@ -1545,7 +1542,7 @@ const CorporateTmsKyc = () => {
               </p>
             </div>
           </section>
-          <section className="container fs10" >
+          <section className="container fs10">
             <div className="row">
               <p>
                 २०. दोस्रो पक्षका ेनामवाट कारोवार भए पश्चात दोस्रो पक्षको मृत्यु
