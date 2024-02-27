@@ -115,6 +115,10 @@ const OccupationsIndividualForms = React.lazy(() =>
 );
 import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
 import BoIndividualDetails from "../kyc/dp/forms/individual/BoIndividualDetails";
+const CorporateDocument = React.lazy(() =>
+  import("../kyc/pages/CorporateDocument")
+);
+
 const NomineeDpForms = React.lazy(() =>
   import("../kyc/dp/forms/individual/NomineeIndividual/NomineeDpForms")
 );
@@ -203,6 +207,14 @@ export default function AppRoutes() {
               <Route
                 path="demat-registration/c/corporate-ownership-details"
                 element={<CorporatOwnershipDetails />}
+              />
+              <Route
+                path="demat-registration/c/document-details"
+                element={<CorporateDocument />}
+              />
+              <Route
+                path="demat-registration/c/corporate-bank-detail"
+                element={<CorporatBankDetail />}
               />
             </Route>
 

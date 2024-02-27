@@ -3,7 +3,7 @@ import React from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import { CircularProgress } from "@mui/material";
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 
 const withPDFControls = (PDFComponent) => {
   const PDFControlsWrapper = ({ userData, imageURL, extraInfo }) => {
@@ -25,7 +25,6 @@ const withPDFControls = (PDFComponent) => {
           >
             {({ loading }) =>
               imageURL?.length === 0 || loading ? (
-                // <Loader color="red" size={30} />
                 <CircularProgress />
               ) : (
                 <PictureAsPdfIcon

@@ -1,68 +1,59 @@
 import { nanoid } from "@reduxjs/toolkit";
 import React from "react";
 import { corporatBankDetailForm } from "../../../../form/auth/CorporateDp/CorporatBankDetail/corporatBankDetailForm";
-import { Box, Grid, Typography, useTheme } from "@mui/material";
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 
 const CorporatBankDetail = () => {
   const { formik, loading } = corporatBankDetailForm();
-  const BankField = [
+
+  const BANKFIELDS = [
     {
+      type: "asyncDropDown",
       name: "bankName",
-      label: "Bank Name (बैंकको नाम)",
-      type: "dropDown",
-      sm: 12,
-      mapId: "bankName",
-      options: [],
-      id: nanoid(),
-      // dependentAction: {
-      //   fetch: true,
-      //   api: "/utility/bank-master",
-      //   method: "GET",
-      // },
+      label: "Bank Name",
+      required: true,
+      xs: 12,
+      sm: 6,
+      // path:"http://103.94.159.144:8085/pms/api/app-user/user-portfolio",
+      // responseLabel:"script"
     },
     {
-      name: "accountNumber",
-      label: "Account Number (खाता नम्बर)",
       type: "text",
-      placeholder: "Enter account number",
-      required: "Please enter account number",
-      sm: 12,
-      maxLength: 30,
-      minLength: 8,
-      id: nanoid(),
+      name: "accountNumber",
+      label: "Account Number",
+      required: true,
+      xs: 12,
+      sm: 6,
     },
     {
-      name: "accountType",
-      label: "Account Type (खाताको प्रकार)",
       type: "dropDown",
-      placeholder: "Select account type",
-      required: "Please select account type",
-      sm: 12,
+      name: "accountType",
+      label: "Account Type",
+      required: true,
+      xs: 12,
+      sm: 6,
       options: [
         {
-          value: "S",
+          value: "s",
           label: "Saving",
         },
         {
-          value: "C",
+          value: "c",
           label: "Current",
         },
       ],
-      id: nanoid(),
     },
     {
-      name: "branchAddress",
-      label: "Branch Name (शाखाको नाम)",
       type: "text",
-      placeholder: "Enter branch name",
-      required: "Please enter branch name",
-      sm: 12,
-      maxLength: 30,
-      minLength: 4,
-      id: nanoid(),
+      name: "branchAddress",
+      label: "Branch Name",
+      required: true,
+      xs: 12,
+      sm: 6,
     },
   ];
+
   const theme = useTheme();
   return (
     <div data-aos="zoom-in-right">
@@ -85,9 +76,23 @@ const CorporatBankDetail = () => {
       </Box>
       <form onSubmit={formik.handleSubmit}>
         <Grid align="center">
-          <RenderInput inputField={BankField} formik={formik} />
+          <RenderInput inputField={BANKFIELDS} formik={formik} />
         </Grid>
-        <button type="submit"> save</button>
+        <Grid
+          sx={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginTop: "12px",
+          }}
+        >
+          <Button
+            onClick={formik.handleSubmit}
+            variant="contained"
+            color="secondary"
+          >
+            Next
+          </Button>
+        </Grid>
       </form>
     </div>
   );

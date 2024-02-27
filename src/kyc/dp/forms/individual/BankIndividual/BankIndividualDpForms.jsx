@@ -8,7 +8,7 @@ import { Box } from "@mui/system";
 const BankIndividualDpForms = () => {
   const theme = useTheme();
   const { formik } = useKycBankForm();
-  const FAMILYFIELDS = [
+  const BANKFIELDS = [
     {
       type: "asyncDropDown",
       name: "bankName",
@@ -76,7 +76,7 @@ const BankIndividualDpForms = () => {
           Bank Details
         </Typography>
       </Box>
-      <RenderInput inputField={FAMILYFIELDS} formik={formik} />
+      <RenderInput inputField={BANKFIELDS} formik={formik} />
       <Grid
         sx={{ display: "flex", justifyContent: "flex-end", marginTop: "12px" }}
       >
