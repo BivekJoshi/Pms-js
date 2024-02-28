@@ -47,8 +47,11 @@ export const useLogin = ({ onSuccess }) => {
             authToken: data.data.token,
           })
         );
-
-        history("/kyc/home");
+        if (data?.data?.user?.tempPassword) {
+          history("/change/password");
+        } else {
+          history("/kyc/home");
+        }
 
         onSuccess && onSuccess(data, variables, context);
       },
