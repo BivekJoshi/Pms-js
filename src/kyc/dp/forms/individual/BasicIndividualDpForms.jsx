@@ -31,7 +31,6 @@ const BasicIndividualDpForms = () => {
       }
     }
   }, [formik.values.dob]);
-  console.log("nepalidate", formik);
   return (
     <div data-aos="zoom-in-right">
       <Box

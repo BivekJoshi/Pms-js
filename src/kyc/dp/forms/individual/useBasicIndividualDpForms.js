@@ -1,29 +1,35 @@
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import { onlyTextRegex } from "../static/RegExp";
-
-// const basicSchema = Yup.object().shape({
-//   firstName: Yup.string().required("First Name is required").matches(onlyTextRegex, "Please enter valid middle name"),
-//   middleName: Yup.string().matches(onlyTextRegex, "Please enter valid middle name"),
-//   lastName: Yup.string().required("Last Name is required").matches(onlyTextRegex, "Please enter valid middle name"),
-//   dob: Yup.string().required("Date of Birth is required"),
-//   gender: Yup.string().required("Gender is required"),
-// });
+import useBasicIndividualValidationSchema from "./useBasicIndividualValidationSchema";
+import { useAddBasicDetail } from "./BasicDetail/useBasicDetail";
 
 export const useBasicIndividualDpForms = () => {
+  const { mutate } = useAddBasicDetail({});
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      middleName: "",
-      lastName:  "",
-      clientNameNepali: "",
+      fname: "",
+      mname: "",
+      lname: "",
+      fnameNep: "",
+      mnameNep: "",
+      lnameNep: "",
       gender: "",
-      dob: false,
+      countryCd: "",
+      panNo: "",
+      dob: "",
       isMinor: false,
+      isDiffrentlyAbled: false,
+      isNrn: false,
     },
-    // validationSchema: basicSchema,
+    validationSchema: useBasicIndividualValidationSchema,
     onSubmit: (values) => {
-      console.log(values, "Valueee");
+      const formData = { ...values };
+      console.log("Valueee", formData);
+
+      mutate(formData, {
+        onSuccess: (data) => {
+          formik.resetForm();
+        },
+      });
     },
   });
 
