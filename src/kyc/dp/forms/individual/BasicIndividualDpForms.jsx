@@ -4,7 +4,7 @@ import { basicData } from "./basicInputData";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { useBasicIndividualDpForms } from "./useBasicIndividualDpForms";
 import { useTheme } from "@emotion/react";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const BasicIndividualDpForms = () => {
   const theme = useTheme();
@@ -31,7 +31,7 @@ const BasicIndividualDpForms = () => {
       }
     }
   }, [formik.values.dob]);
-
+  console.log("nepalidate", formik);
   return (
     <div data-aos="zoom-in-right">
       <Box
@@ -49,7 +49,7 @@ const BasicIndividualDpForms = () => {
             fontWeight: "800",
           }}
         >
-          {t('Basic Details')}
+          {t("Basic Details")}
         </Typography>
       </Box>
 
@@ -71,7 +71,7 @@ const BasicIndividualDpForms = () => {
             variant="contained"
             color="secondary"
           >
-            {t('Next')}
+            {t("Next")}
           </Button>
         </Grid>
       </Box>
