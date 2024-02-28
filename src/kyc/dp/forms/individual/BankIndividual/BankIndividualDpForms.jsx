@@ -4,6 +4,8 @@ import { Formik } from "formik";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { useKycBankForm } from "./usekycBankForm";
 import { Box } from "@mui/system";
+import CustomTable from "../../../../../components/customTable/CustomTable";
+import { useMemo } from "react";
 
 const BankIndividualDpForms = () => {
   const theme = useTheme();
@@ -16,6 +18,7 @@ const BankIndividualDpForms = () => {
       required: true,
       xs: 12,
       sm: 6,
+      md: 3,
       // path:"http://103.94.159.144:8085/pms/api/app-user/user-portfolio",
       // responseLabel:"script"
     },
@@ -26,6 +29,7 @@ const BankIndividualDpForms = () => {
       required: true,
       xs: 12,
       sm: 6,
+      md: 3,
     },
     {
       type: "dropDown",
@@ -34,6 +38,8 @@ const BankIndividualDpForms = () => {
       required: true,
       xs: 12,
       sm: 6,
+      md: 3,
+
       options: [
         {
           value: "s",
@@ -52,9 +58,57 @@ const BankIndividualDpForms = () => {
       required: true,
       xs: 12,
       sm: 6,
+      md: 3,
     },
   ];
   const handleSubmit = () => {};
+  const columns = useMemo(
+    () => [
+      {
+        id: 1,
+        accessorKey: "accountType",
+        header: "Account Type",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 2,
+        accessorKey: "bank",
+        header: "Bank",
+        size: 170,
+        sortable: false,
+      },
+      {
+        id: 3,
+        accessorKey: "branch",
+        header: "Branch",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 4,
+        accessorKey: "acNo",
+        header: "Account Number",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 5,
+        accessorKey: "primary",
+        header: "Primary",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 7,
+        accessorKey: "action",
+        header: "Action",
+        size: 100,
+        sortable: false,
+      },
+    ],
+    []
+  );
 
   return (
     <form onSubmit={handleSubmit}>
@@ -82,6 +136,21 @@ const BankIndividualDpForms = () => {
       >
         <Button
           onClick={formik.handleSubmit}
+          variant="contained"
+          color="secondary"
+          sx={{ borderRadius: "20px", paddingInline: 2 }}
+        >
+          + Add
+        </Button>
+      </Grid>
+      <Grid marginBlock={2}>
+        <CustomTable columns={columns} headerBackgroundColor="#401686" />
+      </Grid>
+      <Grid
+        sx={{ display: "flex", justifyContent: "flex-end", marginTop: "12px" }}
+      >
+        <Button
+          // onClick={formik.handleSubmit}
           variant="contained"
           color="secondary"
         >

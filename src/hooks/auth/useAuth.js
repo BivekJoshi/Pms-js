@@ -67,8 +67,10 @@ export const useRegister = ({ onSuccess }) => {
 
   return useMutation(["register"], (formData) => register(formData), {
     onSuccess: (data, variables, context) => {
-      toast.success("Registration Successful");
-      history(`/verification/${data?.id}`);
+      toast.success(
+        "Registration Successful. Please Check you email for password"
+      );
+      history(`/login`);
       onSuccess && onSuccess(data, variables, context);
     },
     onError: (err, _variables, _context) => {

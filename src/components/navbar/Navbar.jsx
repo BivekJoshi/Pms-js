@@ -21,6 +21,7 @@ import {
   Button,
   Menu,
   MenuItem,
+  Dialog,
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
@@ -150,11 +151,20 @@ const Navbar = () => {
   const currentHour = currentTime.getHours();
   const currentMinute = currentTime.getMinutes();
   const isWeekend = currentDay === 5 || currentDay === 6;
-  const isWeekdayAndGreenTime = !isWeekend && currentHour >= 11 && currentHour <= 14;
+  const isWeekdayAndGreenTime =
+    !isWeekend && currentHour >= 11 && currentHour <= 14;
 
   // Set marketOpen accordingly
   const marketOpen = isWeekdayAndGreenTime ? true : false;
+  const [open, setOpen] = useState(false);
 
+  const handleAutocompleteClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const [submenuAnchors, setSubmenuAnchors] = useState({});
   const [isNavigating, setIsNavigating] = useState(false);
 
@@ -409,6 +419,33 @@ const Navbar = () => {
             margin: { md: "0 32px", sm: "0px" },
           }}
         >
+          {!open && (
+            <TextField
+              fullWidth
+              placeholder="Company name or symbol"
+              variant="outlined"
+              size="small"
+              InputLabelProps={{ shrink: true }}
+              style={{
+                minWidth: "150px",
+              }}
+              onClick={handleAutocompleteClick}
+            />
+          )}
+        </Grid>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          fullWidth
+          position={{ top: 0 }}
+          PaperProps={{
+            sx: {
+              position: "absolute",
+              top: "-25px", // Adjust top position
+              maxWidth: "75vw",
+            },
+          }}
+        >
           <Autocomplete
             name="script"
             fullWidth
@@ -422,7 +459,6 @@ const Navbar = () => {
                 placeholder={t("Company name or symbol")}
                 variant="outlined"
                 // autoFocus
-                size="small"
                 InputLabelProps={{ shrink: true }}
                 style={{
                   minWidth: "150px",
@@ -437,7 +473,7 @@ const Navbar = () => {
               }
             }}
           />
-        </Grid>
+        </Dialog>
 
         <Tooltip title={"Market " + (marketOpen ? "Open" : "Closed")}>
           <div>
