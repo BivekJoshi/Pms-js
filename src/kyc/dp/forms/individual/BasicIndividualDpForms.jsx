@@ -8,7 +8,9 @@ import { useTranslation } from "react-i18next";
 
 const BasicIndividualDpForms = () => {
   const theme = useTheme();
-  const { formik } = useBasicIndividualDpForms();
+  const currentForm = 1;
+
+  const { formik } = useBasicIndividualDpForms({ currentForm });
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -21,7 +23,6 @@ const BasicIndividualDpForms = () => {
     };
 
     const dob = formik.values.dob;
-
     if (dob) {
       const personAge = calculateAge(dob);
       if (personAge < 16) {

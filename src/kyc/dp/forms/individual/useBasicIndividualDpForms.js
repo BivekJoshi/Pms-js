@@ -2,8 +2,8 @@ import { useFormik } from "formik";
 import useBasicIndividualValidationSchema from "./useBasicIndividualValidationSchema";
 import { useAddBasicDetail } from "./BasicDetail/useBasicDetail";
 
-export const useBasicIndividualDpForms = () => {
-  const { mutate } = useAddBasicDetail({});
+export const useBasicIndividualDpForms = ({ currentForm }) => {
+  const { mutate } = useAddBasicDetail({currentForm });
   const formik = useFormik({
     initialValues: {
       fname: "",
