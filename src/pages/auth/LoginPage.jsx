@@ -208,8 +208,6 @@ const LoginPage = () => {
           </LoadingButton>
         </Grid>
         <Grid sx={{ textAlign: "center" }} marginTop=".5rem">
-          <Button onClick={() => navigate("/kyc/home")}>Goto Kyc</Button>
-
           <div className="bodySmall ">
             Don't have an account?
             {"   "}
