@@ -8,40 +8,71 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { themeSettings } from "../theme";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import KycNavbar from "../components/navbar/KycNavbar";
 import { useTranslation } from "react-i18next";
 import "./layout.css";
 import { corporatKycDematList, individualKycDematList } from "./kycMenuList";
 import KycProfileCard from "../kyc/components/KycProfileCard";
+import { logout } from "../utility/logout";
+import { useGetTheme } from "../hooks/brokerTheme/useBrokerTheme";
 
 const KycLayout = () => {
   const mode = useSelector((state) => state?.theme?.mode);
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
-  const [clientType, setClientType] = useState();
+  const [isHomePage, setIsHomePage] = useState(false);
+  const navigate = useNavigate();
   const [menuList, setMenuList] = useState([]);
+  const brokerId = useSelector((state) => state?.user.details?.brokerNo);
 
+  const userDetails = useSelector((state) => state?.user?.details);
+  const { data, isLoading, refetch } = useGetTheme(brokerId);
+
+  const authDataString = localStorage.getItem("auth");
+  const authData = JSON.parse(authDataString);
+  const authToken = authData?.authToken;
   useEffect(() => {
-    if (pathname) {
-      setClientType(pathname.split("/")[pathname.split("/").length - 2]);
+    if (!authToken) {
+      navigate("/login");
+    }
+    // else if (authData?.tempPassword) {
+    //   navigate("change/password");
+    // }
+    else {
+      refetch();
+    }
+    if (data) {
+      dispatch({ type: "SET_BROKER_THEME", payload: data?.web });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isLoading, authToken]);
+  useEffect(() => {
+    if (pathname && pathname.length > 2) {
+      const isHome =
+        pathname.split("/")[pathname.split("/").length - 1] === "home";
+      setIsHomePage(isHome);
     }
   }, [pathname]);
 
   useEffect(() => {
-    if (clientType) {
-      if (clientType === "i") {
+    if (userDetails.clientType) {
+      if (userDetails.clientType === "I") {
         setMenuList(individualKycDematList);
-      } else if (clientType === "c") {
+      } else if (userDetails.lientType === "C") {
         setMenuList(corporatKycDematList);
       } else {
         setMenuList([]);
       }
     }
-  }, [clientType]);
-  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  }, [userDetails]);
+  const theme = useMemo(
+    () => createTheme(themeSettings(mode, data?.web)),
+    [mode, data, isLoading]
+  );
   const isSm = useMediaQuery(theme.breakpoints.down("md"));
 
   const activeStyle = {
@@ -93,7 +124,13 @@ const KycLayout = () => {
                 maxHeight: "90vh",
               }}
             >
-              <KycProfileCard clientType={clientType} nature={"DP"} />
+              <KycProfileCard
+                isHomePage={isHomePage}
+                clientName={userDetails.name}
+                clientType={userDetails?.clientType}
+                nature={userDetails?.nature}
+                formStatus={userDetails?.status}
+              />
               <Grid
                 p="12px"
                 bgcolor={theme.palette.background.alt}
@@ -107,10 +144,10 @@ const KycLayout = () => {
                     return (
                       <NavLink
                         className="navlinks-list"
-                        to={item.path}
+                        to={!isHomePage && item.path}
                         key={i}
                         style={({ isActive }) =>
-                          isActive
+                          isActive && !isHomePage
                             ? activeStyle
                             : { color: theme.palette.text.main }
                         }
@@ -135,7 +172,14 @@ const KycLayout = () => {
                 width="100%"
               >
                 <Grid display="flex" flexDirection="column">
-                  <NavLink className="navlinks-list" to={"/"}>
+                  <div
+                    className="navlinks-list"
+                    onClick={() => {
+                      dispatch({ type: "LOGOUT" });
+                      logout();
+                      navigate("/login");
+                    }}
+                  >
                     <Grid
                       className="profileIcon"
                       style={{ textDecoration: "none" }}
@@ -175,7 +219,7 @@ const KycLayout = () => {
                         {t("Logout")}
                       </Typography>
                     </Grid>
-                  </NavLink>
+                  </div>
                 </Grid>
               </Grid>
             </Grid>
