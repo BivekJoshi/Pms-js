@@ -153,6 +153,10 @@ export default function AppRoutes() {
                 element={<IndividualDocument />}
               />
               <Route
+                path="demat-registration/c/document-details"
+                element={<CorporatDocument />}
+              />
+              <Route
                 path="demat-registration/i/basic-details"
                 element={<KycForm />}
               />
@@ -166,6 +170,10 @@ export default function AppRoutes() {
               />
               <Route
                 path="demat-registration/i/bank-details"
+                element={<BankIndividualDpForms />}
+              />
+              <Route
+                path="demat-registration/c/corporate-bank-detail"
                 element={<BankIndividualDpForms />}
               />
               <Route

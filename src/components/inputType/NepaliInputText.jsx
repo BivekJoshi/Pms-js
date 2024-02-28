@@ -5,7 +5,6 @@ import "./nepaliInputText.css";
 import { debounce } from "lodash";
 
 const NepaliInputText = ({ element, formik }) => {
-  console.log("🚀 ~ NepaliInputText ~ formik:", formik);
   const [options, setOptions] = useState([]);
   const [busy, setBusy] = useState(false);
   const [open, setOpen] = useState(false);

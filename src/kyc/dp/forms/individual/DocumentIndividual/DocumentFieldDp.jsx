@@ -1,6 +1,4 @@
 import { Button, Grid } from "@mui/material";
-import React, { useState } from "react";
-import DropZoneUploadFile from "../../../../../components/dropZone/DropZoneUploadFile";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
 import {
   BirthCertificateFiled,
