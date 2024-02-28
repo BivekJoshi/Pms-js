@@ -120,6 +120,7 @@ const CorporateDocument = React.lazy(() =>
   import("../kyc/pages/CorporateDocument")
 );
 
+import CorporatDocument from "../kyc/dp/forms/corporate/CorporatDocument";
 const NomineeDpForms = React.lazy(() =>
   import("../kyc/dp/forms/individual/NomineeIndividual/NomineeDpForms")
 );
@@ -154,8 +155,8 @@ export default function AppRoutes() {
                 element={<IndividualDocument />}
               />
               <Route
-                path="demat-registration/c/document-details"
-                element={<CorporateDocument />}
+                path="demat-registration/c/document-details"               
+                element={<CorporatDocument />}
               />
               <Route
                 path="demat-registration/i/basic-details"
@@ -221,10 +222,10 @@ export default function AppRoutes() {
                 path="demat-registration/c/corporate-ownership-details"
                 element={<CorporatOwnershipDetails />}
               />
-              <Route
+              {/* <Route
                 path="demat-registration/c/document-details"
                 element={<CorporateDocument />}
-              />
+              /> */}
               <Route
                 path="demat-registration/c/corporate-bank-detail"
                 element={<CorporatBankDetail />}
