@@ -1,6 +1,7 @@
 import { useTheme } from "@emotion/react";
 import {
   Button,
+  Chip,
   Divider,
   Grid,
   IconButton,
@@ -13,13 +14,19 @@ import CloseIcon from "@mui/icons-material/Close";
 import CustomImageUpload from "./CustomImageUpload";
 import "./imageupload.css";
 
-const KycProfileCard = ({ clientType, nature }) => {
+const KycProfileCard = ({
+  clientType,
+  nature,
+  clientName,
+  isHomePage,
+  formStatus,
+}) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [stream, setStream] = useState(null);
   const videoRef = useRef();
   const accountType =
-    clientType === "i" ? "Individual" : clientType === "c" ? "Corporate" : "";
+    clientType === "I" ? "Individual" : clientType === "C" ? "Corporate" : "";
   const accountNature = nature === "DP" ? "Demat" : "TMS";
   const [capturedImage, setCapturedImage] = useState(null);
   const openCamera = async () => {
@@ -62,7 +69,6 @@ const KycProfileCard = ({ clientType, nature }) => {
       padding="16px"
       sx={{
         borderRadius: "6px 0px 0px 6px",
-       
       }}
     >
       <div
@@ -74,7 +80,14 @@ const KycProfileCard = ({ clientType, nature }) => {
           width: "100%",
         }}
       >
-        <span style={{ position: "relative" }}>
+        <span
+          style={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            gap: "8px",
+          }}
+        >
           <svg
             width="101"
             height="100"
@@ -88,35 +101,51 @@ const KycProfileCard = ({ clientType, nature }) => {
               fill="white"
             />
           </svg>
-          <span style={{ position: "absolute", bottom: 0, right: 0 }}>
-            <IconButton onClick={() => setOpen(true)}>
-              <Tooltip arrow placement="right-end" title="Uplaod Image">
-                <svg
-                  width="25"
-                  height="24"
-                  viewBox="0 0 25 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    x="1.5"
-                    y="1"
-                    width="22"
-                    height="22"
-                    rx="11"
-                    fill="#088720"
-                  />
-                  <path
-                    d="M18.5 13H13.5V18C13.5 18.55 13.05 19 12.5 19C11.95 19 11.5 18.55 11.5 18V13H6.5C5.95 13 5.5 12.55 5.5 12C5.5 11.45 5.95 11 6.5 11H11.5V6C11.5 5.45 11.95 5 12.5 5C13.05 5 13.5 5.45 13.5 6V11H18.5C19.05 11 19.5 11.45 19.5 12C19.5 12.55 19.05 13 18.5 13Z"
-                    fill="white"
-                  />
-                </svg>
-              </Tooltip>
-            </IconButton>
-          </span>
+          {!isHomePage && (
+            <span style={{ position: "absolute", bottom: 0, right: 0 }}>
+              <IconButton onClick={() => setOpen(true)}>
+                <Tooltip arrow placement="right-end" title="Uplaod Image">
+                  <svg
+                    width="25"
+                    height="24"
+                    viewBox="0 0 25 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="1.5"
+                      y="1"
+                      width="22"
+                      height="22"
+                      rx="11"
+                      fill="#088720"
+                    />
+                    <path
+                      d="M18.5 13H13.5V18C13.5 18.55 13.05 19 12.5 19C11.95 19 11.5 18.55 11.5 18V13H6.5C5.95 13 5.5 12.55 5.5 12C5.5 11.45 5.95 11 6.5 11H11.5V6C11.5 5.45 11.95 5 12.5 5C13.05 5 13.5 5.45 13.5 6V11H18.5C19.05 11 19.5 11.45 19.5 12C19.5 12.55 19.05 13 18.5 13Z"
+                      fill="white"
+                    />
+                  </svg>
+                </Tooltip>
+              </IconButton>
+            </span>
+          )}
+          {isHomePage && (
+            <Chip
+              label={formStatus}
+              color={
+                formStatus === "PENDING"
+                  ? "warning"
+                  : formStatus === "SUBMITTED"
+                  ? "info"
+                  : formStatus === "APPROVED"
+                  ? "success"
+                  : "error"
+              }
+            ></Chip>
+          )}
         </span>
         <Typography variant="h6" mt="8px">
-          Client AQBC
+          {clientName}
         </Typography>
         <Typography variant="h6">
           {accountType + " " + accountNature + " Account"}
