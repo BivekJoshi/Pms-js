@@ -715,6 +715,14 @@ export const basicData = [
     id: nanoid(),
   },
   {
+    name: "panNo",
+    label: "Pan No",
+    type: "number",
+    sm: 12,
+    md: 4,
+    id: nanoid(),
+  },
+  {
     name: "isMinor",
     label: "Are you Minor?",
     type: "switch",
