@@ -69,7 +69,6 @@ const staticFields = [
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();
   const { formik } = useKycFamilyForm();
-  console.log("hiiii", formik);
 
   return (
     <div data-aos="zoom-in-right">
