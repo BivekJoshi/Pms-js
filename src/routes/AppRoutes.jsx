@@ -155,7 +155,7 @@ export default function AppRoutes() {
               />
               <Route
                 path="demat-registration/c/document-details"
-                element={<CorporatDocument />}
+                element={<CorporateDocument />}
               />
               <Route
                 path="demat-registration/i/basic-details"
