@@ -47,6 +47,11 @@ export const useLogin = ({ onSuccess }) => {
             authToken: data.data.token,
           })
         );
+        if (data?.data?.user?.tempPassword) {
+          history("/change/password");
+        } else {
+          history("/kyc/home");
+        }
 
         onSuccess && onSuccess(data, variables, context);
       },
@@ -80,8 +85,10 @@ export const useApplication = ({ onSuccess }) => {
     ({ email, submissionNo }) => application(email, submissionNo),
     {
       onSuccess: (data, variables, context) => {
-        toast.success(data?.status);
-        history(`/status/message/${data?.status}`);
+        // toast.success(data?.status);
+        // history(`/status/message/${data?.status}`);
+        toast.success("Please check your email for login password.");
+        history("/login");
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {

@@ -21,7 +21,7 @@ const BoIndividualDetails = () => {
     },
     {
       name: "accountStatementPeriod",
-      label: "Account Statement Period : ",
+      label: "Account Statement Period (खाता विवरण अवधि)",
       type: "radio",
       radio: [
         {
