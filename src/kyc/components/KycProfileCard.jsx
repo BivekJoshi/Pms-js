@@ -129,21 +129,20 @@ const KycProfileCard = ({
               </IconButton>
             </span>
           )}
-          {isHomePage && (
-            <Chip
-              label={formStatus}
-              color={
-                formStatus === "PENDING"
-                  ? "warning"
-                  : formStatus === "SUBMITTED"
-                  ? "info"
-                  : formStatus === "APPROVED"
-                  ? "success"
-                  : "error"
-              }
-            ></Chip>
-          )}
         </span>
+        <Chip
+          sx={{ marginTop: "8px" }}
+          label={formStatus}
+          color={
+            formStatus === "PENDING"
+              ? "warning"
+              : formStatus === "SUBMITTED"
+              ? "info"
+              : formStatus === "APPROVED"
+              ? "success"
+              : "error"
+          }
+        ></Chip>
         <Typography variant="h6" mt="8px">
           {clientName}
         </Typography>
