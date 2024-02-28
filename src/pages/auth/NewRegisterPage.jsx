@@ -44,7 +44,6 @@ const touchedField = (steps) => {
 
 const NewRegisterPage = () => {
   const { formik, loading, handleStep, currentStep } = useNewRegisterForm();
-  console.log("🚀 ~ NewRegisterPage ~ formik:", formik);
 
   const navigate = useNavigate();
   const navigateLogin = () => {
