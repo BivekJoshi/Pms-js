@@ -80,49 +80,17 @@ const BuySellCalculator = React.lazy(() =>
 const DevelopmentPage = React.lazy(() =>
   import("../pages/DevlopmentPage/DevlopmentPage")
 );
-const IndividualDocument = React.lazy(() =>
-  import("./../kyc/pages/IndividualDocument")
-);
 const BankIndividualDpForms = React.lazy(() =>
   import("../kyc/dp/forms/individual/BankIndividual/BankIndividualDpForms")
 );
-const IndividualDPKyc = React.lazy(() =>
-  import("../kyc/ViewKyc/Individual/IndividualDPKyc")
-);
-const CorporatBankDetail = React.lazy(() =>
-  import("../kyc/dp/forms/corporate/CorporatBankDetail")
-);
-const CorporatBoStatement = React.lazy(() =>
-  import("../kyc/dp/forms/corporate/CorporatBoStatement")
-);
-const CorporatOwnershipDetails = React.lazy(() =>
-  import("../kyc/dp/forms/corporate/CorporatOwnershipDetails")
-);
-const IndividualAddress = React.lazy(() =>
-  import("../kyc/pages/IndividualAddress")
-);
-const CorporateAddress = React.lazy(() =>
-  import("../kyc/pages/CorporateAddress")
-);
-const FamilyIndividualDpForms = React.lazy(() =>
-  import("../kyc/dp/forms/individual/FamilyIndividual/FamilyIndividualDpForms")
-);
+
 const KycHomePage = React.lazy(() => import("../kyc/pages/KyCHomePage"));
-const OccupationsIndividualForms = React.lazy(() =>
-  import(
-    "../kyc/dp/forms/individual/OccupationIndividual/OccupationsIndividualForms"
-  )
-);
-import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
-import BoIndividualDetails from "../kyc/dp/forms/individual/BoIndividualDetails";
-import AmlCft from '../kyc/dp/forms/individual/Aml-Cft/AmlCft';
+import AmlCft from "../kyc/dp/forms/individual/Aml-Cft/AmlCft";
+import { kycDpCorporateRoutes, kycDpIndividualRoutes } from "./kycRoutes";
 const CorporateDocument = React.lazy(() =>
   import("../kyc/pages/CorporateDocument")
 );
 
-const NomineeDpForms = React.lazy(() =>
-  import("../kyc/dp/forms/individual/NomineeIndividual/NomineeDpForms")
-);
 
 export default function AppRoutes() {
   return (
@@ -149,85 +117,35 @@ export default function AppRoutes() {
             </Route>
             <Route path="/kyc" element={<KycLayout />}>
               <Route path="home" element={<KycHomePage />} />
-              <Route
-                path="demat-registration/i/document-details"
-                element={<IndividualDocument />}
-              />
-              <Route
-                path="demat-registration/c/document-details"
-                element={<CorporateDocument />}
-              />
-              <Route
+              {kycDpIndividualRoutes.map((route) => (
+                <Route
+                  key={route.id}
+                  path={route.path}
+                  exact
+                  element={<route.component />}
+                />
+              ))}
+              {kycDpCorporateRoutes.map((route) => (
+                <Route
+                  key={route.id}
+                  path={route.path}
+                  exact
+                  element={<route.component />}
+                />
+              ))}
+              {/* <Route
                 path="demat-registration/i/basic-details"
                 element={<KycForm />}
-              />
-              <Route
-                path="demat-registration/i/address-details"
-                element={<IndividualAddress />}
-              />
-              <Route
-                path="demat-registration/i/family-details"
-                element={<FamilyIndividualDpForms />}
-              />
-              <Route
-                path="demat-registration/i/bank-details"
-                element={<BankIndividualDpForms />}
-              />
+              /> */}
               <Route
                 path="demat-registration/c/corporate-bank-detail"
                 element={<BankIndividualDpForms />}
               />
-              <Route
-                path="demat-registration/i/nominee-details"
-                element={<NomineeDpForms />}
-              />
-              <Route
-                path="demat-registration/i/detail-verification"
-                element={<IndividualDPKyc />}
-              />
-              <Route
-                path="demat-registration/i/occupation-details"
-                element={<OccupationsIndividualForms />}
-              />
-              <Route
-                path="demat-registration/i/aml-cft"
-                element={<AmlCft />}
-              />
-              <Route
-                path="demat-registration/i/detail-verification"
-                element={<IndividualDPKyc />}
-              />
-              <Route
-                path="demat-registration/c/corporate-details"
-                element={<CorporateDetailsDp />}
-              />
-              <Route
-                path="demat-registration/c/corporate-address"
-                element={<CorporateAddress />}
-              />
-              <Route
-                path="demat-registration/i/bo-details"
-                element={<BoIndividualDetails />}
-              />
-              <Route
-                path="demat-registration/i/corporate-bo-statement"
-                element={<CorporatBoStatement />}
-              />
-              <Route
-                path="demat-registration/c/corporate-bo-statement"
-                element={<CorporatBoStatement />}
-              />
-              <Route
-                path="demat-registration/c/corporate-ownership-details"
-                element={<CorporatOwnershipDetails />}
-              />
+              <Route path="demat-registration/i/aml-cft" element={<AmlCft />} />
+
               <Route
                 path="demat-registration/c/document-details"
                 element={<CorporateDocument />}
-              />
-              <Route
-                path="demat-registration/c/corporate-bank-detail"
-                element={<CorporatBankDetail />}
               />
             </Route>
 
