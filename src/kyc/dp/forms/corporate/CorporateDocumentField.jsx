@@ -1,15 +1,16 @@
 import { Button, Grid } from "@mui/material";
-import RenderInput from "../../../../../components/renderInput/RenderInput";
+import React, { useState } from "react";
+import RenderInput from "../../../../components/renderInput/RenderInput";
 import {
-  BirthCertificateFiled,
-  CitizenshipFiled,
-  DocumentField,
-  PanCardFiled,
-  PassportFiled,
-} from "./DocumentField";
-import { useDocumentForm } from "./useDocumentForm";
+    BirthCertificateFiled,
+    CitizenshipFiled,
+    DocumentField,
+    PanCardFiled,
+    PassportFiled,
+  } from "../individual/DocumentIndividual/DocumentField";
+import { useDocumentForm } from "../individual/DocumentIndividual/useDocumentForm";
 
-const DocumentFieldDp = () => {
+const CorporateDocumentField = () => {
   const { formik } = useDocumentForm();
 
   return (
@@ -51,4 +52,4 @@ const DocumentFieldDp = () => {
   );
 };
 
-export default DocumentFieldDp;
+export default CorporateDocumentField;

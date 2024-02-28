@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import RenderInput from "../../../../components/renderInput/RenderInput";
-import { Box, Grid, Typography, useTheme } from "@mui/material";
-import { corporatBoStatementForm } from "../../../../form/auth/CorporateDp/CorporatBoStatement/corporatBoStatementForm";
 import { nanoid } from "nanoid";
+import { corporatBoStatementForm } from "../../../../form/auth/CorporateDp/CorporatBoStatement/corporatBoStatementForm";
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 
-const CorporatBoStatement = () => {
+const CorporateBoStatement = () => {
   const theme = useTheme();
   const { formik } = corporatBoStatementForm();
-  const StatementsField = [
+  const bodFields = [
     {
       name: "isStandingInstructionForAutomaticTxn",
       label: "Do you want Standing Instruction For The Automatic Transaction?",
       type: "switch",
       col: 12,
       id: nanoid(),
+      display: "flex",
+      direction: "row-reverse",
+      marginLeft: "0px",
     },
     {
       name: "accountStatementPeriod",
-      label: "Account Statement Period (खाता विवरण अवधि)",
+      label: "Account Statement Period : ",
       type: "radio",
       radio: [
         {
@@ -41,19 +44,21 @@ const CorporatBoStatement = () => {
           id: nanoid(),
         },
       ],
-      sm: 6,
+      display: "flex",
+      align: "center",
+      gap: "1rem",
+      sm: 12,
       col: 12,
       id: nanoid(),
     },
   ];
-
-  const [fields, setFields] = useState(StatementsField);
+  const [fields, setFields] = useState(bodFields);
 
   useEffect(() => {
     if (!formik.values.isStandingInstructionForAutomaticTxn) {
-      setFields(StatementsField.slice(0, 1));
+      setFields(bodFields.slice(0, 1));
     } else {
-      setFields(StatementsField);
+      setFields(bodFields);
       formik.setFieldValue("accountStatementPeriod", "");
     }
   }, [formik.values.isStandingInstructionForAutomaticTxn]);
@@ -64,6 +69,7 @@ const CorporatBoStatement = () => {
         sx={{
           marginBottom: "16px",
           padding: { md: "12px", sm: "5px" },
+          borderRadius: "0 6px 6px 0",
           borderLeft: `4px solid ${theme.palette.secondary.main}`,
         }}
       >
@@ -77,14 +83,30 @@ const CorporatBoStatement = () => {
           BO Details
         </Typography>
       </Box>
-      <form onSubmit={formik.handleSubmit}>
-        <Grid>
-          <RenderInput inputField={fields} formik={formik} />
+
+      <Box
+        color={theme.palette.text.main}
+        bgcolor={theme.palette.background.alt}
+        sx={{
+          borderRadius: "0 6px 6px 0",
+          padding: "16px",
+          boxShadow:
+            "0 1px 3px rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
+        }}
+      >
+        <RenderInput inputField={fields} formik={formik} />
+        <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Button
+            onClick={formik.handleSubmit}
+            variant="contained"
+            color="secondary"
+          >
+            Next
+          </Button>
         </Grid>
-        <button type="submit"> save</button>
-      </form>
+      </Box>
     </div>
   );
 };
 
-export default CorporatBoStatement;
+export default CorporateBoStatement;

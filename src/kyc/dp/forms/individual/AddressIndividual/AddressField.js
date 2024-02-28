@@ -45,7 +45,10 @@ export const AddressField = [
     xs: 12,
     required: true,
     type: "dropDown",
-    options: [{ id: 1, value: "Nepal", label: "Nepal" }],
+    options: [
+      { id: 1, value: "Nepal", label: "Nepal" },
+      { id: 2, value: "india", label: "india" },
+    ],
   },
   {
     name: "province",
@@ -79,7 +82,6 @@ export const AddressField = [
     required: true,
     type: "dropDown",
     options: PROVINCE,
-
   },
   {
     name: "wardNo",
@@ -90,7 +92,6 @@ export const AddressField = [
     xs: 12,
     type: "number",
     required: true,
-
   },
   {
     name: "tole",
@@ -101,7 +102,6 @@ export const AddressField = [
     xs: 12,
     type: "text",
     required: true,
-
   },
   {
     name: "houseNo",
@@ -121,7 +121,6 @@ export const AddressField = [
     xs: 12,
     type: "number",
     required: true,
-
   },
   {
     name: "telephoneNo",
@@ -141,7 +140,6 @@ export const AddressField = [
     xs: 12,
     type: "text",
     required: true,
-
   },
   {
     name: "website",
