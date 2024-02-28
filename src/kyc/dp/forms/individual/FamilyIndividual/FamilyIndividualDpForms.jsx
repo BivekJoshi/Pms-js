@@ -1,66 +1,129 @@
-import React, { useEffect, useState } from "react";
-import { Grid, Button, Typography, useTheme, Stack } from "@mui/material";
+import React from "react";
+import { Grid, Button, Typography, useTheme } from "@mui/material";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { nanoid } from "nanoid";
 import { FieldArray, FormikProvider } from "formik";
 import { useKycFamilyForm } from "./usekycFamilyForm";
+import { useSelector } from "react-redux";
 
-const referalFields = [
-  {
-    type: "dropDownWithValue",
-    name: "relation",
-    options: [{ label: "Referral Person", value: "referralPerson" }],
-    isDisabled: true,
-    col: 12,
-    xs: 12,
-    sm: 6,
-    id: nanoid(),
-  },
-  {
-    type: "text",
-    name: "memberName",
-    label: "Referral Name",
-    col: 12,
-    xs: 12,
-    sm: 6,
-    id: nanoid(),
-  },
-  {
-    type: "text",
-    name: "email",
-    label: "Referral Email",
-    col: 12,
-    xs: 12,
-    sm: 6,
-    id: nanoid(),
-  },
-  {
-    type: "text",
-    name: "mobileNumber",
-    label: "Referral Mobile Number",
-    col: 12,
-    xs: 12,
-    sm: 6,
-    id: nanoid(),
-  },
-];
+// const referalFields = [
+//   {
+//     type: "dropDownWithValue",
+//     name: "relation",
+//     options: [{ label: "Referral Person", value: "referralPerson" }],
+//     isDisabled: true,
+//     col: 12,
+//     xs: 12,
+//     sm: 6,
+//     id: nanoid(),
+//   },
+//   {
+//     type: "text",
+//     name: "memberName",
+//     label: "Referral Name",
+//     col: 12,
+//     xs: 12,
+//     sm: 6,
+//     id: nanoid(),
+//   },
+//   {
+//     type: "text",
+//     name: "email",
+//     label: "Referral Email",
+//     col: 12,
+//     xs: 12,
+//     sm: 6,
+//     id: nanoid(),
+//   },
+//   {
+//     type: "text",
+//     name: "mobileNumber",
+//     label: "Referral Mobile Number",
+//     col: 12,
+//     xs: 12,
+//     sm: 6,
+//     id: nanoid(),
+//   },
+// ];
 
-const staticFields = [
+// const staticFields = [
+//   {
+//     type: "dropDown",
+//     name: "relation",
+//     label: "Relation",
+//     col: 12,
+//     xs: 12,
+//     sm: 6,
+//     id: nanoid(),
+//   },
+//   {
+//     type: "text",
+//     name: "memberName",
+//     label: "Enter Name",
+//     col: 12,
+//     xs: 12,
+//     sm: 6,
+//     id: nanoid(),
+//   },
+// ];
+const relationField = [
   {
-    type: "dropDown",
-    name: "relation",
-    label: "Relation",
+    type: "text",
+    name: "fname",
+    label: "First Name",
     col: 12,
     xs: 12,
     sm: 6,
+    md: 4,
     id: nanoid(),
   },
   {
     type: "text",
-    name: "memberName",
-    label: "Enter Name",
+    name: "mname",
+    label: "Middle Name",
     col: 12,
     xs: 12,
+    sm: 6,
+    md: 4,
+    id: nanoid(),
+  },
+  {
+    type: "text",
+    name: "lname",
+    label: "Last Name",
+    col: 12,
+    xs: 12,
+    md: 4,
+    sm: 6,
+    id: nanoid(),
+  },
+  {
+    type: "nepaliTypeText",
+    name: "fnameNep",
+    label: "First Name (Devanagari)",
+    col: 12,
+    xs: 12,
+    sm: 6,
+    md: 4,
+    id: nanoid(),
+  },
+  {
+    type: "nepaliTypeText",
+    name: "mnameNep",
+    label: "Middle Name (Devanagari)",
+    col: 12,
+    xs: 12,
+    sm: 6,
+    md: 4,
+    id: nanoid(),
+  },
+  {
+    type: "nepaliTypeText",
+    name: "lnameNep",
+    label: "Last Name (Devanagari)",
+    col: 12,
+    xs: 12,
+    md: 4,
     sm: 6,
     id: nanoid(),
   },
@@ -69,11 +132,10 @@ const staticFields = [
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();
   const { formik } = useKycFamilyForm();
-  console.log("hiiii", formik);
-
+  const language = useSelector((state) => state?.language?.mode);
   return (
     <div data-aos="zoom-in-right">
-      <Grid container>
+      <Grid container gridColumn>
         <Grid
           item
           sm={12}
@@ -94,9 +156,57 @@ const FamilyIndividualDpForms = () => {
             Family Members
           </Typography>
         </Grid>
+        <FormikProvider value={formik}>
+          <FieldArray name="familyDetailList">
+            {() => {
+              return (
+                formik.values.familyDetailList &&
+                formik.values?.familyDetailList?.map((details, index) => {
+                  const field = relationField?.map((d) => {
+                    return {
+                      ...d,
+                      name: `familyDetailList.${index}.[personDetail].${d.name}`,
+                    };
+                  });
+                  return (
+                    <FamilyDetails
+                      key={index + details?.relationTypeDesc}
+                      name={
+                        language === "EN"
+                          ? details?.relationTypeDesc
+                          : details?.relationTypeDescNp
+                      }
+                      renderItems={
+                        <RenderInput
+                          inputField={field}
+                          formik={formik}
+                          index={index}
+                          isFieldArray={true}
+                          fieldArrayName="familyDetailList"
+                        />
+                      }
+                    />
+                  );
+                })
+              );
+            }}
+          </FieldArray>
+        </FormikProvider>
+      </Grid>
+      <Grid
+        marginBlock={2}
+        sx={{ display: "flex", justifyContent: "flex-end" }}
+      >
+        <Button
+          onClick={formik.handleSubmit}
+          variant="contained"
+          color="secondary"
+        >
+          Next
+        </Button>
       </Grid>
 
-      <RenderInput inputField={referalFields} formik={formik} />
+      {/* <RenderInput inputField={referalFields} formik={formik} />
 
       <FormikProvider value={formik} {...formik}>
         <FieldArray name="familyDetails">
@@ -201,8 +311,24 @@ const FamilyIndividualDpForms = () => {
             Next
           </Button>
         </Grid>
-      </FormikProvider>
+      </FormikProvider> */}
     </div>
+  );
+};
+
+const FamilyDetails = ({ name, renderItems, key }) => {
+  return (
+    <Grid item sm={12} md={12} key={key}>
+      <Typography
+        marginBlockStart={2}
+        marginBlockEnd={1}
+        variant="h5"
+        sx={{ fontWeight: "800" }}
+      >
+        {name} <span style={{ color: "red" }}>*</span>
+      </Typography>
+      {renderItems}
+    </Grid>
   );
 };
 
