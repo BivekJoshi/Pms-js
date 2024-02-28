@@ -5,6 +5,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Button,
   Grid,
   Typography,
@@ -295,9 +296,26 @@ const CorporatOwnershipDetails = () => {
     },
   ];
   const { formik } = corporatOwnershipDetailsForm();
- 
+
   return (
-    <div style={{ paddingBottom: "250px", padding: "5rem" }}>
+    <div data-aos="zoom-in-right">
+      <Box
+        sx={{
+          marginBottom: "16px",
+          padding: { md: "12px", sm: "5px" },
+          borderLeft: `4px solid ${theme.palette.secondary.main}`,
+        }}
+      >
+        <Typography
+          variant="h4"
+          style={{
+            color: theme.palette.text.light,
+            fontWeight: "800",
+          }}
+        >
+          OwnerShip Details
+        </Typography>
+      </Box>
       <FormikProvider value={formik} {...formik}>
         <FieldArray name="details">
           {({ push, remove }) => {
@@ -329,11 +347,7 @@ const CorporatOwnershipDetails = () => {
                     name: `details.${index}.${d.name}`,
                   };
                 });
-                console.log(
-                  formik?.touched &&
-                    formik?.errors?.details &&
-                    formik?.errors?.details[index] !== undefined
-                );
+
                 return (
                   <>
                     <Grid
@@ -346,14 +360,14 @@ const CorporatOwnershipDetails = () => {
                       marginBottom="1rem"
                     >
                       <Accordion
-                        expanded={
-                          (
+                        sx={{
+                          background:
                             formik?.errors?.details &&
-                            formik?.errors?.details[index] !== undefined) ===
-                          true
-                          //   ? true
-                          //   : false
-                        }
+                            formik?.errors?.details[index] !== undefined
+                              ? "red"
+                              : "transparent",
+                        }}
+                        defaultExpanded
                       >
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
