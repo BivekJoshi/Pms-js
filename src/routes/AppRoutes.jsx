@@ -115,6 +115,7 @@ const OccupationsIndividualForms = React.lazy(() =>
 );
 import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
 import BoIndividualDetails from "../kyc/dp/forms/individual/BoIndividualDetails";
+import AmlCft from '../kyc/dp/forms/individual/Aml-Cft/AmlCft';
 const NomineeDpForms = React.lazy(() =>
   import("../kyc/dp/forms/individual/NomineeIndividual/NomineeDpForms")
 );
@@ -175,6 +176,10 @@ export default function AppRoutes() {
               <Route
                 path="demat-registration/i/occupation-details"
                 element={<OccupationsIndividualForms />}
+              />
+              <Route
+                path="demat-registration/i/aml-cft"
+                element={<AmlCft />}
               />
               <Route
                 path="demat-registration/i/detail-verification"
