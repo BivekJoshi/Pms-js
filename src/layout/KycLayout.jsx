@@ -170,7 +170,7 @@ const KycLayout = () => {
                       </svg>
                       <Typography
                         variant="h7"
-                        style={{ textDecoration: "none" }}
+                        style={{ textDecoration: "none",color:'black' }}
                       >
                         {t("Logout")}
                       </Typography>
