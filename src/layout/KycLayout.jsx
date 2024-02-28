@@ -14,7 +14,12 @@ import { useDispatch, useSelector } from "react-redux";
 import KycNavbar from "../components/navbar/KycNavbar";
 import { useTranslation } from "react-i18next";
 import "./layout.css";
-import { corporatKycDematList, individualKycDematList } from "./kycMenuList";
+import {
+  corporateKycDematList,
+  corporateKycTMSList,
+  individualKycDematList,
+  individualkycTmsList,
+} from "./kycMenuList";
 import KycProfileCard from "../kyc/components/KycProfileCard";
 import { logout } from "../utility/logout";
 import { useGetTheme } from "../hooks/brokerTheme/useBrokerTheme";
@@ -30,6 +35,7 @@ const KycLayout = () => {
   const brokerId = useSelector((state) => state?.user.details?.brokerNo);
 
   const userDetails = useSelector((state) => state?.user?.details);
+  console.log(userDetails, "userDetailssss");
   const { data, isLoading, refetch } = useGetTheme(brokerId);
 
   const authDataString = localStorage.getItem("auth");
@@ -60,10 +66,23 @@ const KycLayout = () => {
 
   useEffect(() => {
     if (userDetails.clientType) {
-      if (userDetails.clientType === "I") {
+      if (userDetails.clientType === "I" && userDetails.nature === "DP") {
         setMenuList(individualKycDematList);
-      } else if (userDetails.lientType === "C") {
-        setMenuList(corporatKycDematList);
+      } else if (
+        userDetails.clientType === "I" &&
+        userDetails.nature === "TMS"
+      ) {
+        setMenuList(individualkycTmsList);
+      } else if (
+        userDetails.clientType === "C" &&
+        userDetails.nature === "DP"
+      ) {
+        setMenuList(corporateKycDematList);
+      } else if (
+        userDetails.clientType === "C" &&
+        userDetails.nature === "TMS"
+      ) {
+        setMenuList(corporateKycTMSList);
       } else {
         setMenuList([]);
       }
@@ -214,7 +233,7 @@ const KycLayout = () => {
                       </svg>
                       <Typography
                         variant="h7"
-                        style={{ textDecoration: "none",color:'black' }}
+                        style={{ textDecoration: "none", color: "black" }}
                       >
                         {t("Logout")}
                       </Typography>

@@ -37,14 +37,25 @@ const BoIndividualDetails = React.lazy(() =>
 /*---------------------------INDIVIDUAL--------------------------------------------------------------*/
 
 /*---------------------------CORPORATE--------------------------------------------------------------*/
-import CorporateDetailsDp from "../kyc/dp/forms/corporate/CorporateDetailsDp";
-import CorporateAddress from "../kyc/pages/CorporateAddress";
-import CorporateBoStatement from "../kyc/dp/forms/corporate/CorporatBoStatement";
-import CorporatOwnershipDetails from "../kyc/dp/forms/corporate/CorporatOwnershipDetails";
-import CorporatBankDetail from "../kyc/dp/forms/corporate/CorporatBankDetail";
-import CorporateDocument from "../kyc/pages/CorporateDocument";
+const CorporateDetailsDp = React.lazy(() =>
+  import("../kyc/dp/forms/corporate/CorporateDetailsDp")
+);
+const CorporateAddress = React.lazy(() =>
+  import("../kyc/pages/CorporateAddress")
+);
+const CorporateBoStatement = React.lazy(() =>
+  import("../kyc/dp/forms/corporate/CorporatBoStatement")
+);
+const CorporatOwnershipDetails = React.lazy(() =>
+  import("../kyc/dp/forms/corporate/CorporatOwnershipDetails")
+);
+const CorporatBankDetail = React.lazy(() =>
+  import("../kyc/dp/forms/corporate/CorporatBankDetail")
+);
+const CorporateDocument = React.lazy(() =>
+  import("../kyc/pages/CorporateDocument")
+);
 /*---------------------------CORPORATE--------------------------------------------------------------*/
-
 
 export const kycDpIndividualRoutes = [
   {
@@ -99,36 +110,35 @@ export const kycDpIndividualRoutes = [
   },
 ];
 
-
 export const kycDpCorporateRoutes = [
-    {
-      path: "demat-registration/c/corporate-details",
-      id: nanoid(),
-      component: CorporateDetailsDp,
-    },
-    {
-      path: "demat-registration/c/corporate-address",
-      id: nanoid(),
-      component: CorporateAddress,
-    },
-    {
-      path: "demat-registration/c/corporate-bank-detail",
-      id: nanoid(),
-      component: CorporatBankDetail,
-    },
-    {
-      path: "demat-registration/c/corporate-bo-statement",
-      id: nanoid(),
-      component: CorporateBoStatement,
-    },
-    {
-      path: "demat-registration/c/corporate-ownership-details",
-      id: nanoid(),
-      component: CorporatOwnershipDetails,
-    },
-    {
-        path: "demat-registration/c/document-details",
-        id: nanoid(),
-        component: CorporateDocument,
-      },
-  ];
+  {
+    path: "demat-registration/c/corporate-details",
+    id: nanoid(),
+    component: CorporateDetailsDp,
+  },
+  {
+    path: "demat-registration/c/corporate-address",
+    id: nanoid(),
+    component: CorporateAddress,
+  },
+  {
+    path: "demat-registration/c/corporate-bank-detail",
+    id: nanoid(),
+    component: CorporatBankDetail,
+  },
+  {
+    path: "demat-registration/c/corporate-bo-statement",
+    id: nanoid(),
+    component: CorporateBoStatement,
+  },
+  {
+    path: "demat-registration/c/corporate-ownership-details",
+    id: nanoid(),
+    component: CorporatOwnershipDetails,
+  },
+  {
+    path: "demat-registration/c/document-details",
+    id: nanoid(),
+    component: CorporateDocument,
+  },
+];

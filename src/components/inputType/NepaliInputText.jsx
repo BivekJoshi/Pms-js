@@ -4,7 +4,7 @@ import { Autocomplete, Grid, TextField, CircularProgress } from "@mui/material";
 import "./nepaliInputText.css";
 import { debounce } from "lodash";
 
-const NepaliInputText = ({ element, formik }) => {
+const NepaliInputText = ({ element, formik, formTouched, formError }) => {
   const [options, setOptions] = useState([]);
   const [busy, setBusy] = useState(false);
   const [open, setOpen] = useState(false);
@@ -86,6 +86,8 @@ const NepaliInputText = ({ element, formik }) => {
               placeholder={element?.label}
               onBlur={formik.handleBlur}
               variant="outlined"
+              error={formTouched && Boolean(formError)}
+              helperText={formTouched && formError}
               InputProps={{
                 ...params.InputProps,
                 endAdornment: (

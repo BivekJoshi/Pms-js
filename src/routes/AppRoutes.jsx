@@ -4,7 +4,6 @@ import Spinner from "../components/spinner/Spinner";
 import ScrollToTop from "../utility/ScrollToTop";
 
 import KycForm from "../kyc/pages/KycForm";
-import CorporateDetailsDp from "../kyc/dp/forms/corporate/CorporateDetailsDp";
 import KycLayout from "../layout/KycLayout";
 
 const BonusShareCalulator = React.lazy(() =>
@@ -80,17 +79,9 @@ const BuySellCalculator = React.lazy(() =>
 const DevelopmentPage = React.lazy(() =>
   import("../pages/DevlopmentPage/DevlopmentPage")
 );
-const BankIndividualDpForms = React.lazy(() =>
-  import("../kyc/dp/forms/individual/BankIndividual/BankIndividualDpForms")
-);
 
 const KycHomePage = React.lazy(() => import("../kyc/pages/KyCHomePage"));
-import AmlCft from "../kyc/dp/forms/individual/Aml-Cft/AmlCft";
 import { kycDpCorporateRoutes, kycDpIndividualRoutes } from "./kycRoutes";
-const CorporateDocument = React.lazy(() =>
-  import("../kyc/pages/CorporateDocument")
-);
-
 
 export default function AppRoutes() {
   return (
@@ -137,16 +128,6 @@ export default function AppRoutes() {
                 path="demat-registration/i/basic-details"
                 element={<KycForm />}
               /> */}
-              <Route
-                path="demat-registration/c/corporate-bank-detail"
-                element={<BankIndividualDpForms />}
-              />
-              <Route path="demat-registration/i/aml-cft" element={<AmlCft />} />
-
-              <Route
-                path="demat-registration/c/document-details"
-                element={<CorporateDocument />}
-              />
             </Route>
 
             <Route path="/" element={<AppLayout />}>

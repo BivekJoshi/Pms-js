@@ -194,7 +194,14 @@ const RenderInput = ({
         );
 
       case "nepaliTypeText":
-        return <NepaliInputText element={element} formik={formik} />;
+        return (
+          <NepaliInputText
+            element={element}
+            formik={formik}
+            formTouched={formTouched}
+            formError={formError}
+          />
+        );
       case "dropDownWithValue":
         return (
           <Autocomplete
