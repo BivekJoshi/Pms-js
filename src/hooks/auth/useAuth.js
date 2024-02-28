@@ -45,6 +45,7 @@ export const useLogin = ({ onSuccess }) => {
           "auth",
           JSON.stringify({
             authToken: data.data.token,
+            id: data.data.user.id,
           })
         );
         if (data?.data?.user?.tempPassword) {
