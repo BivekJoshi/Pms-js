@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Grid, Button, useTheme, Typography, Box, Switch } from "@mui/material";
+import {
+  Grid,
+  Button,
+  useTheme,
+  Typography,
+  Box,
+  Switch,
+  Stack,
+} from "@mui/material";
 import { useAmlCftForm } from "./useAmlCftForm";
 import { nanoid } from "nanoid";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
@@ -218,16 +226,13 @@ const AmlCft = () => {
   const { formik } = useAmlCftForm();
   const { t } = useTranslation();
 
-  // State variables to control the visibility of array fields
   const [showPolitical, setShowPolitical] = useState(false);
   const [showCriminal, setShowCriminal] = useState(false);
-  const [showBeneficialOwner, setShowBeneficialOwner] = useState(false); // Default to true
+  const [showBeneficialOwner, setShowBeneficialOwner] = useState(false);
 
-  // Toggle functions to handle switch state changes
   const togglePolitical = () => setShowPolitical(!showPolitical);
   const toggleCriminal = () => setShowCriminal(!showCriminal);
-  const toggleBeneficialOwner = () =>
-    setShowBeneficialOwner(!showBeneficialOwner);
+  const toggleBeneficialOwner = () => setShowBeneficialOwner(!showBeneficialOwner);
 
   return (
     <div data-aos="zoom-in-right">
@@ -250,11 +255,13 @@ const AmlCft = () => {
       </Box>
 
       <FormikProvider value={formik} {...formik}>
-        <Grid container spacing={2} display="flex" flexDirection="column">
+        <Grid container spacing={2} display="flex" flexDirection="column" mx={1} >
           {/* Switch for Political Affiliation */}
           <>
-            <Grid item display={"flex"} alignItems={"center"}>
-              <Typography>Political Affiliation</Typography>
+            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
+              <Typography>
+                Are you related to any politically high ranking person?
+              </Typography>
               <Switch checked={showPolitical} onChange={togglePolitical} />
             </Grid>
             {showPolitical && (
@@ -262,16 +269,16 @@ const AmlCft = () => {
                 {({ push, remove }) => {
                   return (
                     formik.values.poliAffiHighRnkRlnName &&
-                    formik.values.poliAffiHighRnkRlnName.map((item, index) => {
-                      const field = politicalField.map((d, i) => {
+                    formik.values.poliAffiHighRnkRlnName.map((_, index) => {
+                      const field = politicalField.map((d) => {
                         return {
                           ...d,
-                          name: `poliAffiHighRnkRlnName?.${index}?.${d?.name}`,
+                          name: `poliAffiHighRnkRlnName.${index}.${d?.name}`,
                         };
                       });
                       return (
                         <>
-                          <Grid component="form" key={index}>
+                          <Grid mt={2}>
                             <RenderInput
                               inputField={field}
                               formik={formik}
@@ -282,44 +289,55 @@ const AmlCft = () => {
                               removeArray={() => remove()}
                             />
                           </Grid>
-                          {formik.values.beneficialOwnerName.length >= 1 && (
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              style={{
-                                border: "1px solid #6C49B4",
-                                margin: "1rem 1rem 1rem 0",
-                                width: "fit-content",
-                              }}
-                              onClick={() =>
-                                push({
-                                  relation: "",
-                                  name: "",
-                                })
-                              }
-                            >
-                              <Typography color={"#6C49B4"} fontWeight={600}>
-                                + Add
-                              </Typography>
-                            </Button>
-                          )}
-                          {formik.values.poliAffiHighRnkRlnName > 1 && (
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              style={{
-                                border: "1px solid #B4271F",
-                                margin: "1rem 0",
-                              }}
-                              onClick={() => {
-                                remove(index);
-                              }}
-                            >
-                              <Typography color="#B4271F" fontWeight={600}>
-                                Remove
-                              </Typography>
-                            </Button>
-                          )}
+                          <Stack display={"flex"} flexDirection={"row"}>
+                            {index >= 0 &&
+                              index ===
+                                formik.values.poliAffiHighRnkRlnName.length -
+                                  1 && (
+                                <Button
+                                  variant="outlined"
+                                  color="primary"
+                                  style={{
+                                    border: "1px solid #6C49B4",
+                                    margin: "1rem 1rem 1rem 0",
+                                    width: "fit-content",
+                                  }}
+                                  onClick={() =>
+                                    push({
+                                      relation: "",
+                                      name: "",
+                                    })
+                                  }
+                                >
+                                  <Typography
+                                    color={"#6C49B4"}
+                                    fontWeight={600}
+                                  >
+                                    + Add
+                                  </Typography>
+                                </Button>
+                              )}
+                            {index >= 1 &&
+                              formik.values.poliAffiHighRnkRlnName.length >
+                                1 && (
+                                <Button
+                                  variant="outlined"
+                                  color="secondary"
+                                  style={{
+                                    border: "1px solid #B4271F",
+                                    margin: "1rem 0",
+                                    width: "fit-content",
+                                  }}
+                                  onClick={() => {
+                                    remove(index);
+                                  }}
+                                >
+                                  <Typography color="#B4271F" fontWeight={600}>
+                                    Remove
+                                  </Typography>
+                                </Button>
+                              )}
+                          </Stack>
                         </>
                       );
                     })
@@ -329,8 +347,8 @@ const AmlCft = () => {
             )}
           </>
           <>
-            <Grid item display={"flex"} alignItems={"center"}>
-              <Typography>Criminal Affiliation</Typography>
+            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
+              <Typography>Do you have any past Criminal Records?</Typography>
               <Switch checked={showCriminal} onChange={toggleCriminal} />
             </Grid>
             {showCriminal && (
@@ -338,8 +356,8 @@ const AmlCft = () => {
                 {({ push, remove }) => {
                   return (
                     formik.values.pastCrimiActiDetail &&
-                    formik.values.pastCrimiActiDetail.map((item, index) => {
-                      const field = criminalField.map((d, i) => {
+                    formik.values.pastCrimiActiDetail.map((_, index) => {
+                      const field = criminalField.map((d) => {
                         return {
                           ...d,
                           name: `pastCrimiActiDetail?.${index}?.${d?.name}`,
@@ -347,7 +365,7 @@ const AmlCft = () => {
                       });
                       return (
                         <>
-                          <Grid component="form" key={index}>
+                          <Grid mt={2}>
                             <RenderInput
                               inputField={field}
                               formik={formik}
@@ -358,44 +376,53 @@ const AmlCft = () => {
                               removeArray={() => remove()}
                             />
                           </Grid>
-                          {formik.values.pastCrimiActiDetail.length >= 1 && (
-                            <Button
-                              variant="outlined"
-                              color="primary"
-                              style={{
-                                border: "1px solid #6C49B4",
-                                margin: "1rem 1rem 1rem 0",
-                                width: "fit-content",
-                              }}
-                              onClick={() =>
-                                push({
-                                  relation: "",
-                                  name: "",
-                                })
-                              }
-                            >
-                              <Typography color={"#6C49B4"} fontWeight={600}>
-                                + Add
-                              </Typography>
-                            </Button>
-                          )}
-                          {formik.values.pastCrimiActiDetail > 1 && (
-                            <Button
-                              variant="outlined"
-                              color="secondary"
-                              style={{
-                                border: "1px solid #B4271F",
-                                margin: "1rem 0",
-                              }}
-                              onClick={() => {
-                                remove(index);
-                              }}
-                            >
-                              <Typography color="#B4271F" fontWeight={600}>
-                                Remove
-                              </Typography>
-                            </Button>
-                          )}
+                          <Stack display={"flex"} flexDirection={"row"}>
+                            {index >= 0 &&
+                              index ===
+                                formik.values.pastCrimiActiDetail.length -
+                                  1 && (
+                                <Button
+                                  variant="outlined"
+                                  color="primary"
+                                  style={{
+                                    border: "1px solid #6C49B4",
+                                    margin: "1rem 1rem 1rem 0",
+                                    width: "fit-content",
+                                  }}
+                                  onClick={() =>
+                                    push({
+                                      name: "",
+                                    })
+                                  }
+                                >
+                                  <Typography
+                                    color={"#6C49B4"}
+                                    fontWeight={600}
+                                  >
+                                    + Add
+                                  </Typography>
+                                </Button>
+                              )}
+                            {index >= 1 &&
+                              formik.values.pastCrimiActiDetail.length > 1 && (
+                                <Button
+                                  variant="outlined"
+                                  color="secondary"
+                                  style={{
+                                    border: "1px solid #B4271F",
+                                    margin: "1rem 0",
+                                    width: "fit-content",
+                                  }}
+                                  onClick={() => {
+                                    remove(index);
+                                  }}
+                                >
+                                  <Typography color="#B4271F" fontWeight={600}>
+                                    Remove
+                                  </Typography>
+                                </Button>
+                              )}
+                          </Stack>
                         </>
                       );
                     })
@@ -405,8 +432,8 @@ const AmlCft = () => {
             )}
           </>
           <>
-            <Grid item display={"flex"} alignItems={"center"}>
-              <Typography>Beneficial Affiliation</Typography>
+            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
+              <Typography>Do you want to keep a nominee?</Typography>
               <Switch
                 checked={showBeneficialOwner}
                 onChange={toggleBeneficialOwner}
@@ -415,35 +442,10 @@ const AmlCft = () => {
 
             {showBeneficialOwner && (
               <FieldArray name="beneficialOwnerName">
-                {({ push, remove }) => {
-                  return (
-                    formik.values.beneficialOwnerName &&
-                    formik.values.beneficialOwnerName.map((item, index) => {
-                      const field = beneficialOwnerField.map((d, i) => {
-                        return {
-                          ...d,
-                          name: `beneficialOwnerName?.${index}?.${d?.name}`,
-                        };
-                      });
-
-                      return (
-                        <>
-                          <Grid component="form" key={index}>
-                            <RenderInput
-                              inputField={field}
-                              formik={formik}
-                              index={index}
-                              isFieldArray={true}
-                              fieldArrayName="beneficialOwnerName"
-                              pushArray={() => push({})}
-                              removeArray={() => remove()}
-                            />
-                          </Grid>
-                        </>
-                      );
-                    })
-                  );
-                }}
+                <RenderInput
+                  inputField={beneficialOwnerField}
+                  formik={formik}
+                />
               </FieldArray>
             )}
           </>
