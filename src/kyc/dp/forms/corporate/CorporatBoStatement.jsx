@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import RenderInput from "../../../../components/renderInput/RenderInput";
-import { Box, Grid, Typography, useTheme } from "@mui/material";
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import { corporatBoStatementForm } from "../../../../form/auth/CorporateDp/CorporatBoStatement/corporatBoStatementForm";
 import { nanoid } from "nanoid";
 
@@ -14,6 +14,9 @@ const CorporatBoStatement = () => {
       type: "switch",
       col: 12,
       id: nanoid(),
+      display: "flex",
+      direction: "row-reverse",
+      marginLeft: "0px"
     },
     {
       name: "accountStatementPeriod",
@@ -60,30 +63,47 @@ const CorporatBoStatement = () => {
 
   return (
     <div data-aos="zoom-in-right">
-      <Box
-        sx={{
-          marginBottom: "16px",
-          padding: { md: "12px", sm: "5px" },
-          borderLeft: `4px solid ${theme.palette.secondary.main}`,
+    <Box
+      sx={{
+        marginBottom: "16px",
+        padding: { md: "12px", sm: "5px" },
+        borderRadius: "0 6px 6px 0",
+        borderLeft: `4px solid ${theme.palette.secondary.main}`,
+      }}
+    >
+      <Typography
+        variant="h4"
+        style={{
+          color: theme.palette.text.light,
+          fontWeight: "800",
         }}
       >
-        <Typography
-          variant="h4"
-          style={{
-            color: theme.palette.text.light,
-            fontWeight: "800",
-          }}
+        BO Details
+      </Typography>
+    </Box>
+
+    <Box
+      color={theme.palette.text.main}
+      bgcolor={theme.palette.background.alt}
+      sx={{
+        borderRadius: "0 6px 6px 0",
+        padding: "16px",
+        boxShadow:
+          "0 1px 3px rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
+      }}
+    >
+      <RenderInput inputField={fields} formik={formik} />
+      <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button
+          onClick={formik.handleSubmit}
+          variant="contained"
+          color="secondary"
         >
-          BO Details
-        </Typography>
-      </Box>
-      <form onSubmit={formik.handleSubmit}>
-        <Grid>
-          <RenderInput inputField={fields} formik={formik} />
-        </Grid>
-        <button type="submit"> save</button>
-      </form>
-    </div>
+          Next
+        </Button>
+      </Grid>
+    </Box>
+  </div>
   );
 };
 

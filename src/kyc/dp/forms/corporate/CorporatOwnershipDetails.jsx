@@ -21,7 +21,7 @@ const CorporatOwnershipDetails = () => {
     {
       name: "designation",
       label: "Designation (पद)",
-      type: "dropDown",
+      type: "dropDown",  
       sm: 12,
       id: nanoid(),
     },
@@ -347,7 +347,7 @@ const CorporatOwnershipDetails = () => {
                     name: `details.${index}.${d.name}`,
                   };
                 });
-
+                
                 return (
                   <>
                     <Grid
