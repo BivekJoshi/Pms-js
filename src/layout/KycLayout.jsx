@@ -23,6 +23,10 @@ import {
 import KycProfileCard from "../kyc/components/KycProfileCard";
 import { logout } from "../utility/logout";
 import { useGetTheme } from "../hooks/brokerTheme/useBrokerTheme";
+import _ from "lodash";
+import { useGetCompanyByIdNo } from "../hooks/company/useCompany";
+import { useGetMetaData } from "../kyc/hooks/useMetaDataKyc";
+import Spinner from "../components/spinner/Spinner";
 
 const KycLayout = () => {
   const mode = useSelector((state) => state?.theme?.mode);
@@ -34,8 +38,7 @@ const KycLayout = () => {
   const [menuList, setMenuList] = useState([]);
   const brokerId = useSelector((state) => state?.user.details?.brokerNo);
 
-  const userDetails = useSelector((state) => state?.user?.details);
-  console.log(userDetails, "userDetailssss");
+  const userDetails = useSelector((state) => state?.user);
   const { data, isLoading, refetch } = useGetTheme(brokerId);
 
   const authDataString = localStorage.getItem("auth");
@@ -64,28 +67,45 @@ const KycLayout = () => {
     }
   }, [pathname]);
 
+  const {
+    data: userData,
+    isLoading: userLoad,
+    refetch: userRefetch,
+  } = useGetMetaData(authData?.id);
+
   useEffect(() => {
-    if (userDetails.clientType) {
-      if (userDetails.clientType === "I" && userDetails.nature === "DP") {
-        setMenuList(individualKycDematList);
-      } else if (
-        userDetails.clientType === "I" &&
-        userDetails.nature === "TMS"
-      ) {
-        setMenuList(individualkycTmsList);
-      } else if (
-        userDetails.clientType === "C" &&
-        userDetails.nature === "DP"
-      ) {
-        setMenuList(corporateKycDematList);
-      } else if (
-        userDetails.clientType === "C" &&
-        userDetails.nature === "TMS"
-      ) {
-        setMenuList(corporateKycTMSList);
-      } else {
-        setMenuList([]);
+    if (_.isEmpty(userDetails)) {
+      userRefetch();
+      dispatch({ type: "USER_LOGIN", payload: userData?.user });
+    }
+  }, [userData]);
+
+  useEffect(() => {
+    if (!userLoad && !_.isEmpty(userDetails)) {
+      if (userDetails.clientType) {
+        if (userDetails.clientType === "I" && userDetails.nature === "DP") {
+          setMenuList(individualKycDematList);
+        } else if (
+          userDetails.clientType === "I" &&
+          userDetails.nature === "TMS"
+        ) {
+          setMenuList(individualkycTmsList);
+        } else if (
+          userDetails.clientType === "C" &&
+          userDetails.nature === "DP"
+        ) {
+          setMenuList(corporateKycDematList);
+        } else if (
+          userDetails.clientType === "C" &&
+          userDetails.nature === "TMS"
+        ) {
+          setMenuList(corporateKycTMSList);
+        } else {
+          setMenuList([]);
+        }
       }
+    } else {
+      setMenuList([]);
     }
   }, [userDetails]);
   const theme = useMemo(
@@ -101,8 +121,12 @@ const KycLayout = () => {
     textTransform: "none",
     fontWeight: 700,
   };
+
+  if (userLoad) {
+    return <Spinner />;
+  }
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} key={userData}>
       <CssBaseline />
       <KycNavbar />
       <section
@@ -145,7 +169,7 @@ const KycLayout = () => {
             >
               <KycProfileCard
                 isHomePage={isHomePage}
-                clientName={userDetails.name}
+                clientName={userDetails?.name}
                 clientType={userDetails?.clientType}
                 nature={userDetails?.nature}
                 formStatus={userDetails?.status}
