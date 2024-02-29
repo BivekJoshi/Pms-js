@@ -709,16 +709,14 @@ export const basicData = [
     name: "countryCd",
     label: "Country",
     type: "dropDown",
-    options: [
-      { value: "Nepal", label: "Nepal", id: 1 }]
-      // COUNTRIES
-      ,
+    options: [{ value: "Nepal", label: "Nepal", id: 1 }],
+    // COUNTRIES
     sm: 12,
     md: 4,
     id: nanoid(),
   },
   {
-    name: "panNo",
+    name: "pan",
     label: "Pan No",
     type: "number",
     sm: 12,
@@ -753,7 +751,7 @@ export const basicData = [
     ],
   },
   {
-    name: "isDiffrentlyAbled",
+    name: "isDifferentlyAbled",
     label: "Are you diffrently abled?",
     type: "switch",
     required: true,

@@ -3,7 +3,7 @@ import useBasicIndividualValidationSchema from "./useBasicIndividualValidationSc
 import { useAddBasicDetail } from "./BasicDetail/useBasicDetail";
 
 export const useBasicIndividualDpForms = ({ currentForm }) => {
-  const { mutate } = useAddBasicDetail({currentForm });
+  const { mutate } = useAddBasicDetail({ currentForm });
   const formik = useFormik({
     initialValues: {
       fname: "",
@@ -14,10 +14,10 @@ export const useBasicIndividualDpForms = ({ currentForm }) => {
       lnameNep: "",
       gender: "",
       countryCd: "",
-      panNo: "",
+      pan: "",
       dob: "",
       isMinor: false,
-      isDiffrentlyAbled: false,
+      isDifferentlyAbled: false,
       isNrn: false,
     },
     validationSchema: useBasicIndividualValidationSchema,
