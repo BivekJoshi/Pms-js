@@ -88,7 +88,7 @@ const KycLayout = () => {
   }, [userData]);
 
   useEffect(() => {
-    if (!userLoad && !_.isEmpty(userDetails)) {
+    if (!_.isEmpty(userDetails)) {
       if (userDetails.clientType) {
         if (userDetails.clientType === "I" && userDetails.nature === "DP") {
           setMenuList(individualKycDematList);

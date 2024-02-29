@@ -82,6 +82,7 @@ const DevelopmentPage = React.lazy(() =>
 
 const KycHomePage = React.lazy(() => import("../kyc/pages/KyCHomePage"));
 import { kycDpCorporateRoutes, kycDpIndividualRoutes } from "./kycRoutes";
+import KycProtectedRoute from "./KycProtectedRoute";
 
 export default function AppRoutes() {
   return (
@@ -108,22 +109,40 @@ export default function AppRoutes() {
             </Route>
             <Route path="/kyc" element={<KycLayout />}>
               <Route path="home" element={<KycHomePage />} />
-              {kycDpIndividualRoutes.map((route) => (
-                <Route
-                  key={route.id}
-                  path={route.path}
-                  exact
-                  element={<route.component />}
-                />
-              ))}
-              {kycDpCorporateRoutes.map((route) => (
-                <Route
-                  key={route.id}
-                  path={route.path}
-                  exact
-                  element={<route.component />}
-                />
-              ))}
+              <Route
+                element={
+                  <KycProtectedRoute
+                    redirectTo="/login"
+                    allowedClientType="I"
+                  />
+                }
+              >
+                {kycDpIndividualRoutes.map((route) => (
+                  <Route
+                    key={route.id}
+                    path={route.path}
+                    exact
+                    element={<route.component />}
+                  />
+                ))}
+              </Route>
+              <Route
+                element={
+                  <KycProtectedRoute
+                    redirectTo="/login"
+                    allowedClientType="C"
+                  />
+                }
+              >
+                {kycDpCorporateRoutes.map((route) => (
+                  <Route
+                    key={route.id}
+                    path={route.path}
+                    exact
+                    element={<route.component />}
+                  />
+                ))}
+              </Route>
               {/* <Route
                 path="demat-registration/i/basic-details"
                 element={<KycForm />}
