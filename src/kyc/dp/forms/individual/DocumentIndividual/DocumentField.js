@@ -21,7 +21,7 @@ export const CitizenshipFiled = [
   {
     name: "docType",
     label: "Select Document Type",
-    md: 3,
+    md: 4,
     sm: 6,
     lg: 4,
     xs: 12,
@@ -37,7 +37,7 @@ export const CitizenshipFiled = [
   {
     name: "citizenshipNo",
     label: "Citizenship No.",
-    md: 3,
+    md: 4,
     sm: 6,
     lg: 4,
     xs: 12,
@@ -47,7 +47,7 @@ export const CitizenshipFiled = [
   {
     name: "issuedDatebs",
     label: "Citizenship Issued Date (B.S)",
-    md: 3,
+    md: 4,
     sm: 6,
     lg: 4,
     xs: 12,
@@ -57,7 +57,7 @@ export const CitizenshipFiled = [
   {
     name: "issuedDatead",
     label: "Citizenship Issued Date (A.D)",
-    md: 3,
+    md: 4,
     sm: 6,
     lg: 4,
     xs: 12,
@@ -67,8 +67,8 @@ export const CitizenshipFiled = [
   {
     name: "issuedDistrict",
     label: "Citizenship Issued District",
-    md: 3,
-    sm: 6,
+    md: 4,
+    sm: 12,
     lg: 4,
     xs: 12,
     required: true,
