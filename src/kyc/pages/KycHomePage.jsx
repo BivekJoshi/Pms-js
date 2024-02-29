@@ -1,5 +1,4 @@
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
-import React from "react";
 import { useNavigate } from "react-router";
 import kycStartImg from "../../assets/kyc-start.png";
 import { useSelector } from "react-redux";
