@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 const KycHomePage = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const formNature = useSelector((state) => state.user.details?.nature);
-  const clientType = useSelector((state) => state.user.details?.clientType);
+  const formNature = useSelector((state) => state.user?.nature);
+  const clientType = useSelector((state) => state.user?.clientType);
 
   const formLabel =
     formNature === "DP" ? "DEMAT" : formNature === "TMS" ? "TMS" : "";
