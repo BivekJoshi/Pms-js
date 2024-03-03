@@ -7,6 +7,7 @@ import {
   Box,
   Switch,
   Stack,
+  FormControlLabel,
 } from "@mui/material";
 import { useAmlCftForm } from "./useAmlCftForm";
 import { nanoid } from "nanoid";
@@ -61,7 +62,7 @@ const beneficialOwnerField = [
   },
   {
     name: "age",
-    label: "Age (उमेर)",
+    label: "Age",
     type: "number",
     placeholder: "Enter nominee's age",
     required: "Please enter nominee's age",
@@ -73,7 +74,7 @@ const beneficialOwnerField = [
   },
   {
     name: "country",
-    label: "Country (देश)",
+    label: "Country",
     type: "dropDown",
     placeholder: "Select nominees country",
     required: "Please select nominees country",
@@ -89,7 +90,7 @@ const beneficialOwnerField = [
   },
   {
     name: "province",
-    label: "Province (प्रदेश)",
+    label: "Province",
     type: "dropDown",
     placeholder: "Select nominee's province",
     required: "Please select nominee's province",
@@ -100,7 +101,7 @@ const beneficialOwnerField = [
   },
   {
     name: "district",
-    label: "District (जिल्ला)",
+    label: "District",
     type: "dropDown",
     placeholder: "Select nominee's district",
     required: "Please select nominee's district",
@@ -126,7 +127,7 @@ const beneficialOwnerField = [
   },
   {
     name: "correspondenceAddress",
-    label: "Address (ठेगाना)",
+    label: "Address",
     type: "text",
     placeholder: "Enter address",
     required: "Please enter address",
@@ -137,7 +138,7 @@ const beneficialOwnerField = [
   },
   {
     name: "mobileNo",
-    label: "Mobile Number (मोबाइल नम्बर)",
+    label: "Mobile Number",
     type: "number",
     placeholder: "Enter mobile number",
     required: "Please enter mobile number",
@@ -149,7 +150,7 @@ const beneficialOwnerField = [
   },
   {
     name: "telephoneNo",
-    label: "Phone Number (फोन नम्बर)",
+    label: "Phone Number",
     type: "number",
     placeholder: "Enter phone number",
     col: 12,
@@ -160,7 +161,7 @@ const beneficialOwnerField = [
   },
   {
     name: "faxNo",
-    label: "Fax Number (फ्याक्स नम्बर)",
+    label: "Fax Number",
     type: "text",
     placeholder: "Enter fax number ",
     col: 12,
@@ -170,7 +171,7 @@ const beneficialOwnerField = [
   },
   {
     name: "panNo",
-    label: "PAN Number (प्यान नम्बर)",
+    label: "PAN Number",
     type: "text",
     placeholder: "Enter PAN number",
     col: 12,
@@ -182,7 +183,7 @@ const beneficialOwnerField = [
   },
   {
     name: "email",
-    label: "Email Address (इ-मेल ठेगाना)",
+    label: "Email Address",
     type: "text",
     placeholder: "Enter nominees email address",
     col: 12,
@@ -230,9 +231,20 @@ const AmlCft = () => {
   const [showCriminal, setShowCriminal] = useState(false);
   const [showBeneficialOwner, setShowBeneficialOwner] = useState(false);
 
-  const togglePolitical = () => setShowPolitical(!showPolitical);
+  const togglePolitical = () => {
+    const newValue = !formik.values.showPolitical;
+    console.log(newValue,"newValue");
+    setShowPolitical(newValue);
+    formik.setValues((prevValues) => ({
+      ...prevValues,
+      showPolitical: newValue,
+      poliAffiHighRnkRlnName: newValue ? [{ name: '', relation: '' }] : [], // Adjust the value based on your logic
+    }));
+  };
+  
   const toggleCriminal = () => setShowCriminal(!showCriminal);
-  const toggleBeneficialOwner = () => setShowBeneficialOwner(!showBeneficialOwner);
+  const toggleBeneficialOwner = () =>
+    setShowBeneficialOwner(!showBeneficialOwner);
 
   return (
     <div data-aos="zoom-in-right">
@@ -258,14 +270,32 @@ const AmlCft = () => {
       </Grid>
 
       <FormikProvider value={formik} {...formik}>
-        <Grid container spacing={2} display="flex" flexDirection="column" mx={1} >
+        <Grid
+          container
+          spacing={2}
+          display="flex"
+          flexDirection="column"
+          mx={1}
+        >
           {/* Switch for Political Affiliation */}
           <>
-            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
+            <Grid
+              item
+              display={"flex"}
+              alignItems={"center"}
+              style={{ paddingLeft: "0px" }}
+            >
               <Typography>
                 Are you related to any politically high ranking person?
               </Typography>
-              <Switch checked={showPolitical} onChange={togglePolitical} />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={formik?.values?.showPolitical}
+                    onChange={togglePolitical}
+                  />
+                }
+              />
             </Grid>
             {showPolitical && (
               <FieldArray name="poliAffiHighRnkRlnName">
@@ -350,7 +380,12 @@ const AmlCft = () => {
             )}
           </>
           <>
-            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
+            <Grid
+              item
+              display={"flex"}
+              alignItems={"center"}
+              style={{ paddingLeft: "0px" }}
+            >
               <Typography>Do you have any past Criminal Records?</Typography>
               <Switch checked={showCriminal} onChange={toggleCriminal} />
             </Grid>
@@ -435,7 +470,12 @@ const AmlCft = () => {
             )}
           </>
           <>
-            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
+            <Grid
+              item
+              display={"flex"}
+              alignItems={"center"}
+              style={{ paddingLeft: "0px" }}
+            >
               <Typography>Do you want to keep a nominee?</Typography>
               <Switch
                 checked={showBeneficialOwner}
@@ -448,11 +488,11 @@ const AmlCft = () => {
                 {({ push, remove }) => {
                   return (
                     formik.values.beneficialOwnerName &&
-                    formik.values.beneficialOwnerName.map((item, index) => {
+                    formik.values.beneficialOwnerName.map((_, index) => {
                       const field = beneficialOwnerField.map((d, i) => {
                         return {
                           ...d,
-                          name: `beneficialOwnerName.${index}?.${d?.name}`,
+                          name: `beneficialOwnerName.[${index}.${d?.name}]`,
                         };
                       });
 
