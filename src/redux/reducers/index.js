@@ -7,7 +7,6 @@ import genericReducer from "./genericReducer";
 import languageReducer from "./languageReducer";
 import PaginatedSelectReducer from "./paginatedTableReducer";
 import matCrudReducer from "./basicTableReducer";
-import toastReducer from '../test/toastReducer';
 
 export default combineReducers({
   httpResponse: httpResponseReducer,
@@ -18,5 +17,4 @@ export default combineReducers({
   generic: genericReducer,
   paginatedTable: PaginatedSelectReducer,
   basicTable: matCrudReducer,
-  fetchData: toastReducer,
 });

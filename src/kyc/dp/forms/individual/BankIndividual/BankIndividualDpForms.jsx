@@ -9,7 +9,7 @@ import { useMemo } from "react";
 
 const BankIndividualDpForms = () => {
   const theme = useTheme();
-  const { formik } = useKycBankForm();
+  const { formik, data } = useKycBankForm();
   const BANKFIELDS = [
     {
       type: "text",
@@ -42,11 +42,11 @@ const BankIndividualDpForms = () => {
 
       options: [
         {
-          value: "s",
+          value: "S",
           label: "Saving",
         },
         {
-          value: "c",
+          value: "C",
           label: "Current",
         },
       ],
