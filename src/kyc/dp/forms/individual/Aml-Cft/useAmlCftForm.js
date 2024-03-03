@@ -1,6 +1,9 @@
 import { useFormik } from "formik";
+import { useAddAmlCft } from "../../../../../hooks/kyc/aml-cft/useAmlCft";
 
 export const useAmlCftForm = () => {
+  const { mutate } = useAddAmlCft({});
+
   const formik = useFormik({
     initialValues: {
       poliAffiHighRnkRln: false,
@@ -19,43 +22,33 @@ export const useAmlCftForm = () => {
       beneficialOwner: false,
       beneficialOwnerName: [
         {
-            age: "",
-            citizenShipNo: "",
-            correspondenceAddress: "",
-            country: "",
-            district: "",
-            email: "",
-            faxNo: "",
-            mobileNo: "",
-            municipality: "",
-            name: "",
-            panNo: "",
-            placeOfIssuer: "",
-            province: "",
-            relation: "",
-            telephoneNo: "",
+          age: "",
+          citizenShipNo: "",
+          correspondenceAddress: "",
+          country: "",
+          district: "",
+          email: "",
+          faxNo: "",
+          mobileNo: "",
+          municipality: "",
+          name: "",
+          panNo: "",
+          placeOfIssuer: "",
+          province: "",
+          relation: "",
+          telephoneNo: "",
         },
       ],
     },
     onSubmit: (values) => {
-      //   setLoading(true);
-      handleRegister(values);
+      const formData = { ...values };
+      mutate(formData, {
+        onSuccess: (data) => {
+          formik.resetForm();
+        },
+      });
     },
   });
 
-  const handleRegister = (values) => {
-    console.log(values, "values");
-    // mutate({ values }, { onSettled: () => setLoading(false) });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  return {
-    handleRegister,
-    formik,
-    // loading,
-    handleMouseDownPassword,
-  };
+  return { formik };
 };

@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { onlyTextRegex } from "../../static/RegExp";
+import { useAddOccupation } from "../../../../../hooks/kyc/occupaction/useOccupation";
 
 const occupationSchema = Yup.object().shape({
   occupation: Yup.string()
@@ -61,41 +62,41 @@ const occupationSchema = Yup.object().shape({
 });
 
 export const useOccupationsIndividualForm = () => {
+  const { mutate } = useAddOccupation({});
+
   const formik = useFormik({
     initialValues: {
+      id:"",
+      userId:"",
       occupation: "",
       businessType: "",
       orgName: "",
       address: "",
-      employeeId: "",
       designation: "",
-      effectiveFrom: "",
+      employeeId: "",
       financialDetails: "",
-      sourceOfIncome: "",
-      blackListed: false,
-      tradingAccount: false,
       involvementInOtherCompany: false,
+      companyName: "",
+      ifOthers: "",
+      ifOthersBusiness: "",
+      tradingDesignation: "",
+      effectiveFrom: "",
+      blackListed: false,
+      clientCode: "",
+      tradingAccount: false,
+      tradingAccountCompanyName: "",
+      sourceOfIncome: "",
     },
     validationSchema: occupationSchema,
     onSubmit: (values) => {
-      //   setLoading(true);
-      handleRegister(values);
+      const formData = { ...values };
+      mutate(formData, {
+        onSuccess: (data) => {
+          formik.resetForm();
+        },
+      });
     },
   });
 
-  const handleRegister = (values) => {
-    console.log(values, "values");
-    // mutate({ values }, { onSettled: () => setLoading(false) });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  return {
-    handleRegister,
-    formik,
-    // loading,
-    handleMouseDownPassword,
-  };
+  return { formik };
 };
