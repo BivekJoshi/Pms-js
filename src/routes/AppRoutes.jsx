@@ -1,90 +1,95 @@
-import React, { Suspense } from "react";
-import { Routes, Route, HashRouter } from "react-router-dom";
-import Spinner from "../components/spinner/Spinner";
-import ScrollToTop from "../utility/ScrollToTop";
+import React, { Suspense } from "react"
+import { Routes, Route, HashRouter } from "react-router-dom"
+import Spinner from "../components/spinner/Spinner"
+import ScrollToTop from "../utility/ScrollToTop"
 
-import KycForm from "../kyc/pages/KycForm";
-import KycLayout from "../layout/KycLayout";
+import KycForm from "../kyc/pages/KycForm"
+import KycLayout from "../layout/KycLayout"
 
-const BonusShareCalulator = React.lazy(() =>
-  import("../pages/calculator/bonus/BonusShareCalulator")
-);
-const RightShareCalulator = React.lazy(() =>
-  import("../pages/calculator/right/RightShareCalulator")
-);
-const CAGRCalculator = React.lazy(() =>
-  import("../pages/calculator/cagr/CAGRCalculator")
-);
-const SipPlanCalculator = React.lazy(() =>
-  import("../pages/calculator/sip/SipPlanCalculator")
-);
-const DividendCalculator = React.lazy(() =>
-  import("../pages/calculator/dividend/DividendCalculator")
-);
-const WeightedAveCal = React.lazy(() =>
-  import("../pages/calculator/weighted/WeightedAveCal")
-);
+const BonusShareCalulator = React.lazy(
+  () => import("../pages/calculator/bonus/BonusShareCalulator")
+)
+const RightShareCalulator = React.lazy(
+  () => import("../pages/calculator/right/RightShareCalulator")
+)
+const CAGRCalculator = React.lazy(
+  () => import("../pages/calculator/cagr/CAGRCalculator")
+)
+const SipPlanCalculator = React.lazy(
+  () => import("../pages/calculator/sip/SipPlanCalculator")
+)
+const DividendCalculator = React.lazy(
+  () => import("../pages/calculator/dividend/DividendCalculator")
+)
+const WeightedAveCal = React.lazy(
+  () => import("../pages/calculator/weighted/WeightedAveCal")
+)
 
-const LoginLayout = React.lazy(() => import("../layout/LoginLayout"));
-const AppLayout = React.lazy(() => import("../layout/AppLayout"));
-const Dashboard = React.lazy(() => import("../pages/dashboard/Dashboard"));
-const Profile = React.lazy(() => import("../pages/profile/Profile"));
-const Alert = React.lazy(() => import("../pages/alert/Alert"));
-const Portfolio = React.lazy(() => import("../pages/portfolio/Portfolio"));
-const Research = React.lazy(() => import("../pages/research/Research"));
-const Sectors = React.lazy(() => import("../pages/research/sectors/Sectors"));
-const EndOfTheDay = React.lazy(() =>
-  import("../pages/research/Screener/endOfTheDay/EndOfTheDay")
-);
-const Technical = React.lazy(() =>
-  import("../pages/research/Screener/technical/Technical")
-);
-const Fundamental = React.lazy(() =>
-  import("../pages/research/Screener/technical/Technical")
-);
-const ResearchCompany = React.lazy(() =>
-  import("../pages/research/company/Company")
-);
+const LoginLayout = React.lazy(() => import("../layout/LoginLayout"))
+const AppLayout = React.lazy(() => import("../layout/AppLayout"))
+const Dashboard = React.lazy(() => import("../pages/dashboard/Dashboard"))
+const Profile = React.lazy(() => import("../pages/profile/Profile"))
+const Alert = React.lazy(() => import("../pages/alert/Alert"))
+const Portfolio = React.lazy(() => import("../pages/portfolio/Portfolio"))
+const Research = React.lazy(() => import("../pages/research/Research"))
+const Sectors = React.lazy(() => import("../pages/research/sectors/Sectors"))
+const EndOfTheDay = React.lazy(
+  () => import("../pages/research/Screener/endOfTheDay/EndOfTheDay")
+)
+const Technical = React.lazy(
+  () => import("../pages/research/Screener/technical/Technical")
+)
+const Fundamental = React.lazy(
+  () => import("../pages/research/Screener/technical/Technical")
+)
+const ResearchCompany = React.lazy(
+  () => import("../pages/research/company/Company")
+)
 
-const WatchList = React.lazy(() => import("../pages/watchlist/WatchList"));
+const WatchList = React.lazy(() => import("../pages/watchlist/WatchList"))
 
-const LoginPage = React.lazy(() => import("../pages/auth/LoginPage"));
-const NewRegisterPage = React.lazy(() =>
-  import("../pages/auth/NewRegisterPage")
-);
-const ApplicationPage = React.lazy(() =>
-  import("../pages/auth/ApplicationPage")
-);
-const Verification = React.lazy(() => import("../pages/auth/Verification"));
-const OtpVerification = React.lazy(() =>
-  import("../pages/auth/OtpVerification")
-);
-const ResetPasswordPage = React.lazy(() =>
-  import("../pages/auth/ResetPasswordPage")
-);
-const ForgetPasswordPage = React.lazy(() =>
-  import("../pages/auth/ForgetPasswordPage")
-);
-const ChangePasswordPage = React.lazy(() =>
-  import("../pages/auth/ChangePasswordPage")
-);
-const ApplicationMessage = React.lazy(() =>
-  import("../pages/auth/ApplicationMessage")
-);
-const ErrorPage = React.lazy(() => import("./../pages/error-page/ErrorPage"));
-const Company = React.lazy(() => import("../pages/company/Company"));
-const BuySellCalculator = React.lazy(() =>
-  import("../pages/calculator/buy-sell/BuySellCalculator")
-);
-const DevelopmentPage = React.lazy(() =>
-  import("../pages/DevlopmentPage/DevlopmentPage")
-);
+const LoginPage = React.lazy(() => import("../pages/auth/LoginPage"))
+const NewRegisterPage = React.lazy(
+  () => import("../pages/auth/NewRegisterPage")
+)
+const ApplicationPage = React.lazy(
+  () => import("../pages/auth/ApplicationPage")
+)
+const Verification = React.lazy(() => import("../pages/auth/Verification"))
+const OtpVerification = React.lazy(
+  () => import("../pages/auth/OtpVerification")
+)
+const ResetPasswordPage = React.lazy(
+  () => import("../pages/auth/ResetPasswordPage")
+)
+const ForgetPasswordPage = React.lazy(
+  () => import("../pages/auth/ForgetPasswordPage")
+)
+const ChangePasswordPage = React.lazy(
+  () => import("../pages/auth/ChangePasswordPage")
+)
+const ApplicationMessage = React.lazy(
+  () => import("../pages/auth/ApplicationMessage")
+)
+const ErrorPage = React.lazy(() => import("./../pages/error-page/ErrorPage"))
+const Company = React.lazy(() => import("../pages/company/Company"))
+const BuySellCalculator = React.lazy(
+  () => import("../pages/calculator/buy-sell/BuySellCalculator")
+)
+const DevelopmentPage = React.lazy(
+  () => import("../pages/DevlopmentPage/DevlopmentPage")
+)
 
-const KycHomePage = React.lazy(() => import("../kyc/pages/KyCHomePage"));
-import { kycDpCorporateRoutes, kycDpIndividualRoutes } from "./kycRoutes";
-import KycProtectedRoute from "./KycProtectedRoute";
+const KycHomePage = React.lazy(() => import("../kyc/pages/KyCHomePage"))
+import { kycDpCorporateRoutes, kycDpIndividualRoutes } from "./kycRoutes"
+import KycProtectedRoute from "./KycProtectedRoute"
+import { useSelector } from "react-redux"
 
 export default function AppRoutes() {
+  const formNature = useSelector((state) => state.user?.nature)
+
+  const clientType = useSelector((state) => state.user?.clientType)
+
   return (
     <HashRouter hashType="slash">
       <ScrollToTop>
@@ -117,14 +122,23 @@ export default function AppRoutes() {
                   />
                 }
               >
-                {kycDpIndividualRoutes.map((route) => (
-                  <Route
-                    key={route.id}
-                    path={route.path}
-                    exact
-                    element={<route.component />}
-                  />
-                ))}
+                {kycDpIndividualRoutes.map((route) => {
+                  const path =
+                    formNature === "TMS"
+                      ? route.path.replace(
+                          "demat-registration",
+                          "tms-registration"
+                        )
+                      : route.path
+                  return (
+                    <Route
+                      key={route.id}
+                      path={path}
+                      exact
+                      element={<route.component />}
+                    />
+                  )
+                })}
               </Route>
               <Route
                 element={
@@ -134,14 +148,23 @@ export default function AppRoutes() {
                   />
                 }
               >
-                {kycDpCorporateRoutes.map((route) => (
-                  <Route
-                    key={route.id}
-                    path={route.path}
-                    exact
-                    element={<route.component />}
-                  />
-                ))}
+                {kycDpCorporateRoutes.map((route) => {
+                  const path =
+                    formNature === "TMS"
+                      ? route.path.replace(
+                          "demat-registration",
+                          "tms-registration"
+                        )
+                      : route.path
+                  return (
+                    <Route
+                      key={route.id}
+                      path={path}
+                      exact
+                      element={<route.component />}
+                    />
+                  )
+                })}
               </Route>
               {/* <Route
                 path="demat-registration/i/basic-details"
@@ -200,5 +223,5 @@ export default function AppRoutes() {
         </Suspense>
       </ScrollToTop>
     </HashRouter>
-  );
+  )
 }
