@@ -8,7 +8,7 @@ const OccupationsIndividualForms = () => {
   const theme = useTheme();
   const { formik } = useOccupationsIndividualForm();
   const [disabled, setDisabled] = useState(false);
- 
+
   useEffect(() => {
     if (formik.values.occupation === "STUDENT") {
       setDisabled(true);
@@ -74,13 +74,12 @@ const OccupationsIndividualForms = () => {
       ? null
       : {
           name: "orgName",
-          label: "Organization Name (संस्थाकाे नाम)",
+          label: "Organization Name",
           placeholder: "Enter Organization Name",
           type: "text",
           sm: 12,
           md: 4,
           id: nanoid(),
-          
         },
     formik.values.occupation === "STUDENT" ||
     formik.values.occupation === "HOUSEWIFE" ||
@@ -88,13 +87,12 @@ const OccupationsIndividualForms = () => {
       ? null
       : {
           name: "address",
-          label: "Address (ठेगाना)",
+          label: "Address",
           placeholder: "Enter address",
           type: "text",
           sm: 12,
           md: 4,
           id: nanoid(),
-          
         },
     formik.values.occupation === "STUDENT" ||
     formik.values.occupation === "HOUSEWIFE" ||
@@ -102,13 +100,12 @@ const OccupationsIndividualForms = () => {
       ? null
       : {
           name: "employeeId",
-          label: "Employee ID (कर्मचारी आईडी)",
+          label: "Employee ID",
           placeholder: "Enter Employee Id",
           type: "text",
           sm: 12,
           md: 4,
           id: nanoid(),
-          
         },
     formik.values.occupation === "STUDENT" ||
     formik.values.occupation === "HOUSEWIFE" ||
@@ -116,13 +113,12 @@ const OccupationsIndividualForms = () => {
       ? null
       : {
           name: "designation",
-          label: "Designation (पद)",
+          label: "Designation",
           placeholder: "Enter designation",
           type: "text",
           sm: 12,
           md: 4,
           id: nanoid(),
-          
         },
     formik.values.occupation === "STUDENT" ||
     formik.values.occupation === "HOUSEWIFE" ||
@@ -130,17 +126,16 @@ const OccupationsIndividualForms = () => {
       ? null
       : {
           name: "effectiveFrom",
-          label: "Effective From (सुरु मिति) (A.D.)",
+          label: "Effective From",
           placeholder: "Enter effective from",
           type: "datePicker",
           sm: 12,
           md: 4,
           id: nanoid(),
-          
         },
     {
       name: "financialDetails",
-      label: "Financial Details (आर्थिक विवरण)",
+      label: "Financial Details",
       placeholder: "Enter financial details",
       options: [
         { label: "Upto Rs.5,00,000", value: "500000" },
@@ -154,7 +149,7 @@ const OccupationsIndividualForms = () => {
     },
     {
       name: "sourceOfIncome",
-      label: "Income Source (आय स्रोत)",
+      label: "Income Source",
       options: [
         { label: "Business Income", value: "business income" },
         { label: "Salary", value: "salary" },
@@ -170,14 +165,13 @@ const OccupationsIndividualForms = () => {
     },
     {
       name: "involvementInOtherCompany",
-      label:
-        "Are you involved in other Company? (के तपाई अन्य कम्पनीमा संलग्न हुनुहुन्छ?)",
+      label: "Are you involved in other Company?",
       placeholder: "Enter designation",
       type: "switchWithFields",
       newFields: [
         {
           name: "companyName",
-          label: "Company name (कम्पनीको नाम)",
+          label: "Company name",
           type: "text",
           id: nanoid(),
           md: 6,
@@ -185,7 +179,7 @@ const OccupationsIndividualForms = () => {
         },
         {
           name: "tradingDesignation",
-          label: "Designation (पद)",
+          label: "Designation",
           type: "text",
           id: nanoid(),
           md: 6,
@@ -198,14 +192,13 @@ const OccupationsIndividualForms = () => {
     },
     {
       name: "tradingAccount",
-      label:
-        "Do you have any other trading account? (के तपाई संग अरुकारोबार खाता छ ?)",
+      label: "Do you have any other trading account?",
       placeholder: "Enter designation",
       type: "switchWithFields",
       newFields: [
         {
           name: "tradingAccountCompanyName",
-          label: "Trading company name (कारोबार गर्ने कम्पनीको नाम)",
+          label: "Trading company name",
           type: "text",
           id: nanoid(),
           md: 6,
@@ -213,7 +206,7 @@ const OccupationsIndividualForms = () => {
         },
         {
           name: "clientCode",
-          label: "Client code (ग्राहक कोड)",
+          label: "Client code",
           type: "text",
           id: nanoid(),
           md: 6,
@@ -226,7 +219,7 @@ const OccupationsIndividualForms = () => {
     },
     {
       name: "blackListed",
-      label: "Are you blacklisted? (तपाईं कालोसूचीमा हुनुहुन्छ?)",
+      label: "Are you blacklisted?",
       placeholder: "Enter designation",
       type: "switch",
       sm: 12,

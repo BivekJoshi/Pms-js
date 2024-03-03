@@ -18,7 +18,10 @@ export const SecondSchema = Yup.object().shape({
     is: true,
     then: Yup.string().required("NEPSE Code is required"),
   }),
-  dematExist: Yup.boolean().required("Required"),
+  dematExist: Yup.string().when("nepseExist", {
+    is: false,
+    then: Yup.string().required("Required"),
+  }),
 });
 
 export const ThirdStepSchema = Yup.object().shape({

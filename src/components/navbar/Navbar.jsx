@@ -21,6 +21,7 @@ import {
   Button,
   Menu,
   MenuItem,
+  Dialog,
 } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
@@ -36,6 +37,7 @@ import { useGetUserChildDetail } from "../../hooks/portfolio/usePortfolio";
 import { useSelector } from "react-redux";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { t } from "i18next";
+import CompanySearch from "./CompanySearch";
 
 const NavabarProfile = React.lazy(() => import("./NavabarProfile"));
 
@@ -138,7 +140,7 @@ const navItems = [
 const Navbar = () => {
   const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scriptValue, setscriptValue] = useState({ companyInfo: "" });
+  const [scriptValue, setScriptValue] = useState({ companyInfo: "" });
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { data: listedCompanies } = useGetListedCompanies();
@@ -150,7 +152,8 @@ const Navbar = () => {
   const currentHour = currentTime.getHours();
   const currentMinute = currentTime.getMinutes();
   const isWeekend = currentDay === 5 || currentDay === 6;
-  const isWeekdayAndGreenTime = !isWeekend && currentHour >= 11 && currentHour <= 14;
+  const isWeekdayAndGreenTime =
+    !isWeekend && currentHour >= 11 && currentHour <= 14;
 
   // Set marketOpen accordingly
   const marketOpen = isWeekdayAndGreenTime ? true : false;
@@ -188,7 +191,7 @@ const Navbar = () => {
       navigate(`${path}`);
     }
 
-    if (!path.includes("/company/")) setscriptValue({ companyInfo: "" });
+    if (!path.includes("/company/")) setScriptValue({ companyInfo: "" });
   };
 
   const [state, setState] = React.useState({
@@ -401,43 +404,11 @@ const Navbar = () => {
           ))}
         </FlexBetween>
 
-        <Grid
-          sx={{
-            width: "100%",
-            maxWidth: "300px",
-            display: { md: "block", xs: "none" },
-            margin: { md: "0 32px", sm: "0px" },
-          }}
-        >
-          <Autocomplete
-            name="script"
-            fullWidth
-            options={symbols}
-            getOptionLabel={(option) => option?.companyInfo}
-            value={scriptValue ? scriptValue : null}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                fullWidth
-                placeholder={t("Company name or symbol")}
-                variant="outlined"
-                // autoFocus
-                size="small"
-                InputLabelProps={{ shrink: true }}
-                style={{
-                  minWidth: "150px",
-                  // backgroundColor: theme.palette.background.default,
-                }}
-              />
-            )}
-            onChange={(event, value) => {
-              if (value) {
-                setscriptValue(value);
-                navigate(`/company/${value?.symbol}`);
-              }
-            }}
-          />
-        </Grid>
+        <CompanySearch
+          setScriptValue={setScriptValue}
+          scriptValue={scriptValue}
+          symbols={symbols}
+        />
 
         <Tooltip title={"Market " + (marketOpen ? "Open" : "Closed")}>
           <div>
@@ -494,7 +465,7 @@ const Navbar = () => {
         handleToggle={(val) => setIsMenuOpen(val)}
         symbols={symbols}
         scriptValue={scriptValue}
-        handelScriptChange={(val) => setscriptValue(val)}
+        handelScriptChange={(val) => setScriptValue(val)}
       />
     </AppBar>
   );

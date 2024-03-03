@@ -1,9 +1,11 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { onlyTextRegex } from '../../static/RegExp';
+import { onlyTextRegex } from "../../static/RegExp";
 
 const occupationSchema = Yup.object().shape({
-  occupation: Yup.string().required("Occupation is required").matches(onlyTextRegex, "Please enter valid middle name"),
+  occupation: Yup.string()
+    .required("Occupation is required")
+    .matches(onlyTextRegex, "Please enter valid middle name"),
   businessType: Yup.string().when("occupation", {
     is: (val) => val === "BUSINESS",
     then: Yup.string().required("Business Type is required"),
@@ -36,6 +38,26 @@ const occupationSchema = Yup.object().shape({
   }),
   financialDetails: Yup.string().required("Financial Details is required"),
   sourceOfIncome: Yup.string().required("Source of Income is required"),
+  companyName: Yup.string().when("involvementInOtherCompany", {
+    is: true,
+    then: Yup.string().required("Please enter company name"),
+    otherwise: Yup.string().nullable(),
+  }),
+  tradingDesignation: Yup.string().when("involvementInOtherCompany", {
+    is: true,
+    then: Yup.string().required("Please select designation"),
+    otherwise: Yup.string().nullable(),
+  }),
+  tradingAccountCompanyName: Yup.string().when("tradingAccount", {
+    is: true,
+    then: Yup.string().required("Please enter trading company name"),
+    otherwise: Yup.string().nullable(),
+  }),
+  clientCode: Yup.string().when("tradingAccount", {
+    is: true,
+    then: Yup.string().required("Please enter client code"),
+    otherwise: Yup.string().nullable(),
+  }),
 });
 
 export const useOccupationsIndividualForm = () => {

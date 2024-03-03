@@ -1,13 +1,12 @@
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
-import React from "react";
 import { useNavigate } from "react-router";
 import kycStartImg from "../../assets/kyc-start.png";
 import { useSelector } from "react-redux";
 const KycHomePage = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const formNature = useSelector((state) => state.user.details.nature);
-  const clientType = useSelector((state) => state.user.details.clientType);
+  const formNature = useSelector((state) => state.user?.nature);
+  const clientType = useSelector((state) => state.user?.clientType);
 
   const formLabel =
     formNature === "DP" ? "DEMAT" : formNature === "TMS" ? "TMS" : "";
@@ -79,16 +78,6 @@ const KycHomePage = () => {
           </Button>
         </Grid>
       </Grid>
-      <Button
-        onClick={() => navigate("/kyc/demat-registration/i/basic-details")}
-      >
-        Individual Kyc
-      </Button>
-      <Button
-        onClick={() => navigate("/kyc/demat-registration/c/corporate-details")}
-      >
-        Corporate Kyc
-      </Button>
     </div>
   );
 };
