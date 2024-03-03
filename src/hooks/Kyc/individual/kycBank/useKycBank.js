@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { QueryClient, useMutation, useQuery, useQueryClient } from "react-query";
 import toast from "react-hot-toast";
 import { addKycBank, getBankList, getKycBank } from "../../../../api/Kyc/Bank/addBankKyc";
 
@@ -20,10 +20,14 @@ export const useGetKycBank = () => {
 
 /*________________________POST BANK DETAIL_____________________________________*/
 export const useAddKycBank = ({ onSuccess }) => {
-  return useMutation(["addBank"], (formData) => addKycBank(formData), {
+  const queryClient = useQueryClient();
+  return useMutation(
+    ["addBank"],
+     (formData) => addKycBank(formData), {
     onSuccess: (data, variables, context) => {
       toast.success("Successfully added bank data");
       onSuccess && onSuccess(data, variables, context);
+      queryClient.invalidateQueries('getBank');
     },
     onError: (err, _variables, _context) => {
       toast.error(`${err.message}`);
