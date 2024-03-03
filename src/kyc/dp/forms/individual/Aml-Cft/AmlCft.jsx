@@ -231,7 +231,10 @@ const AmlCft = () => {
 
   return (
     <div data-aos="zoom-in-right">
-      <Box
+      <Grid
+        item
+        sm={12}
+        md={12}
         sx={{
           marginBottom: "16px",
           padding: { md: "12px", sm: "5px" },
@@ -247,7 +250,7 @@ const AmlCft = () => {
         >
           {t("AML/CFT")}
         </Typography>
-      </Box>
+      </Grid>
 
       <FormikProvider value={formik} {...formik}>
         <Grid container spacing={2} display="flex" flexDirection="column">
@@ -266,7 +269,7 @@ const AmlCft = () => {
                       const field = politicalField.map((d, i) => {
                         return {
                           ...d,
-                          name: `poliAffiHighRnkRlnName?.${index}?.${d?.name}`,
+                          name: `poliAffiHighRnkRlnName.[${index}.${d?.name}]`,
                         };
                       });
                       return (
@@ -342,7 +345,7 @@ const AmlCft = () => {
                       const field = criminalField.map((d, i) => {
                         return {
                           ...d,
-                          name: `pastCrimiActiDetail?.${index}?.${d?.name}`,
+                          name: `pastCrimiActiDetail.[${index}.${d?.name}`,
                         };
                       });
                       return (
@@ -422,7 +425,7 @@ const AmlCft = () => {
                       const field = beneficialOwnerField.map((d, i) => {
                         return {
                           ...d,
-                          name: `beneficialOwnerName?.${index}?.${d?.name}`,
+                          name: `beneficialOwnerName.${index}?.${d?.name}`,
                         };
                       });
 

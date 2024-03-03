@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { onlyTextRegex } from "../../static/RegExp";
 import { useEffect } from "react";
+import { useAddFamily } from "../../../../../hooks/kyc/family/useFamily";
 
 // const familySchema = Yup.object().shape({
 //   relation: Yup.string().required("Relation is required").matches(onlyTextRegex, "Valid Relation is required"),
@@ -75,7 +76,7 @@ const personDetailSchema = Yup.object().shape({
 });
 
 const validationSchema = Yup.object().shape({
-  familyDetailList: Yup.array().of(
+  personDetail: Yup.array().of(
     Yup.object().shape({
       personDetail: personDetailSchema,
     })
@@ -83,26 +84,11 @@ const validationSchema = Yup.object().shape({
 });
 
 export const useKycFamilyForm = () => {
+  const { mutate } = useAddFamily({});
+
   const formik = useFormik({
     initialValues: {
-      // mobileNumber:"",
-      // memberName: "",
-      // relation: "referralPerson",
-      // familyDetails: [
-      //   {
-      //     memberName: "",
-      //     relation: "father",
-      //   },
-      //   {
-      //     memberName: "",
-      //     relation: "mother",
-      //   },
-      //   {
-      //     memberName: "",
-      //     relation: "grandFather",
-      //   },
-      // ],
-      familyDetailList: [
+      personDetail: [
         {
           relationTypeId: "GF",
           relationTypeDesc: "Grand Father",
@@ -146,7 +132,12 @@ export const useKycFamilyForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      const formData = { ...values };
+      mutate(formData, {
+        onSuccess: (data) => {
+          formik.resetForm();
+        },
+      });
     },
   });
 

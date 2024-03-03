@@ -157,15 +157,15 @@ const FamilyIndividualDpForms = () => {
           </Typography>
         </Grid>
         <FormikProvider value={formik}>
-          <FieldArray name="familyDetailList">
+          <FieldArray name="personDetail">
             {() => {
               return (
-                formik.values.familyDetailList &&
-                formik.values?.familyDetailList?.map((details, index) => {
+                formik.values.personDetail &&
+                formik.values?.personDetail?.map((details, index) => {
                   const field = relationField?.map((d) => {
                     return {
                       ...d,
-                      name: `familyDetailList.${index}.[personDetail].${d.name}`,
+                      name: `personDetail.${index}.[personDetail].${d.name}`,
                     };
                   });
                   return (
@@ -182,7 +182,7 @@ const FamilyIndividualDpForms = () => {
                           formik={formik}
                           index={index}
                           isFieldArray={true}
-                          fieldArrayName="familyDetailList"
+                          fieldArrayName="personDetail"
                         />
                       }
                     />
