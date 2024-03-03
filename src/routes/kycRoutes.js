@@ -32,7 +32,7 @@ const OccupationsIndividualForms = React.lazy(() =>
   )
 );
 const BoIndividualDetails = React.lazy(() =>
-  import("../kyc/dp/forms/individual/BoIndividualDetails")
+  import("../kyc/dp/forms/individual/BoIndividual/BoIndividualDetails")
 );
 /*---------------------------INDIVIDUAL--------------------------------------------------------------*/
 

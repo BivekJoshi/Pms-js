@@ -21,12 +21,12 @@ const { mutate } = useAddKycBank({});
     },
     validationSchema: bankSchema,
     onSubmit: (values) => {
-      const formData = {...values}
-        mutate(formData, {
-          onSuccess: () => {
-            formik.resetForm();
-          },
-        })
+      const formData = { ...values };
+      mutate(formData, {
+        onSuccess: () => {
+          formik.resetForm();
+        },
+      });
     },
   });
 

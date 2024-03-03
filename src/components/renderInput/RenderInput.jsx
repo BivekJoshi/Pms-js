@@ -299,12 +299,12 @@ const RenderInput = ({
             name={element.name}
             disabled={element?.isDisabled}
             options={element?.options}
-            getOptionLabel={(option) => t(option?.label) || (option?.name) || ""}
-            value={element?.options?.find(
-              (option) => option?.value === formVaues || option?.code === formVaues
-            )}
+            getOptionLabel={(option) => t(option?.label) || ""}
+            value={(element?.options?.find(
+              (option) => option?.value === formVaues
+            )) || ""}
             onChange={(event, newValue) => {
-              formik.setFieldValue(element.name, newValue?.value || newValue?.code || ""); // Set value to newValue's value property or empty string if undefined
+              formik.setFieldValue(element.name, newValue?.value || ""); // Set value to newValue's value property or empty string if undefined
             }}
             fullWidth
             renderInput={(params) => {
@@ -339,7 +339,7 @@ const RenderInput = ({
         );
       case "switch":
         return (
-          <div style={{ display: "flex" }}>
+          <div style={{ display: element?.displaySwitch || "flex", flexDirection: element?.displaySwitchDirection }}>
             <FormControlLabel
               style={{
                 display: element?.display,
@@ -365,10 +365,11 @@ const RenderInput = ({
                 {t(element.infoAlert)}
               </Alert>
             )}
-            {element?.hasRadio && formik.values[element.name] && (
+             {element?.hasRadio && formik.values[element.name] && (
               <FormControl
                 style={{
                   display: element?.radioDisplay,
+                  flexDirection: element?.radioDirection,
                   alignItems: element?.radioAlign,
                   gap: element?.radioGap,
                 }}
@@ -381,6 +382,10 @@ const RenderInput = ({
                   name={element?.radioName}
                   value={formik.values[element.radioName]}
                   onChange={(event, value) => {
+                    // console.log("event", event.target.value)
+                    // console.log("value", value)
+                    // console.log("elem", element)
+                    formik.setFieldValue(element?.radioName, event.target.value)
                     formik.handleChange(element.radioName)(value); // Manually update Formik state
                   }}
                 >

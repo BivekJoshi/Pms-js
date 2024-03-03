@@ -35,9 +35,9 @@ const AsyncDropDown = ({ element, formik }) => {
       getOptionLabel={(option) => option?.label || ""}
       // value={formik.values[element.name]}
 
-      value={asyncOptions?.find(
+      value={(asyncOptions?.find(
         (option) => option?.value === formik.values[element.name]
-      )}
+      )) || ""}
       onChange={(event, newValue) => {
         formik.setFieldValue(element.name, newValue?.value || "");
       }}
