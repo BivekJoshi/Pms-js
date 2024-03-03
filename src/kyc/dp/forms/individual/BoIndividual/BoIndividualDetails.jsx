@@ -1,13 +1,16 @@
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import RenderInput from "../../../../components/renderInput/RenderInput";
+import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { nanoid } from "nanoid";
-import { useKycBoIndividualForm } from "../../../../hooks/Kyc/individual/boStatement/useKycBoIndividualForm";
+import { useKycBoIndividualForm } from "./useKycBoIndividualForm";
+import { useGetKycBO } from '../../../../../hooks/Kyc/individual/boStatement/useAddKycBo';
 
 
 const BoIndividualDetails = () => {
   const theme = useTheme();
-  const { formik } = useKycBoIndividualForm();
+  const { data: BoData } = useGetKycBO();
+  const data = BoData && BoData?.data;
+  const { formik } = useKycBoIndividualForm(data);
   const bodFields = [
     {
       name: "isStandingInstructionForAutomaticTxn",

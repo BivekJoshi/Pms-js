@@ -15,9 +15,8 @@ const BankIndividualDpForms = () => {
   const { data: bankListData } = useGetBankList();
   const { data: bankData } = useGetKycBank();
   const bankDataField = bankData && [bankData?.data];
-
   const { formik } = useKycBankForm();
-
+  
   const BANKFIELDS = [
     // {
     //   type: "dropDown",
