@@ -14,12 +14,12 @@ export const useGetKycBO = () => {
 export const useAddKycBO = ({ onSuccess }) => {
   const queryClient = useQueryClient();
   return useMutation(
-    ["addBank"],
+    ["addBO"],
      (formData) => addKycBO(formData), {
     onSuccess: (data, variables, context) => {
-      toast.success("Successfully added bank data");
+      toast.success("Successfully added BO data");
       onSuccess && onSuccess(data, variables, context);
-      queryClient.invalidateQueries('getBank');
+      queryClient.invalidateQueries('getBO');
     },
     onError: (err, _variables, _context) => {
       toast.error(`${err.message}`);

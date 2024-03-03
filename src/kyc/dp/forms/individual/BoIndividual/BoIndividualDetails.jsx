@@ -24,7 +24,7 @@ const BoIndividualDetails = () => {
     },
     {
       name: "accountStatementPeriod",
-      label: "Account Statement Period (खाता विवरण अवधि)",
+      label: "Account Statement Period",
       type: "radio",
       radio: [
         {
@@ -63,7 +63,7 @@ const BoIndividualDetails = () => {
       setFields(bodFields.slice(0, 1));
     } else {
       setFields(bodFields);
-      formik.setFieldValue("accountStatementPeriod", "");
+      // formik.setFieldValue("accountStatementPeriod", "");
     }
   }, [formik.values.isStandingInstructionForAutomaticTxn]);
 
