@@ -299,12 +299,12 @@ const RenderInput = ({
             name={element.name}
             disabled={element?.isDisabled}
             options={element?.options}
-            getOptionLabel={(option) => t(option?.label) || ""}
-            value={element?.options.find(
-              (option) => option?.value === formVaues
+            getOptionLabel={(option) => t(option?.label) || (option?.name) || ""}
+            value={element?.options?.find(
+              (option) => option?.value === formVaues || option?.code === formVaues
             )}
             onChange={(event, newValue) => {
-              formik.setFieldValue(element.name, newValue?.value || ""); // Set value to newValue's value property or empty string if undefined
+              formik.setFieldValue(element.name, newValue?.value || newValue?.code || ""); // Set value to newValue's value property or empty string if undefined
             }}
             fullWidth
             renderInput={(params) => {
@@ -484,7 +484,7 @@ const RenderInput = ({
 
       case "asyncDropDown":
         return (
-          <>
+          <div style={{display: "flex"}}>
             <AsyncDropDown element={element} formik={formik} />
             <div style={{ marginTop: "0.5rem" }}>
               {element.isDependent && formik.values[element?.name] ? (
@@ -501,7 +501,7 @@ const RenderInput = ({
                 ""
               )}
             </div>
-          </>
+          </div>
         );
 
       case "documentUpload":

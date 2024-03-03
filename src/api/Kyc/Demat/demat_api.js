@@ -1,3 +1,5 @@
+export const postBankKycData = "client/bank-details";
+export const getBankKycData = "client/bank-details";
 import { axiosInstance } from "../../axiosInterceptor";
 
 /*________________________BASIC DETAIL_____________________________________*/

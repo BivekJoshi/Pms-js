@@ -1,6 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { onlyTextRegex } from '../../static/RegExp';
+import { useAddKycBank } from '../../../../../hooks/Kyc/individual/kycBank/useKycBank';
 
 const bankSchema = Yup.object().shape({
   bankName: Yup.string().required("Bank Name is required").matches(onlyTextRegex, "Please enter valid middle name"),
@@ -10,6 +11,7 @@ const bankSchema = Yup.object().shape({
 });
 
 export const useKycBankForm = () => {
+const { mutate } = useAddKycBank({});
   const formik = useFormik({
     initialValues: {
       bankName: "",
@@ -19,9 +21,14 @@ export const useKycBankForm = () => {
     },
     validationSchema: bankSchema,
     onSubmit: (values) => {
-      const formData = { ...values };
-      console.log(values);
+      const formData = {...values}
+        mutate(formData, {
+          onSuccess: () => {
+            formik.resetForm();
+          },
+        })
     },
   });
+
   return { formik };
 };
