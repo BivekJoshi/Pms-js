@@ -47,7 +47,6 @@ export const AddressField = [
     type: "dropDown",
     options: [
       { id: 1, value: "Nepal", label: "Nepal" },
-      { id: 2, value: "india", label: "india" },
     ],
   },
   {

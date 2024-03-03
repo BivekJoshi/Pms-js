@@ -4,7 +4,7 @@ import DottedBorder from "../../assets/DottedBoder.png";
 import { usePhotoUploadForm } from "../../hooks/kyc/DocumentUpload/usePhotoUploadForm";
 
 const FinalImageSelect = ({ finalImage, file }) => {
-  const { formik } = usePhotoUploadForm({ file });
+  const { formik } = usePhotoUploadForm({ file ,finalImage});
 
   // const handleSubmit = () => {
   //   console.log(file, "File ma chaii");

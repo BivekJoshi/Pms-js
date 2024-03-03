@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useAddAddress } from "../../../../../hooks/kyc/address/useAddress";
 
 const AddressSchema = Yup.object().shape({
   addresses: Yup.array().of(
@@ -16,6 +17,7 @@ const AddressSchema = Yup.object().shape({
   ),
 });
 export const useAddressForm = () => {
+  const { mutate } = useAddAddress({});
   const formik = useFormik({
     initialValues: {
       addresses: [
@@ -40,7 +42,12 @@ export const useAddressForm = () => {
     },
     validationSchema: AddressSchema,
     onSubmit: (value) => {
-      console.log(value);
+      const formData = { ...value };
+      mutate(formData, {
+        onSuccess: (data) => {
+          formik.resetForm();
+        },
+      });
     },
   });
   return { formik };
