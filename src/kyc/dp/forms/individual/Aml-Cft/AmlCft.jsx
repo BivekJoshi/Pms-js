@@ -7,7 +7,6 @@ import {
   Box,
   Switch,
   Stack,
-  FormControlLabel,
 } from "@mui/material";
 import { useAmlCftForm } from "./useAmlCftForm";
 import { nanoid } from "nanoid";
@@ -192,7 +191,6 @@ const beneficialOwnerField = [
     maxLength: 254,
   },
 ];
-
 const politicalField = [
   {
     name: "name",
@@ -231,20 +229,9 @@ const AmlCft = () => {
   const [showCriminal, setShowCriminal] = useState(false);
   const [showBeneficialOwner, setShowBeneficialOwner] = useState(false);
 
-  const togglePolitical = () => {
-    const newValue = !formik.values.showPolitical;
-    console.log(newValue,"newValue");
-    setShowPolitical(newValue);
-    formik.setValues((prevValues) => ({
-      ...prevValues,
-      showPolitical: newValue,
-      poliAffiHighRnkRlnName: newValue ? [{ name: '', relation: '' }] : [], // Adjust the value based on your logic
-    }));
-  };
-  
+  const togglePolitical = () => setShowPolitical(!showPolitical);
   const toggleCriminal = () => setShowCriminal(!showCriminal);
-  const toggleBeneficialOwner = () =>
-    setShowBeneficialOwner(!showBeneficialOwner);
+  const toggleBeneficialOwner = () => setShowBeneficialOwner(!showBeneficialOwner);
 
   return (
     <div data-aos="zoom-in-right">
@@ -270,32 +257,14 @@ const AmlCft = () => {
       </Grid>
 
       <FormikProvider value={formik} {...formik}>
-        <Grid
-          container
-          spacing={2}
-          display="flex"
-          flexDirection="column"
-          mx={1}
-        >
-          {/* Switch for Political Affiliation */}
+        <Grid container spacing={2} display="flex" flexDirection="column" mx={1} >
           <>
-            <Grid
-              item
-              display={"flex"}
-              alignItems={"center"}
-              style={{ paddingLeft: "0px" }}
-            >
+            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
               <Typography>
                 Are you related to any politically high ranking person?
               </Typography>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={formik?.values?.showPolitical}
-                    onChange={togglePolitical}
-                  />
-                }
-              />
+              
+              <Switch checked={showPolitical} onChange={togglePolitical} />
             </Grid>
             {showPolitical && (
               <FieldArray name="poliAffiHighRnkRlnName">
@@ -380,12 +349,7 @@ const AmlCft = () => {
             )}
           </>
           <>
-            <Grid
-              item
-              display={"flex"}
-              alignItems={"center"}
-              style={{ paddingLeft: "0px" }}
-            >
+            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
               <Typography>Do you have any past Criminal Records?</Typography>
               <Switch checked={showCriminal} onChange={toggleCriminal} />
             </Grid>
@@ -398,7 +362,7 @@ const AmlCft = () => {
                       const field = criminalField.map((d) => {
                         return {
                           ...d,
-                          name: `pastCrimiActiDetail.[${index}.${d?.name}`,
+                          name: `pastCrimiActiDetail.[${index}.${d?.name}]`,
                         };
                       });
                       return (
@@ -470,12 +434,7 @@ const AmlCft = () => {
             )}
           </>
           <>
-            <Grid
-              item
-              display={"flex"}
-              alignItems={"center"}
-              style={{ paddingLeft: "0px" }}
-            >
+            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
               <Typography>Do you want to keep a nominee?</Typography>
               <Switch
                 checked={showBeneficialOwner}
