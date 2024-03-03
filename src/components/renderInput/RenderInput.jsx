@@ -299,12 +299,12 @@ const RenderInput = ({
             name={element.name}
             disabled={element?.isDisabled}
             options={element?.options}
-            getOptionLabel={(option) => t(option?.label) || ""}
-            value={element?.options.find(
-              (option) => option?.value === formVaues
+            getOptionLabel={(option) => t(option?.label) || (option?.name) || ""}
+            value={element?.options?.find(
+              (option) => option?.value === formVaues || option?.code === formVaues
             )}
             onChange={(event, newValue) => {
-              formik.setFieldValue(element.name, newValue?.value || ""); // Set value to newValue's value property or empty string if undefined
+              formik.setFieldValue(element.name, newValue?.value || newValue?.code || ""); // Set value to newValue's value property or empty string if undefined
             }}
             fullWidth
             renderInput={(params) => {

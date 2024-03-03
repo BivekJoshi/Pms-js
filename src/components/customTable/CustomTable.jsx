@@ -80,7 +80,7 @@ const CustomTable = (props) => {
 
   const bodyBackgroundColor =
     theme.palette.mode === "light" ? "#ffff" : theme.palette.background.default;
-
+ 
   return (
     <div className="custom_table">
       <MaterialReactTable

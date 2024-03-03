@@ -1,6 +1,7 @@
 import { Autocomplete, TextField } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { axiosInstance } from '../../api/axiosInterceptor';
 
 const AsyncDropDown = ({ element, formik }) => {
   const [asyncOptions, setAsyncOptions] = useState([]);
@@ -8,7 +9,7 @@ const AsyncDropDown = ({ element, formik }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(element.path);
+        const response = await axiosInstance.get(element.path);
         const data = response?.data;
         const options = data?.map((item) => {
           return {

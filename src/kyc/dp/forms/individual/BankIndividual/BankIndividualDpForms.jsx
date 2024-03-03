@@ -1,26 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 import { Grid, Button, useTheme, Typography } from "@mui/material";
-import { Formik } from "formik";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { useKycBankForm } from "./usekycBankForm";
 import { Box } from "@mui/system";
 import CustomTable from "../../../../../components/customTable/CustomTable";
 import { useMemo } from "react";
+import {
+  useGetBankList,
+  useGetKycBank,
+} from "../../../../../hooks/Kyc/individual/kycBank/useKycBank";
 
 const BankIndividualDpForms = () => {
   const theme = useTheme();
-  const { formik, data } = useKycBankForm();
+  const { data: bankListData } = useGetBankList();
+  const { data: bankData } = useGetKycBank();
+  const bankDataField = bankData && [bankData?.data];
+
+  const { formik } = useKycBankForm();
+
   const BANKFIELDS = [
+    // {
+    //   type: "dropDown",
+    //   name: "bankName",
+    //   label: "Bank Name",
+    //   required: true,
+    //   options: bankListData?.data,
+    //   xs: 12,
+    //   sm: 6,
+    //   md: 3,
+    // },
     {
-      type: "text",
+      type: "asyncDropDown",
       name: "bankName",
       label: "Bank Name",
       required: true,
+      responseLabel: "name",
+      responseId: "code",
+      path: "http://172.16.16.46:8084/kyc/api/utility/bank-master",
       xs: 12,
       sm: 6,
       md: 3,
-      // path:"http://103.94.159.144:8085/pms/api/app-user/user-portfolio",
-      // responseLabel:"script"
     },
     {
       type: "text",
@@ -39,7 +58,6 @@ const BankIndividualDpForms = () => {
       xs: 12,
       sm: 6,
       md: 3,
-
       options: [
         {
           value: "S",
@@ -66,34 +84,51 @@ const BankIndividualDpForms = () => {
     () => [
       {
         id: 1,
-        accessorKey: "accountType",
-        header: "Account Type",
-        size: 100,
+        Cell: (cell) => {
+          return cell?.row?.index + 1;
+        },
+        header: "SN",
+        size: 50,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: "bank",
-        header: "Bank",
+        accessorKey: "bankName",
+        header: "Bank Name",
+        accessorFn: (row) => {
+          const bankName = bankListData?.data?.find((code) => code?.code === row?.bankName)
+          return <>{bankName?.name}</>;
+        },
         size: 170,
         sortable: false,
       },
       {
         id: 3,
-        accessorKey: "branch",
+        accessorKey: "accountType",
+        accessorFn: (row) => {
+          return <>{row?.accountType === "S" ? "Saving" : "Current"}</>;
+        },
+        header: "Account Type",
+        size: 100,
+        sortable: false,
+      },
+
+      {
+        id: 4,
+        accessorKey: "branchAddress",
         header: "Branch",
         size: 100,
         sortable: false,
       },
       {
-        id: 4,
-        accessorKey: "acNo",
+        id: 5,
+        accessorKey: "accountNumber",
         header: "Account Number",
         size: 100,
         sortable: false,
       },
       {
-        id: 5,
+        id: 6,
         accessorKey: "primary",
         header: "Primary",
         size: 100,
@@ -142,16 +177,19 @@ const BankIndividualDpForms = () => {
         >
           + Add
         </Button>
-      
       </Grid>
       <Grid marginBlock={2}>
-        <CustomTable columns={columns} headerBackgroundColor="#401686" />
+        <CustomTable
+          title={"List of Bank"}
+          columns={columns}
+          data={bankDataField}
+          headerBackgroundColor="#401686"
+        />
       </Grid>
       <Grid
         sx={{ display: "flex", justifyContent: "flex-end", marginTop: "12px" }}
       >
         <Button
-          // onClick={formik.handleSubmit}
           variant="contained"
           color="secondary"
         >
