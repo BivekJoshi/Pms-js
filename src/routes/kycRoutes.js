@@ -55,6 +55,9 @@ const CorporatBankDetail = React.lazy(() =>
 const CorporateDocument = React.lazy(() =>
   import("../kyc/pages/CorporateDocument")
 );
+const BranchCorporateForm = React.lazy(() =>
+  import("../kyc/dp/forms/corporate/BranchCorporate/BranchCorporateForm")
+);
 /*---------------------------CORPORATE--------------------------------------------------------------*/
 
 export const kycDpIndividualRoutes = [
@@ -140,5 +143,10 @@ export const kycDpCorporateRoutes = [
     path: "demat-registration/c/document-details",
     id: nanoid(),
     component: CorporateDocument,
+  },
+  {
+    path: "demat-registration/c/corporate-branch-detail",
+    id: nanoid(),
+    component: BranchCorporateForm,
   },
 ];
