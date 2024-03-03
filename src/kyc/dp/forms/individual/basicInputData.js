@@ -623,7 +623,7 @@ export const PROVINCE_OPTIONS = [
 
 export const basicData = [
   {
-    name: "firstName",
+    name: "fname",
     label: "First Name",
     placeholder: "Enter First Name",
     type: "text",
@@ -633,7 +633,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "middleName",
+    name: "mname",
     label: "Middle Name",
     placeholder: "Enter middle name",
     type: "text",
@@ -642,7 +642,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "lastName",
+    name: "lname",
     label: "Last Name",
     placeholder: "Enter last name",
     type: "text",
@@ -652,7 +652,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "fnameNepali",
+    name: "fnameNep",
     label: "First Name (Devnagari)",
     type: "nepaliTypeText",
     sm: 12,
@@ -660,7 +660,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "mnameNepali",
+    name: "mnameNep",
     label: "Middle Name (Devnagari)",
     type: "nepaliTypeText",
     sm: 12,
@@ -668,7 +668,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "lnameNepali",
+    name: "lnameNep",
     label: "Last Name (Devnagari)",
     type: "nepaliTypeText",
     sm: 12,
@@ -706,16 +706,17 @@ export const basicData = [
     ],
   },
   {
-    name: "countryCode",
-    label: "Country Code",
+    name: "countryCd",
+    label: "Country",
     type: "dropDown",
-    options: COUNTRIES,
+    options: [{ value: "Nepal", label: "Nepal", id: 1 }],
+    // COUNTRIES
     sm: 12,
     md: 4,
     id: nanoid(),
   },
   {
-    name: "panNo",
+    name: "pan",
     label: "Pan No",
     type: "number",
     sm: 12,
@@ -726,7 +727,10 @@ export const basicData = [
     name: "isMinor",
     label: "Are you Minor?",
     type: "switch",
+    marginLeft: "0px",
     required: true,
+    display: "flex",
+    direction: "row-reverse",
     isDisabled: true,
     sm: 12,
     md: 12,
@@ -750,9 +754,12 @@ export const basicData = [
     ],
   },
   {
-    name: "isDiffrentlyAbled",
+    name: "isDifferentlyAbled",
     label: "Are you diffrently abled?",
     type: "switch",
+    display: "flex",
+    marginLeft: "0px",
+    direction: "row-reverse",
     required: true,
     md: 12,
     sm: 12,
@@ -764,6 +771,9 @@ export const basicData = [
     label: "Are you NRN?",
     placeholder: "Are you NRN?",
     type: "switch",
+    display: "flex",
+    marginLeft: "0px",
+    direction: "row-reverse",
     required: true,
     md: 12,
     sm: 12,

@@ -78,16 +78,6 @@ const KycHomePage = () => {
           </Button>
         </Grid>
       </Grid>
-      <Button
-        onClick={() => navigate("/kyc/demat-registration/i/basic-details")}
-      >
-        Individual Kyc
-      </Button>
-      <Button
-        onClick={() => navigate("/kyc/demat-registration/c/corporate-details")}
-      >
-        Corporate Kyc
-      </Button>
     </div>
   );
 };
