@@ -1,6 +1,9 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { onlyTextRegex } from '../../static/RegExp';
+import { useDispatch, useSelector } from 'react-redux';
+import { postBankKycData } from '../../../../../api/Kyc/Demat/demat_api';
+import axios from 'axios';
 
 const bankSchema = Yup.object().shape({
   bankName: Yup.string().required("Bank Name is required").matches(onlyTextRegex, "Please enter valid middle name"),
@@ -10,6 +13,9 @@ const bankSchema = Yup.object().shape({
 });
 
 export const useKycBankForm = () => {
+  const dispatch  = useDispatch();
+  const { data, loading, error } = useSelector(state => state);
+
   const formik = useFormik({
     initialValues: {
       bankName: "",
@@ -17,11 +23,11 @@ export const useKycBankForm = () => {
       accountType: "",
       branchAddress: "",
     },
-    validationSchema: bankSchema,
-    onSubmit: (values) => {
-      const formData = { ...values };
-      console.log(values);
+    // validationSchema: bankSchema,
+    onSubmit: async (values) => {
+   
     },
   });
-  return { formik };
+
+  return { data, loading, error, formik };
 };

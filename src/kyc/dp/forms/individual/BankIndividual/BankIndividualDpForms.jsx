@@ -12,7 +12,7 @@ const BankIndividualDpForms = () => {
   const { formik } = useKycBankForm();
   const BANKFIELDS = [
     {
-      type: "asyncDropDown",
+      type: "text",
       name: "bankName",
       label: "Bank Name",
       required: true,
@@ -61,7 +61,7 @@ const BankIndividualDpForms = () => {
       md: 3,
     },
   ];
-  const handleSubmit = () => {};
+
   const columns = useMemo(
     () => [
       {
@@ -111,7 +111,7 @@ const BankIndividualDpForms = () => {
   );
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <Box
         sx={{
           marginBottom: "16px",
@@ -142,6 +142,7 @@ const BankIndividualDpForms = () => {
         >
           + Add
         </Button>
+      
       </Grid>
       <Grid marginBlock={2}>
         <CustomTable columns={columns} headerBackgroundColor="#401686" />
