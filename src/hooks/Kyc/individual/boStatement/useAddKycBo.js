@@ -4,7 +4,7 @@ import { addKycBO, getKycBO } from '../../../../api/Kyc/KycBO/addKycBO';
 
 /*________________________GET BO DETAIL_____________________________________*/
 export const useGetKycBO = () => {
-  return useQuery(["getBO"], () => getKycBO(), {
+  return useQuery(["getBODetail"], () => getKycBO(), {
     refetchInterval: false,
     refetchOnWindowFocus: false,
   });
@@ -14,12 +14,12 @@ export const useGetKycBO = () => {
 export const useAddKycBO = ({ onSuccess }) => {
   const queryClient = useQueryClient();
   return useMutation(
-    ["addBO"],
+    ["addBODetail"],
      (formData) => addKycBO(formData), {
     onSuccess: (data, variables, context) => {
       toast.success("Successfully added BO data");
       onSuccess && onSuccess(data, variables, context);
-      queryClient.invalidateQueries('getBO');
+      queryClient.invalidateQueries('getBODetail');
     },
     onError: (err, _variables, _context) => {
       toast.error(`${err.message}`);

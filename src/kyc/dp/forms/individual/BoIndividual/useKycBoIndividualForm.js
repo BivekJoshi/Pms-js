@@ -3,7 +3,7 @@ import { useAddKycBO } from "../../../../../hooks/Kyc/individual/boStatement/use
 
 export const useKycBoIndividualForm = (data) => {
   const { mutate } = useAddKycBO({});
-
+console.log("data", data)
   const formik = useFormik({
     initialValues: {
       isStandingInstructionForAutomaticTxn: data?.isStandingInstructionForAutomaticTxn || false,

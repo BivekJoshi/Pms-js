@@ -8,24 +8,29 @@ import { useGetKycBO } from '../../../../../hooks/Kyc/individual/boStatement/use
 
 const BoIndividualDetails = () => {
   const theme = useTheme();
-  const { data: BoData } = useGetKycBO();
-  const data = BoData && BoData?.data;
+  const { data: BoData, isLoading: BoLoading } = useGetKycBO();
+
+  const data = !BoLoading && BoData?.data;
   const { formik } = useKycBoIndividualForm(data);
   const bodFields = [
     {
       name: "isStandingInstructionForAutomaticTxn",
       label: "Do you want Standing Instruction For The Automatic Transaction?",
       type: "switch",
+      displaySwitch: "flex",
+      displaySwitchDirection: "column",
       col: 12,
       id: nanoid(),
       display: "flex",
       direction: "row-reverse",
       marginLeft: "0px",
-    },
-    {
-      name: "accountStatementPeriod",
-      label: "Account Statement Period",
-      type: "radio",
+      hasRadio: true,
+      radioName: "accountStatementPeriod",
+      radioLabel: "Account Statement Period",
+      radioDisplay: "flex",
+      radioDirection: "row",
+      radioAlign: "center",
+      radioGap: "16px",
       radio: [
         {
           value: "DAILY",
@@ -48,24 +53,12 @@ const BoIndividualDetails = () => {
           id: nanoid(),
         },
       ],
-      display: "flex",
-      align: "center",
-      gap: "1rem",
-      sm: 12,
-      col: 12,
-      id: nanoid(),
     },
   ];
   const [fields, setFields] = useState(bodFields);
-
   useEffect(() => {
-    if (!formik.values.isStandingInstructionForAutomaticTxn) {
-      setFields(bodFields.slice(0, 1));
-    } else {
-      setFields(bodFields);
-      // formik.setFieldValue("accountStatementPeriod", "");
-    }
-  }, [formik.values.isStandingInstructionForAutomaticTxn]);
+    setFields(bodFields);
+  }, [formik.values.accountStatementPeriod]);
 
   return (
     <div data-aos="zoom-in-right">

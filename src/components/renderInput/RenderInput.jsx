@@ -339,7 +339,7 @@ const RenderInput = ({
         );
       case "switch":
         return (
-          <div style={{ display: "flex" }}>
+          <div style={{ display: element?.displaySwitch || "flex", flexDirection: element?.displaySwitchDirection }}>
             <FormControlLabel
               style={{
                 display: element?.display,
@@ -369,6 +369,7 @@ const RenderInput = ({
               <FormControl
                 style={{
                   display: element?.radioDisplay,
+                  flexDirection: element?.radioDirection,
                   alignItems: element?.radioAlign,
                   gap: element?.radioGap,
                 }}
