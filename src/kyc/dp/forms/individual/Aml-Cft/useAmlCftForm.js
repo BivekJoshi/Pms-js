@@ -41,6 +41,7 @@ export const useAmlCftForm = () => {
       ],
     },
     onSubmit: (values) => {
+      console.log(values,"values");
       const formData = { ...values };
       mutate(formData, {
         onSuccess: (data) => {
