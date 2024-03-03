@@ -5,60 +5,61 @@ import { nanoid } from "nanoid";
 import { useKycBoIndividualForm } from "./useKycBoIndividualForm";
 import { useGetKycBO } from '../../../../../hooks/Kyc/individual/boStatement/useAddKycBo';
 
+const bodFields = [
+  {
+    name: "isStandingInstructionForAutomaticTxn",
+    label: "Do you want Standing Instruction For The Automatic Transaction?",
+    type: "switch",
+    displaySwitch: "flex",
+    displaySwitchDirection: "column",
+    col: 12,
+    id: nanoid(),
+  required: true,
+    display: "flex",
+    direction: "row-reverse",
+    marginLeft: "0px",
+    hasRadio: true,
+    radioName: "accountStatementPeriod",
+    radioLabel: "Account Statement Period",
+    radioDisplay: "flex",
+    radioDirection: "row",
+    radioAlign: "center",
+    radioGap: "16px",
+    radio: [
+      {
+        value: "DAILY",
+        label: "Daily",
+        id: nanoid(),
+      },
+      {
+        value: "WEEKLY",
+        label: "Weekly",
+        id: nanoid(),
+      },
+      {
+        value: "15DAYS",
+        label: "15 Days",
+        id: nanoid(),
+      },
+      {
+        value: "MONTHLY",
+        label: "Monthly",
+        id: nanoid(),
+      },
+    ],
+  },
+];
 
 const BoIndividualDetails = () => {
+  const [fields, setFields] = useState(bodFields);
   const theme = useTheme();
   const { data: BoData, isLoading: BoLoading } = useGetKycBO();
-
-  const data = !BoLoading && BoData?.data;
+  const data = BoData && BoData?.data
   const { formik } = useKycBoIndividualForm(data);
-  const bodFields = [
-    {
-      name: "isStandingInstructionForAutomaticTxn",
-      label: "Do you want Standing Instruction For The Automatic Transaction?",
-      type: "switch",
-      displaySwitch: "flex",
-      displaySwitchDirection: "column",
-      col: 12,
-      id: nanoid(),
-      display: "flex",
-      direction: "row-reverse",
-      marginLeft: "0px",
-      hasRadio: true,
-      radioName: "accountStatementPeriod",
-      radioLabel: "Account Statement Period",
-      radioDisplay: "flex",
-      radioDirection: "row",
-      radioAlign: "center",
-      radioGap: "16px",
-      radio: [
-        {
-          value: "DAILY",
-          label: "Daily",
-          id: nanoid(),
-        },
-        {
-          value: "WEEKLY",
-          label: "Weekly",
-          id: nanoid(),
-        },
-        {
-          value: "15DAYS",
-          label: "15 Days",
-          id: nanoid(),
-        },
-        {
-          value: "MONTHLY",
-          label: "Monthly",
-          id: nanoid(),
-        },
-      ],
-    },
-  ];
-  const [fields, setFields] = useState(bodFields);
+
   useEffect(() => {
-    setFields(bodFields);
-  }, [formik.values.accountStatementPeriod]);
+    setFields(bodFields)
+  }, []);
 
   return (
     <div data-aos="zoom-in-right">

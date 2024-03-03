@@ -1,9 +1,10 @@
 import { useFormik } from "formik";
 import { useAddKycBO } from "../../../../../hooks/Kyc/individual/boStatement/useAddKycBo";
+import { useEffect } from 'react';
 
 export const useKycBoIndividualForm = (data) => {
   const { mutate } = useAddKycBO({});
-console.log("data", data)
+
   const formik = useFormik({
     initialValues: {
       isStandingInstructionForAutomaticTxn: data?.isStandingInstructionForAutomaticTxn || false,
@@ -18,6 +19,13 @@ console.log("data", data)
       });
     },
   });
+
+  useEffect(() => {
+    formik.setValues({
+      isStandingInstructionForAutomaticTxn: data?.isStandingInstructionForAutomaticTxn || false,
+      accountStatementPeriod: data?.accountStatementPeriod || "",
+    });
+  }, [data?.isStandingInstructionForAutomaticTxn, data?.accountStatementPeriod]);
 
   return { formik };
 };

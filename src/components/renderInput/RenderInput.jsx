@@ -365,7 +365,7 @@ const RenderInput = ({
                 {t(element.infoAlert)}
               </Alert>
             )}
-            {element?.hasRadio && formik.values[element.name] && (
+             {element?.hasRadio && formik.values[element.name] && (
               <FormControl
                 style={{
                   display: element?.radioDisplay,
@@ -382,6 +382,10 @@ const RenderInput = ({
                   name={element?.radioName}
                   value={formik.values[element.radioName]}
                   onChange={(event, value) => {
+                    // console.log("event", event.target.value)
+                    // console.log("value", value)
+                    // console.log("elem", element)
+                    formik.setFieldValue(element?.radioName, event.target.value)
                     formik.handleChange(element.radioName)(value); // Manually update Formik state
                   }}
                 >
