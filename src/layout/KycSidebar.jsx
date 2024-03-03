@@ -1,11 +1,12 @@
-import { Grid, Typography, createTheme } from "@mui/material";
-import React from "react";
-import KycProfileCard from "../kyc/components/KycProfileCard";
-import { useTranslation } from "react-i18next";
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
-import { themeSettings } from "../theme";
-import { NavLink } from "react-router-dom";
+import { Grid, Typography, createTheme } from "@mui/material"
+import React from "react"
+import KycProfileCard from "../kyc/components/KycProfileCard"
+import { useTranslation } from "react-i18next"
+import { useMemo } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { themeSettings } from "../theme"
+import { NavLink, useNavigate } from "react-router-dom"
+import { logout } from "../utility/logout"
 
 const KycSidebar = ({
   isHomePage,
@@ -14,15 +15,16 @@ const KycSidebar = ({
   data,
   isLoading,
   activeStyle,
-  handleChange
+  handleChange,
 }) => {
-  const { t } = useTranslation();
-  const mode = useSelector((state) => state?.theme?.mode);
-
+  const { t } = useTranslation()
+  const mode = useSelector((state) => state?.theme?.mode)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const theme = useMemo(
     () => createTheme(themeSettings(mode, data?.web)),
     [mode, data, isLoading]
-  );
+  )
 
   return (
     <>
@@ -43,10 +45,14 @@ const KycSidebar = ({
       >
         <Grid display="flex" flexDirection="column">
           {menuList.map((item, i) => {
+            const path =
+              userDetails?.nature === "TMS"
+                ? item.path.replace("demat-registration", "tms-registration")
+                : item.path
             return (
               <NavLink
                 className="navlinks-list"
-                to={!isHomePage && item.path}
+                to={!isHomePage && path}
                 key={i}
                 style={({ isActive }) =>
                   isActive && !isHomePage
@@ -60,7 +66,7 @@ const KycSidebar = ({
                   <Typography variant="h7">{t(`${item.title}`)}</Typography>
                 </Grid>
               </NavLink>
-            );
+            )
           })}
         </Grid>
       </Grid>
@@ -76,9 +82,9 @@ const KycSidebar = ({
           <div
             className="navlinks-list"
             onClick={() => {
-              dispatch({ type: "LOGOUT" });
-              logout();
-              navigate("/login");
+              dispatch({ type: "LOGOUT" })
+              logout()
+              navigate("/login")
             }}
           >
             <Grid className="profileIcon" style={{ textDecoration: "none" }}>
@@ -121,7 +127,7 @@ const KycSidebar = ({
         </Grid>
       </Grid>
     </>
-  );
-};
+  )
+}
 
-export default KycSidebar;
+export default KycSidebar
