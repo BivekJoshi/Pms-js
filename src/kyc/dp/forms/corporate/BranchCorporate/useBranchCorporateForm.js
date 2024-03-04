@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useAddBranchDetail } from "../../../../../hooks/kyc/branch/useBranchDetail";
 // import { ageREgex, citizenExp, emailRegex, fullnameRegex, numberRegExp1, phoneRegExp } from "../../static/RegExp";
 
 // const NomineeSchema = Yup.object().shape({
@@ -125,6 +126,7 @@ import * as Yup from "yup";
 // });
 
 export const useBranchCorporateForm = () => {
+  const { mutate } = useAddBranchDetail({});
   const formik = useFormik({
     initialValues: {
       id: "",
@@ -138,7 +140,12 @@ export const useBranchCorporateForm = () => {
     },
     // validationSchema: NomineeSchema,
     onSubmit: (value) => {
-      console.log(value, "nominee Valueee");
+      const formData = { ...value };
+      mutate(formData, {
+        onSuccess: (data) => {
+          formik.resetForm();
+        },
+      });
     },
   });
   return { formik };
