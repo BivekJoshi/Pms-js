@@ -232,6 +232,7 @@ const RenderInput = ({
             <FormControlLabel
               name={element?.name}
               label={t(element?.label)}
+              sx={{display: element?.display, flexDirection: element?.direction, margin: element?.margin, justifyContent: element?.justify}}
               control={<Switch checked={formVaues} />}
               onChange={(e, value) => {
                 if (value) {
@@ -339,12 +340,12 @@ const RenderInput = ({
         );
       case "switch":
         return (
-          <div style={{ display: element?.displaySwitch || "flex", flexDirection: element?.displaySwitchDirection, alignItems: element?.displaySwitchAlign }}>
+          <div style={{ display: element?.display, flexDirection: element?.direction, alignItems: element?.align }}>
             <FormControlLabel
               style={{
-                display: element?.display,
-                flexDirection: element?.direction,
-                marginLeft: element?.marginLeft,
+                display: "flex",
+              flexDirection: "row-reverse",
+              marginLeft: "0px",
               }}
               control={
                 <Switch
@@ -404,12 +405,12 @@ const RenderInput = ({
         );
       case "switchWithFields":
         return (
-          <div style={{ display: element?.displaySwitch || "flex", flexDirection: element?.displaySwitchDirection, alignItems: element?.displaySwitchAlign }}>
+          <div style={{ display: element?.display, flexDirection: element?.direction, alignItems: element?.align }}>
             <FormControlLabel
              style={{
-              display: element?.display,
-              flexDirection: element?.direction,
-              marginLeft: element?.marginLeft,
+              display: "flex",
+              flexDirection: "row-reverse",
+              marginLeft: "0px",
             }}
               control={
                 <Switch

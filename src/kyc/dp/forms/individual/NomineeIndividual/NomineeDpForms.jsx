@@ -13,12 +13,9 @@ const NOMINEEFIELDS = [
     type: "switchWithFields",
     required: "Please specify whether company is subsidiary or not",
     id: nanoid(),
-    displaySwitch: "flex",
-    displaySwitchDirection: "column",
-    displaySwitchAlign: "start",
     display: "flex",
-    direction: "row-reverse",
-    margin: "0px 0px 8px 2px",
+    direction: "column",
+    align: "start",  
     sm: 12,
     newFields: [
       {

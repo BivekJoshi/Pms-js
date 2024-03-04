@@ -2,7 +2,13 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import toast from "react-hot-toast";
 import { addBODetail, getBODetail } from '../../../../api/Kyc/KycBO/bo-api';
 
-c
+/*________________________GET BO DETAIL_____________________________________*/
+export const useGetBODetail = () => {
+  return useQuery(["getBODetail"], () => getBODetail(), {
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+  });
+};
 
 /*________________________POST BO DETAIL_____________________________________*/
 export const useAddBODetail = ({ onSuccess }) => {

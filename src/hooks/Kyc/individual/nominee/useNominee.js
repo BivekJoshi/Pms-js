@@ -17,7 +17,7 @@ export const useAddNomineeDetail = ({ onSuccess }) => {
     ["addNominee"],
      (formData) => addNomineeDetail(formData), {
     onSuccess: (data, variables, context) => {
-      toast.success("Successfully added BO data");
+      toast.success("Successfully added nominee data");
       onSuccess && onSuccess(data, variables, context);
       queryClient.invalidateQueries('getNominee');
     },

@@ -196,6 +196,9 @@ const CorporateDetailsDp = () => {
       label: "Is Company Listed? (कम्पनी सूचीबद्ध छ?)",
       type: "switchWithFields",
       id: nanoid(),
+      display: "flex",
+      direction: "column",
+      align: "start",
       sm: 12,
       newFields: [
         {
@@ -220,13 +223,16 @@ const CorporateDetailsDp = () => {
       type: "switchWithFields",
       id: nanoid(),
       sm: 12,
+      display: "flex",
+      direction: "column",
+      align: "start",
       newFields: [
         {
           name: "mainCompanyName",
           label: "Main Company Name",
           type: "text",
           id: nanoid(),
-          md: 4,
+          md: 12,
           sm: 12,
         },
       ],
