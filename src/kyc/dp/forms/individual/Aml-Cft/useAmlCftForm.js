@@ -68,6 +68,7 @@ export const useAmlCftForm = () => {
     },
     // validationSchema: AMLCFTSchema,
     onSubmit: (values) => {
+      console.log(values,"values");
       const formData = { ...values };
       mutate(formData, {
         onSuccess: (data) => {
