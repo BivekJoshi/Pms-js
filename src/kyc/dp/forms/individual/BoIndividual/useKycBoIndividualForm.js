@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
-import { useAddKycBO } from "../../../../../hooks/Kyc/individual/boStatement/useAddKycBo";
+import { useAddBODetail } from "../../../../../hooks/Kyc/individual/boStatement/useAddKycBo";
 import { useEffect } from 'react';
 
 export const useKycBoIndividualForm = (data) => {
-  const { mutate } = useAddKycBO({});
+  const { mutate } = useAddBODetail({});
 
   const formik = useFormik({
     initialValues: {

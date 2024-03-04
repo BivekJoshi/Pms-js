@@ -339,7 +339,7 @@ const RenderInput = ({
         );
       case "switch":
         return (
-          <div style={{ display: element?.displaySwitch || "flex", flexDirection: element?.displaySwitchDirection }}>
+          <div style={{ display: element?.displaySwitch || "flex", flexDirection: element?.displaySwitchDirection, alignItems: element?.displaySwitchAlign }}>
             <FormControlLabel
               style={{
                 display: element?.display,
@@ -404,8 +404,13 @@ const RenderInput = ({
         );
       case "switchWithFields":
         return (
-          <>
+          <div style={{ display: element?.displaySwitch || "flex", flexDirection: element?.displaySwitchDirection, alignItems: element?.displaySwitchAlign }}>
             <FormControlLabel
+             style={{
+              display: element?.display,
+              flexDirection: element?.direction,
+              marginLeft: element?.marginLeft,
+            }}
               control={
                 <Switch
                   checked={Boolean(formik.values[element?.name])}
@@ -420,7 +425,7 @@ const RenderInput = ({
             {formik.values[element?.name] && (
               <RenderInput inputField={element.newFields} formik={formik} />
             )}
-          </>
+          </div>
         );
 
       case "radio":

@@ -3,15 +3,14 @@ import React, { useEffect, useState } from "react";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { nanoid } from "nanoid";
 import { useKycBoIndividualForm } from "./useKycBoIndividualForm";
-import { useGetKycBO } from '../../../../../hooks/Kyc/individual/boStatement/useAddKycBo';
+import { useGetBODetail } from '../../../../../hooks/Kyc/individual/boStatement/useAddKycBo';
 
 const bodFields = [
   {
     name: "isStandingInstructionForAutomaticTxn",
     label: "Do you want Standing Instruction For The Automatic Transaction?",
     type: "switch",
-    displaySwitch: "flex",
-    displaySwitchDirection: "column",
+   c
     col: 12,
     id: nanoid(),
   required: true,
@@ -53,8 +52,8 @@ const bodFields = [
 const BoIndividualDetails = () => {
   const [fields, setFields] = useState(bodFields);
   const theme = useTheme();
-  const { data: BoData, isLoading: BoLoading } = useGetKycBO();
-  const data = BoData && BoData?.data
+  const { data: boData } = useGetBODetail();
+  const data = boData && boData?.data
   const { formik } = useKycBoIndividualForm(data);
 
   useEffect(() => {

@@ -1,21 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import toast from "react-hot-toast";
-import { addKycBO, getKycBO } from '../../../../api/Kyc/KycBO/addKycBO';
+import { addBODetail, getBODetail } from '../../../../api/Kyc/KycBO/bo-api';
 
-/*________________________GET BO DETAIL_____________________________________*/
-export const useGetKycBO = () => {
-  return useQuery(["getBODetail"], () => getKycBO(), {
-    refetchInterval: false,
-    refetchOnWindowFocus: false,
-  });
-};
+c
 
 /*________________________POST BO DETAIL_____________________________________*/
-export const useAddKycBO = ({ onSuccess }) => {
+export const useAddBODetail = ({ onSuccess }) => {
   const queryClient = useQueryClient();
   return useMutation(
     ["addBODetail"],
-     (formData) => addKycBO(formData), {
+     (formData) => addBODetail(formData), {
     onSuccess: (data, variables, context) => {
       toast.success("Successfully added BO data");
       onSuccess && onSuccess(data, variables, context);
