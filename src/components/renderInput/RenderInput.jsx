@@ -330,7 +330,7 @@ const RenderInput = ({
             value={formVaues}
             onChange={formik.handleChange}
             fullWidth
-            type="number"
+            type={element?.type}
             required={element.required}
             variant="outlined"
             error={formTouched && Boolean(formError)}

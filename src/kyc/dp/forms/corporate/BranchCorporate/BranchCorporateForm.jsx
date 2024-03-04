@@ -13,6 +13,9 @@ const BranchCorporateForm = () => {
         name:"otherBranch",
         label:"Do you have other branch?",
         type:"switchWithFields",
+        displaySwitch: "flex",
+        displaySwitchDirection: "column",
+       
         id:nanoid(),
         sm:12,
         newFields:[

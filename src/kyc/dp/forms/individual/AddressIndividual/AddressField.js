@@ -83,7 +83,7 @@ export const AddressField = [
     options: PROVINCE,
   },
   {
-    name: "wardNo",
+    name: "wordNo",
     label: "Ward No.",
     md: 3,
     sm: 6,

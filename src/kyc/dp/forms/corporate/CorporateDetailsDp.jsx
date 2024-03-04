@@ -8,7 +8,8 @@ import {
 } from "../../../../utility/kycData";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { useTheme } from "@emotion/react";
-import { CorporateDpForm } from "../../../../form/auth/CorporateDp/corporateDpForm";
+import { BasicCorporateDpForm } from "../../../../form/auth/CorporateDp/BasicCorporateDpForm";
+import { useGetBasicDpCorporate } from '../../../../hooks/Kyc/corporate/BasicCoporateDp/useBasicCoporateDp';
 
 const CorporateDetailsDp = () => {
   const CorporateField = [
@@ -238,9 +239,10 @@ const CorporateDetailsDp = () => {
       sm: 12,
     },
   ];
-
+const {data: basicCorData} = useGetBasicDpCorporate();
+const data = basicCorData && basicCorData?.data;
   const theme = useTheme();
-  const { formik } = CorporateDpForm();
+  const { formik } = BasicCorporateDpForm(data);
   // useEffect(() => {
 
   // }, [formik.values.isListed, formik.values.isSubsidiary, formik.values.isMF]);

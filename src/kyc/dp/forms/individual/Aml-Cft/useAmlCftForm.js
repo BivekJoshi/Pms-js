@@ -66,7 +66,7 @@ export const useAmlCftForm = () => {
         },
       ],
     },
-    validationSchema: AMLCFTSchema,
+    // validationSchema: AMLCFTSchema,
     onSubmit: (values) => {
       const formData = { ...values };
       mutate(formData, {
