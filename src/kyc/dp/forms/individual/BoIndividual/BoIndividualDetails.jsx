@@ -16,7 +16,7 @@ const bodFields = [
   required: true,
     display: "flex",
     direction: "column",
-    align: "start",
+    justify: "start",
     hasRadio: true,
     radioName: "accountStatementPeriod",
     radioLabel: "Account Statement Period",

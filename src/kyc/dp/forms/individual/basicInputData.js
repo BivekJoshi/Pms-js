@@ -730,7 +730,7 @@ export const basicData = [
     marginLeft: "0px",
     required: true,
     display: "flex",
-    direction: "row-reverse",
+    direction: "row",
     isDisabled: true,
     sm: 12,
     md: 12,
@@ -742,6 +742,7 @@ export const basicData = [
     radioDisplay: "flex",
     radioAlign: "center",
     radioGap: "16px",
+    justify: "start",
     radio: [
       {
         value: "guardianCitizen",
@@ -760,6 +761,7 @@ export const basicData = [
     display: "flex",
     marginLeft: "0px",
     direction: "row-reverse",
+    justify: "start",
     required: true,
     md: 12,
     sm: 12,
@@ -774,6 +776,7 @@ export const basicData = [
     display: "flex",
     marginLeft: "0px",
     direction: "row-reverse",
+    justify: "start",
     required: true,
     md: 12,
     sm: 12,

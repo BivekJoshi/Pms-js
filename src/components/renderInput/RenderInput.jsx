@@ -340,12 +340,13 @@ const RenderInput = ({
         );
       case "switch":
         return (
-          <div style={{ display: element?.display, flexDirection: element?.direction, alignItems: element?.align }}>
+          <div style={{ display: element?.display, flexDirection: element?.direction, justifyContent: element?.justify }}>
             <FormControlLabel
               style={{
                 display: "flex",
               flexDirection: "row-reverse",
               marginLeft: "0px",
+              justifyContent: element?.justify
               }}
               control={
                 <Switch
