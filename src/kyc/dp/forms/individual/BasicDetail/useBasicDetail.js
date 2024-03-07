@@ -1,9 +1,17 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import toast from "react-hot-toast";
-import { addBasicDetail } from "../../../../../api/Kyc/Demat/demat_api";
+import { addBasicDetail, getBasicDetail } from "../../../../../api/Kyc/Demat/demat_api";
 import { getErrorMessage } from "../../../../../utility/getErrorMessage";
 
-/*________________________POST WATCHLIST MASTER_____________________________________*/
+/*________________________GET DP INDIVIDUAL DETAILS_____________________________________*/
+export const useGetBasicDetail = () => {
+  return useQuery(["getBasicDetail"], () => getBasicDetail(), {
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+  });
+};
+
+/*________________________POST DP INDIVIDUAL DETAILS_____________________________________*/
 export const useAddBasicDetail = () => {
   return useMutation(
     ["addBasicDetail"],

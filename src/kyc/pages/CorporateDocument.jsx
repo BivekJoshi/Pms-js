@@ -6,8 +6,11 @@ import FormModal from "../../components/formModal/FormModal";
 import CustomTable from "../../components/customTable/CustomTable";
 import { useTranslation } from 'react-i18next';
 import CorporateDocumentField from "../dp/forms/corporate/CorporateDocumentField";
+import { useGetDocument } from '../../hooks/Kyc/DocumentUpload/useDocument';
 
 const CorporateDocument = () => {
+  const { data: documentData } =  useGetDocument();
+  console.log(documentData?.data, "docs");
   const { t } = useTranslation();
   const theme = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -103,7 +106,7 @@ const CorporateDocument = () => {
       <CustomTable
         // title={t("Watchlist")}
         columns={columns}
-        // data={watchListDataById?.data}
+        data={documentData?.data}
         // state={{
         //   isLoading: isLoading,
         //   showSkeletons: isLoading,

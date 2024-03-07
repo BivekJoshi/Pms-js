@@ -156,7 +156,7 @@ const FamilyIndividualDpForms = () => {
             Family Members
           </Typography>
         </Grid>
-        <FormikProvider value={formik}>
+        <FormikProvider value={formik} {...formik}>
           <FieldArray name="personDetail">
             {() => {
               return (

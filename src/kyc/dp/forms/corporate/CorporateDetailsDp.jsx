@@ -212,7 +212,7 @@ const CorporateDetailsDp = () => {
           engSm: 12,
           nepMd: 6,
           nepSm: 12,
-          md: 8,
+          md: 12,
           sm: 12,
         },
       ],

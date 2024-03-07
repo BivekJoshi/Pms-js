@@ -9,7 +9,7 @@ import { useGetNomineeDetail } from '../../../../../hooks/Kyc/individual/nominee
 const NOMINEEFIELDS = [
   {
     name: "haveNominee",
-    label: "Do you want to keep Nominee Details ? ",
+    label: "Do you want to keep Nominee Details?",
     type: "switchWithFields",
     required: "Please specify whether company is subsidiary or not",
     id: nanoid(),

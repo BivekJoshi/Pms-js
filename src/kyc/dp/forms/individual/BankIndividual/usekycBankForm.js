@@ -10,7 +10,8 @@ const bankSchema = Yup.object().shape({
   branchAddress: Yup.string().required("Branch Address is required"),
 });
 
-export const useKycBankForm = () => {
+export const useKycBankForm = (bankDataField) => {
+
 const { mutate } = useAddKycBank({});
   const formik = useFormik({
     initialValues: {
@@ -18,6 +19,8 @@ const { mutate } = useAddKycBank({});
       accountNumber: "",
       accountType: "",
       branchAddress: "",
+      isPrimary: false,
+      // userId: 159,
     },
     validationSchema: bankSchema,
     onSubmit: (values) => {

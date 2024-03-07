@@ -5,6 +5,7 @@ import dateConverter from "../../utility/dateConverter";
 import dayjs from "dayjs";
 import { Grid } from "@mui/material";
 import { useTranslation } from 'react-i18next';
+import { DivOverlay } from 'leaflet';
 
 export const DualDatePicker = ({ element, formik }) => {
   const { t } = useTranslation();
@@ -37,12 +38,11 @@ export const DualDatePicker = ({ element, formik }) => {
   }, [nepaliDate]);
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{display: "flex", alignItems: "center"}} >
       <Grid
-        item
-        style={{ marginTop: "12px", width: "100%" }}
-        md={element.engMd}
-        sm={element.engSm}
+      item
+         md={element.nepMd}
+         sm={element.nepSm}
       >
         <DatePicker
           sx={{ width: "100%" }}
@@ -59,16 +59,21 @@ export const DualDatePicker = ({ element, formik }) => {
                 formik.touched[element.name] && formik.errors[element.name],
             },
           }}
-        />
-      </Grid>
-      <GlobalNepaliDatePicker
+          />
+          </Grid>
+        <Grid
+                item
+                md={element.nepMd}
+                sm={element.nepSm}
+                >
+        <GlobalNepaliDatePicker
         name={element.name}
-        md={element.nepMd}
-        sm={element.nepSm}
         label={t(element.nepaliLabel)}
         value={nepaliDate}
         handleChange={handleNepaliDateChange}
-      />
+        />
+    
+        </Grid>
     </Grid>
   );
 };

@@ -8,6 +8,7 @@ import {
   PassportFiled,
 } from "./DocumentField";
 import { useDocumentForm } from "./useDocumentForm";
+import { useGetDocument } from '../../../../../hooks/Kyc/DocumentUpload/useDocument';
 
 const DocumentFieldDp = () => {
   const { formik } = useDocumentForm();
