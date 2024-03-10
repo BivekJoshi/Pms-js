@@ -1,7 +1,7 @@
 import { axiosInstance } from '../../axiosInterceptor';
 
 
-/*________________________GET OCCUPATION DETAIL_____________________________________*/
+/*________________________GET DOCUMENT DETAIL_____________________________________*/
 export const getDocument = async () => {
   const data = await axiosInstance.get(
     `/client/client-document`

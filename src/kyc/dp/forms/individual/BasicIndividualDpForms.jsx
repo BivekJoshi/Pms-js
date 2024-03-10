@@ -10,9 +10,12 @@ import { useGetBasicDetail } from './BasicDetail/useBasicDetail';
 const BasicIndividualDpForms = () => {
   const theme = useTheme();
   const currentForm = 1;
-const { data: basicDpData } = useGetBasicDetail();
-console.log(basicDpData?.data, "basic")
-  const { formik } = useBasicIndividualDpForms({ currentForm });
+const { data: basicIndividualData } = useGetBasicDetail();
+
+const basicIndividualDetails = basicIndividualData && basicIndividualData?.data
+const individualDetails = basicIndividualData && basicIndividualData?.data?.individualDetails
+console.log(basicIndividualData?.data, "basic")
+  const { formik } = useBasicIndividualDpForms({ currentForm, individualDetails });
   const { t } = useTranslation();
 
   useEffect(() => {

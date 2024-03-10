@@ -1,12 +1,15 @@
 import { useFormik } from "formik";
-import { usePhotoUpload } from '../../../../../hooks/Kyc/DocumentUpload/usePhotoUplaod';
+import { useAddCitizenshipField } from '../../../../../hooks/Kyc/DocumentUpload/usePhotoUplaod';
 
-export const useDocumentForm = () => {
-  const { mutate } = usePhotoUpload({});
+export const useDocumentFieldForm = () => {
+  const { mutate } = useAddCitizenshipField({});
 
   const formik = useFormik({
     initialValues: {
+      citizenshipNo: "",
       docType: "",
+      issuedDatebs: "",
+      issuedDistrict: "",
     },
     onSubmit: (values) => {
       const formData = { ...values };

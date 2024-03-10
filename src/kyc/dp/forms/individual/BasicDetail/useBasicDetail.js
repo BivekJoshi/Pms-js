@@ -12,7 +12,7 @@ export const useGetBasicDetail = () => {
 };
 
 /*________________________POST DP INDIVIDUAL DETAILS_____________________________________*/
-export const useAddBasicDetail = () => {
+export const useAddBasicDetail = ({ onSuccess }) => {
   return useMutation(
     ["addBasicDetail"],
     (formData, currentForm) => addBasicDetail(formData, currentForm),

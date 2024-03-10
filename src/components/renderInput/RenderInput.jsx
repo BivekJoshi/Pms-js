@@ -26,6 +26,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { useSelector } from "react-redux";
 import NepaliInputText from "../inputType/NepaliInputText";
 import { useTranslation } from "react-i18next";
+import AsyncDropDownOption from './AsyncDropDownOption';
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -494,7 +495,11 @@ const RenderInput = ({
       case "dualDate":
         return <DualDatePicker element={element} formik={formik} />;
 
-      case "asyncDropDown":
+      case "asyncDropDownOption":
+        return (
+          <AsyncDropDownOption element={element} formik={formik} />
+        );
+        case "asyncDropDown":
         return (
           <div style={{display: "flex"}}>
             <AsyncDropDown element={element} formik={formik} />
@@ -517,7 +522,7 @@ const RenderInput = ({
         );
 
       case "documentUpload":
-        return <DropZoneUploadFile title={element?.title} />;
+        return <DropZoneUploadFile element={element} formik={formik} />;
 
       default:
         return <TextField name={element?.name} label={t(element?.label)} />;
