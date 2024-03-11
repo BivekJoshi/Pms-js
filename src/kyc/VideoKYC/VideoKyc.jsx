@@ -5,7 +5,7 @@ import { showNotification } from "@mantine/notifications";
 import { axiosInstance } from "../../api/axiosInterceptor";
 import image from "../../assets/dghub-logo.png";
 import ringtoneSound from "../../assets/soft_ringtone.mp3";
-// import { useAuthContext } from "../../hooks/Kyc/authContext/authContext";
+import { useAuthContext } from "../../hooks/Kyc/authContext/authContext";
 
 const VideoKyc = () => {
     const { user } = useAuthContext();
@@ -20,6 +20,7 @@ const VideoKyc = () => {
     const [bomData, setBomData] = useState();
     const [currentTime, setCurrentTime] = useState();
     const [incomingCall, setIncomingCall] = useState(null);
+
     useEffect(() => {
       const initializePeer = async () => {
         sendRequest();
@@ -123,7 +124,6 @@ const VideoKyc = () => {
         ringtone.loop = false;
       };
     }, [incomingCall, ringtone]);
-
     const acceptCall = () => {
       // Answer the incoming call
       if (incomingCall) {
@@ -175,6 +175,7 @@ const VideoKyc = () => {
           });
       }
     };
+    console.log(incomingCall);
 
     const rejectCall = () => {
       // Reject the incoming call

@@ -150,7 +150,7 @@ export default function AppRoutes() {
                 path="demat-registration/i/document-details"
                 element={<IndividualDocument />}
               />{" "}
-              {/* <Route path="video-kyc" element={<VideoKyc />} /> */}
+              <Route path="video-kyc" element={<VideoKyc />} />
               <Route
                 path="demat-registration/c/document-details"
                 element={<CorporatDocument />}
