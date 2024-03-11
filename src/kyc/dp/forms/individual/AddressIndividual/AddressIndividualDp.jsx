@@ -12,7 +12,7 @@ const AddressIndividualDp = () => {
   const data = addressData && addressData?.data;
   const { formik } = useAddressForm(data);
   const theme = useTheme();
-  
+
   return (
     <div data-aos="zoom-in-right">
       <Box

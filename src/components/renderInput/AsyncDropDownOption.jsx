@@ -9,9 +9,10 @@ const AsyncDropDownOption = ({ element, formik, index }) => {
 
     useEffect(() => {
         const fetchData = async () => {
+            
             try {
                 if (!element.path || !element.reference) return;
-                let referenceValue = '';
+                let referenceValue = "";
                 if (element.reference === 'province') {
                     referenceValue = formik.values.addresses[index].province;
                 } else if (element.reference === 'district') {
