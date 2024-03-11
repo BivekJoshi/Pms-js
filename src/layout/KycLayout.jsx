@@ -9,123 +9,117 @@ import {
   Typography,
   createTheme,
   useMediaQuery,
-} from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
-import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { themeSettings } from "../theme";
-import { useDispatch, useSelector } from "react-redux";
-import KycNavbar from "../components/navbar/KycNavbar";
-import { useTranslation } from "react-i18next";
-import "./layout.css";
+} from "@mui/material"
+import React, { useEffect, useMemo, useState } from "react"
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom"
+import { themeSettings } from "../theme"
+import { useDispatch, useSelector } from "react-redux"
+import KycNavbar from "../components/navbar/KycNavbar"
+import { useTranslation } from "react-i18next"
+import "./layout.css"
 import {
   corporateKycDematList,
   corporateKycTMSList,
   individualKycDematList,
   individualkycTmsList,
-} from "./kycMenuList";
-import KycProfileCard from "../kyc/components/KycProfileCard";
-import { logout } from "../utility/logout";
-import { useGetTheme } from "../hooks/brokerTheme/useBrokerTheme";
-import _ from "lodash";
-import { useGetCompanyByIdNo } from "../hooks/company/useCompany";
-import { useGetMetaData } from "../kyc/hooks/useMetaDataKyc";
-import Spinner from "../components/spinner/Spinner";
-import MenuIcon from "@mui/icons-material/Menu";
-import KycSidebar from "./KycSidebar";
+} from "./kycMenuList"
+import KycProfileCard from "../kyc/components/KycProfileCard"
+import { logout } from "../utility/logout"
+import { useGetTheme } from "../hooks/brokerTheme/useBrokerTheme"
+import _ from "lodash"
+import { useGetCompanyByIdNo } from "../hooks/company/useCompany"
+import { useGetMetaData } from "../kyc/hooks/useMetaDataKyc"
+import Spinner from "../components/spinner/Spinner"
+import MenuIcon from "@mui/icons-material/Menu"
+import KycSidebar from "./KycSidebar"
+import { getUser, getUserToken } from "../utility/userHelper"
 
 const KycLayout = () => {
-  const mode = useSelector((state) => state?.theme?.mode);
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { pathname } = useLocation();
-  const [isHomePage, setIsHomePage] = useState(false);
-  const navigate = useNavigate();
-  const [menuList, setMenuList] = useState([]);
-  const [openDrawer, setOpenDrawer] = useState(false);
-  const [value, setValue] = useState("1");
-  const brokerId = useSelector((state) => state?.user.details?.brokerNo);
+  const mode = useSelector((state) => state?.theme?.mode)
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const { pathname } = useLocation()
+  const [isHomePage, setIsHomePage] = useState(false)
+  const navigate = useNavigate()
+  const [menuList, setMenuList] = useState([])
+  const [openDrawer, setOpenDrawer] = useState(false)
+  const brokerId = useSelector((state) => state?.user.details?.brokerNo)
 
-  const userDetails = useSelector((state) => state?.user);
-  const { data, isLoading, refetch } = useGetTheme(brokerId);
+  const userDetails = useSelector((state) => state?.user)
+  const { data, isLoading, refetch } = useGetTheme(brokerId)
 
-  const authDataString = localStorage.getItem("auth");
-  const authData = JSON.parse(authDataString);
-  const authToken = authData?.authToken;
+  const { authToken } = getUserToken()
+  const { id: userId } = getUser()
   useEffect(() => {
     if (!authToken) {
-      navigate("/login");
-    }
-    // else if (authData?.tempPassword) {
-    //   navigate("change/password");
-    // }
-    else {
-      refetch();
+      navigate("/login")
+    } else {
+      refetch()
     }
     if (data) {
-      dispatch({ type: "SET_BROKER_THEME", payload: data?.web });
+      dispatch({ type: "SET_BROKER_THEME", payload: data?.web })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, isLoading, authToken]);
+  }, [data, isLoading, authToken])
   useEffect(() => {
     if (pathname && pathname.length > 2) {
       const isHome =
-        pathname.split("/")[pathname.split("/").length - 1] === "home";
-      setIsHomePage(isHome);
+        pathname.split("/")[pathname.split("/").length - 1] === "home"
+      setIsHomePage(isHome)
     }
-  }, [pathname]);
+  }, [pathname])
 
   const {
     data: userData,
     isLoading: userLoad,
     refetch: userRefetch,
-  } = useGetMetaData(authData?.id);
+  } = useGetMetaData(userId)
 
   useEffect(() => {
     if (_.isEmpty(userDetails)) {
-      userRefetch();
-      dispatch({ type: "USER_LOGIN", payload: userData?.user });
+      userRefetch()
+      dispatch({ type: "USER_LOGIN", payload: userData?.user })
     }
-  }, [userData]);
+  }, [userData])
 
   useEffect(() => {
     if (!_.isEmpty(userDetails)) {
       if (userDetails.clientType) {
         if (userDetails.clientType === "I" && userDetails.nature === "DP") {
-          setMenuList(individualKycDematList);
+          setMenuList(individualKycDematList)
         } else if (
           userDetails.clientType === "I" &&
           userDetails.nature === "TMS"
         ) {
-          setMenuList(individualkycTmsList);
+          setMenuList(individualkycTmsList)
         } else if (
           userDetails.clientType === "C" &&
           userDetails.nature === "DP"
         ) {
-          setMenuList(corporateKycDematList);
+          setMenuList(corporateKycDematList)
         } else if (
           userDetails.clientType === "C" &&
           userDetails.nature === "TMS"
         ) {
-          setMenuList(corporateKycTMSList);
+          setMenuList(corporateKycTMSList)
         } else {
-          setMenuList([]);
+          setMenuList([])
         }
       }
     } else {
-      setMenuList([]);
+      setMenuList([])
     }
-  }, [userDetails]);
+  }, [userDetails])
   const theme = useMemo(
     () => createTheme(themeSettings(mode, data?.web)),
     [mode, data, isLoading]
-  );
-  const isSm = useMediaQuery(theme.breakpoints.down("md"));
+  )
+  const isSm = useMediaQuery(theme.breakpoints.down("md"))
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
-    setOpenDrawer(false);
-    window.scrollTo(0, 0);
-  };
+    setOpenDrawer(false)
+    window.scrollTo(0, 0)
+  }
 
   const activeStyle = {
     color: theme.palette.text.main,
@@ -133,10 +127,10 @@ const KycLayout = () => {
     borderRadius: ".5rem ",
     textTransform: "none",
     fontWeight: 700,
-  };
+  }
 
   if (userLoad) {
-    return <Spinner />;
+    return <Spinner />
   }
   return (
     <ThemeProvider theme={theme} key={userData}>
@@ -251,7 +245,7 @@ const KycLayout = () => {
         </Box>
       </section>
     </ThemeProvider>
-  );
-};
+  )
+}
 
-export default KycLayout;
+export default KycLayout

@@ -1,6 +1,6 @@
-import { useFormik } from "formik";
-import useBasicIndividualValidationSchema from "./useBasicIndividualValidationSchema";
-import { useAddBasicDetail } from "./BasicDetail/useBasicDetail";
+import { useFormik } from "formik"
+import useBasicIndividualValidationSchema from "./useBasicIndividualValidationSchema"
+import { useAddBasicDetail } from "./BasicDetail/useBasicDetail"
 
 export const useBasicIndividualDpForms = ({ currentForm, individualDetails }) => {
   const { mutate } = useAddBasicDetail({ currentForm });
@@ -22,16 +22,16 @@ export const useBasicIndividualDpForms = ({ currentForm, individualDetails }) =>
     },
     validationSchema: useBasicIndividualValidationSchema,
     onSubmit: (values) => {
-      const formData = { ...values };
-      console.log("Valueee", formData);
+      const formData = { ...values }
+      console.log("Valueee", formData)
 
       mutate(formData, {
         onSuccess: (data) => {
-          formik.resetForm();
+          formik.resetForm()
         },
-      });
+      })
     },
-  });
+  })
 
-  return { formik };
-};
+  return { formik }
+}

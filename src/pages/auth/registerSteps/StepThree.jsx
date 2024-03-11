@@ -18,7 +18,7 @@ const StepThree = ({ formik }) => {
       isDependent: nepseCodeTrue,
       trueNewFields: [
         {
-          name: "dematNo",
+          name: "dematNo",7
           type: "number",
           label: "Demat No",
           required: true,

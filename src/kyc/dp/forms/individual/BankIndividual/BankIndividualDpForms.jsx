@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Grid, Button, useTheme, Typography, Switch, IconButton } from "@mui/material";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { useKycBankForm } from "./usekycBankForm";
 import { Box } from "@mui/system";
 import CustomTable from "../../../../../components/customTable/CustomTable";
-import { useMemo } from "react";
 import {
   useDeleteKycBank,
   useGetBankList,
@@ -73,14 +72,14 @@ const BankIndividualDpForms = () => {
       sm: 6,
       md: 3,
     },
-  ];
+  ]
 
   const columns = useMemo(
     () => [
       {
         id: 1,
         Cell: (cell) => {
-          return cell?.row?.index + 1;
+          return cell?.row?.index + 1
         },
         header: "SN",
         size: 50,
@@ -91,8 +90,10 @@ const BankIndividualDpForms = () => {
         accessorKey: "bankName",
         header: "Bank Name",
         accessorFn: (row) => {
-          const bankName = bankListData?.data?.find((code) => code?.code === row?.bankName)
-          return <>{bankName?.name}</>;
+          const bankName = bankListData?.data?.find(
+            (code) => code?.code === row?.bankName
+          )
+          return <>{bankName?.name}</>
         },
         size: 170,
         sortable: false,
@@ -101,7 +102,7 @@ const BankIndividualDpForms = () => {
         id: 3,
         accessorKey: "accountType",
         accessorFn: (row) => {
-          return <>{row?.accountType === "S" ? "Saving" : "Current"}</>;
+          return <>{row?.accountType === "S" ? "Saving" : "Current"}</>
         },
         header: "Account Type",
         size: 100,
@@ -218,10 +219,12 @@ const BankIndividualDpForms = () => {
         <Button
           variant="contained"
           color="secondary"
+          onClick={() => dispatch({ type: SET_FORM, payload: 5 })}
         >
           Next
         </Button>
       </Grid>
+
       {openDeleteModal && (
         <DeleteConfirmationModal
           open={openDeleteModal}
@@ -231,10 +234,10 @@ const BankIndividualDpForms = () => {
         />
       )}
     </div>
-  );
-};
+  )
+}
 
 
 
 
-export default BankIndividualDpForms;
+export default BankIndividualDpForms
