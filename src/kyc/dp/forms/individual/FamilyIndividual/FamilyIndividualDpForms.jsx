@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import { FieldArray, FormikProvider } from "formik";
 import { useKycFamilyForm } from "./usekycFamilyForm";
 import { useSelector } from "react-redux";
+import { useGetFamily } from '../../../../../hooks/kyc/family/useFamily';
 
 // const referalFields = [
 //   {
@@ -131,7 +132,9 @@ const relationField = [
 
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();
-  const { formik } = useKycFamilyForm();
+  const {data: familyData } = useGetFamily();
+ 
+  const { formik } = useKycFamilyForm({familyData});
   const language = useSelector((state) => state?.language?.mode);
   return (
     <div data-aos="zoom-in-right">

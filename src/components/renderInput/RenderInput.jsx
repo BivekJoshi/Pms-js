@@ -496,8 +496,7 @@ const RenderInput = ({
         return <DualDatePicker element={element} formik={formik} />;
 
       case "asyncDropDownOption":
-        return (
-          <AsyncDropDownOption element={element} formik={formik} />
+        return ( <AsyncDropDownOption element={element} formik={formik} index={index} />
         );
         case "asyncDropDown":
         return (

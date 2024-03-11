@@ -83,7 +83,8 @@ const validationSchema = Yup.object().shape({
   ),
 });
 
-export const useKycFamilyForm = () => {
+export const useKycFamilyForm = ({familyData}) => {
+  console.log(familyData);
   const { mutate } = useAddFamily({});
 
   const formik = useFormik({

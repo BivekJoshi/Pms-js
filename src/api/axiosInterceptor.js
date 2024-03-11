@@ -65,15 +65,15 @@ axiosInstance.interceptors.response.use(
       }
     }
 
-    // if (error.response === UNAUTHORIZED) {
-    //   try {
-    //     store.dispatch({ type: "LOGOUT" });
-    //     logout();
-    //     console.log("unauthorized");
-    //   } catch (e) {
-    //     console.log(e);
-    //   }
-    // }
+    if (error.response === UNAUTHORIZED) {
+      try {
+        store.dispatch({ type: "LOGOUT" });
+        logout();
+        console.log("unauthorized");
+      } catch (e) {
+        console.log(e);
+      }
+    }
     return Promise.reject(error);
   }
 );
