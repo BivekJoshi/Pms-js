@@ -1,36 +1,36 @@
 export const PROVINCE = [
   {
-    value: "Koshi Pradesh",
+    value: 1,
     label: "Koshi Pradesh",
     id: 1,
   },
   {
-    value: "Madhesh Pradesh",
+    value: 2,
     label: "Madhesh Pradesh",
     id: 2,
   },
   {
-    value: "Bagmati Pradesh",
+    value: 3,
     label: "Bagmati Pradesh",
     id: 3,
   },
   {
-    value: "Gandaki Pradesh",
+    value: 4,
     label: "Gandaki Pradesh",
     id: 4,
   },
   {
-    value: "Lumbini Pradesh",
+    value: 5,
     label: "Lumbini Pradesh",
     id: 5,
   },
   {
-    value: "Karnali Pradesh",
+    value: 6,
     label: "Karnali Pradesh",
     id: 6,
   },
   {
-    value: "Sudurpashchim Pradesh",
+    value: 7,
     label: "Sudurpashchim Pradesh",
     id: 7,
   },
@@ -45,9 +45,7 @@ export const AddressField = [
     xs: 12,
     required: true,
     type: "dropDown",
-    options: [
-      { id: 1, value: "Nepal", label: "Nepal" },
-    ],
+    options: [{ id: 1, value: "Nepal", label: "Nepal" }],
   },
   {
     name: "province",
@@ -68,8 +66,13 @@ export const AddressField = [
     lg: 4,
     xs: 12,
     required: true,
-    type: "dropDown",
-    options: PROVINCE,
+    type: "asyncDropDown",
+    responseLabel:"name",
+    responseId:"name",
+    dependentAction: {
+      fetch: true,
+      depApi: "/utility/district?province=#",
+    },
   },
   {
     name: "municipality",
@@ -79,8 +82,13 @@ export const AddressField = [
     lg: 4,
     xs: 12,
     required: true,
-    type: "dropDown",
-    options: PROVINCE,
+    type: "asyncDropDown",
+    responseLabel:"name",
+    responseId:"name",
+    dependentAction: {
+      fetch: true,
+      depApi: "/utility/municipal?district=#",
+    },
   },
   {
     name: "wordNo",

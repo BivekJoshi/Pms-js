@@ -121,7 +121,7 @@ const RenderInput = ({
   const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
   const mode = useSelector((state) => state?.theme?.mode);
   const { t } = useTranslation();
-
+  
   const getComponentToRender = (element, disableField) => {
     const formVaues = isFieldArray
       ? getIn(formik.values, element.name)
@@ -496,7 +496,7 @@ const RenderInput = ({
       case "asyncDropDown":
         return (
           <div style={{display: "flex"}}>
-            <AsyncDropDown element={element} formik={formik} />
+            <AsyncDropDown element={element} formik={formik} formVaues={formVaues}/>
             <div style={{ marginTop: "0.5rem" }}>
               {element.isDependent && formik.values[element?.name] ? (
                 <RenderInput

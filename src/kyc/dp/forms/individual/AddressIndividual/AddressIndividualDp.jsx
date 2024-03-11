@@ -10,8 +10,9 @@ import { useGetAddress } from '../../../../../hooks/kyc/address/useAddress';
 const AddressIndividualDp = () => {
   const { data: addressData } = useGetAddress();
   const data = addressData && addressData?.data;
-  const { formik } = useAddressForm(data);
+  const { formik } = useAddressForm();
   const theme = useTheme();
+
   
   return (
     <div data-aos="zoom-in-right">
