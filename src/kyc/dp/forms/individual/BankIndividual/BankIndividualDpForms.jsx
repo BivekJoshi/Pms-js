@@ -1,22 +1,25 @@
-import React from "react";
-import { Grid, Button, useTheme, Typography } from "@mui/material";
-import RenderInput from "../../../../../components/renderInput/RenderInput";
-import { useKycBankForm } from "./usekycBankForm";
-import { Box } from "@mui/system";
-import CustomTable from "../../../../../components/customTable/CustomTable";
-import { useMemo } from "react";
+import React from "react"
+import { Grid, Button, useTheme, Typography } from "@mui/material"
+import RenderInput from "../../../../../components/renderInput/RenderInput"
+import { useKycBankForm } from "./usekycBankForm"
+import { Box } from "@mui/system"
+import CustomTable from "../../../../../components/customTable/CustomTable"
+import { useMemo } from "react"
 import {
   useGetBankList,
   useGetKycBank,
-} from "../../../../../hooks/Kyc/individual/kycBank/useKycBank";
+} from "../../../../../hooks/Kyc/individual/kycBank/useKycBank"
+import { SET_FORM } from "../../../../../redux/types/types"
+import { useDispatch } from "react-redux"
 
 const BankIndividualDpForms = () => {
-  const theme = useTheme();
-  const { data: bankListData } = useGetBankList();
-  const { data: bankData } = useGetKycBank();
-  const bankDataField = bankData && [bankData?.data];
-  const { formik } = useKycBankForm();
-  
+  const theme = useTheme()
+  const { data: bankListData } = useGetBankList()
+  const { data: bankData } = useGetKycBank()
+  const bankDataField = bankData && [bankData?.data]
+  const dispatch = useDispatch()
+  const { formik } = useKycBankForm()
+
   const BANKFIELDS = [
     // {
     //   type: "dropDown",
@@ -77,14 +80,14 @@ const BankIndividualDpForms = () => {
       sm: 6,
       md: 3,
     },
-  ];
+  ]
 
   const columns = useMemo(
     () => [
       {
         id: 1,
         Cell: (cell) => {
-          return cell?.row?.index + 1;
+          return cell?.row?.index + 1
         },
         header: "SN",
         size: 50,
@@ -95,8 +98,10 @@ const BankIndividualDpForms = () => {
         accessorKey: "bankName",
         header: "Bank Name",
         accessorFn: (row) => {
-          const bankName = bankListData?.data?.find((code) => code?.code === row?.bankName)
-          return <>{bankName?.name}</>;
+          const bankName = bankListData?.data?.find(
+            (code) => code?.code === row?.bankName
+          )
+          return <>{bankName?.name}</>
         },
         size: 170,
         sortable: false,
@@ -105,7 +110,7 @@ const BankIndividualDpForms = () => {
         id: 3,
         accessorKey: "accountType",
         accessorFn: (row) => {
-          return <>{row?.accountType === "S" ? "Saving" : "Current"}</>;
+          return <>{row?.accountType === "S" ? "Saving" : "Current"}</>
         },
         header: "Account Type",
         size: 100,
@@ -142,7 +147,7 @@ const BankIndividualDpForms = () => {
       },
     ],
     []
-  );
+  )
 
   return (
     <form>
@@ -191,12 +196,13 @@ const BankIndividualDpForms = () => {
         <Button
           variant="contained"
           color="secondary"
+          onClick={() => dispatch({ type: SET_FORM, payload: 5 })}
         >
           Next
         </Button>
       </Grid>
     </form>
-  );
-};
+  )
+}
 
-export default BankIndividualDpForms;
+export default BankIndividualDpForms
