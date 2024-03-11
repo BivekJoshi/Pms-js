@@ -11,22 +11,22 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Typography,
-} from "@mui/material";
-import { Field, getIn } from "formik";
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import AsyncDropDown from "./AsyncDropDown";
-import { FormControl } from "@mui/base";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import mapIcon from "../../assets/marker-icon.png";
-import L from "leaflet";
-import { PickDate, DualDatePicker } from "./DualDatePicker";
-import DropZoneUploadFile from "../dropZone/DropZoneUploadFile";
-import { DatePicker } from "@mui/x-date-pickers";
-import { useSelector } from "react-redux";
-import NepaliInputText from "../inputType/NepaliInputText";
-import { useTranslation } from "react-i18next";
-const icon = L.icon({ iconUrl: mapIcon });
+} from "@mui/material"
+import { Field, getIn } from "formik"
+import React, { useEffect, useMemo, useRef, useState } from "react"
+import AsyncDropDown from "./AsyncDropDown"
+import { FormControl } from "@mui/base"
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet"
+import "leaflet/dist/leaflet.css"
+import mapIcon from "../../assets/marker-icon.png"
+import L from "leaflet"
+import { PickDate, DualDatePicker } from "./DualDatePicker"
+import DropZoneUploadFile from "../dropZone/DropZoneUploadFile"
+import { DatePicker } from "@mui/x-date-pickers"
+import { useSelector } from "react-redux"
+import NepaliInputText from "../inputType/NepaliInputText"
+import { useTranslation } from "react-i18next"
+const icon = L.icon({ iconUrl: mapIcon })
 
 const MarkerLocationFieldArray = ({
   formValue,
@@ -38,63 +38,63 @@ const MarkerLocationFieldArray = ({
   fieldArrayName,
   isFieldArray,
 }) => {
-  const markerRef = useRef();
-  const map = useMap();
+  const markerRef = useRef()
+  const map = useMap()
 
   const getLatitudeValue = getIn(
     formValue,
     fieldArrayName + "." + index + "." + "latitude"
-  );
+  )
   const getLongitude = getIn(
     formValue,
     fieldArrayName + "." + index + "." + "longitude"
-  );
+  )
 
   useEffect(() => {
-    map.panTo(latLong);
-  }, [map, latLong]);
+    map.panTo(latLong)
+  }, [map, latLong])
 
   const fieldValueSet = (value, dirty) => {
     for (let i = 0; i < setValueField?.length; i++) {
       if (index > -1) {
-        const toSetField = setValueField[i];
-        const fieldName = `${fieldArrayName}.${index}.${toSetField}`;
+        const toSetField = setValueField[i]
+        const fieldName = `${fieldArrayName}.${index}.${toSetField}`
         if (value) {
-          setValue(fieldName, value?.[toSetField], { shouldDirty: dirty });
+          setValue(fieldName, value?.[toSetField], { shouldDirty: dirty })
         }
       }
     }
-  };
+  }
 
   useEffect(() => {
     if (getLongitude && getLatitudeValue) {
-      setLatLong([getLatitudeValue, getLongitude]);
+      setLatLong([getLatitudeValue, getLongitude])
     } else {
-      map.locate({ setView: true });
+      map.locate({ setView: true })
       map.on("locationfound", (e) => {
-        const { latitude, longitude } = e;
-        const value = { latitude: latitude, longitude: longitude };
-        setLatLong([latitude, longitude]);
-        fieldValueSet(value, true);
-      });
+        const { latitude, longitude } = e
+        const value = { latitude: latitude, longitude: longitude }
+        setLatLong([latitude, longitude])
+        fieldValueSet(value, true)
+      })
     }
-  }, [map]); // eslint-disable-line
+  }, [map]) // eslint-disable-line
 
   const onChange = useMemo(
     () => ({
       dragend() {
-        const marker = markerRef.current;
+        const marker = markerRef.current
         if (marker != null) {
-          const { lat, lng } = marker.getLatLng();
-          marker.getLatLng();
-          setLatLong([lat, lng]);
-          const value = { latitude: lat, longitude: lng };
-          fieldValueSet(value, true);
+          const { lat, lng } = marker.getLatLng()
+          marker.getLatLng()
+          setLatLong([lat, lng])
+          const value = { latitude: lat, longitude: lng }
+          fieldValueSet(value, true)
         }
       },
     }),
     [setLatLong] // eslint-disable-line
-  );
+  )
   return latLong === null ? null : (
     <Marker
       icon={icon}
@@ -105,8 +105,8 @@ const MarkerLocationFieldArray = ({
     >
       <Popup>You are here</Popup>
     </Marker>
-  );
-};
+  )
+}
 
 const RenderInput = ({
   inputField,
@@ -118,20 +118,20 @@ const RenderInput = ({
   fieldArrayName,
   align,
 }) => {
-  const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
-  const mode = useSelector((state) => state?.theme?.mode);
-  const { t } = useTranslation();
+  const [latLong, setLatLong] = useState([0, 0]) // state for map latitude and longtitude
+  const mode = useSelector((state) => state?.theme?.mode)
+  const { t } = useTranslation()
 
   const getComponentToRender = (element, disableField) => {
     const formVaues = isFieldArray
       ? getIn(formik.values, element.name)
-      : formik.values[element.name];
+      : formik.values[element.name]
     const formError = isFieldArray
       ? getIn(formik.errors, element.name)
-      : formik.errors[element.name];
+      : formik.errors[element.name]
     const formTouched = isFieldArray
       ? getIn(formik.touched, element.name)
-      : formik.touched[element.name];
+      : formik.touched[element.name]
     switch (element.type) {
       case "text":
         return (
@@ -144,12 +144,13 @@ const RenderInput = ({
             fullWidth
             required={element.required}
             variant="outlined"
+            InputLabelProps={{ shrink: Boolean(formVaues) }}
             disabled={element.isDisabled}
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
             sx={{ width: "100%" }}
           />
-        );
+        )
       case "toggleButton":
         return (
           <div
@@ -166,7 +167,7 @@ const RenderInput = ({
               value={formik.values[element.name]}
               exclusive
               onChange={(event, value) => {
-                formik.handleChange(element.name)(value); // Manually update Formik state
+                formik.handleChange(element.name)(value) // Manually update Formik state
               }}
             >
               {element.options.map((item, index) => {
@@ -182,7 +183,7 @@ const RenderInput = ({
                   >
                     {item.label}
                   </ToggleButton>
-                );
+                )
               })}
             </ToggleButtonGroup>
             {formTouched && Boolean(formError) && (
@@ -191,7 +192,7 @@ const RenderInput = ({
               </Typography>
             )}
           </div>
-        );
+        )
 
       case "nepaliTypeText":
         return (
@@ -201,7 +202,7 @@ const RenderInput = ({
             formTouched={formTouched}
             formError={formError}
           />
-        );
+        )
       case "dropDownWithValue":
         return (
           <Autocomplete
@@ -222,10 +223,10 @@ const RenderInput = ({
                   required={element.required}
                   helperText={formTouched && formError}
                 />
-              );
+              )
             }}
           />
-        );
+        )
       case "fieldArraySwitch":
         return (
           <FormControl>
@@ -235,13 +236,13 @@ const RenderInput = ({
               control={<Switch checked={formVaues} />}
               onChange={(e, value) => {
                 if (value) {
-                  pushArray();
-                } else removeArray();
-                formik.handleChange(e);
+                  pushArray()
+                } else removeArray()
+                formik.handleChange(e)
               }}
             />
           </FormControl>
-        );
+        )
       case "fieldArrayMap":
         return (
           <Field name="map">
@@ -291,7 +292,7 @@ const RenderInput = ({
               </>
             )}
           </Field>
-        );
+        )
       case "dropDown":
         return (
           <Autocomplete
@@ -299,12 +300,16 @@ const RenderInput = ({
             name={element.name}
             disabled={element?.isDisabled}
             options={element?.options}
-            getOptionLabel={(option) => t(option?.label) || (option?.name) || ""}
+            getOptionLabel={(option) => t(option?.label) || option?.name || ""}
             value={element?.options?.find(
-              (option) => option?.value === formVaues || option?.code === formVaues
+              (option) =>
+                option?.value === formVaues || option?.code === formVaues
             )}
             onChange={(event, newValue) => {
-              formik.setFieldValue(element.name, newValue?.value || newValue?.code || ""); // Set value to newValue's value property or empty string if undefined
+              formik.setFieldValue(
+                element.name,
+                newValue?.value || newValue?.code || ""
+              ) // Set value to newValue's value property or empty string if undefined
             }}
             fullWidth
             renderInput={(params) => {
@@ -318,10 +323,10 @@ const RenderInput = ({
                   helperText={formTouched && formError}
                   variant="outlined"
                 />
-              );
+              )
             }}
           />
-        );
+        )
       case "number":
         return (
           <TextField
@@ -336,7 +341,7 @@ const RenderInput = ({
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
           />
-        );
+        )
       case "switch":
         return (
           <div style={{ display: "flex" }}>
@@ -381,7 +386,7 @@ const RenderInput = ({
                   name={element?.radioName}
                   value={formik.values[element.radioName]}
                   onChange={(event, value) => {
-                    formik.handleChange(element.radioName)(value); // Manually update Formik state
+                    formik.handleChange(element.radioName)(value) // Manually update Formik state
                   }}
                 >
                   {element.radio.map((radio, i) => (
@@ -396,7 +401,7 @@ const RenderInput = ({
               </FormControl>
             )}
           </div>
-        );
+        )
       case "switchWithFields":
         return (
           <>
@@ -416,7 +421,7 @@ const RenderInput = ({
               <RenderInput inputField={element.newFields} formik={formik} />
             )}
           </>
-        );
+        )
 
       case "radio":
         return (
@@ -440,7 +445,7 @@ const RenderInput = ({
                 name={element?.name}
                 value={formik.values[element.name]}
                 onChange={(event, value) => {
-                  formik.handleChange(element.name)(value); // Manually update Formik state
+                  formik.handleChange(element.name)(value) // Manually update Formik state
                 }}
                 onError={formTouched && Boolean(formError)}
               >
@@ -475,16 +480,16 @@ const RenderInput = ({
               />
             )}
           </>
-        );
+        )
 
       case "datePicker":
-        return <PickDate element={element} formik={formik} />;
+        return <PickDate element={element} formik={formik} />
       case "dualDate":
-        return <DualDatePicker element={element} formik={formik} />;
+        return <DualDatePicker element={element} formik={formik} />
 
       case "asyncDropDown":
         return (
-          <div style={{display: "flex"}}>
+          <div style={{ display: "flex" }}>
             <AsyncDropDown element={element} formik={formik} />
             <div style={{ marginTop: "0.5rem" }}>
               {element.isDependent && formik.values[element?.name] ? (
@@ -502,15 +507,15 @@ const RenderInput = ({
               )}
             </div>
           </div>
-        );
+        )
 
       case "documentUpload":
-        return <DropZoneUploadFile title={element?.title} />;
+        return <DropZoneUploadFile title={element?.title} />
 
       default:
-        return <TextField name={element?.name} label={t(element?.label)} />;
+        return <TextField name={element?.name} label={t(element?.label)} />
     }
-  };
+  }
 
   return (
     <div>
@@ -519,7 +524,7 @@ const RenderInput = ({
           const isDisabled = element?.disableOnChange?.name.some(
             (item, i) =>
               element.disableOnChange.value[i] === formik.values[item]
-          );
+          )
 
           return (
             <Grid
@@ -536,11 +541,11 @@ const RenderInput = ({
             >
               {getComponentToRender(element, isDisabled)}
             </Grid>
-          );
+          )
         })}
       </Grid>
     </div>
-  );
-};
+  )
+}
 
-export default RenderInput;
+export default RenderInput
