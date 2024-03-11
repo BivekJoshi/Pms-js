@@ -1,7 +1,10 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { onlyTextRegex } from "../../static/RegExp";
-import { useAddOccupation } from "../../../../../hooks/kyc/occupaction/useOccupation";
+import { useFormik } from "formik"
+import * as Yup from "yup"
+import { onlyTextRegex } from "../../static/RegExp"
+import {
+  useAddOccupation,
+  useGetOccupation,
+} from "../../../../../hooks/kyc/occupaction/useOccupation"
 
 const occupationSchema = Yup.object().shape({
   occupation: Yup.string()
@@ -59,44 +62,46 @@ const occupationSchema = Yup.object().shape({
     then: Yup.string().required("Please enter client code"),
     otherwise: Yup.string().nullable(),
   }),
-});
+})
 
 export const useOccupationsIndividualForm = () => {
-  const { mutate } = useAddOccupation({});
+  const { mutate } = useAddOccupation({})
+  const { data, isLoading } = useGetOccupation({})
 
   const formik = useFormik({
     initialValues: {
-      id:"",
-      userId:"",
-      occupation: "",
-      businessType: "",
-      orgName: "",
-      address: "",
-      designation: "",
-      employeeId: "",
-      financialDetails: "",
-      involvementInOtherCompany: false,
-      companyName: "",
-      ifOthers: "",
-      ifOthersBusiness: "",
-      tradingDesignation: "",
-      effectiveFrom: "",
-      blackListed: false,
-      clientCode: "",
-      tradingAccount: false,
-      tradingAccountCompanyName: "",
-      sourceOfIncome: "",
+      id: "" || data?.id,
+      userId: "" || data?.userId,
+      occupation: "" || data?.occupation,
+      businessType: "" || data?.businessType,
+      orgName: "" || data?.orgName,
+      address: "" || data?.address,
+      designation: "" || data?.designation,
+      employeeId: "" || data?.employeeId,
+      financialDetails: "" || data?.financialDetails,
+      involvementInOtherCompany: false || data?.involvementInOtherCompany,
+      companyName: "" || data?.companyName,
+      ifOthers: "" || data?.ifOthers,
+      ifOthersBusiness: "" || data?.ifOthersBusiness,
+      tradingDesignation: "" || data?.tradingDesignation,
+      effectiveFrom: "" || data?.effectiveFrom,
+      blackListed: false || data?.blackListed,
+      clientCode: "" || data?.clientCode,
+      tradingAccount: false || data?.tradingAccount,
+      tradingAccountCompanyName: "" || data?.tradingAccountCompanyName,
+      sourceOfIncome: "" || data?.sourceOfIncome,
     },
+    enableReinitialize: true,
     validationSchema: occupationSchema,
     onSubmit: (values) => {
-      const formData = { ...values };
+      const formData = { ...values }
       mutate(formData, {
         onSuccess: (data) => {
-          formik.resetForm();
+          formik.resetForm()
         },
-      });
+      })
     },
-  });
+  })
 
-  return { formik };
-};
+  return { formik }
+}

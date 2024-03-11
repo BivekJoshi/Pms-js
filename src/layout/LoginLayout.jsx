@@ -1,39 +1,28 @@
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Box, Grid, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import Background from "../assets/left.png";
-import Logo from "../assets/logo.png";
-import Curved from "../assets/curves--.png";
-import Bear from "../assets/bear--.png";
-import toast from "react-hot-toast";
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
+import { Box, Grid, Typography } from "@mui/material"
+import React, { useEffect, useState } from "react"
+import Background from "../assets/left.png"
+import Logo from "../assets/logo.png"
+import Curved from "../assets/curves--.png"
+import Bear from "../assets/bear--.png"
+import toast from "react-hot-toast"
+import { getUserToken } from "../utility/userHelper"
 
 const LoginLayout = () => {
-  const authDataString = localStorage.getItem("auth");
+  let authToken = getUserToken()
+  const [token, setToken] = useState(authToken)
 
-  const authData = JSON.parse(authDataString);
-  let authToken = authData?.authToken;
-  const [token, setToken] = useState(authToken);
-
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    setToken(authToken);
-    if (pathname === "/login") {
-      toast.dismiss();
-    }
+    setToken(authToken)
     if (!token && pathname === "/") {
-      navigate("/login");
+      navigate("/login")
     }
 
-    // else if (token && authData?.tempPassword) {
-    //   navigate('/change/password');
-    // }
-    else if (token) {
-      navigate("/dashboard");
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, [token])
 
   return (
     <Box
@@ -478,7 +467,7 @@ const LoginLayout = () => {
         </div>
       </Grid>
     </Box>
-  );
-};
+  )
+}
 
-export default LoginLayout;
+export default LoginLayout
