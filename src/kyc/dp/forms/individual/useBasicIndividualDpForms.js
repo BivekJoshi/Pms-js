@@ -23,8 +23,6 @@ export const useBasicIndividualDpForms = ({ currentForm }) => {
     validationSchema: useBasicIndividualValidationSchema,
     onSubmit: (values) => {
       const formData = { ...values };
-      console.log("Valueee", formData);
-
       mutate(formData, {
         onSuccess: (data) => {
           formik.resetForm();

@@ -6,66 +6,6 @@ import { FieldArray, FormikProvider } from "formik";
 import { useKycFamilyForm } from "./usekycFamilyForm";
 import { useSelector } from "react-redux";
 
-// const referalFields = [
-//   {
-//     type: "dropDownWithValue",
-//     name: "relation",
-//     options: [{ label: "Referral Person", value: "referralPerson" }],
-//     isDisabled: true,
-//     col: 12,
-//     xs: 12,
-//     sm: 6,
-//     id: nanoid(),
-//   },
-//   {
-//     type: "text",
-//     name: "memberName",
-//     label: "Referral Name",
-//     col: 12,
-//     xs: 12,
-//     sm: 6,
-//     id: nanoid(),
-//   },
-//   {
-//     type: "text",
-//     name: "email",
-//     label: "Referral Email",
-//     col: 12,
-//     xs: 12,
-//     sm: 6,
-//     id: nanoid(),
-//   },
-//   {
-//     type: "text",
-//     name: "mobileNumber",
-//     label: "Referral Mobile Number",
-//     col: 12,
-//     xs: 12,
-//     sm: 6,
-//     id: nanoid(),
-//   },
-// ];
-
-// const staticFields = [
-//   {
-//     type: "dropDown",
-//     name: "relation",
-//     label: "Relation",
-//     col: 12,
-//     xs: 12,
-//     sm: 6,
-//     id: nanoid(),
-//   },
-//   {
-//     type: "text",
-//     name: "memberName",
-//     label: "Enter Name",
-//     col: 12,
-//     xs: 12,
-//     sm: 6,
-//     id: nanoid(),
-//   },
-// ];
 const relationField = [
   {
     type: "text",

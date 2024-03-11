@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@mantine/notifications": "^7.6.1",
     "@mui/icons-material": "^5.14.11",
     "@mui/lab": "^5.0.0-alpha.146",
     "@mui/material": "^5.14.11",
@@ -36,6 +37,7 @@
     "lodash": "^4.17.21",
     "material-react-table": "^1.15.0",
     "nepali-datepicker-reactjs": "^1.1.5",
+    "peerjs": "^1.5.2",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
     "react-dom": "^18.2.0",
