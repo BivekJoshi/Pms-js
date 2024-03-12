@@ -1,78 +1,18 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { onlyTextRegex } from "../../static/RegExp";
-import { useEffect } from "react";
-import { useAddFamily, useGetFamily } from "../../../../../hooks/kyc/family/useFamily";
 
-// const familySchema = Yup.object().shape({
-//   relation: Yup.string().required("Relation is required").matches(onlyTextRegex, "Valid Relation is required"),
-//   familyDetails: Yup.array().of(
-//     Yup.object().shape({
-//       memberName: Yup.string()
-//         .when(['relation'], (relation, schema) => {
-//           const requiredRelations = ["father", "mother", "grandFather", "spouse", 'sonInLaw', "motherInLaw"];
-//           if (requiredRelations.includes(relation)) {
-//             return schema.required(`${relation} is required`);
-//           }
-//           return schema;
-//         })
-//         .matches(onlyTextRegex, "Valid Relation is required"),
-//       relation: Yup.string().required("Relation is required"),
-//     })
-//   )
-// });
+import { useAddFamily } from "../../../../../hooks/kyc/family/useFamily";
 
-const familySchema = Yup.object().shape({
-  relation: Yup.string()
-    .required("Relation is required")
-    .matches(onlyTextRegex, "Valid Relation is required"),
-  familyDetails: Yup.array().of(
-    Yup.object().shape({
-      memberName: Yup.string()
-        .when("relation", {
-          is: "father",
-          then: Yup.string().required("Father Name is required"),
-        })
-        .when("relation", {
-          is: "mother",
-          then: Yup.string().required("Mother Name is required"),
-        })
-        .when("relation", {
-          is: "grandFather",
-          then: Yup.string().required("Grand Father Name is required"),
-        })
-        .when("relation", {
-          is: "spouse",
-          then: Yup.string().required("Spouse Name is required"),
-        })
-        .when("relation", {
-          is: "sonInLaw",
-          then: Yup.string().required("Son-In-Law Name is required"),
-        })
-        .when("relation", {
-          is: "daughterInLaw",
-          then: Yup.string().required("Daughter-In-Law Name is required"),
-        })
-        .when("relation", {
-          is: "motherInLaw",
-          then: Yup.string().required("Mother-In-Law Name is required"),
-        })
-        .when("relation", {
-          is: "fatherInLaw",
-          then: Yup.string().required("Father-In-Law Name is required"),
-        }),
-      relation: Yup.string().required("Relation is required"),
-    })
-  ),
-});
+
+
 
 const personDetailSchema = Yup.object().shape({
   fname: Yup.string().required("Required"),
-  mname: Yup.string(),
+  mname: Yup.string().nullable(),
   lname: Yup.string().required("Required"),
-  fnameNep: Yup.string().required("Required"),
-  mnameNep: Yup.string(),
-  lnameNep: Yup.string().required("Required"),
+  fnameNep: Yup.string().nullable().required("Required"),
+  mnameNep: Yup.string().nullable(),
+  lnameNep: Yup.string().nullable().required("Required"),
 });
 
 const validationSchema = Yup.object().shape({
@@ -83,15 +23,30 @@ const validationSchema = Yup.object().shape({
   ),
 });
 
-export const useKycFamilyForm = () => {
-  const {data: familyData } = useGetFamily();
-  console.log(familyData)
+export const useKycFamilyForm = ({familyData}) => {
 
+  const getFamilyData = familyData?.map((d)=> {
+    return {
+      id: d.id,
+      relationTypeId: d.relationTypeId,
+      relationTypeDesc: d.relationTypeDesc,
+      relationTypeDescNp: d.relationTypeDescNp,
+      userId:d.userId,
+      personDetail: {
+        fname: d.fname,
+        mname: d.mname,
+        lname: d.lname,
+        fnameNep: d.fnameNep,
+        mnameNep: d.mnameNep,
+        lnameNep: d.lnameNep,
+      },
+    }
+  })
   const { mutate } = useAddFamily({});
 
   const formik = useFormik({
-    initialValues: {
-      personDetail: [
+    initialValues: { 
+      personDetail: getFamilyData?.length > 0 ? getFamilyData : [
         {
           relationTypeId: "GF",
           relationTypeDesc: "Grand Father",
@@ -105,10 +60,11 @@ export const useKycFamilyForm = () => {
             lnameNep: "",
           },
         },
+
         {
-          relationTypeId: "M",
-          relationTypeDesc: "Mother",
-          relationTypeDescNp: "आमाको नाम",
+          relationTypeId: "F",
+          relationTypeDesc: "Father",
+          relationTypeDescNp: "बुबाको नाम",
           personDetail: {
             fname: "",
             mname: "",
@@ -118,10 +74,10 @@ export const useKycFamilyForm = () => {
             lnameNep: "",
           },
         },
-        {
-          relationTypeId: "F",
-          relationTypeDesc: "Father",
-          relationTypeDescNp: "बुबाको नाम",
+                {
+          relationTypeId: "M",
+          relationTypeDesc: "Mother",
+          relationTypeDescNp: "आमाको नाम",
           personDetail: {
             fname: "",
             mname: "",
@@ -137,8 +93,8 @@ export const useKycFamilyForm = () => {
     onSubmit: (values) => {
       const formData = {...values};
       console.log("formData", formData);
-      mutate(formData, {
-        onSuccess: (data) => {
+      mutate(formData?.personDetail, {
+        onSuccess: () => {
           formik.resetForm();
         },
       });
