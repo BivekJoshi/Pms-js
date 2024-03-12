@@ -64,6 +64,7 @@ const KycLayout = () => {
       setIsHomePage(isHome)
     }
   }, [pathname])
+  
 
   const {
     data: userData,

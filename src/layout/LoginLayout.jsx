@@ -7,9 +7,13 @@ import Curved from "../assets/curves--.png"
 import Bear from "../assets/bear--.png"
 import toast from "react-hot-toast"
 import { getUserToken } from "../utility/userHelper"
+import { set } from "lodash"
 
 const LoginLayout = () => {
-  let authToken = getUserToken()
+  const authDataString = localStorage.getItem("auth")
+
+  const authData = JSON.parse(authDataString)
+  let authToken = authData?.authToken
   const [token, setToken] = useState(authToken)
 
   const navigate = useNavigate()
@@ -17,10 +21,19 @@ const LoginLayout = () => {
 
   useEffect(() => {
     setToken(authToken)
+    if (pathname === "/login") {
+      toast.dismiss()
+    }
     if (!token && pathname === "/") {
       navigate("/login")
     }
 
+    // else if (token && authData?.tempPassword) {
+    //   navigate('/change/password');
+    // }
+    else if (token) {
+      navigate("/dashboard")
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])
 
