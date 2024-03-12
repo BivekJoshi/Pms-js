@@ -21,7 +21,7 @@ const DropZoneUploadFile = ({ element, formik }) => {
   const handleUpload = async (acceptedFiles) => {
     const image = await handleImage(acceptedFiles);
     setFile(image);
-    formik.setFieldValue(element.name, image);
+    // formik.setFieldValue(element.name, image);
     mutate(image, {
       onSuccess: (data) => {
         // formik.resetForm();
