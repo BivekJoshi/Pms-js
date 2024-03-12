@@ -6,12 +6,11 @@ import {
   IconButton,
   ThemeProvider,
   Tooltip,
-  Typography,
   createTheme,
   useMediaQuery,
 } from "@mui/material"
 import React, { useEffect, useMemo, useState } from "react"
-import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom"
+import { Outlet, useLocation, useNavigate } from "react-router-dom"
 import { themeSettings } from "../theme"
 import { useDispatch, useSelector } from "react-redux"
 import KycNavbar from "../components/navbar/KycNavbar"
@@ -23,11 +22,8 @@ import {
   individualKycDematList,
   individualkycTmsList,
 } from "./kycMenuList"
-import KycProfileCard from "../kyc/components/KycProfileCard"
-import { logout } from "../utility/logout"
 import { useGetTheme } from "../hooks/brokerTheme/useBrokerTheme"
 import _ from "lodash"
-import { useGetCompanyByIdNo } from "../hooks/company/useCompany"
 import { useGetMetaData } from "../kyc/hooks/useMetaDataKyc"
 import Spinner from "../components/spinner/Spinner"
 import MenuIcon from "@mui/icons-material/Menu"
@@ -78,7 +74,6 @@ const KycLayout = () => {
   useEffect(() => {
     if (_.isEmpty(userDetails)) {
       userRefetch()
-      dispatch({ type: "USER_LOGIN", payload: userData?.user })
     }
   }, [userData])
 

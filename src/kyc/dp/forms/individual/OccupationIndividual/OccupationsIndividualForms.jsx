@@ -1,21 +1,12 @@
-import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import RenderInput from "../../../../../components/renderInput/RenderInput";
-import { nanoid } from "nanoid";
-import { useOccupationsIndividualForm } from "./useOccupationsIndividualForm";
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material"
+import React, { useEffect, useState } from "react"
+import RenderInput from "../../../../../components/renderInput/RenderInput"
+import { nanoid } from "nanoid"
+import { useOccupationsIndividualForm } from "./useOccupationsIndividualForm"
 
 const OccupationsIndividualForms = () => {
-  const theme = useTheme();
-  const { formik } = useOccupationsIndividualForm();
-  const [disabled, setDisabled] = useState(false);
-
-  useEffect(() => {
-    if (formik.values.occupation === "STUDENT") {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
-  }, [formik.values.occupation]);
+  const theme = useTheme()
+  const { formik } = useOccupationsIndividualForm()
 
   const occupationData = [
     {
@@ -58,16 +49,16 @@ const OccupationsIndividualForms = () => {
           id: nanoid(),
         }
       : formik.values.occupation === "OTHERS"
-      ? {
-          name: "ifOthers",
-          label: "Other Occupation ",
-          type: "text",
-          col: 12,
-          sm: 12,
-          md: 4,
-          id: nanoid(),
-        }
-      : null,
+        ? {
+            name: "ifOthers",
+            label: "Other Occupation ",
+            type: "text",
+            col: 12,
+            sm: 12,
+            md: 4,
+            id: nanoid(),
+          }
+        : null,
     formik.values.occupation === "STUDENT" ||
     formik.values.occupation === "HOUSEWIFE" ||
     formik.values.occupation === "FARMER"
@@ -138,9 +129,9 @@ const OccupationsIndividualForms = () => {
       label: "Financial Details",
       placeholder: "Enter financial details",
       options: [
-        { label: "Upto Rs.5,00,000", value: "500000" },
-        { label: "From Rs.5,00,001 to Rs.10,00,000", value: "100001" },
-        { label: "Above Rs.10,00,000", value: "1000001" },
+        { label: "Upto Rs.5,00,000", value: 500000 },
+        { label: "From Rs.5,00,001 to Rs.10,00,000", value: 100001 },
+        { label: "Above Rs.10,00,000", value: 1000001 },
       ],
       type: "dropDown",
       sm: 12,
@@ -232,7 +223,7 @@ const OccupationsIndividualForms = () => {
       md: 12,
       id: nanoid(),
     },
-  ].filter(Boolean);
+  ].filter(Boolean)
 
   return (
     <div data-aos="zoom-in-right">
@@ -266,7 +257,7 @@ const OccupationsIndividualForms = () => {
         </Button>
       </Grid>
     </div>
-  );
-};
+  )
+}
 
-export default OccupationsIndividualForms;
+export default OccupationsIndividualForms
