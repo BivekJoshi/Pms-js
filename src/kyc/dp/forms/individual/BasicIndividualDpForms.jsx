@@ -5,12 +5,16 @@ import RenderInput from "../../../../components/renderInput/RenderInput";
 import { useBasicIndividualDpForms } from "./useBasicIndividualDpForms";
 import { useTheme } from "@emotion/react";
 import { useTranslation } from "react-i18next";
+import { useGetBasicDetail } from './BasicDetail/useBasicDetail';
 
 const BasicIndividualDpForms = () => {
   const theme = useTheme();
   const currentForm = 1;
+const { data: basicIndividualData } = useGetBasicDetail();
 
-  const { formik } = useBasicIndividualDpForms({ currentForm });
+const basicIndividualDetails = basicIndividualData && basicIndividualData?.data
+const individualDetails = basicIndividualData && basicIndividualData?.data?.individualDetails
+  const { formik } = useBasicIndividualDpForms({ currentForm, individualDetails });
   const { t } = useTranslation();
 
   useEffect(() => {

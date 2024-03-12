@@ -1,23 +1,39 @@
-import React, { useState } from "react";
-import { Grid, Button, useTheme, Typography } from "@mui/material";
-import { Formik } from "formik";
+import React, { useEffect, useState, useMemo } from "react";
+import { Grid, Button, useTheme, Typography, Switch, IconButton } from "@mui/material";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { useKycBankForm } from "./usekycBankForm";
 import { Box } from "@mui/system";
+import CustomTable from "../../../../../components/customTable/CustomTable";
+import {
+  useDeleteKycBank,
+  useGetBankList,
+  useGetKycBank,
+  useUpdateKycBank,
+} from "../../../../../hooks/Kyc/individual/kycBank/useKycBank";
+import { Delete } from '@mui/icons-material';
+import DeleteConfirmationModal from '../../../../../components/modal/DeleteModal/DeleteConfirmationModal';
 
 const BankIndividualDpForms = () => {
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const theme = useTheme();
-  const { formik } = useKycBankForm();
-  const FAMILYFIELDS = [
+  const { data: bankListData } = useGetBankList();
+  const { data: bankData } = useGetKycBank();
+  const bankDataField = bankData && bankData?.data;
+  const { formik } = useKycBankForm(bankDataField);
+  const [deletedKycBank, setDeletedKycBank] = useState({});
+
+  const BANKFIELDS = [
     {
       type: "asyncDropDown",
       name: "bankName",
       label: "Bank Name",
       required: true,
+      responseLabel: "name",
+      responseId: "code",
+      path: "/utility/bank-master",
       xs: 12,
       sm: 6,
-      // path:"http://103.94.159.144:8085/pms/api/app-user/user-portfolio",
-      // responseLabel:"script"
+      md: 3,
     },
     {
       type: "text",
@@ -26,6 +42,7 @@ const BankIndividualDpForms = () => {
       required: true,
       xs: 12,
       sm: 6,
+      md: 3,
     },
     {
       type: "dropDown",
@@ -34,13 +51,14 @@ const BankIndividualDpForms = () => {
       required: true,
       xs: 12,
       sm: 6,
+      md: 3,
       options: [
         {
-          value: "s",
+          value: "S",
           label: "Saving",
         },
         {
-          value: "c",
+          value: "C",
           label: "Current",
         },
       ],
@@ -52,12 +70,109 @@ const BankIndividualDpForms = () => {
       required: true,
       xs: 12,
       sm: 6,
+      md: 3,
     },
-  ];
-  const handleSubmit = () => {};
+  ]
+
+  const columns = useMemo(
+    () => [
+      {
+        id: 1,
+        Cell: (cell) => {
+          return cell?.row?.index + 1
+        },
+        header: "SN",
+        size: 50,
+        sortable: false,
+      },
+      {
+        id: 2,
+        accessorKey: "bankName",
+        header: "Bank Name",
+        accessorFn: (row) => {
+          const bankName = bankListData?.data?.find(
+            (code) => code?.code === row?.bankName
+          )
+          return <>{bankName?.name}</>
+        },
+        size: 170,
+        sortable: false,
+      },
+      {
+        id: 3,
+        accessorKey: "accountType",
+        accessorFn: (row) => {
+          return <>{row?.accountType === "S" ? "Saving" : "Current"}</>
+        },
+        header: "Account Type",
+        size: 100,
+        sortable: false,
+      },
+
+      {
+        id: 4,
+        accessorKey: "branchAddress",
+        header: "Branch",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 5,
+        accessorKey: "accountNumber",
+        header: "Account Number",
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 6,
+        accessorKey: "primary",
+        header: "Primary",
+        accessorFn: (row) => (
+          <Switch
+            checked={row.isPrimary}
+            onChange={() => handlePrimarySwitch(row)}
+          />
+        ),
+        size: 100,
+        sortable: false,
+      },
+      {
+        id: 7,
+        accessorKey: "action",
+        header: "Action",
+        size: 100,
+        sortable: false,
+        Cell: (cell) => (
+          <IconButton color="error" onClick={() => handleDeleteRow(cell.row.original)}>
+            <Delete />
+          </IconButton>
+        ),
+      },
+    ],
+    []
+  );
+
+  const handleCloseDeleteModal = () => setOpenDeleteModal(false);
+
+  const { deleteKycBankMutation, isSuccess: isDeleteSuccess } = useDeleteKycBank({});
+
+  const handleDeleteRow = (rowData) => {
+    setDeletedKycBank(rowData);
+    setOpenDeleteModal(true);
+  };
+
+  useEffect(() => {
+    if (isDeleteSuccess) {
+      setOpenDeleteModal(false);
+    }
+  }, [isDeleteSuccess]);
+
+  const handleConfirmDelete = () => {
+    deleteKycBankMutation(deletedKycBank?.id);
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div data-aos="zoom-in-right">
       <Box
         sx={{
           marginBottom: "16px",
@@ -76,7 +191,7 @@ const BankIndividualDpForms = () => {
           Bank Details
         </Typography>
       </Box>
-      <RenderInput inputField={FAMILYFIELDS} formik={formik} />
+      <RenderInput inputField={BANKFIELDS} formik={formik} />
       <Grid
         sx={{ display: "flex", justifyContent: "flex-end", marginTop: "12px" }}
       >
@@ -84,12 +199,45 @@ const BankIndividualDpForms = () => {
           onClick={formik.handleSubmit}
           variant="contained"
           color="secondary"
+          sx={{ borderRadius: "20px", paddingInline: 2 }}
+        >
+          + Add
+        </Button>
+      </Grid>
+      <Grid marginBlock={2}>
+        <CustomTable
+          title={"List of Bank"}
+          columns={columns}
+          data={bankDataField}
+          handleDeleteRow={handleDeleteRow}
+          headerBackgroundColor="#401686"
+        />
+      </Grid>
+      <Grid
+        sx={{ display: "flex", justifyContent: "flex-end", marginTop: "12px" }}
+      >
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => dispatch({ type: SET_FORM, payload: 5 })}
         >
           Next
         </Button>
       </Grid>
-    </form>
-  );
-};
 
-export default BankIndividualDpForms;
+      {openDeleteModal && (
+        <DeleteConfirmationModal
+          open={openDeleteModal}
+          handleCloseModal={handleCloseDeleteModal}
+          handleConfirmDelete={handleConfirmDelete}
+          message={'Bank data'}
+        />
+      )}
+    </div>
+  )
+}
+
+
+
+
+export default BankIndividualDpForms

@@ -17,17 +17,17 @@ import BasicInfoCoPdf from "../PageCorporate/BasicInfoCoPdf";
 import CompanyCoInfoPdf from "../PageCorporate/CompanyCoInfoPdf";
 import BranchInfoPdf from "../PageCorporate/BranchInfoCoPdf";
 import DetailOperatorInfoPdf from "../PageCorporate/DetailOperatorInfoPdf";
-import BankInfoPdf from "../PageDp/BankInfoPdf";
+import BankInfoPdf from "../PageIndividual/BankInfoPdf";
 import OfficeStamp from "../ReuseStyle/OfficeStamp";
 
 Font.register({
-  family: "notoSerifDevnagari",
+  family: "notoSerifDevanagari",
   src: notoSerifDevanagari,
 });
 
 const styles = StyleSheet.create({
   page: {
-    fontFamily: "notoSerifDevnagari",
+    fontFamily: "notoSerifDevanagari",
     flexDirection: "column",
     padding: "12px 35px",
     fontSize: "14px",

@@ -8,23 +8,26 @@ import {
 } from "@react-pdf/renderer";
 import React from "react";
 import notoSerifDevanagari from "../../../../assets/NotoSerifDevanagari-VariableFont_wdth,wght.ttf";
-import BasicInfoPdf from "../PageDp/BasicInfoPdf";
+import BasicInfoPdf from "../PageIndividual/BasicInfoPdf";
 import AddressComponent from "../ReuseStyle/AddressComponent";
-import FamilyInfoPdf from "../PageDp/FamilyInfoPdf";
-import BankInfoPdf from "../PageDp/BankInfoPdf";
+import FamilyInfoPdf from "../PageIndividual/FamilyInfoPdf";
+import BankInfoPdf from "../PageIndividual/BankInfoPdf";
 import OfficeStamp from "../ReuseStyle/OfficeStamp";
 import ThumpStamp from "../ReuseStyle/ThumpStamp";
 import UserAgreementDpPdf from "../UserAggrement/UserAggrementDpPdf";
-import RequestFormPdf from "../PageDp/RequestFormPdf";
+import RequestFormPdf from "../PageIndividual/RequestFormPdf";
+import OccupationInfoPdf from "../PageIndividual/OccupationInfoPdf";
+import TermsAndConditionInfo from "../PageIndividual/TermsAndConditionInfo";
+import SignatureUI from "../ReuseStyle/SignatureUI";
 
 Font.register({
-  family: "notoSerifDevnagari",
+  family: "notoSerifDevanagari",
   src: notoSerifDevanagari,
 });
 
 const styles = StyleSheet.create({
   page: {
-    fontFamily: "notoSerifDevnagari",
+    fontFamily: "notoSerifDevanagari",
     flexDirection: "column",
     padding: "12px 35px",
     fontSize: "14px",
@@ -52,14 +55,28 @@ const IndividualKycContent = () => {
         <BankInfoPdf />
       </Page>
       <Page size="A4" style={styles.page}>
+        <OccupationInfoPdf />
+        <TermsAndConditionInfo />
+        <View
+          style={[
+            styles,
+            {
+              display: "flex",
+              justifyContent: "space-between",
+              flexDirection: "row",
+            },
+          ]}
+        >
+          <ThumpStamp />
+          <SignatureUI />
+        </View>
         <OfficeStamp />
-        <ThumpStamp />
       </Page>
       <Page size="A4" style={styles.page}>
-        <UserAgreementDpPdf/>
+        <UserAgreementDpPdf />
       </Page>
       <Page size="A4" style={styles.page}>
-        <RequestFormPdf/>
+        <RequestFormPdf />
       </Page>
     </Document>
   );

@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import { FieldArray, FormikProvider } from "formik";
 import { useKycFamilyForm } from "./usekycFamilyForm";
 import { useSelector } from "react-redux";
+import { useGetFamily } from '../../../../../hooks/kyc/family/useFamily';
 
 const relationField = [
   {
@@ -71,7 +72,9 @@ const relationField = [
 
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();
-  const { formik } = useKycFamilyForm();
+  const {data: familyData } = useGetFamily();
+ 
+  const { formik } = useKycFamilyForm({familyData});
   const language = useSelector((state) => state?.language?.mode);
   return (
     <div data-aos="zoom-in-right">
@@ -96,16 +99,16 @@ const FamilyIndividualDpForms = () => {
             Family Members
           </Typography>
         </Grid>
-        <FormikProvider value={formik}>
-          <FieldArray name="familyDetailList">
+        <FormikProvider value={formik} {...formik}>
+          <FieldArray name="personDetail">
             {() => {
               return (
-                formik.values.familyDetailList &&
-                formik.values?.familyDetailList?.map((details, index) => {
+                formik.values.personDetail &&
+                formik.values?.personDetail?.map((details, index) => {
                   const field = relationField?.map((d) => {
                     return {
                       ...d,
-                      name: `familyDetailList.${index}.[personDetail].${d.name}`,
+                      name: `personDetail.${index}.[personDetail].${d.name}`,
                     };
                   });
                   return (
@@ -122,7 +125,7 @@ const FamilyIndividualDpForms = () => {
                           formik={formik}
                           index={index}
                           isFieldArray={true}
-                          fieldArrayName="familyDetailList"
+                          fieldArrayName="personDetail"
                         />
                       }
                     />

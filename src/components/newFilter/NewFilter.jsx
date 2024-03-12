@@ -1,6 +1,6 @@
-import { Field, Form, Formik } from "formik";
-import { useState } from "react";
-import CustomDatePicker from "../customDatePicker/CustomDatePicker";
+import { Field, Form, Formik } from "formik"
+import { useState } from "react"
+import CustomDatePicker from "../customDatePicker/CustomDatePicker"
 import {
   Box,
   Button,
@@ -13,12 +13,12 @@ import {
   TextField,
   Typography,
   useTheme,
-} from "@mui/material";
-import InputType from "../inputType/InputType";
-import { useTranslation } from "react-i18next";
-import SearchIcon from "@mui/icons-material/Search";
-import { useFiscalYearGet } from "../../api/fiscal-year/useFiscalYear";
-import { useSelector } from "react-redux";
+} from "@mui/material"
+import InputType from "../inputType/InputType"
+import { useTranslation } from "react-i18next"
+import SearchIcon from "@mui/icons-material/Search"
+import { useFiscalYearGet } from "../../api/fiscal-year/useFiscalYear"
+import { useSelector } from "react-redux"
 
 const NewFilter = ({
   inputField,
@@ -29,19 +29,19 @@ const NewFilter = ({
   showfilter,
   submitButtonText,
 }) => {
-  const theme = useTheme();
-  const { t } = useTranslation();
+  const theme = useTheme()
+  const { t } = useTranslation()
   const [showFilter, setShowFilter] = useState(
     showfilter !== undefined ? showfilter : true
-  );
-  const validTill = useSelector((state) => state.user.details.validTill);
+  )
+  const validTill = useSelector((state) => state.user.details?.validTill)
 
-  const { data: fiscalYearOptions, isLoading } = useFiscalYearGet({});
+  const { data: fiscalYearOptions, isLoading } = useFiscalYearGet({})
 
   const initialValues = inputField.reduce((acc, item) => {
-    acc[item.name] = "";
-    return acc;
-  }, {});
+    acc[item.name] = ""
+    return acc
+  }, {})
 
   const getComponentToRender = (element, setFieldValue) => {
     switch (element?.type) {
@@ -56,7 +56,7 @@ const NewFilter = ({
             max={element?.max}
             required={element?.required}
           />
-        );
+        )
       case "input-type":
         return (
           <InputType
@@ -66,7 +66,7 @@ const NewFilter = ({
             max={element?.max}
             required={element?.required}
           />
-        );
+        )
       case "fiscal-year":
         return (
           <Autocomplete
@@ -85,10 +85,10 @@ const NewFilter = ({
               />
             )}
             onChange={(e, value) => {
-              setFieldValue(element?.name, value?.id);
+              setFieldValue(element?.name, value?.id)
             }}
           />
-        );
+        )
       case "labelAutoComplete":
         return (
           <Autocomplete
@@ -109,7 +109,7 @@ const NewFilter = ({
             )}
             onChange={(e, value) => setFieldValue(element?.name, value?.label)}
           />
-        );
+        )
       case "dropDownId":
         return (
           <>
@@ -124,11 +124,11 @@ const NewFilter = ({
               </Field>
             </FormControl>
           </>
-        );
+        )
       default:
-        return <TextField name={element?.name} label={element?.label} />;
+        return <TextField name={element?.name} label={element?.label} />
     }
-  };
+  }
   return (
     <>
       <Box
@@ -197,7 +197,7 @@ const NewFilter = ({
               initialValues={initialValues}
               validationSchema={validate && validate(validTill)}
               onSubmit={(values) => {
-                searchCallBack(values);
+                searchCallBack(values)
               }}
             >
               {({ setFieldValue }) => {
@@ -215,7 +215,7 @@ const NewFilter = ({
                           >
                             {getComponentToRender(element, setFieldValue)}
                           </Grid>
-                        );
+                        )
                       })}
                     </Grid>
                     <div
@@ -238,14 +238,14 @@ const NewFilter = ({
                       </Button>
                     </div>
                   </Form>
-                );
+                )
               }}
             </Formik>
           </div>
         )}
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default NewFilter;
+export default NewFilter

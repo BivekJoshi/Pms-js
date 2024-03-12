@@ -1,9 +1,15 @@
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { onlyTextRegex } from '../../static/RegExp';
+import { useFormik } from "formik"
+import * as Yup from "yup"
+import { onlyTextRegex } from "../../static/RegExp"
+import {
+  useAddOccupation,
+  useGetOccupation,
+} from "../../../../../hooks/kyc/occupaction/useOccupation"
 
 const occupationSchema = Yup.object().shape({
-  occupation: Yup.string().required("Occupation is required").matches(onlyTextRegex, "Please enter valid middle name"),
+  occupation: Yup.string()
+    .required("Occupation is required")
+    .matches(onlyTextRegex, "Please enter valid middle name"),
   businessType: Yup.string().when("occupation", {
     is: (val) => val === "BUSINESS",
     then: Yup.string().required("Business Type is required"),
@@ -36,44 +42,66 @@ const occupationSchema = Yup.object().shape({
   }),
   financialDetails: Yup.string().required("Financial Details is required"),
   sourceOfIncome: Yup.string().required("Source of Income is required"),
-});
+  companyName: Yup.string().when("involvementInOtherCompany", {
+    is: true,
+    then: Yup.string().required("Please enter company name"),
+    otherwise: Yup.string().nullable(),
+  }),
+  tradingDesignation: Yup.string().when("involvementInOtherCompany", {
+    is: true,
+    then: Yup.string().required("Please select designation"),
+    otherwise: Yup.string().nullable(),
+  }),
+  tradingAccountCompanyName: Yup.string().when("tradingAccount", {
+    is: true,
+    then: Yup.string().required("Please enter trading company name"),
+    otherwise: Yup.string().nullable(),
+  }),
+  clientCode: Yup.string().when("tradingAccount", {
+    is: true,
+    then: Yup.string().required("Please enter client code"),
+    otherwise: Yup.string().nullable(),
+  }),
+})
 
 export const useOccupationsIndividualForm = () => {
+  const { mutate } = useAddOccupation({})
+  const { data, isLoading } = useGetOccupation({})
+
   const formik = useFormik({
     initialValues: {
-      occupation: "",
-      businessType: "",
-      orgName: "",
-      address: "",
-      employeeId: "",
-      designation: "",
-      effectiveFrom: "",
-      financialDetails: "",
-      sourceOfIncome: "",
-      blackListed: false,
-      tradingAccount: false,
-      involvementInOtherCompany: false,
+      id: "" || data?.id,
+      userId: "" || data?.userId,
+      occupation: "" || data?.occupation,
+      businessType: "" || data?.businessType,
+      orgName: "" || data?.orgName,
+      address: "" || data?.address,
+      designation: "" || data?.designation,
+      employeeId: "" || data?.employeeId,
+      financialDetails: "" || data?.financialDetails,
+      involvementInOtherCompany: false || data?.involvementInOtherCompany,
+      companyName: "" || data?.companyName,
+      ifOthers: "" || data?.ifOthers,
+      ifOthersBusiness: "" || data?.ifOthersBusiness,
+      tradingDesignation: "" || data?.tradingDesignation,
+      effectiveFrom: "" || data?.effectiveFrom,
+      blackListed: false || data?.blackListed,
+      clientCode: "" || data?.clientCode,
+      tradingAccount: false || data?.tradingAccount,
+      tradingAccountCompanyName: "" || data?.tradingAccountCompanyName,
+      sourceOfIncome: "" || data?.sourceOfIncome,
     },
+    enableReinitialize: true,
     validationSchema: occupationSchema,
     onSubmit: (values) => {
-      //   setLoading(true);
-      handleRegister(values);
+      const formData = { ...values }
+      mutate(formData, {
+        onSuccess: (data) => {
+          formik.resetForm()
+        },
+      })
     },
-  });
+  })
 
-  const handleRegister = (values) => {
-    console.log(values, "values");
-    // mutate({ values }, { onSettled: () => setLoading(false) });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  return {
-    handleRegister,
-    formik,
-    // loading,
-    handleMouseDownPassword,
-  };
-};
+  return { formik }
+}

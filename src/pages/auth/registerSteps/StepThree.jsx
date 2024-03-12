@@ -1,8 +1,8 @@
-import React from "react";
-import RenderInput from "../../../components/renderInput/RenderInput";
+import React from "react"
+import RenderInput from "../../../components/renderInput/RenderInput"
 
 const StepThree = ({ formik }) => {
-  const nepseCodeTrue = formik.values?.dpId === 11400 ? true : false;
+  const nepseCodeTrue = formik.values?.dpId === 11400 ? true : false
 
   const stepThreeFields = [
     {
@@ -10,7 +10,7 @@ const StepThree = ({ formik }) => {
       label: "Depository Participant",
       md: 12,
       sm: 12,
-      path: "http://103.94.159.144:8084/kyc/api/utility/dp-details",
+      path: "/utility/dp-details",
       type: "asyncDropDown",
       required: true,
       responseLabel: "dpName",
@@ -45,12 +45,12 @@ const StepThree = ({ formik }) => {
         },
       ],
     },
-  ];
+  ]
   return (
     <div data-aos="fade-left">
       <RenderInput inputField={stepThreeFields} formik={formik} />
     </div>
-  );
-};
+  )
+}
 
-export default StepThree;
+export default StepThree

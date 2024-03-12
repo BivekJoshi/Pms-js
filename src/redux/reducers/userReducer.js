@@ -1,14 +1,23 @@
-const initialState = {
-  details: {},
-};
+import { SET_FORM, USER_LOGIN } from "../types/types"
+
+const initialState = {}
+
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "USER_LOGIN":
+    case USER_LOGIN:
       return {
-        details: action.payload,
-      };
+        ...state,
+        ...action.payload,
+      }
+    case SET_FORM:
+      return {
+        ...state,
+        currentForm: action.payload,
+      }
+
     default:
-      return state;
+      return state
   }
-};
-export default userReducer;
+}
+
+export default userReducer

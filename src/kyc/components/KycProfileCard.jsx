@@ -1,4 +1,4 @@
-import { useTheme } from "@emotion/react";
+import { useTheme } from "@emotion/react"
 import {
   Button,
   Chip,
@@ -7,12 +7,12 @@ import {
   IconButton,
   Tooltip,
   Typography,
-} from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
-import FormModal from "../../components/formModal/FormModal";
-import CloseIcon from "@mui/icons-material/Close";
-import CustomImageUpload from "./CustomImageUpload";
-import "./imageupload.css";
+} from "@mui/material"
+import React, { useEffect, useRef, useState } from "react"
+import FormModal from "../../components/formModal/FormModal"
+import CloseIcon from "@mui/icons-material/Close"
+import CustomImageUpload from "./CustomImageUpload"
+import "./imageupload.css"
 
 const KycProfileCard = ({
   clientType,
@@ -21,45 +21,45 @@ const KycProfileCard = ({
   isHomePage,
   formStatus,
 }) => {
-  const theme = useTheme();
-  const [open, setOpen] = useState(false);
-  const [stream, setStream] = useState(null);
-  const videoRef = useRef();
+  const theme = useTheme()
+  const [open, setOpen] = useState(false)
+  const [stream, setStream] = useState(null)
+  const videoRef = useRef()
   const accountType =
-    clientType === "I" ? "Individual" : clientType === "C" ? "Corporate" : "";
-  const accountNature = nature === "DP" ? "Demat" : "TMS";
-  const [capturedImage, setCapturedImage] = useState(null);
+    clientType === "I" ? "Individual" : clientType === "C" ? "Corporate" : ""
+  const accountNature = nature === "DP" ? "Demat" : "TMS"
+  const [capturedImage, setCapturedImage] = useState(null)
   const openCamera = async () => {
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: true,
-      });
-      setStream(mediaStream);
-      videoRef.current.srcObject = mediaStream;
+      })
+      setStream(mediaStream)
+      videoRef.current.srcObject = mediaStream
     } catch (error) {
-      console.error("Error accessing camera: ", error);
+      console.error("Error accessing camera: ", error)
     }
-  };
+  }
 
   const capturePicture = () => {
-    const canvas = document.createElement("canvas");
-    canvas.width = videoRef.current.videoWidth;
-    canvas.height = videoRef.current.videoHeight;
-    canvas.getContext("2d").drawImage(videoRef.current, 0, 0);
-    const imageUrl = canvas.toDataURL("image/png");
+    const canvas = document.createElement("canvas")
+    canvas.width = videoRef.current.videoWidth
+    canvas.height = videoRef.current.videoHeight
+    canvas.getContext("2d").drawImage(videoRef.current, 0, 0)
+    const imageUrl = canvas.toDataURL("image/png")
 
-    setCapturedImage(imageUrl);
+    setCapturedImage(imageUrl)
     if (stream) {
-      stream?.getTracks().forEach((track) => track.stop());
-      setStream(null);
+      stream?.getTracks().forEach((track) => track.stop())
+      setStream(null)
     }
-  };
+  }
 
   useEffect(() => {
     return () => {
-      setCapturedImage(null);
-    };
-  }, [open]);
+      setCapturedImage(null)
+    }
+  }, [open])
 
   return (
     <Grid
@@ -129,25 +129,24 @@ const KycProfileCard = ({
               </IconButton>
             </span>
           )}
-          {isHomePage && (
-            <Chip
-              label={formStatus}
-              color={
-                formStatus === "PENDING"
-                  ? "warning"
-                  : formStatus === "SUBMITTED"
-                  ? "info"
-                  : formStatus === "APPROVED"
+        </span>
+        <Chip
+          sx={{ marginTop: "8px" }}
+          label={formStatus}
+          color={
+            formStatus === "PENDING"
+              ? "warning"
+              : formStatus === "SUBMITTED"
+                ? "info"
+                : formStatus === "APPROVED"
                   ? "success"
                   : "error"
-              }
-            ></Chip>
-          )}
-        </span>
+          }
+        ></Chip>
         <Typography variant="h6" mt="8px">
           {clientName}
         </Typography>
-        <Typography variant="h6">
+        <Typography variant="h6" textAlign={"center"}>
           {accountType + " " + accountNature + " Account"}
         </Typography>
       </div>
@@ -156,9 +155,9 @@ const KycProfileCard = ({
           open={open}
           setOpen={() => setOpen(false)}
           onClose={() => {
-            setOpen(false);
+            setOpen(false)
             if (stream) {
-              stream.getTracks().forEach((track) => track.stop());
+              stream.getTracks().forEach((track) => track.stop())
             }
           }}
           width="378px"
@@ -191,8 +190,8 @@ const KycProfileCard = ({
                             if (stream) {
                               stream
                                 ?.getTracks()
-                                .forEach((track) => track.stop());
-                              setStream(null);
+                                .forEach((track) => track.stop())
+                              setStream(null)
                             }
                           }}
                         >
@@ -232,7 +231,7 @@ const KycProfileCard = ({
         />
       )}
     </Grid>
-  );
-};
+  )
+}
 
-export default KycProfileCard;
+export default KycProfileCard

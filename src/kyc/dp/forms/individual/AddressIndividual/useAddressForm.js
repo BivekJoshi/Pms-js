@@ -1,3 +1,4 @@
+import { useAddAddress } from "../../../../../hooks/kyc/address/useAddress";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -15,32 +16,44 @@ const AddressSchema = Yup.object().shape({
     })
   ),
 });
-export const useAddressForm = () => {
+
+export const useAddressForm = (data) => {
+  const { mutate } = useAddAddress({});
   const formik = useFormik({
     initialValues: {
-      addresses: [
-        {
-          country: "",
-          province: "",
-          district: "",
-          municipality: "",
-          wardNo: "",
-          tole: "",
-          streetNo: "",
-          mobileNo: "",
-          telephoneNo: "",
-          email: "",
-          website: "",
-          longitude: "",
-          latitude: "",
-          houseNo: "",
-          have_different_permanent_address: false,
-        },
-      ],
+      addresses: data
+        ? data.map((address) => ({
+            ...address,
+            have_different_permanent_address: true,
+          }))
+        : [
+            {
+              country: "",
+              province: "",
+              district: "",
+              municipality: "",
+              wardNo: "",
+              tole: "",
+              streetNo: "",
+              mobileNo: "",
+              telephoneNo: "",
+              email: "",
+              website: "",
+              longitude: "",
+              latitude: "",
+              houseNo: "",
+              have_different_permanent_address: false,
+            },
+          ],
     },
-    validationSchema: AddressSchema,
-    onSubmit: (value) => {
-      console.log(value);
+    // validationSchema: AddressSchema,
+    onSubmit: (values) => {
+      const formData = { ...values };
+      mutate(formData, {
+        onSuccess: (data) => {
+          formik.resetForm();
+        },
+      });
     },
   });
   return { formik };

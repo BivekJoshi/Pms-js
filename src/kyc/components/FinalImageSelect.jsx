@@ -1,12 +1,14 @@
 import { Button } from "@mui/material";
 import React from "react";
 import DottedBorder from "../../assets/DottedBoder.png";
+import { usePhotoUploadForm } from "../../hooks/kyc/DocumentUpload/usePhotoUploadForm";
 
 const FinalImageSelect = ({ finalImage, file }) => {
-  console.log(finalImage);
-  const handleSubmit = () => {
-    console.log("I am Clicked");
-  };
+  const { formik } = usePhotoUploadForm({ file ,finalImage});
+
+  // const handleSubmit = () => {
+  //   console.log(file, "File ma chaii");
+  // };
 
   return (
     <div
@@ -40,7 +42,7 @@ const FinalImageSelect = ({ finalImage, file }) => {
         variant="contained"
         fullWidth
         sx={{ marginTop: "12px" }}
-        onClick={handleSubmit}
+        onClick={formik.handleSubmit}
       >
         Upload
       </Button>

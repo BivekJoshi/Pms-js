@@ -18,8 +18,6 @@ const CustomImageUpload = ({ imgPreview }) => {
   const [file, setFile] = useState(null);
   const [showDelete, setShowDelete] = useState(false);
 
-  console.log(file, "fileeeeeeeeee");
-
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     // You can use croppedAreaPixels to get the cropped image details
     setCropSize(croppedAreaPixels);

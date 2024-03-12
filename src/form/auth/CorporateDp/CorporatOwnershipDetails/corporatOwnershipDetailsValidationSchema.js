@@ -7,20 +7,20 @@ const corporatOwnershipDetailsValidationSchema = Yup.object().shape({
         .typeError("Please select designation")
         .required("Please select designation"),
       firstName: Yup.string()
-        .typeError("Please enter first name")
-        .required("Please enter first name"),
+        .typeError("First Name is required")
+        .required("First Name is required"),
       lastName: Yup.string()
-        .typeError("Please enter last name")
-        .required("Please enter last name"),
+        .typeError("Last Name is required")
+        .required("Last Name is required"),
       fatherName: Yup.string()
-        .typeError("Please enter father's name")
-        .required("Please enter father's name"),
+        .typeError("Father's Name is required")
+        .required("Father's Name is required"),
       grandFather: Yup.string()
-        .typeError("Please enter grandfather's name")
-        .required("Please enter grandfather's name"),
+        .typeError("Grandfather's Name is required")
+        .required("Grandfather's Name is required"),
       permanentAddress: Yup.string()
-        .typeError("Please enter permanent address")
-        .required("Please enter permanent address"),
+        .typeError("Permanent Address is required")
+        .required("Permanent Address is required"),
       currentAddress: Yup.string()
         .typeError("Please enter current address")
         .required("Please enter current address"),

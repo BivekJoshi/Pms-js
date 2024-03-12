@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   TextField,
   IconButton,
@@ -6,22 +6,22 @@ import {
   Button,
   CircularProgress,
   Typography,
-} from "@mui/material";
-import { Grid, Box, MenuItem, InputAdornment } from "@mui/material";
-import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { LoadingButton } from "@mui/lab";
-import { useSelector } from "react-redux";
-import { useLoginForm } from "../../form/auth/login/useLoginForm";
-import { useNavigate } from "react-router-dom";
-import CheckStatus from "../../assets/checkStatus.png";
-import Bear from "../../assets/bull--.png";
-import { useEffect } from "react";
+} from "@mui/material"
+import { Grid, Box, MenuItem, InputAdornment } from "@mui/material"
+import MailOutlineIcon from "@mui/icons-material/MailOutline"
+import { Visibility, VisibilityOff } from "@mui/icons-material"
+import { LoadingButton } from "@mui/lab"
+import { useSelector } from "react-redux"
+import { useLoginForm } from "../../form/auth/login/useLoginForm"
+import { useNavigate } from "react-router-dom"
+import CheckStatus from "../../assets/checkStatus.png"
+import Bear from "../../assets/bull--.png"
+import { useEffect } from "react"
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-  const brokerOption = useSelector((state) => state.brokerList.brokerOption);
-  const isLoading = useSelector((state) => state.brokerList.processing);
+  const navigate = useNavigate()
+  const brokerOption = useSelector((state) => state.brokerList.brokerOption)
+  const isLoading = useSelector((state) => state.brokerList.processing)
 
   const {
     formik,
@@ -29,11 +29,11 @@ const LoginPage = () => {
     loading,
     handleClickShowPassword,
     handleMouseDownPassword,
-  } = useLoginForm();
+  } = useLoginForm()
 
   const handleClick = () => {
-    navigate("/register");
-  };
+    navigate("/register")
+  }
 
   return (
     <Box
@@ -126,8 +126,8 @@ const LoginPage = () => {
             onChange={formik.handleChange}
             onKeyPress={(ev) => {
               if (ev.key === "Enter") {
-                formik.handleSubmit();
-                ev.preventDefault();
+                formik.handleSubmit()
+                ev.preventDefault()
               }
             }}
             error={formik.touched.password && Boolean(formik.errors.password)}
@@ -222,7 +222,7 @@ const LoginPage = () => {
         </Grid>
       </Grid>
     </Box>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage
