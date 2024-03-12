@@ -74,6 +74,8 @@ const KycLayout = () => {
   useEffect(() => {
     if (_.isEmpty(userDetails)) {
       userRefetch()
+    } else if (userDetails.status === "SUBMITTED") {
+      navigate("/kyc-submitted")
     }
   }, [userData])
 

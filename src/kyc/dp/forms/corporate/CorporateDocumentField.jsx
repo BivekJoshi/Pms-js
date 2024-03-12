@@ -7,10 +7,10 @@ import {
   DocumentField,
   PanCardField,
 } from "../individual/DocumentIndividual/DocumentField"
-import { useDocumentForm } from "../individual/DocumentIndividual/useDocumentForm"
+import { useDocumentFieldForm } from "../individual/DocumentIndividual/useDocumentFieldForm"
 
 const CorporateDocumentField = () => {
-  const { formik } = useDocumentForm()
+  const { formik } = useDocumentFieldForm()
 
   return (
     <Grid container>

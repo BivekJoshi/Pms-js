@@ -12,7 +12,7 @@ const KycHomePage = () => {
 
   const formLabel =
     formNature === "DP" ? "DEMAT" : formNature === "TMS" ? "TMS" : ""
-  const routeList = kycRoutes()
+  const routeList = kycRoutes(clientType)
 
   const handleStartRegistration = () => {
     if (formNature === "DP") {
@@ -36,7 +36,7 @@ const KycHomePage = () => {
       const page = routeList.find((item) => item.id === currentFormStep)
       path = page.path
       if (formNature === "TMS") {
-        path.replace("demat-registration", "tms-registration")
+        path = path.replace("demat", "tms")
       }
       navigate(`/kyc/${path}`)
     }
