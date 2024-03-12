@@ -1,6 +1,6 @@
 import _ from "lodash"
 import { nanoid } from "nanoid"
-import React, { lazy, useContext, useState } from "react";
+import React, { lazy, useContext, useState } from "react"
 
 /*---------------------------INDIVIDUAL--------------------------------------------------------------*/
 const BasicIndividualDpForms = React.lazy(
@@ -119,36 +119,40 @@ export const kycDpIndividualRoutes = [
 export const kycDpCorporateRoutes = [
   {
     path: "demat-registration/c/corporate-details",
-    id: nanoid(),
+    id: 1,
     component: CorporateDetailsDp,
   },
   {
     path: "demat-registration/c/corporate-address",
-    id: nanoid(),
+    id: 2,
     component: CorporateAddress,
   },
   {
     path: "demat-registration/c/corporate-bank-detail",
-    id: nanoid(),
+    id: 3,
     component: CorporatBankDetail,
   },
   {
     path: "demat-registration/c/corporate-bo-statement",
-    id: nanoid(),
+    id: 4,
     component: CorporateBoStatement,
   },
   {
     path: "demat-registration/c/corporate-ownership-details",
-    id: nanoid(),
+    id: 5,
     component: CorporatOwnershipDetails,
   },
   {
     path: "demat-registration/c/document-details",
-    id: nanoid(),
+    id: 6,
     component: CorporateDocument,
   },
 ]
 
-export const kycRoutes = (type, nature) => {
-  return _.map(kycDpIndividualRoutes, (route) => _.omit(route, "component"))
+export const kycRoutes = (clientType) => {
+  if (clientType === "I") {
+    return _.map(kycDpIndividualRoutes, (route) => _.omit(route, "component"))
+  } else if (clientType === "C") {
+    return _.map(kycDpCorporateRoutes, (route) => _.omit(route, "component"))
+  }
 }

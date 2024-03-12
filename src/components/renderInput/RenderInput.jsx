@@ -37,7 +37,6 @@ const MarkerLocationFieldArray = ({
   setValueField,
   index,
   fieldArrayName,
-  isFieldArray,
 }) => {
   const markerRef = useRef()
   const map = useMap()
@@ -313,6 +312,12 @@ const RenderInput = ({
                 element.name,
                 newValue?.value || newValue?.code || ""
               ) // Set value to newValue's value property or empty string if undefined
+            if(element.clearField){
+              for(let i=0;i<element.clearField?.length;i++){
+              formik.setFieldValue(element.clearField[i],  "")
+              }
+            }
+
             }}
             fullWidth
             renderInput={(params) => {
@@ -498,7 +503,7 @@ const RenderInput = ({
         return <DualDatePicker element={element} formik={formik} />
 
       case "asyncDropDownOption":
-        return ( <AsyncDropDownOption element={element} formik={formik} index={index} />
+        return ( <AsyncDropDownOption element={element} formik={formik} index={index} isFieldArray={isFieldArray} />
         );
         case "asyncDropDown":
         return (

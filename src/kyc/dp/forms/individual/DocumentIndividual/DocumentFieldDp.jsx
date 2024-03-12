@@ -1,34 +1,33 @@
-import { Button, Grid } from "@mui/material";
-import RenderInput from "../../../../../components/renderInput/RenderInput";
+import { Button, Grid } from "@mui/material"
+import RenderInput from "../../../../../components/renderInput/RenderInput"
 import {
-  birthCertificateField,
-  citizenshipField,
-  documentField,
-  panCardField,
-  passportField,
-} from "./DocumentField";
-import { useDocumentFieldForm } from './useDocumentFieldForm';
+  BirthCertificateField,
+  CitizenshipField,
+  DocumentField,
+  PanCardField,
+} from "./DocumentField"
+import { useDocumentFieldForm } from "./useDocumentFieldForm"
 
 const DocumentFieldDp = () => {
-  const { formik } = useDocumentFieldForm();
+  const { formik } = useDocumentFieldForm()
 
   return (
     <Grid container>
       <Grid item xs={12}>
         {!formik?.values?.docType && (
-          <RenderInput inputField={documentField} formik={formik} />
+          <RenderInput inputField={DocumentField} formik={formik} />
         )}
         {formik?.values?.docType === "citizenship" && (
-          <RenderInput inputField={citizenshipField} formik={formik} />
+          <RenderInput inputField={CitizenshipField} formik={formik} />
         )}
         {formik?.values?.docType === "passport" && (
-          <RenderInput inputField={passportField} formik={formik} />
+          <RenderInput inputField={PanCardField} formik={formik} />
         )}
         {formik?.values?.docType === "birthCertificate" && (
-          <RenderInput inputField={birthCertificateField} formik={formik} />
+          <RenderInput inputField={BirthCertificateField} formik={formik} />
         )}
         {formik?.values?.docType === "panCard" && (
-          <RenderInput inputField={panCardField} formik={formik} />
+          <RenderInput inputField={PanCardField} formik={formik} />
         )}
         <Grid sx={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
           <Button
@@ -48,7 +47,7 @@ const DocumentFieldDp = () => {
         </Grid>
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
-export default DocumentFieldDp;
+export default DocumentFieldDp
