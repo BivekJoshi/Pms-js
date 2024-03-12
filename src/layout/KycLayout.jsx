@@ -45,7 +45,7 @@ const KycLayout = () => {
   const { data, isLoading, refetch } = useGetTheme(brokerId)
 
   const { authToken } = getUserToken()
-  const { A: userId } = getUser()
+  const { id: userId } = getUser()
   useEffect(() => {
     if (!authToken) {
       navigate("/login")
@@ -64,6 +64,7 @@ const KycLayout = () => {
       setIsHomePage(isHome)
     }
   }, [pathname])
+  
 
   const {
     data: userData,
@@ -74,8 +75,6 @@ const KycLayout = () => {
   useEffect(() => {
     if (_.isEmpty(userDetails)) {
       userRefetch()
-    } else if (userDetails.status === "SUBMITTED") {
-      navigate("/kyc-submitted")
     }
   }, [userData])
 

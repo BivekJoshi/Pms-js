@@ -136,7 +136,7 @@ const KycProfileCard = ({
           color={
             formStatus === "PENDING"
               ? "warning"
-              : formStatus === "SUBMITTED"
+              : formStatus ===  "SUBMITTED"
                 ? "info"
                 : formStatus === "APPROVED"
                   ? "success"
