@@ -3,26 +3,36 @@ import { axiosInstance } from "../../api/axiosInterceptor"
 import { Autocomplete, TextField } from "@mui/material"
 import { getIn } from "formik"
 
-const AsyncDropDownOption = ({ element, formik, index, isFieldArray }) => {
+const AsyncDropDownOption = ({ element, formik, isFieldArray }) => {
   const [options, setOptions] = useState([])
   const [selectedValue, setSelectedValue] = useState(null)
+  const formValues = isFieldArray
+    ? getIn(formik.values, element.name)
+    : formik.values[element.name]
+
+  const formError = isFieldArray
+    ? getIn(formik.errors, element.name)
+    : formik.errors[element.name]
+
+  const formTouched = isFieldArray
+    ? getIn(formik.touched, element.name)
+    : formik.touched[element.name]
+
+  const getDependentValue = (dependent) => {
+    return getIn(formik.values, dependent)
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (!element.path || !element.reference) return
-        let referenceValue = ""
-        if (element.reference === "province") {
-          referenceValue = formik.values.addresses[index].province
-        } else if (element.reference === "district") {
-          referenceValue = formik.values.addresses[index].district
-        }
-        if (!referenceValue) {
-          setOptions([])
-          return
-        }
-        const response = await axiosInstance.get(
-          `${element.path}?${element.reference}=${referenceValue || "0"}`
-        )
+        if (!element.path || !element.reference) return ""
+        const referenceValue = getDependentValue(element.dependentFieldValue)
+        // const path = element.reference ? `${element.path}?${element.reference}=${referenceValue || "0"}` : element.path}
+        const path = element.reference
+          ? `${element.path}?${element.reference}=${referenceValue || "0"}`
+          : element.path
+        const response = await axiosInstance.get(path)
+
         const data = response.data
 
         const optionsData = data?.map((item) => ({
@@ -43,10 +53,6 @@ const AsyncDropDownOption = ({ element, formik, index, isFieldArray }) => {
       formik.setFieldValue(element.name, selectedValue.value || "")
     }
   }, [selectedValue, element.name]) //eslint-disable-line
-
-  const formValues = isFieldArray
-    ? getIn(formik.values, element.name)
-    : formik.values[element.name]
 
   useEffect(() => {
     setSelectedValue({
@@ -78,14 +84,8 @@ const AsyncDropDownOption = ({ element, formik, index, isFieldArray }) => {
           <TextField
             {...params}
             label={element.label}
-            error={
-              formik.touched[`addresses[${index}].${element.name}`] &&
-              Boolean(formik.errors[`addresses[${index}].${element.name}`])
-            }
-            helperText={
-              formik.touched[`addresses[${index}].${element.name}`] &&
-              formik.errors[`addresses[${index}].${element.name}`]
-            }
+            error={formTouched && Boolean(formError)}
+            helperText={formTouched && formError}
             variant="outlined"
           />
         )}
