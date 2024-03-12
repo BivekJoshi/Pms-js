@@ -92,7 +92,6 @@ export const useKycFamilyForm = ({familyData}) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       const formData = {...values};
-      console.log("formData", formData);
       mutate(formData?.personDetail, {
         onSuccess: () => {
           formik.resetForm();

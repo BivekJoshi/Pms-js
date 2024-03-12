@@ -14,7 +14,6 @@ const { data: basicIndividualData } = useGetBasicDetail();
 
 const basicIndividualDetails = basicIndividualData && basicIndividualData?.data
 const individualDetails = basicIndividualData && basicIndividualData?.data?.individualDetails
-console.log(basicIndividualData?.data, "basic")
   const { formik } = useBasicIndividualDpForms({ currentForm, individualDetails });
   const { t } = useTranslation();
 
