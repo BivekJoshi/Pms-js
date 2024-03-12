@@ -9,7 +9,7 @@ export const getFamily = async () => {
 /*________________________POST FAMILY DETAIL_____________________________________*/
 export const addFamily = async (formData) => {
   const data = await axiosInstance.post(
-    `/client/client-family-details?currentForm=1`,
+    `/client/client-family-details?currentForm=4`,
     formData
   );
   return data;

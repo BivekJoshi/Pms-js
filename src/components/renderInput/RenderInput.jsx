@@ -202,6 +202,7 @@ const RenderInput = ({
             formik={formik}
             formTouched={formTouched}
             formError={formError}
+            isFieldArray={isFieldArray}
           />
         )
       case "dropDownWithValue":

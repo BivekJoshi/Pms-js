@@ -4,8 +4,9 @@ import { Autocomplete, Grid, TextField, CircularProgress } from "@mui/material";
 import "./nepaliInputText.css";
 import { debounce } from "lodash";
 import { useTranslation } from 'react-i18next';
+import { getIn } from "formik";
 
-const NepaliInputText = ({ element, formik, formTouched, formError }) => {
+const NepaliInputText = ({ element, formik, formTouched, formError,isFieldArray }) => {
   const [options, setOptions] = useState([]);
   const [busy, setBusy] = useState(false);
   const [open, setOpen] = useState(false);
@@ -67,6 +68,12 @@ const NepaliInputText = ({ element, formik, formTouched, formError }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const formValues = isFieldArray
+  ? getIn(formik.values, element.name)
+  : formik.values[element.name]
+
+  console.log(formValues)
   return (
     <Grid container>
       <Grid item xs={12} md={12} lg={12}>
@@ -74,7 +81,7 @@ const NepaliInputText = ({ element, formik, formTouched, formError }) => {
           // key={options} // Set key prop
           options={options}
           open={open}
-          value={formik.values[element.name]}
+          value={formValues}
           onKeyUp={handleKeyUpDebounced}
           filterOptions={(x) => x}
           onBlur={formik.handleBlur}
