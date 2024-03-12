@@ -1,26 +1,57 @@
 import { useFormik } from "formik";
-import { useAddAmlCft } from "../../../../../hooks/kyc/aml-cft/useAmlCft";
+import {
+  useAddAmlCft,
+  useGetAmlCft,
+} from "../../../../../hooks/kyc/aml-cft/useAmlCft";
+import * as Yup from "yup";
+import { fullnameRegex } from "../../static/RegExp";
+
+const AMLCFTSchema = Yup.object().shape({
+  name: Yup.string().when("poliAffiHighRnkRln", {
+    is: true,
+    then: Yup.string()
+      .required("Full Name is required")
+      .matches(fullnameRegex, "Please enter valid name"),
+    otherwise: Yup.string().nullable(),
+  }),
+  relation: Yup.string().when("poliAffiHighRnkRln", {
+    is: true,
+    then: Yup.string()
+      .required("Relation is required")
+      .matches(fullnameRegex, "Please enter valid name"),
+    otherwise: Yup.string().nullable(),
+  }),
+  name: Yup.string().when("pastCrimActi", {
+    is: true,
+    then: Yup.string()
+      .required("Full Name is required")
+      .matches(fullnameRegex, "Please enter valid name"),
+    otherwise: Yup.string().nullable(),
+  }),
+});
 
 export const useAmlCftForm = () => {
   const { mutate } = useAddAmlCft({});
+  const { data, isLoading } = useGetAmlCft();
+  console.log(data, "dtaaaata ma");
 
   const formik = useFormik({
     initialValues: {
-      poliAffiHighRnkRln: false,
-      poliAffiHighRnkRlnName: [
+      poliAffiHighRnkRln: data?.poliAffiHighRnkRln || false,
+      poliAffiHighRnkRlnName: data?.poliAffiHighRnkRlnName || [
         {
           name: "",
           relation: "",
         },
       ],
-      pastCrimActi: false,
-      pastCrimiActiDetail: [
+      pastCrimActi: data?.pastCrimActi || false,
+      pastCrimiActiDetail: data?.pastCrimiActiDetail || [
         {
           name: "",
         },
       ],
       beneficialOwner: false,
-      beneficialOwnerName: [
+      beneficialOwnerName: data?.beneficialOwnerName || [
         {
           age: "",
           citizenShipNo: "",
@@ -40,8 +71,9 @@ export const useAmlCftForm = () => {
         },
       ],
     },
+    // validationSchema: AMLCFTSchema,
     onSubmit: (values) => {
-      console.log(values,"values");
+      console.log(values, "values");
       const formData = { ...values };
       mutate(formData, {
         onSuccess: (data) => {

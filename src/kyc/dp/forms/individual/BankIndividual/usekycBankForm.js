@@ -22,6 +22,8 @@ export const useKycBankForm = () => {
       accountNumber: "",
       accountType: "",
       branchAddress: "",
+      isPrimary: false,
+      // userId: 159,
     },
     validationSchema: bankSchema,
     onSubmit: (values) => {

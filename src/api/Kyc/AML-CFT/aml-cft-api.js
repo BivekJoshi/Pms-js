@@ -8,3 +8,9 @@ export const addAmlCft = async (formData) => {
   );
   return data;
 };
+
+/*________________________GET AML CFT DETAIL_____________________________________*/
+export const getAmlCft = async () => {
+  const res = await axiosInstance.get("/client/aml-cft");
+  return res.data;
+};

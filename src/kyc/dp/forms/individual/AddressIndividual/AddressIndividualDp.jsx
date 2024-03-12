@@ -5,11 +5,14 @@ import { FieldArray } from "formik";
 import { useAddressForm } from "./useAddressForm";
 import { AddressField } from "./AddressField";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
+import { useGetAddress } from '../../../../../hooks/kyc/address/useAddress';
 
 const AddressIndividualDp = () => {
-  const { formik } = useAddressForm();
+  const { data: addressData } = useGetAddress();
+  const data = addressData && addressData?.data;
+  const { formik } = useAddressForm(data);
   const theme = useTheme();
-  
+
   return (
     <div data-aos="zoom-in-right">
       <Box

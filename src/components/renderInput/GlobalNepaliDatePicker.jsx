@@ -1,7 +1,7 @@
 import React from "react";
 import { NepaliDatePicker } from "nepali-datepicker-reactjs";
 import "nepali-datepicker-reactjs/dist/index.css";
-import { Grid, Typography, useTheme } from "@mui/material";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 
 const GlobalNepaliDatePicker = ({
   label,
@@ -15,11 +15,11 @@ const GlobalNepaliDatePicker = ({
   const textColor = theme.palette.mode === "dark" ? "#fff" : "#000";
 
   return (
-    <Grid
-      item
-      md={md}
-      sm={sm}
-      style={{ display: "flex", flexDirection: "column", width: "100%" }}
+    <Box
+      // item
+      // md={md}
+      // sm={sm}
+      // style={{ display: "flex", flexDirection: "column", }}
     >
       <Typography
         variant="body2"
@@ -38,7 +38,7 @@ const GlobalNepaliDatePicker = ({
         onChange={handleChange}
         options={{ calenderLocale: "ne", valueLocale: "en" }}
       />
-    </Grid>
+    </Box>
   );
 };
 

@@ -83,7 +83,8 @@ const validationSchema = Yup.object().shape({
   ),
 });
 
-export const useKycFamilyForm = () => {
+export const useKycFamilyForm = ({familyData}) => {
+  console.log(familyData);
   const { mutate } = useAddFamily({});
 
   const formik = useFormik({
@@ -132,7 +133,8 @@ export const useKycFamilyForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      const formData = { ...values };
+      const formData = {...values};
+      console.log("formData", formData);
       mutate(formData, {
         onSuccess: (data) => {
           formik.resetForm();

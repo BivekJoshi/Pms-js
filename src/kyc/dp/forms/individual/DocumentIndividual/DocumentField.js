@@ -1,4 +1,4 @@
-export const DocumentField = [
+export const documentField = [
   {
     name: "docType",
     label: "Select Document Type",
@@ -17,7 +17,7 @@ export const DocumentField = [
   },
 ];
 
-export const CitizenshipFiled = [
+export const citizenshipField = [
   {
     name: "docType",
     label: "Select Document Type",
@@ -45,26 +45,6 @@ export const CitizenshipFiled = [
     type: "text",
   },
   {
-    name: "issuedDatebs",
-    label: "Citizenship Issued Date (B.S)",
-    md: 4,
-    sm: 6,
-    lg: 4,
-    xs: 12,
-    required: true,
-    type: "text",
-  },
-  {
-    name: "issuedDatead",
-    label: "Citizenship Issued Date (A.D)",
-    md: 4,
-    sm: 6,
-    lg: 4,
-    xs: 12,
-    required: true,
-    type: "text",
-  },
-  {
     name: "issuedDistrict",
     label: "Citizenship Issued District",
     md: 4,
@@ -75,6 +55,20 @@ export const CitizenshipFiled = [
     type: "text",
   },
   {
+    name: "issuedDatebs",
+    label: "Citizenship Issued Date (B.S)",
+    engMd: 4,
+    engSm: 12,
+    nepMd: 6,
+    nepSm: 12,
+    md: 12,
+    sm: 12,
+    engLabel: "Citizenship Issued Date (A.D.)",
+    nepaliLabel: "Citizenship Issued Date (B.S.)",
+    required: true,
+    type: "dualDate",
+  },  
+  {
     md: 6,
     sm: 6,
     lg: 6,
@@ -82,6 +76,7 @@ export const CitizenshipFiled = [
     required: true,
     type: "documentUpload",
     title: "Front Side",
+    name: "citizenshipFront"
   },
   {
     md: 6,
@@ -91,10 +86,11 @@ export const CitizenshipFiled = [
     required: true,
     type: "documentUpload",
     title: "Back Side",
+    name: "citizenshipBack",
   },
 ];
 
-export const PassportFiled = [
+export const passportField = [
   {
     name: "docType",
     label: "Select Document Type",
@@ -162,7 +158,7 @@ export const PassportFiled = [
   },
 ];
 
-export const PanCardFiled = [
+export const panCardField = [
     {
       name: "docType",
       label: "Select Document Type",
@@ -185,12 +181,13 @@ export const PanCardFiled = [
       lg: 12,
       xs: 12,
       required: true,
+      name: "panDocument",
       type: "documentUpload",
       title: "Pan Card Photo",
     },
   ];
 
-  export const BirthCertificateFiled = [
+  export const birthCertificateField = [
     {
       name: "docType",
       label: "Select Document Type",

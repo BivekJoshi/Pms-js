@@ -21,13 +21,13 @@ import TermsAndConditionInfo from "../PageIndividual/TermsAndConditionInfo";
 import SignatureUI from "../ReuseStyle/SignatureUI";
 
 Font.register({
-  family: "notoSerifDevnagari",
+  family: "notoSerifDevanagari",
   src: notoSerifDevanagari,
 });
 
 const styles = StyleSheet.create({
   page: {
-    fontFamily: "notoSerifDevnagari",
+    fontFamily: "notoSerifDevanagari",
     flexDirection: "column",
     padding: "12px 35px",
     fontSize: "14px",

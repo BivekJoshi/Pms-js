@@ -8,13 +8,14 @@ import {
 } from "../../../../utility/kycData";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { useTheme } from "@emotion/react";
-import { CorporateDpForm } from "../../../../form/auth/CorporateDp/corporateDpForm";
+import { BasicCorporateDpForm } from "../../../../form/auth/CorporateDp/BasicCorporateDpForm";
+import { useGetBasicDpCorporate } from '../../../../hooks/Kyc/corporate/BasicCoporateDp/useBasicCoporateDp';
 
 const CorporateDetailsDp = () => {
   const CorporateField = [
     {
       name: "corporateAccountType",
-      label: "Account Type (खाताको प्रकार)",
+      label: "Account Type",
       disabled: true,
       type: "dropDown",
       options: CORPORATE_ACCOUNT_TYPE,
@@ -24,7 +25,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "companyName",
-      label: "Company Name (कम्पनीको नाम)",
+      label: "Company Name",
       type: "text",
       id: nanoid(),
       maxLength: 100,
@@ -34,7 +35,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "companyCeoName",
-      label: "Company CEO Name (प्रमुख कार्यकारी अधिकृतको नाम)",
+      label: "Company CEO Name",
       type: "text",
       id: nanoid(),
       maxLength: 75,
@@ -43,7 +44,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "companySecretaryName",
-      label: "Company Secretary Name (कम्पनी सचिवको नाम)",
+      label: "Company Secretary Name",
       type: "text",
       id: nanoid(),
       maxLength: 75,
@@ -52,7 +53,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "companyType",
-      label: "Company Type (कम्पनीको प्रकार)",
+      label: "Company Type",
       type: "dropDown",
       options: COMPANY_TYPE,
       id: nanoid(),
@@ -61,7 +62,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "contactNumber",
-      label: "Contact Number (सम्पर्क नम्बर)",
+      label: "Contact Number",
       type: "number",
       maxLength: 21,
       minLength: 10,
@@ -71,7 +72,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "countryReg",
-      label: "Country of Registration (दर्ताको देश)",
+      label: "Country of Registration",
       type: "dropDown",
       options: [
         {
@@ -86,9 +87,9 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "incorporationDate",
-      nepaliLabel: "Incorporation Date (समावेश मिति) (B.S.)",
+      nepaliLabel: "Incorporation Date (B.S.)",
       type: "dualDate",
-      engLabel: "Incorporation Date (समावेश मिति) (A.D.)",
+      engLabel: "Incorporation Date (A.D.)",
       id: nanoid(),
       engMd: 6,
       engSm: 12,
@@ -99,7 +100,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "registrationNo",
-      label: "Registration Number (दर्ता नम्बर)",
+      label: "Registration Number",
       type: "text",
       id: nanoid(),
       md: 4,
@@ -108,9 +109,9 @@ const CorporateDetailsDp = () => {
 
     {
       name: "registrationDate",
-      nepaliLabel: "Registration Date (दर्ता मिति) (B.S.)",
+      nepaliLabel: "Registration Date (B.S.)",
       type: "dualDate",
-      engLabel: "Registration Date (दर्ता मिति) (A.D.)",
+      engLabel: "Registration Date (A.D.)",
       required: true,
       id: nanoid(),
       engMd: 6,
@@ -122,7 +123,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "registrationOffice",
-      label: "Registration Office (दर्ता कार्यालय)",
+      label: "Registration Office",
       type: "text",
       id: nanoid(),
       maxLength: 75,
@@ -131,7 +132,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "panNo",
-      label: "PAN Number (प्यान नम्बर)",
+      label: "PAN Number",
       type: "text",
       id: nanoid(),
       maxLength: 10,
@@ -140,7 +141,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "businessType",
-      label: "Business Type (व्यापार प्रकार)",
+      label: "Business Type",
       type: "dropDown",
       options: BUSINESS_OPTIONS,
       id: nanoid(),
@@ -149,7 +150,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "workArea",
-      label: "Work Area (कार्य क्षेत्र)",
+      label: "Work Area",
       type: "text",
       id: nanoid(),
       maxLength: 75,
@@ -158,7 +159,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "vatRegistration",
-      label: "VAT Registration No (मूल्य अभिबृद्धि कर दर्ता नं.)",
+      label: "VAT Registration No",
       type: "number",
       id: nanoid(),
       maxLength: 15,
@@ -168,7 +169,7 @@ const CorporateDetailsDp = () => {
     {
       name: "nrbRegistration",
       label:
-        "NRB Registration No (नेपाल राष्ट्र बैंकमा दर्ता भएको भए दर्ता नं.)",
+        "NRB Registration No",
       type: "number",
       id: nanoid(),
       maxLength: 15,
@@ -178,9 +179,9 @@ const CorporateDetailsDp = () => {
     {
       name: "nrbApproval",
       nepaliLabel:
-        "NRB Approval Date (नेपाल राष्ट्र बैंकको स्वीकृत मिति) (B.S.)",
+        "NRB Approval Date (B.S.)",
       type: "dualDate",
-      engLabel: "NRB Approval Date (नेपाल राष्ट्र बैंकको स्वीकृत मिति) (A.D.)",
+      engLabel: "NRB Approval Date (A.D.)",
       id: nanoid(),
       maxLength: 75,
       engMd: 6,
@@ -192,23 +193,26 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "isListed",
-      label: "Is Company Listed? (कम्पनी सूचीबद्ध छ?)",
+      label: "Is Company Listed?",
       type: "switchWithFields",
       id: nanoid(),
+      display: "flex",
+      direction: "column",
+      align: "start",
       sm: 12,
       newFields: [
         {
           name: "listingDate",
-          nepaliLabel: "Listing Date (सूचीकरण मिति) (B.S.)",
+          nepaliLabel: "Listing Date (B.S.)",
           type: "dualDate",
-          engLabel: "Listing Date (सूचीकरण मिति) (A.D.)",
+          engLabel: "Listing Date (A.D.)",
           required: true,
           id: nanoid(),
           engMd: 6,
           engSm: 12,
           nepMd: 6,
           nepSm: 12,
-          md: 8,
+          md: 12,
           sm: 12,
         },
       ],
@@ -219,13 +223,16 @@ const CorporateDetailsDp = () => {
       type: "switchWithFields",
       id: nanoid(),
       sm: 12,
+      display: "flex",
+      direction: "column",
+      align: "start",
       newFields: [
         {
           name: "mainCompanyName",
           label: "Main Company Name",
           type: "text",
           id: nanoid(),
-          md: 4,
+          md: 12,
           sm: 12,
         },
       ],
@@ -234,16 +241,21 @@ const CorporateDetailsDp = () => {
       name: "isMF",
       label: "Is Mutual Fund?",
       type: "switch",
+      display: "flex",
+      direction: "column",
+      justify: "start",  
       id: nanoid(),
       sm: 12,
     },
   ];
-
+  
+const {data: basicCorData} = useGetBasicDpCorporate();
+const data = basicCorData && basicCorData?.data;
   const theme = useTheme();
-  const { formik } = CorporateDpForm();
-  // useEffect(() => {
+  const { formik } = BasicCorporateDpForm(data);
+  useEffect(() => {
 
-  // }, [formik.values.isListed, formik.values.isSubsidiary, formik.values.isMF]);
+  }, []);
   return (
     <div data-aos="zoom-in-right">
       <Box
