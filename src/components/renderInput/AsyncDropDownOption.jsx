@@ -9,7 +9,7 @@ const AsyncDropDownOption = ({ element, formik, index }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            
+
             try {
                 if (!element.path || !element.reference) return;
                 let referenceValue = "";
@@ -40,7 +40,7 @@ const AsyncDropDownOption = ({ element, formik, index }) => {
 
     useEffect(() => {
         if (selectedValue && formik.values[element.name] !== selectedValue.value) {
-            formik.setFieldValue(element.name, selectedValue.value);
+            formik.setFieldValue(element.name, selectedValue.value || "");
         }
     }, [selectedValue, element.name]);
 
@@ -51,7 +51,12 @@ const AsyncDropDownOption = ({ element, formik, index }) => {
                 name={element.name}
                 options={options}
                 getOptionLabel={(option) => option?.label || ""}
-                value={selectedValue || null}
+                value={selectedValue || ""}
+                // value={options?.find((option) => {
+                //     console.log(formik.values.addresses[index]?.district, "formik")
+                //     console.log(option, "option")
+                //     option.value == formik.values.addresses[index]?.district
+                // })}
                 onChange={(event, newValue) => {
                     setSelectedValue(newValue);
                 }}
