@@ -1,8 +1,8 @@
-import React from "react";
-import RenderInput from "../../../components/renderInput/RenderInput";
+import React from "react"
+import RenderInput from "../../../components/renderInput/RenderInput"
 
 const StepThree = ({ formik }) => {
-  const nepseCodeTrue = formik.values?.dpId === 11400 ? true : false;
+  const nepseCodeTrue = formik.values?.dpId === 11400 ? true : false
 
   const stepThreeFields = [
     {
@@ -18,7 +18,7 @@ const StepThree = ({ formik }) => {
       isDependent: nepseCodeTrue,
       trueNewFields: [
         {
-          name: "dematNo",7
+          name: "dematNo",
           type: "number",
           label: "Demat No",
           required: true,
@@ -45,12 +45,12 @@ const StepThree = ({ formik }) => {
         },
       ],
     },
-  ];
+  ]
   return (
     <div data-aos="fade-left">
       <RenderInput inputField={stepThreeFields} formik={formik} />
     </div>
-  );
-};
+  )
+}
 
-export default StepThree;
+export default StepThree
