@@ -5,243 +5,155 @@ import { showNotification } from "@mantine/notifications";
 import { axiosInstance } from "../../api/axiosInterceptor";
 import image from "../../assets/dghub-logo.png";
 import ringtoneSound from "../../assets/soft_ringtone.mp3";
-import { useAuthContext } from "../../hooks/Kyc/authContext/authContext";
+import { useSelector } from "react-redux";
 
 const VideoKyc = () => {
-    const { user } = useAuthContext();
-    const [ringtone] = useState(new Audio(ringtoneSound));
+  const user = useSelector((store) => store?.user?.details);
+  console.log(user);
+  const [ringtone] = useState(new Audio(ringtoneSound));
 
-    const peerId = user?.videoId;
-    const remoteVideoRef = useRef(null);
-    const currentUserVideoRef = useRef(null);
-    const peerInstance = useRef(null);
-    const [isAudioMuted, setIsAudioMuted] = useState(false);
-    const [isVideoMuted, setIsVideoMuted] = useState(false);
-    const [bomData, setBomData] = useState();
-    const [currentTime, setCurrentTime] = useState();
-    const [incomingCall, setIncomingCall] = useState(null);
+  const peerId = user?.videoId;
+  const remoteVideoRef = useRef(null);
+  const currentUserVideoRef = useRef(null);
+  const peerInstance = useRef(null);
+  const [isAudioMuted, setIsAudioMuted] = useState(false);
+  const [isVideoMuted, setIsVideoMuted] = useState(false);
+  const [bomData, setBomData] = useState();
+  const [currentTime, setCurrentTime] = useState();
+  const [incomingCall, setIncomingCall] = useState(null);
 
-    useEffect(() => {
-      const initializePeer = async () => {
-        sendRequest();
-        try {
-          const newPeer = new Peer(peerId);
+  useEffect(() => {
+    const initializePeer = async () => {
+      sendRequest();
+      try {
+        const newPeer = new Peer(peerId);
 
-          await new Promise((resolve, reject) => {
-            newPeer.on("open", () => resolve());
-            newPeer.on("error", (error) => reject(error));
-          });
+        await new Promise((resolve, reject) => {
+          newPeer.on("open", () => resolve());
+          newPeer.on("error", (error) => reject(error));
+        });
 
-          newPeer.on("call", (call) => {
-            setIncomingCall(call);
-          });
+        newPeer.on("call", (call) => {
+          setIncomingCall(call);
+        });
 
-          peerInstance.current = newPeer;
-        } catch (error) {
-          console.error("Error initializing peer:", error);
-        }
-      };
+        peerInstance.current = newPeer;
+      } catch (error) {
+        console.error("Error initializing peer:", error);
+      }
+    };
 
-      const sendRequest = () => {
-        axiosInstance
-          .post("/registration/online-time")
-          .then((response) => {
-            setBomData(response?.data);
-          })
-          .catch((error) =>
-            console.error("Error sending online time request:", error)
-          );
-      };
+    const sendRequest = () => {
+      axiosInstance
+        .post("/registration/online-time")
+        .then((response) => {
+          setBomData(response?.data);
+        })
+        .catch((error) =>
+          console.error("Error sending online time request:", error)
+        );
+    };
 
-      initializePeer();
+    initializePeer();
 
-      // Clean up function
-      return () => {
-        if (peerInstance.current) {
-          peerInstance.current.destroy();
-          peerInstance.current = null;
-        }
-      };
-    }, [peerId]);
+    // Clean up function
+    return () => {
+      if (peerInstance.current) {
+        peerInstance.current.destroy();
+        peerInstance.current = null;
+      }
+    };
+  }, [peerId]);
 
-    useEffect(() => {
-      const sendRequestTime = () => {
-        axiosInstance
-          .post("/registration/online-time")
-          .then((response) => {
-            setBomData(response?.data);
-            setTimeout(sendRequestTime, 60000); // Corrected here
-          })
-          .catch((error) =>
-            console.error("Error sending online time request:", error)
-          );
-      };
+  useEffect(() => {
+    const sendRequestTime = () => {
+      axiosInstance
+        .post("/registration/online-time")
+        .then((response) => {
+          setBomData(response?.data);
+          setTimeout(sendRequestTime, 60000); // Corrected here
+        })
+        .catch((error) =>
+          console.error("Error sending online time request:", error)
+        );
+    };
 
-      sendRequestTime();
-    }, []);
+    sendRequestTime();
+  }, []);
 
-    useEffect(() => {
-      const videoElement = remoteVideoRef.current;
+  useEffect(() => {
+    const videoElement = remoteVideoRef.current;
 
-      const handleTimeUpdate = () => {
-        // Update current time whenever the playback time changes
+    const handleTimeUpdate = () => {
+      // Update current time whenever the playback time changes
+      setCurrentTime(videoElement.currentTime);
+    };
+
+    if (videoElement) {
+      // Listen for time updates
+      videoElement.addEventListener("timeupdate", handleTimeUpdate);
+
+      // Set up a timer to update the current time every second
+      const timerId = setInterval(() => {
         setCurrentTime(videoElement.currentTime);
-      };
+      }, 1000);
 
-      if (videoElement) {
-        // Listen for time updates
-        videoElement.addEventListener("timeupdate", handleTimeUpdate);
-
-        // Set up a timer to update the current time every second
-        const timerId = setInterval(() => {
-          setCurrentTime(videoElement.currentTime);
-        }, 1000);
-
-        // Clean up event listener and timer on component unmount
-        return () => {
-          videoElement.removeEventListener("timeupdate", handleTimeUpdate);
-          clearInterval(timerId);
-        };
-      }
-    }, [remoteVideoRef]);
-    useEffect(() => {
-      if (incomingCall) {
-        // Play the ringtone when there's an incoming call
-        ringtone.play();
-        ringtone.loop = true; // Set loop to true for continuous playback
-      } else {
-        // Stop the ringtone when there's no incoming call
-        ringtone.pause();
-        ringtone.currentTime = 0;
-        ringtone.loop = false; // Set loop to false to stop continuous playback
-      }
-
-      // Clean up function
+      // Clean up event listener and timer on component unmount
       return () => {
-        // Pause and reset the ringtone on component unmount
-        ringtone.pause();
-        ringtone.currentTime = 0;
-        ringtone.loop = false;
+        videoElement.removeEventListener("timeupdate", handleTimeUpdate);
+        clearInterval(timerId);
       };
-    }, [incomingCall, ringtone]);
-    const acceptCall = () => {
-      // Answer the incoming call
-      if (incomingCall) {
-        navigator.mediaDevices
-          .getUserMedia({ video: true, audio: true })
-          .then((mediaStream) => {
-            currentUserVideoRef.current.srcObject = mediaStream;
-            currentUserVideoRef.current.play();
+    }
+  }, [remoteVideoRef]);
+  useEffect(() => {
+    if (incomingCall) {
+      // Play the ringtone when there's an incoming call
+      ringtone.play();
+      ringtone.loop = true; // Set loop to true for continuous playback
+    } else {
+      // Stop the ringtone when there's no incoming call
+      ringtone.pause();
+      ringtone.currentTime = 0;
+      ringtone.loop = false; // Set loop to false to stop continuous playback
+    }
 
-            incomingCall.answer(mediaStream);
-
-            incomingCall.on("stream", (remoteStream) => {
-              remoteVideoRef.current.srcObject = remoteStream;
-              remoteVideoRef.current.play();
-            });
-
-            incomingCall.on("close", () => {
-              showNotification({
-                message: "Call Disconnected",
-                color: "red",
-              });
-            });
-
-            incomingCall.on("error", (error) => {
-              console.error("Error in call:", error);
-            });
-
-            const formData = {
-              callStatus: true,
-            };
-
-            axiosInstance
-              .post("/call-history", formData)
-              .then((response) =>
-                showNotification({
-                  message: "Call Accepted",
-                  color: "success",
-                })
-              )
-              .catch((err) => {
-                console.log(err);
-              });
-
-            // Reset the incoming call state after accepting
-            setIncomingCall(null);
-          })
-          .catch((error) => {
-            console.error("Error accessing user media:", error);
-          });
-      }
+    // Clean up function
+    return () => {
+      // Pause and reset the ringtone on component unmount
+      ringtone.pause();
+      ringtone.currentTime = 0;
+      ringtone.loop = false;
     };
-    console.log(incomingCall);
+  }, [incomingCall, ringtone]);
+  const acceptCall = () => {
+    // Answer the incoming call
+    if (incomingCall) {
+      navigator.mediaDevices
+        .getUserMedia({ video: true, audio: true })
+        .then((mediaStream) => {
+          currentUserVideoRef.current.srcObject = mediaStream;
+          currentUserVideoRef.current.play();
 
-    const rejectCall = () => {
-      // Reject the incoming call
-      if (incomingCall) {
-        incomingCall.close();
-        const formData = {
-          callStatus: false,
-        };
+          incomingCall.answer(mediaStream);
 
-        axiosInstance
-          .post("/call-history", formData)
-          .then((response) =>
+          incomingCall.on("stream", (remoteStream) => {
+            remoteVideoRef.current.srcObject = remoteStream;
+            remoteVideoRef.current.play();
+          });
+
+          incomingCall.on("close", () => {
             showNotification({
-              message: "Call Rejected",
-              color: "success",
-            })
-          )
-          .catch((err) => {
-            console.log(err);
+              message: "Call Disconnected",
+              color: "red",
+            });
           });
-        setIncomingCall(null);
-      }
-    };
-    const toggleAudio = () => {
-      try {
-        const mediaStream = currentUserVideoRef.current.srcObject;
-        const audioTracks = mediaStream.getAudioTracks();
-        audioTracks.forEach((track) => {
-          track.enabled = !isAudioMuted;
-        });
-        setIsAudioMuted(!isAudioMuted);
-      } catch (error) {
-        console.error("Error toggling audio:", error);
-      }
-    };
 
-    const toggleVideo = () => {
-      try {
-        const mediaStream = currentUserVideoRef.current.srcObject;
-        const videoTracks = mediaStream.getVideoTracks();
-        videoTracks.forEach((track) => {
-          track.enabled = !isVideoMuted;
-        });
-        setIsVideoMuted(!isVideoMuted);
-      } catch (error) {
-        console.error("Error toggling video:", error);
-      }
-    };
-    const endCall = () => {
-      try {
-        const mediaStream = currentUserVideoRef.current.srcObject;
-        if (mediaStream) {
-          const tracks = mediaStream.getTracks();
-
-          tracks.forEach((track) => {
-            track.stop();
+          incomingCall.on("error", (error) => {
+            console.error("Error in call:", error);
           });
-        }
 
-        currentUserVideoRef.current.srcObject = null;
-        remoteVideoRef.current.srcObject = null;
-
-        if (peerInstance.current) {
           const formData = {
             callStatus: true,
-            videoTimeStamp: formatTime(currentTime),
           };
 
           axiosInstance
@@ -255,24 +167,112 @@ const VideoKyc = () => {
             .catch((err) => {
               console.log(err);
             });
-          peerInstance.current.destroy();
-          peerInstance.current = null;
-        }
-      } catch (error) {
-        console.error("Error ending the call:", error);
+
+          // Reset the incoming call state after accepting
+          setIncomingCall(null);
+        })
+        .catch((error) => {
+          console.error("Error accessing user media:", error);
+        });
+    }
+  };
+
+  const rejectCall = () => {
+    // Reject the incoming call
+    if (incomingCall) {
+      incomingCall.close();
+      const formData = {
+        callStatus: false,
+      };
+
+      axiosInstance
+        .post("/call-history", formData)
+        .then((response) =>
+          showNotification({
+            message: "Call Rejected",
+            color: "success",
+          })
+        )
+        .catch((err) => {
+          console.log(err);
+        });
+      setIncomingCall(null);
+    }
+  };
+  const toggleAudio = () => {
+    try {
+      const mediaStream = currentUserVideoRef.current.srcObject;
+      const audioTracks = mediaStream.getAudioTracks();
+      audioTracks.forEach((track) => {
+        track.enabled = !isAudioMuted;
+      });
+      setIsAudioMuted(!isAudioMuted);
+    } catch (error) {
+      console.error("Error toggling audio:", error);
+    }
+  };
+
+  const toggleVideo = () => {
+    try {
+      const mediaStream = currentUserVideoRef.current.srcObject;
+      const videoTracks = mediaStream.getVideoTracks();
+      videoTracks.forEach((track) => {
+        track.enabled = !isVideoMuted;
+      });
+      setIsVideoMuted(!isVideoMuted);
+    } catch (error) {
+      console.error("Error toggling video:", error);
+    }
+  };
+  const endCall = () => {
+    try {
+      const mediaStream = currentUserVideoRef.current.srcObject;
+      if (mediaStream) {
+        const tracks = mediaStream.getTracks();
+
+        tracks.forEach((track) => {
+          track.stop();
+        });
       }
-    };
 
-    const formatTime = (seconds) => {
-      const hours = Math.floor(seconds / 3600);
-      const minutes = Math.floor((seconds % 3600) / 60);
-      const remainingSeconds = Math.floor(seconds % 60);
+      currentUserVideoRef.current.srcObject = null;
+      remoteVideoRef.current.srcObject = null;
 
-      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
-        2,
-        "0"
-      )}:${String(remainingSeconds).padStart(2, "0")}`;
-    };
+      if (peerInstance.current) {
+        const formData = {
+          callStatus: true,
+          videoTimeStamp: formatTime(currentTime),
+        };
+
+        axiosInstance
+          .post("/call-history", formData)
+          .then((response) =>
+            showNotification({
+              message: "Call Accepted",
+              color: "success",
+            })
+          )
+          .catch((err) => {
+            console.log(err);
+          });
+        peerInstance.current.destroy();
+        peerInstance.current = null;
+      }
+    } catch (error) {
+      console.error("Error ending the call:", error);
+    }
+  };
+
+  const formatTime = (seconds) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+      2,
+      "0"
+    )}:${String(remainingSeconds).padStart(2, "0")}`;
+  };
 
   return (
     <div className="App">
@@ -307,7 +307,7 @@ const VideoKyc = () => {
                 </defs>
               </svg>
               <div class="animated-text">
-                {/* <div>{bomData?.serverUserName}</div> */}
+                <div>{bomData?.serverUserName}</div>
                 <div>
                   is calling <span>...</span>
                 </div>
@@ -322,7 +322,7 @@ const VideoKyc = () => {
                 Accept Call
               </button>
               <button
-                // onClick={rejectCall}
+                onClick={rejectCall}
                 className="call-action-btn"
                 style={{ background: "#B4271F" }}
               >
