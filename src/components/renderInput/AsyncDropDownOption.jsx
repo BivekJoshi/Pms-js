@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { axiosInstance } from '../../api/axiosInterceptor';
 import { Autocomplete, TextField } from '@mui/material';
+import { getIn } from 'formik';
 
 const AsyncDropDownOption = ({ element, formik, index }) => {
     console.log("index", index)
     const [options, setOptions] = useState([]);
     const [selectedValue, setSelectedValue] = useState(null);
-
+    const fieldArray = getIn(formik.values, element.name)
+    console.log(fieldArray, "hello")
     useEffect(() => {
         const fetchData = async () => {
 
