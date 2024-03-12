@@ -159,6 +159,9 @@ const OccupationsIndividualForms = () => {
       label: "Are you involved in other Company?",
       placeholder: "Enter designation",
       type: "switchWithFields",
+      display: "flex",
+      direction: "column",
+      align: "start",  
       newFields: [
         {
           name: "companyName",
@@ -186,6 +189,9 @@ const OccupationsIndividualForms = () => {
       label: "Do you have any other trading account?",
       placeholder: "Enter designation",
       type: "switchWithFields",
+      display: "flex",
+      direction: "column",
+      align: "start",  
       newFields: [
         {
           name: "tradingAccountCompanyName",
@@ -213,6 +219,9 @@ const OccupationsIndividualForms = () => {
       label: "Are you blacklisted?",
       placeholder: "Enter designation",
       type: "switch",
+      display: "flex",
+      direction: "column",
+      justify: "start", 
       sm: 12,
       md: 12,
       id: nanoid(),

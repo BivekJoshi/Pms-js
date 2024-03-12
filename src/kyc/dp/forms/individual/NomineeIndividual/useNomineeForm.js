@@ -1,6 +1,8 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { ageREgex, citizenExp, emailRegex, fullnameRegex, numberRegExp1, phoneRegExp } from "../../static/RegExp";
+import { useAddNomineeDetail } from '../../../../../hooks/Kyc/individual/nominee/useNominee';
+import { useEffect } from 'react';
 
 const NomineeSchema = Yup.object().shape({
   name: Yup.string().when("haveNominee", {
@@ -124,35 +126,84 @@ const NomineeSchema = Yup.object().shape({
   .notRequired(),
 });
 
-export const useNomineeForm = () => {
+export const useNomineeForm = (data) => {
+  const { mutate } = useAddNomineeDetail({});
+
   const formik = useFormik({
     initialValues: {
-      id: "",
-      userId: "",
-      citizenShipNo: "",
-      address: "",
-      fatherName: "",
-      grandfatherName: "",
-      placeOfIssue: "",
-      name: "",
-      relation: "",
-      country: "",
-      province: "",
-      district: "",
-      municipality: "",
-      telephoneNo: "",
-      mobileNo: "",
-      panNo: "",
-      email: "",
-      fax: "",
-      age: "",
-      issuedDate: "",
-      haveNominee: false,
+      citizenShipNo: data?.citizenShipNo || "",
+      address: data?.address || "",
+      fatherName: data?.fatherName || "",
+      grandfatherName: data?.grandfatherName || "",
+      placeOfIssue: data?.placeOfIssue || "",
+      name: data?.name || "",
+      relation: data?.relation || "",
+      country: data?.country || "",
+      province: data?.province || "",
+      district: data?.district || "",
+      municipality: data?.municipality || "",
+      telephoneNo: data?.telephoneNo || "",
+      mobileNo: data?.mobileNo || "",
+      panNo: data?.panNo || "",
+      email: data?.email || "",
+      fax: data?.fax || "",
+      age: data?.age || "",
+      issuedDate: data?.issuedDate || "",
+      haveNominee: data?.haveNominee || false,
     },
-    validationSchema: NomineeSchema,
-    onSubmit: (value) => {
-      console.log(value, "nominee Valueee");
+    // validationSchema: NomineeSchema,
+    onSubmit: (values) => {
+      const formData = { ...values };
+      mutate(formData, {
+        onSuccess: () => {
+          formik.resetForm();
+        },
+      });
     },
   });
+
+  useEffect(() => {
+    formik.setValues({
+      citizenShipNo: data?.citizenShipNo || "",
+      address: data?.address || "",
+      fatherName: data?.fatherName || "",
+      grandfatherName: data?.grandfatherName || "",
+      placeOfIssue: data?.placeOfIssue || "",
+      name: data?.name || "",
+      relation: data?.relation || "",
+      country: data?.country || "",
+      province: data?.province || "",
+      district: data?.district || "",
+      municipality: data?.municipality || "",
+      telephoneNo: data?.telephoneNo || "",
+      mobileNo: data?.mobileNo || "",
+      panNo: data?.panNo || "",
+      email: data?.email || "",
+      fax: data?.fax || "",
+      age: data?.age || "",
+      issuedDate: data?.issuedDate || "",
+      haveNominee: data?.haveNominee || false,
+    });
+  }, [ data?.citizenShipNo,
+   data?.address,
+  data?.fatherName,
+   data?.grandfatherName,
+  data?.placeOfIssue,
+ data?.name,
+  data?.relation,
+  data?.country,
+  data?.province,
+   data?.district,
+   data?.municipality,
+  data?.telephoneNo,
+  data?.mobileNo,
+  data?.panNo,
+  data?.email,
+   data?.fax,
+   data?.age,
+   data?.issuedDate,
+   data?.haveNominee]);
+
+
   return { formik };
 };

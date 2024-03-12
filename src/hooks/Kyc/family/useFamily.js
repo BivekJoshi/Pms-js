@@ -1,6 +1,14 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import toast from "react-hot-toast";
-import { addFamily } from "../../../api/Kyc/Family/family-api";
+import { addFamily, getFamily } from "../../../api/Kyc/Family/family-api";
+
+export const useGetFamily = () => {
+  return useQuery(["getFamily"], () => getFamily(), {
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+  });
+};
+
 
 export const useAddFamily = ({ onSuccess }) => {
   return useMutation(["addFamily"], (formData) => addFamily(formData), {

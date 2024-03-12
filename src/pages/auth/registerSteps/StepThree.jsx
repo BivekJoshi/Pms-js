@@ -10,7 +10,7 @@ const StepThree = ({ formik }) => {
       label: "Depository Participant",
       md: 12,
       sm: 12,
-      path: "http://103.94.159.144:8084/kyc/api/utility/dp-details",
+      path: "/utility/dp-details",
       type: "asyncDropDown",
       required: true,
       responseLabel: "dpName",

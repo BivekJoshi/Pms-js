@@ -14,9 +14,9 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { jsPDF } from "jspdf";
 import DownloadIcon from "@mui/icons-material/Download";
-
 import autoTable from "jspdf-autotable";
 import { download, generateCsv, mkConfig } from "export-to-csv";
+
 const CustomTable = (props) => {
   const theme = useTheme();
   const csvConfig = mkConfig({
@@ -49,8 +49,10 @@ const CustomTable = (props) => {
     }
   };
   const handleDeleteRow = useCallback((row) => {
-    if (props.delete && props.handleDelete) props.handleDelete(row);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    if (props.handleDeleteRow) {
+      props.handleDeleteRow(row);
+    }
+  }, []);
 
   const handleEditRow = useCallback((row) => {
     if (props.edit && props.handleEdit) props.handleEdit(row);
@@ -60,6 +62,10 @@ const CustomTable = (props) => {
     if (props.notification && props.handleNotification)
       props.handleNotification(row);
   }, []);
+
+  const handleSwicth = useCallback((row) => {
+    if (props.switch && props.handleSwicth) props.handleSwicth(row);
+  })
 
   // const handleSaveRow = async ({ exitEditingMode, row, values }) => {
   //   let tableData = [...props.data];
@@ -153,6 +159,16 @@ const CustomTable = (props) => {
                     </IconButton>
                   </Tooltip>
                 ))}
+                 {props.switch && (
+                   <Tooltip arrow placement="right" title="switch">
+                   <IconButton
+                     color="error"
+                     onClick={() => handleSwicth(row)}
+                   >
+                     <Delete />
+                   </IconButton>
+                 </Tooltip>
+                 )}
             </Box>
           );
         }}

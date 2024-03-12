@@ -26,6 +26,7 @@ import { DatePicker } from "@mui/x-date-pickers"
 import { useSelector } from "react-redux"
 import NepaliInputText from "../inputType/NepaliInputText"
 import { useTranslation } from "react-i18next"
+import AsyncDropDownOption from './AsyncDropDownOption'
 const icon = L.icon({ iconUrl: mapIcon })
 
 const MarkerLocationFieldArray = ({
@@ -233,6 +234,7 @@ const RenderInput = ({
             <FormControlLabel
               name={element?.name}
               label={t(element?.label)}
+              sx={{display: element?.display, flexDirection: element?.direction, margin: element?.margin, justifyContent: element?.justify}}
               control={<Switch checked={formVaues} />}
               onChange={(e, value) => {
                 if (value) {
@@ -335,7 +337,7 @@ const RenderInput = ({
             value={formVaues}
             onChange={formik.handleChange}
             fullWidth
-            type="number"
+            type={element?.type}
             required={element.required}
             variant="outlined"
             error={formTouched && Boolean(formError)}
@@ -344,12 +346,13 @@ const RenderInput = ({
         )
       case "switch":
         return (
-          <div style={{ display: "flex" }}>
+          <div style={{ display: element?.display, flexDirection: element?.direction, justifyContent: element?.justify }}>
             <FormControlLabel
               style={{
-                display: element?.display,
-                flexDirection: element?.direction,
-                marginLeft: element?.marginLeft,
+                display: "flex",
+              flexDirection: "row-reverse",
+              marginLeft: "0px",
+              justifyContent: element?.justify
               }}
               control={
                 <Switch
@@ -370,10 +373,11 @@ const RenderInput = ({
                 {t(element.infoAlert)}
               </Alert>
             )}
-            {element?.hasRadio && formik.values[element.name] && (
+             {element?.hasRadio && formik.values[element.name] && (
               <FormControl
                 style={{
                   display: element?.radioDisplay,
+                  flexDirection: element?.radioDirection,
                   alignItems: element?.radioAlign,
                   gap: element?.radioGap,
                 }}
@@ -404,8 +408,13 @@ const RenderInput = ({
         )
       case "switchWithFields":
         return (
-          <>
+          <div style={{ display: element?.display, flexDirection: element?.direction, alignItems: element?.align }}>
             <FormControlLabel
+             style={{
+              display: "flex",
+              flexDirection: "row-reverse",
+              marginLeft: "0px",
+            }}
               control={
                 <Switch
                   checked={Boolean(formik.values[element?.name])}
@@ -420,7 +429,7 @@ const RenderInput = ({
             {formik.values[element?.name] && (
               <RenderInput inputField={element.newFields} formik={formik} />
             )}
-          </>
+          </div>
         )
 
       case "radio":
@@ -487,7 +496,10 @@ const RenderInput = ({
       case "dualDate":
         return <DualDatePicker element={element} formik={formik} />
 
-      case "asyncDropDown":
+      case "asyncDropDownOption":
+        return ( <AsyncDropDownOption element={element} formik={formik} index={index} />
+        );
+        case "asyncDropDown":
         return (
           <div style={{ display: "flex" }}>
             <AsyncDropDown element={element} formik={formik} />
