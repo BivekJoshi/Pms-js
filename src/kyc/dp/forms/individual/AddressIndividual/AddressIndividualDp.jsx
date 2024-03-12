@@ -41,7 +41,7 @@ const AddressIndividualDp = () => {
                 const fieldArray = AddressField.filter((d) => {
                   if (index === 0) {
                     return d
-                  } else return d.name !== "have_different_permanent_address"
+                  } else return d.name !== "perAndCurAddressSame"
                 })
 
                 const field = fieldArray.map((d) => {
@@ -89,10 +89,10 @@ const AddressIndividualDp = () => {
                           longitude: "",
                           latitude: "",
                           houseNo: "",
-                          have_different_permanent_address: false,
+                          perAndCurAddressSame: false,
                         })
                       }
-                      removeArray={() => remove()}
+                      removeArray={() => remove(1)}
                     />
                   </Grid>
                 )
