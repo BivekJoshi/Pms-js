@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { axiosInstance } from '../../api/axiosInterceptor';
 import { Autocomplete, TextField } from '@mui/material';
+import { getIn } from 'formik';
 
-const AsyncDropDownOption = ({ element, formik, index }) => {
-    console.log("index", index)
+const AsyncDropDownOption = ({ element, formik, index,isFieldArray }) => {
     const [options, setOptions] = useState([]);
     const [selectedValue, setSelectedValue] = useState(null);
-
     useEffect(() => {
         const fetchData = async () => {
 
@@ -36,13 +35,27 @@ const AsyncDropDownOption = ({ element, formik, index }) => {
         };
 
         fetchData();
-    }, [element.path, element.reference, formik.values]);
+    }, [element.path, element.reference, formik.values]); //eslint-disable-line
 
     useEffect(() => {
         if (selectedValue && formik.values[element.name] !== selectedValue.value) {
             formik.setFieldValue(element.name, selectedValue.value || "");
         }
-    }, [selectedValue, element.name]);
+    }, [selectedValue, element.name]); //eslint-disable-line
+
+    
+    const formValues = isFieldArray
+    ? getIn(formik.values, element.name)
+    : formik.values[element.name]
+
+    const handleOnChange = (event, newValue) => {
+        setSelectedValue(newValue);
+        if (element?.clearField) {
+            for (let i = 0; i < element.clearField.length; i++) {
+                formik.setFieldValue(element.clearField[i],  "");
+            }
+        }
+    };
 
     return (
         <div>
@@ -51,15 +64,10 @@ const AsyncDropDownOption = ({ element, formik, index }) => {
                 name={element.name}
                 options={options}
                 getOptionLabel={(option) => option?.label || ""}
-                value={selectedValue || ""}
-                // value={options?.find((option) => {
-                //     console.log(formik.values.addresses[index]?.district, "formik")
-                //     console.log(option, "option")
-                //     option.value == formik.values.addresses[index]?.district
-                // })}
-                onChange={(event, newValue) => {
-                    setSelectedValue(newValue);
-                }}
+                value={selectedValue || {label:formValues,name:formValues} || ""}
+            
+                
+                onChange={handleOnChange}
                 fullWidth
                 renderInput={(params) => (
                     <TextField

@@ -48,9 +48,9 @@ const AddressIndividualDp = () => {
                   return {
                     ...d,
                     name: `addresses.${index}.${d.name}`,
+                   ...(d.clearField && {clearField: d.clearField?.map((field)=> `addresses.${index}.${field}`)})
                   };
                 });
-
                 return (
                   <Grid
                     component="form"

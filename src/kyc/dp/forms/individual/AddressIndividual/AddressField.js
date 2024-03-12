@@ -59,6 +59,7 @@ export const AddressField = [
     required: true,
     type: "dropDown",
     options: PROVINCE,
+    clearField:["district","municipality"]
   },
   {
     name: "district",
@@ -71,6 +72,8 @@ export const AddressField = [
     type: "asyncDropDownOption",
     reference: "province",
     path: "utility/district",
+    clearField:["municipality"]
+
     // options: PROVINCE,
   },
   {
@@ -161,7 +164,7 @@ export const AddressField = [
     lg: 4,
     xs: 12,
     type: "text",
-    disabled: true,
+    isDisabled: true,
     required: true,
   },
   {
@@ -172,7 +175,7 @@ export const AddressField = [
     lg: 4,
     xs: 12,
     type: "text",
-    disabled: true,
+    isDisabled: true,
     required: true,
   },
 
