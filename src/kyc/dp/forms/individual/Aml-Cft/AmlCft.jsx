@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 import {
   Grid,
   Button,
@@ -8,13 +8,13 @@ import {
   Switch,
   Stack,
   FormControlLabel,
-} from "@mui/material";
-import { useAmlCftForm } from "./useAmlCftForm";
-import { nanoid } from "nanoid";
-import RenderInput from "../../../../../components/renderInput/RenderInput";
-import { useTranslation } from "react-i18next";
-import { FieldArray, FormikProvider } from "formik";
-import { DISTRICTS, PROVINCE_OPTIONS } from "../basicInputData";
+} from "@mui/material"
+import { useAmlCftForm } from "./useAmlCftForm"
+import { nanoid } from "nanoid"
+import RenderInput from "../../../../../components/renderInput/RenderInput"
+import { useTranslation } from "react-i18next"
+import { FieldArray, FormikProvider } from "formik"
+import { DISTRICTS, PROVINCE_OPTIONS } from "../basicInputData"
 
 const beneficialOwnerField = [
   {
@@ -176,7 +176,6 @@ const beneficialOwnerField = [
     placeholder: "Enter PAN number",
     col: 12,
     minLength: 9,
-    maxLength: 9,
     sm: 4,
     id: nanoid(),
   },
@@ -190,7 +189,8 @@ const beneficialOwnerField = [
     id: nanoid(),
     maxLength: 254,
   },
-];
+]
+
 const politicalField = [
   {
     name: "name",
@@ -208,7 +208,7 @@ const politicalField = [
     sm: 4,
     id: nanoid(),
   },
-];
+]
 const criminalField = [
   {
     name: "name",
@@ -218,16 +218,31 @@ const criminalField = [
     sm: 4,
     id: nanoid(),
   },
-];
+]
 
 const AmlCft = () => {
-  const theme = useTheme();
-  const { formik } = useAmlCftForm();
-  const { t } = useTranslation();
+  const theme = useTheme()
+  const { formik } = useAmlCftForm()
+  const { t } = useTranslation()
 
-  const [showPolitical, setShowPolitical] = useState(false);
-  const [showCriminal, setShowCriminal] = useState(false);
-  const [showBeneficialOwner, setShowBeneficialOwner] = useState(false);
+  const [showPolitical, setShowPolitical] = useState(false)
+  const [showCriminal, setShowCriminal] = useState(false)
+  const [showBeneficialOwner, setShowBeneficialOwner] = useState(false)
+
+  const togglePolitical = () => {
+    const newValue = !formik.values.showPolitical
+    console.log(newValue, "newValue")
+    setShowPolitical(newValue)
+    formik.setValues((prevValues) => ({
+      ...prevValues,
+      showPolitical: newValue,
+      poliAffiHighRnkRlnName: newValue ? [{ name: "", relation: "" }] : [], // Adjust the value based on your logic
+    }))
+  }
+
+  const toggleCriminal = () => setShowCriminal(!showCriminal)
+  const toggleBeneficialOwner = () =>
+    setShowBeneficialOwner(!showBeneficialOwner)
 
   return (
     <div data-aos="zoom-in-right">
@@ -278,8 +293,8 @@ const AmlCft = () => {
                         return {
                           ...d,
                           name: `poliAffiHighRnkRlnName.[${index}.${d?.name}]`,
-                        };
-                      });
+                        }
+                      })
                       return (
                         <>
                           <Grid mt={2}>
@@ -333,7 +348,7 @@ const AmlCft = () => {
                                     width: "fit-content",
                                   }}
                                   onClick={() => {
-                                    remove(index);
+                                    remove(index)
                                   }}
                                 >
                                   <Typography color="#B4271F" fontWeight={600}>
@@ -343,9 +358,9 @@ const AmlCft = () => {
                               )}
                           </Stack>
                         </>
-                      );
+                      )
                     })
-                  );
+                  )
                 }}
               </FieldArray>
             )}
@@ -370,9 +385,9 @@ const AmlCft = () => {
                       const field = criminalField.map((d) => {
                         return {
                           ...d,
-                          name: `pastCrimiActiDetail.[${index}.${d?.name}]`,
-                        };
-                      });
+                          name: `pastCrimiActiDetail.[${index}.${d?.name}`,
+                        }
+                      })
                       return (
                         <>
                           <Grid mt={2}>
@@ -424,7 +439,7 @@ const AmlCft = () => {
                                     width: "fit-content",
                                   }}
                                   onClick={() => {
-                                    remove(index);
+                                    remove(index)
                                   }}
                                 >
                                   <Typography color="#B4271F" fontWeight={600}>
@@ -434,9 +449,9 @@ const AmlCft = () => {
                               )}
                           </Stack>
                         </>
-                      );
+                      )
                     })
-                  );
+                  )
                 }}
               </FieldArray>
             )}
@@ -463,8 +478,8 @@ const AmlCft = () => {
                         return {
                           ...d,
                           name: `beneficialOwnerName.[${index}.${d?.name}]`,
-                        };
-                      });
+                        }
+                      })
 
                       return (
                         <>
@@ -480,9 +495,9 @@ const AmlCft = () => {
                             />
                           </Grid>
                         </>
-                      );
+                      )
                     })
-                  );
+                  )
                 }}
               </FieldArray>
             )}
@@ -500,7 +515,7 @@ const AmlCft = () => {
         </Grid>
       </FormikProvider>
     </div>
-  );
-};
+  )
+}
 
-export default AmlCft;
+export default AmlCft

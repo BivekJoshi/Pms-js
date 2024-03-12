@@ -11,22 +11,23 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Typography,
-} from "@mui/material";
-import { Field, getIn } from "formik";
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import AsyncDropDown from "./AsyncDropDown";
-import { FormControl } from "@mui/base";
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import mapIcon from "../../assets/marker-icon.png";
-import L from "leaflet";
-import { PickDate, DualDatePicker } from "./DualDatePicker";
-import DropZoneUploadFile from "../dropZone/DropZoneUploadFile";
-import { DatePicker } from "@mui/x-date-pickers";
-import { useSelector } from "react-redux";
-import NepaliInputText from "../inputType/NepaliInputText";
-import { useTranslation } from "react-i18next";
-const icon = L.icon({ iconUrl: mapIcon });
+} from "@mui/material"
+import { Field, getIn } from "formik"
+import React, { useEffect, useMemo, useRef, useState } from "react"
+import AsyncDropDown from "./AsyncDropDown"
+import { FormControl } from "@mui/base"
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet"
+import "leaflet/dist/leaflet.css"
+import mapIcon from "../../assets/marker-icon.png"
+import L from "leaflet"
+import { PickDate, DualDatePicker } from "./DualDatePicker"
+import DropZoneUploadFile from "../dropZone/DropZoneUploadFile"
+import { DatePicker } from "@mui/x-date-pickers"
+import { useSelector } from "react-redux"
+import NepaliInputText from "../inputType/NepaliInputText"
+import { useTranslation } from "react-i18next"
+import AsyncDropDownOption from './AsyncDropDownOption'
+const icon = L.icon({ iconUrl: mapIcon })
 
 const MarkerLocationFieldArray = ({
   formValue,
@@ -340,12 +341,13 @@ const RenderInput = ({
         );
       case "switch":
         return (
-          <div style={{ display: element?.display, flexDirection: element?.direction, alignItems: element?.align }}>
+          <div style={{ display: element?.display, flexDirection: element?.direction, justifyContent: element?.justify }}>
             <FormControlLabel
               style={{
                 display: "flex",
               flexDirection: "row-reverse",
               marginLeft: "0px",
+              justifyContent: element?.justify
               }}
               control={
                 <Switch
@@ -427,7 +429,7 @@ const RenderInput = ({
               <RenderInput inputField={element.newFields} formik={formik} />
             )}
           </div>
-        );
+        )
 
       case "radio":
         return (
@@ -493,7 +495,10 @@ const RenderInput = ({
       case "dualDate":
         return <DualDatePicker element={element} formik={formik} />;
 
-      case "asyncDropDown":
+      case "asyncDropDownOption":
+        return ( <AsyncDropDownOption element={element} formik={formik} index={index} />
+        );
+        case "asyncDropDown":
         return (
           <div style={{display: "flex"}}>
             <AsyncDropDown element={element} formik={formik} formVaues={formVaues}/>

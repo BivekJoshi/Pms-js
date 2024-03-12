@@ -1,6 +1,6 @@
-import React from "react";
-import RenderInput from "../../../components/renderInput/RenderInput";
-import { kycClientType } from "../../../utility/kycData";
+import React from "react"
+import RenderInput from "../../../components/renderInput/RenderInput"
+import { kycClientType } from "../../../utility/kycData"
 
 const StepOne = ({ formik }) => {
   const stepOneFields = [
@@ -33,7 +33,7 @@ const StepOne = ({ formik }) => {
       label: "Branch",
       md: 12,
       sm: 12,
-      path: "http://103.94.159.144:8084/kyc/api/utility/branch",
+      path: "/utility/branch",
       type: "asyncDropDown",
       required: true,
       responseLabel: "branchName",
@@ -100,12 +100,12 @@ const StepOne = ({ formik }) => {
     //     },
     //   ],
     // },
-  ];
+  ]
   return (
     <div data-aos="fade-left">
       <RenderInput inputField={stepOneFields} formik={formik} />
     </div>
-  );
-};
+  )
+}
 
-export default StepOne;
+export default StepOne

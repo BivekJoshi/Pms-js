@@ -296,6 +296,8 @@ const CorporatOwnershipDetails = () => {
     },
   ];
   const { formik } = corporatOwnershipDetailsForm();
+  const form = formik.values.details;
+  const disabled = form && form.some((data) => data.designation === "CEO" || data.designation === "Secretary");
 
   return (
     <div data-aos="zoom-in-right">
@@ -343,7 +345,7 @@ const CorporatOwnershipDetails = () => {
                               label: "General Counsel",
                             },
                           ],
-                    isDisabled: index <= 1,
+                    isDisabled: disabled && d.name === "designation" && (item.designation === "CEO" || item.designation === "Secretary"),
                     name: `details.${index}.${d.name}`,
                   };
                 });
@@ -364,7 +366,7 @@ const CorporatOwnershipDetails = () => {
                           background:
                             formik?.errors?.details &&
                             formik?.errors?.details[index] !== undefined
-                              ? "red"
+                              ? "#fff"
                               : "#FFFFFF",
                         }}
                         defaultExpanded

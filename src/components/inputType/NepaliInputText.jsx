@@ -3,11 +3,13 @@ import axios from "axios";
 import { Autocomplete, Grid, TextField, CircularProgress } from "@mui/material";
 import "./nepaliInputText.css";
 import { debounce } from "lodash";
+import { useTranslation } from 'react-i18next';
 
 const NepaliInputText = ({ element, formik, formTouched, formError }) => {
   const [options, setOptions] = useState([]);
   const [busy, setBusy] = useState(false);
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const debouncedOnSearch = debounce(fetchRemote, 150);
@@ -83,7 +85,7 @@ const NepaliInputText = ({ element, formik, formTouched, formError }) => {
             <TextField
               {...params}
               {...element}
-              placeholder={element?.label}
+              placeholder={t(element?.label)}
               onBlur={formik.handleBlur}
               variant="outlined"
               error={formTouched && Boolean(formError)}

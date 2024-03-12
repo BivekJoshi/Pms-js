@@ -10,13 +10,13 @@ const bodFields = [
     name: "isStandingInstructionForAutomaticTxn",
     label: "Do you want Standing Instruction For The Automatic Transaction?",
     type: "switch",
-   
+
     col: 12,
     id: nanoid(),
-  required: true,
+    required: true,
     display: "flex",
     direction: "column",
-    align: "start",
+    justify: "start",
     hasRadio: true,
     radioName: "accountStatementPeriod",
     radioLabel: "Account Statement Period",

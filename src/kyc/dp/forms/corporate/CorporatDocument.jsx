@@ -7,6 +7,8 @@ import CustomTable from "../../../../components/customTable/CustomTable";
 import DocumentFieldDp from "../individual/DocumentIndividual/DocumentFieldDp";
 
 const CorporatDocument = () => {
+  const { data: documentData } =  useGetDocument();
+  console.log(documentData?.data, "docs");
   const theme = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -101,7 +103,7 @@ const CorporatDocument = () => {
       <CustomTable
         // title={t("Watchlist")}
         columns={columns}
-        // data={watchListDataById?.data}
+        data={documentData?.data}
         // state={{
         //   isLoading: isLoading,
         //   showSkeletons: isLoading,
