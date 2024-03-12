@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { AppBar, Drawer, IconButton, Toolbar, Tooltip } from "@mui/material";
+import { AppBar, Chip, Drawer, IconButton, Toolbar, Tooltip } from "@mui/material";
 import React, { useState } from "react";
 import logo from "../../assets/logo.png";
 import FlexBetween from "../flexBetween/FlexBetween";
@@ -10,8 +10,9 @@ import {
 } from "@mui/icons-material";
 import DarkModeSetting from "../Setting/DarkModeSetting";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const KycNavbar = () => {
+const KycNavbar = ({userDetails}) => {
   const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [state, setState] = React.useState({
@@ -21,6 +22,8 @@ const KycNavbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen((val) => !val);
   };
+  const { pathname } = useLocation();
+  const navigate = useNavigate({});
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -32,6 +35,7 @@ const KycNavbar = () => {
 
     setState({ ...state, [anchor]: open });
   };
+  console.log("userDetails", userDetails);
   return (
     <AppBar
       style={{
@@ -55,6 +59,25 @@ const KycNavbar = () => {
           style={{ cursor: "pointer" }}
         />
         <FlexBetween gap="12px">
+
+        {userDetails &&
+                userDetails?.status === 'SUBMITTED' &&
+                (pathname !== '/kyc/video-kyc' ? (
+                  <Chip
+                  label="Self Verification"
+                  clickable
+                    variant='filled'
+                    onClick={() => navigate('/kyc/video-kyc')}
+                  />
+                ) : (
+                  <Chip
+                  clickable
+                    label="View KYC"
+                    variant='filled'
+                    onClick={() => navigate('/kyc/tms-registration/i/detail-verification')}
+                  />
+                ))
+              }
           <div>
             <React.Fragment>
               <Tooltip title="App settings">

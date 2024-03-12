@@ -131,7 +131,7 @@ const KycLayout = () => {
   return (
     <ThemeProvider theme={theme} key={userData}>
       <CssBaseline />
-      <KycNavbar />
+      <KycNavbar userDetails={userDetails}/>
       <section
         style={{
           padding: "16px",
