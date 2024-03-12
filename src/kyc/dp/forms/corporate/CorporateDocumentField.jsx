@@ -1,17 +1,16 @@
-import { Button, Grid } from "@mui/material";
-import React, { useState } from "react";
-import RenderInput from "../../../../components/renderInput/RenderInput";
+import { Button, Grid } from "@mui/material"
+import React, { useState } from "react"
+import RenderInput from "../../../../components/renderInput/RenderInput"
 import {
-    BirthCertificateFiled,
-    CitizenshipFiled,
-    DocumentField,
-    PanCardFiled,
-    PassportFiled,
-  } from "../individual/DocumentIndividual/DocumentField";
-import { useDocumentForm } from "../individual/DocumentIndividual/useDocumentForm";
+  BirthCertificateField,
+  CitizenshipField,
+  DocumentField,
+  PanCardField,
+} from "../individual/DocumentIndividual/DocumentField"
+import { useDocumentForm } from "../individual/DocumentIndividual/useDocumentForm"
 
 const CorporateDocumentField = () => {
-  const { formik } = useDocumentForm();
+  const { formik } = useDocumentForm()
 
   return (
     <Grid container>
@@ -20,16 +19,16 @@ const CorporateDocumentField = () => {
           <RenderInput inputField={DocumentField} formik={formik} />
         )}
         {formik?.values?.docType === "citizenship" && (
-          <RenderInput inputField={CitizenshipFiled} formik={formik} />
+          <RenderInput inputField={CitizenshipField} formik={formik} />
         )}
         {formik?.values?.docType === "passport" && (
-          <RenderInput inputField={PassportFiled} formik={formik} />
+          <RenderInput inputField={PanCardField} formik={formik} />
         )}
         {formik?.values?.docType === "birthCertificate" && (
-          <RenderInput inputField={BirthCertificateFiled} formik={formik} />
+          <RenderInput inputField={BirthCertificateField} formik={formik} />
         )}
         {formik?.values?.docType === "panCard" && (
-          <RenderInput inputField={PanCardFiled} formik={formik} />
+          <RenderInput inputField={PanCardField} formik={formik} />
         )}
         <Grid sx={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
           <Button
@@ -49,7 +48,7 @@ const CorporateDocumentField = () => {
         </Grid>
       </Grid>
     </Grid>
-  );
-};
+  )
+}
 
-export default CorporateDocumentField;
+export default CorporateDocumentField
