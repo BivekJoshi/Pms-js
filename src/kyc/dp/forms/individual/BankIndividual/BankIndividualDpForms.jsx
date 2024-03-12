@@ -38,7 +38,7 @@ const BankIndividualDpForms = () => {
       required: true,
       responseLabel: "name",
       responseId: "code",
-      path: "http://172.16.16.46:8084/kyc/api/utility/bank-master",
+      path: "/utility/bank-master",
       xs: 12,
       sm: 6,
       md: 3,
