@@ -23,7 +23,6 @@ export const useBasicIndividualDpForms = ({ currentForm, individualDetails }) =>
     validationSchema: useBasicIndividualValidationSchema,
     onSubmit: (values) => {
       const formData = { ...values }
-      console.log("Valueee", formData)
 
       mutate(formData, {
         onSuccess: (data) => {
