@@ -79,7 +79,7 @@ axiosInstance.interceptors.response.use(
   }
 )
 
-const checkIfExpired = (token) => {
+export const checkIfExpired = (token) => {
   if (token && jwtDecode(token)) {
     const decoded = jwtDecode(token)
     const exp = decoded.exp

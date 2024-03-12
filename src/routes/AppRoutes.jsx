@@ -84,11 +84,11 @@ const KycHomePage = React.lazy(() => import("../kyc/pages/KyCHomePage"))
 import { kycDpCorporateRoutes, kycDpIndividualRoutes } from "./kycRoutes"
 import KycProtectedRoute from "./KycProtectedRoute"
 import { useSelector } from "react-redux"
+import VideoKyc from "../kyc/VideoKYC/VideoKyc"
+import { getUser } from "../utility/userHelper"
 
 export default function AppRoutes() {
-  const formNature = useSelector((state) => state.user?.nature)
-
-  const clientType = useSelector((state) => state.user?.clientType)
+  const { H: clientType, I: formNature } = getUser()
 
   return (
     <HashRouter hashType="slash">
@@ -170,6 +170,7 @@ export default function AppRoutes() {
                 path="demat-registration/i/basic-details"
                 element={<KycForm />}
               /> */}
+              <Route path="video-kyc" element={<VideoKyc />} />
             </Route>
 
             <Route path="/" element={<AppLayout />}>
