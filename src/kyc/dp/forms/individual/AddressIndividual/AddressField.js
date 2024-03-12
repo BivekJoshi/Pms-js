@@ -186,7 +186,7 @@ export const AddressField = [
     setValueField: ["longitude", "latitude"],
   },
   {
-    name: "have_different_permanent_address",
+    name: "perAndCurAddressSame",
     label: "Do you have different Temporary Address?",
     md: 12,
     sm: 8,
