@@ -21,7 +21,7 @@ export const useAddressForm = (data) => {
   const { mutate } = useAddAddress({});
   const formik = useFormik({
     initialValues: {
-      addresses: data
+      addresses: data?.length > 0
         ? data.map((address) => ({
             ...address,
             have_different_permanent_address: true,
