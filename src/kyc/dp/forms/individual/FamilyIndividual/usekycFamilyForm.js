@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { onlyTextRegex } from "../../static/RegExp";
 import { useEffect } from "react";
-import { useAddFamily } from "../../../../../hooks/kyc/family/useFamily";
+import { useAddFamily, useGetFamily } from "../../../../../hooks/kyc/family/useFamily";
 
 // const familySchema = Yup.object().shape({
 //   relation: Yup.string().required("Relation is required").matches(onlyTextRegex, "Valid Relation is required"),
@@ -83,8 +83,10 @@ const validationSchema = Yup.object().shape({
   ),
 });
 
-export const useKycFamilyForm = ({familyData}) => {
-  console.log(familyData);
+export const useKycFamilyForm = () => {
+  const {data: familyData } = useGetFamily();
+  console.log(familyData)
+
   const { mutate } = useAddFamily({});
 
   const formik = useFormik({
