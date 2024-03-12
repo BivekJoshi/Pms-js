@@ -178,7 +178,6 @@ const beneficialOwnerField = [
     minLength: 9,
     sm: 4,
     id: nanoid(),
-    maxLength: 10,
   },
   {
     name: "email",
@@ -269,31 +268,19 @@ const AmlCft = () => {
       </Grid>
 
       <FormikProvider value={formik} {...formik}>
-        <Grid
-          container
-          spacing={2}
-          display="flex"
-          flexDirection="column"
-          mx={1}
-        >
-          {/* Switch for Political Affiliation */}
+        <Grid container spacing={2} display="flex" flexDirection="column" mx={1} >
           <>
-            <Grid
-              item
-              display={"flex"}
-              alignItems={"center"}
-              style={{ paddingLeft: "0px" }}
-            >
+            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
               <Typography>
                 Are you related to any politically high ranking person?
               </Typography>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={formik?.values?.showPolitical}
-                    onChange={togglePolitical}
-                  />
-                }
+              
+              <Switch 
+                checked={formik.values.showPolitical} 
+                onChange={(e) => {
+                  formik.setFieldValue("poliAffiHighRnkRln", e.target.checked);
+                  setShowPolitical(e.target.checked);
+                }}
               />
             </Grid>
             {showPolitical && (
@@ -379,14 +366,15 @@ const AmlCft = () => {
             )}
           </>
           <>
-            <Grid
-              item
-              display={"flex"}
-              alignItems={"center"}
-              style={{ paddingLeft: "0px" }}
-            >
+            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
               <Typography>Do you have any past Criminal Records?</Typography>
-              <Switch checked={showCriminal} onChange={toggleCriminal} />
+              <Switch 
+                checked={formik.values.showCriminal} 
+                onChange={(e) => {
+                  formik.setFieldValue("pastCrimActi", e.target.checked);
+                  setShowCriminal(e.target.checked);
+                }}
+              />
             </Grid>
             {showCriminal && (
               <FieldArray name="pastCrimiActiDetail">
@@ -469,16 +457,14 @@ const AmlCft = () => {
             )}
           </>
           <>
-            <Grid
-              item
-              display={"flex"}
-              alignItems={"center"}
-              style={{ paddingLeft: "0px" }}
-            >
+            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
               <Typography>Do you want to keep a nominee?</Typography>
-              <Switch
-                checked={showBeneficialOwner}
-                onChange={toggleBeneficialOwner}
+              <Switch 
+                checked={formik.values.showBeneficialOwner} 
+                onChange={(e) => {
+                  formik.setFieldValue("beneficialOwner", e.target.checked);
+                  setShowBeneficialOwner(e.target.checked);
+                }}
               />
             </Grid>
 

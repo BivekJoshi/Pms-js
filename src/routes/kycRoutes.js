@@ -1,6 +1,6 @@
 import _ from "lodash"
 import { nanoid } from "nanoid"
-import React, { lazy, useContext, useState } from "react"
+import React, { lazy, useContext, useState } from "react";
 
 /*---------------------------INDIVIDUAL--------------------------------------------------------------*/
 const BasicIndividualDpForms = React.lazy(
@@ -38,7 +38,7 @@ const OccupationsIndividualForms = React.lazy(
     )
 )
 const BoIndividualDetails = React.lazy(
-  () => import("../kyc/dp/forms/individual/BoIndividualDetails")
+  () => import("../kyc/dp/forms/individual/BoIndividual/BoIndividualDetails")
 )
 /*---------------------------INDIVIDUAL--------------------------------------------------------------*/
 

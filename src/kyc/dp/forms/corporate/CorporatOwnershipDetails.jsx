@@ -20,14 +20,14 @@ const CorporatOwnershipDetails = () => {
   const DETAILS = [
     {
       name: "designation",
-      label: "Designation (पद)",
+      label: "Designation",
       type: "dropDown",  
       sm: 12,
       id: nanoid(),
     },
     {
       name: "firstName",
-      label: "First Name (पहिलो नाम)",
+      label: "First Name",
       type: "text",
       placeholder: "Enter first name",
       required: "Please enter first name",
@@ -38,7 +38,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "lastName",
-      label: "Last Name (थर)",
+      label: "Last Name",
       type: "text",
       placeholder: "Enter last name",
       required: "Please enter last name",
@@ -49,7 +49,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "fatherName",
-      label: "Father's Name (बुवाको नाम)",
+      label: "Father's Name",
       type: "text",
       placeholder: "Enter father's name",
       required: "Please enter father's name",
@@ -60,7 +60,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "grandFather",
-      label: "Grandfather's Name (हजुरबुबाको नाम)",
+      label: "Grandfather's Name",
       type: "text",
       placeholder: "Enter grandfather's name",
       required: "Please enter grandfather's name",
@@ -71,7 +71,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "spouseName",
-      label: "Spouse Name (पति/पत्नीको नाम)",
+      label: "Spouse Name",
       type: "text",
       placeholder: "Enter spouse name",
       md: 4,
@@ -81,7 +81,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "permanentAddress",
-      label: "Permanent Address (स्थाई ठेगाना)",
+      label: "Permanent Address",
       type: "text",
       placeholder: "Enter permanent address",
       required: "Please enter permanent address",
@@ -92,7 +92,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "currentAddress",
-      label: "Current Address (हालको ठेगाना)",
+      label: "Current Address",
       type: "text",
       placeholder: "Enter current address",
       required: "Please enter current address",
@@ -103,7 +103,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "telephoneNo",
-      label: "Telephone Number (टेलिफोन नम्बर)",
+      label: "Telephone Number",
       type: "number",
       placeholder: "Enter telephone number",
       md: 4,
@@ -114,7 +114,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "mobileNo",
-      label: "Mobile Number (मोबाइल नम्बर)",
+      label: "Mobile Number",
       type: "number",
       placeholder: "Enter mobile number",
       required: "Please enter mobile number",
@@ -126,7 +126,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "email",
-      label: "Email Address (इ-मेल ठेगाना)",
+      label: "Email Address",
       type: "text",
       placeholder: "Enter email address",
       required: "Please enter email address",
@@ -137,7 +137,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "panNo",
-      label: "PAN Number (प्यान नम्बर)",
+      label: "PAN Number",
       minLength: 9,
       maxLength: 10,
       type: "text",
@@ -152,7 +152,7 @@ const CorporatOwnershipDetails = () => {
   const FirstContactField = [
     {
       name: "fcpName",
-      label: "Full Name (पुरा नाम)",
+      label: "Full Name",
       type: "text",
       placeholder: "Enter full name",
       required: "Please enter first contact person name",
@@ -163,7 +163,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "fcpDesignation",
-      label: "Designation (पद)",
+      label: "Designation",
       type: "text",
       placeholder: "Enter designation",
       required: true,
@@ -174,7 +174,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "fcpFatherName",
-      label: "Father's Name (बुवाको नाम)",
+      label: "Father's Name",
       type: "text",
       placeholder: "Enter father's name",
       required: "Please enter first contact person father's name",
@@ -185,7 +185,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "fcpGrandFatherName",
-      label: "Grandfather's Name (हजुरबुबाको नाम)",
+      label: "Grandfather's Name",
       type: "text",
       placeholder: "Enter grandfather's name",
       required: "Please enter first contact person grandfather's name",
@@ -199,7 +199,7 @@ const CorporatOwnershipDetails = () => {
   const SecondContactField = [
     {
       name: "scpName",
-      label: "Full Name (पुरा नाम)",
+      label: "Full Name",
       type: "text",
       placeholder: "Enter full name",
       md: 6,
@@ -209,7 +209,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "scpDesignation",
-      label: "Designation (पद)",
+      label: "Designation",
       type: "text",
       placeholder: "Enter designation",
       md: 6,
@@ -219,7 +219,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "scpFatherName",
-      label: "Father's Name (बुवाको नाम)",
+      label: "Father's Name",
       type: "text",
       placeholder: "Enter father's name ",
       md: 6,
@@ -229,7 +229,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "scpGrandFatherName",
-      label: "Grandfather's Name (हजुरबुबाको नाम)",
+      label: "Grandfather's Name",
       type: "text",
       placeholder: "Enter grandfather's name",
       md: 6,
@@ -242,7 +242,7 @@ const CorporatOwnershipDetails = () => {
   const ThirdContactField = [
     {
       name: "trdName",
-      label: "Full Name (पुरा नाम)",
+      label: "Full Name",
       type: "text",
       placeholder: "Enter full name",
       md: 6,
@@ -252,7 +252,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "trdDesignation",
-      label: "Designation (पद)",
+      label: "Designation",
       type: "text",
       placeholder: "Enter designation",
       md: 6,
@@ -262,7 +262,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "trdFatherName",
-      label: "Father's Name (बुवाको नाम)",
+      label: "Father's Name",
       type: "text",
       placeholder: "Enter father's name ",
       md: 6,
@@ -272,7 +272,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "trdGrandFatherName",
-      label: "Grandfather's Name (हजुरबुबाको नाम)",
+      label: "Grandfather's Name",
       type: "text",
       placeholder: "Enter grandfather's name",
       md: 6,
@@ -284,18 +284,20 @@ const CorporatOwnershipDetails = () => {
   const titles = [
     {
       initialvalue: FirstContactField,
-      name1: "First Contact Person (पहिलो सम्पर्क व्यक्ति)",
+      name1: "First Contact Person",
     },
     {
       initialvalue: SecondContactField,
-      name1: "Second Contact Person (दोस्रो सम्पर्क व्यक्ति )",
+      name1: "Second Contact Person",
     },
     {
       initialvalue: ThirdContactField,
-      name1: "Third Contact Person (तेस्रो सम्पर्क व्यक्ति)",
+      name1: "Third Contact Person",
     },
   ];
   const { formik } = corporatOwnershipDetailsForm();
+  const form = formik.values.details;
+  const disabled = form && form.some((data) => data.designation === "CEO" || data.designation === "Secretary");
 
   return (
     <div data-aos="zoom-in-right">
@@ -343,7 +345,7 @@ const CorporatOwnershipDetails = () => {
                               label: "General Counsel",
                             },
                           ],
-                    isDisabled: index <= 1,
+                    isDisabled: disabled && d.name === "designation" && (item.designation === "CEO" || item.designation === "Secretary"),
                     name: `details.${index}.${d.name}`,
                   };
                 });
@@ -364,8 +366,8 @@ const CorporatOwnershipDetails = () => {
                           background:
                             formik?.errors?.details &&
                             formik?.errors?.details[index] !== undefined
-                              ? "red"
-                              : "transparent",
+                              ? "#fff"
+                              : "#FFFFFF",
                         }}
                         defaultExpanded
                       >

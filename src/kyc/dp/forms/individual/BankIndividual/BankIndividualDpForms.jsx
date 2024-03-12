@@ -1,36 +1,28 @@
-import React from "react"
-import { Grid, Button, useTheme, Typography } from "@mui/material"
-import RenderInput from "../../../../../components/renderInput/RenderInput"
-import { useKycBankForm } from "./usekycBankForm"
-import { Box } from "@mui/system"
-import CustomTable from "../../../../../components/customTable/CustomTable"
-import { useMemo } from "react"
+import React, { useEffect, useState, useMemo } from "react";
+import { Grid, Button, useTheme, Typography, Switch, IconButton } from "@mui/material";
+import RenderInput from "../../../../../components/renderInput/RenderInput";
+import { useKycBankForm } from "./usekycBankForm";
+import { Box } from "@mui/system";
+import CustomTable from "../../../../../components/customTable/CustomTable";
 import {
+  useDeleteKycBank,
   useGetBankList,
   useGetKycBank,
-} from "../../../../../hooks/Kyc/individual/kycBank/useKycBank"
-import { SET_FORM } from "../../../../../redux/types/types"
-import { useDispatch } from "react-redux"
+  useUpdateKycBank,
+} from "../../../../../hooks/Kyc/individual/kycBank/useKycBank";
+import { Delete } from '@mui/icons-material';
+import DeleteConfirmationModal from '../../../../../components/modal/DeleteModal/DeleteConfirmationModal';
 
 const BankIndividualDpForms = () => {
-  const theme = useTheme()
-  const { data: bankListData } = useGetBankList()
-  const { data: bankData } = useGetKycBank()
-  const bankDataField = bankData && [bankData?.data]
-  const dispatch = useDispatch()
-  const { formik } = useKycBankForm()
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const theme = useTheme();
+  const { data: bankListData } = useGetBankList();
+  const { data: bankData } = useGetKycBank();
+  const bankDataField = bankData && bankData?.data;
+  const { formik } = useKycBankForm(bankDataField);
+  const [deletedKycBank, setDeletedKycBank] = useState({});
 
   const BANKFIELDS = [
-    // {
-    //   type: "dropDown",
-    //   name: "bankName",
-    //   label: "Bank Name",
-    //   required: true,
-    //   options: bankListData?.data,
-    //   xs: 12,
-    //   sm: 6,
-    //   md: 3,
-    // },
     {
       type: "asyncDropDown",
       name: "bankName",
@@ -135,6 +127,12 @@ const BankIndividualDpForms = () => {
         id: 6,
         accessorKey: "primary",
         header: "Primary",
+        accessorFn: (row) => (
+          <Switch
+            checked={row.isPrimary}
+            onChange={() => handlePrimarySwitch(row)}
+          />
+        ),
         size: 100,
         sortable: false,
       },
@@ -144,13 +142,37 @@ const BankIndividualDpForms = () => {
         header: "Action",
         size: 100,
         sortable: false,
+        Cell: (cell) => (
+          <IconButton color="error" onClick={() => handleDeleteRow(cell.row.original)}>
+            <Delete />
+          </IconButton>
+        ),
       },
     ],
     []
-  )
+  );
+
+  const handleCloseDeleteModal = () => setOpenDeleteModal(false);
+
+  const { deleteKycBankMutation, isSuccess: isDeleteSuccess } = useDeleteKycBank({});
+
+  const handleDeleteRow = (rowData) => {
+    setDeletedKycBank(rowData);
+    setOpenDeleteModal(true);
+  };
+
+  useEffect(() => {
+    if (isDeleteSuccess) {
+      setOpenDeleteModal(false);
+    }
+  }, [isDeleteSuccess]);
+
+  const handleConfirmDelete = () => {
+    deleteKycBankMutation(deletedKycBank?.id);
+  };
 
   return (
-    <form>
+    <div data-aos="zoom-in-right">
       <Box
         sx={{
           marginBottom: "16px",
@@ -187,6 +209,7 @@ const BankIndividualDpForms = () => {
           title={"List of Bank"}
           columns={columns}
           data={bankDataField}
+          handleDeleteRow={handleDeleteRow}
           headerBackgroundColor="#401686"
         />
       </Grid>
@@ -201,8 +224,20 @@ const BankIndividualDpForms = () => {
           Next
         </Button>
       </Grid>
-    </form>
+
+      {openDeleteModal && (
+        <DeleteConfirmationModal
+          open={openDeleteModal}
+          handleCloseModal={handleCloseDeleteModal}
+          handleConfirmDelete={handleConfirmDelete}
+          message={'Bank data'}
+        />
+      )}
+    </div>
   )
 }
+
+
+
 
 export default BankIndividualDpForms
