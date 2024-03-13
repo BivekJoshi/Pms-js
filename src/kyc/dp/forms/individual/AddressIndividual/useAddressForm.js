@@ -44,12 +44,12 @@ export const useAddressForm = (data) => {
               },
             ],
     },
-    // validationSchema: AddressSchema,
+    validationSchema: AddressSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
       const formData = { ...values }
       mutate(formData, {
-        onSuccess: (data) => {
+        onSuccess: () => {
           formik.resetForm()
         },
       })

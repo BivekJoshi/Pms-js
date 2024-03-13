@@ -144,6 +144,7 @@ const RenderInput = ({
             fullWidth
             required={element.required}
             variant="outlined"
+            InputLabelProps={{ shrink: Boolean(formVaues) }}
             disabled={element.isDisabled}
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
