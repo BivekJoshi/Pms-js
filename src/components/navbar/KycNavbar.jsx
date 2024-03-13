@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { AppBar, Chip, Drawer, IconButton, Toolbar, Tooltip } from "@mui/material";
+import { AppBar, Avatar, Chip, Drawer, IconButton, Toolbar, Tooltip } from "@mui/material";
 import React, { useState } from "react";
 import logo from "../../assets/logo.png";
 import FlexBetween from "../flexBetween/FlexBetween";
@@ -11,6 +11,7 @@ import {
 import DarkModeSetting from "../Setting/DarkModeSetting";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { useLocation, useNavigate } from "react-router-dom";
+import Vector from "../../assets/Vector.png"
 
 const KycNavbar = ({userDetails}) => {
   const theme = useTheme();
@@ -64,6 +65,8 @@ const KycNavbar = ({userDetails}) => {
                 userDetails?.status === 'SUBMITTED' &&
                 (pathname !== '/kyc/video-kyc' ? (
                   <Chip
+                  color="primary"
+                  avatar={<Avatar src={Vector} alt={Vector}/>}
                   label="Self Verification"
                   clickable
                     variant='filled'
@@ -72,6 +75,9 @@ const KycNavbar = ({userDetails}) => {
                 ) : (
                   <Chip
                   clickable
+                  style={{background:"#6C49B4", color:"white"}}
+                    color="primary"
+                    // avatar={<Avatar src={Vector} alt={Vector} style={{padding:".3 rem"}}/>} 
                     label="View KYC"
                     variant='filled'
                     onClick={() => navigate('/kyc/tms-registration/i/detail-verification')}
