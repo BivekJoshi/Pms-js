@@ -300,12 +300,6 @@ const RenderInput = ({
           </Field>
         );
       case "dropDown":
-        console.log(
-          element?.options?.find(
-            (option) =>
-              option?.value === formVaues || option?.code === formVaues
-          )
-        )
         return (
           <Autocomplete
             id={element.name}
@@ -314,9 +308,10 @@ const RenderInput = ({
             disabled={element?.isDisabled}
             options={element?.options}
             getOptionLabel={(option) => t(option?.label) || ""}
-            value={(element?.options?.find(
-              (option) => option?.value === formVaues
-            )) || ""}
+            value={
+              element?.options?.find((option) => option?.value === formVaues) ||
+              ""
+            }
             onChange={(event, newValue) => {
               formik.setFieldValue(
                 element.name,
@@ -416,7 +411,7 @@ const RenderInput = ({
                     // console.log("value", value)
                     // console.log("elem", element)
                     formik.setFieldValue(element?.radioName, event.target.value)
-                    formik.handleChange(element.radioName)(value); // Manually update Formik state
+                    formik.handleChange(element.radioName)(value) // Manually update Formik state
                   }}
                 >
                   {element.radio.map((radio, i) => (
@@ -538,8 +533,12 @@ const RenderInput = ({
         )
       case "asyncDropDown":
         return (
-          <div style={{display: "flex"}}>
-            <AsyncDropDown element={element} formik={formik}/>
+          <div style={{ display: "flex" }}>
+            <AsyncDropDown
+              element={element}
+              formik={formik}
+              formVaues={formVaues}
+            />
             <div style={{ marginTop: "0.5rem" }}>
               {element.isDependent && formik.values[element?.name] ? (
                 <RenderInput

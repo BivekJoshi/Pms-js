@@ -1,10 +1,9 @@
-import { Button } from "@mui/material";
-import React from "react";
-import DottedBorder from "../../assets/DottedBoder.png";
-import { usePhotoUploadForm } from "../../hooks/kyc/DocumentUpload/usePhotoUploadForm";
+import { Button } from "@mui/material"
+
+import { usePhotoUploadForm } from "../../hooks/kyc/DocumentUpload/usePhotoUploadForm"
 
 const FinalImageSelect = ({ finalImage, file }) => {
-  const { formik } = usePhotoUploadForm({ file, finalImage });
+  const { formik } = usePhotoUploadForm({ file, finalImage })
 
   // const handleSubmit = () => {
   //   console.log(file, "File ma chaii");
@@ -47,7 +46,7 @@ const FinalImageSelect = ({ finalImage, file }) => {
         Upload
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default FinalImageSelect;
+export default FinalImageSelect

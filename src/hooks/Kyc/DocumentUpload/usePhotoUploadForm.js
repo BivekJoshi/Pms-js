@@ -1,20 +1,20 @@
-import { useFormik } from "formik";
-import { usePhotoUpload } from "./usePhotoUplaod";
+import { useFormik } from "formik"
+import { usePhotoUpload } from "./usePhotoUplaod"
 
 export const usePhotoUploadForm = ({ file, finalImage }) => {
-  // console.log(finalImage,"FinalImage");
-  const { mutate } = usePhotoUpload({finalImage});
+  const { mutate } = usePhotoUpload({})
   const formik = useFormik({
     initialValues: {
       ppSizePhoto: "",
     },
-
-    onSubmit: (values) => {
-      values.ppSizePhoto = finalImage;
-      values.ppSizePhoto = file;
-      mutate(values);
+    onSubmit: () => {
+      const formData = {
+        name: "ppSizePhoto",
+        img: finalImage,
+      }
+      mutate(formData)
     },
-  });
+  })
 
-  return { formik };
-};
+  return { formik }
+}

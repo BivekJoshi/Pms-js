@@ -1,38 +1,44 @@
-import React, { useState } from "react";
-import { Typography } from "@mui/material";
-import Dropzone from "react-dropzone";
-import { fileResize } from "../../utility/image";
-import Picture from "../../assets/Picture.png";
-import { usePhotoUpload } from '../../hooks/Kyc/DocumentUpload/usePhotoUplaod';
+import React, { useState } from "react"
+import { Typography } from "@mui/material"
+import Dropzone from "react-dropzone"
+import { fileResize } from "../../utility/image"
+import Picture from "../../assets/Picture.png"
+import { usePhotoUpload } from "../../hooks/kyc/DocumentUpload/usePhotoUplaod"
+// import { usePhotoUpload } from '../../hooks/Kyc/DocumentUpload/usePhotoUplaod';
 
 const DropZoneUploadFile = ({ element, formik }) => {
-  const [file, setFile] = useState(null);
-  const [showDelete, setShowDelete] = useState(false);
-  const title = element?.title;
-  const documentName = element?.name;
+  const [file, setFile] = useState(null)
+  const [showDelete, setShowDelete] = useState(false)
+  const title = element?.title
+  const documentName = element?.name
   console.log("elem", element?.name)
-  const { mutate } = usePhotoUpload({documentName});
+  const { mutate } = usePhotoUpload({})
 
   const handleImage = async (acceptedFiles) => {
-    const fileSize = acceptedFiles[0].size / 1024 / 1024;
-    return fileSize <= 0.2 ? acceptedFiles[0] : await fileResize(acceptedFiles[0]);
-  };
+    const fileSize = acceptedFiles[0].size / 1024 / 1024
+    return fileSize <= 0.2
+      ? acceptedFiles[0]
+      : await fileResize(acceptedFiles[0])
+  }
 
   const handleUpload = async (acceptedFiles) => {
-    const image = await handleImage(acceptedFiles);
-    setFile(image);
+    const image = await handleImage(acceptedFiles)
+    setFile(image)
     // formik.setFieldValue(element.name, image);
-    mutate(image, {
-      onSuccess: (data) => {
-        // formik.resetForm();
-      },
-    });
-  };
+    mutate(
+      { finalImage: image, file: documentName },
+      {
+        onSuccess: (data) => {
+          // formik.resetForm();
+        },
+      }
+    )
+  }
 
   const handleDelete = () => {
-    setFile(null);
-    formik.setFieldValue(element.name, null);
-  };
+    setFile(null)
+    formik.setFieldValue(element.name, null)
+  }
 
   return (
     <div style={{ width: "350px" }}>
@@ -127,7 +133,7 @@ const DropZoneUploadFile = ({ element, formik }) => {
         </Dropzone>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default DropZoneUploadFile;
+export default DropZoneUploadFile
