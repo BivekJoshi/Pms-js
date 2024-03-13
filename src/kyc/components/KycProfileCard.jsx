@@ -27,9 +27,9 @@ const KycProfileCard = ({
   const [open, setOpen] = useState(false)
   const [stream, setStream] = useState(null)
 
-  const { data: documentData, isLoading } = useGetDocument();
+  const { data: documentData, isLoading } = useGetDocument()
 
-  const imgUrl = documentData?.data?.ppSizePhoto;
+  const imgUrl = documentData?.data?.ppSizePhoto
 
   const videoRef = useRef()
   const accountType =
@@ -95,10 +95,14 @@ const KycProfileCard = ({
             gap: "8px",
           }}
         >
-          {imgUrl ?
+          {imgUrl ? (
             <div style={{ width: 101, height: 100 }}>
-              <img src={DOC_URL + imgUrl} style={{ width: "100%", height: "100%", borderRadius: "50%"}} />
-            </div> :
+              <img
+                src={`${DOC_URL}${imgUrl}?t=${new Date()}`}
+                style={{ width: "100%", height: "100%", borderRadius: "50%" }}
+              />
+            </div>
+          ) : (
             <svg
               width="101"
               height="100"
@@ -112,8 +116,7 @@ const KycProfileCard = ({
                 fill="white"
               />
             </svg>
-          }
-
+          )}
 
           {!isHomePage && (
             <span style={{ position: "absolute", bottom: 0, right: 0 }}>
