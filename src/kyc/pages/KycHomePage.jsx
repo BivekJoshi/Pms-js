@@ -12,7 +12,7 @@ const KycHomePage = () => {
 
   const formLabel =
     formNature === "DP" ? "DEMAT" : formNature === "TMS" ? "TMS" : ""
-  const routeList = kycRoutes(clientType)
+  const routeList = kycRoutes(clientType,formNature)
 
   const handleStartRegistration = () => {
     if (formNature === "DP") {

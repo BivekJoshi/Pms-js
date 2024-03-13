@@ -81,7 +81,7 @@ const DevelopmentPage = React.lazy(
 )
 
 const KycHomePage = React.lazy(() => import("../kyc/pages/KyCHomePage"))
-import { kycDpCorporateRoutes, kycDpIndividualRoutes } from "./kycRoutes"
+import { kycDpCorporateRoutes, kycDpIndividualRoutes, kycTmsCorporateRoutes, kycTmsIndividualRoutes } from "./kycRoutes"
 import KycProtectedRoute from "./KycProtectedRoute"
 import { useSelector } from "react-redux"
 import VideoKyc from "../kyc/VideoKYC/VideoKyc"
@@ -114,52 +114,112 @@ export default function AppRoutes() {
             </Route>
             <Route path="/kyc" element={<KycLayout />}>
               <Route path="home" element={<KycHomePage />} />
+
               <Route
                 element={
                   <KycProtectedRoute
                     redirectTo="/login"
                     allowedClientType="I"
+                    allowedFormNature="DP"
                   />
                 }
               >
                 {kycDpIndividualRoutes.map((route) => {
-                  const path =
-                    formNature === "TMS"
-                      ? route.path.replace(
-                          "demat-registration",
-                          "tms-registration"
-                        )
-                      : route.path
+                  // const path =
+                  //   formNature === "TMS"
+                  //     ? route.path.replace(
+                  //         "demat-registration",
+                  //         "tms-registration"
+                  //       )
+                  //     : route.path
                   return (
                     <Route
                       key={route.id}
-                      path={path}
+                      path={route.path}
                       exact
                       element={<route.component />}
                     />
                   )
                 })}
               </Route>
+
+              <Route
+                element={
+                  <KycProtectedRoute
+                    redirectTo="/login"
+                    allowedClientType="I"
+                    allowedFormNature="TMS"
+                  />
+                }
+              >
+                {kycTmsIndividualRoutes.map((route) => {
+                  // const path =
+                  //   formNature === "TMS"
+                  //     ? route.path.replace(
+                  //         "demat-registration",
+                  //         "tms-registration"
+                  //       )
+                  //     : route.path
+                  return (
+                    <Route
+                      key={route.id}
+                      path={route.path}
+                      exact
+                      element={<route.component />}
+                    />
+                  )
+                })}
+              </Route>
+
               <Route
                 element={
                   <KycProtectedRoute
                     redirectTo="/login"
                     allowedClientType="C"
+                    allowedFormNature="DP"
                   />
                 }
               >
                 {kycDpCorporateRoutes.map((route) => {
-                  const path =
-                    formNature === "TMS"
-                      ? route.path.replace(
-                          "demat-registration",
-                          "tms-registration"
-                        )
-                      : route.path
+                  // const path =
+                  //   formNature === "TMS"
+                  //     ? route.path.replace(
+                  //         "demat-registration",
+                  //         "tms-registration"
+                  //       )
+                  //     : route.path
                   return (
                     <Route
                       key={route.id}
-                      path={path}
+                      path={route.path}
+                      exact
+                      element={<route.component />}
+                    />
+                  )
+                })}
+              </Route>
+
+              <Route
+                element={
+                  <KycProtectedRoute
+                    redirectTo="/login"
+                    allowedClientType="C"
+                    allowedFormNature="TMS"
+                  />
+                }
+              >
+                {kycTmsCorporateRoutes.map((route) => {
+                  // const path =
+                  //   formNature === "TMS"
+                  //     ? route.path.replace(
+                  //         "demat-registration",
+                  //         "tms-registration"
+                  //       )
+                  //     : route.path
+                  return (
+                    <Route
+                      key={route.id}
+                      path={route.path}
                       exact
                       element={<route.component />}
                     />
