@@ -11,7 +11,8 @@ import {
 import DarkModeSetting from "../Setting/DarkModeSetting";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { useLocation, useNavigate } from "react-router-dom";
-import Vector from "../../assets/Vector.png"
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
+import BallotIcon from '@mui/icons-material/Ballot';
 
 const KycNavbar = ({userDetails}) => {
   const theme = useTheme();
@@ -36,7 +37,6 @@ const KycNavbar = ({userDetails}) => {
 
     setState({ ...state, [anchor]: open });
   };
-  console.log("userDetails", userDetails);
   return (
     <AppBar
       style={{
@@ -65,8 +65,9 @@ const KycNavbar = ({userDetails}) => {
                 userDetails?.status === 'SUBMITTED' &&
                 (pathname !== '/kyc/video-kyc' ? (
                   <Chip
-                  color="primary"
-                  avatar={<Avatar src={Vector} alt={Vector}/>}
+                  // color="primary"
+                  style={{background:"#6C49B4", color:"white"}}
+                  icon={<ContactPhoneIcon style={{color:"white"}}/>}                  
                   label="Self Verification"
                   clickable
                     variant='filled'
@@ -76,6 +77,7 @@ const KycNavbar = ({userDetails}) => {
                   <Chip
                   clickable
                   style={{background:"#6C49B4", color:"white"}}
+                  icon={<BallotIcon style={{color:"white"}}/>}                  
                     color="primary"
                     // avatar={<Avatar src={Vector} alt={Vector} style={{padding:".3 rem"}}/>} 
                     label="View KYC"

@@ -1,15 +1,14 @@
 import { jwtDecode } from "jwt-decode"
-
+ 
 export const getUser = () => {
-  const { authToken } = JSON.parse(localStorage.getItem("auth"))
-  if (authToken) {
-    const decodedInfo = jwtDecode(authToken)
-    return decodedInfo
+  const authDataString = localStorage.getItem("auth")
+  if (authDataString) {
+    return jwtDecode(authDataString)
   } else {
     return {}
   }
 }
-
+ 
 export const setUser = (token) => {
   if (token) {
     window.localStorage.setItem(
@@ -20,7 +19,8 @@ export const setUser = (token) => {
     )
   }
 }
-
+ 
 export const getUserToken = () => {
   return JSON.parse(localStorage.getItem("auth"))
 }
+ 

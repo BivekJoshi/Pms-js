@@ -851,6 +851,34 @@ export const corporateKycDematList = [
         />
       </svg>
     ),
+    path: "/kyc/demat-registration/c/corporate-bo-statement",
+    title: "BO Statement",
+  },
+  {
+    id: 6,
+    icon: (
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 28 28"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect x="0.5" y="0.5" width="27" height="27" rx="3.5" fill="#EADDFF" />
+        <rect
+          x="0.5"
+          y="0.5"
+          width="27"
+          height="27"
+          rx="3.5"
+          stroke="#25005A"
+        />
+        <path
+          d="M14.0026 5.66797L7.33594 8.16797V13.243C7.33594 17.4513 10.1776 21.3763 14.0026 22.3346C17.8276 21.3763 20.6693 17.4513 20.6693 13.243V8.16797L14.0026 5.66797ZM19.0026 13.243C19.0026 16.5763 16.8776 19.6596 14.0026 20.6013C11.1276 19.6596 9.0026 16.5846 9.0026 13.243V9.3263L14.0026 7.4513L19.0026 9.3263V13.243Z"
+          fill="#25005A"
+        />
+      </svg>
+    ),
     path: "/kyc/demat-registration/c/corporate-ownership-details",
     title: "Ownership Details",
   },

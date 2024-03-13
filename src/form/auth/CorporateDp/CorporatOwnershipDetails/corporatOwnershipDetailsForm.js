@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import corporatOwnershipDetailsValidationSchema from "./corporatOwnershipDetailsValidationSchema";
 import { useFormik } from "formik";
+import { useAddBodCorporate } from "../../../../hooks/Kyc/corporate/BodCorporate/useBodCorporate";
 
 export const corporatOwnershipDetailsForm = () => {
   const [loading, setLoading] = useState(false);
+  const { mutate } = useAddBodCorporate({});
+
   const formik = useFormik({
     initialValues: {
       details: [
@@ -62,10 +65,13 @@ export const corporatOwnershipDetailsForm = () => {
     },
     validationSchema: corporatOwnershipDetailsValidationSchema,
     onSubmit: (values) => {
-      console.log("values", values); // Log the form values
-      handleSubmit(values);
-      setLoading(true);
-      resetForm();
+      const formData = {...values}
+      mutate(formData, {
+        onSuccess: (data) => {
+          formik.resetForm();
+          setLoading(true);
+        },
+      });
     },
   });
   return { formik, loading };
