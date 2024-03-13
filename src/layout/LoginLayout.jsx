@@ -8,9 +8,18 @@ import Bear from "../assets/bear--.png"
 import toast from "react-hot-toast"
 import { getUserToken } from "../utility/userHelper"
 import { set } from "lodash"
+import { useDispatch, useSelector } from "react-redux"
+import { kycRoutes } from "../routes/kycRoutes"
 
 const LoginLayout = () => {
+  const dispatch = useDispatch()
+  const clientType = useSelector((state) => state.user?.clientType)
+  const formNature = useSelector((state) => state.user?.nature)
+
+  const currentFormStep = useSelector((state) => state.user?.currentForm)
+
   const authDataString = localStorage.getItem("auth")
+  const routeList = kycRoutes()
 
   const authData = JSON.parse(authDataString)
   let authToken = authData?.authToken
@@ -21,18 +30,23 @@ const LoginLayout = () => {
 
   useEffect(() => {
     setToken(authToken)
-    if (pathname === "/login") {
-      toast.dismiss()
-    }
+
     if (!token && pathname === "/") {
       navigate("/login")
-    }
-
-    // else if (token && authData?.tempPassword) {
-    //   navigate('/change/password');
-    // }
-    else if (token) {
-      navigate("/dashboard")
+    } else if (token) {
+      if (currentFormStep) {
+        if (routeList && currentFormStep > 0) {
+          let path = ""
+          const page = routeList.find((item) => item.id === currentFormStep)
+          path = page.path
+          if (formNature === "TMS") {
+            path.replace("demat-registration", "tms-registration")
+          }
+          navigate(`/kyc/${path}`)
+        }
+      } else {
+        navigate("/kyc/home")
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])

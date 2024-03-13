@@ -34,7 +34,7 @@ export const PROVINCE = [
     label: "Sudurpashchim Pradesh",
     id: 7,
   },
-];
+]
 export const AddressField = [
   {
     name: "country",
@@ -57,6 +57,7 @@ export const AddressField = [
     required: true,
     type: "dropDown",
     options: PROVINCE,
+    clearField: ["district", "municipality"],
   },
   {
     name: "district",
@@ -68,7 +69,10 @@ export const AddressField = [
     required: true,
     type: "asyncDropDownOption",
     reference: "province",
+    dependentFieldValue: "province",
     path: "utility/district",
+    clearField: ["municipality"],
+
     // options: PROVINCE,
   },
   {
@@ -81,6 +85,7 @@ export const AddressField = [
     required: true,
     type: "asyncDropDownOption",
     reference: "district",
+    dependentFieldValue: "district",
     path: "utility/municipal",
     // options: PROVINCE,
   },
@@ -159,7 +164,7 @@ export const AddressField = [
     lg: 4,
     xs: 12,
     type: "text",
-    disabled: true,
+    isDisabled: true,
     required: true,
   },
   {
@@ -170,7 +175,7 @@ export const AddressField = [
     lg: 4,
     xs: 12,
     type: "text",
-    disabled: true,
+    isDisabled: true,
     required: true,
   },
 
@@ -181,7 +186,7 @@ export const AddressField = [
     setValueField: ["longitude", "latitude"],
   },
   {
-    name: "have_different_permanent_address",
+    name: "perAndCurAddressSame",
     label: "Do you have different Temporary Address?",
     md: 12,
     sm: 8,
@@ -193,4 +198,4 @@ export const AddressField = [
     margin: "0px",
     type: "fieldArraySwitch",
   },
-];
+]
