@@ -333,7 +333,7 @@ export const individualKycDematList = [
 export const individualkycTmsList = [
   {
     id: 1,
-    path: "/kyc/demat-registration/i/basic-details",
+    path: "/kyc/tms-registration/i/basic-details",
     title: "Basic Details",
     icon: (
       <svg
@@ -361,7 +361,7 @@ export const individualkycTmsList = [
   },
   {
     id: 2,
-    path: "/kyc/demat-registration/i/document-details",
+    path: "/kyc/tms-registration/i/document-details",
     title: "Document Upload",
     icon: (
       <svg
@@ -406,7 +406,7 @@ export const individualkycTmsList = [
   },
   {
     id: 3,
-    path: "/kyc/demat-registration/i/address-details",
+    path: "/kyc/tms-registration/i/address-details",
     title: "Address Details",
     icon: (
       <svg
@@ -439,7 +439,7 @@ export const individualkycTmsList = [
   {
     id: 4,
     title: "Family Details",
-    path: "/kyc/demat-registration/i/family-details",
+    path: "/kyc/tms-registration/i/family-details",
     icon: (
       <svg
         width="28"
@@ -494,7 +494,7 @@ export const individualkycTmsList = [
   {
     id: 5,
     title: "Bank Details",
-    path: "/kyc/demat-registration/i/bank-details",
+    path: "/kyc/tms-registration/i/bank-details",
     icon: (
       <svg
         width="28"
@@ -534,7 +534,7 @@ export const individualkycTmsList = [
   {
     id: 6,
     title: "Occupation Details",
-    path: "/kyc/demat-registration/i/occupation-details",
+    path: "/kyc/tms-registration/i/occupation-details",
     icon: (
       <svg
         width="28"
@@ -564,7 +564,7 @@ export const individualkycTmsList = [
   },
   {
     id: 7,
-    path: "/kyc/demat-registration/i/aml-cft",
+    path: "/kyc/tms-registration/i/aml-cft",
     title: "AML/CFT",
     icon: (
       <svg
@@ -606,7 +606,7 @@ export const individualkycTmsList = [
   },
   {
     id: 8,
-    path: "/kyc/demat-registration/i/detail-verification",
+    path: "/kyc/tms-registration/i/detail-verification",
     title: "Details Verifications",
     icon: (
       <svg
@@ -924,7 +924,7 @@ export const corporateKycDematList = [
         />
       </svg>
     ),
-    path: "/kyc/demat-registration/i/detail-verification",
+    path: "/kyc/demat-registration/c/detail-verification",
     title: "Detail Verification",
   },
 ];
@@ -955,7 +955,7 @@ export const corporateKycTMSList = [
         />
       </svg>
     ),
-    path: "/kyc/demat-registration/c/corporate-details",
+    path: "/kyc/tms-registration/c/corporate-details",
     title: "Corporate Details",
   },
   {
@@ -1000,7 +1000,7 @@ export const corporateKycTMSList = [
         />
       </svg>
     ),
-    path: "/kyc/demat-registration/c/document-details",
+    path: "/kyc/tms-registration/c/document-details",
     title: "Document Upload",
   },
   {
@@ -1032,7 +1032,7 @@ export const corporateKycTMSList = [
         />
       </svg>
     ),
-    path: "/kyc/demat-registration/c/corporate-address",
+    path: "/kyc/tms-registration/c/corporate-address",
     title: "Address Details",
   },
   {
@@ -1072,7 +1072,7 @@ export const corporateKycTMSList = [
         </defs>
       </svg>
     ),
-    path: "/kyc/demat-registration/c/corporate-branch-detail",
+    path: "/kyc/tms-registration/c/corporate-branch-detail",
     title: "Branch Details",
   },
   {
@@ -1100,7 +1100,7 @@ export const corporateKycTMSList = [
         />
       </svg>
     ),
-    path: "/kyc/demat-registration/c/corporate-bo-statement",
+    path: "/kyc/tms-registration/c/corporate-bo-statement",
     title: "Bo Statement",
   },
   {
@@ -1128,7 +1128,7 @@ export const corporateKycTMSList = [
         />
       </svg>
     ),
-    path: "/kyc/demat-registration/c/corporate-ownership-details",
+    path: "/kyc/tms-registration/c/corporate-ownership-details",
     title: "Ownership Details",
   },
   {
@@ -1173,7 +1173,7 @@ export const corporateKycTMSList = [
         />
       </svg>
     ),
-    path: "/kyc/demat-registration/i/detail-verification",
+    path: "/kyc/tms-registration/c/detail-verification",
     title: "Detail Verification",
   },
 ];

@@ -3,16 +3,14 @@ import { usePhotoUpload } from "./usePhotoUplaod";
 
 export const usePhotoUploadForm = ({ file, finalImage }) => {
   // console.log(finalImage,"FinalImage");
-  const { mutate } = usePhotoUpload({});
+  const { mutate } = usePhotoUpload({finalImage});
   const formik = useFormik({
     initialValues: {
       ppSizePhoto: "",
     },
 
     onSubmit: (values) => {
-      // console.log(values,"Captureddddd");
-      values.ppSizePhoto=finalImage;
-      // console.log(finalImage,"Final image machai");
+      values.ppSizePhoto = finalImage;
       values.ppSizePhoto = file;
       mutate(values);
     },
