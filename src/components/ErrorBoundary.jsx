@@ -12,7 +12,7 @@ export default class ErrorBoundary extends Component {
     // Display fallback UI
     this.setState({ hasError: true });
     // You can also log the error to an error reporting service
-    debugger;
+    // debugger;
     console.log(error);
     console.log(info);
     let erc = window.localStorage.getItem('erc');

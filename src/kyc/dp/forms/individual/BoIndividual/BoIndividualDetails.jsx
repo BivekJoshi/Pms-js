@@ -10,10 +10,9 @@ const bodFields = [
     name: "isStandingInstructionForAutomaticTxn",
     label: "Do you want Standing Instruction For The Automatic Transaction?",
     type: "switch",
-   
     col: 12,
     id: nanoid(),
-  required: true,
+    required: true,
     display: "flex",
     direction: "column",
     justify: "start",
