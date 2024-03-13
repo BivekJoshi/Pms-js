@@ -5,14 +5,16 @@ import { logout } from "../utility/logout"
 import toast from "react-hot-toast"
 import { getUserToken } from "../utility/userHelper"
 
-const KycProtectedRoute = ({ redirectTo, allowedClientType }) => {
+const KycProtectedRoute = ({ redirectTo, allowedClientType, allowedFormNature }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const clientType = useSelector((state) => state.user?.clientType)
+  const formNature = useSelector((state) => state.user?.formNature)
+
   const authToken = getUserToken()
 
   useEffect(() => {
-    if (!clientType && !authToken) {
+    if (!clientType && !formNature && !authToken) {
       dispatch({ type: "LOGOUT" })
       logout()
       navigate("/login")
@@ -21,7 +23,7 @@ const KycProtectedRoute = ({ redirectTo, allowedClientType }) => {
     // eslint-disable-next-line
   }, [])
 
-  if (allowedClientType !== clientType)
+  if (allowedClientType !== clientType && allowedFormNature !== formNature)
     return <Navigate exact to={redirectTo} />
   return <Outlet />
 }

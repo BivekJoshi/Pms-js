@@ -24,7 +24,7 @@ const BankIndividualDpForms = () => {
 
   const BANKFIELDS = [
     {
-      type: "asyncDropDown",
+      // type: "asyncDropDown", Error here
       name: "bankName",
       label: "Bank Name",
       required: true,
