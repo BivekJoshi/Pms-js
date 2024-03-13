@@ -1,17 +1,17 @@
-import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
-import React from "react";
-import { FormikProvider } from "formik";
-import { FieldArray } from "formik";
-import { useAddressForm } from "./useAddressForm";
-import { AddressField } from "./AddressField";
-import RenderInput from "../../../../../components/renderInput/RenderInput";
-import { useGetAddress } from '../../../../../hooks/kyc/address/useAddress';
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material"
+import React from "react"
+import { FormikProvider } from "formik"
+import { FieldArray } from "formik"
+import { useAddressForm } from "./useAddressForm"
+import { AddressField } from "./AddressField"
+import RenderInput from "../../../../../components/renderInput/RenderInput"
+import { useGetAddress } from "../../../../../hooks/kyc/address/useAddress"
 
 const AddressIndividualDp = () => {
-  const { data: addressData } = useGetAddress();
-  const data = addressData && addressData?.data;
-  const { formik } = useAddressForm(data);
-  const theme = useTheme();
+  const { data: addressData } = useGetAddress()
+  const data = addressData && addressData?.data
+  const { formik } = useAddressForm(data)
+  const theme = useTheme()
 
   return (
     <div data-aos="zoom-in-right">
@@ -40,17 +40,24 @@ const AddressIndividualDp = () => {
               formik.values?.addresses.map((address, index) => {
                 const fieldArray = AddressField.filter((d) => {
                   if (index === 0) {
-                    return d;
-                  } else return d.name !== "have_different_permanent_address";
-                });
+                    return d
+                  } else return d.name !== "perAndCurAddressSame"
+                })
 
                 const field = fieldArray.map((d) => {
                   return {
                     ...d,
                     name: `addresses.${index}.${d.name}`,
-                  };
-                });
-
+                    ...(d.dependentFieldValue && {
+                      dependentFieldValue: `addresses.${index}.${d.dependentFieldValue}`,
+                    }),
+                    ...(d.clearField && {
+                      clearField: d.clearField?.map(
+                        (field) => `addresses.${index}.${field}`
+                      ),
+                    }),
+                  }
+                })
                 return (
                   <Grid
                     component="form"
@@ -82,15 +89,15 @@ const AddressIndividualDp = () => {
                           longitude: "",
                           latitude: "",
                           houseNo: "",
-                          have_different_permanent_address: false,
+                          perAndCurAddressSame: false,
                         })
                       }
-                      removeArray={() => remove()}
+                      removeArray={() => remove(1)}
                     />
                   </Grid>
-                );
+                )
               })
-            );
+            )
           }}
         </FieldArray>
         <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
@@ -104,7 +111,7 @@ const AddressIndividualDp = () => {
         </Grid>
       </FormikProvider>
     </div>
-  );
-};
+  )
+}
 
-export default AddressIndividualDp;
+export default AddressIndividualDp

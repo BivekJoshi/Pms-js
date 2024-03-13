@@ -1,41 +1,44 @@
-import React, { useEffect, useState } from "react";
-import { Box, Button, Grid, Typography } from "@mui/material";
-import { basicData } from "./basicInputData";
-import RenderInput from "../../../../components/renderInput/RenderInput";
-import { useBasicIndividualDpForms } from "./useBasicIndividualDpForms";
-import { useTheme } from "@emotion/react";
-import { useTranslation } from "react-i18next";
-import { useGetBasicDetail } from './BasicDetail/useBasicDetail';
+import React, { useEffect, useState } from "react"
+import { Box, Button, Grid, Typography } from "@mui/material"
+import { basicData } from "./basicInputData"
+import RenderInput from "../../../../components/renderInput/RenderInput"
+import { useBasicIndividualDpForms } from "./useBasicIndividualDpForms"
+import { useTheme } from "@emotion/react"
+import { useTranslation } from "react-i18next"
+import { useGetBasicDetail } from "./BasicDetail/useBasicDetail"
 
 const BasicIndividualDpForms = () => {
-  const theme = useTheme();
-  const currentForm = 1;
-const { data: basicIndividualData } = useGetBasicDetail();
+  const theme = useTheme()
+  const { data: basicIndividualData } = useGetBasicDetail()
 
-const basicIndividualDetails = basicIndividualData && basicIndividualData?.data
-const individualDetails = basicIndividualData && basicIndividualData?.data?.individualDetails
-  const { formik } = useBasicIndividualDpForms({ currentForm, individualDetails });
-  const { t } = useTranslation();
+  const basicIndividualDetails =
+    basicIndividualData && basicIndividualData?.data
+  const individualDetails =
+    basicIndividualData && basicIndividualData?.data?.individualDetails
+  const { formik } = useBasicIndividualDpForms({
+    individualDetails,
+  })
+  const { t } = useTranslation()
 
   useEffect(() => {
     const calculateAge = (dob) => {
-      const dobDate = new Date(dob);
-      const now = new Date();
-      const diff = now.getTime() - dobDate.getTime();
-      const ageInYears = diff / (1000 * 60 * 60 * 24 * 365.25);
-      return ageInYears;
-    };
+      const dobDate = new Date(dob)
+      const now = new Date()
+      const diff = now.getTime() - dobDate.getTime()
+      const ageInYears = diff / (1000 * 60 * 60 * 24 * 365.25)
+      return ageInYears
+    }
 
-    const dob = formik.values.dob;
+    const dob = formik.values.dob
     if (dob) {
-      const personAge = calculateAge(dob);
+      const personAge = calculateAge(dob)
       if (personAge < 16) {
-        formik.setFieldValue("isMinor", true);
+        formik.setFieldValue("isMinor", true)
       } else {
-        formik.setFieldValue("isMinor", false);
+        formik.setFieldValue("isMinor", false)
       }
     }
-  }, [formik.values.dob]);
+  }, [formik.values.dob])
   return (
     <div data-aos="zoom-in-right">
       <Box
@@ -80,7 +83,7 @@ const individualDetails = basicIndividualData && basicIndividualData?.data?.indi
         </Grid>
       </Box>
     </div>
-  );
-};
+  )
+}
 
-export default BasicIndividualDpForms;
+export default BasicIndividualDpForms
