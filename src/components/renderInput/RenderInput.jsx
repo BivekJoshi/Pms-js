@@ -378,7 +378,7 @@ const RenderInput = ({
                 }}
               >
                 <FormLabel id="demo-radio-buttons-group-label">
-                  {element.radioLabel}
+                  {t(element.radioLabel)}
                 </FormLabel>
                 <RadioGroup
                   row
