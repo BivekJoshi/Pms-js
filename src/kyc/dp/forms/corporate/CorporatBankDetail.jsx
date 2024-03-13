@@ -15,8 +15,9 @@ const CorporatBankDetail = () => {
       required: true,
       xs: 12,
       sm: 6,
-      // path:"http://103.94.159.144:8085/pms/api/app-user/user-portfolio",
-      // responseLabel:"script"
+      path: "http://103.94.159.144:8084/kyc/api/utility/bank-master",
+      responseLabel: "name",
+      responseId: "code",
     },
     {
       type: "text",
