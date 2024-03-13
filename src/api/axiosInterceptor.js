@@ -30,7 +30,6 @@ axiosInstance.interceptors.request.use(
       let token = authData?.authToken
       if (token) {
         if (!checkIfExpired(token)) {
-          console.log("🚀 ~ !checkIfExpired(token):", !checkIfExpired(token))
           config.headers.Authorization = `Bearer ${token}`
         } else {
           store.dispatch({ type: "LOGOUT" })
