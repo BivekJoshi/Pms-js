@@ -23,10 +23,7 @@ export const useAddressForm = (data) => {
     initialValues: {
       addresses:
         data?.length > 0
-          ? data.map((address) => ({
-              ...address,
-              perAndCurAddressSame: address.perAndCurAddressSame,
-            }))
+          ? data
           : [
               {
                 country: "",
@@ -48,6 +45,7 @@ export const useAddressForm = (data) => {
             ],
     },
     // validationSchema: AddressSchema,
+    enableReinitialize: true,
     onSubmit: (values) => {
       const formData = { ...values }
       mutate(formData, {

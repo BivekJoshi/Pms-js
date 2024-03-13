@@ -301,9 +301,16 @@ const RenderInput = ({
           </Field>
         )
       case "dropDown":
+        console.log(
+          element?.options?.find(
+            (option) =>
+              option?.value === formVaues || option?.code === formVaues
+          )
+        )
         return (
           <Autocomplete
             id={element.name}
+            key={formVaues}
             name={element.name}
             disabled={element?.isDisabled}
             options={element?.options}
