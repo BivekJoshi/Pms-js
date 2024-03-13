@@ -9,7 +9,7 @@ const CorporatBankDetail = () => {
 
   const BANKFIELDS = [
     {
-      // type: "asyncDropDown",
+      type: "asyncDropDown",
       name: "bankName",
       label: "Bank Name",
       required: true,

@@ -3,10 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { axiosInstance } from '../../api/axiosInterceptor';
 
-const AsyncDropDown = ({ element, formik, formVaues }) => {
-  // console.log(formik.values.addresses[0]?.province, "province");
-  // console.log(formik.values.addresses[0]?.district, "districtllllll");
-  console.log(formVaues,"formValuesss");
+const AsyncDropDown = ({ element, formik }) => {
   
   const [asyncOptions, setAsyncOptions] = useState([]);
   

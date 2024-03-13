@@ -539,7 +539,7 @@ const RenderInput = ({
       case "asyncDropDown":
         return (
           <div style={{display: "flex"}}>
-            <AsyncDropDown element={element} formik={formik} formVaues={formVaues}/>
+            <AsyncDropDown element={element} formik={formik}/>
             <div style={{ marginTop: "0.5rem" }}>
               {element.isDependent && formik.values[element?.name] ? (
                 <RenderInput
