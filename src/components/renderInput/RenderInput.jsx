@@ -353,6 +353,7 @@ const RenderInput = ({
             label={t(element?.label)}
             value={formVaues}
             onChange={formik.handleChange}
+            InputLabelProps={{ shrink: Boolean(formVaues) }}
             fullWidth
             type={element?.type}
             required={element.required}
