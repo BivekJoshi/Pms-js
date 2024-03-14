@@ -1,11 +1,11 @@
 {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-     "editor.formatOnSave": true,
-     "editor.formatOnPaste": false,  
-     "prettier.useEditorConfig": false,
-     "prettier.useTabs": false,
-    "prettier.configPath": ".prettierrc.json",
-    "[json]": {
-      "editor.defaultFormatter": "svipas.prettier-plus"
-    },
-   }
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "prettier.useEditorConfig": false,
+  "prettier.useTabs": false,
+  "prettier.configPath": ".prettierrc.json",
+  "[json]": {
+    "editor.defaultFormatter": "svipas.prettier-plus"
+  }
+}
