@@ -38,7 +38,7 @@ const AsyncDropDown = ({ element, formik }) => {
         (option) => option?.value === formik.values[element.name]
       )}
       onChange={(event, newValue) => {
-        formik.setFieldValue(element.name, newValue?.value || "");
+        formik.setFieldValue(element.name, newValue);
       }}
       fullWidth
       renderInput={(params) => (

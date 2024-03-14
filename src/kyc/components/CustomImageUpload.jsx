@@ -6,6 +6,7 @@ import FinalImageSelect from "./FinalImageSelect";
 import DottedBoder from "../../assets/DottedBoder.png";
 import Picture from "../../assets/Picture.png";
 import Dropzone from "react-dropzone";
+import { fileResize } from "../../utility/image";
 
 const CustomImageUpload = ({ imgPreview }) => {
   const theme = useTheme();
@@ -16,16 +17,29 @@ const CustomImageUpload = ({ imgPreview }) => {
   const [finalImage, setFinalImage] = useState(null);
 
   const [file, setFile] = useState(null);
-  const [showDelete, setShowDelete] = useState(false);
 
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     // You can use croppedAreaPixels to get the cropped image details
     setCropSize(croppedAreaPixels);
   };
 
-  const handleUpload = (acceptedFiles) => {
-    setFile(acceptedFiles[0]);
+  const handleImage = async (acceptedFiles) => {
+    const fileSize = acceptedFiles[0].size / 1024 / 1024
+    return fileSize <= 0.2
+      ? acceptedFiles[0]
+      : await fileResize(acceptedFiles[0])
+  }
+
+  const handleUpload = async (acceptedFiles) => {
+    const image = await handleImage(acceptedFiles)
+    setFile(image);
   };
+  const handleRemoveData = () => {
+    setFile(null)
+  }
+  const handleRemoveImage = () => {
+    setFinalImage(null)
+  }
 
   const handleCropImage = async () => {
     const canvas = document.createElement("canvas");
@@ -94,67 +108,16 @@ const CustomImageUpload = ({ imgPreview }) => {
             <>
               {file ? (
                 <>
-                  <div
-                  // style={{
-                  //   padding: "16px",
-                  //   display: "flex",
-                  //   alignItems: "center",
-                  //   flexDirection: "column",
-                  //   backgroundImage: `url(${DottedBoder})`,
-                  //   position: "relative",
-                  //   backgroundRepeat: "no-repeat",
-                  //   minHeight: "200px",
-                  //   width: "350px",
-                  //   cursor: "pointer",
-                  // }}
-                  // onMouseOver={(e) => setShowDelete(true)}
-                  >
-                    <div
-                    // style={{
-                    //   position: "absolute",
-                    //   top: 1,
-                    //   left: 0,
-                    //   width: "340px",
-                    //   height: "192px",
-                    // }}
-                    >
-                      {/* <img
-                        src={URL.createObjectURL(file)}
-                        alt="Uploaded file"
-                        style={{ width: "100%", height: "100%" }}
-                      /> */}
-                      <FinalImageSelect file={file} />
-                      {/* {showDelete && (
-                        <div
-                          style={{
-                            position: "absolute",
-                            bottom: 0,
-                            right: 0,
-                            backgroundColor: "rgb(0, 0, 0)",
-                            width: "100%",
-                            height: "54px",
-                            textAlign: "end",
-                            padding: "10px",
-                            opacity: 0.6,
-                          }}
-                        >
-                          <div
-                            style={{ opacity: 1, color: "#ffff" }}
-                            onClick={() => setFile(null)}
-                          >
-                            Delete
-                          </div>
-                        </div>
-                      )} */}
-                    </div>
+                  <div                  >
+                    <FinalImageSelect file={file} handleRemoveData={handleRemoveData} />
                   </div>
                 </>
               ) : (
                 <Dropzone
                   onDrop={handleUpload}
                   accept="image/*"
-                  // minSize={1024}
-                  // maxSize={3000000}
+                // minSize={1024}
+                // maxSize={3000000}
                 >
                   {({
                     getRootProps,
@@ -165,8 +128,8 @@ const CustomImageUpload = ({ imgPreview }) => {
                     const additionalClass = isDragAccept
                       ? "accept"
                       : isDragReject
-                      ? "reject"
-                      : "";
+                        ? "reject"
+                        : "";
 
                     return (
                       <>
@@ -255,7 +218,7 @@ const CustomImageUpload = ({ imgPreview }) => {
           )}
         </>
       )}
-      {finalImage && <FinalImageSelect finalImage={finalImage} />}
+      {finalImage && <FinalImageSelect finalImage={finalImage} handleRemoveImage={handleRemoveImage}/>}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { jwtDecode } from "jwt-decode"
+import { jwtDecode } from "jwt-decode";
 
 export const getUser = () => {
   const auth = localStorage?.getItem("auth")
@@ -8,9 +8,9 @@ export const getUser = () => {
     const decodedInfo = jwtDecode(authToken)
     return decodedInfo
   } else {
-    return {}
+    return {};
   }
-}
+};
 
 export const setUser = (token) => {
   if (token) {
@@ -19,10 +19,10 @@ export const setUser = (token) => {
       JSON.stringify({
         authToken: token,
       })
-    )
+    );
   }
-}
+};
 
 export const getUserToken = () => {
-  return JSON.parse(localStorage.getItem("auth"))
-}
+  return JSON.parse(localStorage.getItem("auth"));
+};
