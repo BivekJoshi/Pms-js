@@ -5,6 +5,7 @@ import {
   addPhoto,
   addPhotoDragImage,
 } from "../../../api/Kyc/document/documnt-api";
+import { getErrorMessage } from "../../../utility/getErrorMessage";
 
 /*------------------------------CAMERA PHOTO--------------------------------------------------*/
 export const usePhotoUpload = ({ onSuccess }) => {
@@ -19,26 +20,24 @@ export const usePhotoUpload = ({ onSuccess }) => {
         toast.success("Photo added successfully");
         onSuccess && onSuccess(data, variables, context);
       },
+      onError: (err, _variables, _context) => {
+        toast.error(getErrorMessage(err));
+      },
     }
   );
 };
 
 /*------------------------------DRAG PHOTO--------------------------------------------------*/
 export const usePhotoUploadDragDrop = ({ onSuccess }) => {
-  return useMutation(
-    "addDocumentDrag",
-    async (formData) => {
-      const result = await addPhotoDragImage(formData);
-      return result;
-      // console.log(formData,"formData");
+  return useMutation(["addProfile"], (image) => addPhotoDragImage(image), {
+    onSuccess: (data, variables, context) => {
+      onSuccess && onSuccess(data, variables, context);
+      toast.success("Photo added successfully");
     },
-    {
-      onSuccess: (data, variables, context) => {
-        toast.success("Photo added successfully");
-        onSuccess && onSuccess(data, variables, context);
-      },
-    }
-  );
+    onError: (err, _variables, _context) => {
+      toast.error(getErrorMessage(err));
+    },
+  });
 };
 
 export const useAddCitizenshipField = ({ onSuccess }) => {
