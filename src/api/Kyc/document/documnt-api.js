@@ -54,3 +54,20 @@ export const addPhoto = async (formData) => {
     }
   }
 }
+
+
+export const addPhotoDragImage = async (formData) => {
+  console.log(formData,"FormData");
+    // const imgData = new FormData();
+    // imgData.append("ppSizePhoto", formData?.ppSizePhoto);
+    // const { data } = await axiosInstance.post(
+    //   `/client/client-document?currentForm=1`,
+    //   imgData,
+    //   {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   }
+    // );
+    // return data;
+};

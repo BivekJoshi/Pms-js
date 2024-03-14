@@ -1,13 +1,10 @@
 import { Button } from "@mui/material"
 
-import { usePhotoUploadForm } from "../../hooks/kyc/DocumentUpload/usePhotoUploadForm"
+import { usePhotoUploadDragForm, usePhotoUploadForm } from "../../hooks/kyc/DocumentUpload/usePhotoUploadForm"
 
 const FinalImageSelect = ({ finalImage, file }) => {
-  const { formik } = usePhotoUploadForm({ file, finalImage })
 
-  // const handleSubmit = () => {
-  //   console.log(file, "File ma chaii");
-  // };
+  const { formik } = finalImage ? usePhotoUploadForm({ file, finalImage }) : usePhotoUploadDragForm({ file })
 
   return (
     <div
