@@ -9,13 +9,13 @@ const CorporatBankDetail = () => {
 
   const BANKFIELDS = [
     {
-      // type: "asyncDropDown",
+      type: "asyncDropDown",
       name: "bankName",
       label: "Bank Name",
       required: true,
       xs: 12,
       sm: 6,
-      path: "http://103.94.159.144:8084/kyc/api/utility/bank-master",
+      path: "/utility/bank-master",
       responseLabel: "name",
       responseId: "code",
     },
