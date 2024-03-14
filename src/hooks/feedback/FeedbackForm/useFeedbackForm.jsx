@@ -12,7 +12,6 @@ export const useFeedbackForm = ({ onClose }) => {
       },
       validationSchema: feedbackSchema,
       onSubmit: (values) => {
-        console.log(values);
         const formData = { ...values };
         mutate(formData, {
           onSuccess: (data) => {

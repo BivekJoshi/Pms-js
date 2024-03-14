@@ -445,7 +445,6 @@ const CorporatOwnershipDetails = () => {
                         }}
                         onClick={() => {
                           remove(index);
-                          console.log(index);
                         }}
                       >
                         <Typography color="#B4271F" fontWeight={600}>

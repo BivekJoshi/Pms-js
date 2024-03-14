@@ -5,10 +5,6 @@ import { usePhotoUploadForm } from "../../hooks/kyc/DocumentUpload/usePhotoUploa
 const FinalImageSelect = ({ finalImage, file }) => {
   const { formik } = usePhotoUploadForm({ file, finalImage })
 
-  // const handleSubmit = () => {
-  //   console.log(file, "File ma chaii");
-  // };
-
   return (
     <div
       style={{

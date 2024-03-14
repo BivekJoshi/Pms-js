@@ -121,7 +121,7 @@ const RenderInput = ({
   const [latLong, setLatLong] = useState([0, 0]) // state for map latitude and longtitude
   const mode = useSelector((state) => state?.theme?.mode)
   const { t } = useTranslation()
-console.log("formik", formik)
+
   const getComponentToRender = (element, disableField) => {
     const formVaues = isFieldArray
       ? getIn(formik.values, element.name)
@@ -408,9 +408,6 @@ console.log("formik", formik)
                   name={element?.radioName}
                   value={formik.values[element.radioName]}
                   onChange={(event, value) => {
-                    // console.log("event", event.target.value)
-                    // console.log("value", value)
-                    // console.log("elem", element)
                     formik.setFieldValue(element?.radioName, event.target.value)
                     formik.handleChange(element.radioName)(value) // Manually update Formik state
                   }}
@@ -421,6 +418,39 @@ console.log("formik", formik)
                       control={<Radio />}
                       key={i}
                       label={radio.label}
+                    />
+                  ))}
+                </RadioGroup>
+              </FormControl>
+            )}
+            {element?.hasTrueRadio && formik.values[element.name] && (
+              <FormControl
+                style={{
+                  display: element?.radioDisplay,
+                  flexDirection: element?.radioDirection,
+                  alignItems: element?.radioAlign,
+                  gap: element?.radioGap,
+                }}
+              >
+                <FormLabel id="demo-radio-buttons-group-label">
+                  {t(element.radioLabel)}
+                </FormLabel>
+                <RadioGroup
+                  row
+                  name={element?.radioName}
+                  value={formik.values[element.radioName]}
+                  onChange={(event, value) => {
+                    formik.setFieldValue(element?.radioName, event.target.value)
+                    formik.handleChange(element.radioName)(value)
+                  }}
+                >
+                  {element.radio.map((radio, i) => (
+                    <FormControlLabel
+                      value={radio.value}
+                      control={<Radio />}
+                      key={i}
+                      label={radio.label}
+                      checked={formik.values[element.radioName]?.includes(radio.value)}
                     />
                   ))}
                 </RadioGroup>
@@ -495,7 +525,7 @@ console.log("formik", formik)
                     disabled={
                       element.name === "accountStatementPeriod" &&
                       formik.values.isStandingInstructionForAutomaticTxn ===
-                        "false"
+                      "false"
                     }
                   />
                 ))}

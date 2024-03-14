@@ -10,7 +10,6 @@ import { useGetDocument } from '../../hooks/Kyc/DocumentUpload/useDocument';
 
 const CorporateDocument = () => {
   const { data: documentData } =  useGetDocument();
-  console.log(documentData?.data, "docs");
   const { t } = useTranslation();
   const theme = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
