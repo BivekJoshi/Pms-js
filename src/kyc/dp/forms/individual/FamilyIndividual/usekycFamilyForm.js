@@ -1,10 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
 import { useAddFamily } from "../../../../../hooks/kyc/family/useFamily";
-
-
-
 
 const personDetailSchema = Yup.object().shape({
   fname: Yup.string().required("Required"),
@@ -24,7 +20,6 @@ const validationSchema = Yup.object().shape({
 });
 
 export const useKycFamilyForm = ({familyData}) => {
-
   const getFamilyData = familyData?.map((d)=> {
     return {
       id: d.id,

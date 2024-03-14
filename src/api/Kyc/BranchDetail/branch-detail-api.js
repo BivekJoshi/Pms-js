@@ -1,15 +1,16 @@
 import { axiosInstance } from "../../axiosInterceptor";
 
-/*________________________GET BRANCH DETAIL_____________________________________*/
+
+/*____________________GET BRANCH DETAIL____________________*/
 export const getBranchDetail = async () => {
   const data = await axiosInstance.get(`/client/branch-details`);
-  return data;
+  return data.data;
 };
 
-/*________________________ADD BRANCH DETAIL_____________________________________*/
+/*____________POST BRANCH DETAIL_______*/
 export const addBranchDetail = async (formData) => {
   const data = await axiosInstance.post(
-    `/client/individual-details?currentForm=1`,
+    `/client/branch-details?currentForm=1`,
     formData
   );
   return data;

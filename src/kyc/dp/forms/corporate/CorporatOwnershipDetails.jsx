@@ -140,7 +140,7 @@ const CorporatOwnershipDetails = () => {
       label: "PAN Number",
       minLength: 9,
       maxLength: 10,
-      type: "text",
+      type: "number",
       placeholder: "Enter PAN number",
       required: "Please enter PAN number",
       md: 4,
@@ -295,10 +295,11 @@ const CorporatOwnershipDetails = () => {
       name1: "Third Contact Person",
     },
   ];
+
   const { formik } = corporatOwnershipDetailsForm();
   const form = formik.values.details;
   const disabled = form && form.some((data) => data.designation === "CEO" || data.designation === "Secretary");
-
+console.log(formik);
   return (
     <div data-aos="zoom-in-right">
       <Box
@@ -434,7 +435,7 @@ const CorporatOwnershipDetails = () => {
                             + Add
                           </Typography>
                         </Button>
-                      )}{" "}
+                      )}
                     {index >= 2 && formik.values.details.length > 3 && (
                       <Button
                         variant="outlined"

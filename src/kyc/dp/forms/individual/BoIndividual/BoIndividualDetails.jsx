@@ -76,7 +76,7 @@ const BoIndividualDetails = () => {
             fontWeight: "800",
           }}
         >
-          BO Details
+          BO Statement
         </Typography>
       </Box>
 

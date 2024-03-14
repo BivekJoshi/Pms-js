@@ -33,8 +33,8 @@ const corporatOwnershipDetailsValidationSchema = Yup.object().shape({
         .typeError("Please enter email address")
         .required("Please enter email address"),
       panNo: Yup.string()
-        .matches(/^[0-9+-]+$/, "Pan number must be a number")
-        .required("Please enter PAN number"),
+        .required("Please enter PAN number")
+        .matches(/^\d{9}$/, "PAN number must be a 9-digit number"),
     })
   ),
   fcpName: Yup.string()
