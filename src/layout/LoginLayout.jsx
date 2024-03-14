@@ -18,7 +18,7 @@ const LoginLayout = () => {
 
   const currentFormStep = useSelector((state) => state.user?.currentForm)
 
-  const authDataString = localStorage.getItem("auth")
+  const authDataString = localStorage?.getItem("auth")
   const routeList = kycRoutes()
 
   const authData = JSON.parse(authDataString)

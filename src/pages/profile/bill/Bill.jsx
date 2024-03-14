@@ -20,7 +20,7 @@ const Bill = ({ tradeDate }) => {
   const theme = useTheme();
   const [tableShow, setTableShow] = useState(false);
   const tableData = useSelector((store) => store?.paginatedTable?.data);
-  console.log("🚀 ~ Bill ~ tableData:", tableData);
+  
   const isLoading = useSelector((store) => store?.paginatedTable?.processing);
 
   const totalData = useSelector((store) => store?.paginatedTable?.total);

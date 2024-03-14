@@ -22,8 +22,6 @@ export const useRegisterForm = () => {
   });
 
   const handleRegister = (values) => {
-    console.log("🚀 ~ handleRegister ~ values:", values);
-
     mutate(values, { onSettled: () => setLoading(false) });
   };
 

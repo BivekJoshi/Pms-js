@@ -3,8 +3,7 @@ import { Typography } from "@mui/material"
 import Dropzone from "react-dropzone"
 import { fileResize } from "../../utility/image"
 import Picture from "../../assets/Picture.png"
-import { usePhotoUpload } from "../../hooks/kyc/DocumentUpload/usePhotoUplaod"
-// import { usePhotoUpload } from '../../hooks/Kyc/DocumentUpload/usePhotoUplaod';
+import { useAddDocument, usePhotoUpload } from "../../hooks/Kyc/DocumentUpload/usePhotoUplaod"
 
 const DropZoneUploadFile = ({ element, formik }) => {
   const [file, setFile] = useState(null)
@@ -12,7 +11,8 @@ const DropZoneUploadFile = ({ element, formik }) => {
   const title = element?.title
   const documentName = element?.name
   console.log("elem", element?.name)
-  const { mutate } = usePhotoUpload({})
+  
+  const { mutate } = useAddDocument({})
 
   const handleImage = async (acceptedFiles) => {
     const fileSize = acceptedFiles[0].size / 1024 / 1024

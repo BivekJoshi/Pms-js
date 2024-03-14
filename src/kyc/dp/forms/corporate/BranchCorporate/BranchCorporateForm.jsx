@@ -3,11 +3,14 @@ import { nanoid } from '@reduxjs/toolkit';
 import React from 'react';
 import RenderInput from '../../../../../components/renderInput/RenderInput';
 import { useBranchCorporateForm } from './useBranchCorporateForm';
+import { useGetBranchDetail } from '../../../../../hooks/Kyc/branch/useBranchDetail';
 
 const BranchCorporateForm = () => {
   const theme = useTheme();
-  const { formik } = useBranchCorporateForm();
-
+  const{data: branchDetail} = useGetBranchDetail()
+  const data = branchDetail;
+  const { formik } = useBranchCorporateForm(data);
+console.log(data);
   const BRANCHFIELDs=[
     {
         name:"otherBranch",

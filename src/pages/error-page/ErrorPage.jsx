@@ -9,10 +9,6 @@ const ErrorPage = () => {
   const userDetails = useSelector((state) => state?.user);
 
   const brokerOption = useSelector((state) => state?.brokerList?.brokerOption);
-  // console.log(
-  //   '🚀 ~ file: ErrorPage.jsx:10 ~ ErrorPage ~ brokerOption:',
-  //   brokerOption
-  // );
 
   return (
     <div

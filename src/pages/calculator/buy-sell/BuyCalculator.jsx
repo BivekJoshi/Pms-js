@@ -136,7 +136,6 @@ const BuyCalculator = () => {
           <TableBody>
             {Object.entries(formik.values).map(([key, value]) => (
               <TableRow key={key}>
-                {console.log(key)}
 
                 <TableCell>{key}</TableCell>
                 <TableCell>{value}</TableCell>

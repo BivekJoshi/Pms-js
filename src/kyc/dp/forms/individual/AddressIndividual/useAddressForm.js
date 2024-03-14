@@ -1,6 +1,7 @@
 import { useAddAddress } from "../../../../../hooks/kyc/address/useAddress"
 import { useFormik } from "formik"
 import * as Yup from "yup"
+import { mobileNum, phoneRegExp } from '../../static/RegExp'
 
 const AddressSchema = Yup.object().shape({
   addresses: Yup.array().of(
@@ -9,9 +10,9 @@ const AddressSchema = Yup.object().shape({
       province: Yup.string().required("Province is required"),
       district: Yup.string().required("District is required"),
       municipality: Yup.string().required("Municipality is required"),
-      wardNo: Yup.string().required("Ward No. is required"),
+      wordNo: Yup.string().required("Ward No. is required"),
       tole: Yup.string().required("Tole No. is required"),
-      mobileNo: Yup.string().required("Mobile No. is required"),
+      mobileNo: Yup.string().required("Mobile No. is required").matches(mobileNum, "Invalid mobile number"),
       email: Yup.string().required("Email is required"),
     })
   ),

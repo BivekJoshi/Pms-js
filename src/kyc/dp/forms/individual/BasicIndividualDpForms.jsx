@@ -34,8 +34,10 @@ const BasicIndividualDpForms = () => {
       const personAge = calculateAge(dob)
       if (personAge < 16) {
         formik.setFieldValue("isMinor", true)
+        formik.setFieldValue("minorDoc", ["guardianCitizen", "birtCirtificate"])
       } else {
         formik.setFieldValue("isMinor", false)
+        formik.setFieldValue("minorDoc", [])
       }
     }
   }, [formik.values.dob])

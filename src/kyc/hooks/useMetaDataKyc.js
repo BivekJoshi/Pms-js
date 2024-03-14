@@ -10,7 +10,6 @@ export const useGetMetaData = (id) => {
     ["getUserMetaData", id],
     async () => {
       const data = await getUserMetaData(id)
-      console.log("🚀 ~ returnuseQuery ~ data:", data)
       dispatch({ type: USER_LOGIN, payload: data?.user })
       return data
     },
@@ -20,7 +19,6 @@ export const useGetMetaData = (id) => {
       refetchOnWindowFocus: false,
       onSuccess: (data) => {
         // Optional: If you need to perform additional actions on success
-        console.log("Query succeeded with data:", data)
       },
     }
   )
