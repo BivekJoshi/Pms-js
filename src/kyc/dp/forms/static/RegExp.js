@@ -30,4 +30,6 @@ export const middleNameNep = /^[^\p{P}\p{Nd}]+(?: [^\p{P}\p{Nd}]+)*$/u;
 
 export const onlyNum = /^[0-9]+$/;
 
+export const mobileNum = /^9\d{9}$/;
+
 
