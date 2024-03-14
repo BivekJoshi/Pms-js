@@ -16,6 +16,7 @@ export const DualDatePicker = ({ element, formik }) => {
     const engDate = dateConverter(e, "BS_AD")
     setNepaliDate(e)
     formik.setFieldValue(element.name, engDate)
+    formik.setFieldValue(element.nameNep, e)
   }
 
   const handleEnglishDateChange = (e) => {
@@ -27,6 +28,7 @@ export const DualDatePicker = ({ element, formik }) => {
     const nepDate = dateConverter(newDate, "AD_BS")
     setNepaliDate(nepDate)
     formik.setFieldValue(element.name, newDate)
+    formik.setFieldValue(element.nameNep, nepDate)
   }
 
   useEffect(() => {

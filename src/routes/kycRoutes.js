@@ -4,6 +4,7 @@ import React, { lazy, useContext, useState } from "react";
 import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
 import CorporateDpKyc from "../kyc/ViewKyc/corporate/CorporateDpKyc";
 import CorporateTmsKyc from "../kyc/ViewKyc/corporate/CorporateTmsKyc";
+// import BranchCorporateForm from "../kyc/dp/forms/corporate/BranchCorporate/BranchCorporateForm";
 
 /*---------------------------INDIVIDUAL--------------------------------------------------------------*/
 const BasicIndividualDpForms = React.lazy(() =>
@@ -55,6 +56,9 @@ const CorporatOwnershipDetails = React.lazy(() =>
 );
 const CorporatBankDetail = React.lazy(() =>
   import("../kyc/dp/forms/corporate/CorporatBankDetail")
+);
+const BranchCorporateForm = React.lazy(() =>
+  import("../kyc/dp/forms/corporate/BranchCorporate/BranchCorporateForm")
 );
 const CorporateDocument = React.lazy(() =>
   import("../kyc/pages/CorporateDocument")
@@ -148,7 +152,7 @@ export const kycDpCorporateRoutes = [
   {
     path: "demat-registration/c/corporate-branch-detail",
     id: 7,
-    component: CorporateDpKyc,
+    component: BranchCorporateForm,
   },
   {
     path: "demat-registration/c/corporate-bank-detail",
@@ -244,7 +248,7 @@ export const kycTmsCorporateRoutes = [
   {
     path: "tms-registration/c/corporate-branch-detail",
     id: 6,
-    component: IndividualDPKyc,
+    component: BranchCorporateForm,
   },
 ];
 

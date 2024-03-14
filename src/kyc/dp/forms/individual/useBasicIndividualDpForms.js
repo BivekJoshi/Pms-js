@@ -16,6 +16,8 @@ export const useBasicIndividualDpForms = ({ individualDetails }) => {
       countryCd: individualDetails?.countryCd || "",
       pan: individualDetails?.pan || "",
       dob: individualDetails?.dob || "",
+      dobBs: individualDetails?.dobBs || "",
+      minorDoc: individualDetails?.minorDoc || "",
       isMinor: individualDetails?.isMinor || false,
       isDifferentlyAbled: individualDetails?.isDifferentlyAbled || false,
       isNrn: individualDetails?.isNrn || false,

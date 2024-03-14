@@ -250,7 +250,7 @@ const CorporateDetailsDp = () => {
   ];
   
 const {data: basicCorData} = useGetBasicDpCorporate();
-const data = basicCorData && basicCorData?.data;
+const data = basicCorData && basicCorData;
   const theme = useTheme();
   const { formik } = BasicCorporateDpForm(data);
   useEffect(() => {

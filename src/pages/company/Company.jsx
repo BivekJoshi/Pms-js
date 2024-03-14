@@ -29,7 +29,6 @@ const Company = () => {
     return { heading, data };
   }
   const tableData = useSelector((store) => store?.paginatedTable?.data);
-  console.log("🚀 ~ file: Company.jsx:50 ~ Company ~ totalData:", tableData);
 
   useEffect(() => {
     if (!isLoading) {

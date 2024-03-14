@@ -36,6 +36,7 @@ const KycProfileCard = ({
     clientType === "I" ? "Individual" : clientType === "C" ? "Corporate" : ""
   const accountNature = nature === "DP" ? "Demat" : "TMS"
   const [capturedImage, setCapturedImage] = useState(null)
+
   const openCamera = async () => {
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia({
@@ -67,6 +68,13 @@ const KycProfileCard = ({
       setCapturedImage(null)
     }
   }, [open])
+
+  const handleCloseModal = () => {
+    setOpen(false)
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop())
+    }
+  }
 
   return (
     <Grid
@@ -150,7 +158,7 @@ const KycProfileCard = ({
           color={
             formStatus === "PENDING"
               ? "warning"
-              : formStatus === "SUBMITTED"
+              : formStatus ===  "SUBMITTED"
                 ? "info"
                 : formStatus === "APPROVED"
                   ? "success"
@@ -179,7 +187,7 @@ const KycProfileCard = ({
           formComponent={
             <div>
               <div>
-                <CustomImageUpload imgPreview={capturedImage} />
+                <CustomImageUpload imgPreview={capturedImage} handleCloseModal={handleCloseModal}/>
 
                 {!capturedImage && (
                   <>

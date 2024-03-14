@@ -231,7 +231,6 @@ const AmlCft = () => {
 
   const togglePolitical = () => {
     const newValue = !formik.values.showPolitical
-    console.log(newValue, "newValue")
     setShowPolitical(newValue)
     formik.setValues((prevValues) => ({
       ...prevValues,

@@ -85,7 +85,6 @@ const BankInfoPdf = ({ data }) => {
 //         const data = await getBankList();
 //         setBankList(data);
 //       } catch (error) {
-//         console.error("Error fetching bank list:", error);
 //       }
 //     };
 

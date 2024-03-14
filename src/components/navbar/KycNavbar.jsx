@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { AppBar, Drawer, IconButton, Toolbar, Tooltip } from "@mui/material";
+import { AppBar, Avatar, Chip, Drawer, IconButton, Toolbar, Tooltip } from "@mui/material";
 import React, { useState } from "react";
 import logo from "../../assets/logo.png";
 import FlexBetween from "../flexBetween/FlexBetween";
@@ -10,8 +10,11 @@ import {
 } from "@mui/icons-material";
 import DarkModeSetting from "../Setting/DarkModeSetting";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import { useLocation, useNavigate } from "react-router-dom";
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
+import BallotIcon from '@mui/icons-material/Ballot';
 
-const KycNavbar = () => {
+const KycNavbar = ({userDetails}) => {
   const theme = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [state, setState] = React.useState({
@@ -21,6 +24,8 @@ const KycNavbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen((val) => !val);
   };
+  const { pathname } = useLocation();
+  const navigate = useNavigate({});
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -55,6 +60,32 @@ const KycNavbar = () => {
           style={{ cursor: "pointer" }}
         />
         <FlexBetween gap="12px">
+
+        {userDetails &&
+                userDetails?.status === 'SUBMITTED' &&
+                (pathname !== '/kyc/video-kyc' ? (
+                  <Chip
+                  // color="primary"
+                  style={{background:"#6C49B4", color:"white"}}
+                  icon={<ContactPhoneIcon style={{color:"white"}}/>}                  
+                  label="Self Verification"
+                  clickable
+                    variant='filled'
+                    onClick={() => navigate('/kyc/video-kyc')}
+                  />
+                ) : (
+                  <Chip
+                  clickable
+                  style={{background:"#6C49B4", color:"white"}}
+                  icon={<BallotIcon style={{color:"white"}}/>}                  
+                    color="primary"
+                    // avatar={<Avatar src={Vector} alt={Vector} style={{padding:".3 rem"}}/>} 
+                    label="View KYC"
+                    variant='filled'
+                    onClick={() => navigate('/kyc/tms-registration/i/detail-verification')}
+                  />
+                ))
+              }
           <div>
             <React.Fragment>
               <Tooltip title="App settings">

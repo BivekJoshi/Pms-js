@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 
 const VideoKyc = () => {
   const user = useSelector((store) => store?.user);
-  console.log("user", user);
   const [ringtone] = useState(new Audio(ringtoneSound));
 
   const peerId = user?.videoId;

@@ -678,6 +678,7 @@ export const basicData = [
 
   {
     name: "dob",
+    nameNep: "dobBs",
     label: "Date of Birth (B.S.) (जन्म मिति) (B.S.)",
     type: "dualDate",
     placeholder: "Select date of birth (B.S)",
@@ -719,6 +720,7 @@ export const basicData = [
     name: "pan",
     label: "Pan No.",
     type: "number",
+    min: 0,
     sm: 12,
     md: 4,
     id: nanoid(),
@@ -736,7 +738,7 @@ export const basicData = [
     md: 12,
     id: nanoid(),
     infoAlert: "Will be enabled when DOB is less than 16 years!",
-    hasRadio: true,
+    hasTrueRadio: true,
     radioName: "minorDoc",
     radioLabel: "Minor Document",
     radioDisplay: "flex",

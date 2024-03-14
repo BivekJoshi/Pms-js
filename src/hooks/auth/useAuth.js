@@ -23,7 +23,6 @@ export const useLogin = ({ onSuccess }) => {
     ({ email, brokerNo, password }) => login(email, brokerNo, password),
     {
       onSuccess: (data, variables, context) => {
-        console.log("🚀 ~ useLogin ~ data:", data)
         // dispatch({ type: "USER_LOGIN", payload: data.data });
         // window.localStorage.setItem(
         //   "auth",

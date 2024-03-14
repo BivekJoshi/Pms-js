@@ -1,10 +1,6 @@
 export const getErrorMessage = (error) => {
-  console.log(
-    '🚀 ~ file: getErrorMessage.js:2 ~ getErrorMessage ~ error:',
-    error
-  );
   let err = null;
-  console.log(error?.response?.data?.errorMessage);
+ 
   try {
     if (error?.response) {
       const message =

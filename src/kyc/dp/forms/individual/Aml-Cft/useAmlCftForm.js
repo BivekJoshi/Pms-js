@@ -33,7 +33,6 @@ const AMLCFTSchema = Yup.object().shape({
 export const useAmlCftForm = () => {
   const { mutate } = useAddAmlCft({});
   const { data, isLoading } = useGetAmlCft();
-  console.log(data, "dtaaaata ma");
 
   const formik = useFormik({
     initialValues: {
@@ -73,7 +72,6 @@ export const useAmlCftForm = () => {
     },
     // validationSchema: AMLCFTSchema,
     onSubmit: (values) => {
-      console.log(values, "values");
       const formData = { ...values };
       mutate(formData, {
         onSuccess: (data) => {
