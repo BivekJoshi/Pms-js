@@ -14,7 +14,7 @@ import ReactToPrint from "react-to-print";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import CorporateKycPdf from "../../pdf/component/CorporateKycPdf";
 
-const CorporateTmsKyc = () => {
+const CorporateDpKyc = () => {
   const componentRef = useRef();
   return (
     <div className="container dpkyc">
@@ -1582,4 +1582,4 @@ const CorporateTmsKyc = () => {
   );
 };
 
-export default CorporateTmsKyc;
+export default CorporateDpKyc;

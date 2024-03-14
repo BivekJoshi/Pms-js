@@ -23,18 +23,14 @@ export const useAddressForm = (data) => {
     initialValues: {
       addresses:
         data?.length > 0
-          ? data.map((address) => ({
-              ...address,
-              have_different_permanent_address: true,
-              addressType: address.have_different_permanent_address ?? "P",
-            }))
+          ? data
           : [
               {
                 country: "",
                 province: "",
                 district: "",
                 municipality: "",
-                wordNo: "",
+                wardNo: "",
                 tole: "",
                 streetNo: "",
                 mobileNo: "",
@@ -44,16 +40,16 @@ export const useAddressForm = (data) => {
                 longitude: "",
                 latitude: "",
                 houseNo: "",
-                addressType: "P",
-                have_different_permanent_address: false,
+                perAndCurAddressSame: false,
               },
             ],
     },
-    // validationSchema: AddressSchema,
+    validationSchema: AddressSchema,
+    enableReinitialize: true,
     onSubmit: (values) => {
       const formData = { ...values }
       mutate(formData, {
-        onSuccess: (data) => {
+        onSuccess: () => {
           formik.resetForm()
         },
       })
