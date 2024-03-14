@@ -1,8 +1,8 @@
-import { useFormik } from "formik";
-import { usePhotoUpload, usePhotoUploadDragDrop } from "./usePhotoUplaod";
+import { useFormik } from "formik"
+import { usePhotoUpload, usePhotoUploadDragDrop } from "./usePhotoUplaod"
 
 export const usePhotoUploadForm = ({ finalImage }) => {
-  const { mutate } = usePhotoUpload({});
+  const { mutate } = usePhotoUpload({})
   const formik = useFormik({
     initialValues: {
       ppSizePhoto: "",
@@ -11,30 +11,30 @@ export const usePhotoUploadForm = ({ finalImage }) => {
       const formData = {
         name: "ppSizePhoto",
         img: finalImage,
-      };
-      mutate(formData);
+      }
+      mutate(formData)
     },
-  });
+  })
 
-  return { formik };
-};
+  return { formik }
+}
 
 export const usePhotoUploadDragForm = ({ file }) => {
-  const { mutate } = usePhotoUploadDragDrop({});
+  const { mutate } = usePhotoUploadDragDrop({})
 
   const handleAddProfileImage = (value) => {
-    mutate(value);
-  };
+    mutate(value)
+  }
   const formik = useFormik({
     initialValues: {
       ppSizePhoto: file,
     },
     onSubmit: () => {
-      handleAddProfileImage(file);
+      handleAddProfileImage(file)
     },
-  });
+  })
 
   return {
     formik,
-  };
-};
+  }
+}

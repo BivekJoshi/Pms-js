@@ -28,6 +28,6 @@ export const firstNameNep = /^[^\s\p{Nd}\p{P}]+$/u;
 export const middleName = /^[A-Za-z\s]+$/;
 export const middleNameNep = /^[^\p{P}\p{Nd}]+(?: [^\p{P}\p{Nd}]+)*$/u;
 
-export const panNum = /^[0-9]+$/;
+export const onlyNum = /^[0-9]+$/;
 
 
