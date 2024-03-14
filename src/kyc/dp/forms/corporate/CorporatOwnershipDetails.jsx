@@ -140,7 +140,7 @@ const CorporatOwnershipDetails = () => {
       label: "PAN Number",
       minLength: 9,
       maxLength: 10,
-      type: "text",
+      type: "number",
       placeholder: "Enter PAN number",
       required: "Please enter PAN number",
       md: 4,

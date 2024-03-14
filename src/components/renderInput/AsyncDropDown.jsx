@@ -6,12 +6,12 @@ import { axiosInstance } from '../../api/axiosInterceptor';
 const AsyncDropDown = ({ element, formik, formVaues }) => {
   // console.log(formik.values.addresses[0]?.province, "province");
   // console.log(formik.values.addresses[0]?.district, "districtllllll");
-  console.log(formVaues,"formValuesss");
+  // console.log(formVaues,"formValuesss");
   
   const [asyncOptions, setAsyncOptions] = useState([]);
   
 
-  const replaceBy = formik?.values?.addresses[0]?.province;
+  const replaceBy = formik?.values?.addresses?.[0]?.province;
 
   useEffect(() => {
     const fetchData = async () => {

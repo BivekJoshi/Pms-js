@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useAddBranchDetail } from "../../../../../hooks/kyc/branch/useBranchDetail";
-import { ageREgex, citizenExp, emailRegex, fullnameRegex, numberRegExp1, phoneRegExp } from "../../static/RegExp";
+import { phoneRegExp } from "../../static/RegExp";
+import { useAddBranchDetail } from "../../../../../hooks/Kyc/branch/useBranchDetail";
 
 const BranchScheme = Yup.object().shape({
   area: Yup.string().when("otherBranch", {
@@ -27,8 +27,8 @@ const BranchScheme = Yup.object().shape({
   mobileNo: Yup.string().when("otherBranch", {
     is: true,
     then: Yup.string()
-    .matches(phoneRegExp, 'Enter valid mobile number')
-    .required("Please enter mobile Number."),
+      .matches(phoneRegExp, 'Enter valid mobile number')
+      .required("Please enter mobile Number."),
     otherwise: Yup.string().nullable(),
   }),
   contactPerson: Yup.string().when("otherBranch", {
@@ -37,18 +37,19 @@ const BranchScheme = Yup.object().shape({
     otherwise: Yup.string().nullable(),
   }),
 });
-export const useBranchCorporateForm = () => {
+
+export const useBranchCorporateForm = (data) => {
   const { mutate } = useAddBranchDetail({});
   const formik = useFormik({
     initialValues: {
-      id: "",
-      area: "",
-      mainBranch: "",
-      address: "",
-      telephoneNo: "",
-      mobileNo: "",
-      contactPerson: "",
-      otherBranch: false,
+      id: data?.id || "",
+      area: data?.area || "",
+      mainBranch: data?.mainBranch || "",
+      address: data?.address || "",
+      telephoneNo: data?.telephoneNo || "",
+      mobileNo: data?.mobileNo || "",
+      contactPerson: data?.contactPerson || "",
+      otherBranch: data?.otherBranch || false,
     },
     validationSchema: BranchScheme,
     onSubmit: (value) => {

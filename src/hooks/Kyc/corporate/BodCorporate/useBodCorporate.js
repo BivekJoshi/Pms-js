@@ -15,7 +15,7 @@ export const useAddBodCorporate = ({ onSuccess }) => {
   const queryClient = useQueryClient();
   return useMutation(
     ["addBodCorporate"],
-     (formData) => addBodCorporate(formData), {
+    (formData) => addBodCorporate(formData), {
     onSuccess: (data, variables, context) => {
       toast.success("Successfully added BO data");
       onSuccess && onSuccess(data, variables, context);
