@@ -2,9 +2,9 @@ import { Button } from "@mui/material"
 import { usePhotoUploadDragForm, usePhotoUploadForm } from "../../hooks/Kyc/DocumentUpload/usePhotoUploadForm"
 import React from "react"
 
-const FinalImageSelect = ({ finalImage, file, handleRemoveData, handleRemoveImage }) => {
+const FinalImageSelect = ({ finalImage, file, handleRemoveData, handleRemoveImage, handleCloseModal }) => {
 
-  const { formik } = finalImage ? usePhotoUploadForm({ finalImage }) : usePhotoUploadDragForm({ file })
+  const { formik } = finalImage ? usePhotoUploadForm({ finalImage, handleCloseModal }) : usePhotoUploadDragForm({ file, handleCloseModal })
 
   const [hovered, setHovered] = React.useState(false);
   return (

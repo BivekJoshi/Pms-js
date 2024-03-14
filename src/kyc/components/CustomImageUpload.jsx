@@ -8,7 +8,7 @@ import Picture from "../../assets/Picture.png";
 import Dropzone from "react-dropzone";
 import { fileResize } from "../../utility/image";
 
-const CustomImageUpload = ({ imgPreview }) => {
+const CustomImageUpload = ({ imgPreview, handleCloseModal }) => {
   const theme = useTheme();
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -24,22 +24,22 @@ const CustomImageUpload = ({ imgPreview }) => {
   };
 
   const handleImage = async (acceptedFiles) => {
-    const fileSize = acceptedFiles[0].size / 1024 / 1024
+    const fileSize = acceptedFiles[0].size / 1024 / 1024;
     return fileSize <= 0.2
       ? acceptedFiles[0]
-      : await fileResize(acceptedFiles[0])
-  }
+      : await fileResize(acceptedFiles[0]);
+  };
 
   const handleUpload = async (acceptedFiles) => {
-    const image = await handleImage(acceptedFiles)
+    const image = await handleImage(acceptedFiles);
     setFile(image);
   };
   const handleRemoveData = () => {
-    setFile(null)
-  }
+    setFile(null);
+  };
   const handleRemoveImage = () => {
-    setFinalImage(null)
-  }
+    setFinalImage(null);
+  };
 
   const handleCropImage = async () => {
     const canvas = document.createElement("canvas");
@@ -108,16 +108,20 @@ const CustomImageUpload = ({ imgPreview }) => {
             <>
               {file ? (
                 <>
-                  <div                  >
-                    <FinalImageSelect file={file} handleRemoveData={handleRemoveData} />
+                  <div>
+                    <FinalImageSelect
+                      file={file}
+                      handleRemoveData={handleRemoveData}
+                      handleCloseModal={handleCloseModal}
+                    />
                   </div>
                 </>
               ) : (
                 <Dropzone
                   onDrop={handleUpload}
                   accept="image/*"
-                // minSize={1024}
-                // maxSize={3000000}
+                  // minSize={1024}
+                  // maxSize={3000000}
                 >
                   {({
                     getRootProps,
@@ -128,8 +132,8 @@ const CustomImageUpload = ({ imgPreview }) => {
                     const additionalClass = isDragAccept
                       ? "accept"
                       : isDragReject
-                        ? "reject"
-                        : "";
+                      ? "reject"
+                      : "";
 
                     return (
                       <>
@@ -218,7 +222,13 @@ const CustomImageUpload = ({ imgPreview }) => {
           )}
         </>
       )}
-      {finalImage && <FinalImageSelect finalImage={finalImage} handleRemoveImage={handleRemoveImage}/>}
+      {finalImage && (
+        <FinalImageSelect
+          finalImage={finalImage}
+          handleRemoveImage={handleRemoveImage}
+          handleCloseModal={handleCloseModal}
+        />
+      )}
     </div>
   );
 };
