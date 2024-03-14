@@ -7,7 +7,8 @@ export const getDocument = async () => {
   return data;
 };
 
-export const addDocument = async (image) => {
+export const addDocument = async (image, formData) => {
+  console.log(formData, "IMage ma chaii");
   const imgData = new FormData();
   imgData.append("ppSizePhoto", image?.ppSizePhoto);
   const { data } = await axiosInstance.post(

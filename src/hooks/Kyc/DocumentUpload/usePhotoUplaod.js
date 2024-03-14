@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "react-query";
 import toast from "react-hot-toast";
 import { addCitizenship } from "../../../api/Kyc/document/add-citizenship-api";
 import {
+  addDocument,
   addPhoto,
   addPhotoDragImage,
 } from "../../../api/Kyc/document/documnt-api";
@@ -40,13 +41,13 @@ export const usePhotoUploadDragDrop = ({ onSuccess }) => {
   });
 };
 
-export const useAddCitizenshipField = ({ onSuccess }) => {
+export const useAddDocument = ({ onSuccess }) => {
   return useMutation(
     ["getCitizenshipField"],
-    (formData) => addCitizenship(formData),
+    (formData) => addDocument(formData),
     {
       onSuccess: (data, variables, context) => {
-        toast.success("Successfully added Family Detail");
+        toast.success("Successfully added document");
         onSuccess && onSuccess(data, variables, context);
       },
       onError: (err, _variables, _context) => {
