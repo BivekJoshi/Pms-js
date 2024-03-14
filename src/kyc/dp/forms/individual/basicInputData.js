@@ -720,6 +720,7 @@ export const basicData = [
     name: "pan",
     label: "Pan No.",
     type: "number",
+    min: 0,
     sm: 12,
     md: 4,
     id: nanoid(),

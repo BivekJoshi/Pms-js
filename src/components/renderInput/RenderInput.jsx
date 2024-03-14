@@ -350,6 +350,7 @@ const RenderInput = ({
             fullWidth
             type={element?.type}
             required={element.required}
+            inputProps={{min: element?.min}}
             variant="outlined"
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}

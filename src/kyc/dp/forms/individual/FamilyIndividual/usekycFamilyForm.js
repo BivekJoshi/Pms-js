@@ -2,6 +2,22 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAddFamily } from "../../../../../hooks/kyc/family/useFamily";
 
+// const personDetailSchema = Yup.object().shape({
+//   fname: Yup.string().when("relationTypeId", {
+//     is: "F",
+//     then: Yup.string().required("Father's name is required"),
+//   }),
+//   mname: Yup.string().nullable(),
+//   lname: Yup.string().when("relationTypeId", {
+//     is: "F",
+//     then: Yup.string().required("Father's last name is required"),
+//   }),
+//   fnameNep: Yup.string().nullable().required("Required"),
+//   mnameNep: Yup.string().nullable(),
+//   lnameNep: Yup.string().nullable().required("Required"),
+// });
+
+
 const personDetailSchema = Yup.object().shape({
   fname: Yup.string().required("Required"),
   mname: Yup.string().nullable(),
@@ -20,7 +36,8 @@ const validationSchema = Yup.object().shape({
 });
 
 export const useKycFamilyForm = ({familyData}) => {
-  const getFamilyData = familyData?.map((d)=> {
+  const getFamilyData = familyData && familyData?.map((d)=> {
+    console.log(d, "d")
     return {
       id: d.id,
       relationTypeId: d.relationTypeId,
