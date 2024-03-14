@@ -1,6 +1,5 @@
 import { useFormik } from "formik"
 import { usePhotoUpload } from "./usePhotoUplaod"
-// import { usePhotoUpload } from "./usePhotoUplaod"
 
 export const usePhotoUploadForm = ({ file, finalImage }) => {
   const { mutate } = usePhotoUpload({})

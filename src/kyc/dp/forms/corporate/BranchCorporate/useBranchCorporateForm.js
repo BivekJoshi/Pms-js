@@ -43,6 +43,7 @@ export const useBranchCorporateForm = (data) => {
   const formik = useFormik({
     initialValues: {
       id: data?.id || "",
+      userId: data?.userId || "",
       area: data?.area || "",
       mainBranch: data?.mainBranch || "",
       address: data?.address || "",

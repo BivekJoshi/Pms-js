@@ -429,6 +429,7 @@ const RenderInput = ({
           </div>
         )
       case "switchWithFields":
+        console.log("formik", formik);
         return (
           <div
             style={{

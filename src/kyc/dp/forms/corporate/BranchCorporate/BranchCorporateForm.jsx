@@ -10,7 +10,7 @@ const BranchCorporateForm = () => {
   const{data: branchDetail} = useGetBranchDetail()
   const data = branchDetail;
   const { formik } = useBranchCorporateForm(data);
-console.log(data);
+console.log(formik);
   const BRANCHFIELDs=[
     {
         name:"otherBranch",
@@ -99,7 +99,7 @@ console.log(data);
           Branch Details
         </Typography>
       </Box>
-      <RenderInput inputField={BRANCHFIELDs} formik={formik} />
+      <RenderInput inputField={BRANCHFIELDs} formik={formik} data={data}/>
       <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           onClick={formik.handleSubmit}
