@@ -40,20 +40,23 @@ const BranchScheme = Yup.object().shape({
 
 export const useBranchCorporateForm = (data) => {
   const { mutate } = useAddBranchDetail({});
+  console.log("data", data);
   const formik = useFormik({
-    initialValues: {
-      id: data?.id || "",
-      userId: data?.userId || "",
-      area: data?.area || "",
-      mainBranch: data?.mainBranch || "",
-      address: data?.address || "",
-      telephoneNo: data?.telephoneNo || "",
-      mobileNo: data?.mobileNo || "",
-      contactPerson: data?.contactPerson || "",
-      otherBranch: data?.otherBranch || false,
-    },
+    initialValues:
+      data.length === 0 ? data : [{
+        id: data?.id || "",
+        userId: data?.userId || "",
+        area: data?.area || "",
+        mainBranch: data?.mainBranch || "",
+        address: data?.address || "",
+        telephoneNo: data?.telephoneNo || "",
+        mobileNo: data?.mobileNo || "",
+        contactPerson: data?.contactPerson || "",
+        otherBranch: data?.otherBranch || false,
+      }],
     validationSchema: BranchScheme,
     onSubmit: (value) => {
+      console.log("valuesssss", value);
       const formData = { ...value };
       mutate(formData, {
         onSuccess: (data) => {
