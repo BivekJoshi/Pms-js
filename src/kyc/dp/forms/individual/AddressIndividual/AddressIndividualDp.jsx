@@ -72,7 +72,7 @@ const AddressIndividualDp = () => {
                           province: "",
                           district: "",
                           municipality: "",
-                          wardNo: "",
+                          wordNo: "",
                           tole: "",
                           streetNo: "",
                           mobileNo: "",
@@ -82,6 +82,7 @@ const AddressIndividualDp = () => {
                           longitude: "",
                           latitude: "",
                           houseNo: "",
+                          addressType: "T",
                           have_different_permanent_address: false,
                         })
                       }

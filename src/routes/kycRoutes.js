@@ -1,6 +1,7 @@
 import _ from "lodash"
 import { nanoid } from "nanoid"
 import React, { lazy, useContext, useState } from "react"
+import BranchCorporateForm from '../kyc/dp/forms/corporate/BranchCorporate/BranchCorporateForm'
 
 /*---------------------------INDIVIDUAL--------------------------------------------------------------*/
 const BasicIndividualDpForms = React.lazy(
@@ -127,10 +128,15 @@ export const kycDpCorporateRoutes = [
     id: 2,
     component: CorporateAddress,
   },
+  // {
+  //   path: "demat-registration/c/corporate-bank-detail",
+  //   id: 3,
+  //   component: CorporatBankDetail,
+  // },
   {
-    path: "demat-registration/c/corporate-bank-detail",
+    path: "demat-registration/c/corporate-branch-detail",
     id: 3,
-    component: CorporatBankDetail,
+    component: BranchCorporateForm,
   },
   {
     path: "demat-registration/c/corporate-bo-statement",

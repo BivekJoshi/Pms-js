@@ -122,7 +122,7 @@ const RenderInput = ({
   const [latLong, setLatLong] = useState([0, 0]) // state for map latitude and longtitude
   const mode = useSelector((state) => state?.theme?.mode)
   const { t } = useTranslation()
-
+console.log("formik", formik)
   const getComponentToRender = (element, disableField) => {
     const formVaues = isFieldArray
       ? getIn(formik.values, element.name)
