@@ -24,6 +24,7 @@
     "axios": "^1.5.1",
     "bikram-sambat-js": "^1.0.1",
     "dayjs": "^1.11.10",
+    "dom-to-image": "^2.6.0",
     "exceljs": "^4.3.0",
     "export-to-csv": "^1.2.2",
     "file-saver": "^2.0.5",
