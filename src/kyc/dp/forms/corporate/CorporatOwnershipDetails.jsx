@@ -1,6 +1,6 @@
 import { nanoid } from "@reduxjs/toolkit";
 import React, { useContext } from "react";
-import { corporatOwnershipDetailsForm } from "../../../../form/auth/CorporateDp/CorporatOwnershipDetails/corporatOwnershipDetailsForm";
+import { useCorporatOwnershipDetailsForm } from "../../../../form/auth/CorporateDp/CorporatOwnershipDetails/corporatOwnershipDetailsForm";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import RenderInput from "../../../../components/renderInput/RenderInput";
@@ -287,7 +287,7 @@ const CorporatOwnershipDetails = () => {
   ];
 
   const { data: ownerShipDetail } = useGetBodCorporate();
-  const { formik } = corporatOwnershipDetailsForm(ownerShipDetail);
+  const { formik } = useCorporatOwnershipDetailsForm(ownerShipDetail);
   const form = formik.values.detail;
   const disabled =
     form &&
