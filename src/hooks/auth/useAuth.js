@@ -46,8 +46,10 @@ export const useLogin = ({ onSuccess }) => {
 
         if (data?.data?.user?.tempPassword) {
           history("/change/password")
-        } else {
+        } else if (data?.data?.user?.nature === "DP") {
           history("/kyc/home")
+        } else {
+          history("/profile")
         }
 
         onSuccess && onSuccess(data, variables, context)
