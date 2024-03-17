@@ -3,7 +3,7 @@ import corporatOwnershipDetailsValidationSchema from "./corporatOwnershipDetails
 import { useFormik } from "formik";
 import { useAddBodCorporate } from "../../../../hooks/Kyc/corporate/BodCorporate/useBodCorporate";
 
-export const corporatOwnershipDetailsForm = (ownerShipDetail) => {
+export const useCorporatOwnershipDetailsForm = (ownerShipDetail) => {
   const [loading, setLoading] = useState(false);
   const { mutate } = useAddBodCorporate({});
   const detail = ownerShipDetail?.detail;
@@ -55,7 +55,7 @@ export const corporatOwnershipDetailsForm = (ownerShipDetail) => {
           email: secretaryDetails?.email || "",
           panNo: secretaryDetails?.panNo || "",
         },
-        ...emptyDetails?.map((item) => ({
+        ...emptyDetails.map((item) => ({
           designation: item.designation || "",
           firstName: item.firstName || "",
           lastName: item.lastName || "",
@@ -84,6 +84,7 @@ export const corporatOwnershipDetailsForm = (ownerShipDetail) => {
       trdGrandFatherName: ownerShipDetail?.trdGrandFatherName || "",
     },
     validationSchema: corporatOwnershipDetailsValidationSchema,
+    enableReinitialize: true,
     onSubmit: (values) => {
       const formData = { ...values };
       mutate(formData, {

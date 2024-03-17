@@ -28,7 +28,7 @@ import { useGetMetaData } from "../kyc/hooks/useMetaDataKyc";
 import Spinner from "../components/spinner/Spinner";
 import MenuIcon from "@mui/icons-material/Menu";
 import KycSidebar from "./KycSidebar";
-import { getUser, getUserToken } from "../utility/userHelper";
+import { getUser } from "../utility/userHelper";
 
 const KycLayout = () => {
   const mode = useSelector((state) => state?.theme?.mode);
@@ -45,7 +45,6 @@ const KycLayout = () => {
 
   const userDetails = useSelector((state) => state?.user);
   // const { data, isLoading, refetch } = useGetTheme(brokerId)
-  const { authToken } = getUserToken();
   const { A: userId } = getUser();
   // useEffect(() => {
   //   if (!authToken) {
