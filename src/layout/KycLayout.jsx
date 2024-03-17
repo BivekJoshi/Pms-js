@@ -39,24 +39,25 @@ const KycLayout = () => {
   const navigate = useNavigate()
   const [menuList, setMenuList] = useState([])
   const [openDrawer, setOpenDrawer] = useState(false)
-  const brokerId = useSelector((state) => state?.user.details?.brokerNo)
+  // const brokerId = useSelector((state) => state?.brokerList?.brokerOption[0].id)
+  const currentForm = useSelector((state) => state?.user?.currentForm)
+  console.log("🚀 ~ KycLayout ~ currentForm:", currentForm)
 
   const userDetails = useSelector((state) => state?.user)
-  const { data, isLoading, refetch } = useGetTheme(brokerId)
-
+  // const { data, isLoading, refetch } = useGetTheme(brokerId)
   const { authToken } = getUserToken()
-  const { id: userId } = getUser()
-  useEffect(() => {
-    if (!authToken) {
-      navigate("/login")
-    } else {
-      refetch()
-    }
-    if (data) {
-      dispatch({ type: "SET_BROKER_THEME", payload: data?.web })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, isLoading, authToken])
+  const { A: userId } = getUser()
+  // useEffect(() => {
+  //   if (!authToken) {
+  //     navigate("/login")
+  //   } else {
+  //     // refetch()
+  //   }
+  //   if (data) {
+  //     dispatch({ type: "SET_BROKER_THEME", payload: data?.web })
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [data, isLoading, authToken])
   useEffect(() => {
     if (pathname && pathname.length > 2) {
       const isHome =
@@ -64,7 +65,6 @@ const KycLayout = () => {
       setIsHomePage(isHome)
     }
   }, [pathname])
-  
 
   const {
     data: userData,
@@ -106,10 +106,12 @@ const KycLayout = () => {
       setMenuList([])
     }
   }, [userDetails])
-  const theme = useMemo(
-    () => createTheme(themeSettings(mode, data?.web)),
-    [mode, data, isLoading]
-  )
+  // const theme = useMemo(
+  //   () => createTheme(themeSettings(mode, data?.web)),
+  //   [mode, data, isLoading]
+  // )
+
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
   const isSm = useMediaQuery(theme.breakpoints.down("md"))
 
   const handleChange = (event, newValue) => {
@@ -131,7 +133,7 @@ const KycLayout = () => {
   return (
     <ThemeProvider theme={theme} key={userData}>
       <CssBaseline />
-      <KycNavbar userDetails={userDetails}/>
+      <KycNavbar userDetails={userDetails} />
       <section
         style={{
           padding: "16px",
@@ -174,8 +176,8 @@ const KycLayout = () => {
                 isHomePage={isHomePage}
                 userDetails={userDetails}
                 menuList={menuList}
-                data={data}
-                isLoading={isLoading}
+                // data={data}
+                // isLoading={isLoading}
                 activeStyle={activeStyle}
               />
             </Grid>
@@ -218,8 +220,8 @@ const KycLayout = () => {
                 isHomePage={isHomePage}
                 userDetails={userDetails}
                 menuList={menuList}
-                data={data}
-                isLoading={isLoading}
+                // data={data}
+                // isLoading={isLoading}
                 activeStyle={activeStyle}
                 handleChange={handleChange}
               />

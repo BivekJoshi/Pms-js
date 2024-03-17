@@ -6,13 +6,12 @@ import { useBasicIndividualDpForms } from "./useBasicIndividualDpForms"
 import { useTheme } from "@emotion/react"
 import { useTranslation } from "react-i18next"
 import { useGetBasicDetail } from "./BasicDetail/useBasicDetail"
+import { nextFormPath } from "../../../../utility/userHelper"
 
 const BasicIndividualDpForms = () => {
   const theme = useTheme()
   const { data: basicIndividualData } = useGetBasicDetail()
 
-  const basicIndividualDetails =
-    basicIndividualData && basicIndividualData?.data
   const individualDetails =
     basicIndividualData && basicIndividualData?.data?.individualDetails
   const { formik } = useBasicIndividualDpForms({
