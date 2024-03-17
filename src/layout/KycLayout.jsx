@@ -8,114 +8,116 @@ import {
   Tooltip,
   createTheme,
   useMediaQuery,
-} from "@mui/material"
-import React, { useEffect, useMemo, useState } from "react"
-import { Outlet, useLocation, useNavigate } from "react-router-dom"
-import { themeSettings } from "../theme"
-import { useDispatch, useSelector } from "react-redux"
-import KycNavbar from "../components/navbar/KycNavbar"
-import { useTranslation } from "react-i18next"
-import "./layout.css"
+} from "@mui/material";
+import React, { useEffect, useMemo, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { themeSettings } from "../theme";
+import { useDispatch, useSelector } from "react-redux";
+import KycNavbar from "../components/navbar/KycNavbar";
+import { useTranslation } from "react-i18next";
+import "./layout.css";
 import {
   corporateKycDematList,
   corporateKycTMSList,
   individualKycDematList,
   individualkycTmsList,
-} from "./kycMenuList"
-import { useGetTheme } from "../hooks/brokerTheme/useBrokerTheme"
-import _ from "lodash"
-import { useGetMetaData } from "../kyc/hooks/useMetaDataKyc"
-import Spinner from "../components/spinner/Spinner"
-import MenuIcon from "@mui/icons-material/Menu"
-import KycSidebar from "./KycSidebar"
-import { getUser, getUserToken } from "../utility/userHelper"
+} from "./kycMenuList";
+import { useGetTheme } from "../hooks/brokerTheme/useBrokerTheme";
+import _ from "lodash";
+import { useGetMetaData } from "../kyc/hooks/useMetaDataKyc";
+import Spinner from "../components/spinner/Spinner";
+import MenuIcon from "@mui/icons-material/Menu";
+import KycSidebar from "./KycSidebar";
+import { getUser, getUserToken } from "../utility/userHelper";
 
 const KycLayout = () => {
-  const mode = useSelector((state) => state?.theme?.mode)
-  const { t } = useTranslation()
-  const dispatch = useDispatch()
-  const { pathname } = useLocation()
-  const [isHomePage, setIsHomePage] = useState(false)
-  const navigate = useNavigate()
-  const [menuList, setMenuList] = useState([])
-  const [openDrawer, setOpenDrawer] = useState(false)
-  const brokerId = useSelector((state) => state?.user.details?.brokerNo)
+  const mode = useSelector((state) => state?.theme?.mode);
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const [isHomePage, setIsHomePage] = useState(false);
+  const navigate = useNavigate();
+  const [menuList, setMenuList] = useState([]);
+  const [openDrawer, setOpenDrawer] = useState(false);
+  // const brokerId = useSelector((state) => state?.brokerList?.brokerOption[0].id)
+  const currentForm = useSelector((state) => state?.user?.currentForm);
+  console.log("🚀 ~ KycLayout ~ currentForm:", currentForm);
 
-  const userDetails = useSelector((state) => state?.user)
-  const { data, isLoading, refetch } = useGetTheme(brokerId)
-
-  const { authToken } = getUserToken()
-  const { id: userId } = getUser()
-  useEffect(() => {
-    if (!authToken) {
-      navigate("/login")
-    } else {
-      refetch()
-    }
-    if (data) {
-      dispatch({ type: "SET_BROKER_THEME", payload: data?.web })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, isLoading, authToken])
+  const userDetails = useSelector((state) => state?.user);
+  // const { data, isLoading, refetch } = useGetTheme(brokerId)
+  const { authToken } = getUserToken();
+  const { A: userId } = getUser();
+  // useEffect(() => {
+  //   if (!authToken) {
+  //     navigate("/login")
+  //   } else {
+  //     // refetch()
+  //   }
+  //   if (data) {
+  //     dispatch({ type: "SET_BROKER_THEME", payload: data?.web })
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [data, isLoading, authToken])
   useEffect(() => {
     if (pathname && pathname.length > 2) {
       const isHome =
-        pathname.split("/")[pathname.split("/").length - 1] === "home"
-      setIsHomePage(isHome)
+        pathname.split("/")[pathname.split("/").length - 1] === "home";
+      setIsHomePage(isHome);
     }
-  }, [pathname])
-  
+  }, [pathname]);
 
   const {
     data: userData,
     isLoading: userLoad,
     refetch: userRefetch,
-  } = useGetMetaData(userId)
+  } = useGetMetaData(userId);
 
   useEffect(() => {
     if (_.isEmpty(userDetails)) {
-      userRefetch()
+      userRefetch();
     }
-  }, [userData])
+  }, [userData]);
 
   useEffect(() => {
     if (!_.isEmpty(userDetails)) {
       if (userDetails.clientType) {
         if (userDetails.clientType === "I" && userDetails.nature === "DP") {
-          setMenuList(individualKycDematList)
+          setMenuList(individualKycDematList);
         } else if (
           userDetails.clientType === "I" &&
           userDetails.nature === "TMS"
         ) {
-          setMenuList(individualkycTmsList)
+          setMenuList(individualkycTmsList);
         } else if (
           userDetails.clientType === "C" &&
           userDetails.nature === "DP"
         ) {
-          setMenuList(corporateKycDematList)
+          setMenuList(corporateKycDematList);
         } else if (
           userDetails.clientType === "C" &&
           userDetails.nature === "TMS"
         ) {
-          setMenuList(corporateKycTMSList)
+          setMenuList(corporateKycTMSList);
         } else {
-          setMenuList([])
+          setMenuList([]);
         }
       }
     } else {
-      setMenuList([])
+      setMenuList([]);
     }
-  }, [userDetails])
-  const theme = useMemo(
-    () => createTheme(themeSettings(mode, data?.web)),
-    [mode, data, isLoading]
-  )
-  const isSm = useMediaQuery(theme.breakpoints.down("md"))
+  }, [userDetails]);
+  // const theme = useMemo(
+  //   () => createTheme(themeSettings(mode, data?.web)),
+  //   [mode, data, isLoading]
+  // )
+
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  const isSm = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleChange = (event, newValue) => {
-    setOpenDrawer(false)
-    window.scrollTo(0, 0)
-  }
+    setOpenDrawer(false);
+    window.scrollTo(0, 0);
+  };
 
   const activeStyle = {
     color: theme.palette.text.main,
@@ -123,15 +125,15 @@ const KycLayout = () => {
     borderRadius: ".5rem ",
     textTransform: "none",
     fontWeight: 700,
-  }
+  };
 
   if (userLoad) {
-    return <Spinner />
+    return <Spinner />;
   }
   return (
     <ThemeProvider theme={theme} key={userData}>
       <CssBaseline />
-      <KycNavbar userDetails={userDetails}/>
+      <KycNavbar userDetails={userDetails} />
       <section
         style={{
           padding: "16px",
@@ -174,8 +176,8 @@ const KycLayout = () => {
                 isHomePage={isHomePage}
                 userDetails={userDetails}
                 menuList={menuList}
-                data={data}
-                isLoading={isLoading}
+                // data={data}
+                // isLoading={isLoading}
                 activeStyle={activeStyle}
               />
             </Grid>
@@ -218,8 +220,8 @@ const KycLayout = () => {
                 isHomePage={isHomePage}
                 userDetails={userDetails}
                 menuList={menuList}
-                data={data}
-                isLoading={isLoading}
+                // data={data}
+                // isLoading={isLoading}
                 activeStyle={activeStyle}
                 handleChange={handleChange}
               />
@@ -241,7 +243,7 @@ const KycLayout = () => {
         </Box>
       </section>
     </ThemeProvider>
-  )
-}
+  );
+};
 
-export default KycLayout
+export default KycLayout;

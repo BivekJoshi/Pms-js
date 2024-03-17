@@ -2,8 +2,8 @@ import { axiosInstance } from "../../axiosInterceptor";
 
 /*________________________GET BASIC CORPORATE DETAIL_____________________________________*/
 export const getBasicCorporate = async () => {
-    const data = await axiosInstance.get(`/client/corporate-details`);
-    return data;
+    const response = await axiosInstance.get(`/client/corporate-details`);
+    return response.data;
   };
 
 /*________________________POST BASIC CORPORATE DETAIL_____________________________________*/

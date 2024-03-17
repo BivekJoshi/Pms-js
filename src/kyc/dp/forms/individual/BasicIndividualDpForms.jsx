@@ -6,13 +6,12 @@ import { useBasicIndividualDpForms } from "./useBasicIndividualDpForms"
 import { useTheme } from "@emotion/react"
 import { useTranslation } from "react-i18next"
 import { useGetBasicDetail } from "./BasicDetail/useBasicDetail"
+import { nextFormPath } from "../../../../utility/userHelper"
 
 const BasicIndividualDpForms = () => {
   const theme = useTheme()
   const { data: basicIndividualData } = useGetBasicDetail()
 
-  const basicIndividualDetails =
-    basicIndividualData && basicIndividualData?.data
   const individualDetails =
     basicIndividualData && basicIndividualData?.data?.individualDetails
   const { formik } = useBasicIndividualDpForms({
@@ -34,8 +33,10 @@ const BasicIndividualDpForms = () => {
       const personAge = calculateAge(dob)
       if (personAge < 16) {
         formik.setFieldValue("isMinor", true)
+        formik.setFieldValue("minorDoc", ["guardianCitizen", "birtCirtificate"])
       } else {
         formik.setFieldValue("isMinor", false)
+        formik.setFieldValue("minorDoc", [])
       }
     }
   }, [formik.values.dob])

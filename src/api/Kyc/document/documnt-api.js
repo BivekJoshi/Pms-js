@@ -7,7 +7,7 @@ export const getDocument = async () => {
   return data
 }
 
-export const addDocument = async (image) => {
+export const addDocument = async (image, formData) => {
   const imgData = new FormData()
   imgData.append("ppSizePhoto", image?.ppSizePhoto)
   const { data } = await axiosInstance.post(
@@ -22,6 +22,7 @@ export const addDocument = async (image) => {
   return data
 }
 
+/*------------------------------CAMERA PHOTO--------------------------------------------------*/
 export const addPhoto = async (formData) => {
   if (formData) {
     const imgData = new FormData()
@@ -53,4 +54,22 @@ export const addPhoto = async (formData) => {
       throw error // Throw the error to handle it in the caller function
     }
   }
+}
+
+/*------------------------------DRAG PHOTO--------------------------------------------------*/
+export const addPhotoDragImage = async (image) => {
+  const imgData = new FormData()
+
+  imgData.append("ppSizePhoto", image)
+
+  const { data } = await axiosInstance.post(
+    `/client/client-document?currentForm=1`,
+    imgData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  )
+  return data
 }

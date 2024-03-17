@@ -6,7 +6,7 @@ const useCorporateDetailsForm = () => {
     initialValues: { isListed: false, isSubsidiary: false, isMF: false },
     // validationSchema: schema,
     onSubmit: (values) => {
-      console.log("🚀 ~ useCorporateDetailsForm ~ values:", values);
+      
     },
   });
   return {

@@ -135,7 +135,6 @@ const UserAggrementTmsOnePdf = ({ userData, extraInfo }) => {
   // );
 
   // const bodDetails = userData && userData?.corporateBodDetails;
-  console.log({ "individual kyc": extraInfo });
   return (
     <>
       <View style={[styles, { marginTop: "10px" }]}>

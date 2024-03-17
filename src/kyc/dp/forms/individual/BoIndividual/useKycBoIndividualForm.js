@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useFormik } from "formik";
 import { useAddBODetail } from "../../../../../hooks/Kyc/individual/boStatement/useAddKycBo";
 
