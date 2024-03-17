@@ -1,10 +1,16 @@
 import { useFormik } from "formik";
 import { corporateDpValidationSchema } from "./corporateDpValidationSchema";
-import { useAddBasicDPCorporate } from '../../../hooks/Kyc/corporate/BasicCoporateDp/useBasicCoporateDp';
+import { useAddBasicDPCorporate } from "../../../hooks/Kyc/corporate/BasicCoporateDp/useBasicCoporateDp";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { SET_FORM } from "../../../redux/types/types";
+import { nextFormPath } from "../../../utility/userHelper";
 
 export const BasicCorporateDpForm = (data) => {
   const { mutate } = useAddBasicDPCorporate({});
-  
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const formik = useFormik({
     initialValues: {
       corporateAccountType: data?.corporateAccountType || "",
@@ -33,12 +39,16 @@ export const BasicCorporateDpForm = (data) => {
     },
     validationSchema: corporateDpValidationSchema,
     onSubmit: (values) => {
-      const formData = {...values}
-      mutate(formData, {
-        onSuccess: (data) => {
-          formik.resetForm();
-        },
-      });
+      if (formik.dirty) {
+        const formData = { ...values };
+        mutate(formData, {
+          onSuccess: (data) => {
+            formik.resetForm();
+          },
+        });
+      }
+      dispatch({ type: SET_FORM, payload: 2 })
+      navigate(nextFormPath(2))
     },
   });
 

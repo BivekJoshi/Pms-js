@@ -1,7 +1,11 @@
-import { useAddAddress } from "../../../../../hooks/kyc/address/useAddress"
-import { useFormik } from "formik"
-import * as Yup from "yup"
-import { mobileNum, phoneRegExp } from '../../static/RegExp'
+import { useAddAddress } from "../../../../../hooks/kyc/address/useAddress";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { mobileNum, phoneRegExp } from "../../static/RegExp";
+import { SET_FORM } from "../../../../../redux/types/types";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { nextFormPath } from "../../../../../utility/userHelper";
 
 const AddressSchema = Yup.object().shape({
   addresses: Yup.array().of(
@@ -12,14 +16,19 @@ const AddressSchema = Yup.object().shape({
       municipality: Yup.string().required("Municipality is required"),
       wordNo: Yup.string().required("Ward No. is required"),
       tole: Yup.string().required("Tole No. is required"),
-      mobileNo: Yup.string().required("Mobile No. is required").matches(mobileNum, "Invalid mobile number"),
+      mobileNo: Yup.string()
+        .required("Mobile No. is required")
+        .matches(mobileNum, "Invalid mobile number"),
       email: Yup.string().required("Email is required"),
     })
   ),
-})
+});
 
 export const useAddressForm = (data) => {
-  const { mutate } = useAddAddress({})
+  const { mutate } = useAddAddress({});
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       addresses:
@@ -48,13 +57,17 @@ export const useAddressForm = (data) => {
     validationSchema: AddressSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      const formData = { ...values }
-      mutate(formData, {
-        onSuccess: () => {
-          formik.resetForm()
-        },
-      })
+      if (formik.dirty) {
+        const formData = { ...values };
+        mutate(formData, {
+          onSuccess: () => {
+            formik.resetForm();
+          },
+        });
+      }
+      dispatch({ type: SET_FORM, payload: 4 });
+      navigate(nextFormPath(4));
     },
-  })
-  return { formik }
-}
+  });
+  return { formik };
+};

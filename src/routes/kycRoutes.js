@@ -4,7 +4,6 @@ import React, { lazy, useContext, useState } from "react";
 import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
 import CorporateDpKyc from "../kyc/ViewKyc/corporate/CorporateDpKyc";
 import CorporateTmsKyc from "../kyc/ViewKyc/corporate/CorporateTmsKyc";
-// import BranchCorporateForm from "../kyc/dp/forms/corporate/BranchCorporate/BranchCorporateForm";
 
 /*---------------------------INDIVIDUAL--------------------------------------------------------------*/
 const BasicIndividualDpForms = React.lazy(() =>
@@ -97,23 +96,18 @@ export const kycDpIndividualRoutes = [
     component: OccupationsIndividualForms,
   },
   {
-    path: "demat-registration/i/aml-cft",
-    id: 7,
-    component: AmlCft,
-  },
-  {
     path: "demat-registration/i/nominee-details",
-    id: 8,
+    id: 7,
     component: NomineeDpForms,
   },
   {
     path: "demat-registration/i/bo-details",
-    id: 9,
+    id: 8,
     component: BoIndividualDetails,
   },
   {
     path: "demat-registration/i/detail-verification",
-    id: 10,
+    id: 9,
     component: IndividualDPKyc,
   },
 ];
@@ -125,39 +119,39 @@ export const kycDpCorporateRoutes = [
     component: CorporateDetailsDp,
   },
   {
-    path: "demat-registration/c/corporate-address",
-    id: 2,
-    component: CorporateAddress,
-  },
-  {
-    path: "demat-registration/c/corporate-bo-statement",
-    id: 3,
-    component: CorporateBoStatement,
-  },
-  {
-    path: "demat-registration/c/corporate-ownership-details",
-    id: 4,
-    component: CorporatOwnershipDetails,
-  },
-  {
     path: "demat-registration/c/document-details",
-    id: 5,
+    id: 2,
     component: CorporateDocument,
   },
   {
-    path: "demat-registration/c/detail-verification",
-    id: 6,
-    component: IndividualDPKyc,
+    path: "demat-registration/c/corporate-address",
+    id: 3,
+    component: CorporateAddress,
   },
   {
     path: "demat-registration/c/corporate-branch-detail",
-    id: 7,
+    id: 4,
     component: BranchCorporateForm,
   },
   {
     path: "demat-registration/c/corporate-bank-detail",
-    id: 7,
+    id: 5,
     component: CorporatBankDetail,
+  },
+  {
+    path: "demat-registration/c/corporate-bo-statement",
+    id: 6,
+    component: CorporateBoStatement,
+  },
+  {
+    path: "demat-registration/c/corporate-ownership-details",
+    id: 7,
+    component: CorporatOwnershipDetails,
+  },
+  {
+    path: "demat-registration/c/detail-verification",
+    id: 8,
+    component: IndividualDPKyc,
   },
 ];
 
@@ -198,18 +192,8 @@ export const kycTmsIndividualRoutes = [
     component: AmlCft,
   },
   {
-    path: "tms-registration/i/nominee-details",
-    id: 8,
-    component: NomineeDpForms,
-  },
-  {
-    path: "tms-registration/i/bo-details",
-    id: 9,
-    component: BoIndividualDetails,
-  },
-  {
     path: "tms-registration/i/detail-verification",
-    id: 10,
+    id: 8,
     component: IndividualTmsKyc,
   },
 ];
@@ -221,34 +205,34 @@ export const kycTmsCorporateRoutes = [
     component: CorporateDetailsDp,
   },
   {
-    path: "tms-registration/c/corporate-address",
+    path: "tms-registration/c/document-details",
     id: 2,
+    component: CorporateDocument,
+  },
+  {
+    path: "tms-registration/c/corporate-address",
+    id: 3,
     component: CorporateAddress,
   },
   {
+    path: "tms-registration/c/corporate-branch-detail",
+    id: 4,
+    component: BranchCorporateForm,
+  },
+  {
     path: "tms-registration/c/corporate-bank-detail",
-    id: 3,
+    id: 5,
     component: CorporatBankDetail,
   },
   {
     path: "tms-registration/c/corporate-ownership-details",
-    id: 4,
+    id: 6,
     component: CorporatOwnershipDetails,
   },
   {
-    path: "tms-registration/c/document-details",
-    id: 5,
-    component: CorporateDocument,
-  },
-  {
     path: "tms-registration/c/detail-verification",
-    id: 6,
+    id: 7,
     component: CorporateTmsKyc,
-  },
-  {
-    path: "tms-registration/c/corporate-branch-detail",
-    id: 6,
-    component: BranchCorporateForm,
   },
 ];
 

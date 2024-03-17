@@ -3,9 +3,16 @@ import React from "react";
 import { corporatBankDetailForm } from "../../../../form/auth/CorporateDp/CorporatBankDetail/corporatBankDetailForm";
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import RenderInput from "../../../../components/renderInput/RenderInput";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { getUser, nextFormPath } from "../../../../utility/userHelper";
+import { SET_FORM } from "../../../../redux/types/types";
 
 const CorporatBankDetail = () => {
   const { formik, loading } = corporatBankDetailForm();
+  const { H: clientType, I: formNature } = getUser()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const BANKFIELDS = [
     {
@@ -55,6 +62,17 @@ const CorporatBankDetail = () => {
     },
   ];
 
+  const handleNext = () => {
+    if (clientType === "C" && formNature === "TMS") {
+      navigate(nextFormPath(6));
+      dispatch({ type: SET_FORM, payload: 6 });
+    } else {
+      navigate(nextFormPath(7));
+      dispatch({ type: SET_FORM, payload: 7 });
+    }
+
+  };
+
   const theme = useTheme();
   return (
     <div data-aos="zoom-in-right">
@@ -82,12 +100,19 @@ const CorporatBankDetail = () => {
         <Grid
           sx={{
             display: "flex",
-            justifyContent: "flex-end",
-            marginTop: "12px",
+            justifyContent: "space-between",
+            marginTop: "1rem",
           }}
         >
           <Button
-            onClick={formik.handleSubmit}
+            onClick={() => navigate(-1)}
+            variant="outlined"
+            color="secondary"
+          >
+            Back
+          </Button>
+          <Button
+            onClick={handleNext}
             variant="contained"
             color="secondary"
           >

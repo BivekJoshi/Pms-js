@@ -1,15 +1,18 @@
-import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
-import { nanoid } from "@reduxjs/toolkit";
-import React from "react";
-import RenderInput from "../../../../../components/renderInput/RenderInput";
-import { useBranchCorporateForm } from "./useBranchCorporateForm";
-import { useGetBranchDetail } from "../../../../../hooks/Kyc/branch/useBranchDetail";
+import { Box, Button, Grid, Typography, useTheme } from '@mui/material';
+import { nanoid } from '@reduxjs/toolkit';
+import React from 'react';
+import RenderInput from '../../../../../components/renderInput/RenderInput';
+import { useBranchCorporateForm } from './useBranchCorporateForm';
+import { useGetBranchDetail } from '../../../../../hooks/Kyc/branch/useBranchDetail';
+import { useNavigate } from 'react-router-dom';
 
 const BranchCorporateForm = () => {
   const theme = useTheme();
-  const { data: branchDetail } = useGetBranchDetail();
+  const { data: branchDetail } = useGetBranchDetail()
   const data = branchDetail;
+  const navigate = useNavigate();
   const { formik, loading } = useBranchCorporateForm(data);
+
   const BRANCHFIELDs = [
     {
       name: "otherBranch",
@@ -97,15 +100,15 @@ const BranchCorporateForm = () => {
           Branch Details
         </Typography>
       </Box>
-      <RenderInput
-        inputField={BRANCHFIELDs}
-        formik={formik}
-        data={data}
-        loading={loading}
-      />
-      <Grid
-        sx={{ display: "flex", justifyContent: "flex-end", marginTop: "1rem" }}
-      >
+      <RenderInput inputField={BRANCHFIELDs} formik={formik} data={data} loading={loading} />
+      <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}>
+        <Button
+          onClick={() => navigate(-1)}
+          variant="outlined"
+          color="secondary"
+        >
+          Back
+        </Button>
         <Button
           onClick={formik.handleSubmit}
           variant="contained"
