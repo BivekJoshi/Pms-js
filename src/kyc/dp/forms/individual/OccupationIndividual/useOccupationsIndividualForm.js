@@ -1,10 +1,14 @@
-import { useFormik } from "formik"
-import * as Yup from "yup"
-import { onlyTextRegex } from "../../static/RegExp"
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { onlyTextRegex } from "../../static/RegExp";
 import {
   useAddOccupation,
   useGetOccupation,
-} from "../../../../../hooks/kyc/occupaction/useOccupation"
+} from "../../../../../hooks/kyc/occupaction/useOccupation";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { SET_FORM } from "../../../../../redux/types/types";
+import { nextFormPath } from "../../../../../utility/userHelper";
 
 const occupationSchema = Yup.object().shape({
   occupation: Yup.string()
@@ -62,11 +66,13 @@ const occupationSchema = Yup.object().shape({
     then: Yup.string().required("Please enter client code"),
     otherwise: Yup.string().nullable(),
   }),
-})
+});
 
 export const useOccupationsIndividualForm = () => {
-  const { mutate } = useAddOccupation({})
-  const { data, isLoading } = useGetOccupation({})
+  const { mutate } = useAddOccupation({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { data, isLoading } = useGetOccupation({});
 
   const formik = useFormik({
     initialValues: {
@@ -94,14 +100,18 @@ export const useOccupationsIndividualForm = () => {
     enableReinitialize: true,
     validationSchema: occupationSchema,
     onSubmit: (values) => {
-      const formData = { ...values }
-      mutate(formData, {
-        onSuccess: (data) => {
-          formik.resetForm()
-        },
-      })
+      if (formik.dirty) {
+        const formData = { ...values };
+        mutate(formData, {
+          onSuccess: (data) => {
+            formik.resetForm();
+          },
+        });
+      }
+      dispatch({ type: SET_FORM, payload: 7 });
+      navigate(nextFormPath(7));
     },
-  })
+  });
 
-  return { formik }
-}
+  return { formik };
+};

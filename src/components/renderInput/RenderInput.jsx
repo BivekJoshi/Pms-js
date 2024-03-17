@@ -121,7 +121,7 @@ const RenderInput = ({
   const [latLong, setLatLong] = useState([0, 0]); // state for map latitude and longtitude
   const mode = useSelector((state) => state?.theme?.mode);
   const { t } = useTranslation();
-  
+
   const getComponentToRender = (element, disableField) => {
     const formVaues = isFieldArray
       ? getIn(formik.values, element.name)
@@ -350,7 +350,7 @@ const RenderInput = ({
             fullWidth
             type={element?.type}
             required={element.required}
-            inputProps={{min: element?.min}}
+            inputProps={{ min: element?.min }}
             variant="outlined"
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
@@ -485,7 +485,9 @@ const RenderInput = ({
               label={element?.label}
             />
             {formik.values[element?.name] && (
-              <RenderInput inputField={element.newFields} formik={formik} />
+              <div style={{ width: "100%" }}>
+                <RenderInput inputField={element.newFields} formik={formik} />
+              </div>
             )}
           </div>
         )

@@ -1,6 +1,10 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAddFamily } from "../../../../../hooks/kyc/family/useFamily";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { SET_FORM } from "../../../../../redux/types/types";
+import { nextFormPath } from "../../../../../utility/userHelper";
 
 // const personDetailSchema = Yup.object().shape({
 //   fname: Yup.string().when("relationTypeId", {
@@ -16,7 +20,6 @@ import { useAddFamily } from "../../../../../hooks/kyc/family/useFamily";
 //   mnameNep: Yup.string().nullable(),
 //   lnameNep: Yup.string().nullable().required("Required"),
 // });
-
 
 const personDetailSchema = Yup.object().shape({
   fname: Yup.string().required("Required"),
@@ -35,80 +38,91 @@ const validationSchema = Yup.object().shape({
   ),
 });
 
-export const useKycFamilyForm = ({familyData}) => {
-  const getFamilyData = familyData && familyData?.map((d)=> {
-    console.log(d, "d")
-    return {
-      id: d.id,
-      relationTypeId: d.relationTypeId,
-      relationTypeDesc: d.relationTypeDesc,
-      relationTypeDescNp: d.relationTypeDescNp,
-      userId:d.userId,
-      personDetail: {
-        fname: d.fname,
-        mname: d.mname,
-        lname: d.lname,
-        fnameNep: d.fnameNep,
-        mnameNep: d.mnameNep,
-        lnameNep: d.lnameNep,
-      },
-    }
-  })
+export const useKycFamilyForm = ({ familyData }) => {
+  const getFamilyData =
+    familyData &&
+    familyData?.map((d) => {
+      // console.log(d, "d")
+      return {
+        id: d.id,
+        relationTypeId: d.relationTypeId,
+        relationTypeDesc: d.relationTypeDesc,
+        relationTypeDescNp: d.relationTypeDescNp,
+        userId: d.userId,
+        personDetail: {
+          fname: d.fname,
+          mname: d.mname,
+          lname: d.lname,
+          fnameNep: d.fnameNep,
+          mnameNep: d.mnameNep,
+          lnameNep: d.lnameNep,
+        },
+      };
+    });
   const { mutate } = useAddFamily({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const formik = useFormik({
-    initialValues: { 
-      personDetail: getFamilyData?.length > 0 ? getFamilyData : [
-        {
-          relationTypeId: "GF",
-          relationTypeDesc: "Grand Father",
-          relationTypeDescNp: "वाजेको नाम",
-          personDetail: {
-            fname: "",
-            mname: "",
-            lname: "",
-            fnameNep: "",
-            mnameNep: "",
-            lnameNep: "",
-          },
-        },
+    initialValues: {
+      personDetail:
+        getFamilyData?.length > 0
+          ? getFamilyData
+          : [
+              {
+                relationTypeId: "GF",
+                relationTypeDesc: "Grand Father",
+                relationTypeDescNp: "वाजेको नाम",
+                personDetail: {
+                  fname: "",
+                  mname: "",
+                  lname: "",
+                  fnameNep: "",
+                  mnameNep: "",
+                  lnameNep: "",
+                },
+              },
 
-        {
-          relationTypeId: "F",
-          relationTypeDesc: "Father",
-          relationTypeDescNp: "बुबाको नाम",
-          personDetail: {
-            fname: "",
-            mname: "",
-            lname: "",
-            fnameNep: "",
-            mnameNep: "",
-            lnameNep: "",
-          },
-        },
-                {
-          relationTypeId: "M",
-          relationTypeDesc: "Mother",
-          relationTypeDescNp: "आमाको नाम",
-          personDetail: {
-            fname: "",
-            mname: "",
-            lname: "",
-            fnameNep: "",
-            mnameNep: "",
-            lnameNep: "",
-          },
-        },
-      ],
+              {
+                relationTypeId: "F",
+                relationTypeDesc: "Father",
+                relationTypeDescNp: "बुबाको नाम",
+                personDetail: {
+                  fname: "",
+                  mname: "",
+                  lname: "",
+                  fnameNep: "",
+                  mnameNep: "",
+                  lnameNep: "",
+                },
+              },
+              {
+                relationTypeId: "M",
+                relationTypeDesc: "Mother",
+                relationTypeDescNp: "आमाको नाम",
+                personDetail: {
+                  fname: "",
+                  mname: "",
+                  lname: "",
+                  fnameNep: "",
+                  mnameNep: "",
+                  lnameNep: "",
+                },
+              },
+            ],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      const formData = {...values};
-      mutate(formData?.personDetail, {
-        onSuccess: () => {
-          formik.resetForm();
-        },
-      });
+      if (formik.dirty) {
+        const formData = { ...values };
+        mutate(formData?.personDetail, {
+          onSuccess: () => {
+            formik.resetForm();
+          },
+        });
+      }
+      dispatch({ type: SET_FORM, payload: 5 });
+      navigate(nextFormPath(5));
     },
   });
 

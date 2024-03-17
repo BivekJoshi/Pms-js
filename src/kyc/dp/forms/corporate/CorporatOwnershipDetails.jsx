@@ -14,14 +14,17 @@ import {
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { FieldArray, FormikProvider } from "formik";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useNavigate } from "react-router-dom";
 
 const CorporatOwnershipDetails = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
+
   const DETAILS = [
     {
       name: "designation",
       label: "Designation",
-      type: "dropDown",  
+      type: "dropDown",
       sm: 12,
       id: nanoid(),
     },
@@ -299,7 +302,7 @@ const CorporatOwnershipDetails = () => {
   const { formik } = corporatOwnershipDetailsForm();
   const form = formik.values.details;
   const disabled = form && form.some((data) => data.designation === "CEO" || data.designation === "Secretary");
-console.log(formik);
+
   return (
     <div data-aos="zoom-in-right">
       <Box
@@ -331,26 +334,26 @@ console.log(formik);
                     options:
                       index <= 1
                         ? [
-                            { value: "Secretary", label: "Secretary" },
-                            { value: "CEO", label: "CEO" },
-                          ]
+                          { value: "Secretary", label: "Secretary" },
+                          { value: "CEO", label: "CEO" },
+                        ]
                         : [
-                            { value: "Director", label: "Director" },
+                          { value: "Director", label: "Director" },
 
-                            {
-                              value: "Chief Marketing Officer",
-                              label: "Chief Marketing Officer",
-                            },
-                            {
-                              value: "General Counsel",
-                              label: "General Counsel",
-                            },
-                          ],
+                          {
+                            value: "Chief Marketing Officer",
+                            label: "Chief Marketing Officer",
+                          },
+                          {
+                            value: "General Counsel",
+                            label: "General Counsel",
+                          },
+                        ],
                     isDisabled: disabled && d.name === "designation" && (item.designation === "CEO" || item.designation === "Secretary"),
                     name: `details.${index}.${d.name}`,
                   };
                 });
-                
+
                 return (
                   <>
                     <Grid
@@ -366,7 +369,7 @@ console.log(formik);
                         sx={{
                           background:
                             formik?.errors?.details &&
-                            formik?.errors?.details[index] !== undefined
+                              formik?.errors?.details[index] !== undefined
                               ? "#fff"
                               : "#FFFFFF",
                         }}
@@ -381,8 +384,8 @@ console.log(formik);
                             {index === 0
                               ? "CEO Details"
                               : index === 1
-                              ? "Company Secretary Details"
-                              : "BOD Details"}
+                                ? "Company Secretary Details"
+                                : "BOD Details"}
                           </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
@@ -474,8 +477,15 @@ console.log(formik);
           </Accordion>
         ))}
         <Grid
-          sx={{ display: "flex", justifyContent: "flex-end", margin: "1rem 0" }}
+          sx={{ display: "flex", justifyContent: "space-between", margin: "1rem" }}
         >
+          <Button
+            onClick={() => navigate(-1)}
+            variant="outlined"
+            color="secondary"
+          >
+            Back
+          </Button>
           <Button
             onClick={formik.handleSubmit}
             variant="contained"

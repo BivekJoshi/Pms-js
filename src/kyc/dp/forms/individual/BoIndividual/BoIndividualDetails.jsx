@@ -4,6 +4,7 @@ import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { nanoid } from "nanoid";
 import { useKycBoIndividualForm } from "./useKycBoIndividualForm";
 import { useGetBODetail } from '../../../../../hooks/Kyc/individual/boStatement/useAddKycBo';
+import { useNavigate } from "react-router-dom";
 
 const bodFields = [
   {
@@ -51,6 +52,7 @@ const bodFields = [
 const BoIndividualDetails = () => {
   const [fields, setFields] = useState(bodFields);
   const theme = useTheme();
+  const navigate = useNavigate();
   const { data: boData } = useGetBODetail();
   const data = boData && boData?.data
   const { formik } = useKycBoIndividualForm(data);
@@ -87,11 +89,18 @@ const BoIndividualDetails = () => {
           borderRadius: "0 6px 6px 0",
           padding: "16px",
           boxShadow:
-            "0 1px 3px rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
+            "0 1px 3px rgpba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px",
         }}
       >
         <RenderInput inputField={fields} formik={formik} />
-        <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}>
+          <Button
+            onClick={() => navigate(-1)}
+            variant="outlined"
+            color="secondary"
+          >
+            Back
+          </Button>
           <Button
             onClick={formik.handleSubmit}
             variant="contained"
