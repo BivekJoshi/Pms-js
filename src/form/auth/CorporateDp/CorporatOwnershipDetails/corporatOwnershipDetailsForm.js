@@ -25,7 +25,7 @@ export const corporatOwnershipDetailsForm = (ownerShipDetail) => {
   };
   const ceoDetails = getCEODetails();
   const secretaryDetails = getSecretaryDetails();
-  const emptyDetails = fetchEmptyDesignationDetails();
+  const emptyDetails = fetchEmptyDesignationDetails() ?? [];
   console.log("emptyDetails", emptyDetails);
   const formik = useFormik({
     initialValues: {

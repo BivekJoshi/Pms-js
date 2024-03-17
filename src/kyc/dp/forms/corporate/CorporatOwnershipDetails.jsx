@@ -286,6 +286,7 @@ const CorporatOwnershipDetails = () => {
     },
   ];
 
+  const { data: ownerShipDetail } = useGetBodCorporate();
   const { formik } = corporatOwnershipDetailsForm(ownerShipDetail);
   const form = formik.values.detail;
   const disabled =
