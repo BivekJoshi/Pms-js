@@ -11,7 +11,8 @@ export const getBaseUrl = () => {
     // return "http://103.94.159.144:8085/pms/api";
 
     // return "http://103.94.159.144:8084/kyc/api" //test-server
-    return "http://172.16.16.46:8084/kyc/api"; //local
+    // return "http://172.16.16.46:8084/kyc/api"; //local
+    return "http://dgtrade.dghub.io:8084/kyc/api"; //test-server
 
     // return "http://bipeen:8085/pms/api";
     // return 'http://172.16.16.94:8085/pms/api';
@@ -20,7 +21,6 @@ export const getBaseUrl = () => {
     path = path ? path + "/api" : null;
     return path || contextPath() + "/api";
   }
-  // return 'https://dgtrade.dghub.io:8085/pms/api';
 };
 
 export const DOC_URL = "https://103.94.159.144/kycDocument";
