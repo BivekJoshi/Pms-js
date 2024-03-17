@@ -7,6 +7,7 @@ import { useKycFamilyForm } from "./usekycFamilyForm";
 import { useSelector } from "react-redux";
 import { useGetFamily } from "../../../../../hooks/kyc/family/useFamily";
 import MarriedFamilyTable from "./MarriedFamilyTable";
+import { useNavigate } from "react-router-dom";
 
 const relationField = [
   {
@@ -158,6 +159,7 @@ const MarriedCase = [
 
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
 
   const { data: familyData } = useGetFamily();
 
@@ -253,8 +255,19 @@ const FamilyIndividualDpForms = () => {
       </Grid>
       <Grid
         marginBlock={2}
-        sx={{ display: "flex", justifyContent: "flex-end" }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "1rem",
+        }}
       >
+        <Button
+          onClick={() => navigate(-1)}
+          variant="outlined"
+          color="secondary"
+        >
+          Back
+        </Button>
         <Button
           onClick={formik.handleSubmit}
           variant="contained"

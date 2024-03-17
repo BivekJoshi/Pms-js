@@ -1,30 +1,29 @@
-import { Grid, Typography, createTheme } from "@mui/material"
-import React from "react"
-import KycProfileCard from "../kyc/components/KycProfileCard"
-import { useTranslation } from "react-i18next"
-import { useMemo } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { themeSettings } from "../theme"
-import { NavLink, useNavigate } from "react-router-dom"
-import { logout } from "../utility/logout"
+import { Grid, Typography, createTheme } from "@mui/material";
+import React from "react";
+import KycProfileCard from "../kyc/components/KycProfileCard";
+import { useTranslation } from "react-i18next";
+import { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { themeSettings } from "../theme";
+import { NavLink, useNavigate } from "react-router-dom";
+import { logout } from "../utility/logout";
 
 const KycSidebar = ({
   isHomePage,
   userDetails,
   menuList,
-
   activeStyle,
   handleChange,
 }) => {
-  const { t } = useTranslation()
-  const mode = useSelector((state) => state?.theme?.mode)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const { t } = useTranslation();
+  const mode = useSelector((state) => state?.theme?.mode);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   // const theme = useMemo(
   //   () => createTheme(themeSettings(mode, data?.web)),
   //   [mode, data, isLoading]
   // )
-  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
   return (
     <>
@@ -48,7 +47,7 @@ const KycSidebar = ({
             const path =
               userDetails?.nature === "TMS"
                 ? item.path.replace("demat-registration", "tms-registration")
-                : item.path
+                : item.path;
             return (
               <NavLink
                 className="navlinks-list"
@@ -66,7 +65,7 @@ const KycSidebar = ({
                   <Typography variant="h7">{t(`${item.title}`)}</Typography>
                 </Grid>
               </NavLink>
-            )
+            );
           })}
         </Grid>
       </Grid>
@@ -82,9 +81,9 @@ const KycSidebar = ({
           <div
             className="navlinks-list"
             onClick={() => {
-              dispatch({ type: "LOGOUT" })
-              logout()
-              navigate("/login")
+              dispatch({ type: "LOGOUT" });
+              logout();
+              navigate("/login");
             }}
           >
             <Grid className="profileIcon" style={{ textDecoration: "none" }}>
@@ -127,7 +126,7 @@ const KycSidebar = ({
         </Grid>
       </Grid>
     </>
-  )
-}
+  );
+};
 
-export default KycSidebar
+export default KycSidebar;

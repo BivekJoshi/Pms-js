@@ -2,6 +2,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { phoneRegExp } from "../../static/RegExp";
 import { useAddBranchDetail } from "../../../../../hooks/Kyc/branch/useBranchDetail";
+import { SET_FORM } from "../../../../../redux/types/types";
+import { nextFormPath } from "../../../../../utility/userHelper";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const BranchScheme = Yup.object().shape({
@@ -42,7 +46,8 @@ const BranchScheme = Yup.object().shape({
 export const useBranchCorporateForm = (data) => {
   const [loading, setLoading] = useState(false);
   const { mutate } = useAddBranchDetail({});
-  console.log("data", data?.[0].area);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const formik = useFormik({
     initialValues:
       data?.length === 1 && data
@@ -69,16 +74,17 @@ export const useBranchCorporateForm = (data) => {
             otherBranch: false,
           },
     validationSchema: BranchScheme,
-    enableReinitialize: true,
-    onSubmit: (values) => {
-      console.log("Form values:", values);
-      const formData = { ...values };
-      mutate(formData, {
-        onSuccess: (data) => {
-          formik.resetForm();
-          setLoading(true);
-        },
-      });
+    onSubmit: (value) => {
+      if(formik.dirty){
+        const formData = { ...value };
+        mutate(formData, {
+          onSuccess: (data) => {
+            formik.resetForm();
+          },
+        });
+      }
+      dispatch({ type: SET_FORM, payload: 5 })
+      navigate(nextFormPath(5))
     },
   });
   return { formik, loading };

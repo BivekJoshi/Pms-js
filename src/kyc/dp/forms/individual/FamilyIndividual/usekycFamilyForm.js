@@ -1,6 +1,10 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAddFamily } from "../../../../../hooks/kyc/family/useFamily";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { SET_FORM } from "../../../../../redux/types/types";
+import { nextFormPath } from "../../../../../utility/userHelper";
 
 const personDetailSchema = Yup.object().shape({
   fname: Yup.string().required("Required"),
@@ -38,6 +42,8 @@ export const useKycFamilyForm = ({ familyData }) => {
     };
   });
   const { mutate } = useAddFamily({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -89,12 +95,16 @@ export const useKycFamilyForm = ({ familyData }) => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      const formData = { ...values };
-      mutate(formData?.personDetail, {
-        onSuccess: () => {
-          formik.resetForm();
-        },
-      });
+      if (formik.dirty) {
+        const formData = { ...values };
+        mutate(formData?.personDetail, {
+          onSuccess: () => {
+            formik.resetForm();
+          },
+        });
+      }
+      dispatch({ type: SET_FORM, payload: 5 });
+      navigate(nextFormPath(5));
     },
   });
 

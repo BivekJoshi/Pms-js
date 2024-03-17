@@ -21,10 +21,13 @@ import { Delete } from "@mui/icons-material"
 import DeleteConfirmationModal from "../../../../../components/modal/DeleteModal/DeleteConfirmationModal"
 import { useDispatch } from "react-redux"
 import { SET_FORM } from "../../../../../redux/types/types"
+import { useNavigate } from "react-router-dom"
+import { nextFormPath } from "../../../../../utility/userHelper"
 
 const BankIndividualDpForms = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const theme = useTheme()
+  const navigate = useNavigate();
   const dispatch = useDispatch()
   const { data: bankListData } = useGetBankList()
   const { data: bankData } = useGetKycBank()
@@ -185,6 +188,11 @@ const BankIndividualDpForms = () => {
     deleteKycBankMutation(deletedKycBank?.id)
   }
 
+  const handleNext = () => {
+    navigate(nextFormPath(6));
+    dispatch({ type: SET_FORM, payload: 6 });
+  };
+
   return (
     <div data-aos="zoom-in-right">
       <Box
@@ -228,12 +236,19 @@ const BankIndividualDpForms = () => {
         />
       </Grid>
       <Grid
-        sx={{ display: "flex", justifyContent: "flex-end", marginTop: "12px" }}
+        sx={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}
       >
+        <Button
+          onClick={() => navigate(-1)}
+          variant="outlined"
+          color="secondary"
+        >
+          Back
+        </Button>
         <Button
           variant="contained"
           color="secondary"
-          onClick={() => dispatch({ type: SET_FORM, payload: 5 })}
+          onClick={handleNext}
         >
           Next
         </Button>
