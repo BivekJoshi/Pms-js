@@ -7,7 +7,6 @@ export const corporatOwnershipDetailsForm = (ownerShipDetail) => {
   const [loading, setLoading] = useState(false);
   const { mutate } = useAddBodCorporate({});
   const detail = ownerShipDetail?.detail;
-  console.log("detail", detail);
 
   const getCEODetails = () => {
     return detail?.find((item) => item.designation === "CEO") || {};
@@ -16,17 +15,15 @@ export const corporatOwnershipDetailsForm = (ownerShipDetail) => {
     return detail?.find((item) => item.designation === "Secretary") || {};
   };
   const fetchEmptyDesignationDetails = () => {
-    // Find all items in the detail array with designations other than "CEO" or "Secretary"
     const emptyDesignationItems = detail?.filter(
       (item) => item.designation !== "CEO" && item.designation !== "Secretary"
     );
-    // Return the array of items
     return emptyDesignationItems;
   };
   const ceoDetails = getCEODetails();
   const secretaryDetails = getSecretaryDetails();
   const emptyDetails = fetchEmptyDesignationDetails() ?? [];
-  console.log("emptyDetails", emptyDetails);
+
   const formik = useFormik({
     initialValues: {
       detail: [
