@@ -1,19 +1,12 @@
 import { nanoid } from "@reduxjs/toolkit";
 import React, { useContext } from "react";
 import { corporatOwnershipDetailsForm } from "../../../../form/auth/CorporateDp/CorporatOwnershipDetails/corporatOwnershipDetailsForm";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  Grid,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { FieldArray, FormikProvider } from "formik";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useGetBodCorporate } from "../../../../hooks/Kyc/corporate/BodCorporate/useBodCorporate";
 
 const CorporatOwnershipDetails = () => {
   const theme = useTheme();
@@ -21,7 +14,7 @@ const CorporatOwnershipDetails = () => {
     {
       name: "designation",
       label: "Designation",
-      type: "dropDown",  
+      type: "dropDown",
       sm: 12,
       id: nanoid(),
     },
@@ -148,7 +141,6 @@ const CorporatOwnershipDetails = () => {
       id: nanoid(),
     },
   ];
-
   const FirstContactField = [
     {
       name: "fcpName",
@@ -195,7 +187,6 @@ const CorporatOwnershipDetails = () => {
       id: nanoid(),
     },
   ];
-
   const SecondContactField = [
     {
       name: "scpName",
@@ -238,7 +229,6 @@ const CorporatOwnershipDetails = () => {
       id: nanoid(),
     },
   ];
-
   const ThirdContactField = [
     {
       name: "trdName",
@@ -296,10 +286,14 @@ const CorporatOwnershipDetails = () => {
     },
   ];
 
-  const { formik } = corporatOwnershipDetailsForm();
-  const form = formik.values.details;
-  const disabled = form && form.some((data) => data.designation === "CEO" || data.designation === "Secretary");
-console.log(formik);
+  const { data: ownerShipDetail } = useGetBodCorporate();
+  const { formik } = corporatOwnershipDetailsForm(ownerShipDetail);
+  const form = formik.values.detail;
+  const disabled =
+    form &&
+    form.some(
+      (data) => data.designation === "CEO" || data.designation === "Secretary"
+    );
   return (
     <div data-aos="zoom-in-right">
       <Box
@@ -320,11 +314,11 @@ console.log(formik);
         </Typography>
       </Box>
       <FormikProvider value={formik} {...formik}>
-        <FieldArray name="details">
+        <FieldArray name="detail">
           {({ push, remove }) => {
             return (
-              formik.values.details &&
-              formik.values?.details.map((item, index) => {
+              formik.values.detail &&
+              formik.values?.detail.map((item, index) => {
                 const field = DETAILS.map((d, i) => {
                   return {
                     ...d,
@@ -346,11 +340,15 @@ console.log(formik);
                               label: "General Counsel",
                             },
                           ],
-                    isDisabled: disabled && d.name === "designation" && (item.designation === "CEO" || item.designation === "Secretary"),
-                    name: `details.${index}.${d.name}`,
+                    isDisabled:
+                      disabled &&
+                      d.name === "designation" &&
+                      (item.designation === "CEO" ||
+                        item.designation === "Secretary"),
+                    name: `detail.${index}.${d.name}`,
                   };
                 });
-                
+
                 return (
                   <>
                     <Grid
@@ -365,8 +363,8 @@ console.log(formik);
                       <Accordion
                         sx={{
                           background:
-                            formik?.errors?.details &&
-                            formik?.errors?.details[index] !== undefined
+                            formik?.errors?.detail &&
+                            formik?.errors?.detail[index] !== undefined
                               ? "#fff"
                               : "#FFFFFF",
                         }}
@@ -381,8 +379,8 @@ console.log(formik);
                             {index === 0
                               ? "CEO Details"
                               : index === 1
-                              ? "Company Secretary Details"
-                              : "BOD Details"}
+                                ? "Company Secretary Details"
+                                : "BOD Details"}
                           </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
@@ -391,7 +389,7 @@ console.log(formik);
                             formik={formik}
                             index={index}
                             isFieldArray={true}
-                            fieldArrayName="details"
+                            fieldArrayName="detail"
                             pushArray={() => push({})}
                             removeArray={() => remove()}
                           />
@@ -399,7 +397,7 @@ console.log(formik);
                       </Accordion>
                     </Grid>
                     {index >= 2 &&
-                      index === formik.values.details.length - 1 && (
+                      index === formik.values.detail.length - 1 && (
                         <Button
                           variant="outlined"
                           color="primary"
@@ -422,11 +420,11 @@ console.log(formik);
                               email: "",
                             })
                           }
-                          disabled={index < formik.values.details.length - 1}
+                          disabled={index < formik.values.detail.length - 1}
                         >
                           <Typography
                             color={
-                              index < formik.values?.details.length - 1
+                              index < formik.values?.detail.length - 1
                                 ? theme.palette.info
                                 : "#6C49B4"
                             }
@@ -436,7 +434,7 @@ console.log(formik);
                           </Typography>
                         </Button>
                       )}
-                    {index >= 2 && formik.values.details.length > 3 && (
+                    {index >= 2 && formik.values.detail.length > 3 && (
                       <Button
                         variant="outlined"
                         color="secondary"

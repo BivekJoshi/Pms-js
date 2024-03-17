@@ -2,9 +2,9 @@ import { axiosInstance } from "../../axiosInterceptor";
 
 /*________________________GET BO DETAIL_____________________________________*/
 export const getBODetail = async () => {
-    const data = await axiosInstance.get(`/client/bo-statement`);
-    return data;
-  };
+  const { data } = await axiosInstance.get(`/client/bo-statement`);
+  return data;
+};
 
 /*________________________POST BO DETAIL_____________________________________*/
 export const addBODetail = async (formData) => {

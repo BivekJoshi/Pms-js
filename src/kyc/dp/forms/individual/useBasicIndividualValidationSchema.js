@@ -1,5 +1,11 @@
-import * as Yup from "yup"
-import { firstName, firstNameNep, middleName, middleNameNep, onlyNum } from "../static/RegExp"
+import * as Yup from "yup";
+import {
+  firstName,
+  firstNameNep,
+  middleName,
+  middleNameNep,
+  onlyNum,
+} from "../static/RegExp";
 
 const useBasicIndividualValidationSchema = Yup.object().shape({
   fname: Yup.string()
@@ -62,9 +68,8 @@ const useBasicIndividualValidationSchema = Yup.object().shape({
   pan: Yup.string()
     .min(0)
     .nullable(true)
-    .matches(onlyNum, "PAN Number must be a number")
-    .max(9, "Pan Number must be at most 9 characters")
+    .matches(/^\d{9}$/, "PAN number must be a 9-digit number")
     .notRequired(),
   countryCd: Yup.string().required("Country is required"),
-})
-export default useBasicIndividualValidationSchema
+});
+export default useBasicIndividualValidationSchema;

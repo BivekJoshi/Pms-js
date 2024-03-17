@@ -1,88 +1,86 @@
-import { Box, Button, Grid, Typography, useTheme } from '@mui/material';
-import { nanoid } from '@reduxjs/toolkit';
-import React from 'react';
-import RenderInput from '../../../../../components/renderInput/RenderInput';
-import { useBranchCorporateForm } from './useBranchCorporateForm';
-import { useGetBranchDetail } from '../../../../../hooks/Kyc/branch/useBranchDetail';
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
+import { nanoid } from "@reduxjs/toolkit";
+import React from "react";
+import RenderInput from "../../../../../components/renderInput/RenderInput";
+import { useBranchCorporateForm } from "./useBranchCorporateForm";
+import { useGetBranchDetail } from "../../../../../hooks/Kyc/branch/useBranchDetail";
 
 const BranchCorporateForm = () => {
   const theme = useTheme();
-  const{data: branchDetail} = useGetBranchDetail()
+  const { data: branchDetail } = useGetBranchDetail();
   const data = branchDetail;
-  const { formik } = useBranchCorporateForm(data);
-console.log(data);
-  const BRANCHFIELDs=[
+  const { formik, loading } = useBranchCorporateForm(data);
+  const BRANCHFIELDs = [
     {
-        name:"otherBranch",
-        label:"Do you have other branch?",
-        type:"switchWithFields",
-        display: "flex",
-        direction: "column",
-        align: "start",    
-        id:nanoid(),
-        sm:12,
-        newFields:[
-            {
-                name: "area",
-                label: "Area name",
-                type: "text",
-                required: true,
-                id: nanoid(),
-                md: 4,
-                sm: 12,
-              },
-              {
-                name: "mainBranch",
-                label: "Main branch/office",
-                type: "text",
-                required: true,
-                id: nanoid(),
-                md: 4,
-                sm: 12,
-              },
-              {
-                name: "address",
-                label: "Branch Address",
-                type: "text",
-                required: true,
-                id: nanoid(),
-                md: 4,
-                sm: 12,
-              },
-              {
-                name: "telephoneNo",
-                label: "Telephone No",
-                type: "text",
-                required: true,
-                id: nanoid(),
-                md: 4,
-                sm: 12,
-              },
-              {
-                name: "mobileNo",
-                label: "Mobile No",
-                type: "text",
-                required: true,
-                id: nanoid(),
-                md: 4,
-                sm: 12,
-              },
-              {
-                name: "contactPerson",
-                label: "Contact Person",
-                type: "text",
-                required: true,
-                id: nanoid(),
-                md: 4,
-                sm: 12,
-              },
-        ],
-
-    }
+      name: "otherBranch",
+      label: "Do you have other branch?",
+      type: "switchWithFields",
+      display: "flex",
+      direction: "column",
+      align: "start",
+      id: nanoid(),
+      sm: 12,
+      newFields: [
+        {
+          name: "area",
+          label: "Area name",
+          type: "text",
+          required: true,
+          id: nanoid(),
+          md: 4,
+          sm: 12,
+        },
+        {
+          name: "mainBranch",
+          label: "Main branch/office",
+          type: "text",
+          required: true,
+          id: nanoid(),
+          md: 4,
+          sm: 12,
+        },
+        {
+          name: "address",
+          label: "Branch Address",
+          type: "text",
+          required: true,
+          id: nanoid(),
+          md: 4,
+          sm: 12,
+        },
+        {
+          name: "telephoneNo",
+          label: "Telephone No",
+          type: "text",
+          required: true,
+          id: nanoid(),
+          md: 4,
+          sm: 12,
+        },
+        {
+          name: "mobileNo",
+          label: "Mobile No",
+          type: "text",
+          required: true,
+          id: nanoid(),
+          md: 4,
+          sm: 12,
+        },
+        {
+          name: "contactPerson",
+          label: "Contact Person",
+          type: "text",
+          required: true,
+          id: nanoid(),
+          md: 4,
+          sm: 12,
+        },
+      ],
+    },
   ];
   return (
     <div data-aos="zoom-in-right">
-         <Box
+      <Box
         sx={{
           marginBottom: "16px",
           padding: { md: "12px", sm: "5px" },
@@ -99,8 +97,15 @@ console.log(data);
           Branch Details
         </Typography>
       </Box>
-      <RenderInput inputField={BRANCHFIELDs} formik={formik} />
-      <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <RenderInput
+        inputField={BRANCHFIELDs}
+        formik={formik}
+        data={data}
+        loading={loading}
+      />
+      <Grid
+        sx={{ display: "flex", justifyContent: "flex-end", marginTop: "1rem" }}
+      >
         <Button
           onClick={formik.handleSubmit}
           variant="contained"
@@ -111,6 +116,6 @@ console.log(data);
       </Grid>
     </div>
   );
-}
+};
 
 export default BranchCorporateForm;
