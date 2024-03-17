@@ -1,20 +1,13 @@
 import { nanoid } from "@reduxjs/toolkit";
 import React, { useContext } from "react";
-import { corporatOwnershipDetailsForm } from "../../../../form/auth/CorporateDp/CorporatOwnershipDetails/corporatOwnershipDetailsForm";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  Grid,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { useCorporatOwnershipDetailsForm } from "../../../../form/auth/CorporateDp/CorporatOwnershipDetails/corporatOwnershipDetailsForm";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { FieldArray, FormikProvider } from "formik";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
+import { useGetBodCorporate } from "../../../../hooks/Kyc/corporate/BodCorporate/useBodCorporate";
 
 const CorporatOwnershipDetails = () => {
   const theme = useTheme();
@@ -151,7 +144,6 @@ const CorporatOwnershipDetails = () => {
       id: nanoid(),
     },
   ];
-
   const FirstContactField = [
     {
       name: "fcpName",
@@ -198,7 +190,6 @@ const CorporatOwnershipDetails = () => {
       id: nanoid(),
     },
   ];
-
   const SecondContactField = [
     {
       name: "scpName",
@@ -241,7 +232,6 @@ const CorporatOwnershipDetails = () => {
       id: nanoid(),
     },
   ];
-
   const ThirdContactField = [
     {
       name: "trdName",
@@ -299,10 +289,14 @@ const CorporatOwnershipDetails = () => {
     },
   ];
 
-  const { formik } = corporatOwnershipDetailsForm();
-  const form = formik.values.details;
-  const disabled = form && form.some((data) => data.designation === "CEO" || data.designation === "Secretary");
-
+  const { data: ownerShipDetail } = useGetBodCorporate();
+  const { formik } = useCorporatOwnershipDetailsForm(ownerShipDetail);
+  const form = formik.values.detail;
+  const disabled =
+    form &&
+    form.some(
+      (data) => data.designation === "CEO" || data.designation === "Secretary"
+    );
   return (
     <div data-aos="zoom-in-right">
       <Box
@@ -323,11 +317,11 @@ const CorporatOwnershipDetails = () => {
         </Typography>
       </Box>
       <FormikProvider value={formik} {...formik}>
-        <FieldArray name="details">
+        <FieldArray name="detail">
           {({ push, remove }) => {
             return (
-              formik.values.details &&
-              formik.values?.details.map((item, index) => {
+              formik.values.detail &&
+              formik.values?.detail.map((item, index) => {
                 const field = DETAILS.map((d, i) => {
                   return {
                     ...d,
@@ -340,17 +334,21 @@ const CorporatOwnershipDetails = () => {
                         : [
                           { value: "Director", label: "Director" },
 
-                          {
-                            value: "Chief Marketing Officer",
-                            label: "Chief Marketing Officer",
-                          },
-                          {
-                            value: "General Counsel",
-                            label: "General Counsel",
-                          },
-                        ],
-                    isDisabled: disabled && d.name === "designation" && (item.designation === "CEO" || item.designation === "Secretary"),
-                    name: `details.${index}.${d.name}`,
+                            {
+                              value: "Chief Marketing Officer",
+                              label: "Chief Marketing Officer",
+                            },
+                            {
+                              value: "General Counsel",
+                              label: "General Counsel",
+                            },
+                          ],
+                    isDisabled:
+                      disabled &&
+                      d.name === "designation" &&
+                      (item.designation === "CEO" ||
+                        item.designation === "Secretary"),
+                    name: `detail.${index}.${d.name}`,
                   };
                 });
 
@@ -368,8 +366,8 @@ const CorporatOwnershipDetails = () => {
                       <Accordion
                         sx={{
                           background:
-                            formik?.errors?.details &&
-                              formik?.errors?.details[index] !== undefined
+                            formik?.errors?.detail &&
+                            formik?.errors?.detail[index] !== undefined
                               ? "#fff"
                               : "#FFFFFF",
                         }}
@@ -394,7 +392,7 @@ const CorporatOwnershipDetails = () => {
                             formik={formik}
                             index={index}
                             isFieldArray={true}
-                            fieldArrayName="details"
+                            fieldArrayName="detail"
                             pushArray={() => push({})}
                             removeArray={() => remove()}
                           />
@@ -402,7 +400,7 @@ const CorporatOwnershipDetails = () => {
                       </Accordion>
                     </Grid>
                     {index >= 2 &&
-                      index === formik.values.details.length - 1 && (
+                      index === formik.values.detail.length - 1 && (
                         <Button
                           variant="outlined"
                           color="primary"
@@ -425,11 +423,11 @@ const CorporatOwnershipDetails = () => {
                               email: "",
                             })
                           }
-                          disabled={index < formik.values.details.length - 1}
+                          disabled={index < formik.values.detail.length - 1}
                         >
                           <Typography
                             color={
-                              index < formik.values?.details.length - 1
+                              index < formik.values?.detail.length - 1
                                 ? theme.palette.info
                                 : "#6C49B4"
                             }
@@ -439,7 +437,7 @@ const CorporatOwnershipDetails = () => {
                           </Typography>
                         </Button>
                       )}
-                    {index >= 2 && formik.values.details.length > 3 && (
+                    {index >= 2 && formik.values.detail.length > 3 && (
                       <Button
                         variant="outlined"
                         color="secondary"

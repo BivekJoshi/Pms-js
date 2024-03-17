@@ -6,6 +6,7 @@ import { SET_FORM } from "../../../../../redux/types/types";
 import { nextFormPath } from "../../../../../utility/userHelper";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const BranchScheme = Yup.object().shape({
   area: Yup.string().when("otherBranch", {
@@ -31,7 +32,7 @@ const BranchScheme = Yup.object().shape({
   mobileNo: Yup.string().when("otherBranch", {
     is: true,
     then: Yup.string()
-      .matches(phoneRegExp, 'Enter valid mobile number')
+      .matches(phoneRegExp, "Enter valid mobile number")
       .required("Please enter mobile Number."),
     otherwise: Yup.string().nullable(),
   }),
@@ -43,20 +44,35 @@ const BranchScheme = Yup.object().shape({
 });
 
 export const useBranchCorporateForm = (data) => {
+  const [loading, setLoading] = useState(false);
   const { mutate } = useAddBranchDetail({});
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const formik = useFormik({
-    initialValues: {
-      id: data?.id || "",
-      area: data?.area || "",
-      mainBranch: data?.mainBranch || "",
-      address: data?.address || "",
-      telephoneNo: data?.telephoneNo || "",
-      mobileNo: data?.mobileNo || "",
-      contactPerson: data?.contactPerson || "",
-      otherBranch: data?.otherBranch || false,
-    },
+    initialValues:
+      data?.length === 1 && data
+        ? {
+            id: data?.[0].id || "",
+            userId: data?.[0].userId || "",
+            area: data?.[0].area || "",
+            mainBranch: data?.[0].mainBranch || "",
+            address: data?.[0].address || "",
+            telephoneNo: data?.[0].telephoneNo || "",
+            mobileNo: data?.[0].mobileNo || "",
+            contactPerson: data?.[0].contactPerson || "",
+            otherBranch: data?.[0].otherBranch || false,
+          }
+        : {
+            id: "",
+            userId: "",
+            area: "",
+            mainBranch: "",
+            address: "",
+            telephoneNo: "",
+            mobileNo: "",
+            contactPerson: "",
+            otherBranch: false,
+          },
     validationSchema: BranchScheme,
     onSubmit: (value) => {
       if(formik.dirty){
@@ -71,5 +87,5 @@ export const useBranchCorporateForm = (data) => {
       navigate(nextFormPath(5))
     },
   });
-  return { formik };
+  return { formik, loading };
 };

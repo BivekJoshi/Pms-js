@@ -11,7 +11,7 @@ const BranchCorporateForm = () => {
   const { data: branchDetail } = useGetBranchDetail()
   const data = branchDetail;
   const navigate = useNavigate();
-  const { formik } = useBranchCorporateForm(data);
+  const { formik, loading } = useBranchCorporateForm(data);
 
   const BRANCHFIELDs = [
     {
@@ -79,8 +79,7 @@ const BranchCorporateForm = () => {
           sm: 12,
         },
       ],
-
-    }
+    },
   ];
   return (
     <div data-aos="zoom-in-right">
@@ -101,7 +100,7 @@ const BranchCorporateForm = () => {
           Branch Details
         </Typography>
       </Box>
-      <RenderInput inputField={BRANCHFIELDs} formik={formik} />
+      <RenderInput inputField={BRANCHFIELDs} formik={formik} data={data} loading={loading} />
       <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}>
         <Button
           onClick={() => navigate(-1)}
@@ -120,6 +119,6 @@ const BranchCorporateForm = () => {
       </Grid>
     </div>
   );
-}
+};
 
 export default BranchCorporateForm;

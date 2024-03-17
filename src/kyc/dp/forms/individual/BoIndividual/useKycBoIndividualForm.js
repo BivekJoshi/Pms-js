@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useFormik } from "formik";
 import { useAddBODetail } from "../../../../../hooks/Kyc/individual/boStatement/useAddKycBo";
 import { SET_FORM } from "../../../../../redux/types/types";
@@ -36,17 +35,5 @@ export const useKycBoIndividualForm = (data) => {
       }
     },
   });
-
-  useEffect(() => {
-    formik.setValues({
-      isStandingInstructionForAutomaticTxn:
-        data?.isStandingInstructionForAutomaticTxn || false,
-      accountStatementPeriod: data?.accountStatementPeriod || "",
-    });
-  }, [
-    data?.isStandingInstructionForAutomaticTxn,
-    data?.accountStatementPeriod,
-  ]);
-
   return { formik };
 };

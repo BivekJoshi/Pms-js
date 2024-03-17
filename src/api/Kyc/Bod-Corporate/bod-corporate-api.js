@@ -2,9 +2,9 @@ import { axiosInstance } from "../../axiosInterceptor";
 
 /*________________________GET BASIC CORPORATE DETAIL_____________________________________*/
 export const getBodCorporate = async () => {
-    const data = await axiosInstance.get(`/client/corporate-bod-details`);
-    return data;
-  };
+  const { data } = await axiosInstance.get(`/client/corporate-bod-details`);
+  return data;
+};
 
 /*________________________POST BASIC CORPORATE DETAIL_____________________________________*/
 export const addBodCorporate = async (formData) => {

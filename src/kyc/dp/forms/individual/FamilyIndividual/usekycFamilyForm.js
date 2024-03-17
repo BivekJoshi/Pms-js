@@ -6,21 +6,6 @@ import { useDispatch } from "react-redux";
 import { SET_FORM } from "../../../../../redux/types/types";
 import { nextFormPath } from "../../../../../utility/userHelper";
 
-// const personDetailSchema = Yup.object().shape({
-//   fname: Yup.string().when("relationTypeId", {
-//     is: "F",
-//     then: Yup.string().required("Father's name is required"),
-//   }),
-//   mname: Yup.string().nullable(),
-//   lname: Yup.string().when("relationTypeId", {
-//     is: "F",
-//     then: Yup.string().required("Father's last name is required"),
-//   }),
-//   fnameNep: Yup.string().nullable().required("Required"),
-//   mnameNep: Yup.string().nullable(),
-//   lnameNep: Yup.string().nullable().required("Required"),
-// });
-
 const personDetailSchema = Yup.object().shape({
   fname: Yup.string().required("Required"),
   mname: Yup.string().nullable(),
@@ -39,26 +24,23 @@ const validationSchema = Yup.object().shape({
 });
 
 export const useKycFamilyForm = ({ familyData }) => {
-  const getFamilyData =
-    familyData &&
-    familyData?.map((d) => {
-      // console.log(d, "d")
-      return {
-        id: d.id,
-        relationTypeId: d.relationTypeId,
-        relationTypeDesc: d.relationTypeDesc,
-        relationTypeDescNp: d.relationTypeDescNp,
-        userId: d.userId,
-        personDetail: {
-          fname: d.fname,
-          mname: d.mname,
-          lname: d.lname,
-          fnameNep: d.fnameNep,
-          mnameNep: d.mnameNep,
-          lnameNep: d.lnameNep,
-        },
-      };
-    });
+  const getFamilyData = familyData?.map((d) => {
+    return {
+      id: d.id,
+      relationTypeId: d.relationTypeId,
+      relationTypeDesc: d.relationTypeDesc,
+      relationTypeDescNp: d.relationTypeDescNp,
+      userId: d.userId,
+      personDetail: {
+        fname: d.fname,
+        mname: d.mname,
+        lname: d.lname,
+        fnameNep: d.fnameNep,
+        mnameNep: d.mnameNep,
+        lnameNep: d.lnameNep,
+      },
+    };
+  });
   const { mutate } = useAddFamily({});
   const navigate = useNavigate();
   const dispatch = useDispatch();

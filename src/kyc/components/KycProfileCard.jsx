@@ -1,4 +1,4 @@
-import { useTheme } from "@emotion/react"
+import { useTheme } from "@emotion/react";
 import {
   Button,
   Chip,
@@ -7,14 +7,14 @@ import {
   IconButton,
   Tooltip,
   Typography,
-} from "@mui/material"
-import React, { useEffect, useRef, useState } from "react"
-import FormModal from "../../components/formModal/FormModal"
-import CloseIcon from "@mui/icons-material/Close"
-import CustomImageUpload from "./CustomImageUpload"
-import "./imageupload.css"
-import { DOC_URL } from "../../utility/getBaseUrl"
-import { useGetDocument } from "../../hooks/kyc/DocumentUpload/useDocument"
+} from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
+import FormModal from "../../components/formModal/FormModal";
+import CloseIcon from "@mui/icons-material/Close";
+import CustomImageUpload from "./CustomImageUpload";
+import "./imageupload.css";
+import { DOC_URL } from "../../utility/getBaseUrl";
+import { useGetDocument } from "../../hooks/kyc/DocumentUpload/useDocument";
 
 const KycProfileCard = ({
   clientType,
@@ -23,58 +23,58 @@ const KycProfileCard = ({
   isHomePage,
   formStatus,
 }) => {
-  const theme = useTheme()
-  const [open, setOpen] = useState(false)
-  const [stream, setStream] = useState(null)
+  const theme = useTheme();
+  const [open, setOpen] = useState(false);
+  const [stream, setStream] = useState(null);
 
   const { data: documentData, isLoading } = useGetDocument();
 
   const imgUrl = documentData?.data?.ppSizePhoto;
 
-  const videoRef = useRef()
+  const videoRef = useRef();
   const accountType =
-    clientType === "I" ? "Individual" : clientType === "C" ? "Corporate" : ""
-  const accountNature = nature === "DP" ? "Demat" : "TMS"
-  const [capturedImage, setCapturedImage] = useState(null)
+    clientType === "I" ? "Individual" : clientType === "C" ? "Corporate" : "";
+  const accountNature = nature === "DP" ? "Demat" : "TMS";
+  const [capturedImage, setCapturedImage] = useState(null);
 
   const openCamera = async () => {
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: true,
-      })
-      setStream(mediaStream)
-      videoRef.current.srcObject = mediaStream
+      });
+      setStream(mediaStream);
+      videoRef.current.srcObject = mediaStream;
     } catch (error) {
-      console.error("Error accessing camera: ", error)
+      console.error("Error accessing camera: ", error);
     }
-  }
+  };
 
   const capturePicture = () => {
-    const canvas = document.createElement("canvas")
-    canvas.width = videoRef.current.videoWidth
-    canvas.height = videoRef.current.videoHeight
-    canvas.getContext("2d").drawImage(videoRef.current, 0, 0)
-    const imageUrl = canvas.toDataURL("image/png")
+    const canvas = document.createElement("canvas");
+    canvas.width = videoRef.current.videoWidth;
+    canvas.height = videoRef.current.videoHeight;
+    canvas.getContext("2d").drawImage(videoRef.current, 0, 0);
+    const imageUrl = canvas.toDataURL("image/png");
 
-    setCapturedImage(imageUrl)
+    setCapturedImage(imageUrl);
     if (stream) {
-      stream?.getTracks().forEach((track) => track.stop())
-      setStream(null)
+      stream?.getTracks().forEach((track) => track.stop());
+      setStream(null);
     }
-  }
+  };
 
   useEffect(() => {
     return () => {
-      setCapturedImage(null)
-    }
-  }, [open])
+      setCapturedImage(null);
+    };
+  }, [open]);
 
   const handleCloseModal = () => {
-    setOpen(false)
+    setOpen(false);
     if (stream) {
-      stream.getTracks().forEach((track) => track.stop())
+      stream.getTracks().forEach((track) => track.stop());
     }
-  }
+  };
 
   return (
     <Grid
@@ -103,10 +103,14 @@ const KycProfileCard = ({
             gap: "8px",
           }}
         >
-          {imgUrl ?
+          {imgUrl ? (
             <div style={{ width: 101, height: 100 }}>
-              <img src={DOC_URL + imgUrl} style={{ width: "100%", height: "100%", borderRadius: "50%"}} />
-            </div> :
+              <img
+                src={DOC_URL + imgUrl}
+                style={{ width: "100%", height: "100%", borderRadius: "50%" }}
+              />
+            </div>
+          ) : (
             <svg
               width="101"
               height="100"
@@ -120,8 +124,7 @@ const KycProfileCard = ({
                 fill="white"
               />
             </svg>
-          }
-
+          )}
 
           {!isHomePage && (
             <span style={{ position: "absolute", bottom: 0, right: 0 }}>
@@ -158,14 +161,14 @@ const KycProfileCard = ({
           color={
             formStatus === "PENDING"
               ? "warning"
-              : formStatus ===  "SUBMITTED"
+              : formStatus === "SUBMITTED"
                 ? "info"
                 : formStatus === "APPROVED"
                   ? "success"
                   : "error"
           }
         ></Chip>
-        <Typography variant="h6" mt="8px">
+        <Typography variant="h6" mt="8px" textAlign="center">
           {clientName}
         </Typography>
         <Typography variant="h6" textAlign={"center"}>
@@ -177,9 +180,9 @@ const KycProfileCard = ({
           open={open}
           setOpen={() => setOpen(false)}
           onClose={() => {
-            setOpen(false)
+            setOpen(false);
             if (stream) {
-              stream.getTracks().forEach((track) => track.stop())
+              stream.getTracks().forEach((track) => track.stop());
             }
           }}
           width="378px"
@@ -187,7 +190,10 @@ const KycProfileCard = ({
           formComponent={
             <div>
               <div>
-                <CustomImageUpload imgPreview={capturedImage} handleCloseModal={handleCloseModal}/>
+                <CustomImageUpload
+                  imgPreview={capturedImage}
+                  handleCloseModal={handleCloseModal}
+                />
 
                 {!capturedImage && (
                   <>
@@ -212,8 +218,8 @@ const KycProfileCard = ({
                             if (stream) {
                               stream
                                 ?.getTracks()
-                                .forEach((track) => track.stop())
-                              setStream(null)
+                                .forEach((track) => track.stop());
+                              setStream(null);
                             }
                           }}
                         >
@@ -253,7 +259,7 @@ const KycProfileCard = ({
         />
       )}
     </Grid>
-  )
-}
+  );
+};
 
-export default KycProfileCard
+export default KycProfileCard;

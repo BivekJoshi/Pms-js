@@ -113,7 +113,7 @@ const NomineeSchema = Yup.object().shape({
   panNo: Yup.string()
     .min(0)
     .nullable(true)
-    .matches(numberRegExp1, "PAN number must be a number")
+    .matches(/^\d{9}$/, "PAN number must be a 9-digit number")
     .notRequired(),
 });
 

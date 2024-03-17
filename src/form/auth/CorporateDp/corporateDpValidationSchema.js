@@ -32,8 +32,9 @@ const corporateDpValidationSchema = Yup.object({
     .typeError("Please enter registration office")
     .required("Please enter registration office"),
   registrationDate: Yup.mixed().required("Please select registration date"),
-  panNo: Yup.number()
+  panNo: Yup.string()
     .typeError("PAN number must be a number")
+    .matches(/^\d{9}$/, "PAN number must be a 9-digit number")
     .required("Please enter company PAN number"),
   businessType: Yup.string()
     .typeError("Please select business type")

@@ -54,11 +54,10 @@ const BoIndividualDetails = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const { data: boData } = useGetBODetail();
-  const data = boData && boData?.data
+  const data = boData;
   const { formik } = useKycBoIndividualForm(data);
-
   useEffect(() => {
-    setFields(bodFields)
+    setFields(bodFields);
   }, []);
 
   return (
