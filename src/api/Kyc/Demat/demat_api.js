@@ -11,7 +11,7 @@ export const getBasicDetail = async () => {
 /*________________________POST BASIC DETAIL_____________________________________*/
 export const addBasicDetail = async (formData) => {
   const data = await axiosInstance.post(
-    `/client/individual-details?currentForm=1`,
+    `/client/individual-details?currentForm=2`,
     formData
   )
   return data

@@ -1,26 +1,36 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { Grid, Button, useTheme, Typography, Switch, IconButton } from "@mui/material";
-import RenderInput from "../../../../../components/renderInput/RenderInput";
-import { useKycBankForm } from "./usekycBankForm";
-import { Box } from "@mui/system";
-import CustomTable from "../../../../../components/customTable/CustomTable";
+import React, { useEffect, useState, useMemo } from "react"
+import {
+  Grid,
+  Button,
+  useTheme,
+  Typography,
+  Switch,
+  IconButton,
+} from "@mui/material"
+import RenderInput from "../../../../../components/renderInput/RenderInput"
+import { useKycBankForm } from "./usekycBankForm"
+import { Box } from "@mui/system"
+import CustomTable from "../../../../../components/customTable/CustomTable"
 import {
   useDeleteKycBank,
   useGetBankList,
   useGetKycBank,
   useUpdateKycBank,
-} from "../../../../../hooks/Kyc/individual/kycBank/useKycBank";
-import { Delete } from '@mui/icons-material';
-import DeleteConfirmationModal from '../../../../../components/modal/DeleteModal/DeleteConfirmationModal';
+} from "../../../../../hooks/Kyc/individual/kycBank/useKycBank"
+import { Delete } from "@mui/icons-material"
+import DeleteConfirmationModal from "../../../../../components/modal/DeleteModal/DeleteConfirmationModal"
+import { useDispatch } from "react-redux"
+import { SET_FORM } from "../../../../../redux/types/types"
 
 const BankIndividualDpForms = () => {
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const theme = useTheme();
-  const { data: bankListData } = useGetBankList();
-  const { data: bankData } = useGetKycBank();
-  const bankDataField = bankData && bankData?.data;
-  const { formik } = useKycBankForm(bankDataField);
-  const [deletedKycBank, setDeletedKycBank] = useState({});
+  const [openDeleteModal, setOpenDeleteModal] = useState(false)
+  const theme = useTheme()
+  const dispatch = useDispatch()
+  const { data: bankListData } = useGetBankList()
+  const { data: bankData } = useGetKycBank()
+  const bankDataField = bankData && bankData?.data
+  const { formik } = useKycBankForm(bankDataField)
+  const [deletedKycBank, setDeletedKycBank] = useState({})
 
   const BANKFIELDS = [
     {
@@ -143,33 +153,37 @@ const BankIndividualDpForms = () => {
         size: 100,
         sortable: false,
         Cell: (cell) => (
-          <IconButton color="error" onClick={() => handleDeleteRow(cell.row.original)}>
+          <IconButton
+            color="error"
+            onClick={() => handleDeleteRow(cell.row.original)}
+          >
             <Delete />
           </IconButton>
         ),
       },
     ],
     []
-  );
+  )
 
-  const handleCloseDeleteModal = () => setOpenDeleteModal(false);
+  const handleCloseDeleteModal = () => setOpenDeleteModal(false)
 
-  const { deleteKycBankMutation, isSuccess: isDeleteSuccess } = useDeleteKycBank({});
+  const { deleteKycBankMutation, isSuccess: isDeleteSuccess } =
+    useDeleteKycBank({})
 
   const handleDeleteRow = (rowData) => {
-    setDeletedKycBank(rowData);
-    setOpenDeleteModal(true);
-  };
+    setDeletedKycBank(rowData)
+    setOpenDeleteModal(true)
+  }
 
   useEffect(() => {
     if (isDeleteSuccess) {
-      setOpenDeleteModal(false);
+      setOpenDeleteModal(false)
     }
-  }, [isDeleteSuccess]);
+  }, [isDeleteSuccess])
 
   const handleConfirmDelete = () => {
-    deleteKycBankMutation(deletedKycBank?.id);
-  };
+    deleteKycBankMutation(deletedKycBank?.id)
+  }
 
   return (
     <div data-aos="zoom-in-right">
@@ -230,14 +244,11 @@ const BankIndividualDpForms = () => {
           open={openDeleteModal}
           handleCloseModal={handleCloseDeleteModal}
           handleConfirmDelete={handleConfirmDelete}
-          message={'Bank data'}
+          message={"Bank data"}
         />
       )}
     </div>
   )
 }
-
-
-
 
 export default BankIndividualDpForms

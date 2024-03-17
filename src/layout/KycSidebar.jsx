@@ -12,8 +12,7 @@ const KycSidebar = ({
   isHomePage,
   userDetails,
   menuList,
-  data,
-  isLoading,
+
   activeStyle,
   handleChange,
 }) => {
@@ -21,10 +20,11 @@ const KycSidebar = ({
   const mode = useSelector((state) => state?.theme?.mode)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const theme = useMemo(
-    () => createTheme(themeSettings(mode, data?.web)),
-    [mode, data, isLoading]
-  )
+  // const theme = useMemo(
+  //   () => createTheme(themeSettings(mode, data?.web)),
+  //   [mode, data, isLoading]
+  // )
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
 
   return (
     <>
