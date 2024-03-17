@@ -1022,7 +1022,6 @@ const IndividualDPKyc = () => {
             <div className="kyc-secondary-header text-center">
               <h2>पेशागत विवरण (Details of Occupation)</h2>
             </div>
-
             {/* <div className="container"> */}
             <div className="row m-0 p-0 ">
               {/* <!-- occupation --> */}
@@ -1444,6 +1443,8 @@ const IndividualDPKyc = () => {
                 </div>
 
                 {/* <!-- ! bank account number --> */}
+                {/* {userData?.boStatement
+                  ?.isStandingInstructionForAutomaticTxn && ( */}
                 <div className="col-12 border center-y ">
                   <div>
                     <div className="text-capitalize">
@@ -1511,6 +1512,7 @@ const IndividualDPKyc = () => {
                     </div>
                   </div>
                 </div>
+                {/* )} */}
               </div>
               <div className="row m-0 p-0">
                 <p className="text-start">
@@ -1544,7 +1546,7 @@ const IndividualDPKyc = () => {
 
                   <div className="row col-6" style={{ width: "10cm" }}>
                     <div className="col-6 center-xy border">
-                      <div style={{ height: "180px" }}>
+                      <div style={{ height: "160px" }}>
                         {" "}
                         <p>बायाँ (left)</p>
                         {/* {userData?.clientDocument?.leftThumb && extraInfo && (
@@ -1560,7 +1562,7 @@ const IndividualDPKyc = () => {
                       </div>
                     </div>
                     <div className="col-6 center-xy border">
-                      <div style={{ height: "180px" }}>
+                      <div style={{ height: "160px" }}>
                         <p>दायाँ (right)</p>
 
                         {/* {userData?.clientDocument?.rightThumb && extraInfo && (
@@ -1624,7 +1626,7 @@ const IndividualDPKyc = () => {
                       <div className="office-stamp border center-xy">
                         <p
                           className="text-center"
-                          style={{ marginBottom: "9rem" }}
+                          style={{ marginBottom: "6rem" }}
                         >
                           कार्यालयको छाप
                         </p>
@@ -1654,6 +1656,7 @@ const IndividualDPKyc = () => {
               </div>
             </div>
           </section>
+
           {individualDetail?.isMinor && (
             <section className="container pb-1">
               <div>
