@@ -6,6 +6,7 @@ import { FieldArray, FormikProvider } from "formik";
 import { useKycFamilyForm } from "./usekycFamilyForm";
 import { useSelector } from "react-redux";
 import { useGetFamily } from "../../../../../hooks/kyc/family/useFamily";
+import MarriedFamilyTable from "./MarriedFamilyTable";
 import { useNavigate } from "react-router-dom";
 
 const relationField = [
@@ -68,6 +69,91 @@ const relationField = [
     md: 4,
     sm: 6,
     id: nanoid(),
+  },
+];
+
+const MarriedCase = [
+  {
+    type: "switchWithFields",
+    name: "isMarried",
+    label: "Are You Married?",
+    display: "flex",
+    direction: "column",
+    align: "start",
+    col: 12,
+    id: nanoid(),
+    newFields: [
+      {
+        name: "spouse",
+        label: "Spouse",
+        type: "text",
+        id: nanoid(),
+        md: 3,
+        sm: 12,
+      },
+      {
+        name: "fname",
+        label: "First Name",
+        type: "text",
+        id: nanoid(),
+        md: 3,
+        sm: 12,
+      },
+      {
+        name: "mname",
+        label: "Middle Name",
+        type: "text",
+        id: nanoid(),
+        md: 3,
+        sm: 12,
+      },
+      {
+        name: "lname",
+        label: "Last Name",
+        type: "text",
+        id: nanoid(),
+        md: 3,
+        sm: 12,
+      },
+      {
+        name: "relation",
+        label: "Relation",
+        type: "dropDown",
+        options: [
+          { id: 1, value: "father-in-law", label: "Father In Law's " },
+          { id: 2, value: "mother-in-law", label: "Mother In Law's" },
+          { id: 3, value: "daughter-in-law", label: "Daughter In Law's " },
+          // { id: 4, value: "birthCertificate", label: "Birth Certificate" },
+        ],
+        id: nanoid(),
+        md: 3,
+        sm: 12,
+      },
+      {
+        name: "fname",
+        label: "First Name",
+        type: "text",
+        id: nanoid(),
+        md: 3,
+        sm: 12,
+      },
+      {
+        name: "mname",
+        label: "Middle Name",
+        type: "text",
+        id: nanoid(),
+        md: 3,
+        sm: 12,
+      },
+      {
+        name: "lname",
+        label: "Last Name",
+        type: "text",
+        id: nanoid(),
+        md: 3,
+        sm: 12,
+      },
+    ],
   },
 ];
 
@@ -139,9 +225,41 @@ const FamilyIndividualDpForms = () => {
           </FieldArray>
         </FormikProvider>
       </Grid>
+      <Grid display="flex" gap={4} flexDirection="column">
+        <div>
+          <RenderInput inputField={MarriedCase} formik={formik} />
+          <Grid
+            display="flex"
+            gap={2}
+            flexDirection="row"
+            justifyContent="end"
+            mt={2}
+          >
+            <Button
+              onClick={formik.handleSubmit}
+              variant="outlined"
+              color="secondary"
+            >
+              + Add
+            </Button>
+            <Button
+              onClick={formik.handleSubmit}
+              variant="outlined"
+              style={{ color: "red", border: "1px solid red" }}
+            >
+              Clear
+            </Button>
+          </Grid>
+        </div>
+        <MarriedFamilyTable />
+      </Grid>
       <Grid
         marginBlock={2}
-        sx={{ display: "flex", justifyContent: "space-between", marginTop: '1rem' }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "1rem",
+        }}
       >
         <Button
           onClick={() => navigate(-1)}
