@@ -3,8 +3,6 @@ import { useGetMarketIndex } from "../../hooks/dashboard/useDashboard";
 import { Alert, Button, Grid, Typography, useTheme } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { useSelector } from "react-redux";
-import { getUser } from "../../utility/userHelper";
 import { useNavigate } from "react-router-dom";
 
 const MarketIndexNav = () => {
