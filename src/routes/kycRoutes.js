@@ -1,67 +1,78 @@
 import _ from "lodash";
 import { nanoid } from "nanoid";
 import React, { lazy, useContext, useState } from "react";
-import IndividualTmsKyc from "../kyc/ViewKyc/Individual/IndividualTmsKyc";
-import CorporateDpKyc from "../kyc/ViewKyc/corporate/CorporateDpKyc";
-import CorporateTmsKyc from "../kyc/ViewKyc/corporate/CorporateTmsKyc";
 // import BranchCorporateForm from "../kyc/dp/forms/corporate/BranchCorporate/BranchCorporateForm";
 
 /*---------------------------INDIVIDUAL--------------------------------------------------------------*/
-const BasicIndividualDpForms = React.lazy(() =>
-  import("../kyc/dp/forms/individual/BasicIndividualDpForms")
+const BasicIndividualDpForms = React.lazy(
+  () => import("../kyc/dp/forms/individual/BasicIndividualDpForms")
 );
-const IndividualDocument = React.lazy(() =>
-  import("../kyc/pages/IndividualDocument")
+const IndividualDocument = React.lazy(
+  () => import("../kyc/pages/IndividualDocument")
 );
-const IndividualAddress = React.lazy(() =>
-  import("../kyc/pages/IndividualAddress")
+const IndividualAddress = React.lazy(
+  () => import("../kyc/pages/IndividualAddress")
 );
-const FamilyIndividualDpForms = React.lazy(() =>
-  import("../kyc/dp/forms/individual/FamilyIndividual/FamilyIndividualDpForms")
+const FamilyIndividualDpForms = React.lazy(
+  () =>
+    import(
+      "../kyc/dp/forms/individual/FamilyIndividual/FamilyIndividualDpForms"
+    )
 );
-const BankIndividualDpForms = React.lazy(() =>
-  import("../kyc/dp/forms/individual/BankIndividual/BankIndividualDpForms")
+const BankIndividualDpForms = React.lazy(
+  () =>
+    import("../kyc/dp/forms/individual/BankIndividual/BankIndividualDpForms")
 );
-const NomineeDpForms = React.lazy(() =>
-  import("../kyc/dp/forms/individual/NomineeIndividual/NomineeDpForms")
+const NomineeDpForms = React.lazy(
+  () => import("../kyc/dp/forms/individual/NomineeIndividual/NomineeDpForms")
 );
-const IndividualDPKyc = React.lazy(() =>
-  import("../kyc/ViewKyc/Individual/IndividualDPKyc")
+const IndividualDPKyc = React.lazy(
+  () => import("../kyc/ViewKyc/Individual/IndividualDPKyc")
 );
-const AmlCft = React.lazy(() =>
-  import("../kyc/dp/forms/individual/Aml-Cft/AmlCft")
+const CorporateDpKyc = React.lazy(
+  () => import("../kyc/ViewKyc/corporate/CorporateDpKyc")
 );
-const OccupationsIndividualForms = React.lazy(() =>
-  import(
-    "../kyc/dp/forms/individual/OccupationIndividual/OccupationsIndividualForms"
-  )
+const IndividualTmsKyc = React.lazy(
+  () => import("../kyc/ViewKyc/Individual/IndividualTmsKyc")
 );
-const BoIndividualDetails = React.lazy(() =>
-  import("../kyc/dp/forms/individual/BoIndividual/BoIndividualDetails")
+const CorporateTmsKyc = React.lazy(
+  () => import("../kyc/ViewKyc/corporate/CorporateTmsKyc")
+);
+const AmlCft = React.lazy(
+  () => import("../kyc/dp/forms/individual/Aml-Cft/AmlCft")
+);
+const OccupationsIndividualForms = React.lazy(
+  () =>
+    import(
+      "../kyc/dp/forms/individual/OccupationIndividual/OccupationsIndividualForms"
+    )
+);
+const BoIndividualDetails = React.lazy(
+  () => import("../kyc/dp/forms/individual/BoIndividual/BoIndividualDetails")
 );
 /*---------------------------INDIVIDUAL--------------------------------------------------------------*/
 
 /*---------------------------CORPORATE--------------------------------------------------------------*/
-const CorporateDetailsDp = React.lazy(() =>
-  import("../kyc/dp/forms/corporate/CorporateDetailsDp")
+const CorporateDetailsDp = React.lazy(
+  () => import("../kyc/dp/forms/corporate/CorporateDetailsDp")
 );
-const CorporateAddress = React.lazy(() =>
-  import("../kyc/pages/CorporateAddress")
+const CorporateAddress = React.lazy(
+  () => import("../kyc/pages/CorporateAddress")
 );
-const CorporateBoStatement = React.lazy(() =>
-  import("../kyc/dp/forms/corporate/CorporatBoStatement")
+const CorporateBoStatement = React.lazy(
+  () => import("../kyc/dp/forms/corporate/CorporatBoStatement")
 );
-const CorporatOwnershipDetails = React.lazy(() =>
-  import("../kyc/dp/forms/corporate/CorporatOwnershipDetails")
+const CorporatOwnershipDetails = React.lazy(
+  () => import("../kyc/dp/forms/corporate/CorporatOwnershipDetails")
 );
-const CorporatBankDetail = React.lazy(() =>
-  import("../kyc/dp/forms/corporate/CorporatBankDetail")
+const CorporatBankDetail = React.lazy(
+  () => import("../kyc/dp/forms/corporate/CorporatBankDetail")
 );
-const BranchCorporateForm = React.lazy(() =>
-  import("../kyc/dp/forms/corporate/BranchCorporate/BranchCorporateForm")
+const BranchCorporateForm = React.lazy(
+  () => import("../kyc/dp/forms/corporate/BranchCorporate/BranchCorporateForm")
 );
-const CorporateDocument = React.lazy(() =>
-  import("../kyc/pages/CorporateDocument")
+const CorporateDocument = React.lazy(
+  () => import("../kyc/pages/CorporateDocument")
 );
 /*---------------------------CORPORATE--------------------------------------------------------------*/
 
@@ -147,7 +158,7 @@ export const kycDpCorporateRoutes = [
   {
     path: "demat-registration/c/detail-verification",
     id: 6,
-    component: IndividualDPKyc,
+    component: CorporateDpKyc,
   },
   {
     path: "demat-registration/c/corporate-branch-detail",
