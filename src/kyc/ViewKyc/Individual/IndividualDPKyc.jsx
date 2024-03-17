@@ -1,13 +1,42 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./kycIndividual.css";
 import ReactToPrint from "react-to-print";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import IndividualKycPdf from "../../pdf/component/IndividualKycPdf";
-import DpMeroShare from '../DpMeroShare';
+import DpMeroShare from "../DpMeroShare";
+import { getUser } from "../../../utility/userHelper";
+import { useGetMetaData } from "../../hooks/useMetaDataKyc";
+import dateConverter from "../../../utility/dateConverter";
+import KycMap from "../KycMap/KycMap";
+import domtoimage from "dom-to-image";
 
 const IndividualDPKyc = () => {
   const componentRef = useRef();
+  const { A: userId } = getUser();
+  const { data: userData } = useGetMetaData(userId);
+  const individualDetail = userData?.individualDetails;
+  const checkGender = (input_gender) => {
+    return input_gender === individualDetail?.gender ? true : false;
+  };
+  const currentAddressDetails = userData.addressDetails?.filter(
+    (address) => address.addressType === "T"
+  );
 
+  const permanentAddressDetails = userData.addressDetails?.filter(
+    (address) => address.addressType === "P"
+  );
+
+  const mapRef = useRef();
+
+  useEffect(() => {
+    if (mapRef?.current && currentAddressDetails[0]?.latitude) {
+      domtoimage
+        .toPng(mapRef?.current, { width: 800, height: 400 })
+        .then((dataUrl) => {
+          setmapImage(dataUrl);
+        });
+    }
+  }, [currentAddressDetails]);
   return (
     <div className="container dpkyc">
       <div className="bg-white text-dark p-md-3 font1 dpkyc">
@@ -32,10 +61,7 @@ const IndividualDPKyc = () => {
           {/* Header */}
           <section className="container pb-1">
             {/* <!-- Header section --> */}
-            <header
-              className="text-center"
-              style={{ position: "relative" }}
-            >
+            <header className="text-center" style={{ position: "relative" }}>
               <h2 className="">अनुसूची १२</h2>
               <p className="">(विनियम २० संग सम्बन्धित)</p>
               <h2 className="text-decoration-underline fs18">
@@ -48,27 +74,24 @@ const IndividualDPKyc = () => {
               <div className="text-center d-flex flex-column align-items-center">
                 <p>(दोश्रो संशोधन, २०७३ अनुसार संशोधित गरिएको)</p>
               </div>
-              <div
-                id="photo"
-              // key={userData?.clientDocument?.ppSizePhoto}
-              >
-                {/* {userData?.clientDocument?.ppSizePhoto && (
-                <img
-                  className="employee-pp-photo-kyc"
-                  style={{
-                    position: "absolute",
-                    top: "0px",
-                    right: "20px",
-                    height: "150px",
-                    width: "150px",
-                  }}
-                  id="photo"
-                  src={
-                    getPicCoresPorxyURL() +
-                    userData?.clientDocument?.ppSizePhoto
-                  }
-                />
-              )} */}
+              <div id="photo" key={userData?.clientDocument?.ppSizePhoto}>
+                {userData?.clientDocument?.ppSizePhoto && (
+                  <img
+                    className="employee-pp-photo-kyc"
+                    style={{
+                      position: "absolute",
+                      top: "0px",
+                      right: "20px",
+                      height: "150px",
+                      width: "150px",
+                    }}
+                    id="photo"
+                    src={
+                      // getPicCoresPorxyURL() +
+                      userData?.clientDocument?.ppSizePhoto
+                    }
+                  />
+                )}
               </div>
             </header>
           </section>
@@ -77,17 +100,14 @@ const IndividualDPKyc = () => {
             <div className="container">
               <div>
                 <div className="text-center kyc-secondary-header text-capitalize">
-
                   कार्यालय प्रयोजनका लागि मात्र (For official use only)
-
                 </div>
 
-                {/* <div className="container"> */}
                 <div className="row m-0 p-0">
                   <div className="col-4 col-md-4 col-lg-4 border center-y ">
                     <div>
                       आवेदन नं. (App No.):
-                      {/* {user?.submissionNo} */}
+                      {userData?.user?.submissionNo}
                     </div>
                   </div>
 
@@ -96,7 +116,7 @@ const IndividualDPKyc = () => {
                       <div></div>
                       <div>
                         संकेत नं. (Ref Number):
-                        {/* {user?.referenceNumber} */}
+                        {userData?.user?.referenceNumber}
                       </div>
                     </div>
                   </div>
@@ -105,23 +125,18 @@ const IndividualDPKyc = () => {
                     <div>
                       <div>
                         मिति (Date):
-                        {/* {user?.submittedDate} */}
+                        {userData?.user?.submittedDate}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* </div> */}
-              {/* {userData?.user?.nature === "TMS" && ( */}
-              {/* <div className="container"> */}
               <div className="row m-0 p-0">
                 <div className="col-12  p-1 border border center-y">
                   हितग्राहीको खाता नं. (BOID No):
-                  {/* {user?.boid} */}
+                  {userData?.user?.boid}
                 </div>
               </div>
-              {/* </div> */}
-              {/* )} */}
             </div>
             <div className="container">
               <div className="row">
@@ -130,9 +145,9 @@ const IndividualDPKyc = () => {
                     className="my-2 mt-4 fs13"
                     style={{ fontSize: "15px", fontWeight: "600" }}
                   >
-                    तल उल्लेखित सम्पूर्ण विवरण राम्रोसंग भर्नु पर्नेछ ।
-                    आफूसंग सरोकार नभएको विवरण उल्लेख गर्ने कोठामा तेर्सो
-                    धर्को तानिदिनु होला ।
+                    तल उल्लेखित सम्पूर्ण विवरण राम्रोसंग भर्नु पर्नेछ । आफूसंग
+                    सरोकार नभएको विवरण उल्लेख गर्ने कोठामा तेर्सो धर्को तानिदिनु
+                    होला ।
                   </p>
 
                   <p
@@ -145,11 +160,11 @@ const IndividualDPKyc = () => {
                   {/* <!-- Row htmlFor name of stock broker --> */}
                   <div className="d-flex" style={{ gap: "16px" }}>
                     <div className="">
-                      निक्षेप सदस्यको नाम (Name of Depository Participant)
-                      :
+                      निक्षेप सदस्यको नाम (Name of Depository Participant) :
                     </div>
                     <p className="dotted-underline">
-                      {/* {user?.dpDetails && user?.dpDetails?.dpName} */}
+                      {userData?.user?.dpDetails &&
+                        userData?.user?.dpDetails?.dpName}
                     </p>
                   </div>
                   <div style={{ display: "flex", gap: "16px" }}>
@@ -158,7 +173,8 @@ const IndividualDPKyc = () => {
                     </div>
                     <div>
                       <p className="dotted-underline">
-                        {/* {user?.branch && user?.branch?.branchName} */}
+                        {userData?.user?.branch &&
+                          userData?.user?.branch?.branchName}
                       </p>
                     </div>
                   </div>
@@ -181,7 +197,7 @@ const IndividualDPKyc = () => {
                         type="checkbox"
                         readOnly
                         htmlFor="typeOfAccount"
-                      //   checked={!individualDetail?.isNrn}
+                        checked={!individualDetail?.isNrn}
                       />
                       <div className="m-2">
                         {" "}
@@ -194,7 +210,7 @@ const IndividualDPKyc = () => {
                         type="checkbox"
                         readOnly
                         htmlFor="typeOfAccount"
-                      //   checked={individualDetail?.isNrn}
+                        checked={individualDetail?.isNrn}
                       />
                       <div className="m-2">
                         {" "}
@@ -207,9 +223,9 @@ const IndividualDPKyc = () => {
                         type="checkbox"
                         readOnly
                         htmlFor="typeOfAccount"
-                      //   checked={
-                      //     individualDetail?.individualAccountType === "FIG"
-                      //   }
+                        checked={
+                          individualDetail?.individualAccountType === "FIG"
+                        }
                       />
                       <div className="m-2">
                         {" "}
@@ -237,7 +253,7 @@ const IndividualDPKyc = () => {
 
               <div className="col-8 col-md-8 border center-y text-uppercase">
                 <div className="letter-box-container">
-                  {/* {individualDetail?.middleName === null
+                  {individualDetail?.middleName === null
                     ? individualDetail?.firstName
                         .split("")
                         .map((letter, index) => (
@@ -255,7 +271,7 @@ const IndividualDPKyc = () => {
                           <div key={index} className="letter-box">
                             {letter}
                           </div>
-                        ))} */}
+                        ))}
                 </div>
               </div>
               <div className="col-4 border center-y ">
@@ -263,7 +279,7 @@ const IndividualDPKyc = () => {
               </div>
 
               <div className="col-8  border center-y   ">
-                {/* <div>{individualDetail?.clientNameNepali}</div> */}
+                <div>{individualDetail?.clientNameNepali}</div>
               </div>
 
               {/* <!-- ! date of birth --> */}
@@ -280,7 +296,7 @@ const IndividualDPKyc = () => {
                       <label className="form-check-label" htmlFor="bs">
                         बि. सं. (B.S.):
                       </label>
-                      {/* &nbsp;{individualDetail?.dob} */}
+                      &nbsp;{individualDetail?.dob}
                     </div>
                   </div>
 
@@ -289,7 +305,7 @@ const IndividualDPKyc = () => {
                       <label className="form-check-label" htmlFor="ad">
                         इ. सं (A.D.):{" "}
                       </label>
-                      {/* &nbsp;{dateConverter(individualDetail?.dob, "BS_AD")} */}
+                      &nbsp;{dateConverter(individualDetail?.dob, "BS_AD")}
                     </div>
                   </div>
                 </div>
@@ -313,7 +329,7 @@ const IndividualDPKyc = () => {
                     <input
                       type="radio"
                       className="form-check-input "
-                      //   checked={checkGender("M")}
+                      checked={checkGender("M")}
                       readOnly
                     />
                   </div>
@@ -327,7 +343,7 @@ const IndividualDPKyc = () => {
                     <input
                       type="radio"
                       className="form-check-input"
-                      //   checked={checkGender("F")}
+                      checked={checkGender("F")}
                       readOnly
                     />
                   </div>
@@ -346,7 +362,7 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                    //   checked={checkGender("O")}
+                      checked={checkGender("O")}
                     />
                   </div>
                 </div>
@@ -358,23 +374,18 @@ const IndividualDPKyc = () => {
             {/* <div className="container"> */}
             <div className="row m-0 p-0">
               {/* <!-- Nationality row --> */}
-              <div className="col-4 border">
-                राष्ट्रियता (Nationality)
-              </div>
+              <div className="col-4 border">राष्ट्रियता (Nationality)</div>
               <div className="col-8 d-flex gap-4 border d-flex ">
                 <div>
                   <div className="form-check">
-                    <label
-                      className="form-check-label"
-                      htmlFor="nepalese"
-                    >
+                    <label className="form-check-label" htmlFor="nepalese">
                       नेपाली (Nepalese)
                     </label>
                     <input
                       type="radio"
                       className="form-check-input"
                       readOnly
-                    //   checked={!individualDetail?.isNrn}
+                      checked={!individualDetail?.isNrn}
                     />
                   </div>
                 </div>
@@ -387,18 +398,18 @@ const IndividualDPKyc = () => {
                       htmlFor="other_nationality"
                     >
                       अन्य (Others) खुलाउने (if any){" "}
-                      {/* {individualDetail?.isNrn && (
+                      {individualDetail?.isNrn && (
                         <span className="dotted-underline">
                           {individualDetail?.isNrn}
                         </span>
-                      )} */}
+                      )}
                     </label>
                     <input
                       type="radio"
                       className="form-check-input"
                       id="other_nationality"
                       name="nationality"
-                    //   checked={individualDetail?.isNrn}
+                      checked={individualDetail?.isNrn}
                     />
                   </div>
                 </div>
@@ -414,9 +425,9 @@ const IndividualDPKyc = () => {
                 </div>
 
                 <div className="col-8 border center-y">
-                  {/* {individualDetail?.citizenshipNo
-                  ? individualDetail?.citizenshipNo
-                  : ""} */}
+                  {individualDetail?.citizenshipNo
+                    ? individualDetail?.citizenshipNo
+                    : ""}
                 </div>
               </div>
               <div className="row m-0 p-0">
@@ -427,7 +438,7 @@ const IndividualDPKyc = () => {
                 </div>
 
                 <div className="col-8 border center-y text-capitalize">
-                  {/* {individualDetail?.issuedDistrict} */}
+                  {individualDetail?.issuedDistrict}
                 </div>
               </div>
               <div className="row m-0 p-0">
@@ -438,7 +449,7 @@ const IndividualDPKyc = () => {
                 </div>
 
                 <div className="col-8 border center-y">
-                  {/* {individualDetail?.issuedDate} */}
+                  {individualDetail?.issuedDate}
                 </div>
               </div>
               <div className="row m-0 p-0">
@@ -451,7 +462,7 @@ const IndividualDPKyc = () => {
 
                 <div className="col-8 border center-y">
                   <div className="letter-space-3">
-                    {/* {user?.boid ? user?.boid : ""} */}
+                    {userData?.user?.boid ? userData?.user?.boid : ""}
                   </div>
                 </div>
               </div>
@@ -465,42 +476,42 @@ const IndividualDPKyc = () => {
 
                 <div className="col-8 border center-y">
                   <div className="letter-space-3">
-                    {/* {individualDetail?.panNo} */}
+                    {individualDetail?.panNo}
                   </div>
                 </div>
               </div>
               <div className="row m-0 p-0">
                 {/* <!-- ! Identification Number and Address --> */}
-                {/* {individualDetail?.nrnNo !== "" && ( */}
-                <div className="col-4 border center-y ">
-                  <div>
-                    <div>गैरआवासिय नेपालीको हकमा परिचयपत्र </div>
-                    <div className="text-capitalize">
-                      Identification No.(Incase of NRN)
+                {individualDetail?.nrnNo !== "" && (
+                  <div className="col-4 border center-y ">
+                    <div>
+                      <div>गैरआवासिय नेपालीको हकमा परिचयपत्र </div>
+                      <div className="text-capitalize">
+                        Identification No.(Incase of NRN)
+                      </div>
                     </div>
                   </div>
-                </div>
-                {/* )} */}
-                {/* {individualDetail?.nrnNo !== "" && (
-                <div className="col-6 col-md-8 border center-y">
-                  {individualDetail?.c || ""}
-                </div>
-              )} */}
-                {/* {individualDetail?.nrnNo !== "" && ( */}
-                <div className="col-8 border center-y ">
-                  <div>
-                    {/* <div>गैरआवासिय नेपालीको हकमा ठेगाना</div>
-                          <div className="text-capitalize">
-                            Address (Incase of NRN)
-                          </div> */}
+                )}
+                {individualDetail?.nrnNo !== "" && (
+                  <div className="col-6 col-md-8 border center-y">
+                    {individualDetail?.c || ""}
                   </div>
-                </div>
-                {/* )} */}
-                {/* {individualDetail?.nrnNo !== "" && (
-                <div className="col-6 col-md-8 border center-y">
-                  {individualDetail?.nrn_address || ""}
-                </div>
-              )} */}
+                )}
+                {individualDetail?.nrnNo !== "" && (
+                  <div className="col-8 border center-y ">
+                    <div>
+                      <div>गैरआवासिय नेपालीको हकमा ठेगाना</div>
+                      <div className="text-capitalize">
+                        Address (Incase of NRN)
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {individualDetail?.nrnNo !== "" && (
+                  <div className="col-6 col-md-8 border center-y">
+                    {individualDetail?.nrn_address || ""}
+                  </div>
+                )}
               </div>
             </div>
           </section>
@@ -521,8 +532,8 @@ const IndividualDPKyc = () => {
               </div>
 
               <div className="col-6 col-md-3 border center-y">
-                {/* {permanentAddressDetails?.[0]?.country &&
-                  permanentAddressDetails?.[0]?.country} */}
+                {permanentAddressDetails?.[0]?.country &&
+                  permanentAddressDetails?.[0]?.country}
               </div>
 
               {/* <!-- Province --> */}
@@ -532,22 +543,22 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {permanentAddressDetails?.[0]?.province} */}
+                {permanentAddressDetails?.[0]?.province}
               </div>
 
               {/* <!-- Pality --> */}
-              <div className="col-6 border   center-y">
+              <div className="col-8 border   center-y">
                 <div>
                   <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.</div>
 
                   <div>
-                    Rural Municipality / Municipality / Sub Metropolitan
-                    city / Metropolitan city :
+                    Rural Municipality / Municipality / Sub Metropolitan city /
+                    Metropolitan city :
                   </div>
                 </div>
               </div>
-              <div className=" col-6 border center-y">
-                {/* {permanentAddressDetails?.[0]?.municipality} */}
+              <div className=" col-4 border center-y">
+                {permanentAddressDetails?.[0]?.municipality}
               </div>
 
               {/* <!-- ! District --> */}
@@ -557,7 +568,7 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y text-capitalize">
-                {/* {permanentAddressDetails?.[0]?.district} */}
+                {permanentAddressDetails?.[0]?.district}
               </div>
 
               {/* <!-- ! Ward Nol --> */}
@@ -567,7 +578,7 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {permanentAddressDetails?.[0]?.wordNo} */}
+                {permanentAddressDetails?.[0]?.wordNo}
               </div>
 
               {/* <!-- Tole --> */}
@@ -577,7 +588,7 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border text-capitalize center-y">
-                {/* {permanentAddressDetails?.[0]?.tole} */}
+                {permanentAddressDetails?.[0]?.tole}
               </div>
 
               {/* <!-- Telephone --> */}
@@ -588,7 +599,7 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {permanentAddressDetails?.[0]?.telephoneNo} */}
+                {permanentAddressDetails?.[0]?.telephoneNo}
               </div>
 
               {/* <!-- MObile --> */}
@@ -598,7 +609,7 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {permanentAddressDetails?.[0]?.mobileNo} */}
+                {permanentAddressDetails?.[0]?.mobileNo}
               </div>
 
               {/* <!-- email --> */}
@@ -608,7 +619,7 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {permanentAddressDetails?.[0]?.email} */}
+                {permanentAddressDetails?.[0]?.email}
               </div>
             </div>
             {/* </div> */}
@@ -629,7 +640,7 @@ const IndividualDPKyc = () => {
               </div>
 
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.country} */}
+                {currentAddressDetails?.[0]?.country}
               </div>
 
               {/* <!-- Province --> */}
@@ -639,22 +650,22 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.province} */}
+                {currentAddressDetails?.[0]?.province}
               </div>
 
               {/* <!-- Pality --> */}
-              <div className="col-6 border center-y">
+              <div className="col-8 border center-y">
                 <div>
                   <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.</div>
 
                   <div>
-                    Rural Municipality / Municipality / Sub Metropolitan
-                    city / Metropolitan city :
+                    Rural Municipality / Municipality / Sub Metropolitan city /
+                    Metropolitan city :
                   </div>
                 </div>
               </div>
-              <div className=" col-6 border center-y">
-                {/* {currentAddressDetails?.[0]?.municipality} */}
+              <div className=" col-4 border center-y">
+                {currentAddressDetails?.[0]?.municipality}
               </div>
 
               {/* <!-- ! District --> */}
@@ -664,7 +675,7 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y text-capitalize">
-                {/* {currentAddressDetails?.[0]?.district} */}
+                {currentAddressDetails?.[0]?.district}
               </div>
 
               {/* <!-- ! Ward Nol --> */}
@@ -674,7 +685,7 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.wordNo} */}
+                {currentAddressDetails?.[0]?.wordNo}
               </div>
 
               {/* <!-- Tole --> */}
@@ -684,7 +695,7 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border text-capitalize center-y">
-                {/* {currentAddressDetails?.[0]?.tole} */}
+                {currentAddressDetails?.[0]?.tole}
               </div>
 
               {/* <!-- Telephone --> */}
@@ -695,7 +706,7 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.telephoneNo} */}
+                {currentAddressDetails?.[0]?.telephoneNo}
               </div>
 
               {/* <!-- MObile --> */}
@@ -705,7 +716,7 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.mobileNo} */}
+                {currentAddressDetails?.[0]?.mobileNo}
               </div>
 
               {/* <!-- email --> */}
@@ -715,35 +726,32 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.email} */}
+                {currentAddressDetails?.[0]?.email}
               </div>
             </div>
             {/* </div> */}
           </section>
           {/* Map values in this section wit lat and long */}
-          <section
-            className="container mt-2"
-          // key={currentAddressDetails}
-          >
+          <section className="container mt-2" key={currentAddressDetails}>
             <b>हाल बसोबास रहेको स्थानको नक्सा (Location map)</b>
             <div
               className="location-map border d-flex flex-column justify-content-between mb-3"
               style={{ height: "10cm" }}
-            // ref={mapRef}
-            // key={currentAddressDetails}
+              ref={mapRef}
+              key={currentAddressDetails}
             >
-              {/* <KycMap
-              latitude={
-                currentAddressDetails && currentAddressDetails[0]?.latitude
-                  ? currentAddressDetails[0]?.latitude
-                  : 0
-              }
-              longitude={
-                currentAddressDetails && currentAddressDetails[0]?.longitude
-                  ? currentAddressDetails[0]?.longitude
-                  : 0
-              }
-            /> */}
+              <KycMap
+                latitude={
+                  currentAddressDetails && currentAddressDetails[0]?.latitude
+                    ? currentAddressDetails[0]?.latitude
+                    : 0
+                }
+                longitude={
+                  currentAddressDetails && currentAddressDetails[0]?.longitude
+                    ? currentAddressDetails[0]?.longitude
+                    : 0
+                }
+              />
               <div className="row mt-2">
                 <div className="col-6 text-capitalize">
                   latitude :{" "}
@@ -905,7 +913,7 @@ const IndividualDPKyc = () => {
                       className="form-check-input"
                       id="saving_account"
                       name="account_type"
-                    //   checked={checkAccountType("S")}
+                      //   checked={checkAccountType("S")}
                     />
                   </div>
                 </div>
@@ -929,7 +937,7 @@ const IndividualDPKyc = () => {
                       className="form-check-input"
                       id="current_account"
                       name="account_type"
-                    //   checked={checkAccountType("C")}
+                      //   checked={checkAccountType("C")}
                     />
                   </div>
                 </div>
@@ -1041,31 +1049,25 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                    //   checked={checkOccupation("Public Sector")}
+                      //   checked={checkOccupation("Public Sector")}
                     />
                   </div>
                 </div>
 
                 <div className="col-3 col-md-6 col-lg-3 ">
                   <div className="form-check">
-                    <label
-                      className="form-check-label"
-                      htmlFor="ngo_ingo"
-                    >
+                    <label className="form-check-label" htmlFor="ngo_ingo">
                       निजी क्षेत्र
                     </label>
                     <br />
-                    <label
-                      className="form-check-label"
-                      htmlFor="ngo_ingo"
-                    >
+                    <label className="form-check-label" htmlFor="ngo_ingo">
                       (Private Sector)
                     </label>
                     <input
                       type="radio"
                       className="form-check-input"
                       readOnly
-                    //   checked={checkOccupation("Private Sector")}
+                      //   checked={checkOccupation("Private Sector")}
                     />
                   </div>
                 </div>
@@ -1089,31 +1091,25 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                    //   checked={checkOccupation("BUSINESS")}
+                      //   checked={checkOccupation("BUSINESS")}
                     />
                   </div>
                 </div>
 
                 <div className="col-3 col-md-6 col-lg-3 ">
                   <div className="form-check">
-                    <label
-                      className="form-check-label"
-                      htmlFor="agriculture"
-                    >
+                    <label className="form-check-label" htmlFor="agriculture">
                       कृषि
                     </label>
                     <br />
-                    <label
-                      className="form-check-label"
-                      htmlFor="agriculture"
-                    >
+                    <label className="form-check-label" htmlFor="agriculture">
                       (Agriculture)
                     </label>
                     <input
                       type="radio"
                       className="form-check-input"
                       readOnly
-                    //   checked={checkOccupation("FARMER")}
+                      //   checked={checkOccupation("FARMER")}
                     />
                   </div>
                 </div>
@@ -1131,53 +1127,41 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                    //   checked={checkOccupation("RETIRED")}
+                      //   checked={checkOccupation("RETIRED")}
                     />
                   </div>
                 </div>
                 <div className="col-3 col-md-6 col-lg-3 ">
                   <div className="form-check">
-                    <label
-                      className="form-check-label"
-                      htmlFor="house_wife"
-                    >
+                    <label className="form-check-label" htmlFor="house_wife">
                       व्यावसायिक
                     </label>
                     <br />
-                    <label
-                      className="form-check-label"
-                      htmlFor="house_wife"
-                    >
+                    <label className="form-check-label" htmlFor="house_wife">
                       (Professional)
                     </label>
                     <input
                       type="radio"
                       className="form-check-input"
                       readOnly
-                    //   checked={checkOccupation("PROFESSIONAL")}
+                      //   checked={checkOccupation("PROFESSIONAL")}
                     />
                   </div>
                 </div>
                 <div className="col-3 col-md-6 col-lg-3 ">
                   <div className="form-check">
-                    <label
-                      className="form-check-label"
-                      htmlFor="house_wife"
-                    >
+                    <label className="form-check-label" htmlFor="house_wife">
                       गृहिणी
                     </label>
                     <br />
-                    <label
-                      className="form-check-label"
-                      htmlFor="house_wife"
-                    >
+                    <label className="form-check-label" htmlFor="house_wife">
                       (Housewife)
                     </label>
                     <input
                       type="radio"
                       className="form-check-input"
                       readOnly
-                    //   checked={checkOccupation("HOUSEWIFE")}
+                      //   checked={checkOccupation("HOUSEWIFE")}
                     />
                   </div>
                 </div>
@@ -1195,7 +1179,7 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                    //   checked={checkOccupation("STUDENT")}
+                      //   checked={checkOccupation("STUDENT")}
                     />
                   </div>
                 </div>
@@ -1219,7 +1203,7 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                    //   checked={checkOccupation("OTHERS")}
+                      //   checked={checkOccupation("OTHERS")}
                     />
                   </div>
                 </div>
@@ -1239,17 +1223,14 @@ const IndividualDPKyc = () => {
                 style={{ rowGap: "1rem" }}
               >
                 <div className="form-check col-12 col-md-6 col-lg-4 col-print-md-6 ">
-                  <label
-                    className="form-check-label"
-                    htmlFor="manifacturing"
-                  >
+                  <label className="form-check-label" htmlFor="manifacturing">
                     उत्पादन (Manufacturing)
                   </label>
                   <input
                     type="radio"
                     className="form-check-input"
                     readOnly
-                  // checked={checkBusiness("MA")}
+                    // checked={checkBusiness("MA")}
                   />
                 </div>
 
@@ -1264,7 +1245,7 @@ const IndividualDPKyc = () => {
                     type="radio"
                     className="form-check-input"
                     readOnly
-                  // checked={checkBusiness("SO")}
+                    // checked={checkBusiness("SO")}
                   />
                 </div>
 
@@ -1276,7 +1257,7 @@ const IndividualDPKyc = () => {
                     type="radio"
                     className="form-check-input"
                     readOnly
-                  // checked={checkBusiness("O")}
+                    // checked={checkBusiness("O")}
                   />
                 </div>
                 {/* <div className="col-12 col-md-6 col-lg-3 col-print-md-6 mt-4 text-capitalize">
@@ -1306,9 +1287,7 @@ const IndividualDPKyc = () => {
                 <div>
                   <div>आर्थिक विवरण</div>
 
-                  <div className="text-capitalize">
-                    (financial Details)
-                  </div>
+                  <div className="text-capitalize">(financial Details)</div>
                 </div>
               </div>
               <div className="col-9 col-md-9 border">
@@ -1460,9 +1439,9 @@ const IndividualDPKyc = () => {
                 <div className="col-12  border">
                   <div>
                     <div>
-                      निक्षेप सदस्यले हितग्राहीको खातामा भएको घटबढ
-                      स्वचालित रुपमा (Standing instruction for the
-                      automatic transactions)
+                      निक्षेप सदस्यले हितग्राहीको खातामा भएको घटबढ स्वचालित
+                      रुपमा (Standing instruction for the automatic
+                      transactions)
                     </div>
                   </div>
                   <div className="col-12 d-flex" style={{ gap: "16px" }}>
@@ -1471,10 +1450,10 @@ const IndividualDPKyc = () => {
                         type="radio"
                         readOnly
                         htmlFor="typeOfAccount"
-                      //   checked={
-                      //     userData?.boStatement
-                      //       ?.isStandingInstructionForAutomaticTxn
-                      //   }
+                        //   checked={
+                        //     userData?.boStatement
+                        //       ?.isStandingInstructionForAutomaticTxn
+                        //   }
                       />
                       <div> &nbsp;गराउने (Yes)</div>
                     </div>
@@ -1483,10 +1462,10 @@ const IndividualDPKyc = () => {
                         type="radio"
                         readOnly
                         htmlFor="typeOfAccount"
-                      //   checked={
-                      //     !userData?.boStatement
-                      //       ?.isStandingInstructionForAutomaticTxn
-                      //   }
+                        //   checked={
+                        //     !userData?.boStatement
+                        //       ?.isStandingInstructionForAutomaticTxn
+                        //   }
                       />{" "}
                       <div>&nbsp;नगराउने (No)</div>
                     </div>
@@ -1499,19 +1478,16 @@ const IndividualDPKyc = () => {
                     <div className="text-capitalize">
                       खाताको विवरण प्राप्त गर्ने (Account Statement)
                     </div>
-                    <div
-                      className="col-12  center-y"
-                      style={{ gap: "16px" }}
-                    >
+                    <div className="col-12  center-y" style={{ gap: "16px" }}>
                       <div className="d-flex">
                         <input
                           type="radio"
                           readOnly
                           htmlFor="typeOfAccount"
-                        // checked={
-                        //   userData?.boStatement?.accountStatementPeriod ===
-                        //   "DAILY"
-                        // }
+                          // checked={
+                          //   userData?.boStatement?.accountStatementPeriod ===
+                          //   "DAILY"
+                          // }
                         />
                         <div className="m-2">
                           <div>दैनिक(Daily)</div>
@@ -1522,10 +1498,10 @@ const IndividualDPKyc = () => {
                           type="radio"
                           readOnly
                           htmlFor="typeOfAccount"
-                        // checked={
-                        //   userData?.boStatement?.accountStatementPeriod ===
-                        //   "WEEKLY"
-                        // }
+                          // checked={
+                          //   userData?.boStatement?.accountStatementPeriod ===
+                          //   "WEEKLY"
+                          // }
                         />
                         <div className="m-2">
                           <div>साप्ताहिक(Weekly)</div>
@@ -1536,10 +1512,10 @@ const IndividualDPKyc = () => {
                           type="radio"
                           readOnly
                           htmlFor="typeOfAccount"
-                        // checked={
-                        //   userData?.boStatement?.accountStatementPeriod ===
-                        //   "15DAYS"
-                        // }
+                          // checked={
+                          //   userData?.boStatement?.accountStatementPeriod ===
+                          //   "15DAYS"
+                          // }
                         />
                         <div className="m-2">
                           {" "}
@@ -1551,10 +1527,10 @@ const IndividualDPKyc = () => {
                           type="radio"
                           readOnly
                           htmlFor="typeOfAccount"
-                        // checked={
-                        //   userData?.boStatement?.accountStatementPeriod ===
-                        //   "C"
-                        // }
+                          // checked={
+                          //   userData?.boStatement?.accountStatementPeriod ===
+                          //   "C"
+                          // }
                         />
                         <div className="m-2">
                           {" "}
@@ -1568,21 +1544,20 @@ const IndividualDPKyc = () => {
               <div className="row m-0 p-0">
                 <p className="text-start">
                   {" "}
-                  म/हामीले निक्षेप सदस्य र हितग्राहीको करारनामा प्रचलित
-                  ऐन,नियम, विनियम र सो मा भएको संशोधन मन्न मन्जुर
-                  गर्दछु/गर्दछौं । माथि उल्लेखित विवरण सत्य तथ्य रहेको र
-                  सो विवरणमा कुनै फरक परे कानून बमोजिम सहुँला, बुझाउँला ।
-                  अन्यथा ठहरिएमा हितग्राही खाता रद्द गर्न मन्जुरी
-                  गर्दछु/गर्दछौँ । <br />I / We shall accept to the terms
-                  and conditions relating to the agreement between
-                  Depository Participants and Beneficial Owner, prevalent
-                  act, regulations, bylaws and any amendments on it. I/We
-                  hereby acknowledge that the above disclosed details are
-                  true. I further hereby consent to borne any legal
-                  actions in case any false disclosure of information
-                  related to me/us and the Depository Participants reserve
-                  right to close my account. All disputes are subject to
-                  the jurisdiction of courts in Kathmandu , Nepal.
+                  म/हामीले निक्षेप सदस्य र हितग्राहीको करारनामा प्रचलित ऐन,नियम,
+                  विनियम र सो मा भएको संशोधन मन्न मन्जुर गर्दछु/गर्दछौं । माथि
+                  उल्लेखित विवरण सत्य तथ्य रहेको र सो विवरणमा कुनै फरक परे कानून
+                  बमोजिम सहुँला, बुझाउँला । अन्यथा ठहरिएमा हितग्राही खाता रद्द
+                  गर्न मन्जुरी गर्दछु/गर्दछौँ । <br />I / We shall accept to the
+                  terms and conditions relating to the agreement between
+                  Depository Participants and Beneficial Owner, prevalent act,
+                  regulations, bylaws and any amendments on it. I/We hereby
+                  acknowledge that the above disclosed details are true. I
+                  further hereby consent to borne any legal actions in case any
+                  false disclosure of information related to me/us and the
+                  Depository Participants reserve right to close my account. All
+                  disputes are subject to the jurisdiction of courts in
+                  Kathmandu , Nepal.
                 </p>
               </div>
               <div className="row my-4 justify-content-between">
@@ -1631,9 +1606,7 @@ const IndividualDPKyc = () => {
                     </div>
                   </div>
                 </div>
-                <div
-                  className="row col-5 align-self-end justify-content-end text-end"
-                >
+                <div className="row col-5 align-self-end justify-content-end text-end">
                   <div className="text-center">
                     {/* {userData?.clientDocument?.signature && extraInfo && (
                     <img
@@ -1655,10 +1628,10 @@ const IndividualDPKyc = () => {
               </div>
 
               {/* <!-- ! htmlFor office use only --> */}
-              <div className='m-0 p-0'>
+              <div className="m-0 p-0">
                 <h2
                   className="text-center kyc-secondary-header mb-0 classNam"
-                // style={{ width: "102.5%" }}
+                  // style={{ width: "102.5%" }}
                 >
                   कार्यालयको प्रयोजनको लागि (For Official Use)
                 </h2>
@@ -1745,9 +1718,7 @@ const IndividualDPKyc = () => {
 
               {/* <!-- relationship  --> */}
               <div className="col-12 col-md-6 border ">
-                <div>
-                  निवेदकसंगको सम्बन्ध (Relationship with applicant):
-                </div>
+                <div>निवेदकसंगको सम्बन्ध (Relationship with applicant):</div>
               </div>
               <div className="col-12 col-md-6 border center-y">
                 {/* {individualDetail?.relationship} */}
@@ -1798,8 +1769,8 @@ const IndividualDPKyc = () => {
                   <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.:</div>
 
                   <div>
-                    Rural Municipality / Municipality / Sub Metropolitan
-                    city / Metropolitan city:
+                    Rural Municipality / Municipality / Sub Metropolitan city /
+                    Metropolitan city:
                   </div>
                 </div>
               </div>
@@ -1889,7 +1860,7 @@ const IndividualDPKyc = () => {
               )} */}
               <div
                 className="signature-holder mt-5"
-              // style={{ height: extraInfo ? "0px" : "40px" }}
+                // style={{ height: extraInfo ? "0px" : "40px" }}
               ></div>
               <div>संरक्षकको हस्ताक्षर</div>
               <p className="text-capitalize">Guardian's signature</p>
@@ -1903,13 +1874,13 @@ const IndividualDPKyc = () => {
             </div>
 
             <p>
-              मेरो मृत्यु भएको अवस्था वा नसकेको अवस्थामा व्यक्तिले मेरो
-              नाममा भएको सम्पूर्ण धितोपत्रको हकदाबी गर्न पाउने छ।
+              मेरो मृत्यु भएको अवस्था वा नसकेको अवस्थामा व्यक्तिले मेरो नाममा
+              भएको सम्पूर्ण धितोपत्रको हकदाबी गर्न पाउने छ।
             </p>
 
             <p>
-              In the event of my death or incapcity, the following named
-              nominee shall be entitled to the balance of my demat account
+              In the event of my death or incapcity, the following named nominee
+              shall be entitled to the balance of my demat account
             </p>
 
             <div className="row m-0 p-0 border text-capitalize">
@@ -1928,9 +1899,7 @@ const IndividualDPKyc = () => {
               {/* <!-- relationship  --> */}
               <div className="col-12 col-md-6 border  center-y">
                 <div>
-                  <div>
-                    निवेदकसंगको सम्बन्ध (Relationship with applicant):
-                  </div>
+                  <div>निवेदकसंगको सम्बन्ध (Relationship with applicant):</div>
                 </div>
               </div>
               <div className="col-12 col-md-6 border center-y">
@@ -2006,8 +1975,8 @@ const IndividualDPKyc = () => {
                   <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.:</div>
 
                   <div>
-                    Rural Municipality / Municipality / Sub Metropolitan
-                    city / Metropolitan city
+                    Rural Municipality / Municipality / Sub Metropolitan city /
+                    Metropolitan city
                   </div>
                 </div>
               </div>
@@ -2116,9 +2085,7 @@ const IndividualDPKyc = () => {
             <header className="text-center">
               <h4 className=""> अनुसूची - १५ </h4>
               <p>(विनियम २० को उपविनियम ३ संग सम्बन्धित )</p>
-              <p>
-                (निक्षेप सदस्य र हितग्राही व्यक्ति वा संस्थाबीचको सम्झौता){" "}
-              </p>
+              <p>(निक्षेप सदस्य र हितग्राही व्यक्ति वा संस्थाबीचको सम्झौता) </p>
             </header>
             <div className="my-4">
               <p className="mx-3 text-start aggrement-content">
@@ -2133,8 +2100,8 @@ const IndividualDPKyc = () => {
                 {/* {orgData !== undefined && (
                 <span className="dotted-underline mt-3">{orgData?.name}</span>
               )} */}
-                (वैधानिक अस्तित्व भएको निकायको विवरण) (यसपछि "सदस्य"
-                भनिएको ) प्रथम पक्ष र{" "}
+                (वैधानिक अस्तित्व भएको निकायको विवरण) (यसपछि "सदस्य" भनिएको )
+                प्रथम पक्ष र{" "}
                 {/* {currentAddressDetails ? (
                 <span
                   className="dotted-underline mt-3"
@@ -2154,127 +2121,115 @@ const IndividualDPKyc = () => {
               ) : (
                 "............................."
               )}{" "} */}
-                (वैधानिक अस्तित्व भएको निकायको विवरण ) यसपछि ("हितग्राही"
-                भनिएको ) दोस्रो पक्ष बीच देहायको शर्तहरु पालना गर्ने
-                सहमतिसाथ यो सम्झौता गरिएको छ ।{" "}
+                (वैधानिक अस्तित्व भएको निकायको विवरण ) यसपछि ("हितग्राही" भनिएको
+                ) दोस्रो पक्ष बीच देहायको शर्तहरु पालना गर्ने सहमतिसाथ यो
+                सम्झौता गरिएको छ ।{" "}
               </p>
             </div>
             <body style={{ backgroundColor: "white" }}>
               <h6 className="aggrement-header">१.सामान्य प्रावधान </h6>
               <p className="mx-3 text-start  aggrement-content">
                 {" "}
-                यस सम्झौताका पक्षहरु धितोपत्रको केन्द्रिय निक्षेप सेवा
-                नियमावली , २०६८ को व्यवस्था र सिडिएससिले समयसमयमा जारी
-                गरेका विनियमलाई यसै सम्झौतामा उल्लेख भए सरह र यसै
-                सम्झौताको हिस्साको रुपमा पालना गर्न सहमत छौ।{" "}
+                यस सम्झौताका पक्षहरु धितोपत्रको केन्द्रिय निक्षेप सेवा नियमावली
+                , २०६८ को व्यवस्था र सिडिएससिले समयसमयमा जारी गरेका विनियमलाई
+                यसै सम्झौतामा उल्लेख भए सरह र यसै सम्झौताको हिस्साको रुपमा पालना
+                गर्न सहमत छौ।{" "}
               </p>{" "}
               <h6 className="aggrement-header">२.रकम असुल उपर </h6>
               <p className="mx-3 text-start  aggrement-content">
-                हितग्राही सदस्यलाई तिर्नुपर्ने रकम तोकिएको मितिभित्र
-                बुझाउनु पर्नेछ ।
+                हितग्राही सदस्यलाई तिर्नुपर्ने रकम तोकिएको मितिभित्र बुझाउनु
+                पर्नेछ ।
               </p>{" "}
               <h6 className="aggrement-header">
                 ३.खाताको फाँटबारी (स्टेटमेन्ट){" "}
               </h6>
               <p className="mx-3 text-start  aggrement-content">
-                सदस्यले अनलाइन मार्फत हितग्राहीलाई निजको खाताको फाँटबारी
-                हेर्ने सुबिधा प्रदान गर्नेछ ।साथै हितग्राहीले आफ्नो
-                धितोपत्रको फाँटबारी भौतिक रुपमा प्राप्त गर्न अनुरोध गरेमा
-                सदस्यले सो समेत प्रदान गर्न सक्नेछ। तर यस अवधिमा कुनै
-                कारोबार नभएमा खाताको फाँटबारी दिनु पर्ने छैन ।
+                सदस्यले अनलाइन मार्फत हितग्राहीलाई निजको खाताको फाँटबारी हेर्ने
+                सुबिधा प्रदान गर्नेछ ।साथै हितग्राहीले आफ्नो धितोपत्रको फाँटबारी
+                भौतिक रुपमा प्राप्त गर्न अनुरोध गरेमा सदस्यले सो समेत प्रदान
+                गर्न सक्नेछ। तर यस अवधिमा कुनै कारोबार नभएमा खाताको फाँटबारी
+                दिनु पर्ने छैन ।
               </p>{" "}
               <h6 className="aggrement-header">
-                ४.विवरणमा भएका परिवर्तनहरुबारे हितग्राहीले सुचित
-                गर्नुपर्ने{" "}
+                ४.विवरणमा भएका परिवर्तनहरुबारे हितग्राहीले सुचित गर्नुपर्ने{" "}
               </h6>
               <p className="mx-3 text-start  aggrement-content">
-                हितग्राहीले सुचित गरेको अवस्था बाहेक ,हितग्राहीले विवरणमा
-                भएको परिवर्तन सदस्यलाई जानकारी नगराएको कारणबाट
-                हितग्राहीलाई हुनसक्ने कुनै हानि उपर सदस्य उत्तरदायी वा
-                जिम्मेवार हुनेछैन ।
+                हितग्राहीले सुचित गरेको अवस्था बाहेक ,हितग्राहीले विवरणमा भएको
+                परिवर्तन सदस्यलाई जानकारी नगराएको कारणबाट हितग्राहीलाई हुनसक्ने
+                कुनै हानि उपर सदस्य उत्तरदायी वा जिम्मेवार हुनेछैन ।
               </p>{" "}
               <h6 className="aggrement-header">
                 ५.हितग्राहीको दाबीप्रति निक्षेप सदस्य उत्तरदायी नहुने{" "}
               </h6>
               <p className="mx-3 text-start  aggrement-content">
-                सुरक्षणका लागि हितग्राहीको खाताबाट खर्च लेखिएको/क्रेडिट
-                गरिएको तेस्रो पक्षका दाबी अदालत वा राजस्व निकायबाट तोकिएको
-                वा माग भएको कुनै शुल्क,दस्तुर , कर प्रति सिडिएससि तथा
-                सदस्य उत्तरदायी हुने छैन।न्जन
+                सुरक्षणका लागि हितग्राहीको खाताबाट खर्च लेखिएको/क्रेडिट गरिएको
+                तेस्रो पक्षका दाबी अदालत वा राजस्व निकायबाट तोकिएको वा माग भएको
+                कुनै शुल्क,दस्तुर , कर प्रति सिडिएससि तथा सदस्य उत्तरदायी हुने
+                छैन।न्जन
               </p>{" "}
               <h6 className="aggrement-header">
-                ६.प्रत्येक हितग्राही निम्न कुरामा बिशेष रुपले जिम्मेवार
-                हुनेछ{" "}
+                ६.प्रत्येक हितग्राही निम्न कुरामा बिशेष रुपले जिम्मेवार हुनेछ{" "}
               </h6>
               <p className="mx-3 text-start  aggrement-content">
-                (क)निक्षेप सदस्यसँग भएको सम्झौता र खाता खोल्दाका विवरणहरु
-                तथा तथ्य सम्बन्धमा, <br />
-                (ख )निक्षेप सदस्यसँग खाता खोल्दा पेश गरेको लिखतको
-                आधिकारिकता र सत्यता सम्बन्धमा, <br />
-                (ग )निक्षेप सदस्यबाट प्रत्येक कारोबार निर्देशन बमोजिम
-                खाताबाट घटाएको र थपेको कुराको सुनिश्चित गर्ने, <br />
-                (घ)हितग्राहीको खातामा भएको परिवर्तनका विवरण सम्बन्धमा
-                जस्तै :ठेगाना ,बैंक विवरण स्थिति अख्तियारी ,आदेश मनोनयन
-                दस्तखत आदि , <br />
-                (ङ्ग)कुनै पनि निष्काशित धितोपत्र खरिद गरेकोमा सो को सत्य
-                विवरण।
+                (क)निक्षेप सदस्यसँग भएको सम्झौता र खाता खोल्दाका विवरणहरु तथा
+                तथ्य सम्बन्धमा, <br />
+                (ख )निक्षेप सदस्यसँग खाता खोल्दा पेश गरेको लिखतको आधिकारिकता र
+                सत्यता सम्बन्धमा, <br />
+                (ग )निक्षेप सदस्यबाट प्रत्येक कारोबार निर्देशन बमोजिम खाताबाट
+                घटाएको र थपेको कुराको सुनिश्चित गर्ने, <br />
+                (घ)हितग्राहीको खातामा भएको परिवर्तनका विवरण सम्बन्धमा जस्तै
+                :ठेगाना ,बैंक विवरण स्थिति अख्तियारी ,आदेश मनोनयन दस्तखत आदि ,{" "}
+                <br />
+                (ङ्ग)कुनै पनि निष्काशित धितोपत्र खरिद गरेकोमा सो को सत्य विवरण।
               </p>{" "}
               <h6 className="aggrement-header">७.आधिकारिक प्रतिनिधि </h6>
               <p className="mx-3 text-start  aggrement-content">
-                हितग्राही संगठित संस्था वा कानुनी व्यक्ति भएमा त्यस्तो
-                संस्था वा व्यक्तिको तर्फबाट प्रतिनिधित्व गर्न
-                अख्तियारप्राप्त व्यक्तिले सदस्यसँगको सम्झौता क्रियन्वित
-                गर्नेछन ।प्रतिनिधिको हेरफेर वा अन्य कुनै किसिमको परिवर्तन
-                भएमा हितग्राहीले सदस्यलाई तुरुन्त जानकारी गराउनेछ ।
+                हितग्राही संगठित संस्था वा कानुनी व्यक्ति भएमा त्यस्तो संस्था वा
+                व्यक्तिको तर्फबाट प्रतिनिधित्व गर्न अख्तियारप्राप्त व्यक्तिले
+                सदस्यसँगको सम्झौता क्रियन्वित गर्नेछन ।प्रतिनिधिको हेरफेर वा
+                अन्य कुनै किसिमको परिवर्तन भएमा हितग्राहीले सदस्यलाई तुरुन्त
+                जानकारी गराउनेछ ।
               </p>{" "}
               <h6 className="aggrement-header">८.सम्झौता रद्ध गर्ने </h6>
               <p className="mx-3 text-start  aggrement-content">
                 विनियमावली तथा संचालन निर्देशिकामा उल्लेख गरिएअनुसारका
-                शर्तबन्देजको अधिनमा रही पक्षहरुले यो सम्झौता जुनसुकै समयमा
-                रद्ध गर्न सक्नेछन ।कुनैपनि पक्षले सम्झौता रद्ध गरेमा
-                हितग्राही को खातामा भएका धितोपत्रहरुलाई सोहि हितग्राहिको
-                निर्देशन बमोजिम सदस्यले व्यवस्थापन गर्नेछ।
+                शर्तबन्देजको अधिनमा रही पक्षहरुले यो सम्झौता जुनसुकै समयमा रद्ध
+                गर्न सक्नेछन ।कुनैपनि पक्षले सम्झौता रद्ध गरेमा हितग्राही को
+                खातामा भएका धितोपत्रहरुलाई सोहि हितग्राहिको निर्देशन बमोजिम
+                सदस्यले व्यवस्थापन गर्नेछ।
               </p>{" "}
-              <h6 className="aggrement-header">
-                ९.काबु बाहिरको परिस्थिति{" "}
-              </h6>
+              <h6 className="aggrement-header">९.काबु बाहिरको परिस्थिति </h6>
               <p className="mx-3 text-start  aggrement-content">
-                यस सम्झौतामा वा विनियमावलीमा जुनसुकै कुरा लेखिएको भएतापनि
-                आंधी ,तूफान ,बाढी,चटयांग ,भूइंचालो ,आगलागी ,बिस्फोटन वा
-                दैवी प्रकोप ,युद्ध ,बिद्रोह ,क्रान्ति ,हुलदंगा ,निषेधाज्ञा
-                ,नाकाबन्दी ,अवरोध ,दंगा,नागरिक कलह ,हड्ताल ,तालाबन्दी
-                ,तोडफोड ,विध्वंश ,प्रणालीमा गडबडी ,अनाहक प्रवेश वा
-                प्रतिकार गर्न नसकिने अन्य कुनै शक्ति वा बाध्यतालगायत काबु
-                वा नियन्त्रणबाहिरका घटनाद्वारा यस सम्झौता अन्तर्गतको
-                दायित्वमा कुनै कार्य सम्पादन नगरेको ,बिलम्ब गरेको वा
-                उल्लङ्घन भएकोमा कुनै एक पक्षलाई हुन् गएको हानीनोक्शानी
-                ,क्षतिको सोधभर्ना वा क्षतिपूर्ति दिन अर्को पक्ष उत्तरदायी
-                हुने छैन ।
+                यस सम्झौतामा वा विनियमावलीमा जुनसुकै कुरा लेखिएको भएतापनि आंधी
+                ,तूफान ,बाढी,चटयांग ,भूइंचालो ,आगलागी ,बिस्फोटन वा दैवी प्रकोप
+                ,युद्ध ,बिद्रोह ,क्रान्ति ,हुलदंगा ,निषेधाज्ञा ,नाकाबन्दी ,अवरोध
+                ,दंगा,नागरिक कलह ,हड्ताल ,तालाबन्दी ,तोडफोड ,विध्वंश ,प्रणालीमा
+                गडबडी ,अनाहक प्रवेश वा प्रतिकार गर्न नसकिने अन्य कुनै शक्ति वा
+                बाध्यतालगायत काबु वा नियन्त्रणबाहिरका घटनाद्वारा यस सम्झौता
+                अन्तर्गतको दायित्वमा कुनै कार्य सम्पादन नगरेको ,बिलम्ब गरेको वा
+                उल्लङ्घन भएकोमा कुनै एक पक्षलाई हुन् गएको हानीनोक्शानी ,क्षतिको
+                सोधभर्ना वा क्षतिपूर्ति दिन अर्को पक्ष उत्तरदायी हुने छैन ।
               </p>
               <h6 className="aggrement-header">१०.जनाउ </h6>
               <p className="mx-3 text-start  aggrement-content">
-                यस सम्झौतामा दिईने अथवा आवश्यक हुने कुनै पनि जनाउ वा संचार
-                लिखित रुपमा र प्रापकको हालसालको ठेगानामा नपठाएसम्म
-                बन्धनकारी हुनेछैन ।
+                यस सम्झौतामा दिईने अथवा आवश्यक हुने कुनै पनि जनाउ वा संचार लिखित
+                रुपमा र प्रापकको हालसालको ठेगानामा नपठाएसम्म बन्धनकारी हुनेछैन ।
               </p>{" "}
               <h6 className="aggrement-header">११.विवादको समाधान </h6>
               <p className="mx-3 text-start  aggrement-content">
-                पक्षहरुका बीचमा उत्पन्न हुन सक्ने विवाद तथा भिन्नताको
-                सम्बन्धमा विनियमावलीमा तोकिएअनुसारको मध्यस्थता समितिको
-                व्यवस्था यस सम्झौताका पक्षहरुलाई पनि लागू हुनेछ ।
+                पक्षहरुका बीचमा उत्पन्न हुन सक्ने विवाद तथा भिन्नताको सम्बन्धमा
+                विनियमावलीमा तोकिएअनुसारको मध्यस्थता समितिको व्यवस्था यस
+                सम्झौताका पक्षहरुलाई पनि लागू हुनेछ ।
               </p>{" "}
               <h6 className="aggrement-header">१२.नियमनकारी कानुन </h6>
               <p className="mx-3 text-start  aggrement-content">
-                यो सम्झौता प्रचलित नेपालको कानुनद्वारा नियमन तथा व्याख्या
-                हुनेछ।
+                यो सम्झौता प्रचलित नेपालको कानुनद्वारा नियमन तथा व्याख्या हुनेछ।
               </p>
             </body>
             <footer className="my-3">
               <div className="row">
                 <div className="col-6 col-md-6 col-sm-12">
-                  <h4 className="aggrement-header">
-                    सम्झौताका प्रथम पक्ष{" "}
-                  </h4>
+                  <h4 className="aggrement-header">सम्झौताका प्रथम पक्ष </h4>
                   <p></p>
                   <p>व्यक्तिको नाम:</p>
                   <p>दस्तखत: </p>
@@ -2282,8 +2237,7 @@ const IndividualDPKyc = () => {
                 </div>
                 <div className="col-6 col-md-6 col-sm-12">
                   <h4 className="aggrement-header">
-                    सम्झौताका दोस्रो पक्ष (हितग्राहिको तर्फबाट अधिकार
-                    प्राप्त){" "}
+                    सम्झौताका दोस्रो पक्ष (हितग्राहिको तर्फबाट अधिकार प्राप्त){" "}
                   </h4>
                   {/* <p>व्यक्तिको नाम:{userData?.user?.name}</p> */}
                   <p>दस्तखत: </p>
