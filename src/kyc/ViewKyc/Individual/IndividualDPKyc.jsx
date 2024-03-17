@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./kycIndividual.css";
 import ReactToPrint from "react-to-print";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
@@ -9,12 +9,31 @@ import { useGetMetaData } from "../../hooks/useMetaDataKyc";
 import dateConverter from "../../../utility/dateConverter";
 import KycMap from "../KycMap/KycMap";
 import domtoimage from "dom-to-image";
+import { getBankList } from "../../../api/Kyc/Bank/addBankKyc";
+import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import { DOC_URL } from "../../../utility/getBaseUrl";
 
 const IndividualDPKyc = () => {
+  const [mapImage, setmapImage] = useState("");
   const componentRef = useRef();
   const { A: userId } = getUser();
   const { data: userData } = useGetMetaData(userId);
+  //individual details
   const individualDetail = userData?.individualDetails;
+  // details of family member
+  const { clientFamilyDetails } = userData || [];
+  // bank details
+  const { bankDetails } = userData || {};
+  //  Occupation Details
+  const occupationDetails = userData?.occupationDetails;
+  // Nominee Details
+  const { dpNomineeDetails } = userData || {};
+
+  const bankList = useQuery({
+    queryKey: "bank_list",
+    queryFn: () => getBankList(),
+  });
   const checkGender = (input_gender) => {
     return input_gender === individualDetail?.gender ? true : false;
   };
@@ -25,9 +44,58 @@ const IndividualDPKyc = () => {
   const permanentAddressDetails = userData.addressDetails?.filter(
     (address) => address.addressType === "P"
   );
+  const memberList = clientFamilyDetails?.reduce((accumulator, current) => {
+    accumulator[current.relation] = current.memberName;
+    return accumulator;
+  }, {});
+  //Multiple family-relation name
+  const multiMemberName = (relation) => {
+    const relationDetails = clientFamilyDetails?.filter(
+      (family) => family.relation === relation
+    );
+    const names = relationDetails?.map((member) => member.memberName);
+    const namesList = names?.join(", ");
+    return namesList;
+  };
+  // BankAccountType
+  const checkAccountType = (input_account_type) =>
+    input_account_type === bankDetails?.accountType ? true : false;
+  const checkOccupation = (input_occupation) =>
+    occupationDetails?.occupation === input_occupation ? true : false;
 
+  const checkBusiness = (input_business) => {
+    if (occupationDetails?.businessType === null) return;
+    return occupationDetails?.businessType?.toLowerCase() === input_business
+      ? true
+      : false;
+  };
+  const checkFinancialDetails = (type) => {
+    /* 
+  type 1 | upto Rs. 5,00,000
+  type 2 | from Rs. 5,00,000 to Rs.10,00,000
+  type 3 | Above Rs 10, 00, 000
+  */
+    const integer_income_limit = Number(occupationDetails?.financialDetails);
+
+    switch (type) {
+      case 1:
+        return integer_income_limit >= 0 && integer_income_limit <= 100000;
+
+      case 2:
+        return integer_income_limit > 100000 && integer_income_limit <= 200000;
+
+      case 3:
+        return integer_income_limit > 200000 && integer_income_limit <= 500000;
+
+      case 4:
+        return integer_income_limit > 500000;
+
+      default:
+        return false;
+    }
+  };
+  const orgData = useSelector((store) => store?.brokerList?.brokerOption[0]);
   const mapRef = useRef();
-
   useEffect(() => {
     if (mapRef?.current && currentAddressDetails[0]?.latitude) {
       domtoimage
@@ -74,7 +142,11 @@ const IndividualDPKyc = () => {
               <div className="text-center d-flex flex-column align-items-center">
                 <p>(दोश्रो संशोधन, २०७३ अनुसार संशोधित गरिएको)</p>
               </div>
-              <div id="photo" key={userData?.clientDocument?.ppSizePhoto}>
+              <div
+                id="photo"
+                key={userData?.clientDocument?.ppSizePhoto}
+                style={{ marginLeft: "1rem" }}
+              >
                 {userData?.clientDocument?.ppSizePhoto && (
                   <img
                     className="employee-pp-photo-kyc"
@@ -86,10 +158,7 @@ const IndividualDPKyc = () => {
                       width: "150px",
                     }}
                     id="photo"
-                    src={
-                      // getPicCoresPorxyURL() +
-                      userData?.clientDocument?.ppSizePhoto
-                    }
+                    src={`${DOC_URL}${userData?.clientDocument?.ppSizePhoto}`}
                   />
                 )}
               </div>
@@ -755,15 +824,15 @@ const IndividualDPKyc = () => {
               <div className="row mt-2">
                 <div className="col-6 text-capitalize">
                   latitude :{" "}
-                  {/* {currentAddressDetails && currentAddressDetails[0]?.latitude
-                  ? currentAddressDetails[0]?.latitude
-                  : "0"} */}
+                  {currentAddressDetails && currentAddressDetails[0]?.latitude
+                    ? currentAddressDetails[0]?.latitude
+                    : "0"}
                 </div>
                 <div className="col-6 text-capitalize text-end">
                   longitude :{" "}
-                  {/* {currentAddressDetails && currentAddressDetails[0]?.longitude
-                  ? currentAddressDetails[0]?.longitude
-                  : 0} */}
+                  {currentAddressDetails && currentAddressDetails[0]?.longitude
+                    ? currentAddressDetails[0]?.longitude
+                    : 0}
                 </div>
               </div>
             </div>
@@ -771,9 +840,7 @@ const IndividualDPKyc = () => {
           {/* Details of Family Member */}
           <section className="container pb-1 avoid-page-break">
             <div className="text-center kyc-secondary-header">
-              <h2 className="text-capitalize">
-                परिवारका सदस्यहरुको विवरण(Details of family member)
-              </h2>
+              परिवारका सदस्यहरुको विवरण(Details of family member)
             </div>
 
             {/* <div className="container"> */}
@@ -782,98 +849,72 @@ const IndividualDPKyc = () => {
               <div className="col-4 center-y  border text-capitalize">
                 बाजेको नाम (grand father&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                {/* {memberList?.["grandfather"]} */}
+                {memberList?.["grandfather"]}
               </div>
-
-              {/* <!-- father's name (nep)--> */}
 
               {/* <!-- father's name (eng)--> */}
               <div className="col-4 center-y  border text-capitalize">
                 बुवाको नाम (father&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                {/* {memberList?.["father"]} */}
+                {memberList?.["father"]}
               </div>
-
-              {/* <!-- mother's name (nep)--> */}
 
               {/* <!-- mother's name (eng)--> */}
               <div className="col-4 center-y  border text-capitalize">
                 आमाको नाम (mother&apos;s name){" "}
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                {/* {memberList?.["mother"]} */}
+                {memberList?.["mother"]}
               </div>
-
-              {/* <!-- spouse's name (nep)--> */}
 
               {/* <!-- spouse's name (eng)--> */}
               <div className="col-4  center-y border text-capitalize">
                 पति / पत्‍नीको नाम (spouse&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border">
-                {/* {memberList?.["spouse"]} */}
+                {memberList?.["spouse"]}
               </div>
 
-              {/* <!-- daughter's name (eng)--> */}
-
               {/* <!-- daughters's name (nep)--> */}
-
               <div className="col-4   center-y border text-capitalize">
                 छोरीको नाम (daughter&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                {/* {multiMemberName("daughter")} */}
+                {multiMemberName("daughter")}
               </div>
-
-              {/* <!-- son's name (nep)--> */}
 
               {/* <!-- son's name (eng)--> */}
               <div className="col-4 center-y  border text-capitalize">
                 छोराको नाम (son&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border">
-                {/* {multiMemberName("son")} */}
+                {multiMemberName("son")}
               </div>
-
-              {/* <!-- daughter in law's name (nep)--> */}
 
               {/* <!-- daughter in law's name (eng)--> */}
               <div className="col-4   center-y border text-capitalize">
                 बुहारीको नाम (daughter in Law&apos;s name)
               </div>
-
               <div className="col-8 center-y text-uppercase letter-space-3 border ">
-                {/* {multiMemberName("daughterInLaw")} */}
+                {multiMemberName("daughterInLaw")}
               </div>
-
-              {/* <!-- father in law's name (nep)--> */}
 
               {/* <!-- father in law's name (eng)--> */}
               <div className="col-4 center-y  border text-capitalize">
                 ससुराको नाम (father In Law&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                {/* {memberList?.["fatherInLaw"]} */}
+                {memberList?.["fatherInLaw"]}
               </div>
-
-              {/* <!-- mother in law's name (nep)--> */}
 
               {/* <!-- mother in law's name (eng)--> */}
               <div className="col-4 center-y   border text-capitalize">
                 सासुको नाम (mother In Law&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                {/* {memberList?.["motherInLaw"]} */}
+                {memberList?.["motherInLaw"]}
               </div>
             </div>
             {/* </div> */}
@@ -881,9 +922,7 @@ const IndividualDPKyc = () => {
           {/* BankDetails */}
           <section className="container pb-1">
             <div className="text-center kyc-secondary-header">
-              <h2 className="text-capitalize">
-                बैंक खाताको विवरण(bank account details)
-              </h2>
+              बैंक खाताको विवरण(bank account details)
             </div>
 
             {/* <div className="container"> */}
@@ -913,7 +952,7 @@ const IndividualDPKyc = () => {
                       className="form-check-input"
                       id="saving_account"
                       name="account_type"
-                      //   checked={checkAccountType("S")}
+                      checked={checkAccountType("S")}
                     />
                   </div>
                 </div>
@@ -937,7 +976,7 @@ const IndividualDPKyc = () => {
                       className="form-check-input"
                       id="current_account"
                       name="account_type"
-                      //   checked={checkAccountType("C")}
+                      checked={checkAccountType("C")}
                     />
                   </div>
                 </div>
@@ -951,7 +990,7 @@ const IndividualDPKyc = () => {
               </div>
 
               <div className="col-6 col-md-8 border center-y">
-                {/* {bankDetails?.accountNumber} */}
+                {bankDetails?.accountNumber}
               </div>
 
               {/* <!-- ! name and address of bank --> */}
@@ -962,16 +1001,16 @@ const IndividualDPKyc = () => {
               <div className="col-6 col-md-6 border center-y text-capitalize">
                 {/* {bankList &&
                   bankList?.data?.find(
-                    (d) => d.value === userData.bankDetails?.bankName
-                  )?.label}
-                {", "} */}
+                    (d) => d.value === userData.bankDetails?.bankName || ""
+                  )?.label} */}
+                {", "}
               </div>
               <div className="col-6 col-md-6 border  center-y">
                 <div>बैंक खाताभएको बैंकको ठेगाना (Address of Bank)</div>
               </div>
 
               <div className="col-6 col-md-6 border center-y text-capitalize">
-                {/* {bankDetails?.branchAddress} */}
+                {bankDetails?.branchAddress}
               </div>
             </div>
             {/* </div> */}
@@ -979,9 +1018,8 @@ const IndividualDPKyc = () => {
           {/* Details of Occupation */}
           <section className="container pb-1 avoid-page-break mt-4">
             <div className="kyc-secondary-header text-center">
-              <h2>पेशागत विवरण (Details of Occupation)</h2>
+              पेशागत विवरण (Details of Occupation)
             </div>
-
             {/* <div className="container"> */}
             <div className="row m-0 p-0 ">
               {/* <!-- occupation --> */}
@@ -1006,7 +1044,7 @@ const IndividualDPKyc = () => {
                     <input
                       type="radio"
                       className="form-check-input"
-                      //   checked={checkOccupation("SERVICE")}
+                      checked={checkOccupation("SERVICE")}
                       readOnly
                     />
                   </div>
@@ -1024,7 +1062,7 @@ const IndividualDPKyc = () => {
                     <input
                       type="radio"
                       className="form-check-input"
-                      //   checked={checkOccupation("Government Services")}
+                      checked={checkOccupation("Government Services")}
                       readOnly
                     />
                   </div>
@@ -1049,7 +1087,7 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      //   checked={checkOccupation("Public Sector")}
+                      checked={checkOccupation("Public Sector")}
                     />
                   </div>
                 </div>
@@ -1067,7 +1105,7 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      //   checked={checkOccupation("Private Sector")}
+                      checked={checkOccupation("Private Sector")}
                     />
                   </div>
                 </div>
@@ -1091,7 +1129,7 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      //   checked={checkOccupation("BUSINESS")}
+                      checked={checkOccupation("BUSINESS")}
                     />
                   </div>
                 </div>
@@ -1109,7 +1147,7 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      //   checked={checkOccupation("FARMER")}
+                      checked={checkOccupation("FARMER")}
                     />
                   </div>
                 </div>
@@ -1127,7 +1165,7 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      //   checked={checkOccupation("RETIRED")}
+                      checked={checkOccupation("RETIRED")}
                     />
                   </div>
                 </div>
@@ -1144,7 +1182,7 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      //   checked={checkOccupation("PROFESSIONAL")}
+                      checked={checkOccupation("PROFESSIONAL")}
                     />
                   </div>
                 </div>
@@ -1161,7 +1199,7 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      //   checked={checkOccupation("HOUSEWIFE")}
+                      checked={checkOccupation("HOUSEWIFE")}
                     />
                   </div>
                 </div>
@@ -1179,7 +1217,7 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      //   checked={checkOccupation("STUDENT")}
+                      checked={checkOccupation("STUDENT")}
                     />
                   </div>
                 </div>
@@ -1203,12 +1241,12 @@ const IndividualDPKyc = () => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      //   checked={checkOccupation("OTHERS")}
+                      checked={checkOccupation("OTHERS")}
                     />
                   </div>
                 </div>
                 <div className="col-3 col-md-6 col-lg-3  mt-4 text-capitalize">
-                  {/* {occupationDetails?.ifOthers} */}
+                  {occupationDetails?.ifOthers}
                 </div>
               </div>
 
@@ -1230,7 +1268,7 @@ const IndividualDPKyc = () => {
                     type="radio"
                     className="form-check-input"
                     readOnly
-                    // checked={checkBusiness("MA")}
+                    checked={checkBusiness("MA")}
                   />
                 </div>
 
@@ -1245,7 +1283,7 @@ const IndividualDPKyc = () => {
                     type="radio"
                     className="form-check-input"
                     readOnly
-                    // checked={checkBusiness("SO")}
+                    checked={checkBusiness("SO")}
                   />
                 </div>
 
@@ -1257,12 +1295,12 @@ const IndividualDPKyc = () => {
                     type="radio"
                     className="form-check-input"
                     readOnly
-                    // checked={checkBusiness("O")}
+                    checked={checkBusiness("O")}
                   />
                 </div>
                 {/* <div className="col-12 col-md-6 col-lg-3 col-print-md-6 mt-4 text-capitalize">
-            {ifOthersBusiness}
-          </div> */}
+                  {ifOthersBusiness}
+                </div> */}
               </div>
               {/* <!-- organization's name --> */}
               <div className="col-4  border  center-y">
@@ -1271,7 +1309,7 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-8 border text-capitalize center-y">
-                {/* {occupationDetails?.orgName} */}
+                {occupationDetails?.orgName}
               </div>
               <div className="col-4  border  center-y">
                 <div>
@@ -1279,14 +1317,13 @@ const IndividualDPKyc = () => {
                 </div>
               </div>
               <div className="col-8 border text-capitalize center-y">
-                {/* {occupationDetails?.address} */}
+                {occupationDetails?.address}
               </div>
               {/* <!-- address --> */}
 
               <div className="col-3 col-md-3 border center-y">
                 <div>
                   <div>आर्थिक विवरण</div>
-
                   <div className="text-capitalize">(financial Details)</div>
                 </div>
               </div>
@@ -1294,145 +1331,74 @@ const IndividualDPKyc = () => {
                 <p className="text-start">
                   आयको सीमा वार्षिक विवरण (Income Limit Annual Details)
                 </p>
-                {/* {user?.nature === "TMS" ? (
-                  <div className="row">
-                    <div className="col-12 col-md-6 col-lg-6 col-print-md-6">
-                      <div className="form-check">
-                        <label
-                          className="form-check-label"
-                          htmlFor="manifacturing"
-                        >
-                          रु १,००,००० सम्म (Upto Rs. 1,00,000)
-                        </label>
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          readOnly
-                          checked={checkFinancialDetailsTMS(1)}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-6 col-lg-6 col-print-md-6">
-                      <div className="form-check">
-                        <label
-                          className="form-check-label"
-                          htmlFor="manifacturing"
-                        >
-                          रु १,००,००१ देखि रु २,००,००० सम्म (From Rs. 1,00,001
-                          to Rs. 2,00,000)
-                        </label>
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          readOnly
-                          checked={checkFinancialDetailsTMS(2)}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-6 col-lg-6 col-print-md-6">
-                      <div className="form-check">
-                        <label
-                          className="form-check-label"
-                          htmlFor="manifacturing"
-                        >
-                          रु २,००,००१ देखि रू ५,००,००० सम्म ( From Rs.2,00,001
-                          to Rs.5,00,000)
-                        </label>
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          readOnly
-                          checked={checkFinancialDetailsTMS(3)}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-12 col-md-6 col-lg-6 col-print-md-6">
-                      <div className="form-check">
-                        <label
-                          className="form-check-label"
-                          htmlFor="manifacturing"
-                        >
-                          रू १०,००,००० भन्दा माथि (Above Rs. 10,00,000)
-                        </label>
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          readOnly
-                          checked={checkFinancialDetailsTMS(4)}
-                        />
-                      </div>
+                <div className="row">
+                  <div className="col-6 col-lg-6 ">
+                    <div className="form-check">
+                      <label
+                        className="form-check-label"
+                        htmlFor="manifacturing"
+                      >
+                        रु १,००,००० सम्म (Upto Rs. 1,00,000)
+                      </label>
+                      <input
+                        type="radio"
+                        className="form-check-input"
+                        readOnly
+                        checked={checkFinancialDetails(1)}
+                      />
                     </div>
                   </div>
-                ) : (
-                  <div className="row">
-                    <div className="col-6 col-lg-6 ">
-                      <div className="form-check">
-                        <label
-                          className="form-check-label"
-                          htmlFor="manifacturing"
-                        >
-                          रु १,००,००० सम्म (Upto Rs. 1,00,000)
-                        </label>
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          readOnly
-                          checked={checkFinancialDetails(1)}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-6 col-lg-6 ">
-                      <div className="form-check">
-                        <label
-                          className="form-check-label"
-                          htmlFor="manifacturing"
-                        >
-                          रु १,००,००१ देखि रु २,००,००० सम्म (From Rs.1,00,001
-                          to Rs.2,00,000)
-                        </label>
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          readOnly
-                          checked={checkFinancialDetails(2)}
-                        />
-                      </div>
-                    </div>
-                    <div className=" col-6 col-lg-6">
-                      <div className="form-check">
-                        <label
-                          className="form-check-label"
-                          htmlFor="manifacturing"
-                        >
-                          रु २,००,००१ देखि रू ५,००,००० सम्म ( From Rs.2,00,001
-                          to Rs.5,00,000)
-                        </label>
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          readOnly
-                          checked={checkFinancialDetails(3)}
-                        />
-                      </div>
-                    </div>
-                    <div className="col-6 ">
-                      <div className="form-check">
-                        <label
-                          className="form-check-label"
-                          htmlFor="manifacturing"
-                        >
-                          रू ५,००,००० भन्दा माथि (Above Rs. 5,00,000)
-                        </label>
-                        <input
-                          type="radio"
-                          className="form-check-input"
-                          readOnly
-                          checked={checkFinancialDetails(4)}
-                        />
-                      </div>
+                  <div className="col-6 col-lg-6 ">
+                    <div className="form-check">
+                      <label
+                        className="form-check-label"
+                        htmlFor="manifacturing"
+                      >
+                        रु १,००,००१ देखि रु २,००,००० सम्म (From Rs.1,00,001 to
+                        Rs.2,00,000)
+                      </label>
+                      <input
+                        type="radio"
+                        className="form-check-input"
+                        readOnly
+                        checked={checkFinancialDetails(2)}
+                      />
                     </div>
                   </div>
-                )} */}
+                  <div className=" col-6 col-lg-6">
+                    <div className="form-check">
+                      <label
+                        className="form-check-label"
+                        htmlFor="manifacturing"
+                      >
+                        रु २,००,००१ देखि रू ५,००,००० सम्म ( From Rs.2,00,001 to
+                        Rs.5,00,000)
+                      </label>
+                      <input
+                        type="radio"
+                        className="form-check-input"
+                        readOnly
+                        checked={checkFinancialDetails(3)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-6 ">
+                    <div className="form-check">
+                      <label
+                        className="form-check-label"
+                        htmlFor="manifacturing"
+                      >
+                        रू ५,००,००० भन्दा माथि (Above Rs. 5,00,000)
+                      </label>
+                      <input
+                        type="radio"
+                        className="form-check-input"
+                        readOnly
+                        checked={checkFinancialDetails(4)}
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
               {/* </div> */}
               <div className="row m-0 p-0">
@@ -1450,10 +1416,10 @@ const IndividualDPKyc = () => {
                         type="radio"
                         readOnly
                         htmlFor="typeOfAccount"
-                        //   checked={
-                        //     userData?.boStatement
-                        //       ?.isStandingInstructionForAutomaticTxn
-                        //   }
+                        checked={
+                          userData?.boStatement
+                            ?.isStandingInstructionForAutomaticTxn
+                        }
                       />
                       <div> &nbsp;गराउने (Yes)</div>
                     </div>
@@ -1462,84 +1428,87 @@ const IndividualDPKyc = () => {
                         type="radio"
                         readOnly
                         htmlFor="typeOfAccount"
-                        //   checked={
-                        //     !userData?.boStatement
-                        //       ?.isStandingInstructionForAutomaticTxn
-                        //   }
+                        checked={
+                          !userData?.boStatement
+                            ?.isStandingInstructionForAutomaticTxn
+                        }
                       />{" "}
                       <div>&nbsp;नगराउने (No)</div>
                     </div>
                   </div>
                 </div>
 
-                {/* <!-- ! bank account number --> */}
-                <div className="col-12 border center-y ">
-                  <div>
-                    <div className="text-capitalize">
-                      खाताको विवरण प्राप्त गर्ने (Account Statement)
-                    </div>
-                    <div className="col-12  center-y" style={{ gap: "16px" }}>
-                      <div className="d-flex">
-                        <input
-                          type="radio"
-                          readOnly
-                          htmlFor="typeOfAccount"
-                          // checked={
-                          //   userData?.boStatement?.accountStatementPeriod ===
-                          //   "DAILY"
-                          // }
-                        />
-                        <div className="m-2">
-                          <div>दैनिक(Daily)</div>
-                        </div>
+                {/* <!-- ! Bo Statemant --> */}
+                {userData?.boStatement
+                  ?.isStandingInstructionForAutomaticTxn && (
+                  <div className="col-12 border center-y ">
+                    <div>
+                      <div className="text-capitalize">
+                        खाताको विवरण प्राप्त गर्ने (Account Statement)
                       </div>
-                      <div className="d-flex">
-                        <input
-                          type="radio"
-                          readOnly
-                          htmlFor="typeOfAccount"
-                          // checked={
-                          //   userData?.boStatement?.accountStatementPeriod ===
-                          //   "WEEKLY"
-                          // }
-                        />
-                        <div className="m-2">
-                          <div>साप्ताहिक(Weekly)</div>
+                      <div className="col-12  center-y" style={{ gap: "16px" }}>
+                        <div className="d-flex">
+                          <input
+                            type="radio"
+                            readOnly
+                            htmlFor="typeOfAccount"
+                            checked={
+                              userData?.boStatement?.accountStatementPeriod ===
+                              "DAILY"
+                            }
+                          />
+                          <div className="m-2">
+                            <div>दैनिक(Daily)</div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="d-flex">
-                        <input
-                          type="radio"
-                          readOnly
-                          htmlFor="typeOfAccount"
-                          // checked={
-                          //   userData?.boStatement?.accountStatementPeriod ===
-                          //   "15DAYS"
-                          // }
-                        />
-                        <div className="m-2">
-                          {" "}
-                          <div>पाक्षिक(15 days)</div>
+                        <div className="d-flex">
+                          <input
+                            type="radio"
+                            readOnly
+                            htmlFor="typeOfAccount"
+                            checked={
+                              userData?.boStatement?.accountStatementPeriod ===
+                              "WEEKLY"
+                            }
+                          />
+                          <div className="m-2">
+                            <div>साप्ताहिक(Weekly)</div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="d-flex">
-                        <input
-                          type="radio"
-                          readOnly
-                          htmlFor="typeOfAccount"
-                          // checked={
-                          //   userData?.boStatement?.accountStatementPeriod ===
-                          //   "C"
-                          // }
-                        />
-                        <div className="m-2">
-                          {" "}
-                          <div>मासिक(Monthly)</div>
+                        <div className="d-flex">
+                          <input
+                            type="radio"
+                            readOnly
+                            htmlFor="typeOfAccount"
+                            checked={
+                              userData?.boStatement?.accountStatementPeriod ===
+                              "15DAYS"
+                            }
+                          />
+                          <div className="m-2">
+                            {" "}
+                            <div>पाक्षिक(15 days)</div>
+                          </div>
+                        </div>
+                        <div className="d-flex">
+                          <input
+                            type="radio"
+                            readOnly
+                            htmlFor="typeOfAccount"
+                            checked={
+                              userData?.boStatement?.accountStatementPeriod ===
+                              "C"
+                            }
+                          />
+                          <div className="m-2">
+                            {" "}
+                            <div>मासिक(Monthly)</div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
               <div className="row m-0 p-0">
                 <p className="text-start">
@@ -1576,49 +1545,40 @@ const IndividualDPKyc = () => {
                       <div style={{ height: "180px" }}>
                         {" "}
                         <p>बायाँ (left)</p>
-                        {/* {userData?.clientDocument?.leftThumb && extraInfo && (
-                        <img
-                          width={"150px"}
-                          height={"200px"}
-                          src={
-                            getPicCoresPorxyURL() +
-                            userData?.clientDocument?.leftThumb
-                          }
-                        />
-                      )} */}
+                        {userData?.clientDocument?.leftThumb && (
+                          <img
+                            width={"150px"}
+                            height={"160px"}
+                            src={`${DOC_URL}${userData?.clientDocument?.leftThumb}`}
+                          />
+                        )}
                       </div>
                     </div>
                     <div className="col-6 center-xy border">
                       <div style={{ height: "180px" }}>
                         <p>दायाँ (right)</p>
 
-                        {/* {userData?.clientDocument?.rightThumb && extraInfo && (
-                        <img
-                          width={"150px"}
-                          height={"200px"}
-                          src={
-                            getPicCoresPorxyURL() +
-                            userData?.clientDocument?.rightThumb
-                          }
-                        />
-                      )} */}
+                        {userData?.clientDocument?.rightThumb && (
+                          <img
+                            width={"150px"}
+                            height={"160px"}
+                            src={`${DOC_URL}${userData?.clientDocument?.rightThumb}`}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="row col-5 align-self-end justify-content-end text-end">
                   <div className="text-center">
-                    {/* {userData?.clientDocument?.signature && extraInfo && (
-                    <img
-                      // className="signature-kyc"
-                      width={"250px"}
-                      height={"100px"}
-                      src={
-                        getPicCoresPorxyURL() +
-                        userData?.clientDocument?.signature
-                      }
-                    />
-                  )} */}
+                    {userData?.clientDocument?.signature && (
+                      <img
+                        // className="signature-kyc"
+                        width={"250px"}
+                        height={"100px"}
+                        src={`${DOC_URL}${userData?.clientDocument?.signature}`}
+                      />
+                    )}
                   </div>
 
                   <div className="signature-holder"></div>
@@ -1640,20 +1600,20 @@ const IndividualDPKyc = () => {
                   <div className="col-4 col-md-4">
                     <h3>रुजु गर्ने</h3>
 
-                    {/* <p>नाम थर: {userData?.user?.verifiedBy}</p> */}
+                    <p>नाम थर: {userData?.user?.verifiedBy}</p>
 
                     <p>पद:</p>
 
                     <p>हस्ताक्षर:</p>
 
-                    {/* <p>मिति: {userData?.user?.verifiedDate}</p> */}
+                    <p>मिति: {userData?.user?.verifiedDate}</p>
                   </div>
                   <div className="col-4 col-md-4">
                     <div className="center-y">
                       <div className="office-stamp border center-xy">
                         <p
                           className="text-center"
-                          style={{ marginBottom: "9rem" }}
+                          style={{ marginBottom: "6rem" }}
                         >
                           कार्यालयको छाप
                         </p>
@@ -1664,38 +1624,34 @@ const IndividualDPKyc = () => {
                       style={{ marginLeft: "-7.5rem" }}
                     >
                       कार्यालयको नाम:{" "}
-                      {/* <b>{orgData !== undefined && orgData?.name}</b> */}
+                      <b>{orgData !== undefined && orgData?.name}</b>
                     </p>
                   </div>
 
                   <div className="col-4 col-md-4">
                     <h3>प्रमाणित गर्ने</h3>
 
-                    {/* <p>नाम थर:{userData?.user?.approvedBy}</p> */}
+                    <p>नाम थर:{userData?.user?.approvedBy}</p>
 
                     <p>पद:</p>
 
                     <p>हस्ताक्षर:</p>
 
-                    {/* <p>मिति:{userData?.user?.approvedDate}</p> */}
+                    <p>मिति:{userData?.user?.approvedDate}</p>
                   </div>
                 </div>
               </div>
             </div>
           </section>
-          {/* pointInfo */}
-          <section className="container pb-1">
-            <div className="container"></div>
-          </section>
-          {/* {individualDetail?.isMinor && ( */}
-          <section className="container pb-1">
-            <div>
-              <div className="kyc-secondary-header text-center">
-                <h2> संरक्षकको विवरण (नाबालकको हकमा मात्र)</h2>
 
-                <h2>Guardian's Details (In case of Minor Only)</h2>
-              </div>
-              {/* 
+          {individualDetail?.isMinor && (
+            <section className="container pb-1">
+              <div>
+                <div className="kyc-secondary-header text-center">
+                  संरक्षकको विवरण (नाबालकको हकमा मात्र) <br /> Guardian's
+                  Details (In case of Minor Only)
+                </div>
+                {/* 
                     <figure style={{ textAlign: "right" }}>
                       <img
                         src="https://picsum.photos/200/200"
@@ -1705,380 +1661,380 @@ const IndividualDPKyc = () => {
                         className="border"
                       />
                     </figure> */}
-            </div>
-
-            <div className="row m-0 p-0 border text-capitalize">
-              {/* <!-- name / surname  --> */}
-              <div className="col-12 col-md-6 border ">
-                <div>नाम/ थर ( name / surname) :(in block letter)</div>
-              </div>
-              <div className="col-12 col-md-6 border center-y text-uppercase">
-                {/* {individualDetail?.guardianName} */}
               </div>
 
-              {/* <!-- relationship  --> */}
-              <div className="col-12 col-md-6 border ">
-                <div>निवेदकसंगको सम्बन्ध (Relationship with applicant):</div>
-              </div>
-              <div className="col-12 col-md-6 border center-y">
-                {/* {individualDetail?.relationship} */}
-              </div>
-
-              {/* <!--  Correspondence Address --> */}
-              <div className="col-12 col-md-6 border ">
-                <div>पत्राचार ठेगाना (Correspondence Address):</div>
-              </div>
-              <div className="col-12 col-md-6 border center-y">
-                {/* {individualDetail?.guardianAddress} */}
-              </div>
-
-              {/* <!-- country --> */}
-              <div className="col-6 col-md-3 border center-y">
-                <div>
-                  <div>देश (Country):</div>
+              <div className="row m-0 p-0 border text-capitalize">
+                {/* <!-- name / surname  --> */}
+                <div className="col-6 border ">
+                  <div>नाम/ थर ( name / surname) :(in block letter)</div>
                 </div>
-              </div>
-
-              <div className=" col-6 col-md-3 border center-y">
-                {/* <div>{individualDetail?.country}</div> */}
-              </div>
-
-              {/* <!-- Province --> */}
-              <div className="col-6 col-md-3 border ">
-                <div>प्रदेश (Province):</div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* <div>{individualDetail?.guardianProvince}</div> */}
-              </div>
-
-              {/* <!-- Disstrict --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>जिल्ला (District):</div>
+                <div className="col-6 border center-y text-uppercase">
+                  {individualDetail?.guardianName}
                 </div>
-              </div>
 
-              <div className="col-6 col-md-3 border center-y">
-                {/* <div>{individualDetail?.guardianDistrict}</div> */}
-              </div>
-
-              {/* <!-- Disstrict --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.:</div>
-
-                  <div>
-                    Rural Municipality / Municipality / Sub Metropolitan city /
-                    Metropolitan city:
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {individualDetail?.guardianMunci} */}
-              </div>
-
-              {/* <!-- Ward no --> */}
-              <div className="col-6 col-md-3 border ">
-                <div>
-                  <div>वडा नं. (Ward No.):</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {individualDetail?.guardianWard} */}
-              </div>
-
-              {/* <!-- telephone no --> */}
-              <div className="col-6 col-md-3 border s">
-                <div>
-                  <div>टेलिफोन नं. (Telephone No.) :</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {individualDetail?.guardianTelephone} */}
-              </div>
-
-              {/* <!-- fax no --> */}
-              <div className="col-6 col-md-3 border ">
-                <div>
-                  <div>फ्याक्स नं. (Fax No.) :</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {individualDetail.guardianFax} */}
-              </div>
-
-              {/* <!-- mobile number --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>मोबाइल नं. (Mobile No.) :</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {individualDetail?.guardianMob} */}
-              </div>
-
-              {/* <!-- pan number --> */}
-              <div className="col-6 col-md-3 border center-y ">
-                <div>
-                  <div>स्थायी लेखा नं. (PAN No.)</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {individualDetail?.panNo} */}
-              </div>
-
-              {/* <!-- email id --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>इमेल (E-mail ID):</div>
-                </div>
-              </div>
-
-              <div className=" col-6 col-md-3 border center-y text-lowercase">
-                {/* {individualDetail?.guardianEmail} */}
-              </div>
-            </div>
-
-            <div className="text-center" style={{ width: "fit-content" }}>
-              {/* {extraInfo && (
-                <img
-                  className="signature-kyc"
-                  width={"250px"}
-                  height={"100px"}
-                  src={
-                    getPicCoresPorxyURL() +
-                    userData?.clientDocument?.signature
-                  }
-                />
-              )} */}
-              <div
-                className="signature-holder mt-5"
-                // style={{ height: extraInfo ? "0px" : "40px" }}
-              ></div>
-              <div>संरक्षकको हस्ताक्षर</div>
-              <p className="text-capitalize">Guardian's signature</p>
-            </div>
-          </section>
-          {/* )} */}
-          {/* {dpNomineeDetails?.haveNominee === true && ( */}
-          <section className="container pb-1 avoid-page-break">
-            <div className="row m-0 p-0 text-center kyc-secondary-header mb-2">
-              <h2>इच्छाएको व्यक्ति सम्बन्धि विवरण (Nominee's Details)</h2>
-            </div>
-
-            <p>
-              मेरो मृत्यु भएको अवस्था वा नसकेको अवस्थामा व्यक्तिले मेरो नाममा
-              भएको सम्पूर्ण धितोपत्रको हकदाबी गर्न पाउने छ।
-            </p>
-
-            <p>
-              In the event of my death or incapcity, the following named nominee
-              shall be entitled to the balance of my demat account
-            </p>
-
-            <div className="row m-0 p-0 border text-capitalize">
-              {/* <!-- name / surname  --> */}
-              <div className="col-12 col-md-6 border  center-y">
-                <div>
-                  <div>
-                    हकदाबी गर्नेको नाम (name / surname) :(in block letter)
-                  </div>
-                </div>
-              </div>
-              <div className="col-12 col-md-6 border center-y">
-                {/* {dpNomineeDetails?.name?.toUpperCase()} */}
-              </div>
-
-              {/* <!-- relationship  --> */}
-              <div className="col-12 col-md-6 border  center-y">
-                <div>
+                {/* <!-- relationship  --> */}
+                <div className="col-6 border ">
                   <div>निवेदकसंगको सम्बन्ध (Relationship with applicant):</div>
                 </div>
-              </div>
-              <div className="col-12 col-md-6 border center-y">
-                {/* {dpNomineeDetails?.relation} */}
-              </div>
-
-              {/* <!--  Correspondence Address --> */}
-              <div className="col-12 col-md-6  center-y border">
-                <div>
-                  <div>पत्राचार ठेगाना( Correspondence Address:)</div>
+                <div className="col-6 border center-y">
+                  {individualDetail?.relationship}
                 </div>
-              </div>
-              <div className="col-12 col-md-6 border center-y">
-                {/* {dpNomineeDetails?.address} */}
-              </div>
 
-              {/* <!-- citizenship / passport number --> */}
-              <div className="col-12 col-md-6 border ">
-                <div>
+                {/* <!--  Correspondence Address --> */}
+                <div className="col-6 border ">
+                  <div>पत्राचार ठेगाना (Correspondence Address):</div>
+                </div>
+                <div className="col-6 border center-y">
+                  {individualDetail?.guardianAddress}
+                </div>
+
+                {/* <!-- country --> */}
+                <div className="col-6 col-md-3 border center-y">
                   <div>
-                    नागरिता / राहदानी नम्बर (Citizenship / Passport No.):
+                    <div>देश (Country):</div>
                   </div>
                 </div>
-              </div>
-              <div className="col-12 col-md-6 border  center-y">
-                {/* {dpNomineeDetails?.citizenShipNo} */}
-              </div>
-              <div className="col-12 col-md-6 border ">
-                <div>
-                  <div>जारी गर्ने स्थान (Place of Issue)</div>
+
+                <div className=" col-6 col-md-3 border center-y">
+                  <div>{individualDetail?.country}</div>
                 </div>
-              </div>
-              <div className="col-12 col-md-6 border  center-y">
-                {/* {dpNomineeDetails?.placeOfIssue} */}
-              </div>
 
-              {/* <!-- country --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>देश (Country)</div>
+                {/* <!-- Province --> */}
+                <div className="col-6 col-md-3 border ">
+                  <div>प्रदेश (Province):</div>
                 </div>
-              </div>
 
-              <div className=" col-6 col-md-3 border center-y">
-                {/* {dpNomineeDetails?.country} */}
-              </div>
-
-              {/* <!-- Province --> */}
-              <div className="col-6 col-md-3 border center-y ">
-                <div>
-                  <div>प्रदेश (Province)</div>
+                <div className="col-6 col-md-3 border center-y">
+                  <div>{individualDetail?.guardianProvince}</div>
                 </div>
-              </div>
 
-              <div className="col-6 col-md-3 border center-y">
-                {/* {dpNomineeDetails?.province} */}
-              </div>
-
-              {/* <!-- Disstrict --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>जिल्ला (District)</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {dpNomineeDetails?.district} */}
-              </div>
-
-              {/* <!-- District --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.:</div>
-
+                {/* <!-- Disstrict --> */}
+                <div className="col-6 col-md-3 border  center-y">
                   <div>
-                    Rural Municipality / Municipality / Sub Metropolitan city /
-                    Metropolitan city
+                    <div>जिल्ला (District):</div>
                   </div>
                 </div>
-              </div>
 
-              <div className="col-6 col-md-3 border center-xy">
-                {/* {dpNomineeDetails?.municipality} */}
-              </div>
+                <div className="col-6 col-md-3 border center-y">
+                  <div>{individualDetail?.guardianDistrict}</div>
+                </div>
 
-              {/* <!-- age --> */}
-              <div className="col-2 col-md-3 border  center-y">
-                <div>
-                  <div>उमेर (age)</div>
+                {/* <!-- Disstrict --> */}
+                <div className="col-8 col-md-3 border  center-y">
+                  <div>
+                    <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.:</div>
+
+                    <div>
+                      Rural Municipality / Municipality / Sub Metropolitan city
+                      / Metropolitan city:
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-4 col-md-3 border center-y">
+                  {individualDetail?.guardianMunci}
+                </div>
+
+                {/* <!-- Ward no --> */}
+                <div className="col-6 col-md-3 border ">
+                  <div>
+                    <div>वडा नं. (Ward No.):</div>
+                  </div>
+                </div>
+
+                <div className="col-6 col-md-3 border center-y">
+                  {individualDetail?.guardianWard}
+                </div>
+
+                {/* <!-- telephone no --> */}
+                <div className="col-6 col-md-3 border s">
+                  <div>
+                    <div>टेलिफोन नं. (Telephone No.) :</div>
+                  </div>
+                </div>
+
+                <div className="col-6 col-md-3 border center-y">
+                  {individualDetail?.guardianTelephone}
+                </div>
+
+                {/* <!-- fax no --> */}
+                <div className="col-6 col-md-3 border ">
+                  <div>
+                    <div>फ्याक्स नं. (Fax No.) :</div>
+                  </div>
+                </div>
+
+                <div className="col-6 col-md-3 border center-y">
+                  {individualDetail.guardianFax}
+                </div>
+
+                {/* <!-- mobile number --> */}
+                <div className="col-6 col-md-3 border  center-y">
+                  <div>
+                    <div>मोबाइल नं. (Mobile No.) :</div>
+                  </div>
+                </div>
+
+                <div className="col-6 col-md-3 border center-y">
+                  {individualDetail?.guardianMob}
+                </div>
+
+                {/* <!-- pan number --> */}
+                <div className="col-6 col-md-3 border center-y ">
+                  <div>
+                    <div>स्थायी लेखा नं. (PAN No.)</div>
+                  </div>
+                </div>
+
+                <div className="col-6 col-md-3 border center-y">
+                  {individualDetail?.panNo}
+                </div>
+
+                {/* <!-- email id --> */}
+                <div className="col-6 col-md-3 border  center-y">
+                  <div>
+                    <div>इमेल (E-mail ID):</div>
+                  </div>
+                </div>
+
+                <div className=" col-6 col-md-3 border center-y text-lowercase">
+                  {individualDetail?.guardianEmail}
                 </div>
               </div>
 
-              <div className="col-2 col-md-3 border center-y">
-                {/* {dpNomineeDetails?.age} */}
-              </div>
-
-              {/* <!-- telephone no --> */}
-              <div className="col-4 col-md-3 border ">
-                <div>
-                  <div>टेलिफोन नं. (Telephone No.) :</div>
-                </div>
-              </div>
-
-              <div className="col-4 col-md-3 border center-y">
-                {/* {dpNomineeDetails?.telephoneNo} */}
-              </div>
-
-              {/* <!-- fax no --> */}
-              <div className="col-3 col-md-3 border center-y ">
-                <div>
-                  <div>फ्यास नं.( Fax No.) :</div>
-                </div>
-              </div>
-
-              <div className="col-3 col-md-3 border center-y">
-                {/* {dpNomineeDetails?.fax} */}
-              </div>
-
-              {/* <!-- mobile number --> */}
-              <div className="col-3 col-md-3 border  center-y">
-                <div>
-                  <div>मोबाइल नं. (Mobile No.) :</div>
-                </div>
-              </div>
-
-              <div className="col-3 col-md-3 border center-y">
-                {/* {dpNomineeDetails?.mobileNo} */}
-              </div>
-
-              {/* <!-- pan number --> */}
-              <div className="col-3 col-md-3 border center-y ">
-                <div>
-                  <div>स्थायी लेखा नं. (PAN No.)</div>
-                </div>
-              </div>
-
-              <div className="col-3 col-md-3 border center-y">
-                {/* {dpNomineeDetails?.panNo} */}
-              </div>
-
-              {/* <!-- email id --> */}
-              <div className="col-3 col-md-3 border  center-y">
-                <div>
-                  <div>इमेल (E-mail ID):</div>
-                </div>
-              </div>
-
-              <div className=" col-3 col-md-3 border center-y text-lowercase">
-                {/* <div>{dpNomineeDetails?.email}</div> */}
-              </div>
-            </div>
-
-            <div className="text-center" style={{ width: "fit-content" }}>
-              <div
-                style={{
-                  //   height: extraInfo ? "0px" : "100px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-end",
-                  justifyContent: "flex-end",
-                }}
-              >
-                {/* {extraInfo && (
+              <div className="text-center" style={{ width: "fit-content" }}>
+                {userData?.clientDocument?.signature && (
                   <img
                     className="signature-kyc"
                     width={"250px"}
                     height={"100px"}
-                    src={
-                      getPicCoresPorxyURL() +
-                      userData?.clientDocument?.signature
-                    }
+                    src={`${DOC_URL}${userData?.clientDocument?.signature}`}
                   />
-                )} */}
-                <div className="signature-holder mt-5"></div>
-                <p>उम्मेदवारको हस्ताक्षर (Signature)</p>
+                )}
+                <div
+                  className="signature-holder"
+                  style={{
+                    height: userData?.clientDocument?.signature
+                      ? "0px"
+                      : "40px",
+                  }}
+                ></div>
+                <div>संरक्षकको हस्ताक्षर</div>
+                <p className="text-capitalize">Guardian's signature</p>
               </div>
-            </div>
-          </section>
-          {/* )} */}
+            </section>
+          )}
+          {dpNomineeDetails?.haveNominee === true && (
+            <section className="container pb-1 avoid-page-break">
+              <div className="kyc-secondary-header text-center ">
+                इच्छाएको व्यक्ति सम्बन्धि विवरण (Nominee's Details)
+              </div>
+
+              <p>
+                मेरो मृत्यु भएको अवस्था वा नसकेको अवस्थामा व्यक्तिले मेरो नाममा
+                भएको सम्पूर्ण धितोपत्रको हकदाबी गर्न पाउने छ।
+              </p>
+
+              <p>
+                In the event of my death or incapcity, the following named
+                nominee shall be entitled to the balance of my demat account
+              </p>
+
+              <div className="row m-0 p-0 border text-capitalize">
+                {/* <!-- name / surname  --> */}
+                <div className="col-6 border  center-y">
+                  <div>
+                    <div>
+                      हकदाबी गर्नेको नाम (name / surname) :(in block letter)
+                    </div>
+                  </div>
+                </div>
+                <div className="col-6 border center-y">
+                  {dpNomineeDetails?.name?.toUpperCase()}
+                </div>
+
+                {/* <!-- relationship  --> */}
+                <div className="col-6 border  center-y">
+                  <div>
+                    <div>
+                      निवेदकसंगको सम्बन्ध (Relationship with applicant):
+                    </div>
+                  </div>
+                </div>
+                <div className="col-6 border center-y">
+                  {dpNomineeDetails?.relation}
+                </div>
+
+                {/* <!--  Correspondence Address --> */}
+                <div className="col-6  center-y border">
+                  <div>
+                    <div>पत्राचार ठेगाना( Correspondence Address:)</div>
+                  </div>
+                </div>
+                <div className="col-6 border center-y">
+                  {dpNomineeDetails?.address}
+                </div>
+
+                {/* <!-- citizenship / passport number --> */}
+                <div className="col-6 border ">
+                  <div>
+                    <div>
+                      नागरिता / राहदानी नम्बर (Citizenship / Passport No.):
+                    </div>
+                  </div>
+                </div>
+                <div className="col-6 border  center-y">
+                  {dpNomineeDetails?.citizenShipNo}
+                </div>
+                <div className="col-6 border ">
+                  <div>
+                    <div>जारी गर्ने स्थान (Place of Issue)</div>
+                  </div>
+                </div>
+                <div className=" col-6 border  center-y">
+                  {dpNomineeDetails?.placeOfIssue}
+                </div>
+
+                {/* <!-- country --> */}
+                <div className="col-6 col-md-3 border  center-y">
+                  <div>
+                    <div>देश (Country)</div>
+                  </div>
+                </div>
+
+                <div className=" col-6 col-md-3 border center-y">
+                  {dpNomineeDetails?.country}
+                </div>
+
+                {/* <!-- Province --> */}
+                <div className="col-6 col-md-3 border center-y ">
+                  <div>
+                    <div>प्रदेश (Province)</div>
+                  </div>
+                </div>
+
+                <div className="col-6 col-md-3 border center-y">
+                  {dpNomineeDetails?.province}
+                </div>
+
+                {/* <!-- Disstrict --> */}
+                <div className="col-6 col-md-3 border  center-y">
+                  <div>
+                    <div>जिल्ला (District)</div>
+                  </div>
+                </div>
+
+                <div className="col-6 col-md-3 border center-y">
+                  {dpNomineeDetails?.district}
+                </div>
+
+                {/* <!-- District --> */}
+                <div className="col-8 col-md-3 border  center-y">
+                  <div>
+                    <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.:</div>
+
+                    <div>
+                      Rural Municipality / Municipality / Sub Metropolitan city
+                      / Metropolitan city
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-4 col-md-3 border center-xy">
+                  {dpNomineeDetails?.municipality}
+                </div>
+
+                {/* <!-- age --> */}
+                <div className="col-2 col-md-3 border  center-y">
+                  <div>
+                    <div>उमेर (age)</div>
+                  </div>
+                </div>
+
+                <div className="col-2 col-md-3 border center-y">
+                  {dpNomineeDetails?.age}
+                </div>
+
+                {/* <!-- telephone no --> */}
+                <div className="col-4 col-md-3 border ">
+                  <div>
+                    <div>टेलिफोन नं. (Telephone No.) :</div>
+                  </div>
+                </div>
+
+                <div className="col-4 col-md-3 border center-y">
+                  {dpNomineeDetails?.telephoneNo}
+                </div>
+
+                {/* <!-- fax no --> */}
+                <div className="col-3 col-md-3 border center-y ">
+                  <div>
+                    <div>फ्यास नं.( Fax No.) :</div>
+                  </div>
+                </div>
+
+                <div className="col-3 col-md-3 border center-y">
+                  {dpNomineeDetails?.fax}
+                </div>
+
+                {/* <!-- mobile number --> */}
+                <div className="col-3 col-md-3 border  center-y">
+                  <div>
+                    <div>मोबाइल नं. (Mobile No.) :</div>
+                  </div>
+                </div>
+
+                <div className="col-3 col-md-3 border center-y">
+                  {dpNomineeDetails?.mobileNo}
+                </div>
+
+                {/* <!-- pan number --> */}
+                <div className="col-3 col-md-3 border center-y ">
+                  <div>
+                    <div>स्थायी लेखा नं. (PAN No.)</div>
+                  </div>
+                </div>
+
+                <div className="col-3 col-md-3 border center-y">
+                  {dpNomineeDetails?.panNo}
+                </div>
+
+                {/* <!-- email id --> */}
+                <div className="col-3 col-md-3 border  center-y">
+                  <div>
+                    <div>इमेल (E-mail ID):</div>
+                  </div>
+                </div>
+
+                <div className=" col-3 col-md-3 border center-y text-lowercase">
+                  <div>{dpNomineeDetails?.email}</div>
+                </div>
+              </div>
+
+              <div className="text-center" style={{ width: "fit-content" }}>
+                <div
+                  style={{
+                    //   height: extraInfo ? "0px" : "100px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-end",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  {userData?.clientDocument?.signature && (
+                    <img
+                      className="signature-kyc"
+                      width={"250px"}
+                      height={"100px"}
+                      src={`${DOC_URL}${userData?.clientDocument?.signature}`}
+                    />
+                  )}
+                  <div className="signature-holder"></div>
+                  <p>उम्मेदवारको हस्ताक्षर (Signature)</p>
+                </div>
+              </div>
+            </section>
+          )}
           {/* KYCAGGREMENT */}
           <section className="container pb-1 pb-print-1">
             {/* <!-- Header section --> */}
@@ -2089,38 +2045,38 @@ const IndividualDPKyc = () => {
             </header>
             <div className="my-4">
               <p className="mx-3 text-start aggrement-content">
-                {/* {orgData?.address ? (
-                <span className="dotted-underline mt-3">
-                  {orgData?.address}
-                </span>
-              ) : (
-                "..........................."
-              )}{" "} */}
+                {orgData?.address ? (
+                  <span className="dotted-underline mt-3">
+                    {orgData?.address}
+                  </span>
+                ) : (
+                  "..........................."
+                )}{" "}
                 स्थित कार्यालय रहेको{" "}
-                {/* {orgData !== undefined && (
-                <span className="dotted-underline mt-3">{orgData?.name}</span>
-              )} */}
+                {orgData !== undefined && (
+                  <span className="dotted-underline mt-3">{orgData?.name}</span>
+                )}
                 (वैधानिक अस्तित्व भएको निकायको विवरण) (यसपछि "सदस्य" भनिएको )
                 प्रथम पक्ष र{" "}
-                {/* {currentAddressDetails ? (
-                <span
-                  className="dotted-underline mt-3"
-                  style={{ textTransform: "capitalize" }}
-                >
-                  {currentAddressDetails[0]?.province}{" "}
-                  {currentAddressDetails[0]?.district}
-                </span>
-              ) : (
-                "............................."
-              )}{" "} */}
+                {currentAddressDetails ? (
+                  <span
+                    className="dotted-underline mt-3"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    {currentAddressDetails[0]?.province}{" "}
+                    {currentAddressDetails[0]?.district}
+                  </span>
+                ) : (
+                  "............................."
+                )}{" "}
                 स्थित कार्यालय रहेको{" "}
-                {/* {userData?.user?.name ? (
-                <span className="dotted-underline mt-3">
-                  {userData?.user?.name}
-                </span>
-              ) : (
-                "............................."
-              )}{" "} */}
+                {userData?.user?.name ? (
+                  <span className="dotted-underline mt-3">
+                    {userData?.user?.name}
+                  </span>
+                ) : (
+                  "............................."
+                )}{" "}
                 (वैधानिक अस्तित्व भएको निकायको विवरण ) यसपछि ("हितग्राही" भनिएको
                 ) दोस्रो पक्ष बीच देहायको शर्तहरु पालना गर्ने सहमतिसाथ यो
                 सम्झौता गरिएको छ ।{" "}
@@ -2239,7 +2195,7 @@ const IndividualDPKyc = () => {
                   <h4 className="aggrement-header">
                     सम्झौताका दोस्रो पक्ष (हितग्राहिको तर्फबाट अधिकार प्राप्त){" "}
                   </h4>
-                  {/* <p>व्यक्तिको नाम:{userData?.user?.name}</p> */}
+                  <p>व्यक्तिको नाम:{userData?.user?.name}</p>
                   <p>दस्तखत: </p>
                   <p>कम्पनीको छाप : </p>
                 </div>
@@ -2265,13 +2221,14 @@ const IndividualDPKyc = () => {
           {/* Meroshare */}
           <section className="container pb-5">
             <DpMeroShare
-            // applicantName={userData?.user?.name}
-            // email={userData.user?.email}
-            // mobileNo={userData.user?.phoneNo}
-            // dpId={userData.user?.dpDetails?.dpId}
-            // boid={userData.user?.boid}
-            // addressDetails={permanentAddressDetails?.[0]}
-            // date={userData.user?.submittedDate}
+              applicantName={userData?.user?.name}
+              email={userData.user?.email}
+              mobileNo={userData.user?.phoneNo}
+              dpId={userData.user?.dpDetails?.dpId}
+              boid={userData.user?.boid}
+              addressDetails={permanentAddressDetails?.[0]}
+              date={userData.user?.submittedDate}
+              orgData={orgData}
             />
           </section>
         </div>
