@@ -6,12 +6,22 @@ import FormModal from "../../components/formModal/FormModal";
 import CustomTable from "../../components/customTable/CustomTable";
 import DocumentFieldDp from "../dp/forms/individual/DocumentIndividual/DocumentFieldDp";
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from "react-router-dom";
+import { nextFormPath } from "../../utility/userHelper";
+import { useDispatch } from "react-redux";
+import { SET_FORM } from "../../redux/types/types";
 
 const IndividualDocument = () => {
   const { t } = useTranslation();
   const theme = useTheme();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const handleNext = () => {
+    navigate(nextFormPath(3));
+    dispatch({ type: SET_FORM, payload: 3 });
+  };
   const columns = useMemo(
     () => [
       {
@@ -112,14 +122,14 @@ const IndividualDocument = () => {
         // exportAsCSV
         // exportAsPdf
         headerBackgroundColor="#401686"
-        // headerColor={theme.palette.text.alt}
-        // enableColumnActions
-        // enableDelete
-        // enableEditing={true}
-        // handleDelete={deleteRow}
-        // handleNotification={notificationRoute}
-        // delete
-        // notification
+      // headerColor={theme.palette.text.alt}
+      // enableColumnActions
+      // enableDelete
+      // enableEditing={true}
+      // handleDelete={deleteRow}
+      // handleNotification={notificationRoute}
+      // delete
+      // notification
       />
       <FormModal
         open={isModalOpen}
@@ -132,6 +142,23 @@ const IndividualDocument = () => {
           </>
         }
       />
+
+      <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: '1rem' }}>
+        <Button
+          onClick={() => navigate(-1)}
+          variant="outlined"
+          color="secondary"
+        >
+          Back
+        </Button>
+        <Button
+          onClick={handleNext}
+          variant="contained"
+          color="secondary"
+        >
+          Next
+        </Button>
+      </Grid>
     </>
   );
 };

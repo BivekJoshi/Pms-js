@@ -1077,8 +1077,8 @@ export const corporateKycTMSList = [
         />
       </svg>
     ),
-    path: "/kyc/tms-registration/c/corporate-bo-statement",
-    title: "Bo Statement",
+    path: "/kyc/tms-registration/c/corporate-bank-detail",
+    title: "Bank Details",
   },
   {
     id: 5,
