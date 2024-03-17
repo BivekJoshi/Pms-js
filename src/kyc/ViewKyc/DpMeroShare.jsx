@@ -1,5 +1,6 @@
 import React from "react";
 import dateConverter from "../../utility/dateConverter";
+import "./Individual/kycIndividual.css";
 
 const DpMeroShare = (props) => {
   const orgData = props.orgData;
@@ -7,7 +8,7 @@ const DpMeroShare = (props) => {
   const addressDetails = props.addressDetails;
   const bsDate = dateConverter(props.date, "AD_BS");
   return (
-    <section className="meroShare">
+    <section className="meroShare aggrement-content">
       <header className="text-center">
         <p>
           <b>"मेरो शेयर"</b> को सेवा लिनको लागि निवेदन फारम
@@ -44,104 +45,93 @@ const DpMeroShare = (props) => {
           गर्दछु/गर्दछौँ ।{" "}
         </p>
 
-        <div className="container">
-          <div className="row">
-            <div className="col-4 border center-y ">
-              <div>निवेदकको नाम/थर (Applicant's Name/Surname)</div>
+        <div className="m-0 p-0 row kyc-page">
+          <div className="col-6 border center-y ">
+            <div>निवेदकको नाम/थर (Applicant's Name/Surname)</div>
+          </div>
+          <div className="col-6 border d-flex align-items-end">
+            <div className="text-uppercase " style={{ fontWeight: "600" }}>
+              {props.applicantName}
             </div>
-            <div className="col-8 border d-flex align-items-end">
-              <div className="text-uppercase " style={{ fontWeight: "600" }}>
-                {props.applicantName}
-              </div>
+          </div>
+          <div className="col-4 border center-y ">
+            <div>देवनागरी (Name in Nepali)</div>
+          </div>
+          <div className="col-8 border d-flex align-items-end">
+            <div className="text-uppercase  " style={{ fontWeight: "600" }}>
+              {props.nepaliname}
             </div>
-            <div className="col-4 border center-y ">
-              <div>देवनागरी (Name in Nepali)</div>
+          </div>
+          <div className="col-3 border center-y ">
+            <div>DP ID</div>
+          </div>
+          <div className="col-3 border center-y " style={{ fontWeight: "600" }}>
+            130{props.dpId}
+          </div>
+          <div className="col-3 border center-y ">
+            <div>Client ID</div>
+          </div>
+          <div className="col-3 border center-y " style={{ fontWeight: "600" }}>
+            {clientId}
+          </div>
+          <div className="col-3 border center-y ">
+            {" "}
+            <div>Email</div>
+          </div>
+          <div className="col-3 border center-y " style={{ fontWeight: "600" }}>
+            <div>{props.email}</div>
+          </div>
+          <div className="col-3 border  ">
+            <div>Mobile No.</div>
+          </div>
+          <div className="col-3 border m-0  " style={{ fontWeight: "600" }}>
+            <div>{props.mobileNo}</div>
+            <div>{props.officeContact}</div>
+          </div>
+          <div className="col-3 border m-0   ">
+            <div>Office No.</div>
+          </div>
+          <div className="col-3 border m-0  " style={{ fontWeight: "600" }}>
+            <div>{props.officeContact}</div>
+          </div>
+          <div className="col-3 border">
+            <div>Residence No.</div>
+          </div>
+          <div className="col-md-3 border" style={{ fontWeight: "600" }}>
+            <div>{props.residenceContact}</div>
+          </div>
+          <div className="col-2 col-md-2 border center-y ">
+            {" "}
+            <div>Address</div>
+          </div>
+          <div className=" row col-10 col-md-10 m-0 p-0 ">
+            <div className="col-4 col-md-4 border m-0  p-0 text-center">
+              <div>Province </div>
             </div>
-            <div className="col-8 border d-flex align-items-end">
-              <div className="text-uppercase  " style={{ fontWeight: "600" }}>
-                {props.nepaliname}
-              </div>
+            <div className="col-4 col-md-4 border p-0 text-center">
+              <div>District </div>
             </div>
-            <div className="col-3 border center-y ">
-              <div>DP ID</div>
+            <div className="col-4 col-md-4 border p-0 text-center">
+              <div>Municipality</div>
             </div>
             <div
-              className="col-3 border center-y "
+              className="col-4 col-md-4 border m-0  p-0 text-center "
               style={{ fontWeight: "600" }}
             >
-              130{props.dpId}
-            </div>
-            <div className="col-3 border center-y ">
-              <div>Client ID</div>
+              <div>{addressDetails?.province}</div>
             </div>
             <div
-              className="col-3 border center-y "
+              className="col-4 col-md-4 border p-0 text-center "
               style={{ fontWeight: "600" }}
             >
-              {clientId}
-            </div>
-            <div className="col-3 border center-y ">
-              {" "}
-              <div>Email</div>
+              <div>{addressDetails?.district}</div>
             </div>
             <div
-              className="col-3 border center-y "
+              className="col-4 col-md-4 border p-0 text-center "
               style={{ fontWeight: "600" }}
             >
-              <div>{props.email}</div>
-            </div>
-            <div className="col-3 border  ">
-              <div>Mobile No.</div>
-            </div>
-            <div className="col-3 border m-0  " style={{ fontWeight: "600" }}>
-              <div>{props.mobileNo}</div>
-              <div>{props.officeContact}</div>
-            </div>
-            <div className="col-3 border m-0   ">
-              <div>Office No.</div>
-            </div>
-            <div className="col-3 border m-0  " style={{ fontWeight: "600" }}>
-              <div>{props.officeContact}</div>
-            </div>
-            <div className="col-3 border  ">
-              <div>Residence No.</div>
-            </div>
-            <div className="col-md-3 border " style={{ fontWeight: "600" }}>
-              <div>{props.residenceContact}</div>
-            </div>
-            <div className="col-2 col-md-2 border center-y ">
-              {" "}
-              <div>Address</div>
-            </div>
-            <div className=" row col-10 col-md-10 m-0 p-0 ">
-              <div className="col-4 col-md-4 border m-0  p-0 text-center">
-                <div>Province </div>
-              </div>
-              <div className="col-4 col-md-4 border p-0 text-center">
-                <div>District </div>
-              </div>
-              <div className="col-4 col-md-4 border p-0 text-center">
-                <div>Municipality</div>
-              </div>
-              <div
-                className="col-4 col-md-4 border m-0  p-0 text-center "
-                style={{ fontWeight: "600" }}
-              >
-                <div>{addressDetails?.province}</div>
-              </div>
-              <div
-                className="col-4 col-md-4 border p-0 text-center "
-                style={{ fontWeight: "600" }}
-              >
-                <div>{addressDetails?.district}</div>
-              </div>
-              <div
-                className="col-4 col-md-4 border p-0 text-center "
-                style={{ fontWeight: "600" }}
-              >
-                <div>
-                  {addressDetails?.municipality + "-" + addressDetails?.wordNo}
-                </div>
+              <div>
+                {addressDetails?.municipality + "-" + addressDetails?.wordNo}
               </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ import domtoimage from "dom-to-image";
 import { getBankList } from "../../../api/Kyc/Bank/addBankKyc";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
+import { DOC_URL } from "../../../utility/getBaseUrl";
 
 const IndividualDPKyc = () => {
   const [mapImage, setmapImage] = useState("");
@@ -141,7 +142,11 @@ const IndividualDPKyc = () => {
               <div className="text-center d-flex flex-column align-items-center">
                 <p>(दोश्रो संशोधन, २०७३ अनुसार संशोधित गरिएको)</p>
               </div>
-              <div id="photo" key={userData?.clientDocument?.ppSizePhoto}>
+              <div
+                id="photo"
+                key={userData?.clientDocument?.ppSizePhoto}
+                style={{ marginLeft: "1rem" }}
+              >
                 {userData?.clientDocument?.ppSizePhoto && (
                   <img
                     className="employee-pp-photo-kyc"
@@ -153,10 +158,7 @@ const IndividualDPKyc = () => {
                       width: "150px",
                     }}
                     id="photo"
-                    src={
-                      // getPicCoresPorxyURL() +
-                      userData?.clientDocument?.ppSizePhoto
-                    }
+                    src={`${DOC_URL}${userData?.clientDocument?.ppSizePhoto}`}
                   />
                 )}
               </div>
@@ -838,9 +840,7 @@ const IndividualDPKyc = () => {
           {/* Details of Family Member */}
           <section className="container pb-1 avoid-page-break">
             <div className="text-center kyc-secondary-header">
-              <h2 className="text-capitalize">
-                परिवारका सदस्यहरुको विवरण(Details of family member)
-              </h2>
+              परिवारका सदस्यहरुको विवरण(Details of family member)
             </div>
 
             {/* <div className="container"> */}
@@ -922,9 +922,7 @@ const IndividualDPKyc = () => {
           {/* BankDetails */}
           <section className="container pb-1">
             <div className="text-center kyc-secondary-header">
-              <h2 className="text-capitalize">
-                बैंक खाताको विवरण(bank account details)
-              </h2>
+              बैंक खाताको विवरण(bank account details)
             </div>
 
             {/* <div className="container"> */}
@@ -1020,7 +1018,7 @@ const IndividualDPKyc = () => {
           {/* Details of Occupation */}
           <section className="container pb-1 avoid-page-break mt-4">
             <div className="kyc-secondary-header text-center">
-              <h2>पेशागत विवरण (Details of Occupation)</h2>
+              पेशागत विवरण (Details of Occupation)
             </div>
             {/* <div className="container"> */}
             <div className="row m-0 p-0 ">
@@ -1326,7 +1324,6 @@ const IndividualDPKyc = () => {
               <div className="col-3 col-md-3 border center-y">
                 <div>
                   <div>आर्थिक विवरण</div>
-
                   <div className="text-capitalize">(financial Details)</div>
                 </div>
               </div>
@@ -1334,7 +1331,6 @@ const IndividualDPKyc = () => {
                 <p className="text-start">
                   आयको सीमा वार्षिक विवरण (Income Limit Annual Details)
                 </p>
-
                 <div className="row">
                   <div className="col-6 col-lg-6 ">
                     <div className="form-check">
@@ -1442,77 +1438,77 @@ const IndividualDPKyc = () => {
                   </div>
                 </div>
 
-                {/* <!-- ! bank account number --> */}
-                {/* {userData?.boStatement
-                  ?.isStandingInstructionForAutomaticTxn && ( */}
-                <div className="col-12 border center-y ">
-                  <div>
-                    <div className="text-capitalize">
-                      खाताको विवरण प्राप्त गर्ने (Account Statement)
-                    </div>
-                    <div className="col-12  center-y" style={{ gap: "16px" }}>
-                      <div className="d-flex">
-                        <input
-                          type="radio"
-                          readOnly
-                          htmlFor="typeOfAccount"
-                          checked={
-                            userData?.boStatement?.accountStatementPeriod ===
-                            "DAILY"
-                          }
-                        />
-                        <div className="m-2">
-                          <div>दैनिक(Daily)</div>
-                        </div>
+                {/* <!-- ! Bo Statemant --> */}
+                {userData?.boStatement
+                  ?.isStandingInstructionForAutomaticTxn && (
+                  <div className="col-12 border center-y ">
+                    <div>
+                      <div className="text-capitalize">
+                        खाताको विवरण प्राप्त गर्ने (Account Statement)
                       </div>
-                      <div className="d-flex">
-                        <input
-                          type="radio"
-                          readOnly
-                          htmlFor="typeOfAccount"
-                          checked={
-                            userData?.boStatement?.accountStatementPeriod ===
-                            "WEEKLY"
-                          }
-                        />
-                        <div className="m-2">
-                          <div>साप्ताहिक(Weekly)</div>
+                      <div className="col-12  center-y" style={{ gap: "16px" }}>
+                        <div className="d-flex">
+                          <input
+                            type="radio"
+                            readOnly
+                            htmlFor="typeOfAccount"
+                            checked={
+                              userData?.boStatement?.accountStatementPeriod ===
+                              "DAILY"
+                            }
+                          />
+                          <div className="m-2">
+                            <div>दैनिक(Daily)</div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="d-flex">
-                        <input
-                          type="radio"
-                          readOnly
-                          htmlFor="typeOfAccount"
-                          checked={
-                            userData?.boStatement?.accountStatementPeriod ===
-                            "15DAYS"
-                          }
-                        />
-                        <div className="m-2">
-                          {" "}
-                          <div>पाक्षिक(15 days)</div>
+                        <div className="d-flex">
+                          <input
+                            type="radio"
+                            readOnly
+                            htmlFor="typeOfAccount"
+                            checked={
+                              userData?.boStatement?.accountStatementPeriod ===
+                              "WEEKLY"
+                            }
+                          />
+                          <div className="m-2">
+                            <div>साप्ताहिक(Weekly)</div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="d-flex">
-                        <input
-                          type="radio"
-                          readOnly
-                          htmlFor="typeOfAccount"
-                          checked={
-                            userData?.boStatement?.accountStatementPeriod ===
-                            "C"
-                          }
-                        />
-                        <div className="m-2">
-                          {" "}
-                          <div>मासिक(Monthly)</div>
+                        <div className="d-flex">
+                          <input
+                            type="radio"
+                            readOnly
+                            htmlFor="typeOfAccount"
+                            checked={
+                              userData?.boStatement?.accountStatementPeriod ===
+                              "15DAYS"
+                            }
+                          />
+                          <div className="m-2">
+                            {" "}
+                            <div>पाक्षिक(15 days)</div>
+                          </div>
+                        </div>
+                        <div className="d-flex">
+                          <input
+                            type="radio"
+                            readOnly
+                            htmlFor="typeOfAccount"
+                            checked={
+                              userData?.boStatement?.accountStatementPeriod ===
+                              "C"
+                            }
+                          />
+                          <div className="m-2">
+                            {" "}
+                            <div>मासिक(Monthly)</div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                {/* )} */}
+                )}
               </div>
               <div className="row m-0 p-0">
                 <p className="text-start">
@@ -1546,52 +1542,43 @@ const IndividualDPKyc = () => {
 
                   <div className="row col-6" style={{ width: "10cm" }}>
                     <div className="col-6 center-xy border">
-                      <div style={{ height: "160px" }}>
+                      <div style={{ height: "180px" }}>
                         {" "}
                         <p>बायाँ (left)</p>
-                        {/* {userData?.clientDocument?.leftThumb && extraInfo && (
-                        <img
-                          width={"150px"}
-                          height={"200px"}
-                          src={
-                            getPicCoresPorxyURL() +
-                            userData?.clientDocument?.leftThumb
-                          }
-                        />
-                      )} */}
+                        {userData?.clientDocument?.leftThumb && (
+                          <img
+                            width={"150px"}
+                            height={"160px"}
+                            src={`${DOC_URL}${userData?.clientDocument?.leftThumb}`}
+                          />
+                        )}
                       </div>
                     </div>
                     <div className="col-6 center-xy border">
-                      <div style={{ height: "160px" }}>
+                      <div style={{ height: "180px" }}>
                         <p>दायाँ (right)</p>
 
-                        {/* {userData?.clientDocument?.rightThumb && extraInfo && (
-                        <img
-                          width={"150px"}
-                          height={"200px"}
-                          src={
-                            getPicCoresPorxyURL() +
-                            userData?.clientDocument?.rightThumb
-                          }
-                        />
-                      )} */}
+                        {userData?.clientDocument?.rightThumb && (
+                          <img
+                            width={"150px"}
+                            height={"160px"}
+                            src={`${DOC_URL}${userData?.clientDocument?.rightThumb}`}
+                          />
+                        )}
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="row col-5 align-self-end justify-content-end text-end">
                   <div className="text-center">
-                    {/* {userData?.clientDocument?.signature && extraInfo && (
-                    <img
-                      // className="signature-kyc"
-                      width={"250px"}
-                      height={"100px"}
-                      src={
-                        getPicCoresPorxyURL() +
-                        userData?.clientDocument?.signature
-                      }
-                    />
-                  )} */}
+                    {userData?.clientDocument?.signature && (
+                      <img
+                        // className="signature-kyc"
+                        width={"250px"}
+                        height={"100px"}
+                        src={`${DOC_URL}${userData?.clientDocument?.signature}`}
+                      />
+                    )}
                   </div>
 
                   <div className="signature-holder"></div>
@@ -1661,9 +1648,8 @@ const IndividualDPKyc = () => {
             <section className="container pb-1">
               <div>
                 <div className="kyc-secondary-header text-center">
-                  <h2> संरक्षकको विवरण (नाबालकको हकमा मात्र)</h2>
-
-                  <h2>Guardian's Details (In case of Minor Only)</h2>
+                  संरक्षकको विवरण (नाबालकको हकमा मात्र) <br /> Guardian's
+                  Details (In case of Minor Only)
                 </div>
                 {/* 
                     <figure style={{ textAlign: "right" }}>
@@ -1679,26 +1665,26 @@ const IndividualDPKyc = () => {
 
               <div className="row m-0 p-0 border text-capitalize">
                 {/* <!-- name / surname  --> */}
-                <div className="col-12 col-md-6 border ">
+                <div className="col-6 border ">
                   <div>नाम/ थर ( name / surname) :(in block letter)</div>
                 </div>
-                <div className="col-12 col-md-6 border center-y text-uppercase">
+                <div className="col-6 border center-y text-uppercase">
                   {individualDetail?.guardianName}
                 </div>
 
                 {/* <!-- relationship  --> */}
-                <div className="col-12 col-md-6 border ">
+                <div className="col-6 border ">
                   <div>निवेदकसंगको सम्बन्ध (Relationship with applicant):</div>
                 </div>
-                <div className="col-12 col-md-6 border center-y">
+                <div className="col-6 border center-y">
                   {individualDetail?.relationship}
                 </div>
 
                 {/* <!--  Correspondence Address --> */}
-                <div className="col-12 col-md-6 border ">
+                <div className="col-6 border ">
                   <div>पत्राचार ठेगाना (Correspondence Address):</div>
                 </div>
-                <div className="col-12 col-md-6 border center-y">
+                <div className="col-6 border center-y">
                   {individualDetail?.guardianAddress}
                 </div>
 
@@ -1734,7 +1720,7 @@ const IndividualDPKyc = () => {
                 </div>
 
                 {/* <!-- Disstrict --> */}
-                <div className="col-6 col-md-3 border  center-y">
+                <div className="col-8 col-md-3 border  center-y">
                   <div>
                     <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.:</div>
 
@@ -1745,7 +1731,7 @@ const IndividualDPKyc = () => {
                   </div>
                 </div>
 
-                <div className="col-6 col-md-3 border center-y">
+                <div className="col-4 col-md-3 border center-y">
                   {individualDetail?.guardianMunci}
                 </div>
 
@@ -1817,20 +1803,21 @@ const IndividualDPKyc = () => {
               </div>
 
               <div className="text-center" style={{ width: "fit-content" }}>
-                {/* {extraInfo && (
-                <img
-                  className="signature-kyc"
-                  width={"250px"}
-                  height={"100px"}
-                  src={
-                    getPicCoresPorxyURL() +
-                    userData?.clientDocument?.signature
-                  }
-                />
-              )} */}
+                {userData?.clientDocument?.signature && (
+                  <img
+                    className="signature-kyc"
+                    width={"250px"}
+                    height={"100px"}
+                    src={`${DOC_URL}${userData?.clientDocument?.signature}`}
+                  />
+                )}
                 <div
-                  className="signature-holder mt-5"
-                  // style={{ height: extraInfo ? "0px" : "40px" }}
+                  className="signature-holder"
+                  style={{
+                    height: userData?.clientDocument?.signature
+                      ? "0px"
+                      : "40px",
+                  }}
                 ></div>
                 <div>संरक्षकको हस्ताक्षर</div>
                 <p className="text-capitalize">Guardian's signature</p>
@@ -1839,8 +1826,8 @@ const IndividualDPKyc = () => {
           )}
           {dpNomineeDetails?.haveNominee === true && (
             <section className="container pb-1 avoid-page-break">
-              <div className="row m-0 p-0 text-center kyc-secondary-header mb-2">
-                <h2>इच्छाएको व्यक्ति सम्बन्धि विवरण (Nominee's Details)</h2>
+              <div className="kyc-secondary-header text-center ">
+                इच्छाएको व्यक्ति सम्बन्धि विवरण (Nominee's Details)
               </div>
 
               <p>
@@ -1855,56 +1842,56 @@ const IndividualDPKyc = () => {
 
               <div className="row m-0 p-0 border text-capitalize">
                 {/* <!-- name / surname  --> */}
-                <div className="col-12 col-md-6 border  center-y">
+                <div className="col-6 border  center-y">
                   <div>
                     <div>
                       हकदाबी गर्नेको नाम (name / surname) :(in block letter)
                     </div>
                   </div>
                 </div>
-                <div className="col-12 col-md-6 border center-y">
+                <div className="col-6 border center-y">
                   {dpNomineeDetails?.name?.toUpperCase()}
                 </div>
 
                 {/* <!-- relationship  --> */}
-                <div className="col-12 col-md-6 border  center-y">
+                <div className="col-6 border  center-y">
                   <div>
                     <div>
                       निवेदकसंगको सम्बन्ध (Relationship with applicant):
                     </div>
                   </div>
                 </div>
-                <div className="col-12 col-md-6 border center-y">
+                <div className="col-6 border center-y">
                   {dpNomineeDetails?.relation}
                 </div>
 
                 {/* <!--  Correspondence Address --> */}
-                <div className="col-12 col-md-6  center-y border">
+                <div className="col-6  center-y border">
                   <div>
                     <div>पत्राचार ठेगाना( Correspondence Address:)</div>
                   </div>
                 </div>
-                <div className="col-12 col-md-6 border center-y">
+                <div className="col-6 border center-y">
                   {dpNomineeDetails?.address}
                 </div>
 
                 {/* <!-- citizenship / passport number --> */}
-                <div className="col-12 col-md-6 border ">
+                <div className="col-6 border ">
                   <div>
                     <div>
                       नागरिता / राहदानी नम्बर (Citizenship / Passport No.):
                     </div>
                   </div>
                 </div>
-                <div className="col-12 col-md-6 border  center-y">
+                <div className="col-6 border  center-y">
                   {dpNomineeDetails?.citizenShipNo}
                 </div>
-                <div className="col-12 col-md-6 border ">
+                <div className="col-6 border ">
                   <div>
                     <div>जारी गर्ने स्थान (Place of Issue)</div>
                   </div>
                 </div>
-                <div className="col-12 col-md-6 border  center-y">
+                <div className=" col-6 border  center-y">
                   {dpNomineeDetails?.placeOfIssue}
                 </div>
 
@@ -1942,7 +1929,7 @@ const IndividualDPKyc = () => {
                 </div>
 
                 {/* <!-- District --> */}
-                <div className="col-6 col-md-3 border  center-y">
+                <div className="col-8 col-md-3 border  center-y">
                   <div>
                     <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.:</div>
 
@@ -1953,7 +1940,7 @@ const IndividualDPKyc = () => {
                   </div>
                 </div>
 
-                <div className="col-6 col-md-3 border center-xy">
+                <div className="col-4 col-md-3 border center-xy">
                   {dpNomineeDetails?.municipality}
                 </div>
 
@@ -2034,18 +2021,15 @@ const IndividualDPKyc = () => {
                     justifyContent: "flex-end",
                   }}
                 >
-                  {/* {extraInfo && (
-                  <img
-                    className="signature-kyc"
-                    width={"250px"}
-                    height={"100px"}
-                    src={
-                      getPicCoresPorxyURL() +
-                      userData?.clientDocument?.signature
-                    }
-                  />
-                )} */}
-                  <div className="signature-holder mt-5"></div>
+                  {userData?.clientDocument?.signature && (
+                    <img
+                      className="signature-kyc"
+                      width={"250px"}
+                      height={"100px"}
+                      src={`${DOC_URL}${userData?.clientDocument?.signature}`}
+                    />
+                  )}
+                  <div className="signature-holder"></div>
                   <p>उम्मेदवारको हस्ताक्षर (Signature)</p>
                 </div>
               </div>
