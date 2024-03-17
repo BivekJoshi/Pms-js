@@ -29,7 +29,7 @@ export const getUserToken = () => {
 
 export const nextFormPath = (toForm) => {
   const { H: clientType, I: formNature } = getUser();
-  const routeList = kycRoutes(clientType, "DP");
+  const routeList = kycRoutes(clientType, formNature);
   const nextUrl = routeList.find((item) => item.id === toForm);
   if (nextUrl) {
     return `/kyc/${nextUrl?.path}`;

@@ -41,7 +41,6 @@ const KycLayout = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
   // const brokerId = useSelector((state) => state?.brokerList?.brokerOption[0].id)
   const currentForm = useSelector((state) => state?.user?.currentForm);
-  console.log("🚀 ~ KycLayout ~ currentForm:", currentForm);
 
   const userDetails = useSelector((state) => state?.user);
   // const { data, isLoading, refetch } = useGetTheme(brokerId)

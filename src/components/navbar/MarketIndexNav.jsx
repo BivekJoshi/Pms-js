@@ -4,6 +4,7 @@ import { Alert, Button, Grid, Typography, useTheme } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useNavigate } from "react-router-dom";
+import { getUser } from "../../utility/userHelper";
 
 const MarketIndexNav = () => {
   const theme = useTheme();
@@ -11,6 +12,7 @@ const MarketIndexNav = () => {
   const { data, isLoading } = useGetMarketIndex();
   const containerRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
+  const { I: nature } = getUser();
   const getChange = (item, isPercent) => {
     if (item > 0) {
       return (
@@ -153,7 +155,7 @@ const MarketIndexNav = () => {
 
       {/* Need to change the value of TMS with client nature */}
 
-      {"TMS" === "TMS" && (
+      {nature === "TMS" && (
         <Alert
           severity="info"
           action={
