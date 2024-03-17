@@ -31,7 +31,7 @@ const useBasicIndividualValidationSchema = Yup.object().shape({
   panNo: Yup.string()
     .min(0)
     .nullable(true)
-    .matches(/^(?:[0-9\-]+|null|NaN)?$/, "PAN number must be a number")
+    .matches(/^\d{9}$/, "PAN number must be a 9-digit number")
     .notRequired(),
   countryCd: Yup.string().required("Please select country"),
 });

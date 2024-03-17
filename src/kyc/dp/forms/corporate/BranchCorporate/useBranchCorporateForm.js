@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { phoneRegExp } from "../../static/RegExp";
 import { useAddBranchDetail } from "../../../../../hooks/Kyc/branch/useBranchDetail";
+import { useState } from "react";
 
 const BranchScheme = Yup.object().shape({
   area: Yup.string().when("otherBranch", {
@@ -27,7 +28,7 @@ const BranchScheme = Yup.object().shape({
   mobileNo: Yup.string().when("otherBranch", {
     is: true,
     then: Yup.string()
-      .matches(phoneRegExp, 'Enter valid mobile number')
+      .matches(phoneRegExp, "Enter valid mobile number")
       .required("Please enter mobile Number."),
     otherwise: Yup.string().nullable(),
   }),
@@ -39,31 +40,46 @@ const BranchScheme = Yup.object().shape({
 });
 
 export const useBranchCorporateForm = (data) => {
+  const [loading, setLoading] = useState(false);
   const { mutate } = useAddBranchDetail({});
-  console.log("data", data);
+  console.log("data", data?.[0].area);
   const formik = useFormik({
     initialValues:
-      data?.length === 0 ? data : [{
-        id: data?.id || "",
-        userId: data?.userId || "",
-        area: data?.area || "",
-        mainBranch: data?.mainBranch || "",
-        address: data?.address || "",
-        telephoneNo: data?.telephoneNo || "",
-        mobileNo: data?.mobileNo || "",
-        contactPerson: data?.contactPerson || "",
-        otherBranch: data?.otherBranch || false,
-      }],
+      data?.length === 1 && data
+        ? {
+            id: data?.[0].id || "",
+            userId: data?.[0].userId || "",
+            area: data?.[0].area || "",
+            mainBranch: data?.[0].mainBranch || "",
+            address: data?.[0].address || "",
+            telephoneNo: data?.[0].telephoneNo || "",
+            mobileNo: data?.[0].mobileNo || "",
+            contactPerson: data?.[0].contactPerson || "",
+            otherBranch: data?.[0].otherBranch || false,
+          }
+        : {
+            id: "",
+            userId: "",
+            area: "",
+            mainBranch: "",
+            address: "",
+            telephoneNo: "",
+            mobileNo: "",
+            contactPerson: "",
+            otherBranch: false,
+          },
     validationSchema: BranchScheme,
-    onSubmit: (value) => {
-      console.log("valuesssss", value);
-      const formData = { ...value };
+    enableReinitialize: true,
+    onSubmit: (values) => {
+      console.log("Form values:", values);
+      const formData = { ...values };
       mutate(formData, {
         onSuccess: (data) => {
           formik.resetForm();
+          setLoading(true);
         },
       });
     },
   });
-  return { formik };
+  return { formik, loading };
 };

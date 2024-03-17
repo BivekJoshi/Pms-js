@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { nanoid } from "nanoid";
 import { useKycBoIndividualForm } from "./useKycBoIndividualForm";
-import { useGetBODetail } from '../../../../../hooks/Kyc/individual/boStatement/useAddKycBo';
+import { useGetBODetail } from "../../../../../hooks/Kyc/individual/boStatement/useAddKycBo";
 
 const bodFields = [
   {
@@ -52,11 +52,10 @@ const BoIndividualDetails = () => {
   const [fields, setFields] = useState(bodFields);
   const theme = useTheme();
   const { data: boData } = useGetBODetail();
-  const data = boData && boData?.data
+  const data = boData;
   const { formik } = useKycBoIndividualForm(data);
-
   useEffect(() => {
-    setFields(bodFields)
+    setFields(bodFields);
   }, []);
 
   return (
