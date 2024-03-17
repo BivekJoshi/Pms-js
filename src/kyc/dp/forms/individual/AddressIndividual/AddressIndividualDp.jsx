@@ -6,11 +6,13 @@ import { useAddressForm } from "./useAddressForm"
 import { AddressField } from "./AddressField"
 import RenderInput from "../../../../../components/renderInput/RenderInput"
 import { useGetAddress } from "../../../../../hooks/kyc/address/useAddress"
+import { useNavigate } from "react-router-dom";
 
 const AddressIndividualDp = () => {
   const { data: addressData } = useGetAddress()
   const data = addressData && addressData?.data
   const { formik } = useAddressForm(data)
+  const navigate = useNavigate();
   const theme = useTheme()
 
   return (
@@ -100,7 +102,14 @@ const AddressIndividualDp = () => {
             )
           }}
         </FieldArray>
-        <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: '1rem' }}>
+          <Button
+            onClick={() => navigate(-1)}
+            variant="outlined"
+            color="secondary"
+          >
+            Back
+          </Button>
           <Button
             onClick={formik.handleSubmit}
             variant="contained"

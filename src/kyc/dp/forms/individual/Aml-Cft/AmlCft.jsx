@@ -15,6 +15,7 @@ import RenderInput from "../../../../../components/renderInput/RenderInput"
 import { useTranslation } from "react-i18next"
 import { FieldArray, FormikProvider } from "formik"
 import { DISTRICTS, PROVINCE_OPTIONS } from "../basicInputData"
+import { useNavigate } from "react-router-dom"
 
 const beneficialOwnerField = [
   {
@@ -224,6 +225,8 @@ const AmlCft = () => {
   const theme = useTheme()
   const { formik } = useAmlCftForm()
   const { t } = useTranslation()
+  const navigate = useNavigate();
+
 
   const [showPolitical, setShowPolitical] = useState(false)
   const [showCriminal, setShowCriminal] = useState(false)
@@ -269,13 +272,13 @@ const AmlCft = () => {
       <FormikProvider value={formik} {...formik}>
         <Grid container spacing={2} display="flex" flexDirection="column" mx={1} >
           <>
-            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
+            <Grid item display={"flex"} alignItems={"center"} style={{ paddingLeft: "0px" }}>
               <Typography>
                 Are you related to any politically high ranking person?
               </Typography>
-              
-              <Switch 
-                checked={formik.values.showPolitical} 
+
+              <Switch
+                checked={formik.values.showPolitical}
                 onChange={(e) => {
                   formik.setFieldValue("poliAffiHighRnkRln", e.target.checked);
                   setShowPolitical(e.target.checked);
@@ -310,8 +313,8 @@ const AmlCft = () => {
                           <Stack display={"flex"} flexDirection={"row"}>
                             {index >= 0 &&
                               index ===
-                                formik.values.poliAffiHighRnkRlnName.length -
-                                  1 && (
+                              formik.values.poliAffiHighRnkRlnName.length -
+                              1 && (
                                 <Button
                                   variant="outlined"
                                   color="primary"
@@ -337,7 +340,7 @@ const AmlCft = () => {
                               )}
                             {index >= 1 &&
                               formik.values.poliAffiHighRnkRlnName.length >
-                                1 && (
+                              1 && (
                                 <Button
                                   variant="outlined"
                                   color="secondary"
@@ -365,10 +368,10 @@ const AmlCft = () => {
             )}
           </>
           <>
-            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
+            <Grid item display={"flex"} alignItems={"center"} style={{ paddingLeft: "0px" }}>
               <Typography>Do you have any past Criminal Records?</Typography>
-              <Switch 
-                checked={formik.values.showCriminal} 
+              <Switch
+                checked={formik.values.showCriminal}
                 onChange={(e) => {
                   formik.setFieldValue("pastCrimActi", e.target.checked);
                   setShowCriminal(e.target.checked);
@@ -403,8 +406,8 @@ const AmlCft = () => {
                           <Stack display={"flex"} flexDirection={"row"}>
                             {index >= 0 &&
                               index ===
-                                formik.values.pastCrimiActiDetail.length -
-                                  1 && (
+                              formik.values.pastCrimiActiDetail.length -
+                              1 && (
                                 <Button
                                   variant="outlined"
                                   color="primary"
@@ -456,10 +459,10 @@ const AmlCft = () => {
             )}
           </>
           <>
-            <Grid item display={"flex"} alignItems={"center"} style={{paddingLeft: "0px"}}>
+            <Grid item display={"flex"} alignItems={"center"} style={{ paddingLeft: "0px" }}>
               <Typography>Do you want to keep a nominee?</Typography>
-              <Switch 
-                checked={formik.values.showBeneficialOwner} 
+              <Switch
+                checked={formik.values.showBeneficialOwner}
                 onChange={(e) => {
                   formik.setFieldValue("beneficialOwner", e.target.checked);
                   setShowBeneficialOwner(e.target.checked);
@@ -503,7 +506,14 @@ const AmlCft = () => {
           </>
         </Grid>
 
-        <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Grid sx={{ display: "flex", justifyContent: "space-between",marginTop:"1rem" }}>
+          <Button
+            onClick={() => navigate(-1)}
+            variant="outlined"
+            color="secondary"
+          >
+            Back
+          </Button>
           <Button
             onClick={formik.handleSubmit}
             variant="contained"

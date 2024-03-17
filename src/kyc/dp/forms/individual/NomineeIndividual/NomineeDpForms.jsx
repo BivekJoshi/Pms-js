@@ -5,6 +5,7 @@ import { useNomineeForm } from "./useNomineeForm";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { Box, useTheme } from "@mui/system";
 import { useGetNomineeDetail } from '../../../../../hooks/Kyc/individual/nominee/useNominee';
+import { useNavigate } from "react-router-dom";
 
 const NOMINEEFIELDS = [
   {
@@ -15,7 +16,7 @@ const NOMINEEFIELDS = [
     id: nanoid(),
     display: "flex",
     direction: "column",
-    align: "start",  
+    align: "start",
     sm: 12,
     newFields: [
       {
@@ -213,6 +214,7 @@ const NomineeDpForms = () => {
   const [fields, setFields] = useState(NOMINEEFIELDS);
   const { data: nomineeData } = useGetNomineeDetail();
   const data = nomineeData && nomineeData?.data;
+  const navigate = useNavigate();
 
   const { formik } = useNomineeForm(data);
 
@@ -243,7 +245,14 @@ const NomineeDpForms = () => {
         </Typography>
       </Box>
       <RenderInput inputField={fields} formik={formik} />
-      <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}>
+        <Button
+          onClick={() => navigate(-1)}
+          variant="outlined"
+          color="secondary"
+        >
+          Back
+        </Button>
         <Button
           onClick={formik.handleSubmit}
           variant="contained"

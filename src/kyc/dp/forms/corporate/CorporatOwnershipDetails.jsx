@@ -6,10 +6,13 @@ import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { FieldArray, FormikProvider } from "formik";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useNavigate } from "react-router-dom";
 import { useGetBodCorporate } from "../../../../hooks/Kyc/corporate/BodCorporate/useBodCorporate";
 
 const CorporatOwnershipDetails = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
+
   const DETAILS = [
     {
       name: "designation",
@@ -325,11 +328,11 @@ const CorporatOwnershipDetails = () => {
                     options:
                       index <= 1
                         ? [
-                            { value: "Secretary", label: "Secretary" },
-                            { value: "CEO", label: "CEO" },
-                          ]
+                          { value: "Secretary", label: "Secretary" },
+                          { value: "CEO", label: "CEO" },
+                        ]
                         : [
-                            { value: "Director", label: "Director" },
+                          { value: "Director", label: "Director" },
 
                             {
                               value: "Chief Marketing Officer",
@@ -472,8 +475,15 @@ const CorporatOwnershipDetails = () => {
           </Accordion>
         ))}
         <Grid
-          sx={{ display: "flex", justifyContent: "flex-end", margin: "1rem 0" }}
+          sx={{ display: "flex", justifyContent: "space-between", margin: "1rem" }}
         >
+          <Button
+            onClick={() => navigate(-1)}
+            variant="outlined"
+            color="secondary"
+          >
+            Back
+          </Button>
           <Button
             onClick={formik.handleSubmit}
             variant="contained"

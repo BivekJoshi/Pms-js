@@ -5,6 +5,10 @@ import {
 } from "../../../../../hooks/kyc/aml-cft/useAmlCft";
 import * as Yup from "yup";
 import { fullnameRegex } from "../../static/RegExp";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { SET_FORM } from "../../../../../redux/types/types";
+import { nextFormPath } from "../../../../../utility/userHelper";
 
 const AMLCFTSchema = Yup.object().shape({
   name: Yup.string().when("poliAffiHighRnkRln", {
@@ -32,6 +36,8 @@ const AMLCFTSchema = Yup.object().shape({
 
 export const useAmlCftForm = () => {
   const { mutate } = useAddAmlCft({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { data, isLoading } = useGetAmlCft();
 
   const formik = useFormik({
@@ -72,12 +78,16 @@ export const useAmlCftForm = () => {
     },
     // validationSchema: AMLCFTSchema,
     onSubmit: (values) => {
-      const formData = { ...values };
-      mutate(formData, {
-        onSuccess: (data) => {
-          formik.resetForm();
-        },
-      });
+      if (formik.dirty) {
+        const formData = { ...values };
+        mutate(formData, {
+          onSuccess: (data) => {
+            formik.resetForm();
+          },
+        });
+      }
+      dispatch({ type: SET_FORM, payload: 8 });
+      navigate(nextFormPath(8));
     },
   });
 

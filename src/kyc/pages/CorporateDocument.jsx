@@ -7,12 +7,23 @@ import CustomTable from "../../components/customTable/CustomTable";
 import { useTranslation } from 'react-i18next';
 import CorporateDocumentField from "../dp/forms/corporate/CorporateDocumentField";
 import { useGetDocument } from '../../hooks/Kyc/DocumentUpload/useDocument';
+import { nextFormPath } from "../../utility/userHelper";
+import { SET_FORM } from "../../redux/types/types";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const CorporateDocument = () => {
-  const { data: documentData } =  useGetDocument();
+  const { data: documentData } = useGetDocument();
   const { t } = useTranslation();
   const theme = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleNext = () => {
+    navigate(nextFormPath(3));
+    dispatch({ type: SET_FORM, payload: 3 });
+  };
 
   const columns = useMemo(
     () => [
@@ -114,14 +125,14 @@ const CorporateDocument = () => {
         // exportAsCSV
         // exportAsPdf
         headerBackgroundColor="#401686"
-        // headerColor={theme.palette.text.alt}
-        // enableColumnActions
-        // enableDelete
-        // enableEditing={true}
-        // handleDelete={deleteRow}
-        // handleNotification={notificationRoute}
-        // delete
-        // notification
+      // headerColor={theme.palette.text.alt}
+      // enableColumnActions
+      // enableDelete
+      // enableEditing={true}
+      // handleDelete={deleteRow}
+      // handleNotification={notificationRoute}
+      // delete
+      // notification
       />
       <FormModal
         open={isModalOpen}
@@ -134,6 +145,22 @@ const CorporateDocument = () => {
           </>
         }
       />
+      <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: '1rem' }}>
+        <Button
+          onClick={() => navigate(-1)}
+          variant="outlined"
+          color="secondary"
+        >
+          Back
+        </Button>
+        <Button
+          onClick={handleNext}
+          variant="contained"
+          color="secondary"
+        >
+          Next
+        </Button>
+      </Grid>
     </>
   );
 };

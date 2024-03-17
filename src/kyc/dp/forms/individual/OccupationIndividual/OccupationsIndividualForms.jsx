@@ -3,9 +3,11 @@ import React, { useEffect, useState } from "react"
 import RenderInput from "../../../../../components/renderInput/RenderInput"
 import { nanoid } from "nanoid"
 import { useOccupationsIndividualForm } from "./useOccupationsIndividualForm"
+import { useNavigate } from "react-router-dom"
 
 const OccupationsIndividualForms = () => {
   const theme = useTheme()
+  const navigate = useNavigate()
   const { formik } = useOccupationsIndividualForm()
 
   const occupationData = [
@@ -33,97 +35,97 @@ const OccupationsIndividualForms = () => {
     },
     formik.values.occupation === "BUSINESS"
       ? {
-          name: "businessType",
-          label: "Business Type",
-          type: "dropDown",
-          placeholder: "Select business type",
-          required: "Please select business type",
+        name: "businessType",
+        label: "Business Type",
+        type: "dropDown",
+        placeholder: "Select business type",
+        required: "Please select business type",
+        col: 12,
+        sm: 12,
+        md: 4,
+        options: [
+          { value: "MA", label: "Manufacturing", id: nanoid() },
+          { value: "SO", label: "Service Oriented", id: nanoid() },
+          { value: "O", label: "Others", id: nanoid() },
+        ],
+        id: nanoid(),
+      }
+      : formik.values.occupation === "OTHERS"
+        ? {
+          name: "ifOthers",
+          label: "Other Occupation ",
+          type: "text",
           col: 12,
           sm: 12,
           md: 4,
-          options: [
-            { value: "MA", label: "Manufacturing", id: nanoid() },
-            { value: "SO", label: "Service Oriented", id: nanoid() },
-            { value: "O", label: "Others", id: nanoid() },
-          ],
           id: nanoid(),
         }
-      : formik.values.occupation === "OTHERS"
-        ? {
-            name: "ifOthers",
-            label: "Other Occupation ",
-            type: "text",
-            col: 12,
-            sm: 12,
-            md: 4,
-            id: nanoid(),
-          }
         : null,
     formik.values.occupation === "STUDENT" ||
-    formik.values.occupation === "HOUSEWIFE" ||
-    formik.values.occupation === "FARMER"
+      formik.values.occupation === "HOUSEWIFE" ||
+      formik.values.occupation === "FARMER"
       ? null
       : {
-          name: "orgName",
-          label: "Organization Name",
-          placeholder: "Enter Organization Name",
-          type: "text",
-          sm: 12,
-          md: 4,
-          id: nanoid(),
-        },
+        name: "orgName",
+        label: "Organization Name",
+        placeholder: "Enter Organization Name",
+        type: "text",
+        sm: 12,
+        md: 4,
+        id: nanoid(),
+      },
     formik.values.occupation === "STUDENT" ||
-    formik.values.occupation === "HOUSEWIFE" ||
-    formik.values.occupation === "FARMER"
+      formik.values.occupation === "HOUSEWIFE" ||
+      formik.values.occupation === "FARMER"
       ? null
       : {
-          name: "address",
-          label: "Address",
-          placeholder: "Enter address",
-          type: "text",
-          sm: 12,
-          md: 4,
-          id: nanoid(),
-        },
+        name: "address",
+        label: "Address",
+        placeholder: "Enter address",
+        type: "text",
+        sm: 12,
+        md: 4,
+        id: nanoid(),
+      },
     formik.values.occupation === "STUDENT" ||
-    formik.values.occupation === "HOUSEWIFE" ||
-    formik.values.occupation === "FARMER"
+      formik.values.occupation === "HOUSEWIFE" ||
+      formik.values.occupation === "FARMER"
       ? null
       : {
-          name: "employeeId",
-          label: "Employee ID",
-          placeholder: "Enter Employee Id",
-          type: "text",
-          sm: 12,
-          md: 4,
-          id: nanoid(),
-        },
+        name: "employeeId",
+        label: "Employee ID",
+        placeholder: "Enter Employee Id",
+        type: "text",
+        sm: 12,
+        md: 4,
+        id: nanoid(),
+      },
     formik.values.occupation === "STUDENT" ||
-    formik.values.occupation === "HOUSEWIFE" ||
-    formik.values.occupation === "FARMER"
+      formik.values.occupation === "HOUSEWIFE" ||
+      formik.values.occupation === "FARMER"
       ? null
       : {
-          name: "designation",
-          label: "Designation",
-          placeholder: "Enter designation",
-          type: "text",
-          sm: 12,
-          md: 4,
-          id: nanoid(),
-        },
+        name: "designation",
+        label: "Designation",
+        placeholder: "Enter designation",
+        type: "text",
+        sm: 12,
+        md: 4,
+        id: nanoid(),
+      },
     formik.values.occupation === "STUDENT" ||
-    formik.values.occupation === "HOUSEWIFE" ||
-    formik.values.occupation === "FARMER"
+      formik.values.occupation === "HOUSEWIFE" ||
+      formik.values.occupation === "FARMER"
       ? null
       : {
-          name: "effectiveFrom",
-          label: "Effective From",
-          placeholder: "Enter effective from",
-          type: "datePicker",
-          sm: 12,
-          md: 4,
-          id: nanoid(),
-        },
+        name: "effectiveFrom",
+        label: "Effective From",
+        placeholder: "Enter effective from",
+        type: "datePicker",
+        sm: 12,
+        md: 4,
+        id: nanoid(),
+      },
     {
       name: "financialDetails",
       label: "Financial Details",
@@ -161,7 +163,7 @@ const OccupationsIndividualForms = () => {
       type: "switchWithFields",
       display: "flex",
       direction: "column",
-      align: "start",  
+      align: "start",
       newFields: [
         {
           name: "companyName",
@@ -191,7 +193,7 @@ const OccupationsIndividualForms = () => {
       type: "switchWithFields",
       display: "flex",
       direction: "column",
-      align: "start",  
+      align: "start",
       newFields: [
         {
           name: "tradingAccountCompanyName",
@@ -221,7 +223,7 @@ const OccupationsIndividualForms = () => {
       type: "switch",
       display: "flex",
       direction: "column",
-      justify: "start", 
+      justify: "start",
       sm: 12,
       md: 12,
       id: nanoid(),
@@ -250,7 +252,14 @@ const OccupationsIndividualForms = () => {
       <Grid>
         <RenderInput inputField={occupationData} formik={formik} />
       </Grid>
-      <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <Grid sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Button
+          onClick={() => navigate(-1)}
+          variant="outlined"
+          color="secondary"
+        >
+          Back
+        </Button>
         <Button
           onClick={formik.handleSubmit}
           variant="contained"

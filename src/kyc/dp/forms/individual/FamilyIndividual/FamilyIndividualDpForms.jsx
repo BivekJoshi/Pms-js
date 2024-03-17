@@ -6,6 +6,7 @@ import { FieldArray, FormikProvider } from "formik";
 import { useKycFamilyForm } from "./usekycFamilyForm";
 import { useSelector } from "react-redux";
 import { useGetFamily } from "../../../../../hooks/kyc/family/useFamily";
+import { useNavigate } from "react-router-dom";
 
 const relationField = [
   {
@@ -72,10 +73,11 @@ const relationField = [
 
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();
-  
-  const {data: familyData } = useGetFamily();
+  const navigate = useNavigate();
 
-  const { formik } = useKycFamilyForm({familyData});
+  const { data: familyData } = useGetFamily();
+
+  const { formik } = useKycFamilyForm({ familyData });
   const language = useSelector((state) => state?.language?.mode);
   return (
     <div data-aos="zoom-in-right">
@@ -139,8 +141,15 @@ const FamilyIndividualDpForms = () => {
       </Grid>
       <Grid
         marginBlock={2}
-        sx={{ display: "flex", justifyContent: "flex-end" }}
+        sx={{ display: "flex", justifyContent: "space-between", marginTop: '1rem' }}
       >
+        <Button
+          onClick={() => navigate(-1)}
+          variant="outlined"
+          color="secondary"
+        >
+          Back
+        </Button>
         <Button
           onClick={formik.handleSubmit}
           variant="contained"
