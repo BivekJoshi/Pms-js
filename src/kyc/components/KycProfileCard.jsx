@@ -14,7 +14,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CustomImageUpload from "./CustomImageUpload";
 import "./imageupload.css";
 import { DOC_URL } from "../../utility/getBaseUrl";
-import { useGetDocument } from "../../hooks/kyc/DocumentUpload/useDocument";
+import { useGetDocument } from "../../hooks/Kyc/DocumentUpload/useDocument";
 
 const KycProfileCard = ({
   clientType,
@@ -106,7 +106,7 @@ const KycProfileCard = ({
           {imgUrl ? (
             <div style={{ width: 101, height: 100 }}>
               <img
-                src={DOC_URL + imgUrl}
+                src={`${DOC_URL}${imgUrl}?t=${new Date()}`}
                 style={{ width: "100%", height: "100%", borderRadius: "50%" }}
               />
             </div>

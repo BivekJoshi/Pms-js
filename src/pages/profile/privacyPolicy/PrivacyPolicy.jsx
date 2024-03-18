@@ -4,7 +4,6 @@ import { policyData } from "./data";
 
 const PrivacyPolicy = () => {
   const theme = useTheme();
-  const data = policyData;
 
   return (
     <Box
@@ -47,7 +46,7 @@ const PrivacyPolicy = () => {
         </Grid>{" "}
       </Grid>
       <Grid container>
-        {data?.map((information, index) => {
+        {policyData?.map((information, index) => {
           return (
             <div key={index}>
               <Grid item lg={12} md={12} sm={12} sx={{ marginBottom: "2rem" }}>

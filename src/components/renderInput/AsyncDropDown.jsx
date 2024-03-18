@@ -46,6 +46,7 @@ const AsyncDropDown = ({ element, formik, formVaues }) => {
           error={
             formik.touched[element.name] && Boolean(formik.errors[element.name])
           }
+          required={element.required}
           helperText={
             formik.touched[element.name] && formik.errors[element.name]
           }

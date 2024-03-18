@@ -52,6 +52,7 @@ export const DualDatePicker = ({ element, formik }) => {
           onChange={handleEnglishDateChange}
           value={dayjs(englishDate) || ""}
           required={element?.required}
+          disableFuture={element?.disableFuture}
           slotProps={{
             textField: {
               error:

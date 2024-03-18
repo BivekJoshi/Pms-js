@@ -3,10 +3,11 @@ import { axiosInstance } from "../../axiosInterceptor";
 
 /*________________________GET DOCUMENT DETAIL_____________________________________*/
 export const getDocument = async () => {
-  const data = await axiosInstance.get(`/client/client-document`);
-  return data;
+  const res = await axiosInstance.get(`/client/client-document`);
+  return res.data;
 };
 
+/*________________________POST DOCUMENT DETAIL_____________________________________*/
 export const addDocument = async (image, formData) => {
   const imgData = new FormData();
   imgData.append("ppSizePhoto", image?.ppSizePhoto);
@@ -47,7 +48,6 @@ export const addPhoto = async (formData) => {
         }
       );
 
-      console.log("Upload successful:", data);
       return data;
     } catch (error) {
       console.error("Error uploading photo:", error);
@@ -61,7 +61,6 @@ export const addPhotoDragImage = async (image) => {
   const imgData = new FormData();
 
   imgData.append("ppSizePhoto", image);
-
   const { data } = await axiosInstance.post(
     `/client/client-document?currentForm=1`,
     imgData,

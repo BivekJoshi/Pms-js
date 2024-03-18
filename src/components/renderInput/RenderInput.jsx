@@ -123,6 +123,8 @@ const RenderInput = ({
   const { t } = useTranslation();
 
   const getComponentToRender = (element, disableField) => {
+    if (!element) return null;
+    console.log(element, "elem")
     const formVaues = isFieldArray
       ? getIn(formik.values, element.name)
       : formik.values[element.name];
@@ -350,7 +352,7 @@ const RenderInput = ({
             fullWidth
             type={element?.type}
             required={element.required}
-            inputProps={{ min: element?.min }}
+            inputProps={{min: element?.min, max: element?.max}}
             variant="outlined"
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
@@ -467,7 +469,6 @@ const RenderInput = ({
           </div>
         );
       case "switchWithFields":
-        console.log("formik", formik);
         return (
           <div
             style={{
@@ -600,7 +601,7 @@ const RenderInput = ({
         );
 
       case "documentUpload":
-        return <DropZoneUploadFile title={element?.title} />;
+        return <DropZoneUploadFile title={element?.title} element={element} />;
 
       default:
         return <TextField name={element?.name} label={t(element?.label)} />;
@@ -624,10 +625,10 @@ const RenderInput = ({
               md={element?.md}
               lg={element?.lg}
               key={index}
-              sx={{
-                marginBottom:
-                  element.customMarginBottom && element.customMarginBottom,
-              }}
+              // sx={{
+              //   marginBottom:
+              //     element.customMarginBottom && element.customMarginBottom,
+              // }}
             >
               {getComponentToRender(element, isDisabled)}
             </Grid>

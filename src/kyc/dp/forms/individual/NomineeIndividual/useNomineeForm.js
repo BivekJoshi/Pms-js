@@ -6,6 +6,7 @@ import {
   emailRegex,
   fullnameRegex,
   numberRegExp1,
+  onlyNum,
   phoneRegExp,
 } from "../../static/RegExp";
 import { useAddNomineeDetail } from "../../../../../hooks/Kyc/individual/nominee/useNominee";
@@ -20,21 +21,27 @@ const NomineeSchema = Yup.object().shape({
     is: true,
     then: Yup.string()
       .required("Full Name is required")
-      .matches(fullnameRegex, "Please enter valid name"),
+      .matches(fullnameRegex, "Please enter valid name")
+      .max(75, "Full Name must be at most 75 characters"),
     otherwise: Yup.string().nullable(),
   }),
   fatherName: Yup.string().when("haveNominee", {
     is: true,
     then: Yup.string()
       .required("Father's Name is required")
-      .matches(fullnameRegex, "Please enter valid father name"),
+      .matches(fullnameRegex, "Please enter valid father's name")
+      .max(75, "Father's Name must be at most 75 characters"),
     otherwise: Yup.string().nullable(),
   }),
   grandfatherName: Yup.string().when("haveNominee", {
     is: true,
     then: Yup.string()
-      .required("grandfather's Name is required")
-      .matches(fullnameRegex, "Please enter valid grandfather's name"),
+      .required("Grandfather's Name is required")
+      .matches(
+        fullnameRegex,
+        "Please enter valid grandfather's name"
+      )
+      .max(75, "Grandfather's Name must be at most 75 characters"),
     otherwise: Yup.string().nullable(),
   }),
   citizenShipNo: Yup.string().when("haveNominee", {
@@ -51,9 +58,14 @@ const NomineeSchema = Yup.object().shape({
   }),
   age: Yup.string().when("haveNominee", {
     is: true,
-    then: Yup.string()
-      .required("Please enter age")
-      .matches(ageREgex, "Please enter valid age"),
+    then: Yup
+      .string()
+      .required('Please enter age')
+      .max(16, "Age must be less than or equal to 16")
+      .matches(ageREgex, 'Please enter valid age')
+      .test('maxAge', 'Age must be less than or equal to 16', value => {
+        return parseInt(value, 10) <= 16;
+      }),
     otherwise: Yup.string().nullable(),
   }),
   placeOfIssue: Yup.string().when("haveNominee", {
@@ -112,8 +124,9 @@ const NomineeSchema = Yup.object().shape({
   }),
   panNo: Yup.string()
     .min(0)
+    .max(9, "Pan Number must be at most 9 digites")
     .nullable(true)
-    .matches(/^\d{9}$/, "PAN number must be a 9-digit number")
+    .matches(onlyNum, "PAN Number must be number only")
     .notRequired(),
 });
 
@@ -144,7 +157,7 @@ export const useNomineeForm = (data) => {
       issuedDate: data?.issuedDate || "",
       haveNominee: data?.haveNominee || false,
     },
-    // validationSchema: NomineeSchema,
+    validationSchema: NomineeSchema,
     onSubmit: (values) => {
       if (formik.dirty) {
         const formData = { ...values };

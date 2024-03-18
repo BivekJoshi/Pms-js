@@ -65,10 +65,10 @@ const BoIndividualDetails = () => {
   }, []);
 
   const handleBack = () => {
-    navigate(nextFormPath(5));
-    dispatch({ type: SET_FORM, payload: 5 });
+    navigate(nextFormPath(7));
+    dispatch({ type: SET_FORM, payload: 7 });
   };
-  console.log(formik);
+
   return (
     <div data-aos="zoom-in-right">
       <Box

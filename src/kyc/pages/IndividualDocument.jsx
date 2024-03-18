@@ -6,17 +6,22 @@ import FormModal from "../../components/formModal/FormModal";
 import CustomTable from "../../components/customTable/CustomTable";
 import DocumentFieldDp from "../dp/forms/individual/DocumentIndividual/DocumentFieldDp";
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from "react-router-dom";
-import { nextFormPath } from "../../utility/userHelper";
-import { useDispatch } from "react-redux";
-import { SET_FORM } from "../../redux/types/types";
+import { useGetDocument } from '../../hooks/Kyc/DocumentUpload/useDocument';
+import { DOC_URL } from '../../utility/getBaseUrl';
+import ImageViewModal from '../../components/modal/ImageModal/ImageViewModal';
 
 const IndividualDocument = () => {
   const { t } = useTranslation();
   const theme = useTheme();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isImgModalOpen, setIsImgModalOpen] = useState(false);
+  const [imageData, setImageData] = useState({});
+  const { data: documentData } = useGetDocument();
+
+  const handleImageRow = (rowData) => {
+    setImageData(rowData?.citizenshipBack)
+    setIsImgModalOpen(rowData);
+  }
 
   const handleNext = () => {
     navigate(nextFormPath(3));
@@ -30,53 +35,62 @@ const IndividualDocument = () => {
     () => [
       {
         id: 1,
-        accessorKey: "documnetType",
-        header: "Document Type",
-        size: 100,
+        header: "S.N.",
+        Cell: (cell) => {
+          return cell?.row?.index + 1
+        },
+        size: 50,
         sortable: false,
       },
-      {
-        id: 2,
-        accessorKey: "documnetId",
-        header: "Document ID",
-        size: 170,
-        sortable: false,
-      },
-      {
-        id: 3,
-        accessorKey: "issuedDistrict",
-        header: "Issued District",
-        size: 100,
-        sortable: false,
-      },
-      {
-        id: 4,
-        accessorKey: "issueDatee",
-        header: "Issued Date (A.D.)",
-        size: 100,
-        sortable: false,
-      },
-      {
-        id: 5,
-        accessorKey: "issuedDate",
-        header: "Issued Date (A.D.)",
-        size: 100,
-        sortable: false,
-      },
+      // {
+      //   id: 2,
+      //   accessorKey: "documnetType",
+      //   header: "Document Type",
+      //   size: 100,
+      //   sortable: false,
+      // },
+      // {
+      //   id: 3,
+      //   accessorKey: "documnetId",
+      //   header: "Document ID",
+      //   size: 170,
+      //   sortable: false,
+      // },
+      // {
+      //   id: 4,
+      //   accessorKey: "issuedDistrict",
+      //   header: "Issued District",
+      //   size: 100,
+      //   sortable: false,
+      // },
+      // {
+      //   id: 5,
+      //   accessorKey: "issueDatee",
+      //   header: "Issued Date (A.D.)",
+      //   size: 100,
+      //   sortable: false,
+      // },
       {
         id: 6,
-        accessorKey: "file",
         header: "File",
-        size: 100,
+        Cell: (cell) => {
+          const image = DOC_URL + (cell?.row?.original?.citizenshipBack)
+          return (
+            <>
+              <img onClick={() => handleImageRow(cell.row.original)} width={100} src={image} alt="" />
+            </>
+          )
+        },
+        size: 160,
         sortable: false,
       },
-      {
-        id: 7,
-        accessorKey: "action",
-        header: "Action",
-        size: 100,
-        sortable: false,
-      },
+      // {
+      //   id: 7,
+      //   accessorKey: "action",
+      //   header: "Action",
+      //   size: 100,
+      //   sortable: false,
+      // },
     ],
     []
   );
@@ -115,25 +129,11 @@ const IndividualDocument = () => {
         </Button>
       </Grid>
       <CustomTable
-        // title={t("Watchlist")}
+        title={"Document Details"}
         columns={columns}
-        // data={watchListDataById?.data}
-        // state={{
-        //   isLoading: isLoading,
-        //   showSkeletons: isLoading,
-        // }}
-        // isLoading={isLoading}
-        // exportAsCSV
-        // exportAsPdf
+        data={[documentData]}
         headerBackgroundColor="#401686"
-      // headerColor={theme.palette.text.alt}
-      // enableColumnActions
-      // enableDelete
-      // enableEditing={true}
-      // handleDelete={deleteRow}
-      // handleNotification={notificationRoute}
-      // delete
-      // notification
+        overFlow={"scroll"}
       />
       <FormModal
         open={isModalOpen}
@@ -163,6 +163,12 @@ const IndividualDocument = () => {
           Next
         </Button>
       </Grid>
+      <FormModal
+        open={isImgModalOpen}
+        onClose={() => setIsImgModalOpen(false)}
+        width={700}
+        formComponent={<ImageViewModal docUrl={DOC_URL} data={imageData} onClose={() => setIsImgModalOpen(false)} />}
+      />
     </>
   );
 };

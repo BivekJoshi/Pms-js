@@ -52,7 +52,8 @@ const NOMINEEFIELDS = [
       {
         name: "age",
         label: "Age",
-        type: "text",
+        type: "number",
+        max: 16,
         required: true,
         id: nanoid(),
         md: 4,
