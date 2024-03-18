@@ -5,12 +5,17 @@ import RenderInput from '../../../../../components/renderInput/RenderInput';
 import { useBranchCorporateForm } from './useBranchCorporateForm';
 import { useGetBranchDetail } from '../../../../../hooks/Kyc/branch/useBranchDetail';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { nextFormPath } from '../../../../../utility/userHelper';
+import { SET_FORM } from '../../../../../redux/types/types';
 
 const BranchCorporateForm = () => {
   const theme = useTheme();
   const { data: branchDetail } = useGetBranchDetail()
   const data = branchDetail;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const { formik, loading } = useBranchCorporateForm(data);
 
   const BRANCHFIELDs = [
@@ -81,6 +86,11 @@ const BranchCorporateForm = () => {
       ],
     },
   ];
+
+  const handleBack = () => {
+    navigate(nextFormPath(3));
+    dispatch({ type: SET_FORM, payload: 3 });
+  }
   return (
     <div data-aos="zoom-in-right">
       <Box
@@ -103,7 +113,7 @@ const BranchCorporateForm = () => {
       <RenderInput inputField={BRANCHFIELDs} formik={formik} data={data} loading={loading} />
       <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}>
         <Button
-          onClick={() => navigate(-1)}
+          onClick={handleBack}
           variant="outlined"
           color="secondary"
         >

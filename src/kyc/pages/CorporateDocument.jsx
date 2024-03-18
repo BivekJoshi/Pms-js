@@ -24,6 +24,10 @@ const CorporateDocument = () => {
     navigate(nextFormPath(3));
     dispatch({ type: SET_FORM, payload: 3 });
   };
+  const handleBack = () => {
+    navigate(nextFormPath(1));
+    dispatch({ type: SET_FORM, payload: 1 });
+  };
 
   const columns = useMemo(
     () => [
@@ -147,7 +151,7 @@ const CorporateDocument = () => {
       />
       <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: '1rem' }}>
         <Button
-          onClick={() => navigate(-1)}
+          onClick={handleBack}
           variant="outlined"
           color="secondary"
         >

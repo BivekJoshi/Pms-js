@@ -4,10 +4,12 @@ import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { nanoid } from "nanoid";
 import { FieldArray, FormikProvider } from "formik";
 import { useKycFamilyForm } from "./usekycFamilyForm";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetFamily } from "../../../../../hooks/kyc/family/useFamily";
 import MarriedFamilyTable from "./MarriedFamilyTable";
 import { useNavigate } from "react-router-dom";
+import { nextFormPath } from "../../../../../utility/userHelper";
+import { SET_FORM } from "../../../../../redux/types/types";
 
 const relationField = [
   {
@@ -160,11 +162,17 @@ const MarriedCase = [
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { data: familyData } = useGetFamily();
 
   const { formik } = useKycFamilyForm({ familyData });
   const language = useSelector((state) => state?.language?.mode);
+
+  const handleBack = () => {
+    navigate(nextFormPath(3));
+    dispatch({ type: SET_FORM, payload: 3 });
+  }
   return (
     <div data-aos="zoom-in-right">
       <Grid container gridColumn>
@@ -262,7 +270,7 @@ const FamilyIndividualDpForms = () => {
         }}
       >
         <Button
-          onClick={() => navigate(-1)}
+          onClick={handleBack}
           variant="outlined"
           color="secondary"
         >

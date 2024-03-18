@@ -63,15 +63,20 @@ const CorporatBankDetail = () => {
   ];
 
   const handleNext = () => {
-    if (clientType === "C" && formNature === "TMS") {
-      navigate(nextFormPath(6));
-      dispatch({ type: SET_FORM, payload: 6 });
-    } else {
+    if (formNature === "TMS") {
       navigate(nextFormPath(7));
       dispatch({ type: SET_FORM, payload: 7 });
+    } else {
+      navigate(nextFormPath(6));
+      dispatch({ type: SET_FORM, payload: 6 });
     }
-
   };
+
+  
+  const handleBack = () => {
+    navigate(nextFormPath(4));
+    dispatch({ type: SET_FORM, payload: 4 });
+  }
 
   const theme = useTheme();
   return (
@@ -105,7 +110,7 @@ const CorporatBankDetail = () => {
           }}
         >
           <Button
-            onClick={() => navigate(-1)}
+            onClick={handleBack}
             variant="outlined"
             color="secondary"
           >

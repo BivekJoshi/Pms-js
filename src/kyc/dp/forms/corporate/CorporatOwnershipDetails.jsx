@@ -8,10 +8,16 @@ import { FieldArray, FormikProvider } from "formik";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
 import { useGetBodCorporate } from "../../../../hooks/Kyc/corporate/BodCorporate/useBodCorporate";
+import { useDispatch } from "react-redux";
+import { getUser, nextFormPath } from "../../../../utility/userHelper";
+import { SET_FORM } from "../../../../redux/types/types";
 
 const CorporatOwnershipDetails = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { H: clientType, I: formNature } = getUser();
+
 
   const DETAILS = [
     {
@@ -297,6 +303,12 @@ const CorporatOwnershipDetails = () => {
     form.some(
       (data) => data.designation === "CEO" || data.designation === "Secretary"
     );
+
+  const handleBack = () => {
+    navigate(nextFormPath(6));
+    dispatch({ type: SET_FORM, payload: 6 });
+  }
+
   return (
     <div data-aos="zoom-in-right">
       <Box
@@ -334,15 +346,15 @@ const CorporatOwnershipDetails = () => {
                         : [
                           { value: "Director", label: "Director" },
 
-                            {
-                              value: "Chief Marketing Officer",
-                              label: "Chief Marketing Officer",
-                            },
-                            {
-                              value: "General Counsel",
-                              label: "General Counsel",
-                            },
-                          ],
+                          {
+                            value: "Chief Marketing Officer",
+                            label: "Chief Marketing Officer",
+                          },
+                          {
+                            value: "General Counsel",
+                            label: "General Counsel",
+                          },
+                        ],
                     isDisabled:
                       disabled &&
                       d.name === "designation" &&
@@ -367,7 +379,7 @@ const CorporatOwnershipDetails = () => {
                         sx={{
                           background:
                             formik?.errors?.detail &&
-                            formik?.errors?.detail[index] !== undefined
+                              formik?.errors?.detail[index] !== undefined
                               ? "#fff"
                               : "#FFFFFF",
                         }}
@@ -478,7 +490,7 @@ const CorporatOwnershipDetails = () => {
           sx={{ display: "flex", justifyContent: "space-between", margin: "1rem" }}
         >
           <Button
-            onClick={() => navigate(-1)}
+            onClick={handleBack}
             variant="outlined"
             color="secondary"
           >

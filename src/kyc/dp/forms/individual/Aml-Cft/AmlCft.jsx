@@ -16,6 +16,9 @@ import { useTranslation } from "react-i18next"
 import { FieldArray, FormikProvider } from "formik"
 import { DISTRICTS, PROVINCE_OPTIONS } from "../basicInputData"
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { nextFormPath } from "../../../../../utility/userHelper"
+import { SET_FORM } from "../../../../../redux/types/types"
 
 const beneficialOwnerField = [
   {
@@ -226,6 +229,7 @@ const AmlCft = () => {
   const { formik } = useAmlCftForm()
   const { t } = useTranslation()
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
   const [showPolitical, setShowPolitical] = useState(false)
@@ -245,6 +249,11 @@ const AmlCft = () => {
   const toggleCriminal = () => setShowCriminal(!showCriminal)
   const toggleBeneficialOwner = () =>
     setShowBeneficialOwner(!showBeneficialOwner)
+
+  const handleBack = () => {
+    navigate(nextFormPath(6));
+    dispatch({ type: SET_FORM, payload: 6 });
+  }
 
   return (
     <div data-aos="zoom-in-right">
@@ -506,9 +515,9 @@ const AmlCft = () => {
           </>
         </Grid>
 
-        <Grid sx={{ display: "flex", justifyContent: "space-between",marginTop:"1rem" }}>
+        <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}>
           <Button
-            onClick={() => navigate(-1)}
+            onClick={handleBack}
             variant="outlined"
             color="secondary"
           >
