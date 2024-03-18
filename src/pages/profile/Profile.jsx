@@ -39,7 +39,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ProfileImage from "./ProfileImage";
 import ProfileButton from "./Button/ProfileButton";
 import TermsCondition from "./TermsCondition/TermsCondition";
-import PrivacyPolicy from "./privacyPolicy/PrivacyPolicy";
+// import PrivacyPolicy from "./privacyPolicy/PrivacyPolicy";
 
 const Profile = () => {
   const theme = useTheme();
@@ -167,7 +167,7 @@ const Profile = () => {
     },
     {
       id: 9,
-      component: <PrivacyPolicy />,
+      // component: <PrivacyPolicy />,
     },
   ];
 

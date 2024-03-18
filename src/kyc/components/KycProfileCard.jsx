@@ -14,7 +14,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CustomImageUpload from "./CustomImageUpload";
 import "./imageupload.css";
 import { DOC_URL } from "../../utility/getBaseUrl";
-import { useGetDocument } from "../../hooks/kyc/DocumentUpload/useDocument";
+import { useGetDocument } from "../../hooks/Kyc/DocumentUpload/useDocument";
 
 const KycProfileCard = ({
   clientType,

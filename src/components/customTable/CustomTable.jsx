@@ -6,6 +6,7 @@ import {
   useTheme,
   IconButton,
   Tooltip,
+  Stack,
 } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 import { useCallback } from "react";
@@ -13,9 +14,10 @@ import "./CustomTable.css";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { jsPDF } from "jspdf";
-import DownloadIcon from "@mui/icons-material/Download";
 import autoTable from "jspdf-autotable";
 import { download, generateCsv, mkConfig } from "export-to-csv";
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 const CustomTable = (props) => {
   const theme = useTheme();
@@ -65,6 +67,10 @@ const CustomTable = (props) => {
 
   const handleSwicth = useCallback((row) => {
     if (props.switch && props.handleSwicth) props.handleSwicth(row);
+  })
+
+  const handleImage = useCallback((row) => {
+    if (props.image && props.handleImage) props.handleImage(row);
   })
 
   // const handleSaveRow = async ({ exitEditingMode, row, values }) => {
@@ -118,7 +124,7 @@ const CustomTable = (props) => {
         enableHiding={props?.enableHiding}
         enableFullScreenToggle={props?.enableFullScreenToggle}
         enableGlobalFilter={props?.enableGlobalFilter}
-        density={props?.density}
+        density={props?.density}     
         renderRowActions={({ row, table }) => {
           return (
             <Box sx={{ display: "flex", gap: "0.1rem" }}>
@@ -197,6 +203,7 @@ const CustomTable = (props) => {
             backgroundColor: bodyBackgroundColor,
           },
         })}
+       
         muiTableHeadCellProps={{
           sx: {
             color:
@@ -310,7 +317,6 @@ const CustomTable = (props) => {
                     </IconButton>
                   </Tooltip>
                 )}
-
                 {props?.button1 && (
                   <Button
                     color="secondary"

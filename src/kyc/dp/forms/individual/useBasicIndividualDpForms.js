@@ -12,21 +12,21 @@ export const useBasicIndividualDpForms = ({ individualDetails }) => {
   const dispatch = useDispatch()
   const formik = useFormik({
     initialValues: {
-      fname: individualDetails?.fname || "",
-      mname: individualDetails?.mname || "",
-      lname: individualDetails?.lname || "",
-      fnameNep: individualDetails?.fnameNep || "",
-      mnameNep: individualDetails?.mnameNep || "",
-      lnameNep: individualDetails?.lnameNep || "",
+      firstName: individualDetails?.firstName || "",
+      middleName: individualDetails?.middleName || "",
+      lastName: individualDetails?.lastName || "",
+      fNameNep: individualDetails?.fNameNep || "",
+      mNameNep: individualDetails?.mNameNep || "",
+      lNameNep: individualDetails?.lNameNep || "",
       gender: individualDetails?.gender || "",
       countryCd: individualDetails?.countryCd || "",
-      pan: individualDetails?.pan || "",
+      panNo: individualDetails?.panNo || "",
       dob: individualDetails?.dob || "",
       dobBs: individualDetails?.dobBs || "",
       minorDoc: individualDetails?.minorDoc || "",
-      isMinor: individualDetails?.isMinor || false,
+      minor: individualDetails?.minor || false,
       isDifferentlyAbled: individualDetails?.isDifferentlyAbled || false,
-      isNrn: individualDetails?.isNrn || false,
+      nrn: individualDetails?.nrn || false,
     },
     validationSchema: useBasicIndividualValidationSchema,
     onSubmit: (values) => {
@@ -34,7 +34,7 @@ export const useBasicIndividualDpForms = ({ individualDetails }) => {
         const formData = { ...values }
         mutate(formData, {
           onSuccess: (data) => {
-            formik.resetForm()
+            // formik.resetForm()
           },
         })
       }

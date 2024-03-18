@@ -5,10 +5,11 @@ import React, { useMemo, useState } from "react";
 import FormModal from "../../../../components/formModal/FormModal";
 import CustomTable from "../../../../components/customTable/CustomTable";
 import DocumentFieldDp from "../individual/DocumentIndividual/DocumentFieldDp";
+import { useGetDocument } from '../../../../hooks/Kyc/DocumentUpload/useDocument';
 
 const CorporatDocument = () => {
   const { data: documentData } =  useGetDocument();
-  console.log(documentData?.data, "docs");
+
   const theme = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
 

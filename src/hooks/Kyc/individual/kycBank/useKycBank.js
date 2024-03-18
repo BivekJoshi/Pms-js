@@ -66,7 +66,6 @@ export const useDeleteKycBank = ({ onSuccess }) => {
         queryClient.invalidateQueries("getBankKyc");
       },
       onError: (err, _variables, _context) => {
-        console.log("err", err)
         toast.error(`${err.response.data.message}`);
       },
     }

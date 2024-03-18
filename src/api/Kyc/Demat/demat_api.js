@@ -4,8 +4,8 @@ import { axiosInstance } from "../../axiosInterceptor"
 
 /*________________________GET BASIC DETAIL_____________________________________*/
 export const getBasicDetail = async () => {
-  const data = await axiosInstance.get(`/client/individual-details`)
-  return data
+  const res = await axiosInstance.get(`/client/individual-details`)
+  return res?.data;
 }
 
 /*________________________POST BASIC DETAIL_____________________________________*/

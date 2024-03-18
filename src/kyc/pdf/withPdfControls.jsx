@@ -2,8 +2,9 @@
 import React from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
-import { CircularProgress } from "@mui/material";
+import { Button, CircularProgress, Typography } from "@mui/material";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import pdf from "../../assets/pdf.svg";
 
 const withPDFControls = (PDFComponent) => {
   const PDFControlsWrapper = ({ userData, imageURL, extraInfo }) => {
@@ -25,12 +26,20 @@ const withPDFControls = (PDFComponent) => {
           >
             {({ loading }) =>
               imageURL?.length === 0 || loading ? (
-                <CircularProgress />
+                <CircularProgress sx={{color: "rgba(86.95, 38, 150.96, 1)"}}  />
               ) : (
-                <PictureAsPdfIcon
-                  style={{ cursor: "pointer", color: "grey" }}
-                  title="Save as Pdf"
-                />
+                <>
+                  <Button
+                  variant="contained"
+                    color="secondary">
+                    <img style={{color: "#fff"}} src={pdf} alt="pdf-image" />
+                    <Typography>Download KYC</Typography>
+                  </Button>
+                  {/* <PictureAsPdfIcon
+                    style={{ cursor: "pointer", color: "grey" }}
+                    title="Save as Pdf"
+                  /> */}
+                </>
               )
             }
           </PDFDownloadLink>

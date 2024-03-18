@@ -141,7 +141,7 @@ const OccupationsIndividualForms = () => {
       placeholder: "Enter financial details",
       options: [
         { label: "Upto Rs.5,00,000", value: 500000 },
-        { label: "From Rs.5,00,001 to Rs.10,00,000", value: 100001 },
+        { label: "From Rs.5,00,001 to Rs.10,00,000", value: 100000 },
         { label: "Above Rs.10,00,000", value: 1000001 },
       ],
       type: "dropDown",
@@ -154,7 +154,7 @@ const OccupationsIndividualForms = () => {
       label: "Income Source",
       options: [
         { label: "Business Income", value: "business income" },
-        { label: "Salary", value: "salary" },
+        { label: "Salary", value: "Salary" },
         { label: "house Rent", value: "house rent" },
         { label: "Remittance", value: "remittance" },
         { label: "Interest", value: "interest" },
