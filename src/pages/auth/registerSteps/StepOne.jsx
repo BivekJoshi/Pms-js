@@ -1,6 +1,6 @@
-import React from "react"
-import RenderInput from "../../../components/renderInput/RenderInput"
-import { kycClientType } from "../../../utility/kycData"
+import React from "react";
+import RenderInput from "../../../components/renderInput/RenderInput";
+import { kycClientType } from "../../../utility/kycData";
 
 const StepOne = ({ formik }) => {
   const stepOneFields = [
@@ -100,12 +100,12 @@ const StepOne = ({ formik }) => {
     //     },
     //   ],
     // },
-  ]
+  ];
   return (
     <div data-aos="fade-left">
       <RenderInput inputField={stepOneFields} formik={formik} />
     </div>
-  )
-}
+  );
+};
 
-export default StepOne
+export default StepOne;
