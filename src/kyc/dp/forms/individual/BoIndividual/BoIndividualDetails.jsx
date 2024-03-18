@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { nanoid } from "nanoid";
 import { useKycBoIndividualForm } from "./useKycBoIndividualForm";
-import { useGetBODetail } from '../../../../../hooks/Kyc/individual/boStatement/useAddKycBo';
+import { useGetBODetail } from "../../../../../hooks/Kyc/individual/boStatement/useAddKycBo";
 import { useNavigate } from "react-router-dom";
 import { nextFormPath } from "../../../../../utility/userHelper";
 import { SET_FORM } from "../../../../../redux/types/types";
@@ -67,8 +67,8 @@ const BoIndividualDetails = () => {
   const handleBack = () => {
     navigate(nextFormPath(5));
     dispatch({ type: SET_FORM, payload: 5 });
-  }
-
+  };
+  console.log(formik);
   return (
     <div data-aos="zoom-in-right">
       <Box
@@ -101,12 +101,20 @@ const BoIndividualDetails = () => {
         }}
       >
         <RenderInput inputField={fields} formik={formik} />
-        <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}>
-          <Button
-            onClick={handleBack}
-            variant="outlined"
-            color="secondary"
-          >
+        {formik.errors.accountStatementPeriod &&
+          formik.touched.accountStatementPeriod && (
+            <Typography color="red" fontSize={"10.5px"}>
+              {formik.errors.accountStatementPeriod}
+            </Typography>
+          )}
+        <Grid
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: "1rem",
+          }}
+        >
+          <Button onClick={handleBack} variant="outlined" color="secondary">
             Back
           </Button>
           <Button

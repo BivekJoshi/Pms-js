@@ -96,28 +96,30 @@ const MarriedFamilyTable = () => {
     <Grid display="flex" gap={4} flexDirection="column">
       <div>
         <RenderInput inputField={MarriedCase} formik={formik} />
-        <Grid
-          display="flex"
-          gap={2}
-          flexDirection="row"
-          justifyContent="end"
-          mt={2}
-        >
-          <Button
-            onClick={handleAddAndClear}
-            variant="outlined"
-            color="secondary"
+        {formik.values.isMarried && (
+          <Grid
+            display="flex"
+            gap={2}
+            flexDirection="row"
+            justifyContent="end"
+            mt={2}
           >
-            + Add
-          </Button>
-          <Button
-            onClick={handleClear}
-            variant="outlined"
-            style={{ color: "red", border: "1px solid red" }}
-          >
-            Clear
-          </Button>
-        </Grid>
+            <Button
+              onClick={handleAddAndClear}
+              variant="outlined"
+              color="secondary"
+            >
+              + Add
+            </Button>
+            <Button
+              onClick={handleClear}
+              variant="outlined"
+              style={{ color: "red", border: "1px solid red" }}
+            >
+              Clear
+            </Button>
+          </Grid>
+        )}
       </div>
 
       {formik.values.isMarried && (
