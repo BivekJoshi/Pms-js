@@ -15,7 +15,7 @@ const KycProtectedRoute = ({ redirectTo, allowedClientType, allowedFormNature })
   const authToken = getUserToken()
 
   useEffect(() => {
-    if (userStatus === "SUBMITTED") {
+    if (userStatus !== "PENDING") {
       navigate("/forbidden");
       return;
     }

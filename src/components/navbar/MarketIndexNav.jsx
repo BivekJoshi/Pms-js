@@ -5,6 +5,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "../../utility/userHelper";
+import { useSelector } from "react-redux";
 
 const MarketIndexNav = () => {
   const theme = useTheme();
@@ -14,6 +15,8 @@ const MarketIndexNav = () => {
   const [isPaused, setIsPaused] = useState(false);
   const { I: nature } = getUser();
   console.log("🚀 ~ MarketIndexNav ~ nature:", nature);
+  const userStatus = useSelector((state) => state?.user?.status);
+
   const getChange = (item, isPercent) => {
     if (item > 0) {
       return (
@@ -94,6 +97,14 @@ const MarketIndexNav = () => {
     setIsPaused(false);
   };
 
+  const handleNavigate = () => {
+    if (userStatus === "PENDING") {
+      navigate("/kyc/home")
+    } else {
+      navigate("/kyc-submitted")
+    }
+  }
+
   return (
     <>
       <div
@@ -170,9 +181,7 @@ const MarketIndexNav = () => {
                 gap: "8px",
                 padding: "6px 12px",
               }}
-              onClick={() => {
-                navigate("/kyc/home");
-              }}
+              onClick={handleNavigate}
             >
               <span>
                 <svg
