@@ -47,6 +47,7 @@ export const useKycFamilyForm = ({ familyData }) => {
 
   const formik = useFormik({
     initialValues: {
+      isMarried: false,
       personDetail:
         getFamilyData?.length > 0
           ? getFamilyData
