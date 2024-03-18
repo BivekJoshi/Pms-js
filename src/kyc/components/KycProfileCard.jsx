@@ -106,7 +106,7 @@ const KycProfileCard = ({
           {imgUrl ? (
             <div style={{ width: 101, height: 100 }}>
               <img
-                src={DOC_URL + imgUrl}
+                src={`${DOC_URL}${imgUrl}?t=${new Date()}`}
                 style={{ width: "100%", height: "100%", borderRadius: "50%" }}
               />
             </div>
