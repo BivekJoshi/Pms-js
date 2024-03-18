@@ -2242,7 +2242,7 @@ const IndividualDPKyc = () => {
         </div>
 
         <div>
-          <AgreementForm ref={componentRef} />
+          {/* <AgreementForm ref={componentRef} /> */}
       </div>
       
     </div>

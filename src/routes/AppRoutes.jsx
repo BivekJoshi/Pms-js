@@ -96,6 +96,8 @@ export default function AppRoutes() {
       <ScrollToTop>
         <Suspense fallback={<Spinner />}>
           <Routes>
+            <Route path="kyc-submitted" element={<KycSubmitted />} />
+
             <Route path="/" element={<LoginLayout />}>
               <Route path="login" element={<LoginPage />} />
               <Route path="register" element={<NewRegisterPage />} />
@@ -237,7 +239,6 @@ export default function AppRoutes() {
             <Route path="/" element={<AppLayout />}>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="watchlist" element={<WatchList />} />
-              <Route path="kyc-submitted" element={<KycSubmitted />} />
               <Route path="research">
                 <Route path="markets" element={<Research />} />
                 <Route path="sectors" element={<Sectors />} />
