@@ -7,13 +7,23 @@ import { AddressField } from "./AddressField"
 import RenderInput from "../../../../../components/renderInput/RenderInput"
 import { useGetAddress } from "../../../../../hooks/kyc/address/useAddress"
 import { useNavigate } from "react-router-dom";
+import { SET_FORM } from "../../../../../redux/types/types";
+import { nextFormPath } from "../../../../../utility/userHelper";
+import { useDispatch } from "react-redux";
 
 const AddressIndividualDp = () => {
   const { data: addressData } = useGetAddress()
   const data = addressData && addressData?.data
   const { formik } = useAddressForm(data)
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const theme = useTheme()
+
+
+  const handleBack = () => {
+    navigate(nextFormPath(2));
+    dispatch({ type: SET_FORM, payload: 2 });
+  }
 
   return (
     <div data-aos="zoom-in-right">
@@ -104,7 +114,7 @@ const AddressIndividualDp = () => {
         </FieldArray>
         <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: '1rem' }}>
           <Button
-            onClick={() => navigate(-1)}
+            onClick={handleBack}
             variant="outlined"
             color="secondary"
           >

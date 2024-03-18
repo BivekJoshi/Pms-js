@@ -11,23 +11,23 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Typography,
-} from "@mui/material"
-import { Field, getIn } from "formik"
-import React, { useEffect, useMemo, useRef, useState } from "react"
-import AsyncDropDown from "./AsyncDropDown"
-import { FormControl } from "@mui/base"
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet"
-import "leaflet/dist/leaflet.css"
-import mapIcon from "../../assets/marker-icon.png"
-import L from "leaflet"
-import { PickDate, DualDatePicker } from "./DualDatePicker"
-import DropZoneUploadFile from "../dropZone/DropZoneUploadFile"
-import { DatePicker } from "@mui/x-date-pickers"
-import { useSelector } from "react-redux"
-import NepaliInputText from "../inputType/NepaliInputText"
-import { useTranslation } from "react-i18next"
-import AsyncDropDownOption from "./AsyncDropDownOption"
-const icon = L.icon({ iconUrl: mapIcon })
+} from "@mui/material";
+import { Field, getIn } from "formik";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import AsyncDropDown from "./AsyncDropDown";
+import { FormControl } from "@mui/base";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import mapIcon from "../../assets/marker-icon.png";
+import L from "leaflet";
+import { PickDate, DualDatePicker } from "./DualDatePicker";
+import DropZoneUploadFile from "../dropZone/DropZoneUploadFile";
+import { DatePicker } from "@mui/x-date-pickers";
+import { useSelector } from "react-redux";
+import NepaliInputText from "../inputType/NepaliInputText";
+import { useTranslation } from "react-i18next";
+import AsyncDropDownOption from "./AsyncDropDownOption";
+const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
   formValue,
@@ -316,10 +316,10 @@ const RenderInput = ({
               formik.setFieldValue(
                 element.name,
                 newValue?.value || newValue?.code || ""
-              ) // Set value to newValue's value property or empty string if undefined
+              ); // Set value to newValue's value property or empty string if undefined
               if (element.clearField) {
                 for (let i = 0; i < element.clearField?.length; i++) {
-                  formik.setFieldValue(element.clearField[i], "")
+                  formik.setFieldValue(element.clearField[i], "");
                 }
               }
             }}
@@ -408,8 +408,11 @@ const RenderInput = ({
                   name={element?.radioName}
                   value={formik.values[element.radioName]}
                   onChange={(event, value) => {
-                    formik.setFieldValue(element?.radioName, event.target.value)
-                    formik.handleChange(element.radioName)(value) // Manually update Formik state
+                    formik.setFieldValue(
+                      element?.radioName,
+                      event.target.value
+                    );
+                    formik.handleChange(element.radioName)(value); // Manually update Formik state
                   }}
                 >
                   {element.radio.map((radio, i) => (
@@ -440,8 +443,11 @@ const RenderInput = ({
                   name={element?.radioName}
                   value={formik.values[element.radioName]}
                   onChange={(event, value) => {
-                    formik.setFieldValue(element?.radioName, event.target.value)
-                    formik.handleChange(element.radioName)(value)
+                    formik.setFieldValue(
+                      element?.radioName,
+                      event.target.value
+                    );
+                    formik.handleChange(element.radioName)(value);
                   }}
                 >
                   {element.radio.map((radio, i) => (
@@ -450,7 +456,9 @@ const RenderInput = ({
                       control={<Radio />}
                       key={i}
                       label={radio.label}
-                      checked={formik.values[element.radioName]?.includes(radio.value)}
+                      checked={formik.values[element.radioName]?.includes(
+                        radio.value
+                      )}
                     />
                   ))}
                 </RadioGroup>
@@ -491,7 +499,7 @@ const RenderInput = ({
               </div>
             )}
           </div>
-        )
+        );
 
       case "radio":
         return (
@@ -528,7 +536,7 @@ const RenderInput = ({
                     disabled={
                       element.name === "accountStatementPeriod" &&
                       formik.values.isStandingInstructionForAutomaticTxn ===
-                      "false"
+                        "false"
                     }
                   />
                 ))}
@@ -564,10 +572,10 @@ const RenderInput = ({
             formik={formik}
             isFieldArray={isFieldArray}
           />
-        )
+        );
       case "asyncDropDown":
         return (
-          <div style={{ display: "flex" }}>
+          <div>
             <AsyncDropDown
               element={element}
               formik={formik}

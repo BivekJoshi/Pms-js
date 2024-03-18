@@ -5,6 +5,9 @@ import { nanoid } from "nanoid";
 import { useKycBoIndividualForm } from "./useKycBoIndividualForm";
 import { useGetBODetail } from '../../../../../hooks/Kyc/individual/boStatement/useAddKycBo';
 import { useNavigate } from "react-router-dom";
+import { nextFormPath } from "../../../../../utility/userHelper";
+import { SET_FORM } from "../../../../../redux/types/types";
+import { useDispatch } from "react-redux";
 
 const bodFields = [
   {
@@ -53,12 +56,18 @@ const BoIndividualDetails = () => {
   const [fields, setFields] = useState(bodFields);
   const theme = useTheme();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { data: boData } = useGetBODetail();
   const data = boData;
   const { formik } = useKycBoIndividualForm(data);
   useEffect(() => {
     setFields(bodFields);
   }, []);
+
+  const handleBack = () => {
+    navigate(nextFormPath(5));
+    dispatch({ type: SET_FORM, payload: 5 });
+  }
 
   return (
     <div data-aos="zoom-in-right">
@@ -94,7 +103,7 @@ const BoIndividualDetails = () => {
         <RenderInput inputField={fields} formik={formik} />
         <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}>
           <Button
-            onClick={() => navigate(-1)}
+            onClick={handleBack}
             variant="outlined"
             color="secondary"
           >

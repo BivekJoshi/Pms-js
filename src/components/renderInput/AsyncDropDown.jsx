@@ -2,7 +2,7 @@ import { Autocomplete, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../api/axiosInterceptor";
 
-const AsyncDropDown = ({ element, formik }) => {
+const AsyncDropDown = ({ element, formik, formVaues }) => {
   const [asyncOptions, setAsyncOptions] = useState([]);
 
   useEffect(() => {
@@ -34,11 +34,9 @@ const AsyncDropDown = ({ element, formik }) => {
       getOptionLabel={(option) => option?.label || ""}
       // value={formik.values[element.name]}
 
-      value={asyncOptions?.find(
-        (option) => option?.value === formik.values[element.name]
-      )}
+      value={asyncOptions?.find((option) => option.value === formVaues.value)}
       onChange={(event, newValue) => {
-        formik.setFieldValue(element.name, newValue);
+        formik.setFieldValue(element.name, newValue.value);
       }}
       fullWidth
       renderInput={(params) => (

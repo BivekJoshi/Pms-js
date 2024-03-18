@@ -13,6 +13,7 @@ const MarketIndexNav = () => {
   const containerRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
   const { I: nature } = getUser();
+  console.log("🚀 ~ MarketIndexNav ~ nature:", nature);
   const getChange = (item, isPercent) => {
     if (item > 0) {
       return (
@@ -117,7 +118,7 @@ const MarketIndexNav = () => {
           <div style={{ minWidth: "100vw" }}></div>
 
           {!isLoading &&
-            data.length > 0 &&
+            data?.length > 0 &&
             data?.map((item, index) => {
               return (
                 <span

@@ -129,7 +129,7 @@ const KycProfileCard = ({
           {!isHomePage && (
             <span style={{ position: "absolute", bottom: 0, right: 0 }}>
               <IconButton onClick={() => setOpen(true)}>
-                <Tooltip arrow placement="right-end" title="Uplaod Image">
+                <Tooltip arrow placement="right-end" title="Upload Image">
                   <svg
                     width="25"
                     height="24"
