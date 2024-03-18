@@ -27,6 +27,7 @@ export const CitizenshipField = [
     xs: 12,
     required: true,
     type: "dropDown",
+   
     options: [
       { id: 1, value: "citizenship", label: "Citizenship" },
       { id: 2, value: "panCard", label: "Pan Card" },
@@ -63,6 +64,7 @@ export const CitizenshipField = [
     nepSm: 12,
     md: 12,
     sm: 12,
+    disableFuture: true,
     engLabel: "Citizenship Issued Date (A.D.)",
     nepaliLabel: "Citizenship Issued Date (B.S.)",
     required: true,

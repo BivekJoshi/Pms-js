@@ -13,6 +13,7 @@ import { getBankList } from "../../../api/Kyc/Bank/addBankKyc";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { DOC_URL } from "../../../utility/getBaseUrl";
+import AgreementForm from '../agreement/AgreementForm';
 
 const IndividualDPKyc = () => {
   const [mapImage, setmapImage] = useState("");
@@ -37,12 +38,12 @@ const IndividualDPKyc = () => {
   const checkGender = (input_gender) => {
     return input_gender === individualDetail?.gender ? true : false;
   };
-  const currentAddressDetails = userData.addressDetails?.filter(
-    (address) => address.addressType === "T"
+  const currentAddressDetails = userData?.addressDetails?.filter(
+    (address) => address?.addressType === "T"
   );
 
-  const permanentAddressDetails = userData.addressDetails?.filter(
-    (address) => address.addressType === "P"
+  const permanentAddressDetails = userData?.addressDetails?.filter(
+    (address) => address?.addressType === "P"
   );
   const memberList = clientFamilyDetails?.reduce((accumulator, current) => {
     accumulator[current.relation] = current.memberName;
@@ -105,38 +106,42 @@ const IndividualDPKyc = () => {
         });
     }
   }, [currentAddressDetails]);
+  console.log("indivi", componentRef)
+
   return (
     <div className="container dpkyc">
       <div className="bg-white text-dark p-md-3 font1 dpkyc">
-        <div className="d-flex justify-content-end mb-2">
-          {/* {' '} */}
+        {/* <div className="d-flex justify-content-end mb-2">
+         
           <IndividualKycPdf />
-          <ReactToPrint
-            // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
+         
+        </div> */}
+         <ReactToPrint
             trigger={() => <LocalPrintshopIcon />}
             content={() => componentRef.current}
             documentTitle="download.pdf"
-            // pageStyle="print"
-            // pageStyle='@page { margin: minimum }'
             copyStyles
             contentStyle={{
               marginTop: "500px",
             }}
           />
-        </div>
         {/* <div id="pdf" ref={componentRef}> */}
         <div className="kyc-page mt-4" id="pdf" ref={componentRef}>
           {/* Header */}
           <section className="container pb-1">
             {/* <!-- Header section --> */}
-            <header className="text-center" style={{ position: "relative" }}>
+            <header
+              className="text-center"
+              style={{ position: "relative", marginTop: "3rem" }}
+            >
               <h2 className="">अनुसूची १२</h2>
               <p className="">(विनियम २० संग सम्बन्धित)</p>
               <h2 className="text-decoration-underline fs18">
                 प्राकृतिक व्यक्तिको हितग्राही खाता खोल्ने निवेदन
               </h2>
               <h3 className=" text-decoration-underline fs18">
-                ACCOUNT OPENING FORM FOR INDIVIDUAL BENEFICIAL OWNER
+                ACCOUNT OPENING FORM FOR INDIVIDUAL
+                <br className="displayN" /> BENEFICIAL OWNER
               </h3>
               {/* <!-- ! signature div --> */}
               <div className="text-center d-flex flex-column align-items-center">
@@ -694,7 +699,10 @@ const IndividualDPKyc = () => {
             {/* </div> */}
           </section>
           {/* Temporary Address */}
-          <section className="container pb-1 mt-4">
+          <section
+            className="container pb-1 mt-4 breakMargin container_p"
+            // style={{ marginTop: "5rem" }}
+          >
             <h2 className="text-center kyc-secondary-header">
               हालको ठेगाना (Current Address){" "}
             </h2>
@@ -1016,7 +1024,7 @@ const IndividualDPKyc = () => {
             {/* </div> */}
           </section>
           {/* Details of Occupation */}
-          <section className="container pb-1 avoid-page-break mt-4">
+          <section className="container pb-1 mt-4 breakMargin">
             <div className="kyc-secondary-header text-center">
               पेशागत विवरण (Details of Occupation)
             </div>
@@ -2063,8 +2071,8 @@ const IndividualDPKyc = () => {
                     className="dotted-underline mt-3"
                     style={{ textTransform: "capitalize" }}
                   >
-                    {currentAddressDetails[0]?.province}{" "}
-                    {currentAddressDetails[0]?.district}
+                    {currentAddressDetails?.[0]?.province}{" "}
+                    {currentAddressDetails?.[0]?.district}
                   </span>
                 ) : (
                   "............................."
@@ -2222,17 +2230,22 @@ const IndividualDPKyc = () => {
           <section className="container pb-5">
             <DpMeroShare
               applicantName={userData?.user?.name}
-              email={userData.user?.email}
-              mobileNo={userData.user?.phoneNo}
-              dpId={userData.user?.dpDetails?.dpId}
-              boid={userData.user?.boid}
+              email={userData?.user?.email}
+              mobileNo={userData?.user?.phoneNo}
+              dpId={userData?.user?.dpDetails?.dpId}
+              boid={userData?.user?.boid}
               addressDetails={permanentAddressDetails?.[0]}
-              date={userData.user?.submittedDate}
+              date={userData?.user?.submittedDate}
               orgData={orgData}
             />
           </section>
         </div>
+
+        <div>
+          <AgreementForm ref={componentRef} />
       </div>
+      
+    </div>
     </div>
   );
 };

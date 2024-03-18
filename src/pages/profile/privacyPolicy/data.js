@@ -1,4 +1,3 @@
-import { head } from "lodash";
 
 export const policyData = [
   {

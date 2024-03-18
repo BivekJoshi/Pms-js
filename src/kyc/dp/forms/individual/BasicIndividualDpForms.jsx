@@ -10,14 +10,10 @@ import { nextFormPath } from "../../../../utility/userHelper"
 
 const BasicIndividualDpForms = () => {
   const theme = useTheme()
-  const { data: basicIndividualData } = useGetBasicDetail()
-
-  const individualDetails =
-    basicIndividualData && basicIndividualData?.data?.individualDetails
-  const { formik } = useBasicIndividualDpForms({
-    individualDetails,
-  })
-  const { t } = useTranslation()
+  const { data: basicIndividualData } = useGetBasicDetail();
+  const individualDetails = basicIndividualData && basicIndividualData?.individualDetails;
+  const { formik } = useBasicIndividualDpForms({individualDetails});
+  const { t } = useTranslation();
 
   useEffect(() => {
     const calculateAge = (dob) => {

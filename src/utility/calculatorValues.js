@@ -31,7 +31,6 @@ export const brokerComission = async (amount) => {
     const commission = brokerData.find(({ amountFrom, amountTo }) => {
       return amount >= amountFrom && amount <= amountTo;
     });
-    console.log("🚀 ~ commission ~ commission:", commission);
 
     if (commission) {
       const calculatedCommission = commission.percentage * amount;

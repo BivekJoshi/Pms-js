@@ -57,7 +57,7 @@ const NewRegisterPage = () => {
 
   return (
     <Box
-      className="paddingOuter"
+      className="paddingOuter overflowYY"
       position="relative"
       alignSelf="center"
       padding={{ xs: "0 20px 20px 20px", md: "50px 22px 96px 22px" }}
@@ -65,13 +65,14 @@ const NewRegisterPage = () => {
       width={{ xs: "90%", sm: "80%" }}
       bgcolor="#fdf8fd"
       borderRadius="32px"
+      height="95%"
     >
-      <Grid padding={{ sm: "2rem", xs: "0" }} className="paddingOuterLayer">
+      <Grid padding={{ sm: "0 2rem", xs: "0" }} className="paddingOuterLayer">
         <Grid
           className="paddingOuter"
           display="flex"
           justifyContent="center"
-          paddingBottom={{ lg: "2rem", md: "1rem", xs: ".25rem" }}
+          paddingBottom={{ lg: "0", md: "1rem", xs: ".25rem" }}
         >
           <img src={SignUpPage} alt="SignUpPage" className="registerImg" />
         </Grid>

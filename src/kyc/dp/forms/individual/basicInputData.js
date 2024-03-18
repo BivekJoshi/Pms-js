@@ -623,7 +623,7 @@ export const PROVINCE_OPTIONS = [
 
 export const basicData = [
   {
-    name: "fname",
+    name: "firstName",
     label: "First Name",
     placeholder: "Enter First Name",
     type: "text",
@@ -633,7 +633,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "mname",
+    name: "middleName",
     label: "Middle Name",
     placeholder: "Enter middle name",
     type: "text",
@@ -642,7 +642,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "lname",
+    name: "lastName",
     label: "Last Name",
     placeholder: "Enter last name",
     type: "text",
@@ -652,7 +652,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "fnameNep",
+    name: "fNameNep",
     label: "First Name (Devanagari)",
     type: "nepaliTypeText",
     sm: 12,
@@ -660,7 +660,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "mnameNep",
+    name: "mNameNep",
     label: "Middle Name (Devanagari)",
     type: "nepaliTypeText",
     sm: 12,
@@ -668,7 +668,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "lnameNep",
+    name: "lNameNep",
     label: "Last Name (Devanagari)",
     type: "nepaliTypeText",
     sm: 12,
@@ -717,7 +717,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "pan",
+    name: "panNo",
     label: "Pan No.",
     type: "number",
     min: 0,
@@ -726,7 +726,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "isMinor",
+    name: "minor",
     label: "Are you Minor?",
     type: "switch",
     marginLeft: "0px",
@@ -771,7 +771,7 @@ export const basicData = [
   },
 
   {
-    name: "isNrn",
+    name: "nrn",
     label: "Are you NRN?",
     placeholder: "Are you NRN?",
     type: "switch",

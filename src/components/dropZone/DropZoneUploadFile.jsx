@@ -10,7 +10,6 @@ const DropZoneUploadFile = ({ element, formik }) => {
   const [showDelete, setShowDelete] = useState(false)
   const title = element?.title
   const documentName = element?.name
-  console.log("elem", element?.name)
   
   const { mutate } = useAddDocument({})
 

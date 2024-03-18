@@ -10,10 +10,15 @@ const KycProtectedRoute = ({ redirectTo, allowedClientType, allowedFormNature })
   const dispatch = useDispatch()
   const clientType = useSelector((state) => state.user?.clientType)
   const formNature = useSelector((state) => state.user?.formNature)
+  const userStatus = useSelector((state) => state?.user?.status);
 
   const authToken = getUserToken()
 
   useEffect(() => {
+    if (userStatus === "SUBMITTED") {
+      navigate("/forbidden");
+      return;
+    }
     if (!clientType && !formNature && !authToken) {
       dispatch({ type: "LOGOUT" })
       logout()

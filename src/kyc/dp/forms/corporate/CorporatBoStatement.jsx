@@ -65,7 +65,6 @@ export default CorporateBoStatement;
 //   const [fields, setFields] = useState(bodFields);
 //   const theme = useTheme();
 //   const { data: boData } = useGetBoCorporate();
-//   console.log("boData", boData);
 //   const data = boData && boData?.data
 //   const { formik } = useKycBocorporateForm(data);
 

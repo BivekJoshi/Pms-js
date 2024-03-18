@@ -86,6 +86,7 @@ import KycProtectedRoute from "./KycProtectedRoute"
 import { useSelector } from "react-redux"
 import VideoKyc from "../kyc/VideoKYC/VideoKyc"
 import { getUser } from "../utility/userHelper"
+import KycSubmitted from "../kyc/pages/KycSubmitted"
 
 export default function AppRoutes() {
   const { H: clientType, I: formNature } = getUser()
@@ -236,6 +237,7 @@ export default function AppRoutes() {
             <Route path="/" element={<AppLayout />}>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="watchlist" element={<WatchList />} />
+              <Route path="kyc-submitted" element={<KycSubmitted />} />
               <Route path="research">
                 <Route path="markets" element={<Research />} />
                 <Route path="sectors" element={<Sectors />} />
