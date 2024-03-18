@@ -6,9 +6,8 @@ body {
 .kyctms,
 body {
   font-size: 14px !important;
-  
 }
-.check-box input{
+.check-box input {
   width: 8% !important;
 }
 
@@ -129,7 +128,9 @@ body {
   border: 1px solid black;
   margin-bottom: 0rem !important;
 }
-
+.displayN {
+  display: none;
+}
 @page {
   margin-top: 5cm;
   /* size: A4; */
@@ -145,7 +146,7 @@ body {
     max-width: 1250px !important;
   }
   .container_p10 {
-    padding-top: .9rem !important;
+    padding-top: 0.9rem !important;
   }
   .container_p {
     padding-top: 2rem !important;
@@ -165,7 +166,12 @@ body {
   .avoid-page-break {
     page-break-inside: avoid;
   }
-
+  .displayN {
+    display: block;
+  }
+  .breakMargin {
+    margin-top: 5rem;
+  }
   .location-map {
     height: 15rem;
     /* padding: 1rem; */

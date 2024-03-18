@@ -31,7 +31,7 @@ const IndividualTmsKyc = ({ userData }) => {
           {/* Header */}
           <section className="container pb-2 pb-print-1">
             {/* <!-- Header section --> */}
-            <header className="text-center" style={{position: "relative"}}>
+            <header className="text-center" style={{ position: "relative" }}>
               <h2 className="">अनुसूची १२</h2>
               <p className="">(विनियम २० संग सम्बन्धित)</p>
               <h2 className="text-decoration-underline fs18">
@@ -70,7 +70,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
 
                 {/* <div className="container"> */}
-                <div className="row m-0 p-0 mt-4">
+                <div className="row m-0 p-0 ">
                   <div className="col-4 col-md-4 col-lg-4 border center-y ">
                     <div>
                       <div>
@@ -701,9 +701,7 @@ const IndividualTmsKyc = ({ userData }) => {
           {/* Details of Family Member */}
           <section className="container pb-2 avoid-page-break">
             <div className="text-center kyc-secondary-header">
-              <h2 className="text-capitalize">
-                परिवारका सदस्यहरुको विवरण (Details of family member)
-              </h2>
+              परिवारका सदस्यहरुको विवरण (Details of family member)
             </div>
 
             {/* <div className="container"> */}
@@ -813,9 +811,7 @@ const IndividualTmsKyc = ({ userData }) => {
           {/* BankDetails */}
           <section className="container pb-1">
             <div className="text-center kyc-secondary-header">
-              <h2 className="text-capitalize">
-                बैंक खाताको विवरण(bank account details)
-              </h2>
+              बैंक खाताको विवरण(bank account details)
             </div>
 
             {/* <div className="container"> */}
@@ -914,7 +910,7 @@ const IndividualTmsKyc = ({ userData }) => {
           {/* Details of Occupation */}
           <section className="container pb-2 avoid-page-break">
             <div className="kyc-secondary-header text-center">
-              <h2>पेशागत विवरण (Details of Occupation)</h2>
+              पेशागत विवरण (Details of Occupation)
             </div>
 
             {/* <div className="container"> */}
@@ -1226,129 +1222,59 @@ const IndividualTmsKyc = ({ userData }) => {
                 <p className="text-start">
                   आयको सीमा (वार्षिक विवरण) / Income Limit(Annual Details)
                 </p>
-                {/* {user?.nature === "TMS" ? (
-                    <div className="row">
-                      <div className="col-4">
-                        <div className="form-check">
-                          <label
-                            className="form-check-label"
-                            htmlFor="manifacturing"
-                          >
-                            रु ५,००,००० सम्म (Upto Rs. 5,00,000)
-                          </label>
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            readOnly
-                            checked={checkFinancialDetailsTMS(1)}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-4">
-                        <div className="form-check">
-                          <label
-                            className="form-check-label"
-                            htmlFor="manifacturing"
-                          >
-                            रु ५,००,००१ देखि रु १०,००,००० सम्म (From Rs.
-                            5,00,001 to Rs. 10,00,000)
-                          </label>
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            readOnly
-                            checked={checkFinancialDetailsTMS(2)}
-                          />
-                        </div>
-                      </div>
+                {/* {user?.nature === "TMS" ? ( 
+                <div className="row">
+                  <div className="col-4">
+                    <div className="form-check">
+                      <label
+                        className="form-check-label"
+                        htmlFor="manifacturing"
+                      >
+                        रु ५,००,००० सम्म (Upto Rs. 5,00,000)
+                      </label>
+                      <input
+                        type="radio"
+                        className="form-check-input"
+                        readOnly
+                        checked={checkFinancialDetailsTMS(1)}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-4">
+                    <div className="form-check">
+                      <label
+                        className="form-check-label"
+                        htmlFor="manifacturing"
+                      >
+                        रु ५,००,००१ देखि रु १०,००,००० सम्म (From Rs. 5,00,001 to
+                        Rs. 10,00,000)
+                      </label>
+                      <input
+                        type="radio"
+                        className="form-check-input"
+                        readOnly
+                        checked={checkFinancialDetailsTMS(2)}
+                      />
+                    </div>
+                  </div>
 
-                      <div className="col-4">
-                        <div className="form-check">
-                          <label
-                            className="form-check-label"
-                            htmlFor="manifacturing"
-                          >
-                            रू १०,००,००० भन्दा माथि (Above Rs. 10,00,000)
-                          </label>
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            readOnly
-                            checked={checkFinancialDetailsTMS(3)}
-                          />
-                        </div>
-                      </div>
+                  <div className="col-4">
+                    <div className="form-check">
+                      <label
+                        className="form-check-label"
+                        htmlFor="manifacturing"
+                      >
+                        रू १०,००,००० भन्दा माथि (Above Rs. 10,00,000)
+                      </label>
+                      <input
+                        type="radio"
+                        className="form-check-input"
+                        readOnly
+                        checked={checkFinancialDetailsTMS(3)}
+                      />
                     </div>
-                  ) : (
-                    <div className="row">
-                      <div className="col-12 col-md-6 col-lg-6 col-print-md-6">
-                        <div className="form-check">
-                          <label
-                            className="form-check-label"
-                            htmlFor="manifacturing"
-                          >
-                            रु १,००,००० सम्म (Upto Rs. 1,00,000)
-                          </label>
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            readOnly
-                            checked={checkFinancialDetails(1)}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-12 col-md-6 col-lg-6 col-print-md-6">
-                        <div className="form-check">
-                          <label
-                            className="form-check-label"
-                            htmlFor="manifacturing"
-                          >
-                            रु १,००,००१ देखि रु २,००,००० सम्म (From Rs. 1,00,001
-                            to Rs. 2,00,000)
-                          </label>
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            readOnly
-                            checked={checkFinancialDetails(2)}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-12 col-md-6 col-lg-6 col-print-md-6">
-                        <div className="form-check">
-                          <label
-                            className="form-check-label"
-                            htmlFor="manifacturing"
-                          >
-                            रु २,००,००१ देखि रू ५,००,००० सम्म ( From Rs.
-                            2,00,001 to Rs. 5,00,000)
-                          </label>
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            readOnly
-                            checked={checkFinancialDetails(3)}
-                          />
-                        </div>
-                      </div>
-                      <div className="col-12 col-md-6 col-lg-6 col-print-md-6">
-                        <div className="form-check">
-                          <label
-                            className="form-check-label"
-                            htmlFor="manifacturing"
-                          >
-                            रू ५,००,००० भन्दा माथि (Above Rs. 5,00,000)
-                          </label>
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            readOnly
-                            checked={checkFinancialDetails(4)}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  )} */}
+                  </div>
+                </div>*/}
               </div>
             </div>
             {/* </div> */}
@@ -1460,8 +1386,8 @@ const IndividualTmsKyc = ({ userData }) => {
                 <div className="row col-6" style={{ width: "10cm" }}>
                   <div className="col-6 center-xy border">
                     <div
-                    style={{ height: "180px", paddingTop: "12px" }}
-                    // style={{ height: !extraInfo && "250px" }}
+                      style={{ height: "180px", paddingTop: "12px" }}
+                      // style={{ height: !extraInfo && "250px" }}
                     >
                       {" "}
                       <p>बायाँ (Left)</p>
@@ -1579,11 +1505,8 @@ const IndividualTmsKyc = ({ userData }) => {
           <section className="container pb-2">
             <div>
               <div className="kyc-secondary-header text-center">
-                <h2> संरक्षकको विवरण (नाबालकको हकमा मात्र)</h2>
-
-                <h2 className=" text-capitalize">
-                  Guardian's Details (In case of Minor only)
-                </h2>
+                संरक्षकको विवरण (नाबालकको हकमा मात्र)
+                <br /> Guardian's Details (In case of Minor only)
               </div>
               {/* 
                 <figure style={{ textAlign: "right" }}>
@@ -1752,7 +1675,7 @@ const IndividualTmsKyc = ({ userData }) => {
           {/* {beneficialOwner && ( */}
           <section className="container pb-2 avoid-page-break">
             <div className="text-center kyc-secondary-header mb-2">
-              <h2>इच्छाएको व्यक्ति सम्बन्धि विवरण (Nominee's Details)</h2>
+              इच्छाएको व्यक्ति सम्बन्धि विवरण (Nominee's Details)
             </div>
 
             <p>
