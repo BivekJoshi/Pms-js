@@ -6,6 +6,9 @@ import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { Box, useTheme } from "@mui/system";
 import { useGetNomineeDetail } from '../../../../../hooks/Kyc/individual/nominee/useNominee';
 import { useNavigate } from "react-router-dom";
+import { SET_FORM } from "../../../../../redux/types/types";
+import { nextFormPath } from "../../../../../utility/userHelper";
+import { useDispatch } from "react-redux";
 
 const NOMINEEFIELDS = [
   {
@@ -215,10 +218,14 @@ const NomineeDpForms = () => {
   const { data: nomineeData } = useGetNomineeDetail();
   const data = nomineeData && nomineeData?.data;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { formik } = useNomineeForm(data);
 
-
+  const handleBack = () => {
+    navigate(nextFormPath(6));
+    dispatch({ type: SET_FORM, payload: 6 });
+  }
 
   useEffect(() => {
     setFields(NOMINEEFIELDS);
@@ -247,7 +254,7 @@ const NomineeDpForms = () => {
       <RenderInput inputField={fields} formik={formik} />
       <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}>
         <Button
-          onClick={() => navigate(-1)}
+          onClick={handleBack}
           variant="outlined"
           color="secondary"
         >

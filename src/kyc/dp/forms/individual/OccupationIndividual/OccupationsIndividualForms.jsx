@@ -4,11 +4,20 @@ import RenderInput from "../../../../../components/renderInput/RenderInput"
 import { nanoid } from "nanoid"
 import { useOccupationsIndividualForm } from "./useOccupationsIndividualForm"
 import { useNavigate } from "react-router-dom"
+import { SET_FORM } from "../../../../../redux/types/types"
+import { nextFormPath } from "../../../../../utility/userHelper"
+import { useDispatch } from "react-redux"
 
 const OccupationsIndividualForms = () => {
   const theme = useTheme()
   const navigate = useNavigate()
+  const dispatch = useDispatch();
   const { formik } = useOccupationsIndividualForm()
+
+  const handleBack = () => {
+    navigate(nextFormPath(5));
+    dispatch({ type: SET_FORM, payload: 5 });
+  }
 
   const occupationData = [
     {
@@ -254,7 +263,7 @@ const OccupationsIndividualForms = () => {
       </Grid>
       <Grid sx={{ display: "flex", justifyContent: "space-between" }}>
         <Button
-          onClick={() => navigate(-1)}
+          onClick={handleBack}
           variant="outlined"
           color="secondary"
         >

@@ -192,6 +192,10 @@ const BankIndividualDpForms = () => {
     navigate(nextFormPath(6));
     dispatch({ type: SET_FORM, payload: 6 });
   };
+  const handleBack = () => {
+    navigate(nextFormPath(4));
+    dispatch({ type: SET_FORM, payload: 4 });
+  }
 
   return (
     <div data-aos="zoom-in-right">
@@ -239,7 +243,7 @@ const BankIndividualDpForms = () => {
         sx={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}
       >
         <Button
-          onClick={() => navigate(-1)}
+          onClick={handleBack}
           variant="outlined"
           color="secondary"
         >
