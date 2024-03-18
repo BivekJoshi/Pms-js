@@ -10,6 +10,9 @@ body {
   scroll-behavior: smooth;
 }
 
+.overflowYY {
+  overflow-y: scroll;
+}
 .ioginImg {
   max-width: 120% !important;
 }

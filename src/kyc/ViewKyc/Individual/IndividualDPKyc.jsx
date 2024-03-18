@@ -129,14 +129,18 @@ const IndividualDPKyc = () => {
           {/* Header */}
           <section className="container pb-1">
             {/* <!-- Header section --> */}
-            <header className="text-center" style={{ position: "relative" }}>
+            <header
+              className="text-center"
+              style={{ position: "relative", marginTop: "3rem" }}
+            >
               <h2 className="">अनुसूची १२</h2>
               <p className="">(विनियम २० संग सम्बन्धित)</p>
               <h2 className="text-decoration-underline fs18">
                 प्राकृतिक व्यक्तिको हितग्राही खाता खोल्ने निवेदन
               </h2>
               <h3 className=" text-decoration-underline fs18">
-                ACCOUNT OPENING FORM FOR INDIVIDUAL BENEFICIAL OWNER
+                ACCOUNT OPENING FORM FOR INDIVIDUAL
+                <br className="displayN" /> BENEFICIAL OWNER
               </h3>
               {/* <!-- ! signature div --> */}
               <div className="text-center d-flex flex-column align-items-center">
@@ -694,7 +698,10 @@ const IndividualDPKyc = () => {
             {/* </div> */}
           </section>
           {/* Temporary Address */}
-          <section className="container pb-1 mt-4">
+          <section
+            className="container pb-1 mt-4 breakMargin container_p"
+            // style={{ marginTop: "5rem" }}
+          >
             <h2 className="text-center kyc-secondary-header">
               हालको ठेगाना (Current Address){" "}
             </h2>
@@ -1016,7 +1023,7 @@ const IndividualDPKyc = () => {
             {/* </div> */}
           </section>
           {/* Details of Occupation */}
-          <section className="container pb-1 avoid-page-break mt-4">
+          <section className="container pb-1 mt-4 breakMargin">
             <div className="kyc-secondary-header text-center">
               पेशागत विवरण (Details of Occupation)
             </div>

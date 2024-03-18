@@ -18,7 +18,6 @@ const CorporatOwnershipDetails = () => {
   const dispatch = useDispatch();
   const { H: clientType, I: formNature } = getUser();
 
-
   const DETAILS = [
     {
       name: "designation",
@@ -307,7 +306,7 @@ const CorporatOwnershipDetails = () => {
   const handleBack = () => {
     navigate(nextFormPath(6));
     dispatch({ type: SET_FORM, payload: 6 });
-  }
+  };
 
   return (
     <div data-aos="zoom-in-right">
@@ -340,21 +339,21 @@ const CorporatOwnershipDetails = () => {
                     options:
                       index <= 1
                         ? [
-                          { value: "Secretary", label: "Secretary" },
-                          { value: "CEO", label: "CEO" },
-                        ]
+                            { value: "Secretary", label: "Secretary" },
+                            { value: "CEO", label: "CEO" },
+                          ]
                         : [
-                          { value: "Director", label: "Director" },
+                            { value: "Director", label: "Director" },
 
-                          {
-                            value: "Chief Marketing Officer",
-                            label: "Chief Marketing Officer",
-                          },
-                          {
-                            value: "General Counsel",
-                            label: "General Counsel",
-                          },
-                        ],
+                            {
+                              value: "Chief Marketing Officer",
+                              label: "Chief Marketing Officer",
+                            },
+                            {
+                              value: "General Counsel",
+                              label: "General Counsel",
+                            },
+                          ],
                     isDisabled:
                       disabled &&
                       d.name === "designation" &&
@@ -379,7 +378,7 @@ const CorporatOwnershipDetails = () => {
                         sx={{
                           background:
                             formik?.errors?.detail &&
-                              formik?.errors?.detail[index] !== undefined
+                            formik?.errors?.detail[index] !== undefined
                               ? "#fff"
                               : "#FFFFFF",
                         }}
@@ -487,13 +486,13 @@ const CorporatOwnershipDetails = () => {
           </Accordion>
         ))}
         <Grid
-          sx={{ display: "flex", justifyContent: "space-between", margin: "1rem" }}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            margin: "1rem",
+          }}
         >
-          <Button
-            onClick={handleBack}
-            variant="outlined"
-            color="secondary"
-          >
+          <Button onClick={handleBack} variant="outlined" color="secondary">
             Back
           </Button>
           <Button
