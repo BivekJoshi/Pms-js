@@ -1,44 +1,44 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import React from "react";
-import { useRef } from "react";
+import { Table, TableBody, TableCell, TableContainer } from "@mui/material";
+import { TableHead, TableRow, Typography } from "@mui/material";
 import DpMeroShare from "../DpMeroShare";
 import ReactToPrint from "react-to-print";
 import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import CorporateKycPdf from "../../pdf/component/CorporateKycPdf";
+import { getUser } from "../../../utility/userHelper";
+import { useGetMetaData } from "../../hooks/useMetaDataKyc";
+import { useRef } from "react";
+import dateConverter from "../../../utility/dateConverter";
+import KycMap from "../KycMap/KycMap";
+import { useSelector } from "react-redux";
+import AgreementForm from "../agreement/AgreementForm";
 
 const CorporateDpKyc = () => {
   const componentRef = useRef();
+  const { A: userId } = getUser();
+  const { data: userData } = useGetMetaData(userId);
+  console.log(userData);
+  const corporateDetails = userData?.corporateDetails;
+  const currentAddressDetails = userData.addressDetails?.filter(
+    (address) => address.addressType === "T"
+  );
+
+  const permanentAddressDetails = userData.addressDetails?.filter(
+    (address) => address.addressType === "P"
+  );
+  const mapRef = useRef();
+  const orgData = useSelector((store) => store?.brokerList?.brokerOption[0]);
+
   return (
     <div className="container dpkyc">
       <div
         className="bg-white text-dark p-md-3  dpkyc"
         style={{ fontSize: "13.5px !important" }}
       >
-        <div className="d-flex justify-content-end mb-2">
-          {/* {' '} */}
-          <CorporateKycPdf />
-          <ReactToPrint
-            // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
-            trigger={() => <LocalPrintshopIcon />}
-            content={() => componentRef.current}
-            documentTitle="download.pdf"
-            // pageStyle="print"
-            // pageStyle='@page { margin: minimum }'
-            copyStyles
-            contentStyle={{
-              marginTop: "0px",
-            }}
-          />
-        </div>
-        <div className="kyc-page mt-4 container_p10" id="pdf" ref={componentRef}>
+        <div
+          className="kyc-page mt-4 container_p10"
+          id="pdf"
+          ref={componentRef}
+        >
           {/* Header */}
           <section className="container pb-1">
             {/* <!-- Header section --> */}
@@ -66,7 +66,7 @@ const CorporateDpKyc = () => {
                   <div className="col-4 col-md-4 col-lg-4 border center-y ">
                     <div>
                       आवेदन नं. (App No.):
-                      {/* {userData?.user?.submissionNo} */}
+                      {userData?.user?.submissionNo}
                     </div>
                   </div>
 
@@ -75,7 +75,7 @@ const CorporateDpKyc = () => {
                       <div></div>
                       <div>
                         संकेत नं. (Ref Number):
-                        {/* {userData?.user?.referenceNumber} */}
+                        {userData?.user?.referenceNumber}
                       </div>
                     </div>
                   </div>
@@ -84,20 +84,18 @@ const CorporateDpKyc = () => {
                     <div>
                       <div>
                         मिति (Date):
-                        {/* {user?.submittedDate} */}
+                        {userData?.user?.submittedDate}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              {/* {userData?.user?.nature === "TMS" && ( */}
               <div className="row m-0 p-0">
                 <div className="col-12  p-1 border border center-y">
                   कम्पनी वा संस्थाको हितग्राही खाता नं. (Company's BOID No.):
-                  {/* {userData?.user?.boid && userData?.user?.boid} */}
+                  {userData?.user?.boid && userData?.user?.boid}
                 </div>
               </div>
-              {/* )} */}
             </div>
             <div className="container">
               <div className="row">
@@ -124,7 +122,8 @@ const CorporateDpKyc = () => {
                       निक्षेप सदस्यको नाम (Name of Depository Participant) :
                     </div>
                     <p className="dotted-underline">
-                      {/* {user?.dpDetails && user?.dpDetails?.dpName} */}
+                      {userData?.user?.dpDetails &&
+                        userData?.user?.dpDetails?.dpName}
                     </p>
                   </div>
                   <div style={{ display: "flex", gap: "16px" }}>
@@ -133,7 +132,8 @@ const CorporateDpKyc = () => {
                     </div>
                     <div>
                       <p className="dotted-underline">
-                        {/* {user?.branch && user?.branch?.branchName} */}
+                        {userData?.user?.branch &&
+                          userData?.user?.branch?.branchName}
                       </p>
                     </div>
                   </div>
@@ -152,12 +152,21 @@ const CorporateDpKyc = () => {
                 <div className="col-10">
                   <div className="row">
                     <div className="col-4 d-flex">
-                      <input
-                        type="checkbox"
-                        readOnly
-                        htmlFor="typeOfAccount"
-                        //   checked={!individualDetail?.isNrn}
-                      />
+                      {corporateDetails?.corporateAccountType === "CLR" ? (
+                        <input
+                          type="checkbox"
+                          readOnly
+                          htmlFor="typeOfAccount"
+                          checked={true}
+                        />
+                      ) : (
+                        <input
+                          type="checkbox"
+                          readOnly
+                          htmlFor="typeOfAccount"
+                          disabled
+                        />
+                      )}
                       <div className="m-2">
                         {" "}
                         <div>राफसाफ</div>
@@ -165,12 +174,21 @@ const CorporateDpKyc = () => {
                       </div>
                     </div>
                     <div className="col-4 d-flex">
-                      <input
-                        type="checkbox"
-                        readOnly
-                        htmlFor="typeOfAccount"
-                        //   checked={individualDetail?.isNrn}
-                      />
+                      {corporateDetails?.corporateAccountType === "BNO" ? (
+                        <input
+                          type="checkbox"
+                          readOnly
+                          htmlFor="typeOfAccount"
+                          checked={true}
+                        />
+                      ) : (
+                        <input
+                          type="checkbox"
+                          readOnly
+                          htmlFor="typeOfAccount"
+                          disabled
+                        />
+                      )}
                       <div className="m-2">
                         {" "}
                         <div>हितग्राही</div>
@@ -178,14 +196,21 @@ const CorporateDpKyc = () => {
                       </div>
                     </div>
                     <div className="col-4 d-flex">
-                      <input
-                        type="checkbox"
-                        readOnly
-                        htmlFor="typeOfAccount"
-                        //   checked={
-                        //     individualDetail?.individualAccountType === "FIG"
-                        //   }
-                      />
+                      {corporateDetails?.corporateAccountType === "OTR" ? (
+                        <input
+                          type="checkbox"
+                          readOnly
+                          htmlFor="typeOfAccount"
+                          checked={true}
+                        />
+                      ) : (
+                        <input
+                          type="checkbox"
+                          readOnly
+                          htmlFor="typeOfAccount"
+                          disabled
+                        />
+                      )}
                       <div className="m-2">
                         {" "}
                         <div>अन्य</div>
@@ -213,7 +238,7 @@ const CorporateDpKyc = () => {
 
               <div className="col-5 border center-y text-uppercase">
                 <div className="letter-box-container">
-                  {/* {corporateDetails?.companyName?.toUpperCase()}{" "} */}
+                  {corporateDetails?.companyName?.toUpperCase()}{" "}
                 </div>
               </div>
               <div className="col-7 border center-y ">
@@ -224,7 +249,7 @@ const CorporateDpKyc = () => {
               </div>
 
               <div className="col-5  border center-y   ">
-                {/* <div>{userData?.corporateBodDetails?.fcpName}</div> */}
+                <div>{userData?.corporateBodDetails?.fcpName}</div>
               </div>
               <div className="col-7 border center-y ">
                 <div>
@@ -234,7 +259,7 @@ const CorporateDpKyc = () => {
               </div>
 
               <div className="col-5  border center-y   ">
-                {/* <div>{userData?.corporateBodDetails?.scpName}</div> */}
+                <div>{userData?.corporateBodDetails?.scpName}</div>
               </div>
 
               <div className="col-7 border center-y ">
@@ -245,7 +270,7 @@ const CorporateDpKyc = () => {
               </div>
 
               <div className="col-5  border center-y   ">
-                {/* <div>{userData?.corporateBodDetails?.trdName}</div> */}
+                <div>{userData?.corporateBodDetails?.trdName}</div>
               </div>
               <div className="col-7 border center-y ">
                 <div>
@@ -255,14 +280,14 @@ const CorporateDpKyc = () => {
               </div>
 
               <div className="col-5  border center-y   ">
-                {/* {corporateDetails?.companyCeoName?.toUpperCase()}*/}
+                {corporateDetails?.companyCeoName?.toUpperCase()}
               </div>
               <div className="col-7 border center-y ">
                 <div>कम्पनी सचिवको नाम (Company Secretary&apos;s Name)</div>
               </div>
 
               <div className="col-5  border center-y   ">
-                {/* <div>{userData?.companySecretaryName?.fcpName}</div> */}
+                <div>{userData?.companySecretaryName?.fcpName}</div>
               </div>
               {/* <!-- ! date of birth --> */}
               <div className="col-6 border  center-y">
@@ -276,8 +301,8 @@ const CorporateDpKyc = () => {
                       <label className="form-check-label" htmlFor="bs">
                         बि. सं. (B.S.):
                       </label>
-                      {/* {userData?.corporateDetails?.incorporationDate &&
-                          corporateDetails?.incorporationDate} */}
+                      {userData?.corporateDetails?.incorporationDate &&
+                        corporateDetails?.incorporationDate}
                     </div>
                   </div>
 
@@ -286,10 +311,10 @@ const CorporateDpKyc = () => {
                       <label className="form-check-label" htmlFor="ad">
                         इ. सं (A.D.):{" "}
                       </label>
-                      {/*{dateConverter(
-                          corporateDetails?.incorporationDate,
-                          "BS_AD"
-                        )} */}
+                      {dateConverter(
+                        corporateDetails?.incorporationDate,
+                        "BS_AD"
+                      )}
                     </div>
                   </div>
                 </div>
@@ -309,7 +334,7 @@ const CorporateDpKyc = () => {
                   <input
                     type="radio"
                     className="form-check-input "
-                    //   checked={corporateDetails?.companyType === "PVT"}
+                    checked={corporateDetails?.companyType === "PVT"}
                     readOnly
                   />
                 </div>
@@ -321,7 +346,7 @@ const CorporateDpKyc = () => {
                   <input
                     type="radio"
                     className="form-check-input"
-                    //                             checked={corporateDetails?.companyType === "PUB"}
+                    checked={corporateDetails?.companyType === "PUB"}
                     readOnly
                   />
                 </div>
@@ -332,7 +357,7 @@ const CorporateDpKyc = () => {
                   <input
                     type="radio"
                     className="form-check-input"
-                    //  checked={corporateDetails?.companyType === "GOV"}
+                    checked={corporateDetails?.companyType === "GOV"}
                     readOnly
                   />
                 </div>
@@ -348,7 +373,7 @@ const CorporateDpKyc = () => {
                     type="radio"
                     className="form-check-input"
                     readOnly
-                    //  checked={corporateDetails?.companyType === "OTHER"}
+                    checked={corporateDetails?.companyType === "OTHER"}
                   />
                 </div>
                 {/* <!-- </form> --> */}
@@ -365,7 +390,7 @@ const CorporateDpKyc = () => {
                   <input
                     type="radio"
                     className="form-check-input "
-                    // checked={corporateDetails?.countryReg === "Nepal"}
+                    checked={corporateDetails?.countryReg === "Nepal"}
                     readOnly
                   />
                 </div>
@@ -374,16 +399,16 @@ const CorporateDpKyc = () => {
                   <label className="form-check-label" htmlFor="female">
                     अन्य (नेपाल बाहेक अन्य देश भएमा उल्लेख गर्ने) <br />{" "}
                     (thers(Please mention if other than Nepal))
-                    {/* <span className="input-semi-dotted">
-                          {corporateDetails?.countryReg !== "Nepal"
-                            ? corporateDetails?.countryReg
-                            : ""}
-                        </span> */}
+                    <span className="input-semi-dotted">
+                      {corporateDetails?.countryReg !== "Nepal"
+                        ? corporateDetails?.countryReg
+                        : ""}
+                    </span>
                   </label>
                   <input
                     type="radio"
                     className="form-check-input"
-                    //  {corporateDetails?.countryReg !== "Nepal"}
+                    checked={corporateDetails?.countryReg !== "Nepal"}
                     readOnly
                   />
                 </div>
@@ -403,7 +428,7 @@ const CorporateDpKyc = () => {
               </div>
               <div className="col-6 border center-y text-uppercase">
                 <div className="letter-box-container">
-                  {/*{corporateDetails?.registrationOffice?.toUpperCase()}*/}
+                  {corporateDetails?.registrationOffice?.toUpperCase()}
                 </div>
               </div>
 
@@ -411,28 +436,30 @@ const CorporateDpKyc = () => {
                 <div>दर्ता नं. ( Registration No.)</div>
               </div>
               <div className="col-6  border center-y   ">
-                {/* {corporateDetails?.registrationNo}*/}
+                {corporateDetails?.registrationNo}
               </div>
 
               <div className="col-6 border center-y ">
                 <div>दर्ता मिति. (Registration Date.)</div>
               </div>
               <div className="col-6  border center-y   ">
-                {/*  {corporateDetails?.registrationDate}*/}
+                {corporateDetails?.registrationDate}
               </div>
 
               <div className="col-6 border center-y ">
                 <div>स्थायी लेखा नं. (PAN No.)</div>
               </div>
               <div className="col-6  border center-y   ">
-                {/* {corporateDetails?.panNo}*/}
+                {corporateDetails?.panNo}
               </div>
 
               <div className="col-6 border center-y ">
                 मूल्य अभिबृद्धि कर दर्ता नं. (VAT Registration No)
               </div>
               <div className="col-6  border center-y   ">
-                {/* <div>{userData?.companySecretaryName?.fcpName}</div>   {corporateDetails?.vatRegistration && corporateDetails?.vatRegistration}*/}
+                <div>{userData?.companySecretaryName?.fcpName}</div>{" "}
+                {corporateDetails?.vatRegistration &&
+                  corporateDetails?.vatRegistration}
               </div>
 
               <div className="col-7 col-md-6 border center-y ">
@@ -443,11 +470,13 @@ const CorporateDpKyc = () => {
               </div>
               <div className="col-5 col-md-6 border center-y text-uppercase">
                 <div className="letter-box-container">
-                  {/* {corporateDetails?.isSubsidiary === true
-                          ? corporateDetails?.mainCompanyName
-                          : ""}, {corporateDetails?.isSubsidiary === true
-                          ? userData?.corporateDetails?.address
-                          : ""}*/}
+                  {corporateDetails?.isSubsidiary === true
+                    ? corporateDetails?.mainCompanyName
+                    : ""}
+                  ,{" "}
+                  {corporateDetails?.isSubsidiary === true
+                    ? userData?.corporateDetails?.address
+                    : ""}
                 </div>
               </div>
 
@@ -457,33 +486,33 @@ const CorporateDpKyc = () => {
                 </div>
               </div>
               <div className="col-5 col-md-6 border center-y   ">
-                {/* {corporateDetails?.businessType &&
-                        corporateDetails?.businessType === "MANU"
-                          ? "Manufacturing"
-                          : corporateDetails?.businessType === "SEV"
-                          ? "Service Oriented"
-                          : ""}{" "}*/}
+                {corporateDetails?.businessType &&
+                corporateDetails?.businessType === "MANU"
+                  ? "Manufacturing"
+                  : corporateDetails?.businessType === "SEV"
+                    ? "Service Oriented"
+                    : ""}{" "}
               </div>
 
               <div className="col-6 border center-y ">
                 <div>कार्य क्षेत्र (Area of Work)</div>
               </div>
               <div className="col-6  border center-y   ">
-                {/*{corporateDetails?.workArea}*/}
+                {corporateDetails?.workArea}
               </div>
 
               <div className="col-6 border center-y ">
                 <div>धितोपत्र बजारमा सूचीकरण भए / नभएको (Listed Yes/No)</div>
               </div>
               <div className="col-6  border center-y   ">
-                {/*  {corporateDetails?.isListed ? "Yes" : "No"}*/}
+                {corporateDetails?.isListed ? "Yes" : "No"}
               </div>
 
               <div className="col-6 border center-y ">
                 <div>सूचीकरण मिति (SEBON Registration Date)</div>
               </div>
               <div className="col-6  border center-y   ">
-                {/*  {corporateDetails?.listingDate}*/}
+                {corporateDetails?.listingDate}
               </div>
 
               <div className="col-6 border center-y ">
@@ -491,16 +520,15 @@ const CorporateDpKyc = () => {
                 No.)
               </div>
               <div className="col-6  border center-y   ">
-                {/*{corporateDetails?.nrbRegistration &&
-                          corporateDetails?.nrbRegistration}{" "}*/}
+                {corporateDetails?.nrbRegistration &&
+                  corporateDetails?.nrbRegistration}{" "}
               </div>
 
               <div className="col-6 border center-y ">
                 नेपाल राष्ट्र बैंकको स्वीकृत मिति. (NRB Approval Date.)
               </div>
               <div className="col-6  border center-y   ">
-                {/*{corporateDetails?.nrbApproval &&
-                          corporateDetails?.nrbApproval}*/}
+                {corporateDetails?.nrbApproval && corporateDetails?.nrbApproval}
               </div>
             </div>
           </section>
@@ -518,7 +546,9 @@ const CorporateDpKyc = () => {
               </div>
 
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.country} */}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? permanentAddressDetails?.[0].country
+                  : userData.addressDetails?.[0]?.country}
               </div>
 
               {/* <!-- Province --> */}
@@ -526,10 +556,9 @@ const CorporateDpKyc = () => {
                 प्रदेश (Province)
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {userData.addressDetails?.[0]?.perAndCurAddressSame ===
-                        false
-                          ? permanentAddressDetails?.[0].province
-                          : userData.addressDetails?.[0]?.province} */}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? permanentAddressDetails?.[0].province
+                  : userData.addressDetails?.[0]?.province}
               </div>
 
               {/* <!-- Pality --> */}
@@ -538,10 +567,9 @@ const CorporateDpKyc = () => {
                 Municipality / Sub Metropolitan city / Metropolitan city )
               </div>
               <div className=" col-6 border-start-0 center-y">
-                {/* {userData.addressDetails?.[0]?.perAndCurAddressSame ===
-                        false
-                          ? permanentAddressDetails?.[0].municipality
-                          : userData.addressDetails?.[0]?.municipality}*/}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? permanentAddressDetails?.[0].municipality
+                  : userData.addressDetails?.[0]?.municipality}
               </div>
 
               {/* <!-- ! District --> */}
@@ -549,10 +577,9 @@ const CorporateDpKyc = () => {
                 जिल्ला (District)
               </div>
               <div className="col-6 col-md-3 border center-y text-capitalize">
-                {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
-                        false
-                          ? permanentAddressDetails?.[0].district
-                          : userData.addressDetails?.[0]?.district} */}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? permanentAddressDetails?.[0].district
+                  : userData.addressDetails?.[0]?.district}
               </div>
 
               {/* <!-- ! Ward Nol --> */}
@@ -560,19 +587,17 @@ const CorporateDpKyc = () => {
                 वडा नं. (Ward No.)
               </div>
               <div className="col-6 col-md-1 border center-y">
-                {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
-                        false
-                          ? permanentAddressDetails?.[0]?.wordNo
-                          : userData.addressDetails?.[0]?.wordNo}*/}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? permanentAddressDetails?.[0]?.wordNo
+                  : userData.addressDetails?.[0]?.wordNo}
               </div>
 
               {/* <!-- Tole --> */}
               <div className="col-6 col-md-2 border center-y">टोल (Tole)</div>
               <div className="col-6 col-md-2 border text-capitalize center-y">
-                {/* {userData.addressDetails?.[0]?.perAndCurAddressSame ===
-                        false
-                          ? permanentAddressDetails?.[0].tole
-                          : userData.addressDetails?.[0]?.tole}*/}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? permanentAddressDetails?.[0].tole
+                  : userData.addressDetails?.[0]?.tole}
               </div>
 
               {/* <!-- Telephone --> */}
@@ -581,10 +606,9 @@ const CorporateDpKyc = () => {
                 टेलिफोन नं. (Telephone No.)
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
-                        false
-                          ? permanentAddressDetails?.[0].telephoneNo
-                          : userData.addressDetails?.[0]?.telephoneNo}*/}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? permanentAddressDetails?.[0].telephoneNo
+                  : userData.addressDetails?.[0]?.telephoneNo}
               </div>
               {/* <!-- Mobile --> */}
 
@@ -592,10 +616,9 @@ const CorporateDpKyc = () => {
                 मोबाईल नं. (Mobile No.)
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
-                        false
-                          ? permanentAddressDetails?.[0].mobileNo
-                          : userData.addressDetails?.[0]?.mobileNo}*/}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? permanentAddressDetails?.[0].mobileNo
+                  : userData.addressDetails?.[0]?.mobileNo}
               </div>
 
               {/* <!-- email --> */}
@@ -603,10 +626,9 @@ const CorporateDpKyc = () => {
                 इमेल (Email)
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {userData.addressDetails?.[0]?.perAndCurAddressSame ===
-                        false
-                          ? permanentAddressDetails?.[0]?.email
-                          : userData.addressDetails?.[0]?.email}*/}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? permanentAddressDetails?.[0]?.email
+                  : userData.addressDetails?.[0]?.email}
               </div>
 
               {/* <!-- Website --> */}
@@ -614,14 +636,13 @@ const CorporateDpKyc = () => {
                 वेबसाइट (Website)
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/*{userData.addressDetails?.[0]?.perAndCurAddressSame ===
-                        false
-                          ? permanentAddressDetails?.[0]?.website
-                          : userData.addressDetails?.[0]?.website} */}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? permanentAddressDetails?.[0]?.website
+                  : userData.addressDetails?.[0]?.website}
               </div>
             </div>
           </section>
-          {/* Map values in this section wit lat and long */}   
+          {/* Map values in this section wit lat and long */}
           <section
             className="container mt-2 container_p10"
             // key={currentAddressDetails}
@@ -630,33 +651,33 @@ const CorporateDpKyc = () => {
             <div
               className="location-map border d-flex flex-column justify-content-between mb-3"
               style={{ height: "10cm" }}
-              // ref={mapRef}
-              // key={currentAddressDetails}
+              ref={mapRef}
+              key={currentAddressDetails}
             >
-              {/* <KycMap
-              latitude={
-                currentAddressDetails && currentAddressDetails[0]?.latitude
-                  ? currentAddressDetails[0]?.latitude
-                  : 0
-              }
-              longitude={
-                currentAddressDetails && currentAddressDetails[0]?.longitude
-                  ? currentAddressDetails[0]?.longitude
-                  : 0
-              }
-            /> */}
+              <KycMap
+                latitude={
+                  currentAddressDetails && currentAddressDetails[0]?.latitude
+                    ? currentAddressDetails[0]?.latitude
+                    : 0
+                }
+                longitude={
+                  currentAddressDetails && currentAddressDetails[0]?.longitude
+                    ? currentAddressDetails[0]?.longitude
+                    : 0
+                }
+              />
               <div className="row mt-2">
                 <div className="col-6 text-capitalize">
                   latitude :{" "}
-                  {/* {currentAddressDetails && currentAddressDetails[0]?.latitude
-                  ? currentAddressDetails[0]?.latitude
-                  : "0"} */}
+                  {currentAddressDetails && currentAddressDetails[0]?.latitude
+                    ? currentAddressDetails[0]?.latitude
+                    : "0"}
                 </div>
                 <div className="col-6 text-capitalize text-end">
                   longitude :{" "}
-                  {/* {currentAddressDetails && currentAddressDetails[0]?.longitude
-                  ? currentAddressDetails[0]?.longitude
-                  : 0} */}
+                  {currentAddressDetails && currentAddressDetails[0]?.longitude
+                    ? currentAddressDetails[0]?.longitude
+                    : 0}
                 </div>
               </div>
             </div>
@@ -673,7 +694,9 @@ const CorporateDpKyc = () => {
               </div>
 
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.country} */}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? currentAddressDetails?.[0]?.country
+                  : userData.addressDetails?.[0]?.country}
               </div>
 
               {/* <!-- Province --> */}
@@ -681,10 +704,9 @@ const CorporateDpKyc = () => {
                 प्रदेश (Province)
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.province
-                            : userData.addressDetails?.[0]?.province} */}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? currentAddressDetails?.[0]?.province
+                  : userData.addressDetails?.[0]?.province}
               </div>
 
               {/* <!-- Pality --> */}
@@ -693,10 +715,9 @@ const CorporateDpKyc = () => {
                 Municipality / Sub Metropolitan city / Metropolitan city )
               </div>
               <div className=" col-6 border-start-0 center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.municipality
-                            : userData.addressDetails?.[0]?.municipality}*/}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? currentAddressDetails?.[0]?.municipality
+                  : userData.addressDetails?.[0]?.municipality}
               </div>
 
               {/* <!-- ! District --> */}
@@ -704,10 +725,9 @@ const CorporateDpKyc = () => {
                 जिल्ला (District)
               </div>
               <div className="col-6 col-md-3 border center-y text-capitalize">
-                {/*   {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.district
-                            : userData.addressDetails?.[0]?.district} */}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? currentAddressDetails?.[0]?.district
+                  : userData.addressDetails?.[0]?.district}
               </div>
 
               {/* <!-- ! Ward Nol --> */}
@@ -715,19 +735,17 @@ const CorporateDpKyc = () => {
                 वडा नं. (Ward No.)
               </div>
               <div className="col-6 col-md-1 border center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.wordNo
-                            : userData.addressDetails?.[0]?.wordNo}*/}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? currentAddressDetails?.[0]?.wordNo
+                  : userData.addressDetails?.[0]?.wordNo}
               </div>
 
               {/* <!-- Tole --> */}
               <div className="col-6 col-md-2 border center-y">टोल (Tole)</div>
               <div className="col-6 col-md-2 border text-capitalize center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.tole
-                            : userData.addressDetails?.[0]?.tole}*/}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? currentAddressDetails?.[0]?.tole
+                  : userData.addressDetails?.[0]?.tole}
               </div>
 
               {/* <!-- Telephone --> */}
@@ -736,10 +754,9 @@ const CorporateDpKyc = () => {
                 टेलिफोन नं. (Telephone No.)
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.telephoneNo
-                            : userData.addressDetails?.[0]?.telephoneNo}*/}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? currentAddressDetails?.[0]?.telephoneNo
+                  : userData.addressDetails?.[0]?.telephoneNo}
               </div>
               {/* <!-- Telephone --> */}
 
@@ -747,10 +764,9 @@ const CorporateDpKyc = () => {
                 मोबाईल नं. (Mobile No.)
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.mobileNo
-                            : userData.addressDetails?.[0]?.mobileNo}*/}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? currentAddressDetails?.[0]?.mobileNo
+                  : userData.addressDetails?.[0]?.mobileNo}
               </div>
 
               {/* <!-- email --> */}
@@ -758,10 +774,9 @@ const CorporateDpKyc = () => {
                 इमेल (Email)
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.email
-                            : userData.addressDetails?.[0]?.email}*/}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? currentAddressDetails?.[0]?.email
+                  : userData.addressDetails?.[0]?.email}
               </div>
 
               {/* <!-- Website --> */}
@@ -769,10 +784,9 @@ const CorporateDpKyc = () => {
                 वेबसाइट (Website)
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/*{userData.addressDetails?.[0]
-                            ?.perAndCurAddressSame === false
-                            ? currentAddressDetails?.[0]?.website
-                            : userData.addressDetails?.[0]?.website} */}
+                {userData.addressDetails?.[0]?.perAndCurAddressSame === false
+                  ? currentAddressDetails?.[0]?.website
+                  : userData.addressDetails?.[0]?.website}
               </div>
             </div>
           </section>
@@ -835,33 +849,41 @@ const CorporateDpKyc = () => {
                       Contact Person
                     </TableCell>
                   </TableRow>
-                  {/* {userData?.branchDetails?.length > 0 ? (
+                  {userData?.branchDetails?.length > 0 ? (
                     userData.branchDetails.map((d, index) => (
                       <TableRow key={d.id}>
                         <TableCell className="kyc-tr border fs13" height="30px">
                           {index + 1}
                         </TableCell>
-                        <TableCell className="kyc-tr borde fs13r">{d?.area}</TableCell>
-                        <TableCell className="kyc-tr border fs13">{d.mainBranch}</TableCell>
-                        <TableCell className="kyc-tr border fs13">{d.address}</TableCell>
+                        <TableCell className="kyc-tr borde fs13r">
+                          {d?.area}
+                        </TableCell>
+                        <TableCell className="kyc-tr border fs13">
+                          {d.mainBranch}
+                        </TableCell>
+                        <TableCell className="kyc-tr border fs13">
+                          {d.address}
+                        </TableCell>
                         <TableCell className="kyc-tr border fs13">
                           {d.telephoneNo}
                         </TableCell>
-                        <TableCell className="kyc-tr border fs13">{d.mobileNo}</TableCell>
+                        <TableCell className="kyc-tr border fs13">
+                          {d.mobileNo}
+                        </TableCell>
                         <TableCell className="kyc-tr border fs13">
                           {d.contactPerson}
                         </TableCell>
                       </TableRow>
                     ))
-                  ) : ( */}
-                  <TableRow>
-                    <TableCell
-                      className="kyc-tr border"
-                      height="30px"
-                      colSpan={7}
-                    ></TableCell>
-                  </TableRow>
-                  {/* )} */}
+                  ) : (
+                    <TableRow>
+                      <TableCell
+                        className="kyc-tr border"
+                        height="30px"
+                        colSpan={7}
+                      ></TableCell>
+                    </TableRow>
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -891,7 +913,7 @@ const CorporateDpKyc = () => {
                     className="form-check-input"
                     id="saving_account"
                     name="account_type"
-                    //   checked={userData.bankDetails?.accountType === "S"}
+                    checked={userData.bankDetails?.accountType === "S"}
                   />
                 </div>
 
@@ -907,7 +929,7 @@ const CorporateDpKyc = () => {
                     className="form-check-input"
                     id="current_account"
                     name="account_type"
-                    //   checked={userData.bankDetails?.accountType === "C"}
+                    checked={userData.bankDetails?.accountType === "C"}
                   />
                 </div>
               </div>
@@ -920,7 +942,7 @@ const CorporateDpKyc = () => {
               </div>
 
               <div className="col-6 col-md-7 border center-y">
-                {/*   {userData.bankDetails?.accountNumber} */}
+                {userData.bankDetails?.accountNumber}
               </div>
 
               {/* <!-- ! name and address of bank --> */}
@@ -939,7 +961,7 @@ const CorporateDpKyc = () => {
                 <div>बैंक खाताभएको बैंकको ठेगाना (Address of Bank)</div>
               </div>
               <div className="col-6 col-md-7 border center-y text-capitalize">
-                {/* {userData.bankDetails?.branchAddress} */}
+                {userData.bankDetails?.branchAddress}
               </div>
               <div className="col-6 border">
                 <div className="text-start">
@@ -956,10 +978,10 @@ const CorporateDpKyc = () => {
                   <input
                     type="radio"
                     readOnly
-                    // checked={
-                    //   userData?.boStatement
-                    //     ?.isStandingInstructionForAutomaticTxn
-                    // }
+                    checked={
+                      userData?.boStatement
+                        ?.isStandingInstructionForAutomaticTxn
+                    }
                   />
                   <div>गराउने (Yes)</div>
                 </div>
@@ -967,10 +989,10 @@ const CorporateDpKyc = () => {
                   <input
                     type="radio"
                     readOnly
-                    // checked={
-                    //   !userData?.boStatement
-                    //     ?.isStandingInstructionForAutomaticTxn
-                    // }
+                    checked={
+                      !userData?.boStatement
+                        ?.isStandingInstructionForAutomaticTxn
+                    }
                   />
                   <div>नगराउने (No)</div>
                 </div>
@@ -986,10 +1008,9 @@ const CorporateDpKyc = () => {
                   <input
                     type="radio"
                     readOnly
-                    // checked={
-                    //   userData?.boStatement?.accountStatementPeriod ===
-                    //   "DAILY"
-                    // }
+                    checked={
+                      userData?.boStatement?.accountStatementPeriod === "DAILY"
+                    }
                   />
                   <div>दैनिक (Daily)</div>
                 </div>
@@ -997,10 +1018,9 @@ const CorporateDpKyc = () => {
                   <input
                     type="radio"
                     readOnly
-                    // checked={
-                    //   userData?.boStatement?.accountStatementPeriod ===
-                    //   "WEEKLY"
-                    // }
+                    checked={
+                      userData?.boStatement?.accountStatementPeriod === "WEEKLY"
+                    }
                   />
                   <div className="m-2">
                     <div>साप्ताहिक (Weekly)</div>
@@ -1010,10 +1030,9 @@ const CorporateDpKyc = () => {
                   <input
                     type="radio"
                     readOnly
-                    // checked={
-                    //   userData?.boStatement?.accountStatementPeriod ===
-                    //   "15DAYS"
-                    // }
+                    checked={
+                      userData?.boStatement?.accountStatementPeriod === "15DAYS"
+                    }
                   />
                   <div className="m-2">
                     <div>पाक्षिक (15 days)</div>
@@ -1023,10 +1042,10 @@ const CorporateDpKyc = () => {
                   <input
                     type="radio"
                     readOnly
-                    // checked={
-                    //   userData?.boStatement?.accountStatementPeriod ===
-                    //   "MONTHLY"
-                    // }
+                    checked={
+                      userData?.boStatement?.accountStatementPeriod ===
+                      "MONTHLY"
+                    }
                   />
                   <div className="m-2">
                     <div>मासिक (Monthly)</div>
@@ -1119,48 +1138,54 @@ const CorporateDpKyc = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* {userData?.corporateBodDetails?.detail.length > 0 ? (
+                  {userData?.corporateBodDetails?.detail.length > 0 ? (
                     userData?.corporateBodDetails?.detail.map((bod, index) => (
                       <TableRow key={index}>
-                        <TableCell  className="kyc-td border p2">{index + 1}.</TableCell>
-                        <TableCell  className="kyc-td border p2">{`${bod?.firstName} ${bod?.lastName}`}</TableCell>
-                        <TableCell  className="kyc-td border p2">
+                        <TableCell className="kyc-td border p2">
+                          {index + 1}.
+                        </TableCell>
+                        <TableCell className="kyc-td border p2">{`${bod?.firstName} ${bod?.lastName}`}</TableCell>
+                        <TableCell className="kyc-td border p2">
                           {bod.designation?.toUpperCase()}
                         </TableCell>
-                        <TableCell  className="kyc-td border p2">
+                        <TableCell className="kyc-td border p2">
                           {bod?.spouseName}
                         </TableCell>
-                        <TableCell  className="kyc-td border p2">
+                        <TableCell className="kyc-td border p2">
                           {bod?.fatherName}
                         </TableCell>
-                        <TableCell  className="kyc-td border p2">
+                        <TableCell className="kyc-td border p2">
                           {bod?.grandFather}
                         </TableCell>
-                        <TableCell  className="kyc-td border p2">
+                        <TableCell className="kyc-td border p2">
                           {bod?.permanentAddress}
                         </TableCell>
-                        <TableCell  className="kyc-td border p2">
+                        <TableCell className="kyc-td border p2">
                           {bod?.currentAddress}
                         </TableCell>
-                        <TableCell  className="kyc-td border p2">
+                        <TableCell className="kyc-td border p2">
                           {bod?.telephoneNo}
                         </TableCell>
-                        <TableCell  className="kyc-td border p2">
+                        <TableCell className="kyc-td border p2">
                           {bod?.mobileNo}
                         </TableCell>
-                        <TableCell  className="kyc-td border p2">{bod?.email}</TableCell>
-                        <TableCell  className="kyc-td border p2">{bod?.panNo}</TableCell>
+                        <TableCell className="kyc-td border p2">
+                          {bod?.email}
+                        </TableCell>
+                        <TableCell className="kyc-td border p2">
+                          {bod?.panNo}
+                        </TableCell>
                       </TableRow>
                     ))
-                  ) : ( */}
-                  <TableRow>
-                    <TableCell
-                      className="kyc-tr border"
-                      height="30px"
-                      colSpan={12}
-                    ></TableCell>
-                  </TableRow>
-                  {/* )} */}
+                  ) : (
+                    <TableRow>
+                      <TableCell
+                        className="kyc-tr border"
+                        height="30px"
+                        colSpan={12}
+                      ></TableCell>
+                    </TableRow>
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -1189,13 +1214,13 @@ const CorporateDpKyc = () => {
                       नाम /Name
                     </TableCell>
                     <TableCell className="kyc-td text-start border">
-                      {/* {userData?.corporateBodDetails?.fcpName} */}
+                      {userData?.corporateBodDetails?.fcpName}
                     </TableCell>
                     <TableCell className="kyc-td text-start border">
-                      {/* {userData?.corporateBodDetails?.scpName} */}
+                      {userData?.corporateBodDetails?.scpName}
                     </TableCell>
                     <TableCell className="kyc-td text-start border">
-                      {/* {userData?.corporateBodDetails?.trdName} */}
+                      {userData?.corporateBodDetails?.trdName}
                     </TableCell>
                   </TableRow>
                   <TableRow>
@@ -1203,13 +1228,13 @@ const CorporateDpKyc = () => {
                       पद /Designation
                     </TableCell>
                     <TableCell className="kyc-td text-start border">
-                      {/* {userData?.corporateBodDetails?.fcpDesignation} */}
+                      {userData?.corporateBodDetails?.fcpDesignation}
                     </TableCell>
                     <TableCell className="kyc-td text-start border">
-                      {/* {userData?.corporateBodDetails?.scpDesignation} */}
+                      {userData?.corporateBodDetails?.scpDesignation}
                     </TableCell>
                     <TableCell className="kyc-td text-start border">
-                      {/* {userData?.corporateBodDetails?.trdDesignation} */}
+                      {userData?.corporateBodDetails?.trdDesignation}
                     </TableCell>
                   </TableRow>
                   <TableRow>
@@ -1337,13 +1362,13 @@ const CorporateDpKyc = () => {
                 <div className="col-4 col-md-4">
                   <h3>रुजु गर्ने</h3>
 
-                  {/* <p>नाम थर: {userData?.user?.verifiedBy}</p> */}
+                  <p>नाम थर: {userData?.user?.verifiedBy}</p>
 
                   <p>पद:</p>
 
                   <p>हस्ताक्षर:</p>
 
-                  {/* <p>मिति: {userData?.user?.verifiedDate}</p> */}
+                  <p>मिति: {userData?.user?.verifiedDate}</p>
                 </div>
                 <div className="col-4 col-md-4">
                   <div className="center-y">
@@ -1361,20 +1386,20 @@ const CorporateDpKyc = () => {
                     style={{ marginLeft: "-7.5rem" }}
                   >
                     कार्यालयको नाम:{" "}
-                    {/* <b>{orgData !== undefined && orgData?.name}</b> */}
+                    <b>{orgData !== undefined && orgData?.name}</b>
                   </p>
                 </div>
 
                 <div className="col-4 col-md-4">
                   <h3>प्रमाणित गर्ने</h3>
 
-                  {/* <p>नाम थर:{userData?.user?.approvedBy}</p> */}
+                  <p>नाम थर:{userData?.user?.approvedBy}</p>
 
                   <p>पद:</p>
 
                   <p>हस्ताक्षर:</p>
 
-                  {/* <p>मिति:{userData?.user?.approvedDate}</p> */}
+                  <p>मिति:{userData?.user?.approvedDate}</p>
                 </div>
               </div>
             </div>
@@ -1389,41 +1414,40 @@ const CorporateDpKyc = () => {
             </header>
             <div className="mt-4 mb-0">
               <p className=" text-start aggrement-content mb-0">
-                {/* {orgData?.address ? ( */}
-                <span className="dotted-underline mt-3">
-                  {/* {orgData?.address} */}
-                </span>
-                {/* ) : ( */}
-                "..........................."
-                {/* )}{" "} */}
+                {orgData?.address ? (
+                  <span className="dotted-underline mt-3">
+                    {orgData?.address}
+                  </span>
+                ) : (
+                  "..........................."
+                )}{" "}
                 स्थित कार्यालय रहेको
-                {/* {orgData !== undefined ? ( */}
-                <span className="dotted-underline mt-3">
-                  {/* {orgData?.name} */}
-                </span>
-                {/* ) : ( */}
-                "..........................."
-                {/* )} */}
+                {orgData !== undefined ? (
+                  <span className="dotted-underline mt-3">{orgData?.name}</span>
+                ) : (
+                  "..........................."
+                )}
                 (वैधानिक अस्तित्व भएको निकायको विवरण) (यसपछि "सदस्य" भनिएको )
-                प्रथम पक्ष र{/* {currentAddressDetails ? ( */}
-                <span
-                  className="dotted-underline mt-3"
-                  style={{ textTransform: "capitalize" }}
-                >
-                  {/* {currentAddressDetails[0].province}{" "}
-                    {currentAddressDetails[0]?.district} */}
-                </span>
-                {/* ) : ( */}
-                "............................."
-                {/* )}{" "} */}
+                प्रथम पक्ष र
+                {currentAddressDetails ? (
+                  <span
+                    className="dotted-underline mt-3"
+                    style={{ textTransform: "capitalize" }}
+                  >
+                    {currentAddressDetails[0].province}{" "}
+                    {currentAddressDetails[0]?.district}
+                  </span>
+                ) : (
+                  "............................."
+                )}{" "}
                 स्थित कार्यालय रहेको
-                {/* {corporateDetails?.companyName ? ( */}
-                <span className="dotted-underline mt-3">
-                  {/* {corporateDetails?.companyName} */}
-                </span>
-                {/* ) : ( */}
-                "............................."
-                {/* )} */}
+                {corporateDetails?.companyName ? (
+                  <span className="dotted-underline mt-3">
+                    {corporateDetails?.companyName}
+                  </span>
+                ) : (
+                  "............................."
+                )}
                 (वैधानिक अस्तित्व भएको निकायको विवरण ) यसपछि ("हितग्राही" भनिएको
                 ) दोस्रो पक्ष बीच देहायको शर्तहरु पालना गर्ने सहमतिसाथ यो
                 सम्झौता गरिएको छ |
@@ -1542,7 +1566,7 @@ const CorporateDpKyc = () => {
                   <h4 className="aggrement-header">
                     सम्झौताका दोस्रो पक्ष (हितग्राहिको तर्फबाट अधिकार प्राप्त)
                   </h4>
-                  {/* <p>व्यक्तिको नाम: {corporateDetails?.companyName}</p> */}
+                  <p>व्यक्तिको नाम: {corporateDetails?.companyName}</p>
                   <p>दस्तखत: </p>
                   <p>कम्पनीको छाप : </p>
                 </div>
@@ -1567,15 +1591,18 @@ const CorporateDpKyc = () => {
           </section>
           <section className="container pb-5">
             <DpMeroShare
-            // applicantName={userData?.user?.name}
-            // email={userData.user?.email}
-            // mobileNo={userData.user?.phoneNo}
-            // dpId={userData.user?.dpDetails?.dpId}
-            // boid={userData.user?.boid}
-            // addressDetails={permanentAddressDetails?.[0]}
-            // date={userData.user?.submittedDate}
+              applicantName={userData?.user?.name}
+              email={userData.user?.email}
+              mobileNo={userData.user?.phoneNo}
+              dpId={userData.user?.dpDetails?.dpId}
+              boid={userData.user?.boid}
+              addressDetails={permanentAddressDetails?.[0]}
+              date={userData.user?.submittedDate}
             />
           </section>
+        </div>
+        <div>
+          <AgreementForm ref={componentRef} />
         </div>
       </div>
     </div>

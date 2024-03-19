@@ -1,32 +1,111 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./kycIndividual.css";
-import ReactToPrint from "react-to-print";
-import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
-import IndividualKycPdf from "../../pdf/component/IndividualKycPdf";
+import { getUser } from "../../../utility/userHelper";
+import { useGetMetaData } from "../../hooks/useMetaDataKyc";
+import AgreementForm from "../agreement/AgreementForm";
+import domtoimage from "dom-to-image";
+import { getBankList } from "../../../api/Kyc/Bank/addBankKyc";
+import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import dateConverter from "../../../utility/dateConverter";
+import KycMap from "../KycMap/KycMap";
+import { ADToBS } from "bikram-sambat-js";
 
-const IndividualTmsKyc = ({ userData }) => {
+const IndividualTmsKyc = () => {
   const componentRef = useRef();
+  const { A: userId } = getUser();
+  const { data: userData } = useGetMetaData(userId);
+  // individual details
+  const individualDetail = userData?.individualDetails;
+  // details of family member
+  const { clientFamilyDetails } = userData || [];
+  // bank details
+  const { bankDetails } = userData || {};
+  //  Occupation Details
+  const occupationDetails = userData?.occupationDetails;
+  // Nominee Details
+  // nominee details
+  const { amlCft: { beneficialOwner, beneficialOwnerName } = {} } =
+    userData || {};
+  const bankList = useQuery({
+    queryKey: "bank_list",
+    queryFn: () => getBankList(),
+  });
+  const checkGender = (input_gender) => {
+    return input_gender === individualDetail?.gender ? true : false;
+  };
+  const currentAddressDetails = userData?.addressDetails?.filter(
+    (address) => address?.addressType === "T"
+  );
+
+  const permanentAddressDetails = userData?.addressDetails?.filter(
+    (address) => address?.addressType === "P"
+  );
+  const memberList = clientFamilyDetails?.reduce((accumulator, current) => {
+    accumulator[current.relation] = current.memberName;
+    return accumulator;
+  }, {});
+  //Multiple family-relation name
+  const multiMemberName = (relation) => {
+    const relationDetails = clientFamilyDetails?.filter(
+      (family) => family.relation === relation
+    );
+    const names = relationDetails?.map((member) => member.memberName);
+    const namesList = names?.join(", ");
+    return namesList;
+  };
+  // BankAccountType
+  const checkAccountType = (input_account_type) =>
+    input_account_type === bankDetails?.accountType ? true : false;
+  const checkOccupation = (input_occupation) =>
+    occupationDetails?.occupation === input_occupation ? true : false;
+
+  const checkBusiness = (input_business) => {
+    if (occupationDetails?.businessType === null) return;
+    return occupationDetails?.businessType?.toLowerCase() === input_business
+      ? true
+      : false;
+  };
+  const checkFinancialDetailsTMS = (type) => {
+    const tms_integer_income_limit = Number(
+      occupationDetails?.financialDetails
+    );
+    switch (type) {
+      case 1:
+        return (
+          tms_integer_income_limit >= 0 && tms_integer_income_limit <= 100000
+        );
+      case 2:
+        return (
+          tms_integer_income_limit > 100000 &&
+          tms_integer_income_limit <= 200000
+        );
+      case 3:
+        return (
+          tms_integer_income_limit > 200000 &&
+          tms_integer_income_limit <= 500000
+        );
+      case 4:
+        return tms_integer_income_limit > 1000000;
+      default:
+        return false;
+    }
+  };
+  const orgData = useSelector((store) => store?.brokerList?.brokerOption[0]);
+  const mapRef = useRef();
+  useEffect(() => {
+    if (mapRef?.current && currentAddressDetails[0]?.latitude) {
+      domtoimage
+        .toPng(mapRef?.current, { width: 800, height: 400 })
+        .then((dataUrl) => {
+          setmapImage(dataUrl);
+        });
+    }
+  }, [currentAddressDetails]);
 
   return (
     <div className="container">
       <div className="bg-white text-dark p-md-3 kyctms">
-        <div className="d-flex justify-content-end">
-          {/* {' '} */}
-          {/* <SaveAsPdf componentRef={componentRef} title={"KYC"} margin={16} /> */}
-          <IndividualKycPdf />
-          <ReactToPrint
-            // trigger={(a) => <CIcon name={'cilPrint'} size={'xl'} style={{ cursor: 'pointer' }} />}
-            trigger={() => <LocalPrintshopIcon />}
-            content={() => componentRef.current}
-            documentTitle="download.pdf"
-            // pageStyle="print"
-            // pageStyle='@page { margin: minimum }'
-            copyStyles
-            contentStyle={{
-              marginTop: "500px",
-            }}
-          />
-        </div>
         <div className="kyc-page " id="pdf" ref={componentRef}>
           {/* Header */}
           <section className="container pb-2 pb-print-1">
@@ -75,7 +154,7 @@ const IndividualTmsKyc = ({ userData }) => {
                     <div>
                       <div>
                         आवेदन नं.(App No.):
-                        {/* {user?.submissionNo} */}
+                        {userData?.user?.submissionNo}
                       </div>
                     </div>
                   </div>
@@ -84,7 +163,7 @@ const IndividualTmsKyc = ({ userData }) => {
                     <div>
                       <div>
                         संकेत नं. (Ref Number):
-                        {/* {user?.referenceNumber} */}
+                        {userData?.user?.referenceNumber}
                       </div>
                     </div>
                   </div>
@@ -93,7 +172,7 @@ const IndividualTmsKyc = ({ userData }) => {
                     <div>
                       <div>
                         मिति (Date):
-                        {/* {user?.submittedDate} */}
+                        {userData?.user?.submittedDate}
                       </div>
                     </div>
                   </div>
@@ -106,7 +185,7 @@ const IndividualTmsKyc = ({ userData }) => {
                   <div>हितग्राहीको खाता नं. (BOID No):</div>
                 </div>
                 <div className="col-9 col-md-9 border d-flex center-y p-0">
-                  {/* {user?.boid} */}
+                  {userData?.user?.boid}
                 </div>
                 {/* </div> */}
               </div>
@@ -132,7 +211,8 @@ const IndividualTmsKyc = ({ userData }) => {
                       निक्षेप सदस्यको नाम (Name of Depository Participant) :
                     </div>
                     <p className="dotted-underline">
-                      {/* {user?.dpDetails && user?.dpDetails?.dpName} */}
+                      {userData?.user?.dpDetails &&
+                        userData?.user?.dpDetails?.dpName}
                     </p>
                   </div>
                   <div style={{ display: "flex", gap: "16px" }}>
@@ -141,7 +221,8 @@ const IndividualTmsKyc = ({ userData }) => {
                     </div>
                     <div>
                       <p className="dotted-underline">
-                        {/* {user?.branch && user?.branch?.branchName} */}
+                        {userData?.user?.branch &&
+                          userData?.user?.branch?.branchName}
                       </p>
                     </div>
                   </div>
@@ -164,7 +245,7 @@ const IndividualTmsKyc = ({ userData }) => {
                         type="checkbox"
                         readOnly
                         htmlFor="typeOfAccount"
-                        // checked={!individualDetail?.isNrn}
+                        checked={!individualDetail?.isNrn}
                       />
                       <div className="m-2">
                         {" "}
@@ -177,7 +258,7 @@ const IndividualTmsKyc = ({ userData }) => {
                         type="checkbox"
                         readOnly
                         htmlFor="typeOfAccount"
-                        // checked={individualDetail?.isNrn}
+                        checked={individualDetail?.isNrn}
                       />
                       <div className="m-2">
                         {" "}
@@ -190,9 +271,9 @@ const IndividualTmsKyc = ({ userData }) => {
                         type="checkbox"
                         readOnly
                         htmlFor="typeOfAccount"
-                        // checked={
-                        //   individualDetail?.individualAccountType === "FIG"
-                        // }
+                        checked={
+                          individualDetail?.individualAccountType === "FIG"
+                        }
                       />
                       <div className="m-2">
                         {" "}
@@ -219,15 +300,15 @@ const IndividualTmsKyc = ({ userData }) => {
               </div>
 
               <div className="col-8 col-md-8 border center-y text-uppercase">
-                {/* {individualDetail?.middleName === null
-                    ? individualDetail?.firstName +
-                      " " +
-                      individualDetail?.lastName
-                    : individualDetail?.firstName +
-                      " " +
-                      individualDetail?.middleName +
-                      " " +
-                      individualDetail?.lastName} */}
+                {individualDetail?.middleName === null
+                  ? individualDetail?.firstName +
+                    " " +
+                    individualDetail?.lastName
+                  : individualDetail?.firstName +
+                    " " +
+                    individualDetail?.middleName +
+                    " " +
+                    individualDetail?.lastName}
               </div>
               <div className="col-4 col-md-4 border center-y">
                 <div>देवनागरी (Name in Nepali)</div>
@@ -235,7 +316,7 @@ const IndividualTmsKyc = ({ userData }) => {
 
               <div className="col-8 col-md-8 border d-flex align-items-end">
                 <div className="text-uppercase">
-                  {/* {individualDetail?.clientNameNepali} */}
+                  {individualDetail?.clientNameNepali}
                 </div>
               </div>
               {/* <!-- ! date of birth --> */}
@@ -254,7 +335,7 @@ const IndividualTmsKyc = ({ userData }) => {
                       </label>
                       <input
                         type="date"
-                        // value={individualDetail?.dob}
+                        value={individualDetail?.dob}
                         readOnly
                         className="mx-2"
                         style={{ border: "none" }}
@@ -269,7 +350,7 @@ const IndividualTmsKyc = ({ userData }) => {
                       </label>
                       <input
                         type="date"
-                        // value={dateConverter(individualDetail?.dob, "BS_AD")}
+                        value={dateConverter(individualDetail?.dob, "BS_AD")}
                         readOnly
                         className="mx-2"
                         style={{ border: "none" }}
@@ -295,7 +376,7 @@ const IndividualTmsKyc = ({ userData }) => {
                   <input
                     type="radio"
                     className="form-check-input mx-2"
-                    // checked={checkGender("M")}
+                    checked={checkGender("M")}
                     readOnly
                   />
                 </div>
@@ -307,7 +388,7 @@ const IndividualTmsKyc = ({ userData }) => {
                   <input
                     type="radio"
                     className="form-check-input"
-                    // checked={checkGender("F")}
+                    checked={checkGender("F")}
                     readOnly
                   />
                 </div>
@@ -321,7 +402,7 @@ const IndividualTmsKyc = ({ userData }) => {
                     className="form-check-input"
                     readOnly
                     style={{ marginLeft: 0 }}
-                    // checked={checkGender("O")}
+                    checked={checkGender("O")}
                   />
                 </div>
                 {/* <!-- </form> --> */}
@@ -342,7 +423,7 @@ const IndividualTmsKyc = ({ userData }) => {
                     type="radio"
                     className="form-check-input"
                     readOnly
-                    // checked={!individualDetail?.isNrn}
+                    checked={!individualDetail?.isNrn}
                   />
                 </div>
 
@@ -352,18 +433,18 @@ const IndividualTmsKyc = ({ userData }) => {
                     htmlFor="other_nationality"
                   >
                     अन्य (खुलाउने) (Others if any){" "}
-                    {/* {individualDetail?.isNrn && (
-                        <span className="dotted-underline">
-                          {individualDetail?.isNrn}
-                        </span>
-                      )} */}
+                    {individualDetail?.isNrn && (
+                      <span className="dotted-underline">
+                        {individualDetail?.isNrn}
+                      </span>
+                    )}
                   </label>
                   <input
                     type="radio"
                     className="form-check-input"
                     id="other_nationality"
                     name="nationality"
-                    // checked={individualDetail?.isNrn}
+                    checked={individualDetail?.isNrn}
                   />
                 </div>
               </div>
@@ -376,9 +457,9 @@ const IndividualTmsKyc = ({ userData }) => {
               </div>
 
               <div className="col-6 col-md-8 border center-y">
-                {/* {individualDetail?.citizenshipNo
-                    ? individualDetail?.citizenshipNo
-                    : ""} */}
+                {individualDetail?.citizenshipNo
+                  ? individualDetail?.citizenshipNo
+                  : ""}
               </div>
 
               <div className="col-6 col-md-4 border ">
@@ -388,7 +469,7 @@ const IndividualTmsKyc = ({ userData }) => {
               </div>
 
               <div className="col-6 col-md-8 border center-y text-capitalize">
-                {/* {individualDetail?.issuedDistrict} */}
+                {individualDetail?.issuedDistrict}
               </div>
 
               <div className="col-6 col-md-4 border center-y ">
@@ -398,7 +479,7 @@ const IndividualTmsKyc = ({ userData }) => {
               </div>
 
               <div className="col-6 col-md-8 border center-y">
-                {/* {individualDetail?.issuedDate} */}
+                {individualDetail?.issuedDate}
               </div>
 
               {/* <!-- ! Beneficiary ID No. --> */}
@@ -410,7 +491,7 @@ const IndividualTmsKyc = ({ userData }) => {
 
               <div className="col-6 col-md-8 border center-y">
                 <div className="letter-space-3">
-                  {/* {user?.boid ? user?.boid : ""} */}
+                  {userData?.user?.boid ? userData?.user?.boid : ""}
                 </div>
               </div>
 
@@ -422,9 +503,7 @@ const IndividualTmsKyc = ({ userData }) => {
               </div>
 
               <div className="col-6 col-md-8 border center-y">
-                <div className="letter-space-3">
-                  {/* {individualDetail?.panNo} */}
-                </div>
+                <div className="letter-space-3">{individualDetail?.panNo}</div>
               </div>
 
               {/* <!-- ! Identification Number and Address --> */}
@@ -438,7 +517,7 @@ const IndividualTmsKyc = ({ userData }) => {
               </div>
 
               <div className="col-6 col-md-8 border center-y">
-                {/* {individualDetail?.nrnNo || ""} */}
+                {individualDetail?.nrnNo || ""}
               </div>
             </div>
             {/* </div> */}
@@ -460,7 +539,7 @@ const IndividualTmsKyc = ({ userData }) => {
               </div>
 
               <div className="col-6 col-md-3 border center-y">
-                {/* {permanentAddressDetails?.[0]?.country} */}
+                {permanentAddressDetails?.[0]?.country}
               </div>
 
               {/* <!-- Province --> */}
@@ -470,7 +549,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {permanentAddressDetails?.[0]?.province} */}
+                {permanentAddressDetails?.[0]?.province}
               </div>
 
               {/* <!-- Pality --> */}
@@ -485,7 +564,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className=" col-6 border center-y">
-                {/* {permanentAddressDetails?.[0]?.municipality} */}
+                {permanentAddressDetails?.[0]?.municipality}
               </div>
 
               {/* <!-- ! District --> */}
@@ -495,7 +574,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y text-capitalize">
-                {/* {permanentAddressDetails?.[0]?.district} */}
+                {permanentAddressDetails?.[0]?.district}
               </div>
 
               {/* <!-- ! Ward Nol --> */}
@@ -505,7 +584,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {permanentAddressDetails?.[0]?.wordNo} */}
+                {permanentAddressDetails?.[0]?.wordNo}
               </div>
 
               {/* <!-- Tole --> */}
@@ -515,7 +594,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border text-capitalize center-y">
-                {/* {permanentAddressDetails?.[0]?.tole} */}
+                {permanentAddressDetails?.[0]?.tole}
               </div>
 
               {/* <!-- Telephone --> */}
@@ -526,7 +605,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {permanentAddressDetails?.[0]?.telephoneNo} */}
+                {permanentAddressDetails?.[0]?.telephoneNo}
               </div>
 
               {/* <!-- MObile --> */}
@@ -536,7 +615,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {permanentAddressDetails?.[0]?.mobileNo} */}
+                {permanentAddressDetails?.[0]?.mobileNo}
               </div>
 
               {/* <!-- email --> */}
@@ -546,7 +625,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {permanentAddressDetails?.[0]?.email} */}
+                {permanentAddressDetails?.[0]?.email}
               </div>
             </div>
             {/* </div> */}
@@ -567,7 +646,7 @@ const IndividualTmsKyc = ({ userData }) => {
               </div>
 
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.country} */}
+                {currentAddressDetails?.[0]?.country}
               </div>
 
               {/* <!-- Province --> */}
@@ -577,7 +656,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.province} */}
+                {currentAddressDetails?.[0]?.province}
               </div>
 
               {/* <!-- Pality --> */}
@@ -592,7 +671,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className=" col-6 border center-y">
-                {/* {currentAddressDetails?.[0]?.municipality} */}
+                {currentAddressDetails?.[0]?.municipality}
               </div>
 
               {/* <!-- ! District --> */}
@@ -602,7 +681,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y text-capitalize">
-                {/* {currentAddressDetails?.[0]?.district} */}
+                {currentAddressDetails?.[0]?.district}
               </div>
 
               {/* <!-- ! Ward Nol --> */}
@@ -612,7 +691,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.wordNo} */}
+                {currentAddressDetails?.[0]?.wordNo}
               </div>
 
               {/* <!-- Tole --> */}
@@ -622,7 +701,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border text-capitalize center-y">
-                {/* {currentAddressDetails?.[0]?.tole} */}
+                {currentAddressDetails?.[0]?.tole}
               </div>
 
               {/* <!-- Telephone --> */}
@@ -633,7 +712,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.telephoneNo} */}
+                {currentAddressDetails?.[0]?.telephoneNo}
               </div>
 
               {/* <!-- MObile --> */}
@@ -643,7 +722,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.mobileNo} */}
+                {currentAddressDetails?.[0]?.mobileNo}
               </div>
 
               {/* <!-- email --> */}
@@ -653,24 +732,20 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-6 col-md-3 border center-y">
-                {/* {currentAddressDetails?.[0]?.email} */}
+                {currentAddressDetails?.[0]?.email}
               </div>
             </div>
             {/* </div> */}
           </section>
           {/* Map */}
-          <section
-            className="container"
-            mt={2}
-            // key={currentAddressDetails}
-          >
+          <section className="container" mt={2} key={currentAddressDetails}>
             <b>हाल बसोबास रहेको स्थानको नक्सा (Location map)</b>
             <div
               className="location-map border d-flex flex-column justify-content-between mb-3"
               style={{ height: "10cm" }}
-              // ref={mapRef}
+              ref={mapRef}
             >
-              {/* <KycMap
+              <KycMap
                 latitude={
                   currentAddressDetails && currentAddressDetails[0]?.latitude
                     ? currentAddressDetails[0]?.latitude
@@ -681,19 +756,19 @@ const IndividualTmsKyc = ({ userData }) => {
                     ? currentAddressDetails[0]?.longitude
                     : 0
                 }
-              /> */}
+              />
               <div className="row mt-2">
                 <div className="col-6 text-capitalize">
                   latitude :{" "}
-                  {/* {currentAddressDetails && currentAddressDetails[0]?.latitude
+                  {currentAddressDetails && currentAddressDetails[0]?.latitude
                     ? currentAddressDetails[0]?.latitude
-                    : "0"} */}
+                    : "0"}
                 </div>
                 <div className="col-6 text-capitalize">
                   longitude :{" "}
-                  {/* {currentAddressDetails && currentAddressDetails[0]?.longitude
+                  {currentAddressDetails && currentAddressDetails[0]?.longitude
                     ? currentAddressDetails[0]?.longitude
-                    : 0} */}
+                    : 0}
                 </div>
               </div>
             </div>
@@ -706,104 +781,76 @@ const IndividualTmsKyc = ({ userData }) => {
 
             {/* <div className="container"> */}
             <div className="row m-0 p-0 border">
-              {/* <!-- grand father's name (nep)--> */}
-
               {/* <!-- grand father's name (eng)--> */}
               <div className="col-4 center-y  border text-capitalize">
                 बाजेको नाम (grand father&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                {/* {memberList?.["grandfather"]} */}
+                {memberList?.["grandfather"]}
               </div>
-
-              {/* <!-- father's name (nep)--> */}
 
               {/* <!-- father's name (eng)--> */}
               <div className="col-4 center-y  border text-capitalize">
                 बुवाको नाम (father&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                {/* {memberList?.["father"]} */}
+                {memberList?.["father"]}
               </div>
-
-              {/* <!-- mother's name (nep)--> */}
 
               {/* <!-- mother's name (eng)--> */}
               <div className="col-4 center-y  border text-capitalize">
                 आमाको नाम (mother&apos;s name){" "}
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                {/* {memberList?.["mother"]} */}
+                {memberList?.["mother"]}
               </div>
-
-              {/* <!-- spouse's name (nep)--> */}
 
               {/* <!-- spouse's name (eng)--> */}
               <div className="col-4  center-y border text-capitalize">
                 पति / पत्‍नीको नाम (spouse&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border">
-                {/* {memberList?.["spouse"]} */}
+                {memberList?.["spouse"]}
               </div>
 
-              {/* <!-- daughter's name (eng)--> */}
-
               {/* <!-- daughters's name (nep)--> */}
-
               <div className="col-4   center-y border text-capitalize">
                 छोरीको नाम (daughter&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                {/* {multiMemberName("daughter")} */}
+                {multiMemberName("daughter")}
               </div>
-
-              {/* <!-- son's name (nep)--> */}
 
               {/* <!-- son's name (eng)--> */}
               <div className="col-4 center-y  border text-capitalize">
                 छोराको नाम (son&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border">
-                {/* {multiMemberName("son")} */}
+                {multiMemberName("son")}
               </div>
-
-              {/* <!-- daughter in law's name (nep)--> */}
 
               {/* <!-- daughter in law's name (eng)--> */}
               <div className="col-4   center-y border text-capitalize">
                 बुहारीको नाम (daughter in Law&apos;s name)
               </div>
-
               <div className="col-8 center-y text-uppercase letter-space-3 border ">
-                {/* {multiMemberName("daughterInLaw")} */}
+                {multiMemberName("daughterInLaw")}
               </div>
-
-              {/* <!-- father in law's name (nep)--> */}
 
               {/* <!-- father in law's name (eng)--> */}
               <div className="col-4 center-y  border text-capitalize">
                 ससुराको नाम (father In Law&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                {/* {memberList?.["fatherInLaw"]} */}
+                {memberList?.["fatherInLaw"]}
               </div>
-
-              {/* <!-- mother in law's name (nep)--> */}
 
               {/* <!-- mother in law's name (eng)--> */}
               <div className="col-4 center-y   border text-capitalize">
                 सासुको नाम (mother In Law&apos;s name)
               </div>
-
               <div className="col-8  center-y text-uppercase letter-space-3 border ">
-                {/* {memberList?.["motherInLaw"]} */}
+                {memberList?.["motherInLaw"]}
               </div>
             </div>
             {/* </div> */}
@@ -843,7 +890,7 @@ const IndividualTmsKyc = ({ userData }) => {
                       className="form-check-input"
                       id="saving_account"
                       name="account_type"
-                      // checked={checkAccountType("S")}
+                      checked={checkAccountType("S")}
                     />
                   </div>
                 </div>
@@ -867,7 +914,7 @@ const IndividualTmsKyc = ({ userData }) => {
                       className="form-check-input"
                       id="current_account"
                       name="account_type"
-                      // checked={checkAccountType("C")}
+                      checked={checkAccountType("C")}
                     />
                   </div>
                 </div>
@@ -883,7 +930,7 @@ const IndividualTmsKyc = ({ userData }) => {
               </div>
 
               <div className="col-6 col-md-8 border center-y">
-                {/* {bankDetails?.accountNumber} */}
+                {bankDetails?.accountNumber}
               </div>
 
               {/* <!-- ! name and address of bank --> */}
@@ -902,7 +949,7 @@ const IndividualTmsKyc = ({ userData }) => {
               </div>
 
               <div className="col-6 col-md-8 border center-y text-capitalize">
-                {/* {bankDetails?.branchAddress} */}
+                {bankDetails?.branchAddress}
               </div>
             </div>
             {/* </div> */}
@@ -937,7 +984,7 @@ const IndividualTmsKyc = ({ userData }) => {
                     <input
                       type="radio"
                       className="form-check-input"
-                      // checked={checkOccupation("SERVICE")}
+                      checked={checkOccupation("SERVICE")}
                       readOnly
                     />
                   </div>
@@ -955,7 +1002,7 @@ const IndividualTmsKyc = ({ userData }) => {
                     <input
                       type="radio"
                       className="form-check-input"
-                      // checked={checkOccupation("Government Services")}
+                      checked={checkOccupation("Government Services")}
                       readOnly
                     />
                   </div>
@@ -980,7 +1027,7 @@ const IndividualTmsKyc = ({ userData }) => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      // checked={checkOccupation("Public Sector")}
+                      checked={checkOccupation("Public Sector")}
                     />
                   </div>
                 </div>
@@ -998,7 +1045,7 @@ const IndividualTmsKyc = ({ userData }) => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      // checked={checkOccupation("Private Sector")}
+                      checked={checkOccupation("Private Sector")}
                     />
                   </div>
                 </div>
@@ -1022,7 +1069,7 @@ const IndividualTmsKyc = ({ userData }) => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      // checked={checkOccupation("BUSINESS")}
+                      checked={checkOccupation("BUSINESS")}
                     />
                   </div>
                 </div>
@@ -1040,7 +1087,7 @@ const IndividualTmsKyc = ({ userData }) => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      // checked={checkOccupation("FARMER")}
+                      checked={checkOccupation("FARMER")}
                     />
                   </div>
                 </div>
@@ -1058,7 +1105,7 @@ const IndividualTmsKyc = ({ userData }) => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      // checked={checkOccupation("RETIRED")}
+                      checked={checkOccupation("RETIRED")}
                     />
                   </div>
                 </div>
@@ -1075,7 +1122,7 @@ const IndividualTmsKyc = ({ userData }) => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      // checked={checkOccupation("PROFESSIONAL")}
+                      checked={checkOccupation("PROFESSIONAL")}
                     />
                   </div>
                 </div>
@@ -1092,7 +1139,7 @@ const IndividualTmsKyc = ({ userData }) => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      // checked={checkOccupation("HOUSEWIFE")}
+                      checked={checkOccupation("HOUSEWIFE")}
                     />
                   </div>
                 </div>
@@ -1110,7 +1157,7 @@ const IndividualTmsKyc = ({ userData }) => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      // checked={checkOccupation("STUDENT")}
+                      checked={checkOccupation("STUDENT")}
                     />
                   </div>
                 </div>
@@ -1134,12 +1181,12 @@ const IndividualTmsKyc = ({ userData }) => {
                       type="radio"
                       className="form-check-input"
                       readOnly
-                      // checked={checkOccupation("OTHERS")}
+                      checked={checkOccupation("OTHERS")}
                     />
                   </div>
                 </div>
                 <div className="col-3 col-md-6 col-lg-3 mt-4 text-capitalize">
-                  {/* {occupationDetails?.ifOthers} */}
+                  {occupationDetails?.ifOthers}
                 </div>
               </div>
 
@@ -1161,7 +1208,7 @@ const IndividualTmsKyc = ({ userData }) => {
                     type="radio"
                     className="form-check-input"
                     readOnly
-                    // checked={checkBusiness("MA")}
+                    checked={checkBusiness("MA")}
                   />
                 </div>
 
@@ -1176,7 +1223,7 @@ const IndividualTmsKyc = ({ userData }) => {
                     type="radio"
                     className="form-check-input"
                     readOnly
-                    // checked={checkBusiness("SO")}
+                    checked={checkBusiness("SO")}
                   />
                 </div>
 
@@ -1188,13 +1235,14 @@ const IndividualTmsKyc = ({ userData }) => {
                     type="radio"
                     className="form-check-input"
                     readOnly
-                    // checked={checkBusiness("O")}
+                    checked={checkBusiness("O")}
                   />
                 </div>
                 {/* <div className="col-12 col-md-6 col-lg-3 col-print-md-6 mt-4 text-capitalize">
               {ifOthersBusiness}
             </div> */}
               </div>
+
               {/* <!-- organization's name --> */}
               <div className="col-4 col-md-4 border  center-y">
                 <div>
@@ -1202,8 +1250,9 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-8 col-md-8 border text-capitalize center-y">
-                {/* {occupationDetails?.orgName} */}
+                {occupationDetails?.orgName}
               </div>
+
               {/* <!-- address --> */}
               <div className="col-4 col-md-4 border center-y ">
                 <div>
@@ -1211,7 +1260,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               <div className="col-8 col-md-8 border text-capitalize center-y">
-                {/* {occupationDetails?.address} */}
+                {occupationDetails?.address}
               </div>
               <div className="col-3 col-md-3 center-y">
                 <div className="text-capitalize">
@@ -1222,7 +1271,6 @@ const IndividualTmsKyc = ({ userData }) => {
                 <p className="text-start">
                   आयको सीमा (वार्षिक विवरण) / Income Limit(Annual Details)
                 </p>
-                {/* {user?.nature === "TMS" ? ( 
                 <div className="row">
                   <div className="col-4">
                     <div className="form-check">
@@ -1274,7 +1322,7 @@ const IndividualTmsKyc = ({ userData }) => {
                       />
                     </div>
                   </div>
-                </div>*/}
+                </div>
               </div>
             </div>
             {/* </div> */}
@@ -1391,32 +1439,26 @@ const IndividualTmsKyc = ({ userData }) => {
                     >
                       {" "}
                       <p>बायाँ (Left)</p>
-                      {/* {userData?.clientDocument?.leftThumb && extraInfo && (
+                      {userData?.clientDocument?.leftThumb && (
                         <img
                           width={"150px"}
                           height={"200px"}
-                          src={
-                            getPicCoresPorxyURL() +
-                            userData?.clientDocument?.leftThumb
-                          }
+                          src={`${DOC_URL}${userData?.clientDocument?.leftThumb}`}
                         />
-                      )} */}
+                      )}
                     </div>
                   </div>
                   <div className="col-6 center-xy border">
                     <div style={{ height: "180px", paddingTop: "12px" }}>
                       {" "}
                       <p>दायाँ (Right)</p>
-                      {/* {userData?.clientDocument?.rightThumb && extraInfo && (
+                      {userData?.clientDocument?.rightThumb && (
                         <img
                           width={"150px"}
                           height={"200px"}
-                          src={
-                            getPicCoresPorxyURL() +
-                            userData?.clientDocument?.rightThumb
-                          }
+                          src={`${DOC_URL}${userData?.clientDocument?.rightThumb}`}
                         />
-                      )} */}
+                      )}
                     </div>
                   </div>
                 </div>
@@ -1426,17 +1468,14 @@ const IndividualTmsKyc = ({ userData }) => {
                justify-content-end text-end"
               >
                 <div className="text-center">
-                  {/* {userData?.clientDocument?.signature && extraInfo && (
+                  {userData?.clientDocument?.signature && (
                     <img
                       // className="signature-kyc"
                       width={"250px"}
                       height={"100px"}
-                      src={
-                        getPicCoresPorxyURL() +
-                        userData?.clientDocument?.signature
-                      }
+                      src={`${DOC_URL}${userData?.clientDocument?.signature}`}
                     />
-                  )} */}
+                  )}
                 </div>
 
                 <div className="signature-holder"></div>
@@ -1458,7 +1497,7 @@ const IndividualTmsKyc = ({ userData }) => {
 
                   <p>
                     नाम थर:
-                    {/* {userData?.user?.verifiedBy} */}
+                    {userData?.user?.verifiedBy}
                   </p>
 
                   <p>पद:</p>
@@ -1467,7 +1506,7 @@ const IndividualTmsKyc = ({ userData }) => {
 
                   <p>
                     मिति:
-                    {/* {userData?.user?.verifiedDate} */}
+                    {userData?.user?.verifiedDate}
                   </p>
                 </div>
                 <div
@@ -1485,7 +1524,7 @@ const IndividualTmsKyc = ({ userData }) => {
 
                   <p>
                     नाम थर:
-                    {/* {userData?.user?.approvedBy} */}
+                    {userData?.user?.approvedBy}
                   </p>
 
                   <p>पद:</p>
@@ -1494,21 +1533,21 @@ const IndividualTmsKyc = ({ userData }) => {
 
                   <p>
                     मिति:
-                    {/* {userData?.user?.approvedDate} */}
+                    {userData?.user?.approvedDate}
                   </p>
                 </div>
               </div>
             </div>
           </section>
-          {/* {individualDetail?.isMinor && ( */}
-          {/* {individualDetail?.isMinor && ( */}
-          <section className="container pb-2">
-            <div>
-              <div className="kyc-secondary-header text-center">
-                संरक्षकको विवरण (नाबालकको हकमा मात्र)
-                <br /> Guardian's Details (In case of Minor only)
-              </div>
-              {/* 
+          {/* Minor Case */}
+          {individualDetail?.isMinor && (
+            <section className="container pb-2">
+              <div>
+                <div className="kyc-secondary-header text-center">
+                  संरक्षकको विवरण (नाबालकको हकमा मात्र)
+                  <br /> Guardian's Details (In case of Minor only)
+                </div>
+                {/* 
                 <figure style={{ textAlign: "right" }}>
                   <img
                     src="https://picsum.photos/200/200"
@@ -1518,373 +1557,352 @@ const IndividualTmsKyc = ({ userData }) => {
                     className="border"
                   />
                 </figure> */}
-            </div>
-
-            <div className="row m-0 p-0 border text-capitalize">
-              {/* <!-- name / surname  --> */}
-              <div className="col-12 col-md-6 border ">
-                <div>नाम/ थर ( name / surname) :(in block letter)</div>
-              </div>
-              <div className="col-12 col-md-6 border center-y text-uppercase">
-                {/* {individualDetail?.guardianName} */}
               </div>
 
-              {/* <!-- relationship  --> */}
-              <div className="col-12 col-md-6 border ">
-                <div>निवेदकसंगको सम्बन्ध (Relationship with applicant):</div>
-              </div>
-              <div className="col-12 col-md-6 border center-y">
-                {/* {individualDetail?.relationship} */}
-              </div>
-
-              {/* <!--  Correspondence Address --> */}
-              <div className="col-12 col-md-6 border ">
-                <div>पत्राचार ठेगाना (Correspondence Address):</div>
-              </div>
-              <div className="col-12 col-md-6 border center-y">
-                {/* {individualDetail?.guardianAddress} */}
-              </div>
-
-              {/* <!-- country --> */}
-              <div className="col-6 col-md-3 border center-y">
-                <div>
-                  <div>देश (Country):</div>
+              <div className="row m-0 p-0 border text-capitalize">
+                {/* <!-- name / surname  --> */}
+                <div className="col-12 col-md-6 border ">
+                  <div>नाम/ थर ( name / surname) :(in block letter)</div>
                 </div>
-              </div>
-
-              <div className=" col-6 col-md-3 border center-y">
-                {/* <div>{individualDetail?.country}</div> */}
-              </div>
-
-              {/* <!-- Province --> */}
-              <div className="col-6 col-md-3 border ">
-                <div>प्रदेश (Province):</div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* <div>{individualDetail?.guardianProvince}</div> */}
-              </div>
-
-              {/* <!-- Disstrict --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>जिल्ला (District):</div>
+                <div className="col-12 col-md-6 border center-y text-uppercase">
+                  {individualDetail?.guardianName}
                 </div>
-              </div>
 
-              <div className="col-6 col-md-3 border center-y">
-                {/* <div>{individualDetail?.guardianDistrict}</div> */}
-              </div>
-
-              {/* <!-- Disstrict --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.:</div>
-
-                  <div>
-                    Rural Municipality / Municipality / Sub Metropolitan city /
-                    Metropolitan city:
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {individualDetail?.guardianMunci} */}
-              </div>
-
-              {/* <!-- Ward no --> */}
-              <div className="col-6 col-md-3 border ">
-                <div>
-                  <div>वडा नं. (Ward No.):</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {individualDetail?.guardianWard} */}
-              </div>
-
-              {/* <!-- telephone no --> */}
-              <div className="col-6 col-md-3 border s">
-                <div>
-                  <div>टेलिफोन नं. (Telephone No.) :</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {individualDetail?.guardianTelephone} */}
-              </div>
-
-              {/* <!-- fax no --> */}
-              <div className="col-6 col-md-3 border ">
-                <div>
-                  <div>फ्याक्स नं. (Fax No.) :</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {individualDetail.guardianFax
-                  ? individualDetail.guardianFax
-                  : ""} */}
-              </div>
-
-              {/* <!-- mobile number --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>मोबाइल नं. (Mobile No.) :</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {individualDetail?.guardianMob} */}
-              </div>
-
-              {/* <!-- pan number --> */}
-              <div className="col-6 col-md-3 border center-y ">
-                <div>
-                  <div>स्थायी लेखा नं. (PAN No.)</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {individualDetail?.panNo} */}
-              </div>
-
-              {/* <!-- email id --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>इमेल (E-mail ID):</div>
-                </div>
-              </div>
-
-              <div className=" col-6 col-md-3 border center-y text-lowercase">
-                {/* {individualDetail?.guardianEmail} */}
-              </div>
-            </div>
-
-            <div
-              className="text-center"
-              style={{ width: "fit-content", marginTop: "40px" }}
-            >
-              <div className="signature-holder"></div>
-              <div>संरक्षकको हस्ताक्षर</div>
-              <p className="text-capitalize">Guardian's signature</p>
-            </div>
-          </section>
-          {/* )} */}
-
-          {/* {beneficialOwner && ( */}
-          <section className="container pb-2 avoid-page-break">
-            <div className="text-center kyc-secondary-header mb-2">
-              इच्छाएको व्यक्ति सम्बन्धि विवरण (Nominee's Details)
-            </div>
-
-            <p>
-              मेरो मृत्यु भएको अवस्था वा नसकेको अवस्थामा व्यक्तिले मेरो नाममा
-              भएको सम्पूर्ण धितोपत्रको हकदाबी गर्न पाउने छ।
-            </p>
-
-            <p>
-              In the event of my death or incapcity, the following named nominee
-              shall be entitled to the balance of my demat account
-            </p>
-
-            <div className="row m-0 p-0 border text-capitalize">
-              {/* <!-- name / surname  --> */}
-              <div className="col-12 col-md-6 border  center-y">
-                <div>
-                  <div>
-                    हकदाबी गर्नेको नाम (name / surname) :(in block letter)
-                  </div>
-                </div>
-              </div>
-              <div className="col-12 col-md-6 border center-y">
-                {/* {beneficialOwnerName?.name?.toUpperCase()} */}
-              </div>
-
-              {/* <!-- relationship  --> */}
-              <div className="col-12 col-md-6 border  center-y">
-                <div>
+                {/* <!-- relationship  --> */}
+                <div className="col-12 col-md-6 border ">
                   <div>निवेदकसंगको सम्बन्ध (Relationship with applicant):</div>
                 </div>
-              </div>
-              <div className="col-12 col-md-6 border center-y">
-                {/* {beneficialOwnerName?.relation} */}
-              </div>
-
-              {/* <!--  Correspondence Address --> */}
-              <div className="col-12 col-md-6  center-y border">
-                <div>
-                  <div>पत्राचार ठेगाना( Correspondence Address:)</div>
+                <div className="col-12 col-md-6 border center-y">
+                  {individualDetail?.relationship}
                 </div>
-              </div>
-              <div className="col-12 col-md-6 border center-y">
-                {/* {beneficialOwnerName?.correspondenceAddress} */}
-              </div>
 
-              {/* <!-- citizenship / passport number --> */}
-              <div className="col-12 col-md-6 border ">
-                <div>
+                {/* <!--  Correspondence Address --> */}
+                <div className="col-12 col-md-6 border ">
+                  <div>पत्राचार ठेगाना (Correspondence Address):</div>
+                </div>
+                <div className="col-12 col-md-6 border center-y">
+                  {individualDetail?.guardianAddress}
+                </div>
+
+                {/* <!-- country --> */}
+                <div className="col-6 col-md-3 border center-y">
                   <div>
-                    नागरिता / राहदानी नम्बर (Citizenship / Passport No.):
+                    <div>देश (Country):</div>
                   </div>
                 </div>
-              </div>
-              <div className="col-12 col-md-6 border  center-y">
-                {/* {beneficialOwnerName?.citizenShipNo} */}
-              </div>
-              <div className="col-12 col-md-6 border ">
-                <div>
-                  <div>जारी गर्ने स्थान (Place of Issue)</div>
+                <div className=" col-6 col-md-3 border center-y">
+                  <div>{individualDetail?.country}</div>
                 </div>
-              </div>
-              <div className="col-12 col-md-6 border  center-y">
-                {/* {placeOfIssue} */}
-              </div>
 
-              {/* <!-- country --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>देश (Country)</div>
+                {/* <!-- Province --> */}
+                <div className="col-6 col-md-3 border ">
+                  <div>प्रदेश (Province):</div>
                 </div>
-              </div>
-
-              <div className=" col-6 col-md-3 border center-y">
-                {/* {beneficialOwnerName?.country} */}
-              </div>
-
-              {/* <!-- Province --> */}
-              <div className="col-6 col-md-3 border center-y ">
-                <div>
-                  <div>प्रदेश (Province)</div>
+                <div className="col-6 col-md-3 border center-y">
+                  <div>{individualDetail?.guardianProvince}</div>
                 </div>
-              </div>
 
-              <div className="col-6 col-md-3 border center-y">
-                {/* {beneficialOwnerName?.province} */}
-              </div>
-
-              {/* <!-- Disstrict --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>जिल्ला (District)</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {beneficialOwnerName?.district} */}
-              </div>
-
-              {/* <!-- District --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.:</div>
-
+                {/* <!-- Disstrict --> */}
+                <div className="col-6 col-md-3 border  center-y">
                   <div>
-                    Rural Municipality / Municipality / Sub Metropolitan city /
-                    Metropolitan city
+                    <div>जिल्ला (District):</div>
                   </div>
                 </div>
-              </div>
+                <div className="col-6 col-md-3 border center-y">
+                  <div>{individualDetail?.guardianDistrict}</div>
+                </div>
 
-              <div className="col-6 col-md-3 border center-xy">
-                {/* {beneficialOwnerName?.municipality} */}
-              </div>
+                {/* <!-- Disstrict --> */}
+                <div className="col-6 col-md-3 border  center-y">
+                  <div>
+                    <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.:</div>
 
-              {/* <!-- age --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>उमेर (age)</div>
+                    <div>
+                      Rural Municipality / Municipality / Sub Metropolitan city
+                      / Metropolitan city:
+                    </div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-y">
+                  {individualDetail?.guardianMunci}
+                </div>
+
+                {/* <!-- Ward no --> */}
+                <div className="col-6 col-md-3 border ">
+                  <div>
+                    <div>वडा नं. (Ward No.):</div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-y">
+                  {individualDetail?.guardianWard}
+                </div>
+
+                {/* <!-- telephone no --> */}
+                <div className="col-6 col-md-3 border s">
+                  <div>
+                    <div>टेलिफोन नं. (Telephone No.) :</div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-y">
+                  {individualDetail?.guardianTelephone}
+                </div>
+
+                {/* <!-- fax no --> */}
+                <div className="col-6 col-md-3 border ">
+                  <div>
+                    <div>फ्याक्स नं. (Fax No.) :</div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-y">
+                  {individualDetail.guardianFax
+                    ? individualDetail.guardianFax
+                    : ""}
+                </div>
+
+                {/* <!-- mobile number --> */}
+                <div className="col-6 col-md-3 border  center-y">
+                  <div>
+                    <div>मोबाइल नं. (Mobile No.) :</div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-y">
+                  {individualDetail?.guardianMob}
+                </div>
+
+                {/* <!-- pan number --> */}
+                <div className="col-6 col-md-3 border center-y ">
+                  <div>
+                    <div>स्थायी लेखा नं. (PAN No.)</div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-y">
+                  {individualDetail?.panNo}
+                </div>
+
+                {/* <!-- email id --> */}
+                <div className="col-6 col-md-3 border  center-y">
+                  <div>
+                    <div>इमेल (E-mail ID):</div>
+                  </div>
+                </div>
+                <div className=" col-6 col-md-3 border center-y text-lowercase">
+                  {individualDetail?.guardianEmail}
                 </div>
               </div>
 
-              <div className="col-6 col-md-3 border center-y">
-                {/* {beneficialOwnerName?.age} */}
-              </div>
-
-              {/* <!-- telephone no --> */}
-              <div className="col-6 col-md-3 border ">
-                <div>
-                  <div>टेलिफोन नं. (Telephone No.) :</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {beneficialOwnerName?.telephoneNo} */}
-              </div>
-
-              {/* <!-- fax no --> */}
-              <div className="col-6 col-md-3 border center-y ">
-                <div>
-                  <div>फ्यास नं.( Fax No.) :</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {beneficialOwnerName?.faxNo} */}
-              </div>
-
-              {/* <!-- mobile number --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>मोबाइल नं. (Mobile No.) :</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {beneficialOwnerName?.mobileNo} */}
-              </div>
-
-              {/* <!-- pan number --> */}
-              <div className="col-6 col-md-3 border center-y ">
-                <div>
-                  <div>स्थायी लेखा नं. (PAN No.)</div>
-                </div>
-              </div>
-
-              <div className="col-6 col-md-3 border center-y">
-                {/* {beneficialOwnerName?.panNo} */}
-              </div>
-
-              {/* <!-- email id --> */}
-              <div className="col-6 col-md-3 border  center-y">
-                <div>
-                  <div>इमेल (E-mail ID):</div>
-                </div>
-              </div>
-
-              <div className=" col-6 col-md-3 border center-y text-lowercase">
-                {/* <div>{beneficialOwnerName?.email}</div> */}
-              </div>
-            </div>
-
-            <div className="text-center" style={{ width: "fit-content" }}>
               <div
-                className="row m-0 p-0"
-                style={{
-                  height: "150px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "flex-end",
-                  justifyContent: "flex-end",
-                }}
+                className="text-center"
+                style={{ width: "fit-content", marginTop: "40px" }}
               >
-                {/* {userData?.clientDocument?.signature && (
+                <div className="signature-holder"></div>
+                <div>संरक्षकको हस्ताक्षर</div>
+                <p className="text-capitalize">Guardian's signature</p>
+              </div>
+            </section>
+          )}
+
+          {beneficialOwner && (
+            <section className="container pb-2 avoid-page-break">
+              <div className="text-center kyc-secondary-header mb-2">
+                इच्छाएको व्यक्ति सम्बन्धि विवरण (Nominee's Details)
+              </div>
+
+              <p>
+                मेरो मृत्यु भएको अवस्था वा नसकेको अवस्थामा व्यक्तिले मेरो नाममा
+                भएको सम्पूर्ण धितोपत्रको हकदाबी गर्न पाउने छ।
+              </p>
+
+              <p>
+                In the event of my death or incapcity, the following named
+                nominee shall be entitled to the balance of my demat account
+              </p>
+
+              <div className="row m-0 p-0 border text-capitalize">
+                {/* <!-- name / surname  --> */}
+                <div className="col-12 col-md-6 border  center-y">
+                  <div>
+                    <div>
+                      हकदाबी गर्नेको नाम (name / surname) :(in block letter)
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12 col-md-6 border center-y">
+                  {beneficialOwnerName?.name?.toUpperCase()}
+                </div>
+
+                {/* <!-- relationship  --> */}
+                <div className="col-12 col-md-6 border  center-y">
+                  <div>
+                    <div>
+                      निवेदकसंगको सम्बन्ध (Relationship with applicant):
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12 col-md-6 border center-y">
+                  {beneficialOwnerName?.relation}
+                </div>
+
+                {/* <!--  Correspondence Address --> */}
+                <div className="col-12 col-md-6  center-y border">
+                  <div>
+                    <div>पत्राचार ठेगाना( Correspondence Address:)</div>
+                  </div>
+                </div>
+                <div className="col-12 col-md-6 border center-y">
+                  {beneficialOwnerName?.correspondenceAddress}
+                </div>
+
+                {/* <!-- citizenship / passport number --> */}
+                <div className="col-12 col-md-6 border ">
+                  <div>
+                    <div>
+                      नागरिता / राहदानी नम्बर (Citizenship / Passport No.):
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12 col-md-6 border  center-y">
+                  {beneficialOwnerName?.citizenShipNo}
+                </div>
+
+                <div className="col-12 col-md-6 border ">
+                  <div>
+                    <div>जारी गर्ने स्थान (Place of Issue)</div>
+                  </div>
+                </div>
+                <div className="col-12 col-md-6 border  center-y">
+                  {beneficialOwnerName?.placeOfIssue}
+                </div>
+
+                {/* <!-- country --> */}
+                <div className="col-6 col-md-3 border  center-y">
+                  <div>
+                    <div>देश (Country)</div>
+                  </div>
+                </div>
+                <div className=" col-6 col-md-3 border center-y">
+                  {beneficialOwnerName?.country}
+                </div>
+
+                {/* <!-- Province --> */}
+                <div className="col-6 col-md-3 border center-y ">
+                  <div>
+                    <div>प्रदेश (Province)</div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-y">
+                  {beneficialOwnerName?.province}
+                </div>
+
+                {/* <!-- Disstrict --> */}
+                <div className="col-6 col-md-3 border  center-y">
+                  <div>
+                    <div>जिल्ला (District)</div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-y">
+                  {beneficialOwnerName?.district}
+                </div>
+
+                {/* <!-- District --> */}
+                <div className="col-6 col-md-3 border  center-y">
+                  <div>
+                    <div>गा.पा. / न.पा. / उ.म.न.पा / म.न.पा.:</div>
+                    <div>
+                      Rural Municipality / Municipality / Sub Metropolitan city
+                      / Metropolitan city
+                    </div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-xy">
+                  {beneficialOwnerName?.municipality}
+                </div>
+
+                {/* <!-- age --> */}
+                <div className="col-6 col-md-3 border  center-y">
+                  <div>
+                    <div>उमेर (age)</div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-y">
+                  {beneficialOwnerName?.age}
+                </div>
+
+                {/* <!-- telephone no --> */}
+                <div className="col-6 col-md-3 border ">
+                  <div>
+                    <div>टेलिफोन नं. (Telephone No.) :</div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-y">
+                  {beneficialOwnerName?.telephoneNo}
+                </div>
+
+                {/* <!-- fax no --> */}
+                <div className="col-6 col-md-3 border center-y ">
+                  <div>
+                    <div>फ्यास नं.( Fax No.) :</div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-y">
+                  {beneficialOwnerName?.faxNo}
+                </div>
+
+                {/* <!-- mobile number --> */}
+                <div className="col-6 col-md-3 border  center-y">
+                  <div>
+                    <div>मोबाइल नं. (Mobile No.) :</div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-y">
+                  {beneficialOwnerName?.mobileNo}
+                </div>
+
+                {/* <!-- pan number --> */}
+                <div className="col-6 col-md-3 border center-y ">
+                  <div>
+                    <div>स्थायी लेखा नं. (PAN No.)</div>
+                  </div>
+                </div>
+                <div className="col-6 col-md-3 border center-y">
+                  {beneficialOwnerName?.panNo}
+                </div>
+
+                {/* <!-- email id --> */}
+                <div className="col-6 col-md-3 border  center-y">
+                  <div>
+                    <div>इमेल (E-mail ID):</div>
+                  </div>
+                </div>
+                <div className=" col-6 col-md-3 border center-y text-lowercase">
+                  <div>{beneficialOwnerName?.email}</div>
+                </div>
+              </div>
+
+              <div className="text-center" style={{ width: "fit-content" }}>
+                <div
+                  className="row m-0 p-0"
+                  style={{
+                    height: "150px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-end",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  {userData?.clientDocument?.signature && (
                     <img
                       className="signature-kyc"
                       width={"250px"}
                       height={"100px"}
-                      src={
-                        getPicCoresPorxyURL() +
-                        userData?.clientDocument?.signature
-                      }
+                      src={`${DOC_URL}${userData?.clientDocument?.signature}`}
                     />
-                  )} */}
-                <div className="signature-holder"></div>
-                <p>उम्मेदवारको हस्ताक्षर (Signature)</p>
+                  )}
+                  <div className="signature-holder"></div>
+                  <p>उम्मेदवारको हस्ताक्षर (Signature)</p>
+                </div>
               </div>
-            </div>
-          </section>
-          {/* )} */}
+            </section>
+          )}
           {/* KYCAGGREMENT */}
           <section className="container fs10">
             {/* <!-- Header section --> */}
@@ -1904,9 +1922,9 @@ const IndividualTmsKyc = ({ userData }) => {
                 कम्पनी रजिस्ट्रारको कार्यलयमा दर्ता भई नेपाल धितोपत्र बोर्डबाट
                 धितोपत्र दलाल ब्यवसायीको इजाजत प्राप्त गरी नेपाल स्टक एक्सचेञ्ज
                 लिमिटेडको कारोबार सदस्य रहेको स्थित कार्यालय रहेको{" "}
-                {/* <b>{orgData && orgData?.address}</b> */}
+                <b>{orgData && orgData?.address}</b>
                 मा रजिस्टर्ड कार्यालय भएको
-                {/* {orgData && " " + orgData?.name} */}
+                {orgData && " " + orgData?.name}
                 (उप्रान्त प्रथम पक्ष भनिनेछ)
                 {}
               </p>
@@ -1917,40 +1935,44 @@ const IndividualTmsKyc = ({ userData }) => {
                 प्रथम पक्ष मार्फत धितोपत्रको कारोबार गर्न / अनलाईन सुबिधा प्रयोग
                 गर्ने ग्राहक संकेत नम्बर .................. हितग्राही खाता
                 न&nbsp;
-                {/* {user?.dematNo ? user?.dematNo : "..............."} रहेको प्रदेश{" "}
+                {userData?.user?.dematNo
+                  ? userData?.user?.dematNo
+                  : "..............."}{" "}
+                रहेको प्रदेश{" "}
                 {permanentAddressDetails?.[0]?.province
                   ? permanentAddressDetails?.[0]?.province
-                  : "................"}{" "} */}
+                  : "................"}{" "}
                 {/* अञ्चल ......... */}
                 जिल्ला{" "}
-                {/* {permanentAddressDetails?.[0]?.district
+                {permanentAddressDetails?.[0]?.district
                   ? permanentAddressDetails?.[0]?.district
-                  : "....................."}{" "} */}
+                  : "....................."}{" "}
                 गा।पार न।पार उ।प।न।पा{" "}
-                {/* {permanentAddressDetails?.[0]?.municipality
+                {permanentAddressDetails?.[0]?.municipality
                   ? permanentAddressDetails?.[0]?.municipality
-                  : "...................."}{" "} */}
+                  : "...................."}{" "}
                 वडा{" "}
-                {/* {permanentAddressDetails?.[0]?.wordNo
+                {permanentAddressDetails?.[0]?.wordNo
                   ? permanentAddressDetails?.[0]?.wordNo
-                  : "..................."}{" "} */}
+                  : "..................."}{" "}
                 स्थायी ठेगाना भई हाल{" "}
-                {/* {currentAddressDetails?.[0]?.tole
+                {currentAddressDetails?.[0]?.tole
                   ? currentAddressDetails?.[0]?.tole
-                  : "............."}{" "} */}
+                  : "............."}{" "}
                 स्थानमा बसोबास गर्ने श्री{" "}
-                {/* {memberList?.["grandfather"]
+                {memberList?.["grandfather"]
                   ? memberList?.["grandfather"]
-                  : "................."}{" "} */}
+                  : "................."}{" "}
                 को नाती/नातीनी बुहारी, श्री{" "}
-                {/* {memberList?.["father"]
+                {memberList?.["father"]
                   ? memberList?.["father"]
-                  : ".................."}{" "} */}
+                  : ".................."}{" "}
                 को छोरा / छोरी वर्ष&nbsp;
-                {/* {individualDetail?.dob && currentAge()}&nbsp; को श्री{" "}
-                {user?.name ? user?.name : "............."} <b>वा</b> ग्राहक */}
-                संकेत नम्बर (युनिक क्लाईन्ट कोड)............................
-                रहेको .......................... कार्यालयमा दर्ता भई रजिस्टर्ड
+                {individualDetail?.dob && currentAge()}&nbsp; को श्री{" "}
+                {userData?.user?.name ? userData?.user?.name : "............."}{" "}
+                <b>वा</b> ग्राहक संकेत नम्बर (युनिक क्लाईन्ट
+                कोड)............................ रहेको
+                .......................... कार्यालयमा दर्ता भई रजिस्टर्ड
                 कार्यालय .............................. मा भएको श्री
                 .........................................................................
                 ले (उप्रान्त दोस्रो पक्ष भनिने र सो शब्दले विषय वा प्रसंगले
@@ -2186,10 +2208,14 @@ const IndividualTmsKyc = ({ userData }) => {
                 <br />
                 &emsp;&nbsp;&nbsp;&nbsp; ग. मोबाइलफोन{" "}
                 ........................................................
-                {/* {user?.phoneNo ? user?.phoneNo : "..................."} */}
+                {userData?.user?.phoneNo
+                  ? userData?.user?.phoneNo
+                  : "..................."}
                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 घ. इमेल ........................................................
-                {/*  {user?.email ? user?.email : ".................."} */}
+                {userData?.user?.email
+                  ? userData?.user?.email
+                  : ".................."}
                 <br />
                 &emsp;&nbsp;&nbsp; ङ. दोश्रो पक्ष्यको उजरनेम
                 ....................................................
@@ -2283,7 +2309,7 @@ const IndividualTmsKyc = ({ userData }) => {
               <div className="col-6 ">
                 <h4 className="aggrement-header">सम्झौताका प्रथम पक्ष </h4>
                 <p></p>
-                {/* <p>व्यक्तिको नाम: {"  " + orgData && orgData?.name}</p> */}
+                <p>व्यक्तिको नाम: {"  " + orgData && orgData?.name}</p>
                 <p>दस्तखत: </p>
                 <p>कम्पनीको छाप : </p>
               </div>
@@ -2291,7 +2317,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 <h4 className="aggrement-header">
                   सम्झौताका दोस्रो पक्ष (हितग्राहिको तर्फबाट अधिकार प्राप्त){" "}
                 </h4>
-                {/* <p>व्यक्तिको नाम: {userData?.user?.name}</p> */}
+                <p>व्यक्तिको नाम: {userData?.user?.name}</p>
                 <p>दस्तखत: </p>
                 <p>कम्पनीको छाप : </p>
                 <div className="row my-4 justify-content-between">
@@ -2310,33 +2336,26 @@ const IndividualTmsKyc = ({ userData }) => {
                         <div style={{ height: "200px" }}>
                           {" "}
                           <p>दायाँ (right)</p>
-                          {/* {userData?.clientDocument?.rightThumb &&
-                            extraInfo && (
-                              <img
-                                width={"150px"}
-                                height={"200px"}
-                                src={
-                                  getPicCoresPorxyURL() +
-                                  userData?.clientDocument?.rightThumb
-                                }
-                              />
-                            )} */}
+                          {userData?.clientDocument?.rightThumb && (
+                            <img
+                              width={"150px"}
+                              height={"200px"}
+                              src={`${DOC_URL}${userData?.clientDocument?.rightThumb}`}
+                            />
+                          )}
                         </div>
                       </div>
                       <div className="col-6 center-xy border">
                         <div style={{ height: "200px" }}>
                           {" "}
                           <p>बायाँ (left)</p>
-                          {/* {userData?.clientDocument?.leftThumb && extraInfo && (
+                          {userData?.clientDocument?.leftThumb && (
                             <img
                               width={"150px"}
                               height={"200px"}
-                              src={
-                                getPicCoresPorxyURL() +
-                                userData?.clientDocument?.leftThumb
-                              }
+                              src={`${DOC_URL}${userData?.clientDocument?.leftThumb}`}
                             />
-                          )} */}
+                          )}
                         </div>
                       </div>
                     </div>
@@ -2356,7 +2375,7 @@ const IndividualTmsKyc = ({ userData }) => {
                 </div>
               </div>
               ईति सम्बत
-              {/* {userData?.user?.approvedDate &&
+              {userData?.user?.approvedDate &&
                 "  " + ADToBS(userData?.user?.approvedDate).split("-")[0] + " "}
               साल{" "}
               {userData?.user?.approvedDate &&
@@ -2367,18 +2386,21 @@ const IndividualTmsKyc = ({ userData }) => {
               {userData?.user?.approvedDate &&
                 "  " +
                   ADToBS(userData?.user?.approvedDate).split("-")[2] +
-                  " "}{" "} */}
+                  " "}{" "}
               गते रोज .................................शुभम्{" "}
             </div>
           </section>
           {/* ONLINE TRADING AGREEEMENT */}
           <section className="container" style={{ fontSize: "14px" }}>
-            {/* <TradingArg
+            <TradingArg
               userData={userData}
               orgData={orgData}
-              extraInfo={extraInfo}
-            /> */}
+              // extraInfo={extraInfo}
+            />
           </section>
+        </div>
+        <div>
+          <AgreementForm ref={componentRef} />
         </div>
       </div>
     </div>

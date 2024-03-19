@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./kycIndividual.css";
-import ReactToPrint from "react-to-print";
-import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
-import IndividualKycPdf from "../../pdf/component/IndividualKycPdf";
 import DpMeroShare from "../DpMeroShare";
 import { getUser } from "../../../utility/userHelper";
 import { useGetMetaData } from "../../hooks/useMetaDataKyc";
@@ -13,7 +10,7 @@ import { getBankList } from "../../../api/Kyc/Bank/addBankKyc";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { DOC_URL } from "../../../utility/getBaseUrl";
-import AgreementForm from '../agreement/AgreementForm';
+import AgreementForm from "../agreement/AgreementForm";
 
 const IndividualDPKyc = () => {
   const [mapImage, setmapImage] = useState("");
@@ -71,26 +68,16 @@ const IndividualDPKyc = () => {
       : false;
   };
   const checkFinancialDetails = (type) => {
-    /* 
-  type 1 | upto Rs. 5,00,000
-  type 2 | from Rs. 5,00,000 to Rs.10,00,000
-  type 3 | Above Rs 10, 00, 000
-  */
     const integer_income_limit = Number(occupationDetails?.financialDetails);
-
     switch (type) {
       case 1:
         return integer_income_limit >= 0 && integer_income_limit <= 100000;
-
       case 2:
         return integer_income_limit > 100000 && integer_income_limit <= 200000;
-
       case 3:
         return integer_income_limit > 200000 && integer_income_limit <= 500000;
-
       case 4:
         return integer_income_limit > 500000;
-
       default:
         return false;
     }
@@ -106,26 +93,10 @@ const IndividualDPKyc = () => {
         });
     }
   }, [currentAddressDetails]);
-  console.log("indivi", componentRef)
 
   return (
     <div className="container dpkyc">
       <div className="bg-white text-dark p-md-3 font1 dpkyc">
-        {/* <div className="d-flex justify-content-end mb-2">
-         
-          <IndividualKycPdf />
-         
-        </div> */}
-         <ReactToPrint
-            trigger={() => <LocalPrintshopIcon />}
-            content={() => componentRef.current}
-            documentTitle="download.pdf"
-            copyStyles
-            contentStyle={{
-              marginTop: "500px",
-            }}
-          />
-        {/* <div id="pdf" ref={componentRef}> */}
         <div className="kyc-page mt-4" id="pdf" ref={componentRef}>
           {/* Header */}
           <section className="container pb-1">
@@ -2240,12 +2211,10 @@ const IndividualDPKyc = () => {
             />
           </section>
         </div>
-
         <div>
           <AgreementForm ref={componentRef} />
+        </div>
       </div>
-      
-    </div>
     </div>
   );
 };

@@ -13,6 +13,7 @@ const BoStatementSchema = Yup.object().shape({
     {
       is: true,
       then: Yup.string().required("Required"),
+      otherwise: Yup.string().nullable(),
     }
   ),
 });
