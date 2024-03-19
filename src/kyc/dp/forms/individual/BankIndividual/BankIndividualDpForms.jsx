@@ -44,6 +44,7 @@ const BankIndividualDpForms = () => {
       responseLabel: "name",
       responseId: "code",
       path: "/utility/bank-master",
+      isNeutral: true,
       xs: 12,
       sm: 6,
       md: 3,

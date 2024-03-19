@@ -26,13 +26,20 @@ const withPDFControls = (PDFComponent) => {
           >
             {({ loading }) =>
               imageURL?.length === 0 || loading ? (
-                <CircularProgress sx={{color: "rgba(86.95, 38, 150.96, 1)"}}  />
+                <>
+                  <Button variant="contained" disabled color="secondary">
+                    <img style={{ color: "#fff" }} src={pdf} alt="pdf-image" />
+                    <Typography>Download KYC</Typography>
+                  </Button>
+                  {/* <PictureAsPdfIcon
+                  style={{ cursor: "pointer", color: "grey" }}
+                  title="Save as Pdf"
+                /> */}
+                </>
               ) : (
                 <>
-                  <Button
-                  variant="contained"
-                    color="secondary">
-                    <img style={{color: "#fff"}} src={pdf} alt="pdf-image" />
+                  <Button variant="contained" color="secondary">
+                    <img style={{ color: "#fff" }} src={pdf} alt="pdf-image" />
                     <Typography>Download KYC</Typography>
                   </Button>
                   {/* <PictureAsPdfIcon

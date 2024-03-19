@@ -82,10 +82,10 @@ const IndividualDPKyc = () => {
         return false;
     }
   };
-  const orgData = useSelector((store) => store?.brokerList?.brokerOption[0]);
+  const orgData = useSelector((store) => store?.brokerList?.brokerOption?.[0]);
   const mapRef = useRef();
   useEffect(() => {
-    if (mapRef?.current && currentAddressDetails[0]?.latitude) {
+    if (mapRef?.current && currentAddressDetails?.[0]?.latitude) {
       domtoimage
         .toPng(mapRef?.current, { width: 800, height: 400 })
         .then((dataUrl) => {
@@ -790,27 +790,28 @@ const IndividualDPKyc = () => {
             >
               <KycMap
                 latitude={
-                  currentAddressDetails && currentAddressDetails[0]?.latitude
-                    ? currentAddressDetails[0]?.latitude
+                  currentAddressDetails && currentAddressDetails?.[0]?.latitude
+                    ? currentAddressDetails?.[0]?.latitude
                     : 0
                 }
                 longitude={
-                  currentAddressDetails && currentAddressDetails[0]?.longitude
-                    ? currentAddressDetails[0]?.longitude
+                  currentAddressDetails && currentAddressDetails?.[0]?.longitude
+                    ? currentAddressDetails?.[0]?.longitude
                     : 0
                 }
               />
               <div className="row mt-2">
                 <div className="col-6 text-capitalize">
                   latitude :{" "}
-                  {currentAddressDetails && currentAddressDetails[0]?.latitude
-                    ? currentAddressDetails[0]?.latitude
+                  {currentAddressDetails && currentAddressDetails?.[0]?.latitude
+                    ? currentAddressDetails?.[0]?.latitude
                     : "0"}
                 </div>
                 <div className="col-6 text-capitalize text-end">
                   longitude :{" "}
-                  {currentAddressDetails && currentAddressDetails[0]?.longitude
-                    ? currentAddressDetails[0]?.longitude
+                  {currentAddressDetails &&
+                  currentAddressDetails?.[0]?.longitude
+                    ? currentAddressDetails?.[0]?.longitude
                     : 0}
                 </div>
               </div>
