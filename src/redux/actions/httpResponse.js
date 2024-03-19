@@ -6,7 +6,6 @@ export const successResponse = (message) => {
 };
 
 export const failedResponse = (message) => {
-  console.log('failed');
   return {
     type: 'failed',
     message: message,

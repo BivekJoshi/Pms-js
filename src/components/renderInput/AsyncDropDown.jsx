@@ -1,9 +1,11 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../api/axiosInterceptor";
+import { useTranslation } from 'react-i18next';
 
 const AsyncDropDown = ({ element, formik, formVaues }) => {
   const [asyncOptions, setAsyncOptions] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,7 +44,7 @@ const AsyncDropDown = ({ element, formik, formVaues }) => {
       renderInput={(params) => (
         <TextField
           {...params}
-          label={element.label}
+          label={t(element.label)}
           error={
             formik.touched[element.name] && Boolean(formik.errors[element.name])
           }

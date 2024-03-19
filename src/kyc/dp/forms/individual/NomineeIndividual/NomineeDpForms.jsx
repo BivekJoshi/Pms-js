@@ -9,6 +9,46 @@ import { useNavigate } from "react-router-dom";
 import { SET_FORM } from "../../../../../redux/types/types";
 import { nextFormPath } from "../../../../../utility/userHelper";
 import { useDispatch } from "react-redux";
+import { DISTRICTS } from '../basicInputData';
+import { useTranslation } from 'react-i18next';
+
+const PROVINCE = [
+  {
+    value: "1",
+    label: "Koshi Pradesh",
+    id: 1,
+  },
+  {
+    value: "2",
+    label: "Madhesh Pradesh",
+    id: 2,
+  },
+  {
+    value: "3",
+    label: "Bagmati Pradesh",
+    id: 3,
+  },
+  {
+    value: "4",
+    label: "Gandaki Pradesh",
+    id: 4,
+  },
+  {
+    value: "5",
+    label: "Lumbini Pradesh",
+    id: 5,
+  },
+  {
+    value: "6",
+    label: "Karnali Pradesh",
+    id: 6,
+  },
+  {
+    value: "7",
+    label: "Sudurpashchim Pradesh",
+    id: 7,
+  },
+]
 
 const NOMINEEFIELDS = [
   {
@@ -33,7 +73,7 @@ const NOMINEEFIELDS = [
       },
       {
         name: "fatherName",
-        label: "Father’s Name",
+        label: "Father's Name",
         type: "text",
         required: true,
         id: nanoid(),
@@ -42,7 +82,7 @@ const NOMINEEFIELDS = [
       },
       {
         name: "grandfatherName",
-        label: "Grandfather’s Name",
+        label: "Grandfather's Name",
         type: "text",
         required: true,
         id: nanoid(),
@@ -71,21 +111,22 @@ const NOMINEEFIELDS = [
       {
         name: "placeOfIssue",
         label: "Citizenship Issued District",
-        type: "text",
+        type: "dropDown",
         required: true,
         id: nanoid(),
+        options: DISTRICTS,
         md: 4,
         sm: 12,
       },
-      {
-        name: "issuedDate",
-        label: "Citizenship Issued Date (B.S.)",
-        type: "text",
-        required: true,
-        id: nanoid(),
-        md: 4,
-        sm: 12,
-      },
+      // {
+      //   name: "issuedDate",
+      //   label: "Citizenship Issued Date (B.S.)",
+      //   type: "text",
+      //   required: true,
+      //   id: nanoid(),
+      //   md: 4,
+      //   sm: 12,
+      // },
       // {
       //   name: "dob",
       //   label: "Date of Birth (B.S.) (जन्म मिति) (B.S.)",
@@ -103,12 +144,18 @@ const NOMINEEFIELDS = [
       // },
       {
         name: "citizenshipIssudeDate",
-        label: "Citizenship Issued Date (A.D.)",
-        type: "text",
+        nepaliLabel: "Citizenship Issued Date (B.S.)",
+        engLabel: "Citizenship Issued Date (A.D.)",
+        type: "dualDate",
         required: true,
         id: nanoid(),
-        md: 4,
+        engMd: 6,
+        engSm: 12,
+        nepMd: 6,
+        nepSm: 12,
+        md: 8,
         sm: 12,
+        disableFuture: true,
       },
       {
         name: "relation",
@@ -122,38 +169,52 @@ const NOMINEEFIELDS = [
       {
         name: "country",
         label: "Country",
-        type: "text",
-        required: true,
-        id: nanoid(),
         md: 4,
-        sm: 12,
+        sm: 6,
+        lg: 4,
+        xs: 12,
+        required: true,
+        type: "dropDown",
+        options: [{ id: 1, value: "Nepal", label: "Nepal" }],
       },
       {
         name: "province",
         label: "Province",
-        type: "text",
-        required: true,
-        id: nanoid(),
         md: 4,
-        sm: 12,
+        sm: 6,
+        lg: 4,
+        xs: 12,
+        required: true,
+        type: "dropDown",
+        options: PROVINCE,
+        clearField: ["district", "municipality"],
       },
       {
         name: "district",
         label: "District",
-        type: "text",
-        required: true,
-        id: nanoid(),
         md: 4,
-        sm: 12,
+        sm: 6,
+        lg: 4,
+        xs: 12,
+        required: true,
+        type: "asyncDropDownOption",
+        reference: "province",
+        dependentFieldValue: "province",
+        path: "utility/district",
+        clearField: ["municipality"],
       },
       {
         name: "municipality",
-        label: "Rural Municipality/Municipality/",
-        type: "text",
-        required: true,
-        id: nanoid(),
+        label: "Rural Municipality/Municipality/Metropolitan",
         md: 4,
-        sm: 12,
+        sm: 6,
+        lg: 4,
+        xs: 12,
+        required: true,
+        type: "asyncDropDownOption",
+        reference: "district",
+        dependentFieldValue: "district",
+        path: "utility/municipal",
       },
       {
         name: "address",
@@ -166,7 +227,7 @@ const NOMINEEFIELDS = [
       },
       {
         name: "telephoneNo",
-        label: "Telephone Number",
+        label: "Telephone No.",
         type: "text",
         required: true,
         id: nanoid(),
@@ -175,7 +236,7 @@ const NOMINEEFIELDS = [
       },
       {
         name: "mobileNo",
-        label: "Mobile Number",
+        label: "Mobile No.",
         type: "text",
         required: true,
         id: nanoid(),
@@ -214,6 +275,7 @@ const NOMINEEFIELDS = [
 ];
 
 const NomineeDpForms = () => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const [fields, setFields] = useState(NOMINEEFIELDS);
   const { data: nomineeData } = useGetNomineeDetail();
@@ -249,7 +311,7 @@ const NomineeDpForms = () => {
             fontWeight: "800",
           }}
         >
-          Nominee Details
+          {t("Nominee Details")}
         </Typography>
       </Box>
       <RenderInput inputField={fields} formik={formik} />
@@ -259,14 +321,14 @@ const NomineeDpForms = () => {
           variant="outlined"
           color="secondary"
         >
-          Back
+          {t("Back")}
         </Button>
         <Button
           onClick={formik.handleSubmit}
           variant="contained"
           color="secondary"
         >
-          Next
+          {t("Next")}
         </Button>
       </Grid>
     </div>

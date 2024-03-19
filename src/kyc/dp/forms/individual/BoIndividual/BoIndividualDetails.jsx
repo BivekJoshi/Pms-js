@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { nextFormPath } from "../../../../../utility/userHelper";
 import { SET_FORM } from "../../../../../redux/types/types";
 import { useDispatch } from "react-redux";
+import { useTranslation } from 'react-i18next';
 
 const bodFields = [
   {
@@ -53,6 +54,7 @@ const bodFields = [
 ];
 
 const BoIndividualDetails = () => {
+  const { t } = useTranslation();
   const [fields, setFields] = useState(bodFields);
   const theme = useTheme();
   const navigate = useNavigate();
@@ -60,9 +62,16 @@ const BoIndividualDetails = () => {
   const { data: boData } = useGetBODetail();
   const data = boData;
   const { formik } = useKycBoIndividualForm(data);
+ 
   useEffect(() => {
     setFields(bodFields);
   }, []);
+
+  useEffect(() => {
+    if (!formik.values.isStandingInstructionForAutomaticTxn) {
+      formik.setFieldValue('accountStatementPeriod', '');
+    }
+  }, [formik.values.isStandingInstructionForAutomaticTxn]);
 
   const handleBack = () => {
     navigate(nextFormPath(7));
@@ -86,7 +95,7 @@ const BoIndividualDetails = () => {
             fontWeight: "800",
           }}
         >
-          BO Statement
+          {t("BO Statement")}
         </Typography>
       </Box>
 
@@ -107,14 +116,14 @@ const BoIndividualDetails = () => {
             variant="outlined"
             color="secondary"
           >
-            Back
+            {t("Back")}
           </Button>
           <Button
             onClick={formik.handleSubmit}
             variant="contained"
             color="secondary"
           >
-            Next
+            {t("Next")}
           </Button>
         </Grid>
       </Box>
