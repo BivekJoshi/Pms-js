@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { axiosInstance } from "../../api/axiosInterceptor";
 import { Autocomplete, TextField } from "@mui/material";
 import { getIn } from "formik";
@@ -22,12 +22,12 @@ const AsyncDropDownOption = ({ element, formik, isFieldArray }) => {
     return getIn(formik.values, dependent);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
+  const referenceValue = getDependentValue(element.dependentFieldValue);
+
+  const memoizedFetchData = useMemo(
+    () => async () => {
       try {
         if (!element.path || !element.reference) return "";
-        const referenceValue = getDependentValue(element.dependentFieldValue);
-        // const path = element.reference ? `${element.path}?${element.reference}=${referenceValue || "0"}` : element.path}
         if (referenceValue) {
           const path = element.reference
             ? `${element.path}?${element.reference}=${referenceValue || "0"}`
@@ -45,10 +45,13 @@ const AsyncDropDownOption = ({ element, formik, isFieldArray }) => {
       } catch (err) {
         console.log(err.message);
       }
-    };
+    },
+    [element.path, element.reference, referenceValue]
+  ); // Memoize the fetchData function
 
-    fetchData();
-  }, [element.path, element.reference, formik.values]); //eslint-disable-line
+  useEffect(() => {
+    memoizedFetchData(); // Call the memoized function to fetch data
+  }, [memoizedFetchData]);
 
   useEffect(() => {
     if (selectedValue && formik.values[element.name] !== selectedValue.value) {
