@@ -343,21 +343,21 @@ const CorporatOwnershipDetails = () => {
                     options:
                       index <= 1
                         ? [
-                          { value: "Secretary", label: "Secretary" },
-                          { value: "CEO", label: "CEO" },
-                        ]
+                            { value: "Secretary", label: "Secretary" },
+                            { value: "CEO", label: "CEO" },
+                          ]
                         : [
-                          { value: "Director", label: "Director" },
+                            { value: "Director", label: "Director" },
 
-                          {
-                            value: "Chief Marketing Officer",
-                            label: "Chief Marketing Officer",
-                          },
-                          {
-                            value: "General Counsel",
-                            label: "General Counsel",
-                          },
-                        ],
+                            {
+                              value: "Chief Marketing Officer",
+                              label: "Chief Marketing Officer",
+                            },
+                            {
+                              value: "General Counsel",
+                              label: "General Counsel",
+                            },
+                          ],
                     isDisabled:
                       disabled &&
                       d.name === "designation" &&
@@ -382,7 +382,7 @@ const CorporatOwnershipDetails = () => {
                         sx={{
                           background:
                             formik?.errors?.detail &&
-                              formik?.errors?.detail[index] !== undefined
+                            formik?.errors?.detail[index] !== undefined
                               ? "#fff"
                               : "#FFFFFF",
                         }}

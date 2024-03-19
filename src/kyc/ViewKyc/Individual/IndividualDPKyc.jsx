@@ -13,9 +13,10 @@ import { getBankList } from "../../../api/Kyc/Bank/addBankKyc";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { DOC_URL } from "../../../utility/getBaseUrl";
-import AgreementForm from "../agreement/AgreementForm";
+import AgreementForm from '../agreement/AgreementForm';
+import { Button, Grid } from '@mui/material';
 
-const IndividualDPKyc = () => {
+const IndividualDPKyc = ({onNext}) => {
   const [mapImage, setmapImage] = useState("");
   const componentRef = useRef();
   const { A: userId } = getUser();
@@ -106,30 +107,18 @@ const IndividualDPKyc = () => {
         });
     }
   }, [currentAddressDetails]);
-  console.log("indivi", componentRef);
 
   return (
     <div className="container dpkyc">
       <div className="bg-white text-dark p-md-3 font1 dpkyc">
-        {/* <div className="d-flex justify-content-end mb-2">
-         
-          <IndividualKycPdf />
-         
-        </div> */}
-        <ReactToPrint
-          trigger={() => <LocalPrintshopIcon />}
-          content={() => componentRef.current}
-          documentTitle="download.pdf"
-          copyStyles
-          contentStyle={{
-            marginTop: "500px",
-          }}
-        />
-        {/* <div id="pdf" ref={componentRef}> */}
         <div className="kyc-page mt-4" id="pdf" ref={componentRef}>
           {/* Header */}
           <section className="container pb-1">
             {/* <!-- Header section --> */}
+            {/* <header
+              className="text-center"
+              style={{ position: "relative", marginTop: "3rem" }}
+            > */}
             <header
               className="text-center"
               style={{ position: "relative", marginTop: "3rem" }}
@@ -140,6 +129,8 @@ const IndividualDPKyc = () => {
                 प्राकृतिक व्यक्तिको हितग्राही खाता खोल्ने निवेदन
               </h2>
               <h3 className=" text-decoration-underline fs18">
+                ACCOUNT OPENING FORM FOR INDIVIDUAL
+                <br className="displayN" /> BENEFICIAL OWNER
                 ACCOUNT OPENING FORM FOR INDIVIDUAL
                 <br className="displayN" /> BENEFICIAL OWNER
               </h3>
@@ -329,23 +320,23 @@ const IndividualDPKyc = () => {
                 <div className="letter-box-container">
                   {individualDetail?.middleName === null
                     ? individualDetail?.firstName
-                        .split("")
-                        .map((letter, index) => (
-                          <div key={index} className="letter-box">
-                            {letter}
-                          </div>
-                        ))
+                      .split("")
+                      .map((letter, index) => (
+                        <div key={index} className="letter-box">
+                          {letter}
+                        </div>
+                      ))
                     : individualDetail?.firstName
-                        .concat(
-                          individualDetail?.middleName,
-                          individualDetail?.lastName
-                        )
-                        .split("")
-                        .map((letter, index) => (
-                          <div key={index} className="letter-box">
-                            {letter}
-                          </div>
-                        ))}
+                      .concat(
+                        individualDetail?.middleName,
+                        individualDetail?.lastName
+                      )
+                      .split("")
+                      .map((letter, index) => (
+                        <div key={index} className="letter-box">
+                          {letter}
+                        </div>
+                      ))}
                 </div>
               </div>
               <div className="col-4 border center-y ">
@@ -701,7 +692,7 @@ const IndividualDPKyc = () => {
           {/* Temporary Address */}
           <section
             className="container pb-1 mt-4 breakMargin container_p"
-            // style={{ marginTop: "5rem" }}
+          // style={{ marginTop: "5rem" }}
           >
             <h2 className="text-center kyc-secondary-header">
               हालको ठेगाना (Current Address){" "}
@@ -1450,74 +1441,74 @@ const IndividualDPKyc = () => {
                 {/* <!-- ! Bo Statemant --> */}
                 {userData?.boStatement
                   ?.isStandingInstructionForAutomaticTxn && (
-                  <div className="col-12 border center-y ">
-                    <div>
-                      <div className="text-capitalize">
-                        खाताको विवरण प्राप्त गर्ने (Account Statement)
-                      </div>
-                      <div className="col-12  center-y" style={{ gap: "16px" }}>
-                        <div className="d-flex">
-                          <input
-                            type="radio"
-                            readOnly
-                            htmlFor="typeOfAccount"
-                            checked={
-                              userData?.boStatement?.accountStatementPeriod ===
-                              "DAILY"
-                            }
-                          />
-                          <div className="m-2">
-                            <div>दैनिक(Daily)</div>
-                          </div>
+                    <div className="col-12 border center-y ">
+                      <div>
+                        <div className="text-capitalize">
+                          खाताको विवरण प्राप्त गर्ने (Account Statement)
                         </div>
-                        <div className="d-flex">
-                          <input
-                            type="radio"
-                            readOnly
-                            htmlFor="typeOfAccount"
-                            checked={
-                              userData?.boStatement?.accountStatementPeriod ===
-                              "WEEKLY"
-                            }
-                          />
-                          <div className="m-2">
-                            <div>साप्ताहिक(Weekly)</div>
+                        <div className="col-12  center-y" style={{ gap: "16px" }}>
+                          <div className="d-flex">
+                            <input
+                              type="radio"
+                              readOnly
+                              htmlFor="typeOfAccount"
+                              checked={
+                                userData?.boStatement?.accountStatementPeriod ===
+                                "DAILY"
+                              }
+                            />
+                            <div className="m-2">
+                              <div>दैनिक(Daily)</div>
+                            </div>
                           </div>
-                        </div>
-                        <div className="d-flex">
-                          <input
-                            type="radio"
-                            readOnly
-                            htmlFor="typeOfAccount"
-                            checked={
-                              userData?.boStatement?.accountStatementPeriod ===
-                              "15DAYS"
-                            }
-                          />
-                          <div className="m-2">
-                            {" "}
-                            <div>पाक्षिक(15 days)</div>
+                          <div className="d-flex">
+                            <input
+                              type="radio"
+                              readOnly
+                              htmlFor="typeOfAccount"
+                              checked={
+                                userData?.boStatement?.accountStatementPeriod ===
+                                "WEEKLY"
+                              }
+                            />
+                            <div className="m-2">
+                              <div>साप्ताहिक(Weekly)</div>
+                            </div>
                           </div>
-                        </div>
-                        <div className="d-flex">
-                          <input
-                            type="radio"
-                            readOnly
-                            htmlFor="typeOfAccount"
-                            checked={
-                              userData?.boStatement?.accountStatementPeriod ===
-                              "C"
-                            }
-                          />
-                          <div className="m-2">
-                            {" "}
-                            <div>मासिक(Monthly)</div>
+                          <div className="d-flex">
+                            <input
+                              type="radio"
+                              readOnly
+                              htmlFor="typeOfAccount"
+                              checked={
+                                userData?.boStatement?.accountStatementPeriod ===
+                                "15DAYS"
+                              }
+                            />
+                            <div className="m-2">
+                              {" "}
+                              <div>पाक्षिक(15 days)</div>
+                            </div>
+                          </div>
+                          <div className="d-flex">
+                            <input
+                              type="radio"
+                              readOnly
+                              htmlFor="typeOfAccount"
+                              checked={
+                                userData?.boStatement?.accountStatementPeriod ===
+                                "C"
+                              }
+                            />
+                            <div className="m-2">
+                              {" "}
+                              <div>मासिक(Monthly)</div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                )}
+                  )}
               </div>
               <div className="row m-0 p-0">
                 <p className="text-start">
@@ -1600,7 +1591,7 @@ const IndividualDPKyc = () => {
               <div className="m-0 p-0">
                 <h2
                   className="text-center kyc-secondary-header mb-0 classNam"
-                  // style={{ width: "102.5%" }}
+                // style={{ width: "102.5%" }}
                 >
                   कार्यालयको प्रयोजनको लागि (For Official Use)
                 </h2>
@@ -2242,7 +2233,11 @@ const IndividualDPKyc = () => {
           </section>
         </div>
 
-        <div>{/* <AgreementForm ref={componentRef} /> */}</div>
+        <div>
+          <AgreementForm ref={componentRef} onNext={onNext} />
+        </div>
+
+        
       </div>
     </div>
   );

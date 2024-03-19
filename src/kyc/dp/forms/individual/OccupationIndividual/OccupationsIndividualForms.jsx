@@ -7,8 +7,10 @@ import { useNavigate } from "react-router-dom"
 import { SET_FORM } from "../../../../../redux/types/types"
 import { nextFormPath } from "../../../../../utility/userHelper"
 import { useDispatch } from "react-redux"
+import { useTranslation } from 'react-i18next'
 
 const OccupationsIndividualForms = () => {
+  const { t } = useTranslation();
   const theme = useTheme()
   const navigate = useNavigate()
   const dispatch = useDispatch();
@@ -176,7 +178,7 @@ const OccupationsIndividualForms = () => {
       newFields: [
         {
           name: "companyName",
-          label: "Company name",
+          label: "Company Name",
           type: "text",
           id: nanoid(),
           md: 6,
@@ -206,7 +208,7 @@ const OccupationsIndividualForms = () => {
       newFields: [
         {
           name: "tradingAccountCompanyName",
-          label: "Trading company name",
+          label: "Trading Company Name",
           type: "text",
           id: nanoid(),
           md: 6,
@@ -214,7 +216,7 @@ const OccupationsIndividualForms = () => {
         },
         {
           name: "clientCode",
-          label: "Client code",
+          label: "Client Code",
           type: "text",
           id: nanoid(),
           md: 6,
@@ -255,7 +257,7 @@ const OccupationsIndividualForms = () => {
             fontWeight: "800",
           }}
         >
-          Occupations
+          {t("Occupation Details")}
         </Typography>
       </Box>
       <Grid>
@@ -267,14 +269,14 @@ const OccupationsIndividualForms = () => {
           variant="outlined"
           color="secondary"
         >
-          Back
+          {t("Back")}
         </Button>
         <Button
           onClick={formik.handleSubmit}
           variant="contained"
           color="secondary"
         >
-          Next
+          {t("Next")}
         </Button>
       </Grid>
     </div>

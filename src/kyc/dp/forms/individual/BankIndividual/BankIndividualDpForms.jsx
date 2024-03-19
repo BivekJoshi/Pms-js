@@ -23,8 +23,10 @@ import { useDispatch } from "react-redux"
 import { SET_FORM } from "../../../../../redux/types/types"
 import { useNavigate } from "react-router-dom"
 import { nextFormPath } from "../../../../../utility/userHelper"
+import { useTranslation } from 'react-i18next'
 
 const BankIndividualDpForms = () => {
+  const { t } = useTranslation();
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const theme = useTheme()
   const navigate = useNavigate();
@@ -215,7 +217,7 @@ const BankIndividualDpForms = () => {
             fontWeight: "800",
           }}
         >
-          Bank Details
+          {t("Bank Details")}
         </Typography>
       </Box>
       <RenderInput inputField={BANKFIELDS} formik={formik} />
@@ -228,12 +230,12 @@ const BankIndividualDpForms = () => {
           color="secondary"
           sx={{ borderRadius: "20px", paddingInline: 2 }}
         >
-          + Add
+          {t("+ Add")}
         </Button>
       </Grid>
       <Grid marginBlock={2}>
         <CustomTable
-          title={"List of Bank"}
+          title={t("List of Bank")}
           columns={columns}
           data={bankDataField}
           handleDeleteRow={handleDeleteRow}
@@ -248,14 +250,14 @@ const BankIndividualDpForms = () => {
           variant="outlined"
           color="secondary"
         >
-          Back
+          {t("Back")}
         </Button>
         <Button
           variant="contained"
           color="secondary"
           onClick={handleNext}
         >
-          Next
+          {t("Next")}
         </Button>
       </Grid>
 

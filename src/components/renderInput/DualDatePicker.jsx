@@ -39,11 +39,11 @@ export const DualDatePicker = ({ element, formik }) => {
   }, [nepaliDate])
 
   return (
-    <Grid container spacing={2} sx={{display: "flex", alignItems: "center"}} >
+    <Grid container spacing={2} sx={{ display: "flex", alignItems: "center" }} >
       <Grid
-      item
-         md={element.nepMd}
-         sm={element.nepSm}
+        item
+        md={element.nepMd}
+        sm={element.nepSm}
       >
         <DatePicker
           sx={{ width: "100%" }}
@@ -61,21 +61,22 @@ export const DualDatePicker = ({ element, formik }) => {
                 formik.touched[element.name] && formik.errors[element.name],
             },
           }}
-          />
-          </Grid>
-        <Grid
-                item
-                md={element.nepMd}
-                sm={element.nepSm}
-                >
-        <GlobalNepaliDatePicker
-        name={element.name}
-        label={t(element.nepaliLabel)}
-        value={nepaliDate}
-        handleChange={handleNepaliDateChange}
         />
-    
-        </Grid>
+      </Grid>
+      <Grid
+        item
+        md={element.nepMd}
+        sm={element.nepSm}
+      >
+        <GlobalNepaliDatePicker
+          name={element.name}
+          label={t(element.nepaliLabel)}
+          value={nepaliDate}
+          handleChange={handleNepaliDateChange}
+          disableFuture={element?.disableFuture}
+        />
+
+      </Grid>
     </Grid>
   )
 }

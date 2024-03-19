@@ -10,6 +10,7 @@ import MarriedFamilyTable from "./MarriedFamilyTable";
 import { useNavigate } from "react-router-dom";
 import { nextFormPath } from "../../../../../utility/userHelper";
 import { SET_FORM } from "../../../../../redux/types/types";
+import { useTranslation } from 'react-i18next';
 
 const relationField = [
   {
@@ -78,6 +79,7 @@ const FamilyIndividualDpForms = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const { data: familyData } = useGetFamily();
 
@@ -108,7 +110,7 @@ const FamilyIndividualDpForms = () => {
               fontWeight: "800",
             }}
           >
-            Family Members
+            {t("Family Members")}
           </Typography>
         </Grid>
         <FormikProvider value={formik} {...formik}>
@@ -158,14 +160,14 @@ const FamilyIndividualDpForms = () => {
         }}
       >
         <Button onClick={handleBack} variant="outlined" color="secondary">
-          Back
+          {t("Back")}
         </Button>
         <Button
           onClick={formik.handleSubmit}
           variant="contained"
           color="secondary"
         >
-          Next
+          {t("Next")}
         </Button>
       </Grid>
     </div>

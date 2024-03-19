@@ -4,6 +4,8 @@ import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { useMarriedForm } from "./useMarriedForm";
 import { nanoid } from "@reduxjs/toolkit";
 import { Button, Grid } from "@mui/material";
+import { useTranslation } from 'react-i18next';
+
 const MarriedCase = [
   {
     name: "isMarried",
@@ -59,6 +61,8 @@ const MarriedCase = [
   },
 ];
 const MarriedFamilyTable = () => {
+  const { t } = useTranslation();
+
   const columns = useMemo(
     () => [
       {
@@ -108,14 +112,14 @@ const MarriedFamilyTable = () => {
             variant="outlined"
             color="secondary"
           >
-            + Add
+            {t("+ Add")}
           </Button>
           <Button
             onClick={handleClear}
             variant="outlined"
             style={{ color: "red", border: "1px solid red" }}
           >
-            Clear
+            {t("Clear")}
           </Button>
         </Grid>
       </div>

@@ -2,8 +2,10 @@ import React, { useEffect, useState, useMemo } from "react";
 import { axiosInstance } from "../../api/axiosInterceptor";
 import { Autocomplete, TextField } from "@mui/material";
 import { getIn } from "formik";
+import { useTranslation } from 'react-i18next';
 
 const AsyncDropDownOption = ({ element, formik, isFieldArray }) => {
+  const { t } = useTranslation();
   const [options, setOptions] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
   const formValues = isFieldArray
@@ -88,7 +90,7 @@ const AsyncDropDownOption = ({ element, formik, isFieldArray }) => {
         renderInput={(params) => (
           <TextField
             {...params}
-            label={element.label}
+            label={t(element.label)}
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
             variant="outlined"
