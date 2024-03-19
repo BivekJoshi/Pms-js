@@ -279,20 +279,6 @@ const CorporatOwnershipDetails = () => {
       id: nanoid(),
     },
   ];
-  const titles = [
-    {
-      initialvalue: FirstContactField,
-      name1: "First Contact Person",
-    },
-    {
-      initialvalue: SecondContactField,
-      name1: "Second Contact Person",
-    },
-    {
-      initialvalue: ThirdContactField,
-      name1: "Third Contact Person",
-    },
-  ];
 
   const { data: ownerShipDetail } = useGetBodCorporate();
   const { formik } = useCorporatOwnershipDetailsForm(ownerShipDetail);
@@ -307,6 +293,24 @@ const CorporatOwnershipDetails = () => {
     navigate(nextFormPath(6));
     dispatch({ type: SET_FORM, payload: 6 });
   };
+
+  const titles = [
+    {
+      initialvalue: FirstContactField,
+      name1: "First Contact Person",
+      error: formik?.errors?.fcpName || formik?.errors?.fcpFatherName || formik?.errors?.fcpGrandFatherName || formik?.errors?.fcpDesignation ? "Error *" : "",
+    },
+    {
+      initialvalue: SecondContactField,
+      name1: "Second Contact Person",
+      error: formik?.errors?.scpName || formik?.errors?.scpFatherName || formik?.errors?.scpGrandFatherName || formik?.errors?.scpDesignation ? "Error *" : "",
+    },
+    {
+      initialvalue: ThirdContactField,
+      name1: "Third Contact Person",
+      error: formik?.errors?.trdName || formik?.errors?.trdFatherName || formik?.errors?.trdGrandFatherName || formik?.errors?.trdDesignation ? "Error *" : "",
+    },
+  ];
 
   return (
     <div data-aos="zoom-in-right">
@@ -324,7 +328,7 @@ const CorporatOwnershipDetails = () => {
             fontWeight: "800",
           }}
         >
-          OwnerShip Details
+          Ownership Details
         </Typography>
       </Box>
       <FormikProvider value={formik} {...formik}>
@@ -339,21 +343,21 @@ const CorporatOwnershipDetails = () => {
                     options:
                       index <= 1
                         ? [
-                            { value: "Secretary", label: "Secretary" },
-                            { value: "CEO", label: "CEO" },
-                          ]
+                          { value: "Secretary", label: "Secretary" },
+                          { value: "CEO", label: "CEO" },
+                        ]
                         : [
-                            { value: "Director", label: "Director" },
+                          { value: "Director", label: "Director" },
 
-                            {
-                              value: "Chief Marketing Officer",
-                              label: "Chief Marketing Officer",
-                            },
-                            {
-                              value: "General Counsel",
-                              label: "General Counsel",
-                            },
-                          ],
+                          {
+                            value: "Chief Marketing Officer",
+                            label: "Chief Marketing Officer",
+                          },
+                          {
+                            value: "General Counsel",
+                            label: "General Counsel",
+                          },
+                        ],
                     isDisabled:
                       disabled &&
                       d.name === "designation" &&
@@ -378,7 +382,7 @@ const CorporatOwnershipDetails = () => {
                         sx={{
                           background:
                             formik?.errors?.detail &&
-                            formik?.errors?.detail[index] !== undefined
+                              formik?.errors?.detail[index] !== undefined
                               ? "#fff"
                               : "#FFFFFF",
                         }}
@@ -471,17 +475,21 @@ const CorporatOwnershipDetails = () => {
             );
           }}
         </FieldArray>
-        {titles.map((title, index) => (
+        {titles?.map((title, index) => (
+
           <Accordion key={index} style={{ margin: "1rem 0 0" }}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls={`panel${index + 12}-content`}
               id={`panel${index + 12}-header`}
             >
-              <Typography variant="h5">{title.name1}</Typography>
+              <div style={{ display: 'flex', gap: "2rem" }}>
+                <Typography variant="h5">{title?.name1}</Typography>
+                <Typography variant="h5" color="error">{title?.error}</Typography>
+              </div>
             </AccordionSummary>
             <AccordionDetails>
-              <RenderInput inputField={title.initialvalue} formik={formik} />
+              <RenderInput inputField={title?.initialvalue} formik={formik} />
             </AccordionDetails>
           </Accordion>
         ))}

@@ -124,7 +124,7 @@ const RenderInput = ({
 
   const getComponentToRender = (element, disableField) => {
     if (!element) return null;
-    console.log(element, "elem")
+    // console.log(element, "elem")
     const formVaues = isFieldArray
       ? getIn(formik.values, element.name)
       : formik.values[element.name];
@@ -150,6 +150,7 @@ const RenderInput = ({
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
             sx={{ width: "100%" }}
+            InputLabelProps={{ shrink: Boolean(formVaues) }}
           />
         );
       case "toggleButton":
@@ -352,7 +353,7 @@ const RenderInput = ({
             fullWidth
             type={element?.type}
             required={element.required}
-            inputProps={{min: element?.min, max: element?.max}}
+            inputProps={{ min: element?.min, max: element?.max }}
             variant="outlined"
             error={formTouched && Boolean(formError)}
             helperText={formTouched && formError}
@@ -537,7 +538,7 @@ const RenderInput = ({
                     disabled={
                       element.name === "accountStatementPeriod" &&
                       formik.values.isStandingInstructionForAutomaticTxn ===
-                        "false"
+                      "false"
                     }
                   />
                 ))}
@@ -582,15 +583,15 @@ const RenderInput = ({
               formik={formik}
               formVaues={formVaues}
             />
-            <div style={{ marginTop: "0.5rem" }}>
-              {element.isDependent && formik.values[element?.name] ? (
+            <div>
+              {element.isDependent && formik.values[element?.name] && !element?.isNeutral ? (
                 <RenderInput
                   inputField={element.trueNewFields}
                   formik={formik}
                 />
-              ) : !element.isDependent && formik.values[element?.name] ? (
+              ) : !element.isDependent && formik.values[element?.name] && !element?.isNeutral ? (
                 <RenderInput
-                  inputField={element.falseNewFields}
+                  inputField={element?.falseNewFields}
                   formik={formik}
                 />
               ) : (
@@ -625,10 +626,10 @@ const RenderInput = ({
               md={element?.md}
               lg={element?.lg}
               key={index}
-              // sx={{
-              //   marginBottom:
-              //     element.customMarginBottom && element.customMarginBottom,
-              // }}
+            // sx={{
+            //   marginBottom:
+            //     element.customMarginBottom && element.customMarginBottom,
+            // }}
             >
               {getComponentToRender(element, isDisabled)}
             </Grid>
