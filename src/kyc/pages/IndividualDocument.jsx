@@ -125,11 +125,11 @@ const IndividualDocument = () => {
           }}
           onClick={() => setIsModalOpen(true)}
         >
-          + Add
+          {t("+ Add")}
         </Button>
       </Grid>
       <CustomTable
-        title={"Document Details"}
+        title={t("Document Details")}
         columns={columns}
         data={[documentData]}
         headerBackgroundColor="#401686"
@@ -153,14 +153,14 @@ const IndividualDocument = () => {
           variant="outlined"
           color="secondary"
         >
-          Back
+          {t("Back")}
         </Button>
         <Button
           onClick={handleNext}
           variant="contained"
           color="secondary"
         >
-          Next
+          {t("Next")}
         </Button>
       </Grid>
       <FormModal
