@@ -13,7 +13,7 @@ import { getBankList } from "../../../api/Kyc/Bank/addBankKyc";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { DOC_URL } from "../../../utility/getBaseUrl";
-import AgreementForm from '../agreement/AgreementForm';
+import AgreementForm from "../agreement/AgreementForm";
 
 const IndividualDPKyc = () => {
   const [mapImage, setmapImage] = useState("");
@@ -106,7 +106,7 @@ const IndividualDPKyc = () => {
         });
     }
   }, [currentAddressDetails]);
-  console.log("indivi", componentRef)
+  console.log("indivi", componentRef);
 
   return (
     <div className="container dpkyc">
@@ -116,15 +116,15 @@ const IndividualDPKyc = () => {
           <IndividualKycPdf />
          
         </div> */}
-         <ReactToPrint
-            trigger={() => <LocalPrintshopIcon />}
-            content={() => componentRef.current}
-            documentTitle="download.pdf"
-            copyStyles
-            contentStyle={{
-              marginTop: "500px",
-            }}
-          />
+        <ReactToPrint
+          trigger={() => <LocalPrintshopIcon />}
+          content={() => componentRef.current}
+          documentTitle="download.pdf"
+          copyStyles
+          contentStyle={{
+            marginTop: "500px",
+          }}
+        />
         {/* <div id="pdf" ref={componentRef}> */}
         <div className="kyc-page mt-4" id="pdf" ref={componentRef}>
           {/* Header */}
@@ -838,7 +838,8 @@ const IndividualDPKyc = () => {
                 </div>
                 <div className="col-6 text-capitalize text-end">
                   longitude :{" "}
-                  {currentAddressDetails && currentAddressDetails?.[0]?.longitude
+                  {currentAddressDetails &&
+                  currentAddressDetails?.[0]?.longitude
                     ? currentAddressDetails?.[0]?.longitude
                     : 0}
                 </div>
@@ -2241,11 +2242,8 @@ const IndividualDPKyc = () => {
           </section>
         </div>
 
-        <div>
-          {/* <AgreementForm ref={componentRef} /> */}
+        <div>{/* <AgreementForm ref={componentRef} /> */}</div>
       </div>
-      
-    </div>
     </div>
   );
 };
