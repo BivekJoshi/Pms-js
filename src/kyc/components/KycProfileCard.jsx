@@ -29,7 +29,7 @@ const KycProfileCard = ({
 
   const { data: documentData, isLoading } = useGetDocument();
 
-  const imgUrl = documentData?.data?.ppSizePhoto;
+  const imgUrl = documentData?.ppSizePhoto;
 
   const videoRef = useRef();
   const accountType =

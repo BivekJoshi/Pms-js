@@ -10,8 +10,8 @@ import { useDispatch } from "react-redux";
 export const useCorporatOwnershipDetailsForm = (ownerShipDetail) => {
   const [loading, setLoading] = useState(false);
   const { mutate } = useAddBodCorporate({});
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const detail = ownerShipDetail?.detail;
 
   const getCEODetails = () => {
@@ -61,20 +61,37 @@ export const useCorporatOwnershipDetailsForm = (ownerShipDetail) => {
           email: secretaryDetails?.email || "",
           panNo: secretaryDetails?.panNo || "",
         },
-        ...emptyDetails.map((item) => ({
-          designation: item.designation || "",
-          firstName: item.firstName || "",
-          lastName: item.lastName || "",
-          fatherName: item.fatherName || "",
-          grandFather: item.grandFather || "",
-          spouseName: item.spouseName || "",
-          permanentAddress: item.permanentAddress || "",
-          currentAddress: item.currentAddress || "",
-          telephoneNo: item.telephoneNo || "",
-          mobileNo: item.mobileNo || "",
-          email: item.email || "",
-          panNo: item.panNo || "",
-        })),
+        ...(emptyDetails.length > 0
+          ? emptyDetails.map((item) => ({
+              designation: item.designation || "",
+              firstName: item.firstName || "",
+              lastName: item.lastName || "",
+              fatherName: item.fatherName || "",
+              grandFather: item.grandFather || "",
+              spouseName: item.spouseName || "",
+              permanentAddress: item.permanentAddress || "",
+              currentAddress: item.currentAddress || "",
+              telephoneNo: item.telephoneNo || "",
+              mobileNo: item.mobileNo || "",
+              email: item.email || "",
+              panNo: item.panNo || "",
+            }))
+          : [
+              {
+                designation: "",
+                firstName: "",
+                lastName: "",
+                fatherName: "",
+                grandFather: "",
+                spouseName: "",
+                permanentAddress: "",
+                currentAddress: "",
+                telephoneNo: "",
+                mobileNo: "",
+                email: "",
+                panNo: "",
+              },
+            ]),
       ],
       fcpName: ownerShipDetail?.fcpName || "",
       fcpDesignation: ownerShipDetail?.fcpDesignation || "",
@@ -101,8 +118,8 @@ export const useCorporatOwnershipDetailsForm = (ownerShipDetail) => {
           },
         });
       }
-      dispatch({ type: SET_FORM, payload: 8 })
-      navigate(nextFormPath(8))
+      dispatch({ type: SET_FORM, payload: 8 });
+      navigate(nextFormPath(8));
     },
   });
   return { formik, loading };

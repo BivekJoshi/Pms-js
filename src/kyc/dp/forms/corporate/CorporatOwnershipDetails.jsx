@@ -1,5 +1,5 @@
 import { nanoid } from "@reduxjs/toolkit";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useCorporatOwnershipDetailsForm } from "../../../../form/auth/CorporateDp/CorporatOwnershipDetails/corporatOwnershipDetailsForm";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
@@ -11,12 +11,17 @@ import { useGetBodCorporate } from "../../../../hooks/Kyc/corporate/BodCorporate
 import { useDispatch } from "react-redux";
 import { getUser, nextFormPath } from "../../../../utility/userHelper";
 import { SET_FORM } from "../../../../redux/types/types";
+import { useState } from "react";
 
 const CorporatOwnershipDetails = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { H: clientType, I: formNature } = getUser();
+  const [expandAccordionDetails, setExpandAccordionDetails] = useState([]);
+  const [expandAccordionFirst, setExpandAccordionFirst] = useState(false);
+  const [expandAccordionSecond, setExpandAccordionSecond] = useState(false);
+  const [expandAccordionThird, setExpandAccordionThird] = useState(false);
+
 
   const DETAILS = [
     {
@@ -282,6 +287,8 @@ const CorporatOwnershipDetails = () => {
 
   const { data: ownerShipDetail } = useGetBodCorporate();
   const { formik } = useCorporatOwnershipDetailsForm(ownerShipDetail);
+
+
   const form = formik.values.detail;
   const disabled =
     form &&
@@ -289,28 +296,34 @@ const CorporatOwnershipDetails = () => {
       (data) => data.designation === "CEO" || data.designation === "Secretary"
     );
 
+  const hasFormikErrorsDetails = (formik.errors.detail) ? true : false;
+  const hasFormikErrorsFirst =
+    (formik.errors.fcpDesignation || formik.errors.fcpName || formik.errors.fcpFatherName || formik.errors.fcpGrandFatherName) ? true : false;
+  const hasFormikErrorsSecond =
+    (formik.errors.scpName || formik.errors.scpDesignation || formik.errors.scpFatherName || formik.errors.scpGrandFatherName) ? true : false;
+  const hasFormikErrorsThird =
+    (formik.errors.trdName || formik.errors.trdName || formik.errors.trdFatherName || formik.errors.trdGrandFatherName) ? true : false;
+
+
+  useEffect(() => {
+    setExpandAccordionFirst(hasFormikErrorsFirst);
+    setExpandAccordionSecond(hasFormikErrorsSecond);
+    setExpandAccordionThird(hasFormikErrorsThird);
+    if (Array.isArray(formik.values.detail)) {
+      setExpandAccordionDetails(new Array(formik.values.detail.length).fill(false));
+    }
+  }, [hasFormikErrorsFirst, hasFormikErrorsSecond, hasFormikErrorsThird, hasFormikErrorsDetails]);
+
   const handleBack = () => {
     navigate(nextFormPath(6));
     dispatch({ type: SET_FORM, payload: 6 });
   };
 
-  const titles = [
-    {
-      initialvalue: FirstContactField,
-      name1: "First Contact Person",
-      error: formik?.errors?.fcpName || formik?.errors?.fcpFatherName || formik?.errors?.fcpGrandFatherName || formik?.errors?.fcpDesignation ? "Error *" : "",
-    },
-    {
-      initialvalue: SecondContactField,
-      name1: "Second Contact Person",
-      error: formik?.errors?.scpName || formik?.errors?.scpFatherName || formik?.errors?.scpGrandFatherName || formik?.errors?.scpDesignation ? "Error *" : "",
-    },
-    {
-      initialvalue: ThirdContactField,
-      name1: "Third Contact Person",
-      error: formik?.errors?.trdName || formik?.errors?.trdFatherName || formik?.errors?.trdGrandFatherName || formik?.errors?.trdDesignation ? "Error *" : "",
-    },
-  ];
+  const handleAccordionChange = (index) => {
+    const updatedExpansions = [...expandAccordionDetails];
+    updatedExpansions[index] = !updatedExpansions[index];
+    setExpandAccordionDetails(updatedExpansions);
+  };
 
   return (
     <div data-aos="zoom-in-right">
@@ -343,21 +356,21 @@ const CorporatOwnershipDetails = () => {
                     options:
                       index <= 1
                         ? [
-                            { value: "Secretary", label: "Secretary" },
-                            { value: "CEO", label: "CEO" },
-                          ]
+                          { value: "Secretary", label: "Secretary" },
+                          { value: "CEO", label: "CEO" },
+                        ]
                         : [
-                            { value: "Director", label: "Director" },
+                          { value: "Director", label: "Director" },
 
-                            {
-                              value: "Chief Marketing Officer",
-                              label: "Chief Marketing Officer",
-                            },
-                            {
-                              value: "General Counsel",
-                              label: "General Counsel",
-                            },
-                          ],
+                          {
+                            value: "Chief Marketing Officer",
+                            label: "Chief Marketing Officer",
+                          },
+                          {
+                            value: "General Counsel",
+                            label: "General Counsel",
+                          },
+                        ],
                     isDisabled:
                       disabled &&
                       d.name === "designation" &&
@@ -382,11 +395,13 @@ const CorporatOwnershipDetails = () => {
                         sx={{
                           background:
                             formik?.errors?.detail &&
-                            formik?.errors?.detail[index] !== undefined
+                              formik?.errors?.detail[index] !== undefined
                               ? "#fff"
                               : "#FFFFFF",
                         }}
-                        defaultExpanded
+                        expanded={expandAccordionDetails[index] || hasFormikErrorsDetails}
+                        onChange={() => handleAccordionChange(index)}
+                      // defaultExpanded={true}
                       >
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
@@ -421,7 +436,7 @@ const CorporatOwnershipDetails = () => {
                           color="primary"
                           style={{
                             border: "1px solid #6C49B4",
-                            margin: "0  0 1rem 0",
+                            margin: "0  1rem 1rem 0",
                           }}
                           onClick={() =>
                             push({
@@ -475,24 +490,54 @@ const CorporatOwnershipDetails = () => {
             );
           }}
         </FieldArray>
-        {titles?.map((title, index) => (
 
-          <Accordion key={index} style={{ margin: "1rem 0 0" }}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls={`panel${index + 12}-content`}
-              id={`panel${index + 12}-header`}
-            >
-              <div style={{ display: 'flex', gap: "2rem" }}>
-                <Typography variant="h5">{title?.name1}</Typography>
-                <Typography variant="h5" color="error">{title?.error}</Typography>
-              </div>
-            </AccordionSummary>
-            <AccordionDetails>
-              <RenderInput inputField={title?.initialvalue} formik={formik} />
-            </AccordionDetails>
-          </Accordion>
-        ))}
+        {/* ------------------FIRST------------------------------- */}
+        <Accordion
+          style={{ margin: "1rem 0 0" }}
+          expanded={expandAccordionFirst || hasFormikErrorsFirst}
+          onChange={() => setExpandAccordionFirst(prev => !prev)}
+        >
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <div style={{ display: 'flex', gap: "2rem" }}>
+              <Typography variant="h5">First Contact Person</Typography>
+            </div>
+          </AccordionSummary>
+          <AccordionDetails>
+            <RenderInput inputField={FirstContactField} formik={formik} />
+          </AccordionDetails>
+        </Accordion>
+        {/* ------------------SECOND------------------------------- */}
+        <Accordion
+          style={{ margin: "1rem 0 0" }}
+          expanded={expandAccordionSecond || hasFormikErrorsSecond}
+          onChange={() => setExpandAccordionSecond((prevExpanded) => !prevExpanded)}
+        >
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <div style={{ display: 'flex', gap: "2rem" }}>
+              <Typography variant="h5">Second Contact Person</Typography>
+            </div>
+          </AccordionSummary>
+          <AccordionDetails>
+            <RenderInput inputField={SecondContactField} formik={formik} />
+          </AccordionDetails>
+        </Accordion>
+        {/* ------------------THIRD------------------------------- */}
+        <Accordion
+          style={{ margin: "1rem 0 0" }}
+          expanded={expandAccordionThird || hasFormikErrorsThird}
+          onChange={() => setExpandAccordionThird((prevExpanded) => !prevExpanded)}
+        >
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <div style={{ display: 'flex', gap: "2rem" }}>
+              <Typography variant="h5">Third Contact Person</Typography>
+            </div>
+          </AccordionSummary>
+          <AccordionDetails>
+            <RenderInput inputField={ThirdContactField} formik={formik} />
+          </AccordionDetails>
+        </Accordion>
+
+
         <Grid
           sx={{
             display: "flex",
