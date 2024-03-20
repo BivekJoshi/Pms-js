@@ -86,7 +86,6 @@ const NomineeSchema = Yup.object().shape({
   country: Yup.string().when("haveNominee", {
     is: true,
     then: Yup.string()
-      .typeError("Country is required")
       .required("Country is required"),
     otherwise: Yup.string().nullable(),
   }),

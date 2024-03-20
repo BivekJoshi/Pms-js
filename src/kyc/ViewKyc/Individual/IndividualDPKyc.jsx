@@ -21,6 +21,7 @@ const IndividualDPKyc = ({onNext}) => {
   const componentRef = useRef();
   const { A: userId } = getUser();
   const { data: userData } = useGetMetaData(userId);
+  console.log(userData?.user?.status);
   //individual details
   const individualDetail = userData?.individualDetails;
   // details of family member
@@ -830,7 +831,7 @@ const IndividualDPKyc = ({onNext}) => {
                 <div className="col-6 text-capitalize text-end">
                   longitude :{" "}
                   {currentAddressDetails &&
-                  currentAddressDetails?.[0]?.longitude
+                    currentAddressDetails?.[0]?.longitude
                     ? currentAddressDetails?.[0]?.longitude
                     : 0}
                 </div>
@@ -2232,12 +2233,7 @@ const IndividualDPKyc = ({onNext}) => {
             />
           </section>
         </div>
-
-        <div>
-          <AgreementForm ref={componentRef} onNext={onNext} />
-        </div>
-
-        
+        {userData?.user?.status === "PENDING" && <div><AgreementForm ref={componentRef} onNext={onNext}/></div>}
       </div>
     </div>
   );
