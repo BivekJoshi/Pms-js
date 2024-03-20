@@ -5,11 +5,11 @@ import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import { Button, CircularProgress, Typography } from "@mui/material";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import pdf from "../../assets/pdf.svg";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const withPDFControls = (PDFComponent) => {
-  const { t } = useTranslation();
   const PDFControlsWrapper = ({ userData, imageURL, extraInfo }) => {
+    const { t } = useTranslation();
     const fileName = userData ? userData?.user?.name : "kyc";
     return (
       <>
@@ -28,14 +28,15 @@ const withPDFControls = (PDFComponent) => {
           >
             {({ loading }) =>
               imageURL?.length === 0 || loading ? (
-                <CircularProgress sx={{color: "rgba(86.95, 38, 150.96, 1)"}}  />
+                <Button variant="contained" disabled color="secondary">
+                  <img style={{ color: "#fff" }} src={pdf} alt="pdf-image" />
+                  <Typography variant="p">{t("Download KYC")}</Typography>
+                </Button>
               ) : (
                 <>
-                  <Button
-                  variant="contained"
-                    color="secondary">
-                    <img style={{color: "#fff"}} src={pdf} alt="pdf-image" />
-                    <Typography variant='p'>{t("Download KYC")}</Typography>
+                  <Button variant="contained" color="secondary">
+                    <img style={{ color: "#fff" }} src={pdf} alt="pdf-image" />
+                    <Typography variant="p">{t("Download KYC")}</Typography>
                   </Button>
                   {/* <PictureAsPdfIcon
                     style={{ cursor: "pointer", color: "grey" }}
