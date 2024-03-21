@@ -1,9 +1,6 @@
 import { Table, TableBody, TableCell, TableContainer } from "@mui/material";
 import { TableHead, TableRow, Typography } from "@mui/material";
 import DpMeroShare from "../DpMeroShare";
-import ReactToPrint from "react-to-print";
-import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
-import CorporateKycPdf from "../../pdf/component/CorporateKycPdf";
 import { getUser } from "../../../utility/userHelper";
 import { useGetMetaData } from "../../hooks/useMetaDataKyc";
 import { useRef } from "react";
@@ -16,7 +13,6 @@ const CorporateDpKyc = () => {
   const componentRef = useRef();
   const { A: userId } = getUser();
   const { data: userData } = useGetMetaData(userId);
-  console.log(userData);
   const corporateDetails = userData?.corporateDetails;
   const currentAddressDetails = userData.addressDetails?.filter(
     (address) => address.addressType === "T"

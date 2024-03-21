@@ -9,6 +9,8 @@ import KycMap from "../KycMap/KycMap";
 import { ADToBS } from "bikram-sambat-js";
 import { DOC_URL } from "../../../utility/getBaseUrl";
 import AgreementForm from "../agreement/AgreementForm";
+import { useSelector } from "react-redux";
+import "../Individual/kycIndividual.css";
 
 const CorporateTmsKyc = () => {
   const componentRef = useRef();
@@ -1337,7 +1339,10 @@ const CorporateTmsKyc = () => {
                 प्रथम पक्ष मार्फत धितोपत्रको कारोबार गर्न / अनलाईन सुबिधा प्रयोग
                 गर्ने ग्राहक संकेत नम्बर .................. हितग्राही खाता
                 न&nbsp;
-                {user?.dematNo ? user?.dematNo : "..............."} रहेको प्रदेश{" "}
+                {userData?.user?.dematNo
+                  ? userData?.user?.dematNo
+                  : "..............."}{" "}
+                रहेको प्रदेश{" "}
                 {permanentAddressDetails?.[0]?.province
                   ? permanentAddressDetails?.[0]?.province
                   : "................"}{" "}
@@ -1357,19 +1362,12 @@ const CorporateTmsKyc = () => {
                 {currentAddressDetails?.[0]?.tole
                   ? currentAddressDetails?.[0]?.tole
                   : "............."}{" "}
-                स्थानमा बसोबास गर्ने श्री{" "}
-                {memberList?.["grandfather"]
-                  ? memberList?.["grandfather"]
-                  : "................."}{" "}
-                को नाती/नातीनी बुहारी, श्री{" "}
-                {memberList?.["father"]
-                  ? memberList?.["father"]
-                  : ".................."}{" "}
-                को छोरा / छोरी वर्ष&nbsp;
-                {individualDetail?.dob && currentAge()}&nbsp; को श्री{" "}
-                {user?.name ? user?.name : "............."} <b>वा</b> ग्राहक
-                संकेत नम्बर (युनिक क्लाईन्ट कोड)............................
-                रहेको .......................... कार्यालयमा दर्ता भई रजिस्टर्ड
+                स्थानमा बसोबास गर्ने श्री : ................. को नाती/नातीनी
+                बुहारी, श्री .................. को छोरा / छोरी वर्ष&nbsp;
+                {/* {individualDetail?.dob && currentAge()}&nbsp; */}
+                को श्री {"............."} <b>वा</b> ग्राहक संकेत नम्बर (युनिक
+                क्लाईन्ट कोड)............................ रहेको
+                .......................... कार्यालयमा दर्ता भई रजिस्टर्ड
                 कार्यालय .............................. मा भएको श्री
                 .........................................................................
                 ले (उप्रान्त दोस्रो पक्ष भनिने र सो शब्दले विषय वा प्रसंगले
@@ -1603,13 +1601,12 @@ const CorporateTmsKyc = () => {
                 ख. टेलिफोन
                 ........................................................
                 <br />
-                &emsp;&nbsp;&nbsp;&nbsp; ग. मोबाइलफोन{" "}
-                ........................................................
+                &emsp;&nbsp;&nbsp;&nbsp; ग. मोबाइलफोन :{" "}
                 {userData?.user?.phoneNo
                   ? userData?.user?.phoneNo
                   : "..................."}
-                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                घ. इमेल ........................................................
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                घ. इमेल:{" "}
                 {userData?.user?.email
                   ? userData?.user?.email
                   : ".................."}

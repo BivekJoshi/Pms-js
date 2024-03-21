@@ -31,6 +31,7 @@ export const useKycFamilyForm = ({ familyData }) => {
       relationTypeDesc: d.relationTypeDesc,
       relationTypeDescNp: d.relationTypeDescNp,
       userId: d.userId,
+
       personDetail: {
         fname: d.fname,
         mname: d.mname,
@@ -97,7 +98,7 @@ export const useKycFamilyForm = ({ familyData }) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       if (formik.dirty) {
-        const formData = { ...values };
+        const formData = { ...values , isMarried };
         mutate(formData?.personDetail, {
           onSuccess: () => {
             formik.resetForm();

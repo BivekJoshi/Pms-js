@@ -12,7 +12,7 @@ export const addDocument = async (image, formData) => {
   const imgData = new FormData();
   imgData.append("ppSizePhoto", image?.ppSizePhoto);
   const { data } = await axiosInstance.post(
-    `/client/client-document?currentForm=1`,
+    `/client/client-document?currentForm=2`,
     imgData,
     {
       headers: {
@@ -39,7 +39,7 @@ export const addPhoto = async (formData) => {
 
     try {
       const { data } = await axiosInstance.post(
-        `/client/client-document?currentForm=1`,
+        `/client/client-document?currentForm=2`,
         imgData,
         {
           headers: {
@@ -62,7 +62,7 @@ export const addPhotoDragImage = async (image) => {
 
   imgData.append("ppSizePhoto", image);
   const { data } = await axiosInstance.post(
-    `/client/client-document?currentForm=1`,
+    `/client/client-document?currentForm=2`,
     imgData,
     {
       headers: {

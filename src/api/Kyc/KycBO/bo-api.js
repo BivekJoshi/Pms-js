@@ -9,7 +9,7 @@ export const getBODetail = async () => {
 /*________________________POST BO DETAIL_____________________________________*/
 export const addBODetail = async (formData) => {
   const data = await axiosInstance.post(
-    `/client/bo-statement?currentForm=1`,
+    `/client/bo-statement?currentForm=8`,
     formData
   );
   return data;

@@ -2392,11 +2392,11 @@ const IndividualTmsKyc = () => {
           </section>
           {/* ONLINE TRADING AGREEEMENT */}
           <section className="container" style={{ fontSize: "14px" }}>
-            <TradingArg
+            {/* <TradingArg
               userData={userData}
               orgData={orgData}
               // extraInfo={extraInfo}
-            />
+            /> */}
           </section>
         </div>
         <div>

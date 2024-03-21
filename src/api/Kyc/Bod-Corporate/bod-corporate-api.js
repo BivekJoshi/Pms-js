@@ -9,7 +9,7 @@ export const getBodCorporate = async () => {
 /*________________________POST BASIC CORPORATE DETAIL_____________________________________*/
 export const addBodCorporate = async (formData) => {
   const data = await axiosInstance.post(
-    `/client/corporate-bod-details?currentForm=7`,
+    `/client/corporate-bod-details?currentForm=6`,
     formData
   );
   return data;

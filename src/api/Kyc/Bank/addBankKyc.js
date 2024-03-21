@@ -15,7 +15,7 @@ export const getKycBank = async () => {
 /*________________________POST BANK DETAIL_____________________________________*/
 export const addKycBank = async (formData) => {
   const data = await axiosInstance.post(
-    `/client/bank-details?currentForm=1`,
+    `/client/bank-details?currentForm=5`,
     formData
   );
   return data;
@@ -23,7 +23,7 @@ export const addKycBank = async (formData) => {
 
   /*________________________UPDATE BANK DETAIL_____________________________________*/
   export const updateKycBank = async (updatedRow) => {
-    const data = await axiosInstance.post(`/client/bank-details?currentForm=1`, updatedRow);
+    const data = await axiosInstance.post(`/client/bank-details?currentForm=5`, updatedRow);
     return data;
   };
 

@@ -10,7 +10,7 @@ export const getBranchDetail = async () => {
 export const addBranchDetail = async (formData) => {
   const otherBranch = formData.otherBranch;
   const data = await axiosInstance.post(
-    `/client/branch-details?currentForm=1&otherBranch=${otherBranch}`,
+    `/client/branch-details?currentForm=4&otherBranch=${otherBranch}`,
     formData
   );
   return data;

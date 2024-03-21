@@ -9,7 +9,7 @@ export const getNomineeDetail = async () => {
 /*________________________POST BO DETAIL_____________________________________*/
 export const addNomineeDetail = async (formData) => {
   const data = await axiosInstance.post(
-    `/client/dp-nominee-details?currentForm=1`,
+    `/client/dp-nominee-details?currentForm=7`,
     formData
   );
   return data;
