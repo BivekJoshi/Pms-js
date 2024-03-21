@@ -10,7 +10,23 @@ export const getDocument = async () => {
 /*________________________POST DOCUMENT DETAIL_____________________________________*/
 export const addDocument = async (image, formData) => {
   const imgData = new FormData();
-  imgData.append("ppSizePhoto", image?.ppSizePhoto);
+  imgData.append(image?.file, image?.ppSizePhoto);
+  const { data } = await axiosInstance.post(
+    `/client/client-document?currentForm=1`,
+    imgData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  return data;
+};
+
+/*________________________POST Verification DOCUMENT DETAIL_____________________________________*/
+export const addVerificationDocument = async (image, formData) => {
+  const imgData = new FormData();
+  imgData.append(image?.file, image?.finalImage);
   const { data } = await axiosInstance.post(
     `/client/client-document?currentForm=2`,
     imgData,

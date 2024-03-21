@@ -5,6 +5,7 @@ import {
   addDocument,
   addPhoto,
   addPhotoDragImage,
+  addVerificationDocument,  
 } from "../../../api/Kyc/document/documnt-api";
 import { getErrorMessage } from "../../../utility/getErrorMessage";
 
@@ -45,6 +46,22 @@ export const useAddDocument = ({ onSuccess }) => {
   return useMutation(
     ["getCitizenshipField"],
     (formData) => addDocument(formData),
+    {
+      onSuccess: (data, variables, context) => {
+        toast.success("Successfully added document");
+        onSuccess && onSuccess(data, variables, context);
+      },
+      onError: (err, _variables, _context) => {
+        toast.error(`${err.message}`);
+      },
+    }
+  );
+};
+
+export const useAddVerificationDocument = ({ onSuccess }) => {
+  return useMutation(
+    ["getCitizenshipField"],
+    (formData) => addVerificationDocument(formData),
     {
       onSuccess: (data, variables, context) => {
         toast.success("Successfully added document");

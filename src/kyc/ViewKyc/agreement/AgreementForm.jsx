@@ -17,13 +17,14 @@ import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { nextFormPath } from "../../../utility/userHelper";
 import { SET_FORM } from "../../../redux/types/types";
+import { useTranslation } from "react-i18next";
 
-const AgreementForm = forwardRef((props, ref) => {
+const AgreementForm = forwardRef(({ onNext }, ref) => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
-  console.log("🚀 ~ AgreementForm ~ checked:", checked);
   const [switchCase, setSwitchCase] = useState(false);
 
   const handleChange = () => {
@@ -37,6 +38,11 @@ const AgreementForm = forwardRef((props, ref) => {
   const handleBack = () => {
     navigate(nextFormPath(2));
     dispatch({ type: SET_FORM, payload: 2 });
+  };
+  const handleNext = () => {
+    if (checked) {
+      onNext();
+    }
   };
 
   return (
@@ -52,20 +58,22 @@ const AgreementForm = forwardRef((props, ref) => {
         }}
       >
         <Typography variant="p" sx={{ textAlign: "justify" }}>
-          • By clicking on the checkbox, you agree that the information you have
-          provided is accurate to the best of your knowledge. If any information
-          is found to be false, your application may be rejected, and legal
-          action may be taken against you.
+          •{" "}
+          {t(
+            "By clicking on the checkbox, you agree that the information you have provided is accurate to the best of your knowledge. If any information is found to be false, your application may be rejected, and legal action may be taken against you."
+          )}
         </Typography>
         <Typography variant="p" sx={{ textAlign: "justify" }}>
-          • You are responsible for verifying all the details mentioned in the
-          application form before submitting it. Once you have verified the
-          details, you must print the form and sign it.
+          •{" "}
+          {t(
+            "You are responsible for verifying all the details mentioned in the application form before submitting it. Once you have verified the details, you must print the form and sign it."
+          )}
         </Typography>
         <Typography variant="p" sx={{ textAlign: "justify" }}>
-          • The signed copy of the application form must be uploaded in the next
-          process. Failure to upload the signed copy may result in the rejection
-          of your application.
+          •{" "}
+          {t(
+            "The signed copy of the application form must be uploaded in the next process. Failure to upload the signed copy may result in the rejection of your application."
+          )}
         </Typography>
       </Grid>
       <Grid sx={{ padding: "1rem" }}>
@@ -82,14 +90,14 @@ const AgreementForm = forwardRef((props, ref) => {
               />
             }
             sx={{ color: "#D32F2F" }}
-            label="I have read and agree to all the terms and condition."
+            label={t("I have read and agree to all the terms and condition.")}
             onChange={handleChange}
             checked={checked}
           />
         </Box>
         {checked && (
           <>
-            <Typography variant="h6">Download KYC</Typography>
+            <Typography variant="h6">{t("Download KYC")}</Typography>
 
             <FormControlLabel
               sx={{
@@ -97,8 +105,9 @@ const AgreementForm = forwardRef((props, ref) => {
                 flexDirection: "row-reverse",
                 justifyContent: "start",
                 paddingLeft: "12px",
+                width: "fit-content",
               }}
-              label="Including Thumb Print and Signature"
+              label={t("Including Thumb Print and Signature")}
               control={
                 <Switch
                   sx={{
@@ -122,7 +131,7 @@ const AgreementForm = forwardRef((props, ref) => {
                     onClick={() => ref.current.print()}
                   >
                     <LocalPrintshopIcon />
-                    Print Kyc
+                    {t("Print KYC")}
                   </Button>
                 )}
                 content={() => ref.current}
@@ -138,16 +147,16 @@ const AgreementForm = forwardRef((props, ref) => {
       </Grid>
 
       <Grid sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Button variant="contained" color="secondary">
-          Back
+        <Button variant="contained" color="secondary" onClick={handleBack}>
+          {t("Back")}
         </Button>
         {checked ? (
-          <Button variant="contained" color="secondary" onClick={handleBack}>
-            Next
+          <Button variant="contained" color="secondary" onClick={handleNext}>
+            {t("Next")}
           </Button>
         ) : (
           <Button variant="contained" color="secondary" disabled>
-            Next
+            {t("Next")}
           </Button>
         )}
       </Grid>

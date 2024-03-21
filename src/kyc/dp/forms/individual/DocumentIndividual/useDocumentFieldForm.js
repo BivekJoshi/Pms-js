@@ -1,8 +1,12 @@
-import { useFormik } from "formik"
-import { usePhotoUploadDragDrop } from "../../../../../hooks/Kyc/DocumentUpload/usePhotoUplaod"
+import { useFormik } from "formik";
+import {
+  useAddVerificationDocument,
+  usePhotoUploadDragDrop,
+} from "../../../../../hooks/Kyc/DocumentUpload/usePhotoUplaod";
+import { useState } from "react";
 
 export const useDocumentFieldForm = () => {
-  const { mutate } = usePhotoUploadDragDrop({})
+  const { mutate } = usePhotoUploadDragDrop({});
 
   const formik = useFormik({
     initialValues: {
@@ -12,14 +16,36 @@ export const useDocumentFieldForm = () => {
       issuedDistrict: "",
     },
     onSubmit: (values) => {
-      const formData = { ...values }
+      const formData = { ...values };
       mutate(formData, {
         onSuccess: (data) => {
-          formik.resetForm()
+          formik.resetForm();
         },
-      })
+      });
     },
-  })
+  });
 
-  return { formik }
-}
+  return { formik };
+};
+
+export const useDocumentVerification = () => {
+  const { mutate } = useAddVerificationDocument({});
+
+  const formik = useFormik({
+    initialValues: {
+      docType: "",
+      kycDocument: "",
+    },
+    onSubmit: (values) => {
+      // setLoading(false);
+      const formData = { ...values };
+      mutate(formData, {
+        onSuccess: (data) => {
+          formik.resetForm();
+        },
+      });
+    },
+  });
+
+  return { formik };
+};

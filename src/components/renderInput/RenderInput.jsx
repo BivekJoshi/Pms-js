@@ -27,6 +27,7 @@ import { useSelector } from "react-redux";
 import NepaliInputText from "../inputType/NepaliInputText";
 import { useTranslation } from "react-i18next";
 import AsyncDropDownOption from "./AsyncDropDownOption";
+import VerificationDropZone from '../dropZone/VerificationDropZone';
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -423,7 +424,7 @@ const RenderInput = ({
                       value={radio.value}
                       control={<Radio />}
                       key={i}
-                      label={radio.label}
+                      label={t(radio.label)}
                     />
                   ))}
                 </RadioGroup>
@@ -493,7 +494,7 @@ const RenderInput = ({
                 />
               }
               labelPlacement={align ? align : "end"}
-              label={element?.label}
+              label={t(element.label)}
             />
             {formik.values[element?.name] && (
               <div style={{ width: "100%" }}>
@@ -517,7 +518,7 @@ const RenderInput = ({
                 <Typography
                   color={formTouched && Boolean(formError) && "error"}
                 >
-                  {element.label}
+                  {t(element.label)}
                 </Typography>
               </FormLabel>
               <RadioGroup
@@ -534,7 +535,7 @@ const RenderInput = ({
                     value={radio.value}
                     control={<Radio />}
                     key={i}
-                    label={radio.label}
+                    label={t(radio.label)}
                     disabled={
                       element.name === "accountStatementPeriod" &&
                       formik.values.isStandingInstructionForAutomaticTxn ===
@@ -603,7 +604,8 @@ const RenderInput = ({
 
       case "documentUpload":
         return <DropZoneUploadFile title={element?.title} element={element} />;
-
+        case "verificationDocumentUpload":
+          return <VerificationDropZone title={element?.title} element={element} />;
       default:
         return <TextField name={element?.name} label={t(element?.label)} />;
     }

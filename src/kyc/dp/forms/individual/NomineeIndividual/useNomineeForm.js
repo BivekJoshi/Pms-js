@@ -86,7 +86,6 @@ const NomineeSchema = Yup.object().shape({
   country: Yup.string().when("haveNominee", {
     is: true,
     then: Yup.string()
-      .typeError("Country is required")
       .required("Country is required"),
     otherwise: Yup.string().nullable(),
   }),
@@ -119,7 +118,7 @@ const NomineeSchema = Yup.object().shape({
     then: Yup.string()
       .email("Please enter a valid email")
       .matches(emailRegex, "Please enter valid email")
-      .required("Email Address is required"),
+      .required("Email is required"),
     otherwise: Yup.string().nullable(),
   }),
   panNo: Yup.string()

@@ -41,6 +41,7 @@ export const useKycBoIndividualForm = (data) => {
           },
         });
       }
+
       if (clientType === "C") {
         dispatch({ type: SET_FORM, payload: 7 });
         navigate(nextFormPath(7));

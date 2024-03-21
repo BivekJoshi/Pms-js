@@ -11,12 +11,14 @@ import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { DOC_URL } from "../../../utility/getBaseUrl";
 import AgreementForm from "../agreement/AgreementForm";
+import { Button, Grid } from "@mui/material";
 
-const IndividualDPKyc = () => {
+const IndividualDPKyc = ({ onNext }) => {
   const [mapImage, setmapImage] = useState("");
   const componentRef = useRef();
   const { A: userId } = getUser();
   const { data: userData } = useGetMetaData(userId);
+  console.log(userData?.user?.status);
   //individual details
   const individualDetail = userData?.individualDetails;
   // details of family member
@@ -101,6 +103,10 @@ const IndividualDPKyc = () => {
           {/* Header */}
           <section className="container pb-1">
             {/* <!-- Header section --> */}
+            {/* <header
+              className="text-center"
+              style={{ position: "relative", marginTop: "3rem" }}
+            > */}
             <header
               className="text-center"
               style={{ position: "relative", marginTop: "3rem" }}
@@ -112,6 +118,8 @@ const IndividualDPKyc = () => {
               </h2>
               <h3 className=" text-decoration-underline fs18">
                 ACCOUNT OPENING FORM FOR INDIVIDUAL
+                <br className="displayN" /> BENEFICIAL OWNER ACCOUNT OPENING
+                FORM FOR INDIVIDUAL
                 <br className="displayN" /> BENEFICIAL OWNER
               </h3>
               {/* <!-- ! signature div --> */}

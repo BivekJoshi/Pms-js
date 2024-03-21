@@ -4,6 +4,8 @@ import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { useMarriedForm } from "./useMarriedForm";
 import { nanoid } from "@reduxjs/toolkit";
 import { Button, Grid } from "@mui/material";
+import { useTranslation } from 'react-i18next';
+
 const MarriedCase = [
   {
     name: "isMarried",
@@ -59,6 +61,8 @@ const MarriedCase = [
   },
 ];
 const MarriedFamilyTable = () => {
+  const { t } = useTranslation();
+
   const columns = useMemo(
     () => [
       {
@@ -104,6 +108,7 @@ const MarriedFamilyTable = () => {
             justifyContent="end"
             mt={2}
           >
+<<<<<<< HEAD
             <Button
               onClick={handleAddAndClear}
               variant="outlined"
@@ -120,6 +125,18 @@ const MarriedFamilyTable = () => {
             </Button>
           </Grid>
         )}
+=======
+            {t("+ Add")}
+          </Button>
+          <Button
+            onClick={handleClear}
+            variant="outlined"
+            style={{ color: "red", border: "1px solid red" }}
+          >
+            {t("Clear")}
+          </Button>
+        </Grid>
+>>>>>>> f976f4fa19bf447d446fc8454e955d25084ffb94
       </div>
 
       {formik.values.isMarried && (

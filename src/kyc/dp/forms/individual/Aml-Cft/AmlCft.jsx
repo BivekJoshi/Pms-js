@@ -45,7 +45,7 @@ const beneficialOwnerField = [
   },
   {
     name: "citizenShipNo",
-    label: "CitizenShip Number",
+    label: "Citizenship Number",
     type: "text",
     placeholder: "Enter nominee's citizenship number",
     required: "Please enter nominee's citizenship number",
@@ -117,7 +117,7 @@ const beneficialOwnerField = [
   {
     name: "municipality",
     label:
-      "Rural Municipality/Municipality/Sub Metropolitan City/Metropolitan City",
+      "Rural Municipality/Municipality/Metropolitan",
     type: "dropDown",
     placeholder:
       "Select nominees rural municipality/municipality/sub metropolitan city/metropolitan city",
@@ -154,7 +154,7 @@ const beneficialOwnerField = [
   },
   {
     name: "telephoneNo",
-    label: "Phone Number",
+    label: "Phone No.",
     type: "number",
     placeholder: "Enter phone number",
     col: 12,
@@ -283,7 +283,7 @@ const AmlCft = () => {
           <>
             <Grid item display={"flex"} alignItems={"center"} style={{ paddingLeft: "0px" }}>
               <Typography>
-                Are you related to any politically high ranking person?
+                {t("Are you related to any politically high ranking person?")}
               </Typography>
 
               <Switch
@@ -378,7 +378,7 @@ const AmlCft = () => {
           </>
           <>
             <Grid item display={"flex"} alignItems={"center"} style={{ paddingLeft: "0px" }}>
-              <Typography>Do you have any past Criminal Records?</Typography>
+              <Typography>{t("Do you have any past Criminal Records?")}</Typography>
               <Switch
                 checked={formik.values.showCriminal}
                 onChange={(e) => {
@@ -435,7 +435,7 @@ const AmlCft = () => {
                                     color={"#6C49B4"}
                                     fontWeight={600}
                                   >
-                                    + Add
+                                    {t("+ Add")}
                                   </Typography>
                                 </Button>
                               )}
@@ -454,7 +454,7 @@ const AmlCft = () => {
                                   }}
                                 >
                                   <Typography color="#B4271F" fontWeight={600}>
-                                    Remove
+                                    {t("Remove")}
                                   </Typography>
                                 </Button>
                               )}
@@ -469,7 +469,7 @@ const AmlCft = () => {
           </>
           <>
             <Grid item display={"flex"} alignItems={"center"} style={{ paddingLeft: "0px" }}>
-              <Typography>Do you want to keep a nominee?</Typography>
+              <Typography>{t("Do you want to keep a nominee?")}</Typography>
               <Switch
                 checked={formik.values.showBeneficialOwner}
                 onChange={(e) => {
@@ -521,14 +521,14 @@ const AmlCft = () => {
             variant="outlined"
             color="secondary"
           >
-            Back
+            {t("Back")}
           </Button>
           <Button
             onClick={formik.handleSubmit}
             variant="contained"
             color="secondary"
           >
-            Next
+            {t("Next")}
           </Button>
         </Grid>
       </FormikProvider>
