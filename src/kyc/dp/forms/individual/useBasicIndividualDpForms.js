@@ -27,7 +27,7 @@ export const useBasicIndividualDpForms = ({ data }) => {
       isGuardianSignature: data?.isGuardianSignature || "",
       isSignature: data?.isSignature || "",
       isDifferentlyAbled: data?.isDifferentlyAbled || false,
-      isBiometric: data?.isBiometric || false,
+      isBiometric:  false,
       isNrn: data?.isNrn || false,
     },
     validationSchema: useBasicIndividualValidationSchema,
