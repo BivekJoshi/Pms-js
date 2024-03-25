@@ -42,6 +42,8 @@ export const useBasicIndividualDpForms = ({ data }) => {
           },
         })
       }
+
+      console.log(formik.errors)
       if(formik.isValid){
 
         dispatch({ type: SET_FORM, payload: 2 })
