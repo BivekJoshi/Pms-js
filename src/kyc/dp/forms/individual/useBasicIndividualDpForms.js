@@ -38,8 +38,12 @@ export const useBasicIndividualDpForms = ({ individualDetails }) => {
           },
         })
       }
-      dispatch({ type: SET_FORM, payload: 2 })
-      navigate(nextFormPath(2))
+      if(formik.isValid){
+
+        dispatch({ type: SET_FORM, payload: 2 })
+        
+        navigate(nextFormPath(2))
+      }
     },
   })
 
