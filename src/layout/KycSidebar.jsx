@@ -1,5 +1,5 @@
 import { Grid, Typography, createTheme } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import KycProfileCard from "../kyc/components/KycProfileCard";
 import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { themeSettings } from "../theme";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../utility/logout";
+import { CheckIcon } from "@mantine/core";
 
 const KycSidebar = ({
   isHomePage,
@@ -19,11 +20,10 @@ const KycSidebar = ({
   const mode = useSelector((state) => state?.theme?.mode);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const theme = useMemo(
-  //   () => createTheme(themeSettings(mode, data?.web)),
-  //   [mode, data, isLoading]
-  // )
+  const currentForm = useSelector((state) => state?.user?.currentForm);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
+  console.log(currentForm);
 
   return (
     <>
@@ -48,6 +48,7 @@ const KycSidebar = ({
               userDetails?.nature === "TMS"
                 ? item.path.replace("demat-registration", "tms-registration")
                 : item.path;
+
             return (
               <NavLink
                 className="navlinks-list"
@@ -56,13 +57,29 @@ const KycSidebar = ({
                 style={({ isActive }) =>
                   isActive && !isHomePage
                     ? activeStyle
-                    : { color: theme.palette.text.main }
+                    : {
+                        color: theme.palette.text.main,
+                        ...(currentForm < i + 1 && {
+                          pointerEvents: "none",
+                          cursor: "not-allowed",
+                          color: theme.palette.text.main,
+                          backgroundColor: "grey",
+                          borderRadius: ".5rem ",
+                          textTransform: "none",
+                          fontWeight: 700,
+                        }),
+                      }
                 }
-                onClick={handleChange}
+                onClick={() => {
+                  handleChange(item?.id);
+                }}
               >
                 <Grid className="profileIcon">
                   {item.icon}
                   <Typography variant="h7">{t(`${item.title}`)}</Typography>
+                  {currentForm > i + 1 && (
+                    <CheckIcon style={{ height: "10px", width: "20px" }} />
+                  )}
                 </Grid>
               </NavLink>
             );
