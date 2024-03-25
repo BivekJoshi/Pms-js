@@ -5,12 +5,14 @@ import React, { useMemo, useState } from "react";
 import FormModal from "../../components/formModal/FormModal";
 import CustomTable from "../../components/customTable/CustomTable";
 import DocumentFieldDp from "../dp/forms/individual/DocumentIndividual/DocumentFieldDp";
-import { useTranslation } from 'react-i18next';
-import { useGetDocument } from '../../hooks/Kyc/DocumentUpload/useDocument';
-import { DOC_URL } from '../../utility/getBaseUrl';
-import ImageViewModal from '../../components/modal/ImageModal/ImageViewModal';
-import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useGetDocument } from "../../hooks/Kyc/DocumentUpload/useDocument";
+import { DOC_URL } from "../../utility/getBaseUrl";
+import ImageViewModal from "../../components/modal/ImageModal/ImageViewModal";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import { nextFormPath } from "../../utility/userHelper";
+import { SET_FORM } from "../../redux/types/types";
 
 const IndividualDocument = () => {
   const { t } = useTranslation();
@@ -18,13 +20,14 @@ const IndividualDocument = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isImgModalOpen, setIsImgModalOpen] = useState(false);
   const [imageData, setImageData] = useState({});
-  const navigate = useNavigate();
   const { data: documentData } = useGetDocument();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleImageRow = (rowData) => {
-    setImageData(rowData?.citizenshipBack)
+    setImageData(rowData?.citizenshipBack);
     setIsImgModalOpen(rowData);
-  }
+  };
 
   const handleNext = () => {
     navigate(nextFormPath(3));
@@ -33,14 +36,14 @@ const IndividualDocument = () => {
   const handleBack = () => {
     navigate(nextFormPath(1));
     dispatch({ type: SET_FORM, payload: 1 });
-  }
+  };
   const columns = useMemo(
     () => [
       {
         id: 1,
         header: "S.N.",
         Cell: (cell) => {
-          return cell?.row?.index + 1
+          return cell?.row?.index + 1;
         },
         size: 50,
         sortable: false,
@@ -77,12 +80,17 @@ const IndividualDocument = () => {
         id: 6,
         header: "File",
         Cell: (cell) => {
-          const image = DOC_URL + (cell?.row?.original?.citizenshipBack)
+          const image = DOC_URL + cell?.row?.original?.citizenshipBack;
           return (
             <>
-              <img onClick={() => handleImageRow(cell.row.original)} width={100} src={image} alt="" />
+              <img
+                onClick={() => handleImageRow(cell.row.original)}
+                width={100}
+                src={image}
+                alt=""
+              />
             </>
-          )
+          );
         },
         size: 160,
         sortable: false,
@@ -115,7 +123,7 @@ const IndividualDocument = () => {
               fontWeight: "800",
             }}
           >
-            {t('Document Upload')}
+            {t("Document Upload")}
           </Typography>
         </Box>
         <Button
@@ -150,19 +158,17 @@ const IndividualDocument = () => {
         }
       />
 
-      <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: '1rem' }}>
-        <Button
-          onClick={handleBack}
-          variant="outlined"
-          color="secondary"
-        >
+      <Grid
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "1rem",
+        }}
+      >
+        <Button onClick={handleBack} variant="outlined" color="secondary">
           {t("Back")}
         </Button>
-        <Button
-          onClick={handleNext}
-          variant="contained"
-          color="secondary"
-        >
+        <Button onClick={handleNext} variant="contained" color="secondary">
           {t("Next")}
         </Button>
       </Grid>
@@ -170,7 +176,13 @@ const IndividualDocument = () => {
         open={isImgModalOpen}
         onClose={() => setIsImgModalOpen(false)}
         width={700}
-        formComponent={<ImageViewModal docUrl={DOC_URL} data={imageData} onClose={() => setIsImgModalOpen(false)} />}
+        formComponent={
+          <ImageViewModal
+            docUrl={DOC_URL}
+            data={imageData}
+            onClose={() => setIsImgModalOpen(false)}
+          />
+        }
       />
     </>
   );

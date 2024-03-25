@@ -12,7 +12,7 @@ export const getBasicDetail = async () => {
 export const addBasicDetail = async (formData) => {
   console.log("form", formData)
   const data = await axiosInstance.post(
-    `/client/individual-details?currentForm=2`,
+    `/client/individual-details?currentForm=1`,
     formData
   )
   return data

@@ -8,7 +8,7 @@ import {
 } from "../static/RegExp";
 
 const useBasicIndividualValidationSchema = Yup.object().shape({
-  fanme: Yup.string()
+  fname: Yup.string()
     .typeError("First Name is required")
     .matches(
       firstName,

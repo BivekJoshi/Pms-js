@@ -10,7 +10,7 @@ export const getAddress = async () => {
 export const addAddress = async (formData) => {
   const addresses = formData.addresses;
   const data = await axiosInstance.post(
-    `/client/address-details?currentForm=1`,
+    `/client/address-details?currentForm=3`,
     addresses
   );
   return data;

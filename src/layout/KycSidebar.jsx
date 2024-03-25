@@ -19,11 +19,10 @@ const KycSidebar = ({
   const mode = useSelector((state) => state?.theme?.mode);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const theme = useMemo(
-  //   () => createTheme(themeSettings(mode, data?.web)),
-  //   [mode, data, isLoading]
-  // )
+  const currentForm = useSelector((state) => state?.user?.currentForm);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
+  console.log(currentForm);
 
   return (
     <>
@@ -48,6 +47,16 @@ const KycSidebar = ({
               userDetails?.nature === "TMS"
                 ? item.path.replace("demat-registration", "tms-registration")
                 : item.path;
+            const getIcon = () => {
+              if (currentForm < i + 1) {
+                return item?.disabledIcon;
+              } else if (currentForm > i + 1) {
+                return item?.successIcon;
+              } else {
+                return item?.icon;
+              }
+            };
+
             return (
               <NavLink
                 className="navlinks-list"
@@ -56,13 +65,60 @@ const KycSidebar = ({
                 style={({ isActive }) =>
                   isActive && !isHomePage
                     ? activeStyle
-                    : { color: theme.palette.text.main }
+                    : {
+                        color: theme.palette.text.main,
+                        ...(currentForm < i + 1 && {
+                          pointerEvents: "none",
+                          cursor: "not-allowed",
+                          color: "#1C1B1E50",
+                          backgroundColor: "transparent",
+                          borderRadius: ".5rem ",
+                          textTransform: "none",
+                          fontWeight: 700,
+                        }),
+                        ...(currentForm > i + 1 && {
+                          color: "#088720",
+                        }),
+                      }
                 }
-                onClick={handleChange}
+                onClick={() => {
+                  handleChange(item?.id);
+                }}
               >
                 <Grid className="profileIcon">
-                  {item.icon}
-                  <Typography variant="h7">{t(`${item.title}`)}</Typography>
+                  <Typography variant="h7">{getIcon()}</Typography>
+                  <Typography sx={{ width: "100%" }} variant="h7">
+                    {t(`${item.title}`)}
+                  </Typography>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "end",
+                      width: "100%",
+                    }}
+                  >
+                    {currentForm > i + 1 && (
+                      <svg
+                        width="15"
+                        height="16"
+                        viewBox="0 0 15 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <rect
+                          y="0.5"
+                          width="15"
+                          height="15"
+                          rx="7.5"
+                          fill="#2E7D32"
+                        />
+                        <path
+                          d="M6.17794 10.3117L3.80728 7.82401L3 8.66517L6.17794 12L13 4.84116L12.1984 4L6.17794 10.3117Z"
+                          fill="white"
+                        />
+                      </svg>
+                    )}
+                  </div>
                 </Grid>
               </NavLink>
             );
