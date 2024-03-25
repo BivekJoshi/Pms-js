@@ -28,6 +28,7 @@ import NepaliInputText from "../inputType/NepaliInputText";
 import { useTranslation } from "react-i18next";
 import AsyncDropDownOption from "./AsyncDropDownOption";
 import VerificationDropZone from '../dropZone/VerificationDropZone';
+import OptionalRender from './OptionalRender';
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -135,6 +136,7 @@ const RenderInput = ({
     const formTouched = isFieldArray
       ? getIn(formik.touched, element.name)
       : formik.touched[element.name];
+
     switch (element.type) {
       case "text":
         return (
@@ -604,8 +606,10 @@ const RenderInput = ({
 
       case "documentUpload":
         return <DropZoneUploadFile title={element?.title} element={element} />;
-        case "verificationDocumentUpload":
-          return <VerificationDropZone title={element?.title} element={element} />;
+      case "verificationDocumentUpload":
+        return <VerificationDropZone title={element?.title} element={element} />;
+      case "optionalRender":
+        return <OptionalRender element={element} formik={formik} />
       default:
         return <TextField name={element?.name} label={t(element?.label)} />;
     }

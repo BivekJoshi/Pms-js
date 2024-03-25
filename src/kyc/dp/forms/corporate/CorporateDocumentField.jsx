@@ -8,9 +8,11 @@ import {
   PanCardField,
 } from "../individual/DocumentIndividual/DocumentField"
 import { useDocumentFieldForm } from "../individual/DocumentIndividual/useDocumentFieldForm"
+import { useTranslation } from 'react-i18next'
 
 const CorporateDocumentField = () => {
-  const { formik } = useDocumentFieldForm()
+  const { t } = useTranslation();
+  const { formik } = useDocumentFieldForm();
 
   return (
     <Grid container>
@@ -36,14 +38,14 @@ const CorporateDocumentField = () => {
             variant="outlined"
             color="secondary"
           >
-            Reset
+            {t("Reset")}
           </Button>
           <Button
             onClick={formik.handleSubmit}
             variant="contained"
             color="secondary"
           >
-            Add
+            {t("Add")}
           </Button>
         </Grid>
       </Grid>

@@ -8,7 +8,8 @@ import {
 } from "../static/RegExp";
 
 const useBasicIndividualValidationSchema = Yup.object().shape({
-  firstName: Yup.string()
+  fanme: Yup.string()
+    .typeError("First Name is required")
     .matches(
       firstName,
       "First Name cannot contain spaces or special characters"
@@ -16,18 +17,19 @@ const useBasicIndividualValidationSchema = Yup.object().shape({
     .min(3, "First Name must be at least 3 characters")
     .max(25, "First Name must be at most 25 characters")
     .required("First Name is required"),
-  middleName: Yup.string()
+  mname: Yup.string()
     .nullable(true)
     .notRequired()
     .matches(middleName, "Middle Name cannot contain special characters")
     .min(3, "Middle Name must be at least 3 characters")
     .max(25, "Middle Name must be at most 25 characters"),
-  lastName: Yup.string()
+  lname: Yup.string()
+    .typeError("Last Name is required")
     .matches(firstName, "Last Name cannot contain spaces or special characters")
     .required("Last Name is required")
     .min(3, "Last Name must be at least 3 characters")
     .max(25, "Last Name must be at most 25 characters"),
-  fNameNep: Yup.string()
+  fnameNep: Yup.string()
     .transform((value) =>
       value ? value.charAt(0).toUpperCase() + value.slice(1) : value
     )
@@ -38,12 +40,12 @@ const useBasicIndividualValidationSchema = Yup.object().shape({
     .min(2, "Last Name must be at least 2 characters")
     .max(25, "Last Name must be at most 25 characters")
     .required("First Name is required"),
-  mNameNep: Yup.string()
+  mnameNep: Yup.string()
     .nullable(true)
     .matches(middleNameNep, "Middle Name cannot contain special characters")
     .min(2, "Middle Name must be at least 2 characters")
     .max(25, "Middle Name must be at most 25 characters"),
-  lNameNep: Yup.string()
+  lnameNep: Yup.string()
     .transform((value) =>
       value ? value.charAt(0).toUpperCase() + value.slice(1) : value
     )
@@ -60,9 +62,9 @@ const useBasicIndividualValidationSchema = Yup.object().shape({
   // .test("is-date", "Please select valid date", (value) => {
   //   return moment(value, moment.ISO_8601, true).isValid();
   // }),
-  panNo: Yup.string()
+  pan: Yup.string()
     .min(0)
-    .max(9, "Pan No. must be at most 9 digits")
+    .max(9, "PAN No. must be at most 9 digits")
     .nullable(true)
     .matches(/^\d{9}$/, "PAN number must be a 9-digit number")
     .notRequired(),
