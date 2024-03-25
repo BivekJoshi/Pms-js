@@ -1,5 +1,5 @@
 import { Grid, Typography, createTheme } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import KycProfileCard from "../kyc/components/KycProfileCard";
 import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { themeSettings } from "../theme";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../utility/logout";
-import { CheckIcon } from "@mantine/core";
 
 const KycSidebar = ({
   isHomePage,
