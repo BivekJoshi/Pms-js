@@ -35,16 +35,20 @@ const FinalImageSelect = ({ finalImage, file, handleRemoveData, handleRemoveImag
               <div
                 style={{
                   position: "absolute",
-                  bottom: "-12%",
+                  top: "50%",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
-                  background: "rgba(255, 0, 0, 0.5)",
+                  background: "rgba(169, 169, 169, 0.5)",
                   padding: "6px",
                   borderRadius: "3px",
                   width: "100%",
-                  height: "42px",
-                  textAlign: "end",
-                  fontWeight: "900"
+                  height: "100%",
+                  textAlign: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontWeight: "900",
+                  color: "white"
                 }}
                 onClick={handleRemoveData}
               >
@@ -62,16 +66,20 @@ const FinalImageSelect = ({ finalImage, file, handleRemoveData, handleRemoveImag
               <div
                 style={{
                   position: "absolute",
-                  bottom: "-10%",
+                  top: "50%",
                   left: "50%",
                   transform: "translate(-50%, -50%)",
-                  background: "rgba(255, 0, 0, 0.5)",
+                  background: "rgba(169, 169, 169, 0.5)",
                   padding: "6px",
                   borderRadius: "3px",
                   width: "100%",
-                  height: "42px",
-                  textAlign: "end",
-                  fontWeight: "900"
+                  height: "100%",
+                  textAlign: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontWeight: "900",
+                  color: "white"
                 }}
                 onClick={handleRemoveImage}
               >

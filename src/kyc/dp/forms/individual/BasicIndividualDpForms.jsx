@@ -11,8 +11,9 @@ import { nextFormPath } from "../../../../utility/userHelper"
 const BasicIndividualDpForms = () => {
   const theme = useTheme()
   const { data: basicIndividualData } = useGetBasicDetail();
+  console.log(basicIndividualData, "baic Individual data ");
   const individualDetails = basicIndividualData && basicIndividualData?.individualDetails;
-  const { formik } = useBasicIndividualDpForms({individualDetails});
+  const { formik } = useBasicIndividualDpForms({ individualDetails });
   const { t } = useTranslation();
 
   useEffect(() => {

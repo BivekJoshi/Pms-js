@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { useGetDocument } from '../../hooks/Kyc/DocumentUpload/useDocument';
 import { DOC_URL } from '../../utility/getBaseUrl';
 import ImageViewModal from '../../components/modal/ImageModal/ImageViewModal';
+import { useNavigate } from "react-router-dom";
+import { nextFormPath } from "../../utility/userHelper";
 
 const IndividualDocument = () => {
   const { t } = useTranslation();
@@ -16,6 +18,7 @@ const IndividualDocument = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isImgModalOpen, setIsImgModalOpen] = useState(false);
   const [imageData, setImageData] = useState({});
+  const navigate = useNavigate();
   const { data: documentData } = useGetDocument();
 
   const handleImageRow = (rowData) => {

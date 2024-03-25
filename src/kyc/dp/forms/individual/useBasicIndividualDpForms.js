@@ -1,15 +1,16 @@
-import { useFormik } from "formik"
-import useBasicIndividualValidationSchema from "./useBasicIndividualValidationSchema"
-import { useAddBasicDetail } from "./BasicDetail/useBasicDetail"
-import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
-import { SET_FORM } from "../../../../redux/types/types"
-import { nextFormPath } from "../../../../utility/userHelper"
+import { useFormik } from "formik";
+import useBasicIndividualValidationSchema from "./useBasicIndividualValidationSchema";
+import { useAddBasicDetail } from "./BasicDetail/useBasicDetail";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { SET_FORM } from "../../../../redux/types/types";
+import { nextFormPath } from "../../../../utility/userHelper";
 
 export const useBasicIndividualDpForms = ({ individualDetails }) => {
-  const { mutate } = useAddBasicDetail({})
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  console.log(individualDetails,"individual details");
+  const { mutate } = useAddBasicDetail({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       firstName: individualDetails?.firstName || "",
@@ -31,17 +32,19 @@ export const useBasicIndividualDpForms = ({ individualDetails }) => {
     validationSchema: useBasicIndividualValidationSchema,
     onSubmit: (values) => {
       if (formik.dirty) {
-        const formData = { ...values }
+        const formData = { ...values };
         mutate(formData, {
           onSuccess: (data) => {
             // formik.resetForm()
           },
-        })
+        });
       }
-      dispatch({ type: SET_FORM, payload: 2 })
-      navigate(nextFormPath(2))
+      if (formik.isValid) {
+        dispatch({ type: SET_FORM, payload: 2 });
+        navigate(nextFormPath(2));
+      }
     },
-  })
+  });
 
-  return { formik }
-}
+  return { formik };
+};
