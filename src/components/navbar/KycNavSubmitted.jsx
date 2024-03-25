@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Chip, Drawer, IconButton, Toolbar, Tooltip } from "@mui/material";
+import { AppBar, Avatar, Chip, Drawer, IconButton, ListItemAvatar, ListItemIcon, Menu, MenuItem, Toolbar, Tooltip } from "@mui/material";
 import React, { useState } from "react";
 import logo from "../../assets/logo.png";
 import FlexBetween from "../flexBetween/FlexBetween";
@@ -12,32 +12,31 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { useLocation, useNavigate } from "react-router-dom";
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import BallotIcon from '@mui/icons-material/Ballot';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { logout } from "../../utility/logout";
 
 const KycNavSubmitted = () => {
     const userDetails = useSelector((state) => state?.user);
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [state, setState] = React.useState({
-        right: false,
-        drawerOpen: false,
-    });
-    const toggleMenu = () => {
-        setIsMenuOpen((val) => !val);
-    };
+
     const { pathname } = useLocation();
     const navigate = useNavigate({});
-
-    const toggleDrawer = (anchor, open) => (event) => {
-        if (
-            event.type === "keydown" &&
-            (event.key === "Tab" || event.key === "Shift")
-        ) {
-            return;
-        }
-
-        setState({ ...state, [anchor]: open });
+    const dispatch = useDispatch();
+    
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
     };
+    const handleLogout = () => {
+        setAnchorEl(false);
+        dispatch({ type: "LOGOUT" });
+        logout();
+        navigate("/login");
+        setIsMenuOpen(true)
+    };
+
     return (
         <AppBar
             style={{
@@ -47,7 +46,7 @@ const KycNavSubmitted = () => {
                     "rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset",
                 color: "black",
                 backgroundColor: "#F5F9FC",
-                marginBottom:"1rem"
+                marginBottom: "1rem"
             }}
         >
             <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -86,20 +85,6 @@ const KycNavSubmitted = () => {
                         ))
                     }
                     <div>
-                        {/* <React.Fragment>
-              <Tooltip title="App settings">
-                <IconButton onClick={toggleDrawer("right", true)}>
-                  <SettingsOutlined sx={{ fontSize: "25px" }} />
-                </IconButton>
-              </Tooltip>
-              <Drawer
-                anchor="right"
-                open={state["right"]}
-                onClose={toggleDrawer("right", false)}
-              >
-                <DarkModeSetting onClose={toggleDrawer("right", false)} />
-              </Drawer>
-            </React.Fragment> */}
                     </div>
                     <IconButton>
                         <NotificationsNoneIcon sx={{ fontSize: "25px" }} />
@@ -108,7 +93,7 @@ const KycNavSubmitted = () => {
                         edge="start"
                         color="inherit"
                         aria-label="menu"
-                        onClick={toggleMenu}
+                        onClick={handleClick}
 
                     >
                         {isMenuOpen ? (
@@ -117,6 +102,46 @@ const KycNavSubmitted = () => {
                             <MenuIcon sx={{ fontSize: "25px" }} />
                         )}
                     </IconButton>
+                    <Menu
+                        anchorEl={anchorEl}
+                        id="account-menu"
+                        open={open}
+                        // onClose={handleClose}
+                        PaperProps={{
+                            elevation: 0,
+                            sx: {
+                                overflow: "visible",
+                                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                                mt: 5.5,
+                                ml: 0,
+                                "& .MuiAvatar-root": {
+                                    width: 32,
+                                    height: 32,
+                                },
+                                "&:before": {
+                                    content: '""',
+                                    display: "block",
+                                    position: "absolute",
+                                    top: 0,
+                                    right: 14,
+                                    width: 10,
+                                    height: 10,
+                                    bgcolor: "background.paper",
+                                    transform: "translateY(-50%) rotate(45deg)",
+                                    zIndex: 0,
+                                },
+                            },
+                        }}
+                        transformOrigin={{ horizontal: "right", vertical: "top" }}
+                        anchorOrigin={{ horizontal: "right", vertical: "top" }}
+                    >
+                        <MenuItem onClick={handleLogout}>
+                            <ListItemIcon>
+                                <LogoutIcon fontSize="small" />
+                            </ListItemIcon>
+                            Logout
+                        </MenuItem>
+                    </Menu>
                 </FlexBetween>
             </Toolbar>
         </AppBar>

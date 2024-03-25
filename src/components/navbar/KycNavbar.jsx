@@ -34,9 +34,9 @@ const KycNavbar = ({userDetails}) => {
     ) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
   };
+  
   return (
     <AppBar
       style={{
