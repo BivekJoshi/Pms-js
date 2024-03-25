@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography, tabClasses } from "@mui/material";
 import { nanoid } from "nanoid";
 import {
   BUSINESS_OPTIONS,
@@ -10,6 +10,7 @@ import RenderInput from "../../../../components/renderInput/RenderInput";
 import { useTheme } from "@emotion/react";
 import { BasicCorporateDpForm } from "../../../../form/auth/CorporateDp/BasicCorporateDpForm";
 import { useGetBasicDpCorporate } from '../../../../hooks/Kyc/corporate/BasicCoporateDp/useBasicCoporateDp';
+import { useTranslation } from 'react-i18next';
 
 const CorporateDetailsDp = () => {
   const CorporateField = [
@@ -62,7 +63,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "contactNumber",
-      label: "Contact Number",
+      label: "Contact No.",
       type: "number",
       maxLength: 21,
       minLength: 10,
@@ -100,7 +101,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "registrationNo",
-      label: "Registration Number",
+      label: "Registration No.",
       type: "text",
       id: nanoid(),
       md: 4,
@@ -132,7 +133,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "panNo",
-      label: "PAN Number",
+      label: "PAN No.",
       type: "text",
       id: nanoid(),
       maxLength: 10,
@@ -159,7 +160,7 @@ const CorporateDetailsDp = () => {
     },
     {
       name: "vatRegistration",
-      label: "VAT Registration No",
+      label: "VAT Registration No.",
       type: "number",
       id: nanoid(),
       maxLength: 15,
@@ -169,7 +170,7 @@ const CorporateDetailsDp = () => {
     {
       name: "nrbRegistration",
       label:
-        "NRB Registration No",
+        "NRB Registration No.",
       type: "number",
       id: nanoid(),
       maxLength: 15,
@@ -243,14 +244,15 @@ const CorporateDetailsDp = () => {
       type: "switch",
       display: "flex",
       direction: "column",
-      justify: "start",  
+      justify: "start",
       id: nanoid(),
       sm: 12,
     },
   ];
-  
-const {data: basicCorData} = useGetBasicDpCorporate();
-const data = basicCorData && basicCorData;
+
+  const { data: basicCorData } = useGetBasicDpCorporate();
+  const { t } = useTranslation();
+  const data = basicCorData && basicCorData;
   const theme = useTheme();
   const { formik } = BasicCorporateDpForm(data);
   useEffect(() => {
@@ -272,7 +274,7 @@ const data = basicCorData && basicCorData;
             fontWeight: "800",
           }}
         >
-          Corporate Details
+          {t("Corporate Details")}
         </Typography>
       </Box>
       <Grid>
@@ -283,7 +285,7 @@ const data = basicCorData && basicCorData;
             variant="contained"
             color="secondary"
           >
-            Next
+            {t("Next")}
           </Button>
         </Grid>
       </Grid>

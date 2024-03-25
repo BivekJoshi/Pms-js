@@ -61,10 +61,10 @@ const NomineeSchema = Yup.object().shape({
     then: Yup
       .string()
       .required('Please enter age')
-      .max(16, "Age must be less than or equal to 16")
+      .max(150, "Invalid age")
       .matches(ageREgex, 'Please enter valid age')
-      .test('maxAge', 'Age must be less than or equal to 16', value => {
-        return parseInt(value, 10) <= 16;
+      .test('maxAge', 'Age must be less than or equal to 150', value => {
+        return parseInt(value, 10) <= 150;
       }),
     otherwise: Yup.string().nullable(),
   }),
@@ -162,7 +162,7 @@ export const useNomineeForm = (data) => {
         const formData = { ...values };
         mutate(formData, {
           onSuccess: () => {
-            formik.resetForm();
+            // formik.resetForm();
           },
         });
       }

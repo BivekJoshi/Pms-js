@@ -7,8 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getUser, nextFormPath } from "../../../../utility/userHelper";
 import { SET_FORM } from "../../../../redux/types/types";
+import { useTranslation } from 'react-i18next';
 
 const CorporatBankDetail = () => {
+  const { t } = useTranslation();
   const { formik, loading } = corporatBankDetailForm();
   const { H: clientType, I: formNature } = getUser()
   const navigate = useNavigate();
@@ -95,7 +97,7 @@ const CorporatBankDetail = () => {
             fontWeight: "800",
           }}
         >
-          Bank Details
+          {t("Bank Details")}
         </Typography>
       </Box>
       <form onSubmit={formik.handleSubmit}>
@@ -114,14 +116,14 @@ const CorporatBankDetail = () => {
             variant="outlined"
             color="secondary"
           >
-            Back
+            {t("Back")}
           </Button>
           <Button
             onClick={handleNext}
             variant="contained"
             color="secondary"
           >
-            Next
+            {t("Next")}
           </Button>
         </Grid>
       </form>

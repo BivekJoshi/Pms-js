@@ -93,7 +93,7 @@ const NOMINEEFIELDS = [
         name: "age",
         label: "Age",
         type: "number",
-        max: 16,
+        max: 150,
         required: true,
         id: nanoid(),
         md: 4,
@@ -245,7 +245,7 @@ const NOMINEEFIELDS = [
       },
       {
         name: "fax",
-        label: "Fax Number",
+        label: "Fax No.",
         type: "text",
         required: true,
         id: nanoid(),
@@ -254,7 +254,7 @@ const NOMINEEFIELDS = [
       },
       {
         name: "panNo",
-        label: "PAN Number",
+        label: "PAN No.",
         type: "text",
         required: true,
         id: nanoid(),

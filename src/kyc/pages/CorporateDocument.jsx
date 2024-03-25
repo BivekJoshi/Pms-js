@@ -114,7 +114,7 @@ const CorporateDocument = () => {
           }}
           onClick={() => setIsModalOpen(true)}
         >
-          + Add
+          {t("+ Add")}
         </Button>
       </Grid>
       <CustomTable
@@ -142,7 +142,7 @@ const CorporateDocument = () => {
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         width={800}
-        header="Document Form"
+        header={t("Document Form")}
         formComponent={
           <>
             <CorporateDocumentField />
@@ -155,14 +155,14 @@ const CorporateDocument = () => {
           variant="outlined"
           color="secondary"
         >
-          Back
+          {t("Back")}
         </Button>
         <Button
           onClick={handleNext}
           variant="contained"
           color="secondary"
         >
-          Next
+          {t("Next")}
         </Button>
       </Grid>
     </>
