@@ -10,8 +10,10 @@ import { useNavigate } from "react-router-dom";
 import { SET_FORM } from "../../../../../redux/types/types";
 import { nextFormPath } from "../../../../../utility/userHelper";
 import { useDispatch } from "react-redux";
+import { useTranslation } from 'react-i18next';
 
 const AddressIndividualDp = () => {
+  const { t } = useTranslation();
   const { data: addressData } = useGetAddress()
   const data = addressData && addressData?.data
   const { formik } = useAddressForm(data)
@@ -41,7 +43,7 @@ const AddressIndividualDp = () => {
             fontWeight: "800",
           }}
         >
-          Address Details
+          {t("Address Details")}
         </Typography>
       </Box>
       <FormikProvider value={formik} {...formik}>
@@ -118,14 +120,14 @@ const AddressIndividualDp = () => {
             variant="outlined"
             color="secondary"
           >
-            Back
+            {t("Back")}
           </Button>
           <Button
             onClick={formik.handleSubmit}
             variant="contained"
             color="secondary"
           >
-            Next
+            {t("Next")}
           </Button>
         </Grid>
       </FormikProvider>

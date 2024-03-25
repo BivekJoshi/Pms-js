@@ -37,6 +37,7 @@ const StepOne = ({ formik }) => {
       type: "asyncDropDown",
       required: true,
       responseLabel: "branchName",
+      isNeutral: true,
       responseId: "id",
     },
     {

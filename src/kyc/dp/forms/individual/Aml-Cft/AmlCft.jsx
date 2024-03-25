@@ -175,7 +175,7 @@ const beneficialOwnerField = [
   },
   {
     name: "panNo",
-    label: "PAN Number",
+    label: "PAN No.",
     type: "text",
     placeholder: "Enter PAN number",
     col: 12,

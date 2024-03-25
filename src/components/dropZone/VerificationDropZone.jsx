@@ -1,21 +1,21 @@
-import React, { useState } from "react"
-import { Button, CircularProgress, Grid, Typography } from "@mui/material"
+import React, { useEffect, useState } from "react"
+import { Box, Button, CircularProgress, Grid, Stack, Typography } from "@mui/material"
 import Dropzone from "react-dropzone"
 import { fileResize } from "../../utility/image"
 import Picture from "../../assets/Picture.png"
 import { useAddVerificationDocument } from "../../hooks/Kyc/DocumentUpload/usePhotoUplaod"
-import Circular from './Circular'
 import { useTranslation } from 'react-i18next'
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import CircularUploadProgress from '../spinner/CircularUploadProgress'
 
 const VerificationDropZone = ({ element, formik }) => {
   const { t } = useTranslation();
   const [file, setFile] = useState(null);
   const [showDelete, setShowDelete] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
+  const [upProgress, setUpProgress] = useState("0");
   const title = element?.title
   const documentName = element?.name;
-  // console.log(loading, "loading")
+
   const { mutate } = useAddVerificationDocument({})
 
   const handleImage = async (acceptedFiles) => {
@@ -26,42 +26,34 @@ const VerificationDropZone = ({ element, formik }) => {
   }
 
   const handleUpload = async (acceptedFiles) => {
-    const image = await handleImage(acceptedFiles)
-    setIsLoading(true);
-    setFile(image)
-    // formik.setFieldValue(element.name, image);
+    const image = await handleImage(acceptedFiles);
+    setFile(image);
+    const onUploadProgress = (progressEvent) => {
+      const { loaded, total } = progressEvent;
+      const progress = Math.round((loaded * 100) / total);
+      setUpProgress(progress);
+    };
+
     mutate(
-      { finalImage: image, file: documentName },
+      { finalImage: image, file: documentName, onUploadProgress: onUploadProgress },
       {
+        // onUploadProgress, onUploadProgress
         onSuccess: (data) => {
-          setIsLoading(false);
-          setUploadProgress(0);
+          // setUpProgress("100")
           // formik.resetForm();
         },
       }
-    )
-  }
+    );
+  };
+
 
   const handleDelete = () => {
     setFile(null)
     formik.setFieldValue(element.name, null);
   };
-  console.log(uploadProgress, "upload progress", isLoading, "isLoading")
-  return (
-    <div>
 
-      {/* {title && (
-        <Typography
-          variant="h4"
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            paddingBottom: "9px",
-          }}
-        >
-          {title}
-        </Typography>
-      )} */}
+  return (
+    <Stack sx={{ margin: "0 1rem" }}>
       {file ? (
         <div
           style={{
@@ -69,8 +61,6 @@ const VerificationDropZone = ({ element, formik }) => {
             position: "relative",
             cursor: "pointer",
           }}
-        // onMouseOver={() => setShowDelete(true)}
-        // onMouseLeave={() => setShowDelete(false)}
         >
 
           <iframe
@@ -127,12 +117,12 @@ const VerificationDropZone = ({ element, formik }) => {
       {file && (
         <Grid container sx={{ borderBottom: "1px solid grey" }}>
           <Grid item xs={12} md={12} sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
-            <Typography>Icon</Typography>
+            <UploadFileIcon sx={{ fontSize: "2rem", color: "rgba(86.95, 38, 150.96, 1)" }} />
             <Typography>{title}</Typography>
-            <Button onClick={handleDelete} variant='contained' color="error">Delete</Button>
-
-            {/* <Circular variant="determinate" value={"10"} /> */}
-
+            <Box sx={{ display: "flex", flexDirection: "row", gap: "0.6rem", alignItems: "center" }}>
+              <Button onClick={handleDelete} variant='contained' color="error">Delete</Button>
+              <CircularUploadProgress value={upProgress} />
+            </Box>
           </Grid>
         </Grid>
       )}
@@ -147,7 +137,7 @@ const VerificationDropZone = ({ element, formik }) => {
           </Button>
         </div>
       )}
-    </div>
+    </Stack>
   )
 }
 

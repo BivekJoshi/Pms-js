@@ -11,9 +11,11 @@ import { useGetBodCorporate } from "../../../../hooks/Kyc/corporate/BodCorporate
 import { useDispatch } from "react-redux";
 import { getUser, nextFormPath } from "../../../../utility/userHelper";
 import { SET_FORM } from "../../../../redux/types/types";
+import { useTranslation } from 'react-i18next';
 import { useState } from "react";
 
 const CorporatOwnershipDetails = () => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -109,7 +111,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "telephoneNo",
-      label: "Telephone Number",
+      label: "Telephone No.",
       type: "number",
       placeholder: "Enter telephone number",
       md: 4,
@@ -120,7 +122,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "mobileNo",
-      label: "Mobile Number",
+      label: "Mobile No.",
       type: "number",
       placeholder: "Enter mobile number",
       required: "Please enter mobile number",
@@ -143,7 +145,7 @@ const CorporatOwnershipDetails = () => {
     },
     {
       name: "panNo",
-      label: "PAN Number",
+      label: "PAN No.",
       minLength: 9,
       maxLength: 10,
       type: "number",
@@ -319,6 +321,23 @@ const CorporatOwnershipDetails = () => {
     dispatch({ type: SET_FORM, payload: 6 });
   };
 
+  const titles = [
+    {
+      initialvalue: FirstContactField,
+      name1: t("First Contact Person"),
+      error: formik?.errors?.fcpName || formik?.errors?.fcpFatherName || formik?.errors?.fcpGrandFatherName || formik?.errors?.fcpDesignation ? "Error *" : "",
+    },
+    {
+      initialvalue: SecondContactField,
+      name1: t("Second Contact Person"),
+      error: formik?.errors?.scpName || formik?.errors?.scpFatherName || formik?.errors?.scpGrandFatherName || formik?.errors?.scpDesignation ? "Error *" : "",
+    },
+    {
+      initialvalue: ThirdContactField,
+      name1: t("Third Contact Person"),
+      error: formik?.errors?.trdName || formik?.errors?.trdFatherName || formik?.errors?.trdGrandFatherName || formik?.errors?.trdDesignation ? "Error *" : "",
+    },
+  ];
   const handleAccordionChange = (index) => {
     const updatedExpansions = [...expandAccordionDetails];
     updatedExpansions[index] = !updatedExpansions[index];
@@ -341,7 +360,7 @@ const CorporatOwnershipDetails = () => {
             fontWeight: "800",
           }}
         >
-          Ownership Details
+          {t("Ownership Details")}
         </Typography>
       </Box>
       <FormikProvider value={formik} {...formik}>
@@ -410,10 +429,10 @@ const CorporatOwnershipDetails = () => {
                         >
                           <Typography variant="h5">
                             {index === 0
-                              ? "CEO Details"
+                              ? t("CEO Details")
                               : index === 1
-                                ? "Company Secretary Details"
-                                : "BOD Details"}
+                                ? t("Company Secretary Details")
+                                : t("BOD Details")}
                           </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
@@ -463,7 +482,7 @@ const CorporatOwnershipDetails = () => {
                             }
                             fontWeight={600}
                           >
-                            + Add
+                            {t("+ Add")}
                           </Typography>
                         </Button>
                       )}
@@ -480,7 +499,7 @@ const CorporatOwnershipDetails = () => {
                         }}
                       >
                         <Typography color="#B4271F" fontWeight={600}>
-                          Remove
+                          {t("Remove")}
                         </Typography>
                       </Button>
                     )}
@@ -546,14 +565,14 @@ const CorporatOwnershipDetails = () => {
           }}
         >
           <Button onClick={handleBack} variant="outlined" color="secondary">
-            Back
+            {t("Back")}
           </Button>
           <Button
             onClick={formik.handleSubmit}
             variant="contained"
             color="secondary"
           >
-            Next
+            {t("Next")}
           </Button>
         </Grid>
       </FormikProvider>

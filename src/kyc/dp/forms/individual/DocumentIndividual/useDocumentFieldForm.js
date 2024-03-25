@@ -10,7 +10,7 @@ export const useDocumentFieldForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      citizenshipNo: "",
+      documentType: "",
       docType: "",
       issuedDatebs: "",
       issuedDistrict: "",
