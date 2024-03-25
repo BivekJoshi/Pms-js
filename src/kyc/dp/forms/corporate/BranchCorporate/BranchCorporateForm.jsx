@@ -8,8 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { nextFormPath } from '../../../../../utility/userHelper';
 import { SET_FORM } from '../../../../../redux/types/types';
+import { useTranslation } from 'react-i18next';
 
 const BranchCorporateForm = () => {
+  const { t } = useTranslation();
   const theme = useTheme();
   const { data: branchDetail } = useGetBranchDetail()
   const data = branchDetail;
@@ -58,7 +60,7 @@ const BranchCorporateForm = () => {
         },
         {
           name: "telephoneNo",
-          label: "Telephone No",
+          label: "Telephone No.",
           type: "text",
           required: true,
           id: nanoid(),
@@ -67,7 +69,7 @@ const BranchCorporateForm = () => {
         },
         {
           name: "mobileNo",
-          label: "Mobile No",
+          label: "Mobile No.",
           type: "text",
           required: true,
           id: nanoid(),
@@ -107,7 +109,7 @@ const BranchCorporateForm = () => {
             fontWeight: "800",
           }}
         >
-          Branch Details
+          {t("Branch Details")}
         </Typography>
       </Box>
       <RenderInput inputField={BRANCHFIELDs} formik={formik} data={data} loading={loading} />
@@ -117,14 +119,14 @@ const BranchCorporateForm = () => {
           variant="outlined"
           color="secondary"
         >
-          Back
+          {t("Back")}
         </Button>
         <Button
           onClick={formik.handleSubmit}
           variant="contained"
           color="secondary"
         >
-          Next
+          {t("Next")}
         </Button>
       </Grid>
     </div>

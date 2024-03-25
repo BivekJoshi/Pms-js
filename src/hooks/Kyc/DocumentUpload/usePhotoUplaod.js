@@ -61,7 +61,7 @@ export const useAddDocument = ({ onSuccess }) => {
 export const useAddVerificationDocument = ({ onSuccess }) => {
   return useMutation(
     ["getCitizenshipField"],
-    (formData) => addVerificationDocument(formData),
+    (formData) => addVerificationDocument(formData, formData.onUploadProgress),
     {
       onSuccess: (data, variables, context) => {
         toast.success("Successfully added document");

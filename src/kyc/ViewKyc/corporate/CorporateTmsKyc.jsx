@@ -425,7 +425,7 @@ const CorporateTmsKyc = () => {
               </div>
 
               <div className="col-6 border center-y ">
-                मूल्य अभिबृद्धि कर दर्ता नं. (VAT Registration No)
+                मूल्य अभिबृद्धि कर दर्ता नं. (VAT Registration No.)
               </div>
               <div className="col-6  border center-y   ">
                 {/* <div>{userData?.companySecretaryName?.fcpName}</div>   {corporateDetails?.vatRegistration && corporateDetails?.vatRegistration}*/}
