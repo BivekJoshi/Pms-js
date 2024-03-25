@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react"
-import { Box, Button, Grid, Typography } from "@mui/material"
-import { basicData } from "./basicInputData"
-import RenderInput from "../../../../components/renderInput/RenderInput"
-import { useBasicIndividualDpForms } from "./useBasicIndividualDpForms"
-import { useTheme } from "@emotion/react"
-import { useTranslation } from "react-i18next"
-import { useGetBasicDetail } from "./BasicDetail/useBasicDetail"
-import { nextFormPath } from "../../../../utility/userHelper"
+import React, { useEffect, useState } from "react";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import { basicData } from "./basicInputData";
+import RenderInput from "../../../../components/renderInput/RenderInput";
+import { useBasicIndividualDpForms } from "./useBasicIndividualDpForms";
+import { useTheme } from "@emotion/react";
+import { useTranslation } from "react-i18next";
+import { useGetBasicDetail } from "./BasicDetail/useBasicDetail";
+import { nextFormPath } from "../../../../utility/userHelper";
 
 const BasicIndividualDpForms = () => {
-  const theme = useTheme()
+  const theme = useTheme();
   const { data: data } = useGetBasicDetail();
   // const data = basicIndividualData && basicIndividualData;
 
@@ -18,27 +18,27 @@ const BasicIndividualDpForms = () => {
 
   useEffect(() => {
     const calculateAge = (dob) => {
-      const dobDate = new Date(dob)
-      const now = new Date()
-      const diff = now.getTime() - dobDate.getTime()
-      const ageInYears = diff / (1000 * 60 * 60 * 24 * 365.25)
-      return ageInYears
-    }
-    console.log("formik", formik)
-    const dob = formik.values.dob
+      const dobDate = new Date(dob);
+      const now = new Date();
+      const diff = now.getTime() - dobDate.getTime();
+      const ageInYears = diff / (1000 * 60 * 60 * 24 * 365.25);
+      return ageInYears;
+    };
+    console.log("formik", formik);
+    const dob = formik.values.dob;
     if (dob) {
-      const personAge = calculateAge(dob)
+      const personAge = calculateAge(dob);
       if (personAge < 16) {
-        formik.setFieldValue("isMinor", true)
-        formik.setFieldValue("isGuardianSignature", true)
-        formik.setFieldValue("isSignature", false)
+        formik.setFieldValue("isMinor", true);
+        formik.setFieldValue("isGuardianSignature", true);
+        formik.setFieldValue("isSignature", false);
       } else {
-        formik.setFieldValue("isMinor", false)
-        formik.setFieldValue("isGuardianSignature", false)
-        formik.setFieldValue("isSignature", true)
+        formik.setFieldValue("isMinor", false);
+        formik.setFieldValue("isGuardianSignature", false);
+        formik.setFieldValue("isSignature", true);
       }
     }
-  }, [formik.values.dob])
+  }, [formik.values.dob]);
   return (
     <div data-aos="zoom-in-right">
       <Box
@@ -83,7 +83,7 @@ const BasicIndividualDpForms = () => {
         </Grid>
       </Box>
     </div>
-  )
-}
+  );
+};
 
-export default BasicIndividualDpForms
+export default BasicIndividualDpForms;
