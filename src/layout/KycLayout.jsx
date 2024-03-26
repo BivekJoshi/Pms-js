@@ -9,7 +9,7 @@ import {
   createTheme,
   useMediaQuery,
 } from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { themeSettings } from "../theme";
 import { useDispatch, useSelector } from "react-redux";
@@ -139,10 +139,10 @@ const KycLayout = () => {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const isSm = useMediaQuery(theme.breakpoints.down("md"));
 
-  const handleChange = (event, newValue) => {
+  const handleChange = useCallback((event, newValue) => {
     setOpenDrawer(false);
     window.scrollTo(0, 0);
-  };
+  }, []);
 
   const activeStyle = {
     color: theme.palette.text.main,

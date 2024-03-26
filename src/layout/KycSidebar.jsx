@@ -79,9 +79,7 @@ const KycSidebar = ({
                       }),
                     }
                 }
-                onClick={() => {
-                  handleChange(item?.id);
-                }}
+                onClick={handleChange}
               >
                 <Grid className="profileIcon">
                   <Typography variant="h7">{getIcon()}</Typography>
