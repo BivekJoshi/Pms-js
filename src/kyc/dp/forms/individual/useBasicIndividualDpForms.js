@@ -1,15 +1,15 @@
-import { useFormik } from "formik"
-import useBasicIndividualValidationSchema from "./useBasicIndividualValidationSchema"
-import { useAddBasicDetail } from "./BasicDetail/useBasicDetail"
-import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
-import { SET_FORM, SET_MINOR } from "../../../../redux/types/types"
-import { nextFormPath } from "../../../../utility/userHelper"
+import { useFormik } from "formik";
+import useBasicIndividualValidationSchema from "./useBasicIndividualValidationSchema";
+import { useAddBasicDetail } from "./BasicDetail/useBasicDetail";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { SET_FORM, SET_MINOR } from "../../../../redux/types/types";
+import { nextFormPath } from "../../../../utility/userHelper";
 
 export const useBasicIndividualDpForms = ({ data }) => {
-  const { mutate } = useAddBasicDetail({})
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const { mutate } = useAddBasicDetail({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       fname: data?.fname || "",
@@ -27,14 +27,14 @@ export const useBasicIndividualDpForms = ({ data }) => {
       isGuardianSignature: data?.isGuardianSignature || "",
       isSignature: data?.isSignature || "",
       isDifferentlyAbled: data?.isDifferentlyAbled || false,
-      isBiometric:  false,
+      isBiometric: false,
       isNrn: data?.isNrn || false,
     },
     validationSchema: useBasicIndividualValidationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
       if (formik.dirty) {
-        const formData = { ...values }
+        const formData = { ...values };
         mutate(formData, {
           onSuccess: (data) => {
             // formik.resetForm()
@@ -42,12 +42,10 @@ export const useBasicIndividualDpForms = ({ data }) => {
         });
       }
 
-      console.log(formik.errors)
-      if(formik.isValid){
-
-        dispatch({ type: SET_FORM, payload: 2 })
-        
-        navigate(nextFormPath(2))
+      console.log(formik.errors);
+      if (formik.isValid) {
+        dispatch({ type: SET_FORM, payload: 2 });
+        navigate(nextFormPath(2));
       }
     },
   });
