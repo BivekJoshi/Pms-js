@@ -321,8 +321,8 @@ const IndividualDPKyc = ({ onNext }) => {
                 <div className="letter-box-container">
                   {individualDetail?.middleName === null
                     ? individualDetail?.firstName
-                        .split("")
-                        .map((letter, index) => (
+                        ?.split("")
+                        ?.map((letter, index) => (
                           <div key={index} className="letter-box">
                             {letter}
                           </div>
@@ -332,8 +332,8 @@ const IndividualDPKyc = ({ onNext }) => {
                           individualDetail?.middleName,
                           individualDetail?.lastName
                         )
-                        .split("")
-                        .map((letter, index) => (
+                        ?.split("")
+                        ?.map((letter, index) => (
                           <div key={index} className="letter-box">
                             {letter}
                           </div>

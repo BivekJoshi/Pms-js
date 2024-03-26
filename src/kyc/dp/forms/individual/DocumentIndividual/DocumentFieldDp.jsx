@@ -1,15 +1,15 @@
-import { Button, Grid } from "@mui/material"
-import RenderInput from "../../../../../components/renderInput/RenderInput"
+import { Button, Grid } from "@mui/material";
+import RenderInput from "../../../../../components/renderInput/RenderInput";
 import {
   BirthCertificateField,
   CitizenshipField,
   DocumentField,
   PanCardField,
-} from "./DocumentField"
-import { useDocumentFieldForm } from "./useDocumentFieldForm"
+} from "./DocumentField";
+import { useDocumentFieldForm } from "./useDocumentFieldForm";
 
 const DocumentFieldDp = () => {
-  const { formik } = useDocumentFieldForm()
+  const { formik } = useDocumentFieldForm();
 
   return (
     <Grid container>
@@ -31,7 +31,7 @@ const DocumentFieldDp = () => {
         )}
         <Grid sx={{ display: "flex", justifyContent: "flex-end", gap: "1rem" }}>
           <Button
-            onClick={formik.handleSubmit}
+            onClick={formik.resetForm}
             variant="outlined"
             color="secondary"
           >
@@ -47,7 +47,7 @@ const DocumentFieldDp = () => {
         </Grid>
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default DocumentFieldDp
+export default DocumentFieldDp;
