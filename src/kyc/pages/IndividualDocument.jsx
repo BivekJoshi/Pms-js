@@ -9,9 +9,9 @@ import { useTranslation } from "react-i18next";
 import { useGetDocument } from "../../hooks/Kyc/DocumentUpload/useDocument";
 import { DOC_URL } from "../../utility/getBaseUrl";
 import ImageViewModal from "../../components/modal/ImageModal/ImageViewModal";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { nextFormPath } from "../../utility/userHelper";
+import { useDispatch } from "react-redux";
 import { SET_FORM } from "../../redux/types/types";
 
 const IndividualDocument = () => {
@@ -21,9 +21,8 @@ const IndividualDocument = () => {
   const [isImgModalOpen, setIsImgModalOpen] = useState(false);
   const [imageData, setImageData] = useState({});
   const { data: documentData } = useGetDocument();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const handleImageRow = (rowData) => {
     setImageData(rowData?.citizenshipBack);
     setIsImgModalOpen(rowData);
@@ -50,7 +49,7 @@ const IndividualDocument = () => {
       },
       {
         id: 2,
-        accessorKey: "documnetType",
+        accessorKey: "documentType",
         header: "Document Type",
         size: 100,
         sortable: false,
@@ -142,7 +141,7 @@ const IndividualDocument = () => {
       <CustomTable
         title={t("Document Details")}
         columns={columns}
-        data={[documentData]}
+        data={[]}
         headerBackgroundColor="#401686"
         overFlow={"scroll"}
       />

@@ -5,6 +5,8 @@ import {
   getBasicDetail,
 } from "../../../../../api/Kyc/Demat/demat_api"
 import { getErrorMessage } from "../../../../../utility/getErrorMessage"
+import { useDispatch } from "react-redux"
+import { SET_MINOR } from "../../../../../redux/types/types"
 
 /*________________________GET DP INDIVIDUAL DETAILS_____________________________________*/
 export const useGetBasicDetail = () => {
@@ -16,6 +18,7 @@ export const useGetBasicDetail = () => {
 
 /*________________________POST DP INDIVIDUAL DETAILS_____________________________________*/
 export const useAddBasicDetail = ({ onSuccess }) => {
+  const dispatch = useDispatch()
   return useMutation(
     ["addBasicDetail"],
     (formData) => addBasicDetail(formData),
@@ -23,6 +26,8 @@ export const useAddBasicDetail = ({ onSuccess }) => {
       onSuccess: (data, variables, context) => {
         toast.success("Succesfully added basic detail")
         onSuccess && onSuccess(data, variables, context)
+        dispatch( {type : SET_MINOR, payload : data?.isMinor})
+
       },
       onError: (err, _variables, _context) => {
         toast.error(getErrorMessage(err))

@@ -22,8 +22,6 @@ const KycSidebar = ({
   const currentForm = useSelector((state) => state?.user?.currentForm);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
-  console.log(currentForm);
-
   return (
     <>
       <KycProfileCard

@@ -1,10 +1,10 @@
-import { useFormik } from "formik";
-import useBasicIndividualValidationSchema from "./useBasicIndividualValidationSchema";
-import { useAddBasicDetail } from "./BasicDetail/useBasicDetail";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { SET_FORM } from "../../../../redux/types/types";
-import { nextFormPath } from "../../../../utility/userHelper";
+import { useFormik } from "formik"
+import useBasicIndividualValidationSchema from "./useBasicIndividualValidationSchema"
+import { useAddBasicDetail } from "./BasicDetail/useBasicDetail"
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { SET_FORM, SET_MINOR } from "../../../../redux/types/types"
+import { nextFormPath } from "../../../../utility/userHelper"
 
 export const useBasicIndividualDpForms = ({ data }) => {
   const { mutate } = useAddBasicDetail({})
@@ -34,7 +34,7 @@ export const useBasicIndividualDpForms = ({ data }) => {
     enableReinitialize: true,
     onSubmit: (values) => {
       if (formik.dirty) {
-        const formData = { ...values };
+        const formData = { ...values }
         mutate(formData, {
           onSuccess: (data) => {
             // formik.resetForm()
