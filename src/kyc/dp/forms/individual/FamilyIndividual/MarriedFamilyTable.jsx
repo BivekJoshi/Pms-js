@@ -10,14 +10,14 @@ const MarriedFamilyTable = ({ formik }) => {
     () => [
       {
         id: 1,
-        accessorKey: "relation",
+        accessorKey: "relationTypeDesc",
         header: "Relation",
         size: 100,
         sortable: false,
       },
       {
         id: 2,
-        accessorKey: "name",
+        accessorKey: "personDetails.fname",
         header: "Name",
         size: 100,
         sortable: false,
@@ -29,8 +29,9 @@ const MarriedFamilyTable = ({ formik }) => {
     <Grid mt={4}>
       {formik.values.isMarried && (
         <CustomTable
-          title=""
+          title="Family Members List"
           columns={columns}
+          data={formik.values.marriedDetail}
           enablePagination={false}
           enableColumnResizing={false}
           enableColumnActions={false}
@@ -38,8 +39,6 @@ const MarriedFamilyTable = ({ formik }) => {
           enableSorting={false}
           enableBottomToolbar={false}
           enableTopToolbar={false}
-          enableDelete
-          enableEditing={true}
         />
       )}
     </Grid>

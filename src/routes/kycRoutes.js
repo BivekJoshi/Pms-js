@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { nanoid } from "nanoid";
 import React, { lazy, useContext, useState } from "react";
-import IndividualDpKycPannel from '../kyc/ViewKyc/Individual/IndividualDpKycPannel';
+import IndividualDpKycPannel from "../kyc/ViewKyc/Individual/IndividualDpKycPannel";
 // import BranchCorporateForm from "../kyc/dp/forms/corporate/BranchCorporate/BranchCorporateForm";
 
 /*---------------------------INDIVIDUAL--------------------------------------------------------------*/
@@ -86,7 +86,7 @@ export const kycDpIndividualRoutes = [
     id: 1,
     component: BasicIndividualDpForms,
   },
- 
+
   {
     path: "demat-registration/i/document-details",
     id: 2,
@@ -258,10 +258,9 @@ export const minorRoute = {
   path: "demat-registration/i/minor-details",
   id: 2,
   component: MinorDetails,
-}
+};
 
 const getWithMinorConditionRoutes = (initialMenuList) => {
-  console.log("🚀 ~ getWithMinorConditionRoutes ~ initialMenuList:", initialMenuList)
   return initialMenuList
     .slice(0, 1)
     .concat(minorRoute, initialMenuList.slice(1))
@@ -280,23 +279,25 @@ const getWithMinorConditionRoutes = (initialMenuList) => {
 };
 
 const routeMappings = {
-  "I": {
-    "DP": kycDpIndividualRoutes,
-    "TMS": kycTmsIndividualRoutes
+  I: {
+    DP: kycDpIndividualRoutes,
+    TMS: kycTmsIndividualRoutes,
   },
-  "C": {
-    "DP": kycDpCorporateRoutes,
-    "TMS": kycTmsCorporateRoutes
-  }
+  C: {
+    DP: kycDpCorporateRoutes,
+    TMS: kycTmsCorporateRoutes,
+  },
 };
 
 export const kycRoutes = (clientType, formNature, isMinor) => {
   let routes;
-  if(!isMinor){
+  if (!isMinor) {
     routes = routeMappings[clientType]?.[formNature] || [];
-  }else if(clientType === "I"){
+  } else if (clientType === "I") {
     // routes = routeMappings[clientType]?.[formNature].slice(0,1).concat(minorRoute, routeMappings[clientType]?.[formNature].slice(1)) || [];
-routes = getWithMinorConditionRoutes(routeMappings[clientType]?.[formNature])
+    routes = getWithMinorConditionRoutes(
+      routeMappings[clientType]?.[formNature]
+    );
   }
-  return routes.map(route => _.omit(route, "component"));
+  return routes.map((route) => _.omit(route, "component"));
 };
