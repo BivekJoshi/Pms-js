@@ -47,7 +47,7 @@ const KycSidebar = ({
                 : item.path;
             const getIcon = () => {
               if (currentForm < i + 1) {
-                return item?.disabledIcon;
+                return theme.palette.mode === "dark" ? item?.disabledIconDark : item?.disabledIcon;
               } else if (currentForm > i + 1) {
                 return item?.successIcon;
               } else {
@@ -64,20 +64,20 @@ const KycSidebar = ({
                   isActive && !isHomePage
                     ? activeStyle
                     : {
-                        color: theme.palette.text.main,
-                        ...(currentForm < i + 1 && {
-                          pointerEvents: "none",
-                          cursor: "not-allowed",
-                          color: "#1C1B1E50",
-                          backgroundColor: "transparent",
-                          borderRadius: ".5rem ",
-                          textTransform: "none",
-                          fontWeight: 700,
-                        }),
-                        ...(currentForm > i + 1 && {
-                          color: "#088720",
-                        }),
-                      }
+                      color: theme.palette.text.main,
+                      ...(currentForm < i + 1 && {
+                        pointerEvents: "none",
+                        cursor: "not-allowed",
+                        color: theme.palette.mode === "dark" ? "rgb(175, 188, 196)" : "#1C1B1E50",
+                        backgroundColor: "transparent",
+                        borderRadius: ".5rem ",
+                        textTransform: "none",
+                        fontWeight: 700,
+                      }),
+                      ...(currentForm > i + 1 && {
+                        color: "#66BB6A",
+                      }),
+                    }
                 }
                 onClick={handleChange}
               >
@@ -169,7 +169,7 @@ const KycSidebar = ({
               </svg>
               <Typography
                 variant="h7"
-                style={{ textDecoration: "none", color: "black" }}
+                style={{ textDecoration: "none", color: theme.palette.mode === "dark" ? "white" : "black" }}
               >
                 {t("Logout")}
               </Typography>

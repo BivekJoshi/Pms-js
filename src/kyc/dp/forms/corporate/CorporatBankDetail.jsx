@@ -66,8 +66,8 @@ const CorporatBankDetail = () => {
 
   const handleNext = () => {
     if (formNature === "TMS") {
-      navigate(nextFormPath(7));
-      dispatch({ type: SET_FORM, payload: 7 });
+      navigate(nextFormPath(6));
+      dispatch({ type: SET_FORM, payload: 6 });
     } else {
       navigate(nextFormPath(6));
       dispatch({ type: SET_FORM, payload: 6 });
