@@ -17,9 +17,9 @@ const FamilyIndividualDpForms = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const { data: familyData } = useGetFamily();
-  const { nextFormPath } = useKycNavigation();
   const { formik } = useKycFamilyForm({ familyData });
 
   const language = useSelector((state) => state?.language?.mode);
@@ -191,7 +191,7 @@ const FamilyIndividualDpForms = () => {
   ];
 
   const handleBack = () => {
-    navigate(nextFormPath(3));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 3 });
   };
   return (

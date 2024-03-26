@@ -26,7 +26,7 @@ const AgreementForm = forwardRef(({ onNext }, ref) => {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
   const [switchCase, setSwitchCase] = useState(false);
-  const { nextFormPath } = useKycNavigation();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
@@ -36,7 +36,7 @@ const AgreementForm = forwardRef(({ onNext }, ref) => {
   };
 
   const handleBack = () => {
-    navigate(nextFormPath());
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 2 });
   };
   const handleNext = () => {

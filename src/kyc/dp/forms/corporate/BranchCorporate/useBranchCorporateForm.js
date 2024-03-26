@@ -3,10 +3,10 @@ import * as Yup from "yup";
 import { phoneRegExp } from "../../static/RegExp";
 import { useAddBranchDetail } from "../../../../../hooks/Kyc/branch/useBranchDetail";
 import { SET_FORM } from "../../../../../redux/types/types";
-import { nextFormPath } from "../../../../../utility/userHelper";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const BranchScheme = Yup.object().shape({
   area: Yup.string().when("otherBranch", {
@@ -48,6 +48,8 @@ export const useBranchCorporateForm = (data) => {
   const { mutate } = useAddBranchDetail({});
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { nextFormPath } = useKycNavigation();
+
   const formik = useFormik({
     initialValues:
       data?.length === 1 && data
@@ -84,7 +86,7 @@ export const useBranchCorporateForm = (data) => {
         });
       }
       dispatch({ type: SET_FORM, payload: 5 })
-      navigate(nextFormPath(5))
+      navigate(nextFormPath())
     },
   });
   return { formik, loading };

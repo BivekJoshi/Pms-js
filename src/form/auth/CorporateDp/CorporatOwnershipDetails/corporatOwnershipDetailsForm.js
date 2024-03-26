@@ -3,15 +3,16 @@ import corporatOwnershipDetailsValidationSchema from "./corporatOwnershipDetails
 import { useFormik } from "formik";
 import { useAddBodCorporate } from "../../../../hooks/Kyc/corporate/BodCorporate/useBodCorporate";
 import { SET_FORM } from "../../../../redux/types/types";
-import { nextFormPath } from "../../../../utility/userHelper";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import useKycNavigation from "../../../../kyc/hooks/useKycNavigation";
 
 export const useCorporatOwnershipDetailsForm = (ownerShipDetail) => {
   const [loading, setLoading] = useState(false);
   const { mutate } = useAddBodCorporate({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { nextFormPath } = useKycNavigation();
   const detail = ownerShipDetail?.detail;
 
   const getCEODetails = () => {
@@ -119,7 +120,7 @@ export const useCorporatOwnershipDetailsForm = (ownerShipDetail) => {
         });
       }
       dispatch({ type: SET_FORM, payload: 8 });
-      navigate(nextFormPath(8));
+      navigate(nextFormPath());
     },
   });
   return { formik, loading };

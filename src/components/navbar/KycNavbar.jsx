@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { AppBar, Avatar, Chip, Drawer, IconButton, Toolbar, Tooltip } from "@mui/material";
+import { AppBar, Avatar, Chip, Drawer, IconButton, ListItemIcon, Menu, MenuItem, Toolbar, Tooltip } from "@mui/material";
 import React, { useState } from "react";
 import logo from "../../assets/logo.png";
 import FlexBetween from "../flexBetween/FlexBetween";
@@ -13,19 +13,21 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { useLocation, useNavigate } from "react-router-dom";
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import BallotIcon from '@mui/icons-material/Ballot';
+import LogoutIcon from "@mui/icons-material/Logout";
+import { logout } from "../../utility/logout";
+import { useDispatch } from "react-redux";
 
-const KycNavbar = ({userDetails}) => {
+const KycNavbar = ({ userDetails }) => {
   const theme = useTheme();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [state, setState] = React.useState({
     right: false,
     drawerOpen: false,
   });
-  const toggleMenu = () => {
-    setIsMenuOpen((val) => !val);
-  };
+
   const { pathname } = useLocation();
   const navigate = useNavigate({});
+  const dispatch = useDispatch();
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -34,9 +36,23 @@ const KycNavbar = ({userDetails}) => {
     ) {
       return;
     }
-
     setState({ ...state, [anchor]: open });
   };
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+    logout();
+    navigate("/login");
+    setAnchorEl(null);
+  };
+
   return (
     <AppBar
       style={{
@@ -61,31 +77,31 @@ const KycNavbar = ({userDetails}) => {
         />
         <FlexBetween gap="12px">
 
-        {userDetails &&
-                userDetails?.status === 'SUBMITTED' &&
-                (pathname !== '/kyc/video-kyc' ? (
-                  <Chip
-                  // color="primary"
-                  style={{background:"#6C49B4", color:"white"}}
-                  icon={<ContactPhoneIcon style={{color:"white"}}/>}                  
-                  label="Self Verification"
-                  clickable
-                    variant='filled'
-                    onClick={() => navigate('/kyc/video-kyc')}
-                  />
-                ) : (
-                  <Chip
-                  clickable
-                  style={{background:"#6C49B4", color:"white"}}
-                  icon={<BallotIcon style={{color:"white"}}/>}                  
-                    color="primary"
-                    // avatar={<Avatar src={Vector} alt={Vector} style={{padding:".3 rem"}}/>} 
-                    label="View KYC"
-                    variant='filled'
-                    onClick={() => navigate('/kyc/tms-registration/i/detail-verification')}
-                  />
-                ))
-              }
+          {userDetails &&
+            userDetails?.status === 'SUBMITTED' &&
+            (pathname !== '/kyc/video-kyc' ? (
+              <Chip
+                // color="primary"
+                style={{ background: "#6C49B4", color: "white" }}
+                icon={<ContactPhoneIcon style={{ color: "white" }} />}
+                label="Self Verification"
+                clickable
+                variant='filled'
+                onClick={() => navigate('/kyc/video-kyc')}
+              />
+            ) : (
+              <Chip
+                clickable
+                style={{ background: "#6C49B4", color: "white" }}
+                icon={<BallotIcon style={{ color: "white" }} />}
+                color="primary"
+                // avatar={<Avatar src={Vector} alt={Vector} style={{padding:".3 rem"}}/>} 
+                label="View KYC"
+                variant='filled'
+                onClick={() => navigate('/kyc/tms-registration/i/detail-verification')}
+              />
+            ))
+          }
           <div>
             <React.Fragment>
               <Tooltip title="App settings">
@@ -107,20 +123,27 @@ const KycNavbar = ({userDetails}) => {
           </IconButton>
           <IconButton
             edge="start"
-            color="inherit"
             aria-label="menu"
-            onClick={toggleMenu}
-            sx={{
-              display: { sm: "block", md: "none", xs: "block" }, // Show on small screens
-              color: theme.palette.mode === "dark" ? "#fff" : "#0000008a",
-            }}
+            onClick={handleClick}
           >
-            {isMenuOpen ? (
+            {anchorEl ? (
               <MenuOpen sx={{ fontSize: "25px" }} />
             ) : (
               <MenuIcon sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleLogout}>
+              <ListItemIcon>
+                <LogoutIcon fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
         </FlexBetween>
       </Toolbar>
     </AppBar>

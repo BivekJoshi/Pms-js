@@ -5,10 +5,10 @@ import { nanoid } from "nanoid";
 import { useKycBoIndividualForm } from "./useKycBoIndividualForm";
 import { useGetBODetail } from "../../../../../hooks/Kyc/individual/boStatement/useAddKycBo";
 import { useNavigate } from "react-router-dom";
-import { nextFormPath } from "../../../../../utility/userHelper";
 import { SET_FORM } from "../../../../../redux/types/types";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
+import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const bodFields = [
   {
@@ -59,6 +59,7 @@ const BoIndividualDetails = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
   const { data: boData } = useGetBODetail();
   const data = boData;
   const { formik } = useKycBoIndividualForm(data);
@@ -74,7 +75,7 @@ const BoIndividualDetails = () => {
   }, [formik.values.isStandingInstructionForAutomaticTxn]);
 
   const handleBack = () => {
-    navigate(nextFormPath(7));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 7 });
   };
 

@@ -7,10 +7,10 @@ import { Box, useTheme } from "@mui/system";
 import { useGetNomineeDetail } from '../../../../../hooks/Kyc/individual/nominee/useNominee';
 import { useNavigate } from "react-router-dom";
 import { SET_FORM } from "../../../../../redux/types/types";
-import { nextFormPath } from "../../../../../utility/userHelper";
 import { useDispatch } from "react-redux";
 import { DISTRICTS } from '../basicInputData';
 import { useTranslation } from 'react-i18next';
+import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const PROVINCE = [
   {
@@ -282,11 +282,12 @@ const NomineeDpForms = () => {
   const data = nomineeData && nomineeData?.data;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const { formik } = useNomineeForm(data);
 
   const handleBack = () => {
-    navigate(nextFormPath(6));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 6 });
   }
 

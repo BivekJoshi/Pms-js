@@ -26,6 +26,8 @@ const validationSchema = Yup.object().shape({
 export const useKycFamilyForm = ({ familyData }) => {
   const { mutate } = useAddFamily({});
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { nextFormPath } = useKycNavigation();
 
   const initialFormValues =
     familyData?.families?.length &&
@@ -152,6 +154,7 @@ export const useKycFamilyForm = ({ familyData }) => {
         });
       }
       dispatch({ type: SET_FORM, payload: 5 });
+      navigate(nextFormPath());
     },
   });
   return { formik };
