@@ -15,9 +15,9 @@ import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import { useTheme } from "@emotion/react";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
-import { nextFormPath } from "../../../utility/userHelper";
 import { SET_FORM } from "../../../redux/types/types";
 import { useTranslation } from "react-i18next";
+import useKycNavigation from "../../hooks/useKycNavigation";
 
 const AgreementForm = forwardRef(({ onNext }, ref) => {
   const { t } = useTranslation();
@@ -26,7 +26,7 @@ const AgreementForm = forwardRef(({ onNext }, ref) => {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
   const [switchCase, setSwitchCase] = useState(false);
-
+  const { nextFormPath } = useKycNavigation();
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
@@ -36,7 +36,7 @@ const AgreementForm = forwardRef(({ onNext }, ref) => {
   };
 
   const handleBack = () => {
-    navigate(nextFormPath(2));
+    navigate(nextFormPath());
     dispatch({ type: SET_FORM, payload: 2 });
   };
   const handleNext = () => {
