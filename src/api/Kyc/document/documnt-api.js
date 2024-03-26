@@ -24,7 +24,7 @@ export const addDocument = async (image, formData) => {
 };
 
 /*________________________POST Verification DOCUMENT DETAIL_____________________________________*/
-export const addVerificationDocument = async (image, formData) => {
+export const addVerificationDocument = async (image, onUploadProgress) => {
   const imgData = new FormData();
   imgData.append(image?.file, image?.finalImage);
   const { data } = await axiosInstance.post(
@@ -34,6 +34,7 @@ export const addVerificationDocument = async (image, formData) => {
       headers: {
         "Content-Type": "multipart/form-data",
       },
+      onUploadProgress: onUploadProgress,
     }
   );
   return data;

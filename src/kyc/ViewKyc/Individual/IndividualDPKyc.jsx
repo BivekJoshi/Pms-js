@@ -308,19 +308,19 @@ const IndividualDPKyc = ({ onNext }) => {
                 <div className="letter-box-container">
                   {individualDetail?.middleName === null
                     ? individualDetail?.firstName
-                        .split("")
-                        .map((letter, index) => (
+                        ?.split("")
+                        ?.map((letter, index) => (
                           <div key={index} className="letter-box">
                             {letter}
                           </div>
                         ))
                     : individualDetail?.firstName
-                        .concat(
+                        ?.concat(
                           individualDetail?.middleName,
                           individualDetail?.lastName
                         )
-                        .split("")
-                        .map((letter, index) => (
+                        ?.split("")
+                        ?.map((letter, index) => (
                           <div key={index} className="letter-box">
                             {letter}
                           </div>
@@ -2220,9 +2220,11 @@ const IndividualDPKyc = ({ onNext }) => {
             />
           </section>
         </div>
-        <div>
-          <AgreementForm ref={componentRef} />
-        </div>
+        {userData?.user?.status === "PENDING" && (
+          <div>
+            <AgreementForm ref={componentRef} onNext={onNext} />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -623,7 +623,7 @@ export const PROVINCE_OPTIONS = [
 
 export const basicData = [
   {
-    name: "firstName",
+    name: "fname",
     label: "First Name",
     placeholder: "Enter First Name",
     type: "text",
@@ -633,7 +633,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "middleName",
+    name: "mname",
     label: "Middle Name",
     placeholder: "Enter middle name",
     type: "text",
@@ -642,7 +642,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "lastName",
+    name: "lname",
     label: "Last Name",
     placeholder: "Enter last name",
     type: "text",
@@ -652,7 +652,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "fNameNep",
+    name: "fnameNep",
     label: "First Name (Devanagari)",
     type: "nepaliTypeText",
     sm: 12,
@@ -660,7 +660,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "mNameNep",
+    name: "mnameNep",
     label: "Middle Name (Devanagari)",
     type: "nepaliTypeText",
     sm: 12,
@@ -668,7 +668,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "lNameNep",
+    name: "lnameNep",
     label: "Last Name (Devanagari)",
     type: "nepaliTypeText",
     sm: 12,
@@ -682,11 +682,11 @@ export const basicData = [
     label: "Date of Birth (B.S.) (जन्म मिति) (B.S.)",
     type: "dualDate",
     placeholder: "Select date of birth (B.S)",
-    engMd: 4,
+    engMd: 6,
     engSm: 12,
-    nepMd: 4,
+    nepMd: 6,
     nepSm: 12,
-    md: 12,
+    md: 8,
     sm: 12,
     engLabel: "Date of Birth (A.D.)",
     nepaliLabel: "Date of Birth (B.S.)",
@@ -717,8 +717,8 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "panNo",
-    label: "Pan No.",
+    name: "pan",
+    label: "PAN No.",
     type: "number",
     min: 0,
     sm: 12,
@@ -726,7 +726,7 @@ export const basicData = [
     id: nanoid(),
   },
   {
-    name: "minor",
+    name: "isMinor",
     label: "Are you Minor?",
     type: "switch",
     marginLeft: "0px",
@@ -738,23 +738,23 @@ export const basicData = [
     md: 12,
     id: nanoid(),
     infoAlert: "Will be enabled when DOB is less than 16 years!",
-    hasTrueRadio: true,
-    radioName: "minorDoc",
-    radioLabel: "Minor Document",
+    // hasTrueRadio: true,
+    // radioName: "minorDoc",
+    // radioLabel: "Minor Document",
     radioDisplay: "flex",
     radioAlign: "center",
     radioGap: "16px",
     justify: "start",
-    radio: [
-      {
-        value: "guardianCitizen",
-        label: "Guardian's Citizenship",
-      },
-      {
-        value: "birtCirtificate",
-        label: "Birth Certificate",
-      },
-    ],
+    // radio: [
+    //   {
+    //     value: "guardianCitizen",
+    //     label: "Guardian's Citizenship",
+    //   },
+    //   {
+    //     value: "birtCirtificate",
+    //     label: "Birth Certificate",
+    //   },
+    // ],
   },
   {
     name: "isDifferentlyAbled",
@@ -769,9 +769,21 @@ export const basicData = [
     sm: 12,
     id: nanoid(),
   },
-
+  // {
+  //   name: "isBiometric",
+  //   label: "Is Biometric?",
+  //   type: "switch",
+  //   display: "flex",
+  //   marginLeft: "0px",
+  //   direction: "row-reverse",
+  //   justify: "start",
+  //   required: true,
+  //   md: 12,
+  //   sm: 12,
+  //   id: nanoid(),
+  // },
   {
-    name: "nrn",
+    name: "isNrn",
     label: "Are you NRN?",
     placeholder: "Are you NRN?",
     type: "switch",

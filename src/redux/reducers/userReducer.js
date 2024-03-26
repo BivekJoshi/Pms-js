@@ -1,4 +1,4 @@
-import { SET_FORM, USER_LOGIN } from "../types/types"
+import { SET_FORM, SET_MINOR, USER_LOGIN } from "../types/types"
 
 const initialState = {}
 
@@ -14,6 +14,11 @@ const userReducer = (state = initialState, action) => {
         ...state,
         currentForm: action.payload,
       }
+      case SET_MINOR:
+        return {
+          ...state,
+          isMinor: action.payload,
+        }
 
     default:
       return state

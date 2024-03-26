@@ -34,3 +34,4 @@ export const POST_VOUCHER_APPROVE = "POST_VOUCHER_APPROVE"
 
 export const USER_LOGIN = "USER_LOGIN"
 export const SET_FORM = "SET_FORM"
+export const SET_MINOR = "SET_MINOR"
