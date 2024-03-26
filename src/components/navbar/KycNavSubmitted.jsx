@@ -1,13 +1,8 @@
-import { AppBar, Avatar, Chip, Drawer, IconButton, ListItemAvatar, ListItemIcon, Menu, MenuItem, Toolbar, Tooltip } from "@mui/material";
+import { AppBar, Chip, IconButton, ListItemIcon, Menu, MenuItem, Toolbar } from "@mui/material";
 import React, { useState } from "react";
 import logo from "../../assets/logo.png";
 import FlexBetween from "../flexBetween/FlexBetween";
-import {
-    SettingsOutlined,
-    Menu as MenuIcon,
-    MenuOpen,
-} from "@mui/icons-material";
-import DarkModeSetting from "../Setting/DarkModeSetting";
+import { Menu as MenuIcon, MenuOpen } from "@mui/icons-material";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import { useLocation, useNavigate } from "react-router-dom";
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
@@ -20,21 +15,23 @@ const KycNavSubmitted = () => {
     const userDetails = useSelector((state) => state?.user);
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
     const { pathname } = useLocation();
-    const navigate = useNavigate({});
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
+    const handleClose = () => {
+        setAnchorEl(null); 
+    };
+
     const handleLogout = () => {
-        setAnchorEl(false);
         dispatch({ type: "LOGOUT" });
         logout();
         navigate("/login");
-        setIsMenuOpen(true)
+        setAnchorEl(null);
     };
 
     return (
@@ -58,12 +55,10 @@ const KycNavSubmitted = () => {
                     style={{ cursor: "pointer" }}
                 />
                 <FlexBetween gap="12px">
-
                     {userDetails &&
-                        userDetails?.status === 'SUBMITTED' &&
+                        userDetails.status === 'SUBMITTED' &&
                         (pathname !== '/kyc/video-kyc' ? (
                             <Chip
-                                // color="primary"
                                 style={{ background: "#6C49B4", color: "white" }}
                                 icon={<ContactPhoneIcon style={{ color: "white" }} />}
                                 label="Self Verification"
@@ -77,15 +72,12 @@ const KycNavSubmitted = () => {
                                 style={{ background: "#6C49B4", color: "white" }}
                                 icon={<BallotIcon style={{ color: "white" }} />}
                                 color="primary"
-                                // avatar={<Avatar src={Vector} alt={Vector} style={{padding:".3 rem"}}/>} 
                                 label="View KYC"
                                 variant='filled'
                                 onClick={() => navigate('/kyc/tms-registration/i/detail-verification')}
                             />
                         ))
                     }
-                    <div>
-                    </div>
                     <IconButton>
                         <NotificationsNoneIcon sx={{ fontSize: "25px" }} />
                     </IconButton>
@@ -94,9 +86,8 @@ const KycNavSubmitted = () => {
                         color="inherit"
                         aria-label="menu"
                         onClick={handleClick}
-
                     >
-                        {isMenuOpen ? (
+                        {anchorEl ? (
                             <MenuOpen sx={{ fontSize: "25px" }} />
                         ) : (
                             <MenuIcon sx={{ fontSize: "25px" }} />
@@ -104,36 +95,8 @@ const KycNavSubmitted = () => {
                     </IconButton>
                     <Menu
                         anchorEl={anchorEl}
-                        id="account-menu"
-                        open={open}
-                        // onClose={handleClose}
-                        PaperProps={{
-                            elevation: 0,
-                            sx: {
-                                overflow: "visible",
-                                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                                mt: 5.5,
-                                ml: 0,
-                                "& .MuiAvatar-root": {
-                                    width: 32,
-                                    height: 32,
-                                },
-                                "&:before": {
-                                    content: '""',
-                                    display: "block",
-                                    position: "absolute",
-                                    top: 0,
-                                    right: 14,
-                                    width: 10,
-                                    height: 10,
-                                    bgcolor: "background.paper",
-                                    transform: "translateY(-50%) rotate(45deg)",
-                                    zIndex: 0,
-                                },
-                            },
-                        }}
-                        transformOrigin={{ horizontal: "right", vertical: "top" }}
-                        anchorOrigin={{ horizontal: "right", vertical: "top" }}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
                     >
                         <MenuItem onClick={handleLogout}>
                             <ListItemIcon>

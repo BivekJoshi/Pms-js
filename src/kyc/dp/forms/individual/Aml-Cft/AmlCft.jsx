@@ -230,7 +230,7 @@ const AmlCft = () => {
   const { t } = useTranslation()
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { nextFormPath } = useKycNavigation();
+  const { nextFormPath,previousFormPath } = useKycNavigation();
 
   const [showPolitical, setShowPolitical] = useState(false)
   const [showCriminal, setShowCriminal] = useState(false)
@@ -251,7 +251,7 @@ const AmlCft = () => {
     setShowBeneficialOwner(!showBeneficialOwner)
 
   const handleBack = () => {
-    navigate(nextFormPath(6));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 6 });
   }
 

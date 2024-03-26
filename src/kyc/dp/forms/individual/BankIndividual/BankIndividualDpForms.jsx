@@ -31,7 +31,7 @@ const BankIndividualDpForms = () => {
   const theme = useTheme()
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  const { nextFormPath } = useKycNavigation();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const { data: bankListData } = useGetBankList()
   const { data: bankData } = useGetKycBank()
@@ -198,7 +198,7 @@ const BankIndividualDpForms = () => {
     dispatch({ type: SET_FORM, payload: 6 });
   };
   const handleBack = () => {
-    navigate(nextFormPath(4));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 4 });
   }
 

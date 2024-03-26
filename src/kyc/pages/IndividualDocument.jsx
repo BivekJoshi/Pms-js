@@ -21,7 +21,7 @@ const IndividualDocument = () => {
   const [isImgModalOpen, setIsImgModalOpen] = useState(false);
   const [imageData, setImageData] = useState({});
   const { data: documentData } = useGetDocument();
-  const { nextFormPath } = useKycNavigation();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const IndividualDocument = () => {
     dispatch({ type: SET_FORM, payload: 3 });
   };
   const handleBack = () => {
-    navigate(nextFormPath());
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 1 });
   };
   const columns = useMemo(

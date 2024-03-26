@@ -19,14 +19,14 @@ const CorporateDocument = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { nextFormPath } = useKycNavigation();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const handleNext = () => {
     navigate(nextFormPath());
     dispatch({ type: SET_FORM, payload: 3 });
   };
   const handleBack = () => {
-    navigate(nextFormPath(1));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 1 });
   };
 

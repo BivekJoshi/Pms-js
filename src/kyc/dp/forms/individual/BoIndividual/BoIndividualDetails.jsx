@@ -59,11 +59,11 @@ const BoIndividualDetails = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { nextFormPath } = useKycNavigation();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
   const { data: boData } = useGetBODetail();
   const data = boData;
   const { formik } = useKycBoIndividualForm(data);
- 
+
   useEffect(() => {
     setFields(bodFields);
   }, []);
@@ -75,7 +75,7 @@ const BoIndividualDetails = () => {
   }, [formik.values.isStandingInstructionForAutomaticTxn]);
 
   const handleBack = () => {
-    navigate(nextFormPath(7));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 7 });
   }
 

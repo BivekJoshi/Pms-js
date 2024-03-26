@@ -16,7 +16,7 @@ const CorporatBankDetail = () => {
   const { H: clientType, I: formNature } = getUser()
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { nextFormPath } = useKycNavigation();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const BANKFIELDS = [
     {
@@ -78,7 +78,7 @@ const CorporatBankDetail = () => {
 
 
   const handleBack = () => {
-    navigate(nextFormPath(4));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 4 });
   }
 

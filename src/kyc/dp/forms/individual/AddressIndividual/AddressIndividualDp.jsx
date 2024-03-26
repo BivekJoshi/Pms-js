@@ -14,7 +14,7 @@ import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const AddressIndividualDp = () => {
   const { t } = useTranslation();
-  const { nextFormPath } = useKycNavigation();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
   const { data: addressData } = useGetAddress()
   const data = addressData && addressData?.data
   const { formik } = useAddressForm(data)
@@ -24,7 +24,7 @@ const AddressIndividualDp = () => {
 
 
   const handleBack = () => {
-    navigate(nextFormPath());
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 2 });
   }
 

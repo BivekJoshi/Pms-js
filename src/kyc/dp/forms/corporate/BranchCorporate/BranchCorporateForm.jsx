@@ -17,7 +17,7 @@ const BranchCorporateForm = () => {
   const data = branchDetail;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { nextFormPath } = useKycNavigation();
+  const { nextFormPath,previousFormPath } = useKycNavigation();
 
   const { formik, loading } = useBranchCorporateForm(data);
 
@@ -91,7 +91,7 @@ const BranchCorporateForm = () => {
   ];
 
   const handleBack = () => {
-    navigate(nextFormPath(3));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 3 });
   }
   return (

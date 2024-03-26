@@ -14,12 +14,12 @@ const OccupationsIndividualForms = () => {
   const theme = useTheme()
   const navigate = useNavigate()
   const dispatch = useDispatch();
-  const { nextFormPath } = useKycNavigation();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const { formik } = useOccupationsIndividualForm()
 
   const handleBack = () => {
-    navigate(nextFormPath(5));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 5 });
   }
 

@@ -282,12 +282,12 @@ const NomineeDpForms = () => {
   const data = nomineeData && nomineeData?.data;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { nextFormPath } = useKycNavigation();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const { formik } = useNomineeForm(data);
 
   const handleBack = () => {
-    navigate(nextFormPath(6));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 6 });
   }
 
