@@ -277,7 +277,6 @@ export const kycRoutes = (clientType, formNature, isMinor) => {
     routes = routeMappings[clientType]?.[formNature] || [];
   }else if(clientType === "I"){
     routes = routeMappings[clientType]?.[formNature].slice(0,1).concat(minorRoute, routeMappings[clientType]?.[formNature].slice(1)) || [];
-    console.log("🚀 ~ kycRoutes ~ routes:", routes)
 
   }
   return routes.map(route => _.omit(route, "component"));
