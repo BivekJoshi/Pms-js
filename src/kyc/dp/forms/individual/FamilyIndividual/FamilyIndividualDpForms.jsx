@@ -266,18 +266,28 @@ const FamilyIndividualDpForms = () => {
                       name: `marriedDetail.${index}.[personDetail].${d.name}`,
                     };
                   });
+                  console.log(marriedField);
                   return (
                     <>
                       {formik.values.isMarried && (
                         <>
-                          <RenderInput
-                            inputField={marriedField}
-                            formik={formik}
-                            index={index}
-                            isFieldArray={true}
-                            fieldArrayName="marriedDetail"
+                          <MarriedDetails
+                            key={index + marriedDetail?.relationTypeDesc}
+                            name={
+                              language === "EN"
+                                ? marriedDetail?.relationTypeDesc
+                                : marriedDetail?.relationTypeDescNp
+                            }
+                            renderItems={
+                              <RenderInput
+                                inputField={marriedField}
+                                formik={formik}
+                                index={index}
+                                isFieldArray={true}
+                                fieldArrayName="marriedDetail"
+                              />
+                            }
                           />
-
                           <Grid
                             display="flex"
                             gap={2}
@@ -353,6 +363,19 @@ const FamilyDetails = ({ name, renderItems, key }) => {
       >
         {name} <span style={{ color: "red" }}>*</span>
       </Typography>
+      {renderItems}
+    </Grid>
+  );
+};
+const MarriedDetails = ({ renderItems, key }) => {
+  return (
+    <Grid item sm={12} md={12} key={key}>
+      <Typography
+        marginBlockStart={2}
+        marginBlockEnd={1}
+        variant="h5"
+        sx={{ fontWeight: "800" }}
+      ></Typography>
       {renderItems}
     </Grid>
   );
