@@ -9,16 +9,18 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
 import { useGetBodCorporate } from "../../../../hooks/Kyc/corporate/BodCorporate/useBodCorporate";
 import { useDispatch } from "react-redux";
-import { getUser, nextFormPath } from "../../../../utility/userHelper";
+import { getUser } from "../../../../utility/userHelper";
 import { SET_FORM } from "../../../../redux/types/types";
 import { useTranslation } from 'react-i18next';
 import { useState } from "react";
+import useKycNavigation from "../../../hooks/useKycNavigation";
 
 const CorporatOwnershipDetails = () => {
   const { t } = useTranslation();
   const theme = useTheme();
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
   const dispatch = useDispatch();
+  const { nextFormPath } = useKycNavigation();
   const [expandAccordionDetails, setExpandAccordionDetails] = useState([]);
   const [expandAccordionFirst, setExpandAccordionFirst] = useState(false);
   const [expandAccordionSecond, setExpandAccordionSecond] = useState(false);

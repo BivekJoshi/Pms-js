@@ -6,9 +6,9 @@ import { useBranchCorporateForm } from './useBranchCorporateForm';
 import { useGetBranchDetail } from '../../../../../hooks/Kyc/branch/useBranchDetail';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { nextFormPath } from '../../../../../utility/userHelper';
 import { SET_FORM } from '../../../../../redux/types/types';
 import { useTranslation } from 'react-i18next';
+import useKycNavigation from '../../../../hooks/useKycNavigation';
 
 const BranchCorporateForm = () => {
   const { t } = useTranslation();
@@ -17,6 +17,7 @@ const BranchCorporateForm = () => {
   const data = branchDetail;
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { nextFormPath } = useKycNavigation();
 
   const { formik, loading } = useBranchCorporateForm(data);
 
