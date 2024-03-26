@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import Peer from "peerjs";
 import "./VideoKyc.css"; // Import the CSS file for styling
-import { showNotification } from "@mantine/notifications";
 import { axiosInstance } from "../../api/axiosInterceptor";
 import image from "../../assets/dghub-logo.png";
 import ringtoneSound from "../../assets/soft_ringtone.mp3";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const VideoKyc = () => {
   const user = useSelector((store) => store?.user);
@@ -141,10 +141,7 @@ const VideoKyc = () => {
           });
 
           incomingCall.on("close", () => {
-            showNotification({
-              message: "Call Disconnected",
-              color: "red",
-            });
+            toast.error("Call Disconnected");
           });
 
           incomingCall.on("error", (error) => {

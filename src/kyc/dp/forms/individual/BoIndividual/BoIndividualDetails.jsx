@@ -63,6 +63,7 @@ const BoIndividualDetails = () => {
   const { data: boData } = useGetBODetail();
   const data = boData;
   const { formik } = useKycBoIndividualForm(data);
+  console.log("🚀 ~ BoIndividualDetails ~ formik:", formik);
 
   useEffect(() => {
     setFields(bodFields);

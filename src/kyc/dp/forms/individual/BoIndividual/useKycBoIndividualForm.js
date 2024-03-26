@@ -21,7 +21,7 @@ const BoStatementSchema = Yup.object().shape({
 
 export const useKycBoIndividualForm = (data) => {
   const { mutate } = useAddBODetail({});
-  const { H: clientType, I: formNature } = getUser();
+  const { H: clientType } = getUser();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { nextFormPath } = useKycNavigation();
