@@ -10,7 +10,7 @@ import MarriedFamilyTable from "./MarriedFamilyTable";
 import { useNavigate } from "react-router-dom";
 import { nextFormPath } from "../../../../../utility/userHelper";
 import { SET_FORM } from "../../../../../redux/types/types";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const relationField = [
   {
@@ -76,58 +76,89 @@ const relationField = [
 ];
 const MarriedCase = [
   {
-    name: "isMarried",
-    label: "Are You Married?",
-    type: "switchWithFields",
-    id: nanoid(),
-    sm: 12,
-    display: "flex",
-    direction: "column",
-    align: "start",
-    newFields: [
+    name: "relation",
+    label: "Relation",
+    type: "dropDown",
+    options: [
       {
-        name: "relation",
-        label: "Relation",
-        type: "dropDown",
-        options: [
-          { id: 1, value: "spouse", label: "Spouse" },
-          { id: 2, value: "father-in-law", label: "Father In Law's " },
-          { id: 3, value: "mother-in-law", label: "Mother In Law's" },
-          { id: 4, value: "son", label: "Son" },
-          { id: 5, value: "daughter-in-law", label: "Daughter In Law's " },
-          { id: 6, value: "daughter", label: "Daughter" },
-        ],
-        id: nanoid(),
-        md: 3,
-        sm: 12,
+        id: 1,
+        value: "spouse",
+        label: "Spouse",
+        relationTypeId: "S",
+        relationTypeDesc: "Spouse",
+        relationTypeDescNp: "",
       },
       {
-        name: "fname",
-        label: "First Name",
-        type: "text",
-        id: nanoid(),
-        md: 3,
-        sm: 12,
+        id: 2,
+        value: "father-in-law",
+        label: "Father In Law's ",
+        relationTypeId: "FL",
+        relationTypeDesc: "Father In Law's",
+        relationTypeDescNp: "",
       },
       {
-        name: "mname",
-        label: "Middle Name",
-        type: "text",
-        id: nanoid(),
-        md: 3,
-        sm: 12,
+        id: 3,
+        value: "mother-in-law",
+        label: "Mother In Law's",
+        relationTypeId: "ML",
+        relationTypeDesc: "Mother In Law's",
+        relationTypeDescNp: "",
       },
       {
-        name: "lname",
-        label: "Last Name",
-        type: "text",
-        id: nanoid(),
-        md: 3,
-        sm: 12,
+        id: 4,
+        value: "son",
+        label: "Son",
+        relationTypeId: "S",
+        relationTypeDesc: "Son",
+        relationTypeDescNp: "",
+      },
+      {
+        id: 5,
+        value: "daughter-in-law",
+        label: "Daughter In Law's ",
+        relationTypeId: "DL",
+        relationTypeDesc: "Daughter In Law's",
+        relationTypeDescNp: "",
+      },
+      {
+        id: 6,
+        value: "daughter",
+        label: "Daughter",
+        relationTypeId: "D",
+        relationTypeDesc: "Daughter",
+        relationTypeDescNp: "",
       },
     ],
+    id: nanoid(),
+    md: 3,
+    sm: 12,
+  },
+  {
+    name: "fname",
+    label: "First Name",
+    type: "text",
+    id: nanoid(),
+    md: 3,
+    sm: 12,
+  },
+  {
+    name: "mname",
+    label: "Middle Name",
+    type: "text",
+    id: nanoid(),
+    md: 3,
+    sm: 12,
+  },
+  {
+    name: "lname",
+    label: "Last Name",
+    type: "text",
+    id: nanoid(),
+    md: 3,
+    sm: 12,
   },
 ];
+
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -138,11 +169,11 @@ const FamilyIndividualDpForms = () => {
 
   const { formik } = useKycFamilyForm({ familyData });
   const language = useSelector((state) => state?.language?.mode);
-
   const handleBack = () => {
     navigate(nextFormPath(3));
     dispatch({ type: SET_FORM, payload: 3 });
   };
+  console.log(formik);
   return (
     <div data-aos="zoom-in-right">
       <Grid container gridColumn>
@@ -203,8 +234,91 @@ const FamilyIndividualDpForms = () => {
           </FieldArray>
         </FormikProvider>
       </Grid>
-      <></>
-      <MarriedFamilyTable />
+      <Grid display="flex">
+        {" "}
+        <RenderInput
+          inputField={[
+            {
+              name: "isMarried",
+              label: "Are You Married?",
+              type: "switch",
+              id: nanoid(),
+              sm: 12,
+              display: "flex",
+              direction: "column",
+              align: "start",
+            },
+          ]}
+          formik={formik}
+        />
+      </Grid>
+
+      <Grid>
+        <FormikProvider value={formik} {...formik}>
+          <FieldArray
+            name="marriedDetail"
+            render={(arrayHelpers) => {
+              return formik?.values?.marriedDetail?.map(
+                (marriedDetail, index) => {
+                  const marriedField = MarriedCase?.map((d) => {
+                    return {
+                      ...d,
+                      name: `marriedDetail.${index}.[personDetail].${d.name}`,
+                    };
+                  });
+                  return (
+                    <>
+                      {formik.values.isMarried && (
+                        <>
+                          <RenderInput
+                            inputField={marriedField}
+                            formik={formik}
+                            index={index}
+                            isFieldArray={true}
+                            fieldArrayName="marriedDetail"
+                          />
+
+                          <Grid
+                            display="flex"
+                            gap={2}
+                            flexDirection="row"
+                            justifyContent="end"
+                            mt={2}
+                            mb={2}
+                          >
+                            <Button
+                              onClick={() => arrayHelpers.push()}
+                              disabled={
+                                index !== formik.values.marriedDetail.length - 1
+                              }
+                              variant="outlined"
+                              color="secondary"
+                            >
+                              {t("+ Add")}
+                            </Button>
+
+                            <Button
+                              onClick={() => {
+                                arrayHelpers.remove(index);
+                              }}
+                              variant="outlined"
+                              style={{ color: "red", border: "1px solid red" }}
+                            >
+                              Remove
+                            </Button>
+                          </Grid>
+                        </>
+                      )}
+                    </>
+                  );
+                }
+              );
+            }}
+          />
+        </FormikProvider>
+      </Grid>
+
+      <MarriedFamilyTable formik={formik} />
       <Grid
         marginBlock={2}
         sx={{

@@ -24,24 +24,26 @@ const validationSchema = Yup.object().shape({
 });
 
 export const useKycFamilyForm = ({ familyData }) => {
-  const getFamilyData = familyData?.map((d) => {
-    return {
-      id: d.id,
-      relationTypeId: d.relationTypeId,
-      relationTypeDesc: d.relationTypeDesc,
-      relationTypeDescNp: d.relationTypeDescNp,
-      userId: d.userId,
+  const getFamilyData =
+    Array.isArray(familyData) &&
+    familyData?.map((d) => {
+      return {
+        id: d.id,
+        relationTypeId: d.relationTypeId,
+        relationTypeDesc: d.relationTypeDesc,
+        relationTypeDescNp: d.relationTypeDescNp,
+        userId: d.userId,
 
-      personDetail: {
-        fname: d.fname,
-        mname: d.mname,
-        lname: d.lname,
-        fnameNep: d.fnameNep,
-        mnameNep: d.mnameNep,
-        lnameNep: d.lnameNep,
-      },
-    };
-  });
+        personDetail: {
+          fname: d.fname,
+          mname: d.mname,
+          lname: d.lname,
+          fnameNep: d.fnameNep,
+          mnameNep: d.mnameNep,
+          lnameNep: d.lnameNep,
+        },
+      };
+    });
   const { mutate } = useAddFamily({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -66,7 +68,6 @@ export const useKycFamilyForm = ({ familyData }) => {
                   lnameNep: "",
                 },
               },
-
               {
                 relationTypeId: "F",
                 relationTypeDesc: "Father",
@@ -94,11 +95,29 @@ export const useKycFamilyForm = ({ familyData }) => {
                 },
               },
             ],
+      marriedDetail:
+        getFamilyData?.length > 0
+          ? getFamilyData
+          : [
+              {
+                relationTypeId: "",
+                relationTypeDesc: "",
+                relationTypeDescNp: "",
+                personDetail: {
+                  fname: "",
+                  mname: "",
+                  lname: "",
+                  fnameNep: "",
+                  mnameNep: "",
+                  lnameNep: "",
+                },
+              },
+            ],
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       if (formik.dirty) {
-        const formData = { ...values , isMarried };
+        const formData = { ...values };
         mutate(formData?.personDetail, {
           onSuccess: () => {
             formik.resetForm();
