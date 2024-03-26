@@ -4,10 +4,11 @@ import { useAddBasicDetail } from "./BasicDetail/useBasicDetail"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { SET_FORM, SET_MINOR } from "../../../../redux/types/types"
-import { nextFormPath } from "../../../../utility/userHelper"
+import useKycNavigation from "../../../hooks/useKycNavigation"
 
 export const useBasicIndividualDpForms = ({ data }) => {
   const { mutate } = useAddBasicDetail({})
+  const { nextFormPath } = useKycNavigation();
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const formik = useFormik({
@@ -42,12 +43,11 @@ export const useBasicIndividualDpForms = ({ data }) => {
         })
       }
 
-      console.log(formik.errors)
       if(formik.isValid){
 
         dispatch({ type: SET_FORM, payload: 2 })
         
-        navigate(nextFormPath(2))
+        navigate(nextFormPath())
       }
     },
   })

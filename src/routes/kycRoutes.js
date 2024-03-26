@@ -260,6 +260,25 @@ export const minorRoute = {
   component: MinorDetails,
 }
 
+const getWithMinorConditionRoutes = (initialMenuList) => {
+  console.log("🚀 ~ getWithMinorConditionRoutes ~ initialMenuList:", initialMenuList)
+  return initialMenuList
+    .slice(0, 1)
+    .concat(minorRoute, initialMenuList.slice(1))
+    .map((item, index) => {
+      let newId;
+      if (index > 1) {
+        newId = item.id + 1;
+      } else {
+        newId = item.id;
+      }
+      return {
+        ...item,
+        id: newId,
+      };
+    });
+};
+
 const routeMappings = {
   "I": {
     "DP": kycDpIndividualRoutes,
@@ -276,8 +295,8 @@ export const kycRoutes = (clientType, formNature, isMinor) => {
   if(!isMinor){
     routes = routeMappings[clientType]?.[formNature] || [];
   }else if(clientType === "I"){
-    routes = routeMappings[clientType]?.[formNature].slice(0,1).concat(minorRoute, routeMappings[clientType]?.[formNature].slice(1)) || [];
-
+    // routes = routeMappings[clientType]?.[formNature].slice(0,1).concat(minorRoute, routeMappings[clientType]?.[formNature].slice(1)) || [];
+routes = getWithMinorConditionRoutes(routeMappings[clientType]?.[formNature])
   }
   return routes.map(route => _.omit(route, "component"));
 };
