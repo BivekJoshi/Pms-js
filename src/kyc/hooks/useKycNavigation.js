@@ -21,7 +21,22 @@ const useKycNavigation = () => {
         }
       };
 
-    return { nextFormPath }; // Return nextFormPath function
+      const previousFormPath = () => {
+        const { H: clientType, I: formNature } = getUser();
+        const location = window.location;
+        const currentpath = location?.hash?.replace("#/kyc/", "");
+        const routeList = kycRoutes(clientType, formNature);
+        const currentId = routeList?.find((d) => d.path === currentpath)?.id;
+        const nextURLId = (currentId || 1) - 1;
+        const nextUrl = routeList.find((item) => item.id === nextURLId);
+        if (nextUrl) {
+          return `/kyc/${nextUrl?.path}`;
+        } else {
+          return "";
+        }
+      };
+
+    return { nextFormPath, previousFormPath }; // Return nextFormPath function
 };
 
 export default useKycNavigation;
