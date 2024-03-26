@@ -4,7 +4,7 @@ import { useAddFamily } from "../../../../../hooks/kyc/family/useFamily";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { SET_FORM } from "../../../../../redux/types/types";
-import { nextFormPath } from "../../../../../utility/userHelper";
+import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const personDetailSchema = Yup.object().shape({
   fname: Yup.string().required("Required"),
@@ -24,36 +24,63 @@ const validationSchema = Yup.object().shape({
 });
 
 export const useKycFamilyForm = ({ familyData }) => {
-  const getFamilyData =
-    Array.isArray(familyData) &&
-    familyData?.map((d) => {
-      return {
-        id: d.id,
-        relationTypeId: d.relationTypeId,
-        relationTypeDesc: d.relationTypeDesc,
-        relationTypeDescNp: d.relationTypeDescNp,
-        userId: d.userId,
-
-        personDetail: {
-          fname: d.fname,
-          mname: d.mname,
-          lname: d.lname,
-          fnameNep: d.fnameNep,
-          mnameNep: d.mnameNep,
-          lnameNep: d.lnameNep,
-        },
-      };
-    });
   const { mutate } = useAddFamily({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const initialFormValues =
+    familyData?.families?.length &&
+    familyData?.families?.reduce(
+      (acc, d) => {
+        console.log("🚀 ~ useKycFamilyForm ~ acc:", acc);
+        if (
+          d.relationTypeId === "GF" ||
+          d.relationTypeId === "F" ||
+          d.relationTypeId === "M"
+        ) {
+          acc.personDetail.push({
+            id: d.id,
+            relationTypeId: d.relationTypeId,
+            relationTypeDesc: d.relationTypeDesc,
+            relationTypeDescNp: d.relationTypeDescNp,
+            userId: d.userId,
+            personDetail: {
+              fname: d.personDetail.fname,
+              mname: d.personDetail.mname,
+              lname: d.personDetail.lname,
+              fnameNep: d.personDetail.fnameNep,
+              mnameNep: d.personDetail.mnameNep,
+              lnameNep: d.personDetail.lnameNep,
+            },
+          });
+        } else {
+          acc.marriedDetail.push({
+            id: d.id,
+            relationTypeId: d.relationTypeId,
+            relationTypeDesc: d.relationTypeDesc,
+            relationTypeDescNp: d.relationTypeDescNp,
+            userId: d.userId,
+            personDetail: {
+              fname: d.personDetail.fname,
+              mname: d.personDetail.mname,
+              lname: d.personDetail.lname,
+              fnameNep: d.personDetail.fnameNep,
+              mnameNep: d.personDetail.mnameNep,
+              lnameNep: d.personDetail.lnameNep,
+            },
+          });
+        }
+        return acc;
+      },
+      { personDetail: [], marriedDetail: [] }
+    );
+
   const formik = useFormik({
     initialValues: {
-      isMarried: false,
+      isMarried: familyData?.isMarried || false,
       personDetail:
-        getFamilyData?.length > 0
-          ? getFamilyData
+        initialFormValues?.personDetail?.length > 0
+          ? initialFormValues?.personDetail
           : [
               {
                 relationTypeId: "GF",
@@ -96,8 +123,8 @@ export const useKycFamilyForm = ({ familyData }) => {
               },
             ],
       marriedDetail:
-        getFamilyData?.length > 0
-          ? getFamilyData
+        initialFormValues?.marriedDetail?.length > 0
+          ? initialFormValues?.marriedDetail
           : [
               {
                 relationTypeId: "",
@@ -114,20 +141,23 @@ export const useKycFamilyForm = ({ familyData }) => {
               },
             ],
     },
-    validationSchema: validationSchema,
+    enableReinitialize: true,
     onSubmit: (values) => {
       if (formik.dirty) {
-        const formData = { ...values };
-        mutate(formData?.personDetail, {
+        const formData = {
+          families: [...values.personDetail, ...values.marriedDetail],
+          isMarried: values.isMarried,
+        };
+        mutate(formData, {
           onSuccess: () => {
             formik.resetForm();
           },
         });
       }
       dispatch({ type: SET_FORM, payload: 5 });
-      navigate(nextFormPath(5));
     },
   });
-
+  console.log(familyData);
+  console.log("🚀 ~ useKycFamilyForm ~ formik:", formik);
   return { formik };
 };

@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetFamily } from "../../../../../hooks/kyc/family/useFamily";
 import MarriedFamilyTable from "./MarriedFamilyTable";
 import { useNavigate } from "react-router-dom";
-import { nextFormPath } from "../../../../../utility/userHelper";
 import { SET_FORM } from "../../../../../redux/types/types";
 import { useTranslation } from "react-i18next";
+import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const relationField = [
   {
@@ -166,14 +166,13 @@ const FamilyIndividualDpForms = () => {
   const { t } = useTranslation();
 
   const { data: familyData } = useGetFamily();
-
+  const { nextFormPath } = useKycNavigation();
   const { formik } = useKycFamilyForm({ familyData });
   const language = useSelector((state) => state?.language?.mode);
   const handleBack = () => {
     navigate(nextFormPath(3));
     dispatch({ type: SET_FORM, payload: 3 });
   };
-  console.log(formik);
   return (
     <div data-aos="zoom-in-right">
       <Grid container gridColumn>
@@ -266,7 +265,6 @@ const FamilyIndividualDpForms = () => {
                       name: `marriedDetail.${index}.[personDetail].${d.name}`,
                     };
                   });
-                  console.log(marriedField);
                   return (
                     <>
                       {formik.values.isMarried && (
