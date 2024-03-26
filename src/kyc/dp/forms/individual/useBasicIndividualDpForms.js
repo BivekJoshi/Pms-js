@@ -3,7 +3,7 @@ import useBasicIndividualValidationSchema from "./useBasicIndividualValidationSc
 import { useAddBasicDetail } from "./BasicDetail/useBasicDetail"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { SET_FORM } from "../../../../redux/types/types"
+import { SET_FORM, SET_MINOR } from "../../../../redux/types/types"
 import { nextFormPath } from "../../../../utility/userHelper"
 
 export const useBasicIndividualDpForms = ({ data }) => {
@@ -35,7 +35,6 @@ export const useBasicIndividualDpForms = ({ data }) => {
     onSubmit: (values) => {
       if (formik.dirty) {
         const formData = { ...values }
-        console.log(formData, "hello")
         mutate(formData, {
           onSuccess: (data) => {
             // formik.resetForm()

@@ -11,6 +11,9 @@ const BasicIndividualDpForms = React.lazy(
 const IndividualDocument = React.lazy(
   () => import("../kyc/pages/IndividualDocument")
 );
+const MinorDetails = React.lazy(
+  () => import("../kyc/dp/forms/individual/MinorDetails/MinorDetails")
+);
 const IndividualAddress = React.lazy(
   () => import("../kyc/pages/IndividualAddress")
 );
@@ -83,6 +86,7 @@ export const kycDpIndividualRoutes = [
     id: 1,
     component: BasicIndividualDpForms,
   },
+ 
   {
     path: "demat-registration/i/document-details",
     id: 2,
@@ -250,14 +254,31 @@ export const kycTmsCorporateRoutes = [
   },
 ];
 
-export const kycRoutes = (clientType, formNature) => {
-  if (clientType === "I" && formNature === "DP") {
-    return _.map(kycDpIndividualRoutes, (route) => _.omit(route, "component"));
-  } else if (clientType === "I" && formNature === "TMS") {
-    return _.map(kycTmsIndividualRoutes, (route) => _.omit(route, "component"));
-  } else if (clientType === "C" && formNature === "DP") {
-    return _.map(kycDpCorporateRoutes, (route) => _.omit(route, "component"));
-  } else if (clientType === "C" && formNature === "TMS") {
-    return _.map(kycTmsCorporateRoutes, (route) => _.omit(route, "component"));
+export const minorRoute = {
+  path: "demat-registration/i/minor-details",
+  id: 2,
+  component: MinorDetails,
+}
+
+const routeMappings = {
+  "I": {
+    "DP": kycDpIndividualRoutes,
+    "TMS": kycTmsIndividualRoutes
+  },
+  "C": {
+    "DP": kycDpCorporateRoutes,
+    "TMS": kycTmsCorporateRoutes
   }
+};
+
+export const kycRoutes = (clientType, formNature, isMinor) => {
+  let routes;
+  if(!isMinor){
+    routes = routeMappings[clientType]?.[formNature] || [];
+  }else if(clientType === "I"){
+    routes = routeMappings[clientType]?.[formNature].slice(0,1).concat(minorRoute, routeMappings[clientType]?.[formNature].slice(1)) || [];
+    console.log("🚀 ~ kycRoutes ~ routes:", routes)
+
+  }
+  return routes.map(route => _.omit(route, "component"));
 };

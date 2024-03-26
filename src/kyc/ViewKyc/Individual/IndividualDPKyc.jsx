@@ -13,10 +13,10 @@ import { getBankList } from "../../../api/Kyc/Bank/addBankKyc";
 import { useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { DOC_URL } from "../../../utility/getBaseUrl";
-import AgreementForm from '../agreement/AgreementForm';
-import { Button, Grid } from '@mui/material';
+import AgreementForm from "../agreement/AgreementForm";
+import { Button, Grid } from "@mui/material";
 
-const IndividualDPKyc = ({onNext}) => {
+const IndividualDPKyc = ({ onNext }) => {
   const [mapImage, setmapImage] = useState("");
   const componentRef = useRef();
   const { A: userId } = getUser();
@@ -131,8 +131,8 @@ const IndividualDPKyc = ({onNext}) => {
               </h2>
               <h3 className=" text-decoration-underline fs18">
                 ACCOUNT OPENING FORM FOR INDIVIDUAL
-                <br className="displayN" /> BENEFICIAL OWNER
-                ACCOUNT OPENING FORM FOR INDIVIDUAL
+                <br className="displayN" /> BENEFICIAL OWNER ACCOUNT OPENING
+                FORM FOR INDIVIDUAL
                 <br className="displayN" /> BENEFICIAL OWNER
               </h3>
               {/* <!-- ! signature div --> */}
@@ -321,23 +321,23 @@ const IndividualDPKyc = ({onNext}) => {
                 <div className="letter-box-container">
                   {individualDetail?.middleName === null
                     ? individualDetail?.firstName
-                      .split("")
-                      .map((letter, index) => (
-                        <div key={index} className="letter-box">
-                          {letter}
-                        </div>
-                      ))
+                        .split("")
+                        .map((letter, index) => (
+                          <div key={index} className="letter-box">
+                            {letter}
+                          </div>
+                        ))
                     : individualDetail?.firstName
-                      .concat(
-                        individualDetail?.middleName,
-                        individualDetail?.lastName
-                      )
-                      .split("")
-                      .map((letter, index) => (
-                        <div key={index} className="letter-box">
-                          {letter}
-                        </div>
-                      ))}
+                        ?.concat(
+                          individualDetail?.middleName,
+                          individualDetail?.lastName
+                        )
+                        .split("")
+                        .map((letter, index) => (
+                          <div key={index} className="letter-box">
+                            {letter}
+                          </div>
+                        ))}
                 </div>
               </div>
               <div className="col-4 border center-y ">
@@ -693,7 +693,7 @@ const IndividualDPKyc = ({onNext}) => {
           {/* Temporary Address */}
           <section
             className="container pb-1 mt-4 breakMargin container_p"
-          // style={{ marginTop: "5rem" }}
+            // style={{ marginTop: "5rem" }}
           >
             <h2 className="text-center kyc-secondary-header">
               हालको ठेगाना (Current Address){" "}
@@ -831,7 +831,7 @@ const IndividualDPKyc = ({onNext}) => {
                 <div className="col-6 text-capitalize text-end">
                   longitude :{" "}
                   {currentAddressDetails &&
-                    currentAddressDetails?.[0]?.longitude
+                  currentAddressDetails?.[0]?.longitude
                     ? currentAddressDetails?.[0]?.longitude
                     : 0}
                 </div>
@@ -1442,74 +1442,74 @@ const IndividualDPKyc = ({onNext}) => {
                 {/* <!-- ! Bo Statemant --> */}
                 {userData?.boStatement
                   ?.isStandingInstructionForAutomaticTxn && (
-                    <div className="col-12 border center-y ">
-                      <div>
-                        <div className="text-capitalize">
-                          खाताको विवरण प्राप्त गर्ने (Account Statement)
+                  <div className="col-12 border center-y ">
+                    <div>
+                      <div className="text-capitalize">
+                        खाताको विवरण प्राप्त गर्ने (Account Statement)
+                      </div>
+                      <div className="col-12  center-y" style={{ gap: "16px" }}>
+                        <div className="d-flex">
+                          <input
+                            type="radio"
+                            readOnly
+                            htmlFor="typeOfAccount"
+                            checked={
+                              userData?.boStatement?.accountStatementPeriod ===
+                              "DAILY"
+                            }
+                          />
+                          <div className="m-2">
+                            <div>दैनिक(Daily)</div>
+                          </div>
                         </div>
-                        <div className="col-12  center-y" style={{ gap: "16px" }}>
-                          <div className="d-flex">
-                            <input
-                              type="radio"
-                              readOnly
-                              htmlFor="typeOfAccount"
-                              checked={
-                                userData?.boStatement?.accountStatementPeriod ===
-                                "DAILY"
-                              }
-                            />
-                            <div className="m-2">
-                              <div>दैनिक(Daily)</div>
-                            </div>
+                        <div className="d-flex">
+                          <input
+                            type="radio"
+                            readOnly
+                            htmlFor="typeOfAccount"
+                            checked={
+                              userData?.boStatement?.accountStatementPeriod ===
+                              "WEEKLY"
+                            }
+                          />
+                          <div className="m-2">
+                            <div>साप्ताहिक(Weekly)</div>
                           </div>
-                          <div className="d-flex">
-                            <input
-                              type="radio"
-                              readOnly
-                              htmlFor="typeOfAccount"
-                              checked={
-                                userData?.boStatement?.accountStatementPeriod ===
-                                "WEEKLY"
-                              }
-                            />
-                            <div className="m-2">
-                              <div>साप्ताहिक(Weekly)</div>
-                            </div>
+                        </div>
+                        <div className="d-flex">
+                          <input
+                            type="radio"
+                            readOnly
+                            htmlFor="typeOfAccount"
+                            checked={
+                              userData?.boStatement?.accountStatementPeriod ===
+                              "15DAYS"
+                            }
+                          />
+                          <div className="m-2">
+                            {" "}
+                            <div>पाक्षिक(15 days)</div>
                           </div>
-                          <div className="d-flex">
-                            <input
-                              type="radio"
-                              readOnly
-                              htmlFor="typeOfAccount"
-                              checked={
-                                userData?.boStatement?.accountStatementPeriod ===
-                                "15DAYS"
-                              }
-                            />
-                            <div className="m-2">
-                              {" "}
-                              <div>पाक्षिक(15 days)</div>
-                            </div>
-                          </div>
-                          <div className="d-flex">
-                            <input
-                              type="radio"
-                              readOnly
-                              htmlFor="typeOfAccount"
-                              checked={
-                                userData?.boStatement?.accountStatementPeriod ===
-                                "C"
-                              }
-                            />
-                            <div className="m-2">
-                              {" "}
-                              <div>मासिक(Monthly)</div>
-                            </div>
+                        </div>
+                        <div className="d-flex">
+                          <input
+                            type="radio"
+                            readOnly
+                            htmlFor="typeOfAccount"
+                            checked={
+                              userData?.boStatement?.accountStatementPeriod ===
+                              "C"
+                            }
+                          />
+                          <div className="m-2">
+                            {" "}
+                            <div>मासिक(Monthly)</div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  )}
+                  </div>
+                )}
               </div>
               <div className="row m-0 p-0">
                 <p className="text-start">
@@ -1592,7 +1592,7 @@ const IndividualDPKyc = ({onNext}) => {
               <div className="m-0 p-0">
                 <h2
                   className="text-center kyc-secondary-header mb-0 classNam"
-                // style={{ width: "102.5%" }}
+                  // style={{ width: "102.5%" }}
                 >
                   कार्यालयको प्रयोजनको लागि (For Official Use)
                 </h2>
@@ -2233,7 +2233,11 @@ const IndividualDPKyc = ({onNext}) => {
             />
           </section>
         </div>
-        {userData?.user?.status === "PENDING" && <div><AgreementForm ref={componentRef} onNext={onNext}/></div>}
+        {userData?.user?.status === "PENDING" && (
+          <div>
+            <AgreementForm ref={componentRef} onNext={onNext} />
+          </div>
+        )}
       </div>
     </div>
   );

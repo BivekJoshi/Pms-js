@@ -21,6 +21,7 @@ import {
   corporateKycTMSList,
   individualKycDematList,
   individualkycTmsList,
+  isMinorSidebar,
 } from "./kycMenuList";
 import { useGetTheme } from "../hooks/brokerTheme/useBrokerTheme";
 import _ from "lodash";
@@ -40,7 +41,7 @@ const KycLayout = () => {
   const [menuList, setMenuList] = useState([]);
   const [openDrawer, setOpenDrawer] = useState(false);
   // const brokerId = useSelector((state) => state?.brokerList?.brokerOption[0].id)
-  const currentForm = useSelector((state) => state?.user?.currentForm);
+  const isMinor = useSelector((state) => state?.user?.isMinor);
 
   const userDetails = useSelector((state) => state?.user);
   // const { data, isLoading, refetch } = useGetTheme(brokerId)
@@ -76,16 +77,42 @@ const KycLayout = () => {
     }
   }, [userData]);
 
+  const getWithMinorConditionSidebar = (initialMenuList) => {
+    return initialMenuList
+      .slice(0, 1)
+      .concat(isMinorSidebar, initialMenuList.slice(1))
+      .map((item, index) => {
+        let newId;
+        if (index > 1) {
+          newId = item.id + 1;
+        } else {
+          newId = item.id;
+        }
+        return {
+          ...item,
+          id: newId,
+        };
+      });
+  };
+
   useEffect(() => {
     if (!_.isEmpty(userDetails)) {
       if (userDetails.clientType) {
         if (userDetails.clientType === "I" && userDetails.nature === "DP") {
-          setMenuList(individualKycDematList);
+          setMenuList(
+            !isMinor
+              ? individualKycDematList
+              : getWithMinorConditionSidebar(individualKycDematList)
+          );
         } else if (
           userDetails.clientType === "I" &&
           userDetails.nature === "TMS"
         ) {
-          setMenuList(individualkycTmsList);
+          setMenuList(
+            !isMinor
+              ? individualkycTmsList
+              : getWithMinorConditionSidebar(individualkycTmsList)
+          );
         } else if (
           userDetails.clientType === "C" &&
           userDetails.nature === "DP"

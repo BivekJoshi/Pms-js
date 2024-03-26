@@ -24,7 +24,6 @@ const BasicIndividualDpForms = () => {
       const ageInYears = diff / (1000 * 60 * 60 * 24 * 365.25);
       return ageInYears;
     };
-    console.log("formik", formik);
     const dob = formik.values.dob;
     if (dob) {
       const personAge = calculateAge(dob);
