@@ -11,6 +11,7 @@ export const useBasicIndividualDpForms = ({ data }) => {
   const { nextFormPath } = useKycNavigation();
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
   const formik = useFormik({
     initialValues: {
       fname: data?.fname || "",
@@ -28,29 +29,27 @@ export const useBasicIndividualDpForms = ({ data }) => {
       isGuardianSignature: data?.isGuardianSignature || "",
       isSignature: data?.isSignature || "",
       isDifferentlyAbled: data?.isDifferentlyAbled || false,
-      isBiometric:  false,
+      isBiometric: false,
       isNrn: data?.isNrn || false,
     },
     validationSchema: useBasicIndividualValidationSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
       if (formik.dirty) {
-        const formData = { ...values }
+        const formData = { ...values };
         mutate(formData, {
           onSuccess: (data) => {
             // formik.resetForm()
           },
-        })
+        });
       }
 
       if(formik.isValid){
-
         dispatch({ type: SET_FORM, payload: 2 })
-        
         navigate(nextFormPath())
       }
     },
-  })
+  });
 
-  return { formik }
-}
+  return { formik };
+};
