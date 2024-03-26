@@ -99,8 +99,8 @@ const FamilyIndividualDpForms = () => {
       value.relationTypeId
     );
     formik.setFieldValue(
-      `marriedDetail[${fieldIndex}].relationTypeId`,
-      value.relationTypeId
+      `marriedDetail[${fieldIndex}].relationTypeDescNp`,
+      value.relationTypeDescNp
     );
   };
 
@@ -113,23 +113,23 @@ const FamilyIndividualDpForms = () => {
       options: [
         {
           id: 1,
-          value: "spouse",
+          value: "SP",
           label: "Spouse",
-          relationTypeId: "S",
+          relationTypeId: "SP",
           relationTypeDesc: "Spouse",
           relationTypeDescNp: "",
         },
         {
           id: 2,
-          value: "father-in-law",
-          label: "Father In Law's ",
+          value: "FL",
+          label: "Father In Law's",
           relationTypeId: "FL",
           relationTypeDesc: "Father In Law's",
           relationTypeDescNp: "",
         },
         {
           id: 3,
-          value: "mother-in-law",
+          value: "ML",
           label: "Mother In Law's",
           relationTypeId: "ML",
           relationTypeDesc: "Mother In Law's",
@@ -137,15 +137,15 @@ const FamilyIndividualDpForms = () => {
         },
         {
           id: 4,
-          value: "son",
+          value: "SON",
           label: "Son",
-          relationTypeId: "S",
+          relationTypeId: "SON",
           relationTypeDesc: "Son",
           relationTypeDescNp: "",
         },
         {
           id: 5,
-          value: "daughter-in-law",
+          value: "DL",
           label: "Daughter In Law's ",
           relationTypeId: "DL",
           relationTypeDesc: "Daughter In Law's",
@@ -153,9 +153,9 @@ const FamilyIndividualDpForms = () => {
         },
         {
           id: 6,
-          value: "daughter",
+          value: "DG",
           label: "Daughter",
-          relationTypeId: "D",
+          relationTypeId: "DG",
           relationTypeDesc: "Daughter",
           relationTypeDescNp: "",
         },
@@ -283,9 +283,13 @@ const FamilyIndividualDpForms = () => {
                   const marriedField = MarriedCase?.map((d) => {
                     return {
                       ...d,
-                      name: `marriedDetail.${index}.[personDetail].${d.name}`,
+                      name:
+                        d.type === "dropDown"
+                          ? `marriedDetail.${index}.relationTypeId`
+                          : `marriedDetail.${index}.[personDetail].${d.name}`,
                     };
                   });
+
                   return (
                     <>
                       {formik.values.isMarried && (

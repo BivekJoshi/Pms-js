@@ -306,7 +306,6 @@ const RenderInput = ({
           </Field>
         );
       case "dropDown":
-        console.log("first");
         return (
           <Autocomplete
             id={element.name}

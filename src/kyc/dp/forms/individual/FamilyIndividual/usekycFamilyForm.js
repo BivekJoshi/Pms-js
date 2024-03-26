@@ -138,6 +138,7 @@ export const useKycFamilyForm = ({ familyData }) => {
             ],
     },
     enableReinitialize: true,
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       if (formik.dirty) {
         const formData = {
@@ -146,13 +147,12 @@ export const useKycFamilyForm = ({ familyData }) => {
         };
         mutate(formData, {
           onSuccess: () => {
-            formik.resetForm();
+            // formik.resetForm();
           },
         });
       }
       dispatch({ type: SET_FORM, payload: 5 });
     },
   });
-  console.log("🚀 ~ useKycFamilyForm ~ formik:", formik);
   return { formik };
 };
