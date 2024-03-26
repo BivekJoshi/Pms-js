@@ -12,9 +12,9 @@ import {
 import { useAddNomineeDetail } from "../../../../../hooks/Kyc/individual/nominee/useNominee";
 import { useEffect } from "react";
 import { SET_FORM } from "../../../../../redux/types/types";
-import { nextFormPath } from "../../../../../utility/userHelper";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const NomineeSchema = Yup.object().shape({
   name: Yup.string().when("haveNominee", {
@@ -133,6 +133,7 @@ export const useNomineeForm = (data) => {
   const { mutate } = useAddNomineeDetail({});
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { nextFormPath } = useKycNavigation();
 
   const formik = useFormik({
     initialValues: {
@@ -167,7 +168,7 @@ export const useNomineeForm = (data) => {
         });
       }
       dispatch({ type: SET_FORM, payload: 8 })
-      navigate(nextFormPath(8))
+      navigate(nextFormPath())
     },
   });
 
