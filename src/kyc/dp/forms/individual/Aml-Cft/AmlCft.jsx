@@ -17,8 +17,8 @@ import { FieldArray, FormikProvider } from "formik"
 import { DISTRICTS, PROVINCE_OPTIONS } from "../basicInputData"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { nextFormPath } from "../../../../../utility/userHelper"
 import { SET_FORM } from "../../../../../redux/types/types"
+import useKycNavigation from "../../../../hooks/useKycNavigation"
 
 const beneficialOwnerField = [
   {
@@ -230,7 +230,7 @@ const AmlCft = () => {
   const { t } = useTranslation()
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const { nextFormPath } = useKycNavigation();
 
   const [showPolitical, setShowPolitical] = useState(false)
   const [showCriminal, setShowCriminal] = useState(false)

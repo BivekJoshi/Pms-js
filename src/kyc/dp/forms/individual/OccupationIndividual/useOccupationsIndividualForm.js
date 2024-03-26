@@ -8,7 +8,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SET_FORM } from "../../../../../redux/types/types";
-import { nextFormPath } from "../../../../../utility/userHelper";
+import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const occupationSchema = Yup.object().shape({
   occupation: Yup.string()
@@ -72,6 +72,7 @@ export const useOccupationsIndividualForm = () => {
   const { mutate } = useAddOccupation({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { nextFormPath } = useKycNavigation();
   const { data, isLoading } = useGetOccupation({});
 
   const formik = useFormik({
@@ -109,7 +110,7 @@ export const useOccupationsIndividualForm = () => {
         });
       }
       dispatch({ type: SET_FORM, payload: 7 });
-      navigate(nextFormPath(7));
+      navigate(nextFormPath());
     },
   });
 
