@@ -25,14 +25,12 @@ const validationSchema = Yup.object().shape({
 
 export const useKycFamilyForm = ({ familyData }) => {
   const { mutate } = useAddFamily({});
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const initialFormValues =
     familyData?.families?.length &&
     familyData?.families?.reduce(
       (acc, d) => {
-        console.log("🚀 ~ useKycFamilyForm ~ acc:", acc);
         if (
           d.relationTypeId === "GF" ||
           d.relationTypeId === "F" ||
@@ -43,7 +41,6 @@ export const useKycFamilyForm = ({ familyData }) => {
             relationTypeId: d.relationTypeId,
             relationTypeDesc: d.relationTypeDesc,
             relationTypeDescNp: d.relationTypeDescNp,
-            userId: d.userId,
             personDetail: {
               fname: d.personDetail.fname,
               mname: d.personDetail.mname,
@@ -59,7 +56,6 @@ export const useKycFamilyForm = ({ familyData }) => {
             relationTypeId: d.relationTypeId,
             relationTypeDesc: d.relationTypeDesc,
             relationTypeDescNp: d.relationTypeDescNp,
-            userId: d.userId,
             personDetail: {
               fname: d.personDetail.fname,
               mname: d.personDetail.mname,
@@ -157,7 +153,6 @@ export const useKycFamilyForm = ({ familyData }) => {
       dispatch({ type: SET_FORM, payload: 5 });
     },
   });
-  console.log(familyData);
   console.log("🚀 ~ useKycFamilyForm ~ formik:", formik);
   return { formik };
 };
