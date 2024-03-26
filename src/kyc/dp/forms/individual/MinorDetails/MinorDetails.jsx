@@ -42,7 +42,6 @@ const isMinor = [
         engLabel:
           "Birth Certificate Issued Date (जन्म प्रमाणपत्र जारी गरिएको मिति) (A.D.)",
         engPlaceholder: "Select Birth Certificate Issued Date (A.D.)",
-        dualDate: true,
         maxDate: true,
         required: true,
         isBoid: true,
