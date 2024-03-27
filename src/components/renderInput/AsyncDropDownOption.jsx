@@ -34,7 +34,6 @@ const AsyncDropDownOption = ({ element, formik, isFieldArray }) => {
           const path = element.reference
             ? `${element.path}?${element.reference}=${referenceValue || "0"}`
             : element.path;
-          console.log(path);
           const response = await axiosInstance.get(path);
 
           const data = response.data;

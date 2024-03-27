@@ -173,7 +173,6 @@ const MinorDetails = () => {
   const { formik } = useMinorDetailFrom({ guardianDetail });
   const { t } = useTranslation();
   const theme = useTheme();
-  console.log(formik);
   return (
     <div>
       <Grid

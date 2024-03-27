@@ -194,7 +194,6 @@ const FamilyIndividualDpForms = () => {
     navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 3 });
   };
-  console.log(formik);
   return (
     <div data-aos="zoom-in-right">
       <Grid container gridColumn>
