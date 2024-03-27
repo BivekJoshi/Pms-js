@@ -1,15 +1,19 @@
 import { Box, Button, Grid, Typography, useTheme } from '@mui/material';
 import { nanoid } from 'nanoid';
-import React from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import RenderInput from '../../../components/renderInput/RenderInput';
 import { useDocumentVerification } from '../../dp/forms/individual/DocumentIndividual/useDocumentFieldForm';
 import { useGetDocument } from '../../../hooks/Kyc/DocumentUpload/useDocument';
 import { DOC_URL } from '../../../utility/getBaseUrl';
 import { useTranslation } from 'react-i18next';
+import { useGetDocumentAll } from '../../../hooks/Kyc/DocumentUpload/usePhotoUplaod';
+import { LoadingButton } from '@mui/lab';
+import { useFinalSubmitApi } from '../../hooks/useMetaDataKyc';
+import VerificationDropZone from '../../../components/dropZone/VerificationDropZone';
 
 const docField = [
     {
-        name: "docType",
+        name: "documentType",
         label: "Select Document Type",
         md: 4,
         sm: 12,
@@ -18,13 +22,13 @@ const docField = [
         required: true,
         type: "dropDown",
         options: [
-            { value: "kycpdf", label: "KYC PDF" },
+            { value: "KYC", label: "KYC PDF" },
         ],
     },
 ];
 const field = [
     {
-        name: "docType",
+        name: "documentType",
         label: "Select Document Type",
         md: 4,
         sm: 12,
@@ -33,7 +37,7 @@ const field = [
         required: true,
         type: "dropDown",
         options: [
-            { value: "kycpdf", label: "KYC PDF" },
+            { value: "KYC", label: "KYC PDF" },
         ],
     },
     {
@@ -45,16 +49,24 @@ const field = [
         form: "pdf",
         type: "verificationDocumentUpload",
         title: "KYC PDF",
-        name: "kycDocument",
+        name: "KYC",
     },
 ];
 
 const IndividualDpKycDocument = () => {
     const { t } = useTranslation();
     const theme = useTheme();
-    const { data: docData } = useGetDocument();
+    const { data: docData, refetch } = useGetDocument();
     const { formik } = useDocumentVerification();
-    const image = docData && DOC_URL + docData?.kycDocument;
+    const { mutate: submitKYC, isLoading } = useFinalSubmitApi({});
+    const imageKyc = docData && DOC_URL + docData?.kycDocument;
+
+    useEffect(() => {
+    if(imageKyc){
+        formik.setFieldValue()
+    }
+    }, [])
+
 
     return (
         <div data-aos="zoom-in-right">
@@ -77,24 +89,44 @@ const IndividualDpKycDocument = () => {
                 </Typography>
             </Box>
             <Grid>
-                {!formik?.values?.docType && (
+                {!formik?.values?.documentType && (
                     <RenderInput inputField={docField} formik={formik} />
                 )}
-                {formik?.values?.docType === "kycpdf" && (
+                {formik?.values?.documentType === "KYC" && (
                     <RenderInput inputField={field} formik={formik} />
                 )}
             </Grid>
 
-            {/* {
-                image && (
-                    <iframe
-                        title="PDF Document"
-                        src={image}
-                        width="fit-content"
-                        height="70vh"
-                    />
-                )
-            } */}
+            {/* <Grid>
+                {image && (
+                    <Box sx={{textAlign: "center"}}>
+                        <Typography variant='h4' mb={1}>KYC Documnt</Typography>
+                        <iframe
+                            title="PDF Document"
+                            src={image}
+                            allowfullscreen
+                            style={{ height: "70vh", width: "100%" }}
+                        />
+                    </Box>
+                )}
+            </Grid>
+
+            {image && (
+                 <div
+                 style={{ display: "flex", justifyContent: "end", marginTop: "8px" }}
+               >
+                 <LoadingButton
+                   variant="contained"
+                   color="secondary"
+                //    loading={isLoading}
+                   onClick={() => {
+                     submitKYC();
+                   }}
+                 >
+                   {t("Submit")}
+                 </LoadingButton>
+               </div>
+            )} */}
         </div>
     );
 };

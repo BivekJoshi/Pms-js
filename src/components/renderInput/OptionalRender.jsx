@@ -11,7 +11,6 @@ const OptionalRender = ({ element, formik }) => {
             const dependency = element.dependent.every(dependency => {
                 return formik.values[dependency.field] === dependency.value;
             });
-            console.log(dependency, "dependency")
             setShowDependent(dependency);
         }
     }, [element, formik.values]);

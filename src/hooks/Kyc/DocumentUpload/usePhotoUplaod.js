@@ -1,11 +1,15 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import toast from "react-hot-toast";
 import { addCitizenship } from "../../../api/Kyc/document/add-citizenship-api";
 import {
   addDocument,
+  addDocumentDetail,
+  addDocumentProfile,
   addPhoto,
   addPhotoDragImage,
-  addVerificationDocument,  
+  addVerificationDocument,
+  getDocumentAll,
+  getDocumentTypes,  
 } from "../../../api/Kyc/document/documnt-api";
 import { getErrorMessage } from "../../../utility/getErrorMessage";
 
@@ -42,6 +46,22 @@ export const usePhotoUploadDragDrop = ({ onSuccess }) => {
   });
 };
 
+export const useAddDocumentProfile = ({ onSuccess }) => {
+  return useMutation(
+    ["getCitizenshipField"],
+    (formData) => addDocumentProfile(formData),
+    {
+      onSuccess: (data, variables, context) => {
+        toast.success("Successfully added document");
+        onSuccess && onSuccess(data, variables, context);
+      },
+      onError: (err, _variables, _context) => {
+        toast.error(`${err.message}`);
+      },
+    }
+  );
+};
+
 export const useAddDocument = ({ onSuccess }) => {
   return useMutation(
     ["getCitizenshipField"],
@@ -73,3 +93,46 @@ export const useAddVerificationDocument = ({ onSuccess }) => {
     }
   );
 };
+
+
+
+
+
+
+
+
+
+
+
+/*________________________GET DP INDIVIDUAL DETAILS_____________________________________*/
+export const useGetDocumentTypes = () => {
+  return useQuery(["getBasicDetail"], () => getDocumentTypes(), {
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+  })
+}
+
+/*________________________GET DP INDIVIDUAL DETAILS_____________________________________*/
+export const useGetDocumentAll = () => {
+  return useQuery(["getDOcAll"], () => getDocumentAll(), {
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+  })
+}
+
+/*________________________POST DOCUMENT INDIVIDUAL DETAILS_____________________________________*/
+export const useAddDocumentDetail = ({ onSuccess }) => {
+  return useMutation(
+    ["getDocument"],
+    (formData) => addDocumentDetail(formData),
+    {
+      onSuccess: (data, variables, context) => {
+        toast.success("Succesfully added basic detail")
+        onSuccess && onSuccess(data, variables, context)
+      },
+      onError: (err, _variables, _context) => {
+        toast.error(getErrorMessage(err))
+      },
+    }
+  )
+}

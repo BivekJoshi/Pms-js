@@ -14,7 +14,6 @@ const MarketIndexNav = () => {
   const containerRef = useRef(null);
   const [isPaused, setIsPaused] = useState(false);
   const { I: nature } = getUser();
-  console.log("🚀 ~ MarketIndexNav ~ nature:", nature);
   const userStatus = useSelector((state) => state?.user?.status);
 
   const getChange = (item, isPercent) => {

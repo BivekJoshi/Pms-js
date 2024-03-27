@@ -1,6 +1,8 @@
+import { DISTRICTS } from '../basicInputData'
+
 export const DocumentField = [
   {
-    name: "docType",
+    name: "documentType",
     label: "Select Document Type",
     md: 3,
     sm: 6,
@@ -9,17 +11,20 @@ export const DocumentField = [
     required: true,
     type: "dropDown",
     options: [
-      { id: 1, value: "citizenship", label: "Citizenship" },
-      { id: 2, value: "panCard", label: "Pan Card" },
-      { id: 3, value: "passport", label: "Passport" },
-      { id: 4, value: "birthCertificate", label: "Birth Certificate" },
+      { id: 1, value: "CZ", label: "Citizenship" },
+      { id: 2, value: "pan", label: "Pan Card" },
+      { id: 3, value: "PT", label: "Passport" },
+      { id: 4, value: "BC", label: "Birth Certificate" },
+      { id: 4, value: "TP", label: "Thumb Print" },
+      { id: 4, value: "SG", label: "Signature" },
+      { id: 4, value: "PP", label: "Passport Size Picture" },
     ],
   },
 ]
 
-export const CitizenshipField = [
+export const citizenshipField = [
   {
-    name: "docType",
+    name: "documentType",
     label: "Select Document Type",
     md: 4,
     sm: 6,
@@ -29,14 +34,15 @@ export const CitizenshipField = [
     type: "dropDown",
    
     options: [
-      { id: 1, value: "citizenship", label: "Citizenship" },
+      { id: 1, value: "GCZ", label: "Gaurdian Citizenship" },
+      { id: 1, value: "CZ", label: "Citizenship" },
       { id: 2, value: "panCard", label: "Pan Card" },
-      { id: 3, value: "passport", label: "Passport" },
+      { id: 3, value: "PT", label: "Passport" },
       { id: 4, value: "birthCertificate", label: "Birth Certificate" },
     ],
   },
   {
-    name: "citizenshipNo",
+    name: "documentNo",
     label: "Citizenship No.",
     md: 4,
     sm: 6,
@@ -53,10 +59,12 @@ export const CitizenshipField = [
     lg: 4,
     xs: 12,
     required: true,
-    type: "text",
+    type: "dropDown",
+    options: DISTRICTS,
   },
   {
-    name: "issuedDatebs",
+    name: "issuedDate",
+    nameNep: "issuedDateBS",
     label: "Citizenship Issued Date (B.S)",
     engMd: 4,
     engSm: 12,
@@ -92,25 +100,25 @@ export const CitizenshipField = [
   },
 ]
 
-export const PassportField = [
+export const passportField = [
   {
-    name: "docType",
+    name: "documentType",
     label: "Select Document Type",
-    md: 3,
-    sm: 6,
+    md: 4,
+    sm: 12,
     lg: 4,
     xs: 12,
     required: true,
     type: "dropDown",
     options: [
-      { id: 1, value: "citizenship", label: "Citizenship" },
+      { id: 1, value: "CZ", label: "Citizenship" },
       { id: 2, value: "panCard", label: "Pan Card" },
-      { id: 3, value: "passport", label: "Passport" },
+      { id: 3, value: "PT", label: "Passport" },
       { id: 4, value: "birthCertificate", label: "Birth Certificate" },
     ],
   },
   {
-    name: "issuedDistrict",
+    name: "passportNumber",
     label: "Passport Number",
     md: 4,
     sm: 12,
@@ -120,34 +128,42 @@ export const PassportField = [
     type: "text",
   },
   {
-    name: "issuedDistrict",
+    name: "passportDistrict",
     label: "Passport Issued District",
     md: 4,
     sm: 12,
     lg: 4,
     xs: 12,
     required: true,
-    type: "text",
+    type: "dropDown",
+    options: DISTRICTS,
   },
   {
-    name: "issuedDistrict",
+    name: "passportIssuedDate",
     label: "Passport Issued Date",
-    md: 4,
+    nameNep: "issuedDateBS",
+    label: "Passport Issued Date (B.S)",
+    engMd: 4,
+    engSm: 12,
+    nepMd: 4,
+    nepSm: 12,
+    md: 12,
     sm: 12,
-    lg: 4,
-    xs: 12,
+    disableFuture: true,
+    engLabel: "Passport Issued Date (A.D.)",
+    nepaliLabel: "Passport Issued Date (B.S.)",
     required: true,
-    type: "text",
+    type: "dualDate",
   },
   {
-    name: "issuedDistrict",
+    name: "passportExpiryDateDate",
     label: "Passport Expiry Date",
     md: 4,
     sm: 12,
     lg: 4,
     xs: 12,
     required: true,
-    type: "text",
+    type: "datePicker",
   },
   {
     md: 12,
@@ -160,9 +176,37 @@ export const PassportField = [
   },
 ]
 
-export const PanCardField = [
+export const passportPicField = [
   {
-    name: "docType",
+    name: "documentType",
+    label: "Select Document Type",
+    md: 3,
+    sm: 6,
+    lg: 4,
+    xs: 12,
+    required: true,
+    type: "dropDown",
+    options: [
+      { id: 1, value: "citizenship", label: "Citizenship" },
+      { id: 2, value: "panCard", label: "Pan Card" },
+      { id: 3, value: "passport", label: "Passport" },
+      { id: 4, value: "BC", label: "Birth Certificate" },
+    ],
+  },
+  {
+    md: 12,
+    sm: 12,
+    lg: 12,
+    xs: 12,
+    required: true,
+    type: "documentUpload",
+    title: "Passport Size Photo",
+  },
+]
+
+export const panField = [
+  {
+    name: "documentType",
     label: "Select Document Type",
     md: 3,
     sm: 6,
@@ -176,6 +220,44 @@ export const PanCardField = [
       { id: 3, value: "passport", label: "Passport" },
       { id: 4, value: "birthCertificate", label: "Birth Certificate" },
     ],
+  },
+
+  {
+    name: "documentNo",
+    label: "PAN No.",
+    md: 4,
+    sm: 6,
+    lg: 4,
+    xs: 12,
+    required: true,
+    type: "text",
+  },
+  {
+    name: "issuedDistrict",
+    label: "Pan Issued District",
+    md: 4,
+    sm: 12,
+    lg: 4,
+    xs: 12,
+    required: true,
+    type: "dropDown",
+    options: DISTRICTS,
+  },
+  {
+    name: "issuedDate",
+    nameNep: "issuedDateBS",
+    label: "PAN Issued Date (B.S)",
+    engMd: 4,
+    engSm: 12,
+    nepMd: 6,
+    nepSm: 12,
+    md: 12,
+    sm: 12,
+    disableFuture: true,
+    engLabel: "PAN Issued Date (A.D.)",
+    nepaliLabel: "PAN Issued Date (B.S.)",
+    required: true,
+    type: "dualDate",
   },
   {
     md: 12,
@@ -189,9 +271,9 @@ export const PanCardField = [
   },
 ]
 
-export const BirthCertificateField = [
+export const birthCertificateField = [
   {
-    name: "docType",
+    name: "documentType",
     label: "Select Document Type",
     md: 3,
     sm: 6,
@@ -203,7 +285,7 @@ export const BirthCertificateField = [
       { id: 1, value: "citizenship", label: "Citizenship" },
       { id: 2, value: "panCard", label: "Pan Card" },
       { id: 3, value: "passport", label: "Passport" },
-      { id: 4, value: "birthCertificate", label: "Birth Certificate" },
+      { id: 4, value: "BC", label: "Birth Certificate" },
     ],
   },
   {
@@ -213,6 +295,75 @@ export const BirthCertificateField = [
     xs: 12,
     required: true,
     type: "documentUpload",
+    name: "BC",
     title: "Birth certificate Photo",
+  },
+]
+
+export const thumbField = [
+  {
+    name: "documentType",
+    label: "Select Document Type",
+    md: 3,
+    sm: 6,
+    lg: 4,
+    xs: 12,
+    required: true,
+    type: "dropDown",
+    options: [
+      { id: 1, value: "citizenship", label: "Citizenship" },
+      { id: 2, value: "panCard", label: "Pan Card" },
+      { id: 3, value: "passport", label: "Passport" },
+      { id: 4, value: "BC", label: "Birth Certificate" },
+    ],
+  },
+  {
+    name: "LTP",
+    md: 12,
+    sm: 12,
+    lg: 12,
+    xs: 12,
+    required: true,
+    type: "documentUpload",
+    title: "Thumb Print Left",
+  },
+  {
+    name: "RTP",
+    md: 12,
+    sm: 12,
+    lg: 12,
+    xs: 12,
+    required: true,
+    type: "documentUpload",
+    title: "Thumb Print Right",
+  },
+]
+
+export const signatureField = [
+  {
+    name: "documentType",
+    label: "Select Document Type",
+    md: 3,
+    sm: 6,
+    lg: 4,
+    xs: 12,
+    required: true,
+    type: "dropDown",
+    options: [
+      { id: 1, value: "citizenship", label: "Citizenship" },
+      { id: 2, value: "panCard", label: "Pan Card" },
+      { id: 3, value: "passport", label: "Passport" },
+      { id: 4, value: "BC", label: "Birth Certificate" },
+    ],
+  },
+  {
+    name: "SG",
+    md: 12,
+    sm: 12,
+    lg: 12,
+    xs: 12,
+    required: true,
+    type: "documentUpload",
+    title: "Signature",
   },
 ]

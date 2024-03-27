@@ -11,7 +11,7 @@ const DropZoneUploadFile = ({ element, formik }) => {
   const [showDelete, setShowDelete] = useState(false)
   const title = element?.title
   const documentName = element?.name
-  
+  console.log("element", element)
   const { mutate } = useAddDocument({})
 
   const handleImage = async (acceptedFiles) => {
@@ -136,7 +136,7 @@ const DropZoneUploadFile = ({ element, formik }) => {
           )}
         </Dropzone>
       )}
-       
+
     </div>
   )
 }
