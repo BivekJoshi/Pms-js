@@ -38,9 +38,7 @@ export const useKycBoIndividualForm = (data) => {
       if (formik.dirty) {
         const formData = { ...values };
         mutate(formData, {
-          onSuccess: () => {
-            formik.resetForm();
-          },
+          onSuccess: () => {},
         });
       }
 
