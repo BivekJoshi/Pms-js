@@ -3,22 +3,23 @@ import { useFormik } from "formik";
 import MinorDetailValidationSchema from "./MinorDetailValidationSchema";
 import { useAddGuardian } from "../../../../../hooks/Kyc/individual/GuardianDetail/useGuardianDetail";
 
-const useMinorDetailFrom = () => {
+const useMinorDetailFrom = ({ guardianDetail }) => {
+  console.log("guardianDetail", guardianDetail);
   const { mutate } = useAddGuardian({});
   const [loading, setLoading] = useState(false);
   const formik = useFormik({
     initialValues: {
-      guardianName: "",
-      relationship: "",
-      guardianAddress: "",
-      guardianProvince: "",
-      guardianDistrict: "",
-      guardianMunci: "",
-      guardianWard: "",
-      guardianFax: "",
-      guardianEmail: "",
-      guardianMob: "",
-      guardianFinancialStatus: "",
+      guardianName: guardianDetail?.guardianName || "",
+      relationship: guardianDetail?.relationship || "",
+      guardianAddress: guardianDetail?.guardianAddress || "",
+      guardianProvince: guardianDetail?.guardianProvince || "",
+      guardianDistrict: guardianDetail?.guardianDistrict || "",
+      guardianMunci: guardianDetail?.guardianMunci || "",
+      guardianWard: guardianDetail?.guardianWard || "",
+      guardianFax: guardianDetail?.guardianFax || "",
+      guardianEmail: guardianDetail?.guardianEmail || "",
+      guardianMob: guardianDetail?.guardianMob || "",
+      guardianFinancialStatus: guardianDetail?.guardianFinancialStatus || "",
     },
     validationSchema: MinorDetailValidationSchema,
     enableReinitialize: true,

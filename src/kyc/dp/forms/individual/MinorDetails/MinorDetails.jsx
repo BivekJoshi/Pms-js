@@ -6,7 +6,45 @@ import useMinorDetailFrom from "./useMinorDetailFrom";
 import { Button } from "@mui/base";
 import { useTranslation } from "react-i18next";
 import { Grid, Typography, useTheme } from "@mui/material";
-import { PROVINCE } from "../../../../../utility/kycData";
+import { useGetGuardianDetail } from "../../../../../hooks/Kyc/individual/GuardianDetail/useGuardianDetail";
+
+const PROVINCE = [
+  {
+    value: "1",
+    label: "Koshi Pradesh",
+    id: 1,
+  },
+  {
+    value: "2",
+    label: "Madhesh Pradesh",
+    id: 2,
+  },
+  {
+    value: "3",
+    label: "Bagmati Pradesh",
+    id: 3,
+  },
+  {
+    value: "4",
+    label: "Gandaki Pradesh",
+    id: 4,
+  },
+  {
+    value: "5",
+    label: "Lumbini Pradesh",
+    id: 5,
+  },
+  {
+    value: "6",
+    label: "Karnali Pradesh",
+    id: 6,
+  },
+  {
+    value: "7",
+    label: "Sudurpashchim Pradesh",
+    id: 7,
+  },
+];
 
 const isMinor = [
   {
@@ -49,9 +87,8 @@ const isMinor = [
     xs: 12,
     sm: 6,
     md: 4,
-    id: nanoid(),
     options: PROVINCE,
-    clearField: ["district", "municipality"],
+    clearField: ["guardianDistrict", "guardianMunci"],
   },
   {
     name: "guardianDistrict",
@@ -63,9 +100,9 @@ const isMinor = [
     required: true,
     type: "asyncDropDownOption",
     reference: "province",
-    dependentFieldValue: "province",
+    dependentFieldValue: "guardianProvince",
     path: "utility/district",
-    clearField: ["municipality"],
+    clearField: ["guardianMunci"],
   },
   {
     name: "guardianMunci",
@@ -77,7 +114,7 @@ const isMinor = [
     required: true,
     type: "asyncDropDownOption",
     reference: "district",
-    dependentFieldValue: "district",
+    dependentFieldValue: "guardianDistrict",
     path: "utility/municipal",
   },
   {
@@ -132,7 +169,8 @@ const isMinor = [
   },
 ];
 const MinorDetails = () => {
-  const { formik } = useMinorDetailFrom();
+  const { data: guardianDetail } = useGetGuardianDetail();
+  const { formik } = useMinorDetailFrom({ guardianDetail });
   const { t } = useTranslation();
   const theme = useTheme();
   console.log(formik);

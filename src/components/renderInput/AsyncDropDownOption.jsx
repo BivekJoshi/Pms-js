@@ -77,7 +77,6 @@ const AsyncDropDownOption = ({ element, formik, isFieldArray }) => {
       }
     }
   };
-  console.log(element.reference);
   return (
     <div>
       <Autocomplete
