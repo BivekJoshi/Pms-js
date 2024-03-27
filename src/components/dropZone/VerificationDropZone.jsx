@@ -1,29 +1,40 @@
-import React, { useEffect, useState } from "react"
-import { Box, Button, CircularProgress, Grid, Stack, Typography } from "@mui/material"
-import Dropzone from "react-dropzone"
-import { fileResize } from "../../utility/image"
-import Picture from "../../assets/Picture.png"
-import { useAddVerificationDocument } from "../../hooks/Kyc/DocumentUpload/usePhotoUplaod"
-import { useTranslation } from 'react-i18next'
-import UploadFileIcon from '@mui/icons-material/UploadFile';
-import CircularUploadProgress from '../spinner/CircularUploadProgress'
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
+import Dropzone from "react-dropzone";
+import { fileResize } from "../../utility/image";
+import Picture from "../../assets/Picture.png";
+import { useAddVerificationDocument } from "../../hooks/Kyc/DocumentUpload/usePhotoUplaod";
+import { useTranslation } from "react-i18next";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import CircularUploadProgress from "../spinner/CircularUploadProgress";
+import { useFinalSubmitApi } from "../../kyc/hooks/useMetaDataKyc";
+import { LoadingButton } from "@mui/lab";
 
 const VerificationDropZone = ({ element, formik }) => {
   const { t } = useTranslation();
   const [file, setFile] = useState(null);
   const [showDelete, setShowDelete] = useState(false);
   const [upProgress, setUpProgress] = useState("0");
-  const title = element?.title
+  const title = element?.title;
   const documentName = element?.name;
 
-  const { mutate } = useAddVerificationDocument({})
+  const { mutate: submitKYC, isLoading } = useFinalSubmitApi({});
+
+  const { mutate } = useAddVerificationDocument({});
 
   const handleImage = async (acceptedFiles) => {
-    const fileSize = acceptedFiles[0].size / 1024 / 1024
+    const fileSize = acceptedFiles[0].size / 1024 / 1024;
     return fileSize <= 0.2
       ? acceptedFiles[0]
-      : await fileResize(acceptedFiles[0])
-  }
+      : await fileResize(acceptedFiles[0]);
+  };
 
   const handleUpload = async (acceptedFiles) => {
     const image = await handleImage(acceptedFiles);
@@ -35,7 +46,11 @@ const VerificationDropZone = ({ element, formik }) => {
     };
 
     mutate(
-      { finalImage: image, file: documentName, onUploadProgress: onUploadProgress },
+      {
+        finalImage: image,
+        file: documentName,
+        onUploadProgress: onUploadProgress,
+      },
       {
         // onUploadProgress, onUploadProgress
         onSuccess: (data) => {
@@ -46,9 +61,8 @@ const VerificationDropZone = ({ element, formik }) => {
     );
   };
 
-
   const handleDelete = () => {
-    setFile(null)
+    setFile(null);
     formik.setFieldValue(element.name, null);
   };
 
@@ -62,13 +76,11 @@ const VerificationDropZone = ({ element, formik }) => {
             cursor: "pointer",
           }}
         >
-
           <iframe
             src={URL.createObjectURL(file)}
             alt="Uploaded file"
             style={{ width: "100%", height: "60vh" }}
           />
-
         </div>
       ) : (
         <Dropzone onDrop={handleUpload} accept="image/*">
@@ -116,11 +128,33 @@ const VerificationDropZone = ({ element, formik }) => {
 
       {file && (
         <Grid container sx={{ borderBottom: "1px solid grey" }}>
-          <Grid item xs={12} md={12} sx={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
-            <UploadFileIcon sx={{ fontSize: "2rem", color: "rgba(86.95, 38, 150.96, 1)" }} />
+          <Grid
+            item
+            xs={12}
+            md={12}
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "12px",
+            }}
+          >
+            <UploadFileIcon
+              sx={{ fontSize: "2rem", color: "rgba(86.95, 38, 150.96, 1)" }}
+            />
             <Typography>{title}</Typography>
-            <Box sx={{ display: "flex", flexDirection: "row", gap: "0.6rem", alignItems: "center" }}>
-              <Button onClick={handleDelete} variant='contained' color="error">Delete</Button>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "0.6rem",
+                alignItems: "center",
+              }}
+            >
+              <Button onClick={handleDelete} variant="contained" color="error">
+                Delete
+              </Button>
               <CircularUploadProgress value={upProgress} />
             </Box>
           </Grid>
@@ -128,17 +162,23 @@ const VerificationDropZone = ({ element, formik }) => {
       )}
 
       {file && (
-        <div style={{ display: "flex", justifyContent: "end", marginTop: "8px" }}>
-          <Button
+        <div
+          style={{ display: "flex", justifyContent: "end", marginTop: "8px" }}
+        >
+          <LoadingButton
             variant="contained"
             color="secondary"
+            loading={isLoading}
+            onClick={() => {
+              submitKYC();
+            }}
           >
             {t("Submit")}
-          </Button>
+          </LoadingButton>
         </div>
       )}
     </Stack>
-  )
-}
+  );
+};
 
 export default VerificationDropZone;
