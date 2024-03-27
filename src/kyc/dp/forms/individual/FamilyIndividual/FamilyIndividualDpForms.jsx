@@ -296,11 +296,11 @@ const FamilyIndividualDpForms = () => {
                         <>
                           <MarriedDetails
                             key={index + marriedDetail?.relationTypeDesc}
-                            name={
-                              language === "EN"
-                                ? marriedDetail?.relationTypeDesc
-                                : marriedDetail?.relationTypeDescNp
-                            }
+                            // name={
+                            //   language === "EN"
+                            //     ? marriedDetail?.relationTypeDesc
+                            //     : marriedDetail?.relationTypeDescNp
+                            // }
                             renderItems={
                               <RenderInput
                                 inputField={marriedField}
@@ -394,12 +394,6 @@ const FamilyDetails = ({ name, renderItems, key }) => {
 const MarriedDetails = ({ renderItems, key }) => {
   return (
     <Grid item sm={12} md={12} key={key}>
-      <Typography
-        marginBlockStart={2}
-        marginBlockEnd={1}
-        variant="h5"
-        sx={{ fontWeight: "800" }}
-      ></Typography>
       {renderItems}
     </Grid>
   );
