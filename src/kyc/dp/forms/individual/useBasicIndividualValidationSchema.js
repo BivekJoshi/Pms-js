@@ -30,6 +30,7 @@ const useBasicIndividualValidationSchema = Yup.object().shape({
     .min(3, "Last Name must be at least 3 characters")
     .max(25, "Last Name must be up to 25 characters"),
   fnameNep: Yup.string()
+    .nullable()
     .transform((value) =>
       value ? value.charAt(0).toUpperCase() + value.slice(1) : value
     )
@@ -46,6 +47,7 @@ const useBasicIndividualValidationSchema = Yup.object().shape({
     .min(2, "Middle Name must be at least 2 characters")
     .max(25, "Middle Name must be up to 25 characters"),
   lnameNep: Yup.string()
+    .nullable()
     .transform((value) =>
       value ? value.charAt(0).toUpperCase() + value.slice(1) : value
     )

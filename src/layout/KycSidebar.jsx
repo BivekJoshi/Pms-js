@@ -21,7 +21,6 @@ const KycSidebar = ({
   const navigate = useNavigate();
   const currentForm = useSelector((state) => state?.user?.currentForm);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
-
   return (
     <>
       <KycProfileCard
@@ -47,14 +46,15 @@ const KycSidebar = ({
                 : item.path;
             const getIcon = () => {
               if (currentForm < i + 1) {
-                return theme.palette.mode === "dark" ? item?.disabledIconDark : item?.disabledIcon;
-              } else if (currentForm > i + 1) {
+                return theme.palette.mode === "dark"
+                  ? item?.disabledIconDark
+                  : item?.disabledIcon;
+              } else if (currentForm > i + 1 || currentForm === i + 1) {
                 return item?.successIcon;
               } else {
                 return item?.icon;
               }
             };
-
             return (
               <NavLink
                 className="navlinks-list"
@@ -64,20 +64,23 @@ const KycSidebar = ({
                   isActive && !isHomePage
                     ? activeStyle
                     : {
-                      color: theme.palette.text.main,
-                      ...(currentForm < i + 1 && {
-                        pointerEvents: "none",
-                        cursor: "not-allowed",
-                        color: theme.palette.mode === "dark" ? "rgb(175, 188, 196)" : "#1C1B1E50",
-                        backgroundColor: "transparent",
-                        borderRadius: ".5rem ",
-                        textTransform: "none",
-                        fontWeight: 700,
-                      }),
-                      ...(currentForm > i + 1 && {
-                        color: "#66BB6A",
-                      }),
-                    }
+                        color: theme.palette.text.main,
+                        ...(currentForm < i + 1 && {
+                          pointerEvents: "none",
+                          cursor: "not-allowed",
+                          color:
+                            theme.palette.mode === "dark"
+                              ? "rgb(175, 188, 196)"
+                              : "#1C1B1E50",
+                          backgroundColor: "transparent",
+                          borderRadius: ".5rem ",
+                          textTransform: "none",
+                          fontWeight: 700,
+                        }),
+                        ...((currentForm > i + 1 || currentForm === i + 1) && {
+                          color: "#66BB6A",
+                        }),
+                      }
                 }
                 onClick={handleChange}
               >
@@ -93,7 +96,7 @@ const KycSidebar = ({
                       width: "100%",
                     }}
                   >
-                    {currentForm > i + 1 && (
+                    {(currentForm > i + 1 || currentForm === i + 1) && (
                       <svg
                         width="15"
                         height="16"
@@ -169,7 +172,10 @@ const KycSidebar = ({
               </svg>
               <Typography
                 variant="h7"
-                style={{ textDecoration: "none", color: theme.palette.mode === "dark" ? "white" : "black" }}
+                style={{
+                  textDecoration: "none",
+                  color: theme.palette.mode === "dark" ? "white" : "black",
+                }}
               >
                 {t("Logout")}
               </Typography>

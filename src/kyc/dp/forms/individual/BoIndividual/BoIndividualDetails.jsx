@@ -59,11 +59,10 @@ const BoIndividualDetails = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { nextFormPath, previousFormPath } = useKycNavigation();
+  const { previousFormPath } = useKycNavigation();
   const { data: boData } = useGetBODetail();
   const data = boData;
   const { formik } = useKycBoIndividualForm(data);
-  console.log("🚀 ~ BoIndividualDetails ~ formik:", formik);
 
   useEffect(() => {
     setFields(bodFields);
@@ -125,7 +124,11 @@ const BoIndividualDetails = () => {
             marginTop: "1rem",
           }}
         >
-          <Button onClick={handleBack} variant="outlined" color="secondary">
+          <Button
+            onClick={() => handleBack()}
+            variant="outlined"
+            color="secondary"
+          >
             {t("Back")}
           </Button>
           <Button
