@@ -25,8 +25,9 @@ const validationSchema = Yup.object().shape({
 
 export const useKycFamilyForm = ({ familyData }) => {
   const { mutate } = useAddFamily({});
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { nextFormPath } = useKycNavigation();
 
   const initialFormValues =
     familyData?.families?.length &&
@@ -42,7 +43,6 @@ export const useKycFamilyForm = ({ familyData }) => {
             relationTypeId: d.relationTypeId,
             relationTypeDesc: d.relationTypeDesc,
             relationTypeDescNp: d.relationTypeDescNp,
-            userId: d.userId,
             personDetail: {
               fname: d.personDetail.fname,
               mname: d.personDetail.mname,
@@ -58,7 +58,6 @@ export const useKycFamilyForm = ({ familyData }) => {
             relationTypeId: d.relationTypeId,
             relationTypeDesc: d.relationTypeDesc,
             relationTypeDescNp: d.relationTypeDescNp,
-            userId: d.userId,
             personDetail: {
               fname: d.personDetail.fname,
               mname: d.personDetail.mname,
@@ -141,6 +140,7 @@ export const useKycFamilyForm = ({ familyData }) => {
             ],
     },
     enableReinitialize: true,
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       if (formik.dirty) {
         const formData = {
@@ -149,11 +149,12 @@ export const useKycFamilyForm = ({ familyData }) => {
         };
         mutate(formData, {
           onSuccess: () => {
-            formik.resetForm();
+            // formik.resetForm();
           },
         });
       }
       dispatch({ type: SET_FORM, payload: 5 });
+      navigate(nextFormPath());
     },
   });
   return { formik };

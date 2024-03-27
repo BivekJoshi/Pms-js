@@ -9,12 +9,14 @@ export const useGetFamily = () => {
   });
 };
 
-
 export const useAddFamily = ({ onSuccess }) => {
+  const queryClient = useQueryClient();
+
   return useMutation(["addFamily"], (formData) => addFamily(formData), {
     onSuccess: (data, variables, context) => {
       toast.success("Successfully added Family Detail");
       onSuccess && onSuccess(data, variables, context);
+      queryClient.invalidateQueries("getFamily");
     },
     onError: (err, _variables, _context) => {
       toast.error(`${err.message}`);

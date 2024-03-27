@@ -22,8 +22,8 @@ import DeleteConfirmationModal from "../../../../../components/modal/DeleteModal
 import { useDispatch } from "react-redux"
 import { SET_FORM } from "../../../../../redux/types/types"
 import { useNavigate } from "react-router-dom"
-import { nextFormPath } from "../../../../../utility/userHelper"
 import { useTranslation } from 'react-i18next'
+import useKycNavigation from "../../../../hooks/useKycNavigation"
 
 const BankIndividualDpForms = () => {
   const { t } = useTranslation();
@@ -31,6 +31,8 @@ const BankIndividualDpForms = () => {
   const theme = useTheme()
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  const { nextFormPath, previousFormPath } = useKycNavigation();
+
   const { data: bankListData } = useGetBankList()
   const { data: bankData } = useGetKycBank()
   const bankDataField = bankData && bankData?.data
@@ -192,11 +194,11 @@ const BankIndividualDpForms = () => {
   }
 
   const handleNext = () => {
-    navigate(nextFormPath(6));
+    navigate(nextFormPath());
     dispatch({ type: SET_FORM, payload: 6 });
   };
   const handleBack = () => {
-    navigate(nextFormPath(4));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 4 });
   }
 

@@ -319,13 +319,17 @@ const RenderInput = ({
               ""
             }
             onChange={(event, newValue) => {
-              formik.setFieldValue(
-                element.name,
-                newValue?.value || newValue?.code || ""
-              ); // Set value to newValue's value property or empty string if undefined
-              if (element.clearField) {
-                for (let i = 0; i < element.clearField?.length; i++) {
-                  formik.setFieldValue(element.clearField[i], "");
+              if (element?.customOnChange) {
+                element.customOnChange(event, newValue);
+              } else {
+                formik.setFieldValue(
+                  element.name,
+                  newValue?.value || newValue?.code || ""
+                ); // Set value to newValue's value property or empty string if undefined
+                if (element.clearField) {
+                  for (let i = 0; i < element.clearField?.length; i++) {
+                    formik.setFieldValue(element.clearField[i], "");
+                  }
                 }
               }
             }}

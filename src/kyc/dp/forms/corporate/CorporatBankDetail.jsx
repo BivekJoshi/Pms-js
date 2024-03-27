@@ -5,9 +5,10 @@ import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getUser, nextFormPath } from "../../../../utility/userHelper";
+import { getUser } from "../../../../utility/userHelper";
 import { SET_FORM } from "../../../../redux/types/types";
 import { useTranslation } from 'react-i18next';
+import useKycNavigation from "../../../hooks/useKycNavigation";
 
 const CorporatBankDetail = () => {
   const { t } = useTranslation();
@@ -15,6 +16,7 @@ const CorporatBankDetail = () => {
   const { H: clientType, I: formNature } = getUser()
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const BANKFIELDS = [
     {
@@ -66,17 +68,17 @@ const CorporatBankDetail = () => {
 
   const handleNext = () => {
     if (formNature === "TMS") {
-      navigate(nextFormPath(7));
-      dispatch({ type: SET_FORM, payload: 7 });
+      navigate(nextFormPath());
+      dispatch({ type: SET_FORM, payload: 6 });
     } else {
-      navigate(nextFormPath(6));
+      navigate(nextFormPath());
       dispatch({ type: SET_FORM, payload: 6 });
     }
   };
 
-  
+
   const handleBack = () => {
-    navigate(nextFormPath(4));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 4 });
   }
 

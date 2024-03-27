@@ -5,7 +5,7 @@ import { mobileNum, phoneRegExp } from "../../static/RegExp";
 import { SET_FORM } from "../../../../../redux/types/types";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { nextFormPath } from "../../../../../utility/userHelper";
+import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const AddressSchema = Yup.object().shape({
   addresses: Yup.array().of(
@@ -28,6 +28,7 @@ export const useAddressForm = (data) => {
   const { mutate } = useAddAddress({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { nextFormPath } = useKycNavigation();
 
   const formik = useFormik({
     initialValues: {
@@ -66,7 +67,7 @@ export const useAddressForm = (data) => {
         });
       }
       dispatch({ type: SET_FORM, payload: 4 });
-      navigate(nextFormPath(4));
+      navigate(nextFormPath());
     },
   });
   return { formik };

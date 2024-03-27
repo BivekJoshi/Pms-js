@@ -7,10 +7,10 @@ import CustomTable from "../../components/customTable/CustomTable";
 import { useTranslation } from 'react-i18next';
 import CorporateDocumentField from "../dp/forms/corporate/CorporateDocumentField";
 import { useGetDocument } from '../../hooks/Kyc/DocumentUpload/useDocument';
-import { nextFormPath } from "../../utility/userHelper";
 import { SET_FORM } from "../../redux/types/types";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import useKycNavigation from "../hooks/useKycNavigation";
 
 const CorporateDocument = () => {
   const { data: documentData } = useGetDocument();
@@ -19,13 +19,14 @@ const CorporateDocument = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const handleNext = () => {
-    navigate(nextFormPath(3));
+    navigate(nextFormPath());
     dispatch({ type: SET_FORM, payload: 3 });
   };
   const handleBack = () => {
-    navigate(nextFormPath(1));
+    navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 1 });
   };
 

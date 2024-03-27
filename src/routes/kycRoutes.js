@@ -124,7 +124,7 @@ export const kycDpIndividualRoutes = [
   },
   {
     path: "demat-registration/i/detail-verification",
-    id: 10,
+    id: 9,
     component: IndividualDpKycPannel,
   },
 ];
