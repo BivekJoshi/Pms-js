@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import { axiosInstance } from "../../api/axiosInterceptor";
 import { Autocomplete, TextField } from "@mui/material";
 import { getIn } from "formik";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const AsyncDropDownOption = ({ element, formik, isFieldArray }) => {
   const { t } = useTranslation();
@@ -34,6 +34,7 @@ const AsyncDropDownOption = ({ element, formik, isFieldArray }) => {
           const path = element.reference
             ? `${element.path}?${element.reference}=${referenceValue || "0"}`
             : element.path;
+          console.log(path);
           const response = await axiosInstance.get(path);
 
           const data = response.data;
@@ -76,7 +77,7 @@ const AsyncDropDownOption = ({ element, formik, isFieldArray }) => {
       }
     }
   };
-
+  console.log(element.reference);
   return (
     <div>
       <Autocomplete

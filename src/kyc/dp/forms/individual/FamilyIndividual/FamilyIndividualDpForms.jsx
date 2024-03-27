@@ -76,7 +76,7 @@ const relationField = [
 ];
 const MarriedCase = [
   {
-    name: "relation",
+    name: "relationTypeDesc",
     label: "Relation",
     type: "dropDown",
     options: [
@@ -86,7 +86,7 @@ const MarriedCase = [
         label: "Spouse",
         relationTypeId: "S",
         relationTypeDesc: "Spouse",
-        relationTypeDescNp: "",
+        relationTypeDescNp: "पति/पत्नी",
       },
       {
         id: 2,
@@ -94,7 +94,7 @@ const MarriedCase = [
         label: "Father In Law's ",
         relationTypeId: "FL",
         relationTypeDesc: "Father In Law's",
-        relationTypeDescNp: "",
+        relationTypeDescNp: "ससुरा",
       },
       {
         id: 3,
@@ -102,7 +102,7 @@ const MarriedCase = [
         label: "Mother In Law's",
         relationTypeId: "ML",
         relationTypeDesc: "Mother In Law's",
-        relationTypeDescNp: "",
+        relationTypeDescNp: "सासु",
       },
       {
         id: 4,
@@ -110,7 +110,7 @@ const MarriedCase = [
         label: "Son",
         relationTypeId: "S",
         relationTypeDesc: "Son",
-        relationTypeDescNp: "",
+        relationTypeDescNp: "छोरा",
       },
       {
         id: 5,
@@ -118,7 +118,7 @@ const MarriedCase = [
         label: "Daughter In Law's ",
         relationTypeId: "DL",
         relationTypeDesc: "Daughter In Law's",
-        relationTypeDescNp: "",
+        relationTypeDescNp: "बुहारी",
       },
       {
         id: 6,
@@ -126,7 +126,7 @@ const MarriedCase = [
         label: "Daughter",
         relationTypeId: "D",
         relationTypeDesc: "Daughter",
-        relationTypeDescNp: "",
+        relationTypeDescNp: "छोरी",
       },
     ],
     id: nanoid(),
@@ -169,10 +169,12 @@ const FamilyIndividualDpForms = () => {
   const { nextFormPath } = useKycNavigation();
   const { formik } = useKycFamilyForm({ familyData });
   const language = useSelector((state) => state?.language?.mode);
+
   const handleBack = () => {
     navigate(nextFormPath(3));
     dispatch({ type: SET_FORM, payload: 3 });
   };
+  console.log(formik);
   return (
     <div data-aos="zoom-in-right">
       <Grid container gridColumn>
@@ -271,11 +273,11 @@ const FamilyIndividualDpForms = () => {
                         <>
                           <MarriedDetails
                             key={index + marriedDetail?.relationTypeDesc}
-                            name={
-                              language === "EN"
-                                ? marriedDetail?.relationTypeDesc
-                                : marriedDetail?.relationTypeDescNp
-                            }
+                            // name={
+                            //   language === "EN"
+                            //     ? marriedDetail?.relationTypeDesc
+                            //     : marriedDetail?.relationTypeDescNp
+                            // }
                             renderItems={
                               <RenderInput
                                 inputField={marriedField}
@@ -368,12 +370,6 @@ const FamilyDetails = ({ name, renderItems, key }) => {
 const MarriedDetails = ({ renderItems, key }) => {
   return (
     <Grid item sm={12} md={12} key={key}>
-      <Typography
-        marginBlockStart={2}
-        marginBlockEnd={1}
-        variant="h5"
-        sx={{ fontWeight: "800" }}
-      ></Typography>
       {renderItems}
     </Grid>
   );

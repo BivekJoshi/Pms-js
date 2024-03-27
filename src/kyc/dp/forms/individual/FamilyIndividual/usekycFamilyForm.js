@@ -32,7 +32,6 @@ export const useKycFamilyForm = ({ familyData }) => {
     familyData?.families?.length &&
     familyData?.families?.reduce(
       (acc, d) => {
-        console.log("🚀 ~ useKycFamilyForm ~ acc:", acc);
         if (
           d.relationTypeId === "GF" ||
           d.relationTypeId === "F" ||
@@ -157,7 +156,5 @@ export const useKycFamilyForm = ({ familyData }) => {
       dispatch({ type: SET_FORM, payload: 5 });
     },
   });
-  console.log(familyData);
-  console.log("🚀 ~ useKycFamilyForm ~ formik:", formik);
   return { formik };
 };

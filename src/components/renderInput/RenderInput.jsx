@@ -27,8 +27,8 @@ import { useSelector } from "react-redux";
 import NepaliInputText from "../inputType/NepaliInputText";
 import { useTranslation } from "react-i18next";
 import AsyncDropDownOption from "./AsyncDropDownOption";
-import VerificationDropZone from '../dropZone/VerificationDropZone';
-import OptionalRender from './OptionalRender';
+import VerificationDropZone from "../dropZone/VerificationDropZone";
+import OptionalRender from "./OptionalRender";
 const icon = L.icon({ iconUrl: mapIcon });
 
 const MarkerLocationFieldArray = ({
@@ -541,7 +541,7 @@ const RenderInput = ({
                     disabled={
                       element.name === "accountStatementPeriod" &&
                       formik.values.isStandingInstructionForAutomaticTxn ===
-                      "false"
+                        "false"
                     }
                   />
                 ))}
@@ -571,11 +571,12 @@ const RenderInput = ({
         return <DualDatePicker element={element} formik={formik} />;
 
       case "asyncDropDownOption":
+        console.log();
         return (
           <AsyncDropDownOption
             element={element}
             formik={formik}
-            isFieldArray={isFieldArray}
+            isFieldArray={isFieldArray ? isFieldArray : ""}
           />
         );
       case "asyncDropDown":
@@ -587,12 +588,16 @@ const RenderInput = ({
               formVaues={formVaues}
             />
             <div>
-              {element.isDependent && formik.values[element?.name] && !element?.isNeutral ? (
+              {element.isDependent &&
+              formik.values[element?.name] &&
+              !element?.isNeutral ? (
                 <RenderInput
                   inputField={element.trueNewFields}
                   formik={formik}
                 />
-              ) : !element.isDependent && formik.values[element?.name] && !element?.isNeutral ? (
+              ) : !element.isDependent &&
+                formik.values[element?.name] &&
+                !element?.isNeutral ? (
                 <RenderInput
                   inputField={element?.falseNewFields}
                   formik={formik}
@@ -607,9 +612,11 @@ const RenderInput = ({
       case "documentUpload":
         return <DropZoneUploadFile title={element?.title} element={element} />;
       case "verificationDocumentUpload":
-        return <VerificationDropZone title={element?.title} element={element} />;
+        return (
+          <VerificationDropZone title={element?.title} element={element} />
+        );
       case "optionalRender":
-        return <OptionalRender element={element} formik={formik} />
+        return <OptionalRender element={element} formik={formik} />;
       default:
         return <TextField name={element?.name} label={t(element?.label)} />;
     }
@@ -632,10 +639,10 @@ const RenderInput = ({
               md={element?.md}
               lg={element?.lg}
               key={index}
-            // sx={{
-            //   marginBottom:
-            //     element.customMarginBottom && element.customMarginBottom,
-            // }}
+              // sx={{
+              //   marginBottom:
+              //     element.customMarginBottom && element.customMarginBottom,
+              // }}
             >
               {getComponentToRender(element, isDisabled)}
             </Grid>
