@@ -10,8 +10,8 @@ export const getBaseUrl = () => {
   if (envType === "development") {
     // return "http://103.94.159.144:8085/pms/api";
 
-    return "http://103.94.159.144:8084/kyc/api"; //test-server
-    // return "http://172.16.16.46:8084/kyc/api"; //local
+    // return "http://103.94.159.144:8084/kyc/api"; //test-server
+    return "http://172.16.16.46:8084/kyc/api"; //local
 
     // return "http://bipeen:8085/pms/api";
     // return 'http://172.16.16.94:8085/pms/api';
