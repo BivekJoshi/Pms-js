@@ -27,9 +27,10 @@ const useBasicIndividualValidationSchema = Yup.object().shape({
     .typeError("Last Name is required")
     .matches(firstName, "Last Name cannot contain spaces or special characters")
     .required("Last Name is required")
-    .min(3, "Last Name must be at least 3 characters")
+    .min(2, "Last Name must be at least 2 characters")
     .max(25, "Last Name must be at most 25 characters"),
   fnameNep: Yup.string()
+    .nullable()
     .transform((value) =>
       value ? value.charAt(0).toUpperCase() + value.slice(1) : value
     )
@@ -46,6 +47,7 @@ const useBasicIndividualValidationSchema = Yup.object().shape({
     .min(2, "Middle Name must be at least 2 characters")
     .max(25, "Middle Name must be at most 25 characters"),
   lnameNep: Yup.string()
+    .nullable()
     .transform((value) =>
       value ? value.charAt(0).toUpperCase() + value.slice(1) : value
     )
@@ -56,8 +58,7 @@ const useBasicIndividualValidationSchema = Yup.object().shape({
     .min(2, "Last Name must be at least 2 characters")
     .max(25, "Last Name must be at most 25 characters")
     .required("Last Name is required"),
-  gender: Yup.string()
-    .required("Gender is required"),
+  gender: Yup.string().required("Gender is required"),
   dob: Yup.string().required("Please select date of birth"),
   // .test("is-date", "Please select valid date", (value) => {
   //   return moment(value, moment.ISO_8601, true).isValid();

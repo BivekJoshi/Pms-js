@@ -357,6 +357,11 @@ const RenderInput = ({
             value={formVaues}
             onChange={formik.handleChange}
             InputLabelProps={{ shrink: Boolean(formVaues) }}
+            onKeyPress={(ev) => {
+              if (ev.key === "E" || ev.key === "e" || ev.key === ".") {
+                ev.preventDefault();
+              }
+            }}
             fullWidth
             type={element?.type}
             required={element.required}

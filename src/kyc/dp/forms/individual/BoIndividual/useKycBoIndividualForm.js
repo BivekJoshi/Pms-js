@@ -35,20 +35,18 @@ export const useKycBoIndividualForm = (data) => {
     validationSchema: BoStatementSchema,
     enableReinitialize: true,
     onSubmit: (values) => {
-      if (formik.dirty) {
-        const formData = { ...values };
-        mutate(formData, {
-          onSuccess: () => {},
-        });
-      }
-
-      if (clientType === "C") {
-        dispatch({ type: SET_FORM, payload: 7 });
-        navigate(nextFormPath());
-      } else {
-        dispatch({ type: SET_FORM, payload: 9 });
-        navigate(nextFormPath());
-      }
+      const formData = { ...values };
+      mutate(formData, {
+        onSuccess: () => {
+          if (clientType === "C") {
+            dispatch({ type: SET_FORM, payload: 7 });
+            navigate(nextFormPath());
+          } else {
+            dispatch({ type: SET_FORM, payload: 9 });
+            navigate(nextFormPath());
+          }
+        },
+      });
     },
   });
   return { formik };
