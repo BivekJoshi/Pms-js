@@ -32,14 +32,15 @@ export const useDocumentFieldForm = () => {
   return { formik };
 };
 
-export const useDocumentVerification = () => {
+export const useDocumentVerification = ({ imageKyc }) => {
   const { mutate } = useAddVerificationDocument({});
 
   const formik = useFormik({
     initialValues: {
-      documentType: "",
-      kycDocument: "",
+      documentType: imageKyc ? "KYC" : "",
+      kycDocument: imageKyc || "",
     },
+    enableReinitialize: true,
     onSubmit: (values) => {
       // setLoading(false);
       const formData = { ...values };
