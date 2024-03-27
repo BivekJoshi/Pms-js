@@ -83,7 +83,7 @@ const AgreementForm = forwardRef(({ onNext }, ref) => {
               <Radio
                 sx={{
                   color:
-                    theme.palette.mode === "light"
+                    theme?.palette?.mode === "light"
                       ? `${theme.palette.secondary.main} !important`
                       : theme.palette.secondary.alt,
                 }}
