@@ -16,15 +16,18 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import CircularUploadProgress from "../spinner/CircularUploadProgress";
 import { useFinalSubmitApi } from "../../kyc/hooks/useMetaDataKyc";
 import { LoadingButton } from "@mui/lab";
+import { DOC_URL } from '../../utility/getBaseUrl';
+import { useGetDocument } from '../../hooks/Kyc/DocumentUpload/useDocument';
 
 const VerificationDropZone = ({ element, formik }) => {
+  const { data: docData } = useGetDocument();
   const { t } = useTranslation();
   const [file, setFile] = useState(null);
   const [showDelete, setShowDelete] = useState(false);
   const [upProgress, setUpProgress] = useState("0");
   const title = element?.title;
   const documentName = element?.name;
-
+  const kycImage = docData.kycDocument !== null && DOC_URL + docData.kycDocument;
   const { mutate: submitKYC, isLoading } = useFinalSubmitApi({});
 
   const { mutate } = useAddVerificationDocument({});
@@ -66,6 +69,7 @@ const VerificationDropZone = ({ element, formik }) => {
     formik.setFieldValue(element.name, null);
   };
 
+  console.log(console.log("kyc image", kycImage))
   return (
     <Stack sx={{ margin: "0 1rem" }}>
       {file ? (
@@ -126,7 +130,7 @@ const VerificationDropZone = ({ element, formik }) => {
         </Dropzone>
       )}
 
-      {file && (
+      {(file) && (
         <Grid container sx={{ borderBottom: "1px solid grey" }}>
           <Grid
             item
@@ -160,8 +164,21 @@ const VerificationDropZone = ({ element, formik }) => {
           </Grid>
         </Grid>
       )}
+      {(kycImage && !file ) && (
+        <Grid>
+          <Box sx={{ textAlign: "center" }}>
+            <Typography variant='h4' mb={1}>KYC Documnt</Typography>
+            <iframe
+              title="PDF Document"
+              src={kycImage}
+              allowfullscreen
+              style={{ height: "70vh", width: "100%" }}
+            />
+          </Box>
+        </Grid>
+      )}
 
-      {file && (
+      {(file || kycImage) && (
         <div
           style={{ display: "flex", justifyContent: "end", marginTop: "8px" }}
         >

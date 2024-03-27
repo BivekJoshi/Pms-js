@@ -7,8 +7,9 @@ export const getDocument = async () => {
   return res.data;
 };
 
-/*________________________POST DOCUMENT DETAIL_____________________________________*/
-export const addDocument = async (image, formData) => {
+/*________________________POST PP DETAIL_____________________________________*/
+export const addDocumentProfile = async (image, formData) => {
+  console.log(image, "image")
   const imgData = new FormData();
   imgData.append(image?.file, image?.ppSizePhoto);
   const { data } = await axiosInstance.post(
@@ -23,12 +24,30 @@ export const addDocument = async (image, formData) => {
   return data;
 };
 
+/*________________________POST DOCUMENT DETAIL_____________________________________*/
+export const addDocument = async (image, formData) => {
+  console.log(image, "image")
+  const imgData = new FormData();
+  imgData.append("file", image?.finalImage);
+  const { data } = await axiosInstance.post(
+    `/client/client-document?currentForm=1&type=${image?.file}`,
+    imgData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  return data;
+};
+
 /*________________________POST Verification DOCUMENT DETAIL_____________________________________*/
 export const addVerificationDocument = async (image, onUploadProgress) => {
   const imgData = new FormData();
-  imgData.append(image?.file, image?.finalImage);
+  console.log(image, "img")
+  imgData.append("file", image?.finalImage);
   const { data } = await axiosInstance.post(
-    `/client/client-document?currentForm=2`,
+    `/client/client-document?currentForm=2&type=${image?.file}`,
     imgData,
     {
       headers: {
@@ -89,3 +108,33 @@ export const addPhotoDragImage = async (image) => {
   );
   return data;
 };
+
+
+
+
+
+
+
+
+
+
+/*________________________GET DOCUMENT DETAIL_____________________________________*/
+export const getDocumentTypes = async () => {
+  const response = await axiosInstance.get(`/client/individual-details/document-types`);
+  return response.data;
+}
+
+/*________________________GET DOCUMENT DETAIL_____________________________________*/
+export const getDocumentAll = async () => {
+  const response = await axiosInstance.get(`/client/client-document/all`);
+  return response.data;
+}
+
+/*________________________POST DOCUMENT DETAIL_____________________________________*/
+export const addDocumentDetail = async (formData) => {
+  const data = await axiosInstance.post(
+    `/client/individual-details/doc-details`,
+    formData
+  )
+  return data
+}

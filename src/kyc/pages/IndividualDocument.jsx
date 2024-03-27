@@ -12,7 +12,8 @@ import ImageViewModal from "../../components/modal/ImageModal/ImageViewModal";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { SET_FORM } from "../../redux/types/types";
-import useKycNavigation from "../hooks/useKycNavigation";
+import { useGetDocumentAll } from '../../hooks/Kyc/DocumentUpload/usePhotoUplaod';
+import useKycNavigation from '../hooks/useKycNavigation';
 
 const IndividualDocument = () => {
   const { t } = useTranslation();
@@ -21,6 +22,7 @@ const IndividualDocument = () => {
   const [isImgModalOpen, setIsImgModalOpen] = useState(false);
   const [imageData, setImageData] = useState({});
   const { data: documentData } = useGetDocument();
+  const { data: allFormData } = useGetDocumentAll();
   const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const navigate = useNavigate();
@@ -38,6 +40,20 @@ const IndividualDocument = () => {
     navigate(previousFormPath());
     dispatch({ type: SET_FORM, payload: 1 });
   };
+
+
+  const mergedFormData = useMemo(() => {
+    const czbPath = allFormData && allFormData?.find(data => data.documentType === 'CZB')?.path
+
+    return allFormData && allFormData?.filter((row) => row.documentType !== 'CZB')
+      .map((row) => {
+        return {
+          ...row,
+          image2: row.documentType === 'CZF' ? czbPath : null
+        }
+      })
+  }, [allFormData]);
+
   const columns = useMemo(
     () => [
       {
@@ -58,7 +74,7 @@ const IndividualDocument = () => {
       },
       {
         id: 3,
-        accessorKey: "documnetId",
+        accessorKey: "documentNo",
         header: "Document ID",
         size: 170,
         sortable: false,
@@ -72,7 +88,7 @@ const IndividualDocument = () => {
       },
       {
         id: 5,
-        accessorKey: "issueDatee",
+        accessorKey: "issuedDate",
         header: "Issued Date (A.D.)",
         size: 100,
         sortable: false,
@@ -81,7 +97,8 @@ const IndividualDocument = () => {
         id: 6,
         header: "File",
         Cell: (cell) => {
-          const image = DOC_URL + cell?.row?.original?.citizenshipBack;
+          const image = DOC_URL + cell?.row?.original?.path;
+          const image2 = DOC_URL + cell?.row?.original?.image2;
           return (
             <>
               <img
@@ -90,6 +107,12 @@ const IndividualDocument = () => {
                 src={image}
                 alt=""
               />
+              {image2 && <img
+                onClick={() => handleImageRow(cell.row.original)}
+                width={100}
+                src={image2}
+                alt=""
+              />}
             </>
           );
         },
@@ -143,7 +166,7 @@ const IndividualDocument = () => {
       <CustomTable
         title={t("Document Details")}
         columns={columns}
-        data={[]}
+        data={mergedFormData}
         headerBackgroundColor="#401686"
         overFlow={"scroll"}
       />

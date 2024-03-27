@@ -18,7 +18,7 @@ const IndividualDPKyc = ({ onNext }) => {
   const componentRef = useRef();
   const { A: userId } = getUser();
   const { data: userData } = useGetMetaData(userId);
-  console.log(userData?.user?.status);
+
   //individual details
   const individualDetail = userData?.individualDetails;
   // details of family member
