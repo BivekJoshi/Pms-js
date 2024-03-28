@@ -4,8 +4,6 @@ import RenderInput from "../../../../../components/renderInput/RenderInput"
 import { nanoid } from "nanoid"
 import { useOccupationsIndividualForm } from "./useOccupationsIndividualForm"
 import { useNavigate } from "react-router-dom"
-import { SET_FORM } from "../../../../../redux/types/types"
-import { useDispatch } from "react-redux"
 import { useTranslation } from 'react-i18next'
 import useKycNavigation from "../../../../hooks/useKycNavigation"
 
@@ -13,14 +11,12 @@ const OccupationsIndividualForms = () => {
   const { t } = useTranslation();
   const theme = useTheme()
   const navigate = useNavigate()
-  const dispatch = useDispatch();
   const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const { formik } = useOccupationsIndividualForm()
 
   const handleBack = () => {
     navigate(previousFormPath());
-    dispatch({ type: SET_FORM, payload: 5 });
   }
 
   const occupationData = [

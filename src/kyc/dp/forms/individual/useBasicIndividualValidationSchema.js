@@ -65,7 +65,7 @@ const useBasicIndividualValidationSchema = Yup.object().shape({
   // }),
   pan: Yup.string()
     .min(9, "PAN No. must be 9 digits")
-    .max(9, "PAN No. must be up to 9 digits")
+    .max(9, "PAN No. must be 9 digits")
     .matches(/^\d{9}$/, "PAN number must be a 9-digit number")
     .nullable(true)
     .notRequired(),

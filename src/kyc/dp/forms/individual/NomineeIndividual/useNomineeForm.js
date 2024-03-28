@@ -5,15 +5,12 @@ import {
   citizenExp,
   emailRegex,
   fullnameRegex,
-  numberRegExp1,
   onlyNum,
   phoneRegExp,
 } from "../../static/RegExp";
 import { useAddNomineeDetail } from "../../../../../hooks/Kyc/individual/nominee/useNominee";
 import { useEffect } from "react";
-import { SET_FORM } from "../../../../../redux/types/types";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const NomineeSchema = Yup.object().shape({
@@ -37,10 +34,7 @@ const NomineeSchema = Yup.object().shape({
     is: true,
     then: Yup.string()
       .required("Grandfather's Name is required")
-      .matches(
-        fullnameRegex,
-        "Please enter valid grandfather's name"
-      )
+      .matches(fullnameRegex, "Please enter valid grandfather's name")
       .max(75, "Grandfather's Name must be at most 75 characters"),
     otherwise: Yup.string().nullable(),
   }),
@@ -58,12 +52,11 @@ const NomineeSchema = Yup.object().shape({
   }),
   age: Yup.string().when("haveNominee", {
     is: true,
-    then: Yup
-      .string()
-      .required('Please enter age')
+    then: Yup.string()
+      .required("Please enter age")
       .max(150, "Invalid age")
-      .matches(ageREgex, 'Please enter valid age')
-      .test('maxAge', 'Age must be less than or equal to 150', value => {
+      .matches(ageREgex, "Please enter valid age")
+      .test("maxAge", "Age must be less than or equal to 150", (value) => {
         return parseInt(value, 10) <= 150;
       }),
     otherwise: Yup.string().nullable(),
@@ -85,8 +78,7 @@ const NomineeSchema = Yup.object().shape({
   }),
   country: Yup.string().when("haveNominee", {
     is: true,
-    then: Yup.string()
-      .required("Country is required"),
+    then: Yup.string().required("Country is required"),
     otherwise: Yup.string().nullable(),
   }),
   province: Yup.string().when("haveNominee", {
@@ -131,8 +123,7 @@ const NomineeSchema = Yup.object().shape({
 
 export const useNomineeForm = (data) => {
   const { mutate } = useAddNomineeDetail({});
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
   const { nextFormPath } = useKycNavigation();
 
   const formik = useFormik({
@@ -167,8 +158,7 @@ export const useNomineeForm = (data) => {
           },
         });
       }
-      dispatch({ type: SET_FORM, payload: 8 })
-      navigate(nextFormPath())
+      navigate(nextFormPath());
     },
   });
 

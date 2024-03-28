@@ -10,10 +10,8 @@ import { useGetDocument } from "../../hooks/Kyc/DocumentUpload/useDocument";
 import { DOC_URL } from "../../utility/getBaseUrl";
 import ImageViewModal from "../../components/modal/ImageModal/ImageViewModal";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { SET_FORM } from "../../redux/types/types";
-import { useGetDocumentAll } from '../../hooks/Kyc/DocumentUpload/usePhotoUplaod';
-import useKycNavigation from '../hooks/useKycNavigation';
+import useKycNavigation from "../hooks/useKycNavigation";
+import { useGetDocumentAll } from "../../hooks/Kyc/DocumentUpload/usePhotoUplaod";
 
 const IndividualDocument = () => {
   const { t } = useTranslation();
@@ -26,7 +24,6 @@ const IndividualDocument = () => {
   const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const handleImageRow = (rowData) => {
     setImageData(rowData?.citizenshipBack);
     setIsImgModalOpen(rowData);
@@ -34,24 +31,27 @@ const IndividualDocument = () => {
 
   const handleNext = () => {
     navigate(nextFormPath());
-    dispatch({ type: SET_FORM, payload: 3 });
   };
   const handleBack = () => {
     navigate(previousFormPath());
-    dispatch({ type: SET_FORM, payload: 1 });
   };
 
-
   const mergedFormData = useMemo(() => {
-    const czbPath = allFormData && allFormData?.find(data => data.documentType === 'CZB')?.path
+    const czbPath =
+      allFormData &&
+      allFormData?.find((data) => data.documentType === "CZB")?.path;
 
-    return allFormData && allFormData?.filter((row) => row.documentType !== 'CZB')
-      .map((row) => {
-        return {
-          ...row,
-          image2: row.documentType === 'CZF' ? czbPath : null
-        }
-      })
+    return (
+      allFormData &&
+      allFormData
+        ?.filter((row) => row.documentType !== "CZB")
+        .map((row) => {
+          return {
+            ...row,
+            image2: row.documentType === "CZF" ? czbPath : null,
+          };
+        })
+    );
   }, [allFormData]);
 
   const columns = useMemo(
@@ -107,12 +107,14 @@ const IndividualDocument = () => {
                 src={image}
                 alt=""
               />
-              {image2 && <img
-                onClick={() => handleImageRow(cell.row.original)}
-                width={100}
-                src={image2}
-                alt=""
-              />}
+              {image2 && (
+                <img
+                  onClick={() => handleImageRow(cell.row.original)}
+                  width={100}
+                  src={image2}
+                  alt=""
+                />
+              )}
             </>
           );
         },

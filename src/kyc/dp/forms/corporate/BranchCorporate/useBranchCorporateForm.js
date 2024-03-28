@@ -74,7 +74,7 @@ export const useBranchCorporateForm = (data) => {
           },
     validationSchema: BranchScheme,
     onSubmit: (value) => {
-      if(formik.dirty){
+      if (formik.dirty) {
         const formData = { ...value };
         mutate(formData, {
           onSuccess: (data) => {

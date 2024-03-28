@@ -1,29 +1,32 @@
-import React, { useState } from "react"
-import { Typography } from "@mui/material"
-import Dropzone from "react-dropzone"
-import { fileResize } from "../../utility/image"
-import Picture from "../../assets/Picture.png"
-import { useAddDocument, usePhotoUpload } from "../../hooks/Kyc/DocumentUpload/usePhotoUplaod"
-import { PDFViewer } from '@react-pdf/renderer'
+import React, { useState } from "react";
+import { Typography } from "@mui/material";
+import Dropzone from "react-dropzone";
+import { fileResize } from "../../utility/image";
+import Picture from "../../assets/Picture.png";
+import {
+  useAddDocument,
+  usePhotoUpload,
+} from "../../hooks/Kyc/DocumentUpload/usePhotoUplaod";
+import { PDFViewer } from "@react-pdf/renderer";
 
 const DropZoneUploadFile = ({ element, formik }) => {
-  const [file, setFile] = useState(null)
-  const [showDelete, setShowDelete] = useState(false)
-  const title = element?.title
-  const documentName = element?.name
-  console.log("element", element)
-  const { mutate } = useAddDocument({})
+  const [file, setFile] = useState(null);
+  const [showDelete, setShowDelete] = useState(false);
+  const title = element?.title;
+  const documentName = element?.name;
+  console.log("element", element);
+  const { mutate } = useAddDocument({});
 
   const handleImage = async (acceptedFiles) => {
-    const fileSize = acceptedFiles[0].size / 1024 / 1024
+    const fileSize = acceptedFiles[0].size / 1024 / 1024;
     return fileSize <= 0.2
       ? acceptedFiles[0]
-      : await fileResize(acceptedFiles[0])
-  }
+      : await fileResize(acceptedFiles[0]);
+  };
 
   const handleUpload = async (acceptedFiles) => {
-    const image = await handleImage(acceptedFiles)
-    setFile(image)
+    const image = await handleImage(acceptedFiles);
+    setFile(image);
     // formik.setFieldValue(element.name, image);
     mutate(
       { finalImage: image, file: documentName },
@@ -32,12 +35,12 @@ const DropZoneUploadFile = ({ element, formik }) => {
           // formik.resetForm();
         },
       }
-    )
-  }
+    );
+  };
 
   const handleDelete = () => {
-    setFile(null)
-    formik.setFieldValue(element.name, null)
+    setFile(null);
+    formik.setFieldValue(element.name, null);
   };
 
   const isPDFDocument = () => {
@@ -136,9 +139,8 @@ const DropZoneUploadFile = ({ element, formik }) => {
           )}
         </Dropzone>
       )}
-
     </div>
-  )
-}
+  );
+};
 
-export default DropZoneUploadFile
+export default DropZoneUploadFile;

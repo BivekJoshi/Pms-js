@@ -4,18 +4,16 @@ import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { nanoid } from "nanoid";
 import { FieldArray, FormikProvider } from "formik";
 import { useKycFamilyForm } from "./usekycFamilyForm";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { useGetFamily } from "../../../../../hooks/kyc/family/useFamily";
 import MarriedFamilyTable from "./MarriedFamilyTable";
 import { useNavigate } from "react-router-dom";
-import { SET_FORM } from "../../../../../redux/types/types";
 import { useTranslation } from "react-i18next";
 import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const FamilyIndividualDpForms = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   const { nextFormPath, previousFormPath } = useKycNavigation();
 
@@ -192,7 +190,6 @@ const FamilyIndividualDpForms = () => {
 
   const handleBack = () => {
     navigate(previousFormPath());
-    dispatch({ type: SET_FORM, payload: 3 });
   };
   return (
     <div data-aos="zoom-in-right">

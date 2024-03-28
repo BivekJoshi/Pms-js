@@ -8,8 +8,6 @@ import { Button, Grid, Typography, useTheme } from "@mui/material";
 import { useGetGuardianDetail } from "../../../../../hooks/Kyc/individual/GuardianDetail/useGuardianDetail";
 import useKycNavigation from "../../../../hooks/useKycNavigation";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { SET_FORM } from "../../../../../redux/types/types";
 
 const PROVINCE = [
   {
@@ -176,14 +174,12 @@ const MinorDetails = () => {
   const { formik } = useMinorDetailFrom({ guardianDetail });
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const { previousFormPath } = useKycNavigation();
 
   const theme = useTheme();
   const handleBack = () => {
     navigate(previousFormPath());
-    dispatch({ type: SET_FORM, payload: 1 });
   };
   return (
     <div>

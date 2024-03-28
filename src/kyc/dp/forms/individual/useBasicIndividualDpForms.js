@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 import useKycNavigation from "../../../hooks/useKycNavigation"
 
 export const useBasicIndividualDpForms = ({ data }) => {
-  const { mutate } = useAddBasicDetail({})
+  const { mutate } = useAddBasicDetail({});
   const { nextFormPath } = useKycNavigation();
   const navigate = useNavigate()
 

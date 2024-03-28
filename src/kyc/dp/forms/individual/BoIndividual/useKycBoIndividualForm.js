@@ -1,10 +1,8 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useAddBODetail } from "../../../../../hooks/Kyc/individual/boStatement/useAddKycBo";
-import { SET_FORM } from "../../../../../redux/types/types";
 import { getUser } from "../../../../../utility/userHelper";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const BoStatementSchema = Yup.object().shape({
@@ -23,7 +21,6 @@ export const useKycBoIndividualForm = (data) => {
   const { mutate } = useAddBODetail({});
   const { H: clientType } = getUser();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { nextFormPath } = useKycNavigation();
 
   const formik = useFormik({
@@ -38,13 +35,7 @@ export const useKycBoIndividualForm = (data) => {
       const formData = { ...values };
       mutate(formData, {
         onSuccess: () => {
-          if (clientType === "C") {
-            dispatch({ type: SET_FORM, payload: 7 });
-            navigate(nextFormPath());
-          } else {
-            dispatch({ type: SET_FORM, payload: 9 });
-            navigate(nextFormPath());
-          }
+          navigate(nextFormPath());
         },
       });
     },

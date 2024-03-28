@@ -5,8 +5,6 @@ import { nanoid } from "nanoid";
 import { useKycBoIndividualForm } from "./useKycBoIndividualForm";
 import { useGetBODetail } from "../../../../../hooks/Kyc/individual/boStatement/useAddKycBo";
 import { useNavigate } from "react-router-dom";
-import { SET_FORM } from "../../../../../redux/types/types";
-import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import useKycNavigation from "../../../../hooks/useKycNavigation";
 
@@ -58,7 +56,6 @@ const BoIndividualDetails = () => {
   const [fields, setFields] = useState(bodFields);
   const theme = useTheme();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { previousFormPath } = useKycNavigation();
   const { data: boData } = useGetBODetail();
   const data = boData;
@@ -76,7 +73,6 @@ const BoIndividualDetails = () => {
 
   const handleBack = () => {
     navigate(previousFormPath());
-    dispatch({ type: SET_FORM, payload: 7 });
   };
 
   return (

@@ -11,7 +11,7 @@ import useKycNavigation from "../../../hooks/useKycNavigation";
 const CorporatBankDetail = () => {
   const { t } = useTranslation();
   const { formik, loading } = corporatBankDetailForm();
-  const { H: clientType, I: formNature } = getUser()
+  const { H: clientType, I: formNature } = getUser();
   const navigate = useNavigate();
   const { nextFormPath, previousFormPath } = useKycNavigation();
 
@@ -67,7 +67,6 @@ const CorporatBankDetail = () => {
     navigate(nextFormPath());
   };
 
-
   const handleBack = () => {
     navigate(previousFormPath());
   }
@@ -103,18 +102,10 @@ const CorporatBankDetail = () => {
             marginTop: "1rem",
           }}
         >
-          <Button
-            onClick={handleBack}
-            variant="outlined"
-            color="secondary"
-          >
+          <Button onClick={handleBack} variant="outlined" color="secondary">
             {t("Back")}
           </Button>
-          <Button
-            onClick={handleNext}
-            variant="contained"
-            color="secondary"
-          >
+          <Button onClick={handleNext} variant="contained" color="secondary">
             {t("Next")}
           </Button>
         </Grid>
