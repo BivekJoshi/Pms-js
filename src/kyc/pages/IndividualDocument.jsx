@@ -10,8 +10,6 @@ import { useGetDocument } from "../../hooks/Kyc/DocumentUpload/useDocument";
 import { DOC_URL } from "../../utility/getBaseUrl";
 import ImageViewModal from "../../components/modal/ImageModal/ImageViewModal";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { SET_FORM } from "../../redux/types/types";
 import useKycNavigation from "../hooks/useKycNavigation";
 
 const IndividualDocument = () => {
@@ -24,7 +22,6 @@ const IndividualDocument = () => {
   const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const handleImageRow = (rowData) => {
     setImageData(rowData?.citizenshipBack);
     setIsImgModalOpen(rowData);
@@ -32,11 +29,9 @@ const IndividualDocument = () => {
 
   const handleNext = () => {
     navigate(nextFormPath());
-    dispatch({ type: SET_FORM, payload: 3 });
   };
   const handleBack = () => {
     navigate(previousFormPath());
-    dispatch({ type: SET_FORM, payload: 1 });
   };
   const columns = useMemo(
     () => [

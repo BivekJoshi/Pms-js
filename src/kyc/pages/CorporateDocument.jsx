@@ -4,12 +4,10 @@ import { Box } from "@mui/system";
 import React, { useMemo, useState } from "react";
 import FormModal from "../../components/formModal/FormModal";
 import CustomTable from "../../components/customTable/CustomTable";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import CorporateDocumentField from "../dp/forms/corporate/CorporateDocumentField";
-import { useGetDocument } from '../../hooks/Kyc/DocumentUpload/useDocument';
-import { SET_FORM } from "../../redux/types/types";
+import { useGetDocument } from "../../hooks/Kyc/DocumentUpload/useDocument";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import useKycNavigation from "../hooks/useKycNavigation";
 
 const CorporateDocument = () => {
@@ -18,16 +16,13 @@ const CorporateDocument = () => {
   const theme = useTheme();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const handleNext = () => {
     navigate(nextFormPath());
-    dispatch({ type: SET_FORM, payload: 3 });
   };
   const handleBack = () => {
     navigate(previousFormPath());
-    dispatch({ type: SET_FORM, payload: 1 });
   };
 
   const columns = useMemo(
@@ -102,7 +97,7 @@ const CorporateDocument = () => {
               fontWeight: "800",
             }}
           >
-            {t('Document Upload')}
+            {t("Document Upload")}
           </Typography>
         </Box>
         <Button
@@ -130,14 +125,14 @@ const CorporateDocument = () => {
         // exportAsCSV
         // exportAsPdf
         headerBackgroundColor="#401686"
-      // headerColor={theme.palette.text.alt}
-      // enableColumnActions
-      // enableDelete
-      // enableEditing={true}
-      // handleDelete={deleteRow}
-      // handleNotification={notificationRoute}
-      // delete
-      // notification
+        // headerColor={theme.palette.text.alt}
+        // enableColumnActions
+        // enableDelete
+        // enableEditing={true}
+        // handleDelete={deleteRow}
+        // handleNotification={notificationRoute}
+        // delete
+        // notification
       />
       <FormModal
         open={isModalOpen}
@@ -150,19 +145,17 @@ const CorporateDocument = () => {
           </>
         }
       />
-      <Grid sx={{ display: "flex", justifyContent: "space-between", marginTop: '1rem' }}>
-        <Button
-          onClick={handleBack}
-          variant="outlined"
-          color="secondary"
-        >
+      <Grid
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "1rem",
+        }}
+      >
+        <Button onClick={handleBack} variant="outlined" color="secondary">
           {t("Back")}
         </Button>
-        <Button
-          onClick={handleNext}
-          variant="contained"
-          color="secondary"
-        >
+        <Button onClick={handleNext} variant="contained" color="secondary">
           {t("Next")}
         </Button>
       </Grid>

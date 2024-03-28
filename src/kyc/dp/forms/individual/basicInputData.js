@@ -737,6 +737,7 @@ export const basicData = [
     sm: 12,
     md: 12,
     id: nanoid(),
+    opacity: "red",
     infoAlert: "Will be enabled when DOB is less than 16 years!",
     // hasTrueRadio: true,
     // radioName: "minorDoc",

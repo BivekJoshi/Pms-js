@@ -2,15 +2,12 @@ import { useFormik } from "formik";
 import { corporateDpValidationSchema } from "./corporateDpValidationSchema";
 import { useAddBasicDPCorporate } from "../../../hooks/Kyc/corporate/BasicCoporateDp/useBasicCoporateDp";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { SET_FORM } from "../../../redux/types/types";
 import useKycNavigation from "../../../kyc/hooks/useKycNavigation";
 
 export const BasicCorporateDpForm = (data) => {
   const { mutate } = useAddBasicDPCorporate({});
   const { nextFormPath } = useKycNavigation();
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -48,8 +45,7 @@ export const BasicCorporateDpForm = (data) => {
           },
         });
       }
-      dispatch({ type: SET_FORM, payload: 2 })
-      navigate(nextFormPath())
+      navigate(nextFormPath());
     },
   });
 

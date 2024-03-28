@@ -3,13 +3,10 @@ import { useFormik } from "formik";
 import MinorDetailValidationSchema from "./MinorDetailValidationSchema";
 import { useAddGuardian } from "../../../../../hooks/Kyc/individual/GuardianDetail/useGuardianDetail";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
-import { SET_FORM } from "../../../../../redux/types/types";
 import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const useMinorDetailFrom = ({ guardianDetail }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { nextFormPath } = useKycNavigation();
   const { mutate } = useAddGuardian({});
   const [loading, setLoading] = useState(false);
@@ -37,7 +34,6 @@ const useMinorDetailFrom = ({ guardianDetail }) => {
           setLoading(true);
         },
       });
-      dispatch({ type: SET_FORM, payload: 3 });
       navigate(nextFormPath());
     },
   });

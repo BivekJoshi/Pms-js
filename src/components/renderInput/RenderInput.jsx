@@ -393,6 +393,7 @@ const RenderInput = ({
                   checked={formik.values[element?.name]}
                   onChange={formik.handleChange}
                   name={element?.name}
+                  sx={{ color: element?.isDisabled ? element?.opacity : "" }}
                 />
               }
               label={t(element?.label)}

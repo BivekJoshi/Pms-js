@@ -4,18 +4,15 @@ import { corporatBankDetailForm } from "../../../../form/auth/CorporateDp/Corpor
 import { Box, Button, Grid, Typography, useTheme } from "@mui/material";
 import RenderInput from "../../../../components/renderInput/RenderInput";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { getUser } from "../../../../utility/userHelper";
-import { SET_FORM } from "../../../../redux/types/types";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import useKycNavigation from "../../../hooks/useKycNavigation";
 
 const CorporatBankDetail = () => {
   const { t } = useTranslation();
   const { formik, loading } = corporatBankDetailForm();
-  const { H: clientType, I: formNature } = getUser()
+  const { H: clientType, I: formNature } = getUser();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const BANKFIELDS = [
@@ -69,18 +66,14 @@ const CorporatBankDetail = () => {
   const handleNext = () => {
     if (formNature === "TMS") {
       navigate(nextFormPath());
-      dispatch({ type: SET_FORM, payload: 6 });
     } else {
       navigate(nextFormPath());
-      dispatch({ type: SET_FORM, payload: 6 });
     }
   };
 
-
   const handleBack = () => {
     navigate(previousFormPath());
-    dispatch({ type: SET_FORM, payload: 4 });
-  }
+  };
 
   const theme = useTheme();
   return (
@@ -113,18 +106,10 @@ const CorporatBankDetail = () => {
             marginTop: "1rem",
           }}
         >
-          <Button
-            onClick={handleBack}
-            variant="outlined"
-            color="secondary"
-          >
+          <Button onClick={handleBack} variant="outlined" color="secondary">
             {t("Back")}
           </Button>
-          <Button
-            onClick={handleNext}
-            variant="contained"
-            color="secondary"
-          >
+          <Button onClick={handleNext} variant="contained" color="secondary">
             {t("Next")}
           </Button>
         </Grid>

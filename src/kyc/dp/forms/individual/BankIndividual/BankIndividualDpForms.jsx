@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react"
+import React, { useEffect, useState, useMemo } from "react";
 import {
   Grid,
   Button,
@@ -6,38 +6,34 @@ import {
   Typography,
   Switch,
   IconButton,
-} from "@mui/material"
-import RenderInput from "../../../../../components/renderInput/RenderInput"
-import { useKycBankForm } from "./usekycBankForm"
-import { Box } from "@mui/system"
-import CustomTable from "../../../../../components/customTable/CustomTable"
+} from "@mui/material";
+import RenderInput from "../../../../../components/renderInput/RenderInput";
+import { useKycBankForm } from "./usekycBankForm";
+import { Box } from "@mui/system";
+import CustomTable from "../../../../../components/customTable/CustomTable";
 import {
   useDeleteKycBank,
   useGetBankList,
   useGetKycBank,
-  useUpdateKycBank,
-} from "../../../../../hooks/Kyc/individual/kycBank/useKycBank"
-import { Delete } from "@mui/icons-material"
-import DeleteConfirmationModal from "../../../../../components/modal/DeleteModal/DeleteConfirmationModal"
-import { useDispatch } from "react-redux"
-import { SET_FORM } from "../../../../../redux/types/types"
-import { useNavigate } from "react-router-dom"
-import { useTranslation } from 'react-i18next'
-import useKycNavigation from "../../../../hooks/useKycNavigation"
+} from "../../../../../hooks/Kyc/individual/kycBank/useKycBank";
+import { Delete } from "@mui/icons-material";
+import DeleteConfirmationModal from "../../../../../components/modal/DeleteModal/DeleteConfirmationModal";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const BankIndividualDpForms = () => {
   const { t } = useTranslation();
-  const [openDeleteModal, setOpenDeleteModal] = useState(false)
-  const theme = useTheme()
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const theme = useTheme();
   const navigate = useNavigate();
-  const dispatch = useDispatch()
   const { nextFormPath, previousFormPath } = useKycNavigation();
 
-  const { data: bankListData } = useGetBankList()
-  const { data: bankData } = useGetKycBank()
-  const bankDataField = bankData && bankData?.data
-  const { formik } = useKycBankForm(bankDataField)
-  const [deletedKycBank, setDeletedKycBank] = useState({})
+  const { data: bankListData } = useGetBankList();
+  const { data: bankData } = useGetKycBank();
+  const bankDataField = bankData && bankData?.data;
+  const { formik } = useKycBankForm(bankDataField);
+  const [deletedKycBank, setDeletedKycBank] = useState({});
 
   const BANKFIELDS = [
     {
@@ -90,14 +86,14 @@ const BankIndividualDpForms = () => {
       sm: 6,
       md: 3,
     },
-  ]
+  ];
 
   const columns = useMemo(
     () => [
       {
         id: 1,
         Cell: (cell) => {
-          return cell?.row?.index + 1
+          return cell?.row?.index + 1;
         },
         header: "SN",
         size: 50,
@@ -110,8 +106,8 @@ const BankIndividualDpForms = () => {
         accessorFn: (row) => {
           const bankName = bankListData?.data?.find(
             (code) => code?.code === row?.bankName
-          )
-          return <>{bankName?.name}</>
+          );
+          return <>{bankName?.name}</>;
         },
         size: 170,
         sortable: false,
@@ -120,7 +116,7 @@ const BankIndividualDpForms = () => {
         id: 3,
         accessorKey: "accountType",
         accessorFn: (row) => {
-          return <>{row?.accountType === "S" ? "Saving" : "Current"}</>
+          return <>{row?.accountType === "S" ? "Saving" : "Current"}</>;
         },
         header: "Account Type",
         size: 100,
@@ -171,36 +167,34 @@ const BankIndividualDpForms = () => {
       },
     ],
     []
-  )
+  );
 
-  const handleCloseDeleteModal = () => setOpenDeleteModal(false)
+  const handleCloseDeleteModal = () => setOpenDeleteModal(false);
 
   const { deleteKycBankMutation, isSuccess: isDeleteSuccess } =
-    useDeleteKycBank({})
+    useDeleteKycBank({});
 
   const handleDeleteRow = (rowData) => {
-    setDeletedKycBank(rowData)
-    setOpenDeleteModal(true)
-  }
+    setDeletedKycBank(rowData);
+    setOpenDeleteModal(true);
+  };
 
   useEffect(() => {
     if (isDeleteSuccess) {
-      setOpenDeleteModal(false)
+      setOpenDeleteModal(false);
     }
-  }, [isDeleteSuccess])
+  }, [isDeleteSuccess]);
 
   const handleConfirmDelete = () => {
-    deleteKycBankMutation(deletedKycBank?.id)
-  }
+    deleteKycBankMutation(deletedKycBank?.id);
+  };
 
   const handleNext = () => {
     navigate(nextFormPath());
-    dispatch({ type: SET_FORM, payload: 6 });
   };
   const handleBack = () => {
     navigate(previousFormPath());
-    dispatch({ type: SET_FORM, payload: 4 });
-  }
+  };
 
   return (
     <div data-aos="zoom-in-right">
@@ -245,20 +239,16 @@ const BankIndividualDpForms = () => {
         />
       </Grid>
       <Grid
-        sx={{ display: "flex", justifyContent: "space-between", marginTop: "1rem" }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "1rem",
+        }}
       >
-        <Button
-          onClick={handleBack}
-          variant="outlined"
-          color="secondary"
-        >
+        <Button onClick={handleBack} variant="outlined" color="secondary">
           {t("Back")}
         </Button>
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={handleNext}
-        >
+        <Button variant="contained" color="secondary" onClick={handleNext}>
           {t("Next")}
         </Button>
       </Grid>
@@ -272,7 +262,7 @@ const BankIndividualDpForms = () => {
         />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default BankIndividualDpForms
+export default BankIndividualDpForms;

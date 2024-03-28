@@ -6,8 +6,6 @@ import {
 import * as Yup from "yup";
 import { fullnameRegex } from "../../static/RegExp";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { SET_FORM } from "../../../../../redux/types/types";
 import useKycNavigation from "../../../../hooks/useKycNavigation";
 
 const AMLCFTSchema = Yup.object().shape({
@@ -37,7 +35,6 @@ const AMLCFTSchema = Yup.object().shape({
 export const useAmlCftForm = () => {
   const { mutate } = useAddAmlCft({});
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { nextFormPath } = useKycNavigation();
   const { data, isLoading } = useGetAmlCft();
 
@@ -87,7 +84,6 @@ export const useAmlCftForm = () => {
           },
         });
       }
-      dispatch({ type: SET_FORM, payload: 8 });
       navigate(nextFormPath());
     },
   });

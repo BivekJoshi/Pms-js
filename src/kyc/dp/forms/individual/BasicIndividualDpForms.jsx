@@ -80,6 +80,14 @@ const BasicIndividualDpForms = () => {
           </Button>
         </Grid>
       </Box>
+      <style>{`
+      .css-1hgczlw-MuiButtonBase-root-MuiSwitch-switchBase.Mui-disabled+.MuiSwitch-track{
+        opacity: 1 !important;
+      }
+      .css-1yjjitx-MuiSwitch-track{
+        background-color: #00000036;
+      }
+      `}</style>
     </div>
   );
 };
