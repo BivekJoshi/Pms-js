@@ -2,8 +2,6 @@ import { useAddAddress } from "../../../../../hooks/kyc/address/useAddress";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { mobileNum, phoneRegExp } from "../../static/RegExp";
-import { SET_FORM } from "../../../../../redux/types/types";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useKycNavigation from "../../../../hooks/useKycNavigation";
 
@@ -26,7 +24,6 @@ const AddressSchema = Yup.object().shape({
 
 export const useAddressForm = (data) => {
   const { mutate } = useAddAddress({});
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { nextFormPath } = useKycNavigation();
 
@@ -66,7 +63,6 @@ export const useAddressForm = (data) => {
           },
         });
       }
-      dispatch({ type: SET_FORM, payload: 4 });
       navigate(nextFormPath());
     },
   });

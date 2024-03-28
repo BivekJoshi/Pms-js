@@ -7,8 +7,6 @@ import { AddressField } from "./AddressField"
 import RenderInput from "../../../../../components/renderInput/RenderInput"
 import { useGetAddress } from "../../../../../hooks/kyc/address/useAddress"
 import { useNavigate } from "react-router-dom";
-import { SET_FORM } from "../../../../../redux/types/types";
-import { useDispatch } from "react-redux";
 import { useTranslation } from 'react-i18next';
 import useKycNavigation from "../../../../hooks/useKycNavigation";
 
@@ -19,13 +17,11 @@ const AddressIndividualDp = () => {
   const data = addressData && addressData?.data
   const { formik } = useAddressForm(data)
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const theme = useTheme()
 
 
   const handleBack = () => {
     navigate(previousFormPath());
-    dispatch({ type: SET_FORM, payload: 2 });
   }
 
   return (

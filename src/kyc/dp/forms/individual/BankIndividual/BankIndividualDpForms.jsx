@@ -19,8 +19,6 @@ import {
 } from "../../../../../hooks/Kyc/individual/kycBank/useKycBank"
 import { Delete } from "@mui/icons-material"
 import DeleteConfirmationModal from "../../../../../components/modal/DeleteModal/DeleteConfirmationModal"
-import { useDispatch } from "react-redux"
-import { SET_FORM } from "../../../../../redux/types/types"
 import { useNavigate } from "react-router-dom"
 import { useTranslation } from 'react-i18next'
 import useKycNavigation from "../../../../hooks/useKycNavigation"
@@ -30,7 +28,6 @@ const BankIndividualDpForms = () => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const theme = useTheme()
   const navigate = useNavigate();
-  const dispatch = useDispatch()
   const { nextFormPath, previousFormPath } = useKycNavigation();
 
   const { data: bankListData } = useGetBankList()
@@ -195,11 +192,9 @@ const BankIndividualDpForms = () => {
 
   const handleNext = () => {
     navigate(nextFormPath());
-    dispatch({ type: SET_FORM, payload: 6 });
   };
   const handleBack = () => {
     navigate(previousFormPath());
-    dispatch({ type: SET_FORM, payload: 4 });
   }
 
   return (

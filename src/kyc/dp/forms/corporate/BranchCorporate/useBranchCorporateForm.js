@@ -2,8 +2,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { phoneRegExp } from "../../static/RegExp";
 import { useAddBranchDetail } from "../../../../../hooks/Kyc/branch/useBranchDetail";
-import { SET_FORM } from "../../../../../redux/types/types";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import useKycNavigation from "../../../../hooks/useKycNavigation";
@@ -47,7 +45,6 @@ export const useBranchCorporateForm = (data) => {
   const [loading, setLoading] = useState(false);
   const { mutate } = useAddBranchDetail({});
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const { nextFormPath } = useKycNavigation();
 
   const formik = useFormik({
@@ -85,7 +82,6 @@ export const useBranchCorporateForm = (data) => {
           },
         });
       }
-      dispatch({ type: SET_FORM, payload: 5 })
       navigate(nextFormPath())
     },
   });

@@ -2,15 +2,12 @@ import { useFormik } from "formik"
 import useBasicIndividualValidationSchema from "./useBasicIndividualValidationSchema"
 import { useAddBasicDetail } from "./BasicDetail/useBasicDetail"
 import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
-import { SET_FORM, SET_MINOR } from "../../../../redux/types/types"
 import useKycNavigation from "../../../hooks/useKycNavigation"
 
 export const useBasicIndividualDpForms = ({ data }) => {
   const { mutate } = useAddBasicDetail({})
   const { nextFormPath } = useKycNavigation();
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const formik = useFormik({
     initialValues: {
@@ -45,7 +42,6 @@ export const useBasicIndividualDpForms = ({ data }) => {
       }
 
       if(formik.isValid){
-        dispatch({ type: SET_FORM, payload: 2 })
         navigate(nextFormPath())
       }
     },

@@ -8,9 +8,7 @@ import { FieldArray, FormikProvider } from "formik";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
 import { useGetBodCorporate } from "../../../../hooks/Kyc/corporate/BodCorporate/useBodCorporate";
-import { useDispatch } from "react-redux";
 import { getUser } from "../../../../utility/userHelper";
-import { SET_FORM } from "../../../../redux/types/types";
 import { useTranslation } from 'react-i18next';
 import { useState } from "react";
 import useKycNavigation from "../../../hooks/useKycNavigation";
@@ -19,7 +17,6 @@ const CorporatOwnershipDetails = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const navigate = useNavigate(); 
-  const dispatch = useDispatch();
   const { nextFormPath } = useKycNavigation();
   const [expandAccordionDetails, setExpandAccordionDetails] = useState([]);
   const [expandAccordionFirst, setExpandAccordionFirst] = useState(false);
@@ -320,7 +317,6 @@ const CorporatOwnershipDetails = () => {
 
   const handleBack = () => {
     navigate(nextFormPath(6));
-    dispatch({ type: SET_FORM, payload: 6 });
   };
 
   const titles = [
