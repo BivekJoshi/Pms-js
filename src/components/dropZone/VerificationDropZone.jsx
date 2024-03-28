@@ -4,6 +4,7 @@ import {
   Button,
   CircularProgress,
   Grid,
+  IconButton,
   Stack,
   Typography,
 } from "@mui/material";
@@ -18,20 +19,50 @@ import { useFinalSubmitApi } from "../../kyc/hooks/useMetaDataKyc";
 import { LoadingButton } from "@mui/lab";
 import { DOC_URL } from "../../utility/getBaseUrl";
 import { useGetDocument } from "../../hooks/Kyc/DocumentUpload/useDocument";
+import { axiosInstance } from "../../api/axiosInterceptor";
+import { Document, Page } from "@react-pdf/renderer";
+
+const fetchPdfAsBlob = async (url) => {
+  try {
+    const response = await axiosInstance.get(url, {
+      responseType: "blob", // Set responseType to 'blob' to receive the response as a Blob
+    });
+    return response.data; // Axios already parses the response as a Blob
+  } catch (error) {
+    console.error("Error fetching PDF:", error);
+    return null;
+  }
+};
 
 const VerificationDropZone = ({ element, formik }) => {
-  console.log("🚀 ~ VerificationDropZone ~ formik:", formik);
   const { data: docData, isLoading: docLoad } = useGetDocument();
   const { t } = useTranslation();
   const kycImage =
     docData.kycDocument !== null && DOC_URL + docData.kycDocument;
-  const [file, setFile] = useState(docLoad ? null : kycImage);
+  const [file, setFile] = useState();
   const [upProgress, setUpProgress] = useState("0");
   const title = element?.title;
   const documentName = element?.name;
   const { mutate: submitKYC, isLoading } = useFinalSubmitApi({});
-
+  // const [kycURL, setKycURL] = useState();
   const { mutate } = useAddVerificationDocument({});
+
+  // useEffect(() => {
+  //   if (kycImage) {
+  //     fetchPdfAsBlob(kycImage)
+  //       .then((blob) => {
+  //         if (blob) {
+  //           const blobUrl = URL.createObjectURL(blob);
+  //           setKycURL(blobUrl);
+  //         } else {
+  //           console.log("Failed to fetch PDF as Blob.");
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error:", error);
+  //       });
+  //   }
+  // }, [kycImage]);
 
   const handleImage = async (acceptedFiles) => {
     const fileSize = acceptedFiles[0].size / 1024 / 1024;
@@ -56,11 +87,7 @@ const VerificationDropZone = ({ element, formik }) => {
         onUploadProgress: onUploadProgress,
       },
       {
-        // onUploadProgress, onUploadProgress
-        onSuccess: (data) => {
-          // setUpProgress("100")
-          // formik.resetForm();
-        },
+        onSuccess: (data) => {},
       }
     );
   };
@@ -69,10 +96,14 @@ const VerificationDropZone = ({ element, formik }) => {
     setFile(null);
     formik.setFieldValue(element.name, null);
   };
+  const [numPages, setNumPages] = useState(null);
 
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages(numPages);
+  };
   return (
     <Stack sx={{ margin: "0 1rem" }}>
-      {file ? (
+      {file && (
         <div
           style={{
             padding: "16px",
@@ -81,16 +112,27 @@ const VerificationDropZone = ({ element, formik }) => {
           }}
         >
           <iframe
-            src={
-              kycImage
-                ? encodeURIComponent(kycImage)
-                : URL.createObjectURL(file)
-            }
+            src={URL.createObjectURL(file)}
             alt="Uploaded file"
             style={{ width: "100%", height: "60vh" }}
           />
         </div>
-      ) : (
+      )}
+
+      <object
+        style={{
+          height: "600px",
+        }}
+        data={kycImage}
+        type="application/pdf"
+        width="100%"
+        height="100%"
+      >
+        <p>
+          View Uploaded Kyc Document <a href={kycImage}>to the PDF!</a>
+        </p>
+      </object>
+      {!kycImage && (
         <Dropzone onDrop={handleUpload} accept="image/*">
           {({ getRootProps, getInputProps }) => (
             <div
@@ -134,7 +176,7 @@ const VerificationDropZone = ({ element, formik }) => {
         </Dropzone>
       )}
 
-      {file && (
+      {kycImage && (
         <Grid container sx={{ borderBottom: "1px solid grey" }}>
           <Grid
             item
@@ -148,9 +190,13 @@ const VerificationDropZone = ({ element, formik }) => {
               marginBottom: "12px",
             }}
           >
-            <UploadFileIcon
-              sx={{ fontSize: "2rem", color: "rgba(86.95, 38, 150.96, 1)" }}
-            />
+            <IconButton onClick={() => window.open(kycImage, "_blank")}>
+              <UploadFileIcon
+                onclick={() => {}}
+                sx={{ fontSize: "2rem", color: "rgba(86.95, 38, 150.96, 1)" }}
+              />
+            </IconButton>
+
             <Typography>{title}</Typography>
             <Box
               sx={{
@@ -168,21 +214,12 @@ const VerificationDropZone = ({ element, formik }) => {
           </Grid>
         </Grid>
       )}
-      {kycImage && !file && (
-        <Grid>
-          <Box sx={{ textAlign: "center" }}>
-            <Typography variant="h4" mb={1}>
-              KYC Documnt
-            </Typography>
-            <iframe
-              title="PDF Document"
-              src={kycImage}
-              allowfullscreen
-              style={{ height: "70vh", width: "100%" }}
-            />
-          </Box>
-        </Grid>
-      )}
+
+      <Document file={kycImage} onLoadSuccess={onDocumentLoadSuccess}>
+        {Array.from(new Array(numPages), (el, index) => (
+          <Page key={`page_${index + 1}`} pageNumber={index + 1} />
+        ))}
+      </Document>
 
       {(file || kycImage) && (
         <div
