@@ -3,10 +3,13 @@ import RenderInput from "../../../../../components/renderInput/RenderInput";
 import { nanoid } from "nanoid";
 import { FAMILY_RELATION } from "../basicInputData";
 import useMinorDetailFrom from "./useMinorDetailFrom";
-import { Button } from "@mui/base";
 import { useTranslation } from "react-i18next";
-import { Grid, Typography, useTheme } from "@mui/material";
+import { Button, Grid, Typography, useTheme } from "@mui/material";
 import { useGetGuardianDetail } from "../../../../../hooks/Kyc/individual/GuardianDetail/useGuardianDetail";
+import useKycNavigation from "../../../../hooks/useKycNavigation";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { SET_FORM } from "../../../../../redux/types/types";
 
 const PROVINCE = [
   {
@@ -172,7 +175,16 @@ const MinorDetails = () => {
   const { data: guardianDetail } = useGetGuardianDetail();
   const { formik } = useMinorDetailFrom({ guardianDetail });
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { previousFormPath } = useKycNavigation();
+
   const theme = useTheme();
+  const handleBack = () => {
+    navigate(previousFormPath());
+    dispatch({ type: SET_FORM, payload: 1 });
+  };
   return (
     <div>
       <Grid
@@ -196,15 +208,20 @@ const MinorDetails = () => {
         </Typography>
       </Grid>
       <RenderInput inputField={isMinor} formik={formik} />
-      <Grid sx={{ display: "flex", justifyContent: "flex-end" }}>
+      <Grid
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginTop: "1rem",
+        }}
+      >
+        <Button onClick={handleBack} variant="outlined" color="secondary">
+          {t("Back")}
+        </Button>
         <Button
           onClick={formik.handleSubmit}
           variant="contained"
           color="secondary"
-          style={{
-            background: theme.palette.background.btn,
-            color: theme.palette.text.alt,
-          }}
         >
           {t("Next")}
         </Button>
