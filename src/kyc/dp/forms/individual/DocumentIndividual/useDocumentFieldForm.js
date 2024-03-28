@@ -1,20 +1,24 @@
 import { useFormik } from "formik";
 import {
+  useAddDocumentDetail,
   useAddVerificationDocument,
   usePhotoUploadDragDrop,
 } from "../../../../../hooks/Kyc/DocumentUpload/usePhotoUplaod";
 import { useState } from "react";
 
 export const useDocumentFieldForm = () => {
-  const { mutate } = usePhotoUploadDragDrop({});
+  // const { mutate } = usePhotoUploadDragDrop({});
+  const { mutate } = useAddDocumentDetail({});
 
   const formik = useFormik({
     initialValues: {
       documentType: "",
-      docType: "",
-      issuedDatebs: "",
+      documentNo: "",
+      issuedDate: "",
       issuedDistrict: "",
+      path: "",
     },
+    enableReinitialize: true,
     onSubmit: (values) => {
       const formData = { ...values };
       mutate(formData, {
@@ -28,14 +32,15 @@ export const useDocumentFieldForm = () => {
   return { formik };
 };
 
-export const useDocumentVerification = () => {
+export const useDocumentVerification = ({ imageKyc }) => {
   const { mutate } = useAddVerificationDocument({});
 
   const formik = useFormik({
     initialValues: {
-      docType: "",
-      kycDocument: "",
+      documentType: imageKyc ? "KYC" : "",
+      kycDocument: imageKyc || "",
     },
+    enableReinitialize: true,
     onSubmit: (values) => {
       // setLoading(false);
       const formData = { ...values };

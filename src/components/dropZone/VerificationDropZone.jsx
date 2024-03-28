@@ -16,15 +16,19 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import CircularUploadProgress from "../spinner/CircularUploadProgress";
 import { useFinalSubmitApi } from "../../kyc/hooks/useMetaDataKyc";
 import { LoadingButton } from "@mui/lab";
+import { DOC_URL } from "../../utility/getBaseUrl";
+import { useGetDocument } from "../../hooks/Kyc/DocumentUpload/useDocument";
 
 const VerificationDropZone = ({ element, formik }) => {
+  console.log("🚀 ~ VerificationDropZone ~ formik:", formik);
+  const { data: docData, isLoading: docLoad } = useGetDocument();
   const { t } = useTranslation();
-  const [file, setFile] = useState(null);
-  const [showDelete, setShowDelete] = useState(false);
+  const kycImage =
+    docData.kycDocument !== null && DOC_URL + docData.kycDocument;
+  const [file, setFile] = useState(docLoad ? null : kycImage);
   const [upProgress, setUpProgress] = useState("0");
   const title = element?.title;
   const documentName = element?.name;
-
   const { mutate: submitKYC, isLoading } = useFinalSubmitApi({});
 
   const { mutate } = useAddVerificationDocument({});
@@ -77,7 +81,11 @@ const VerificationDropZone = ({ element, formik }) => {
           }}
         >
           <iframe
-            src={URL.createObjectURL(file)}
+            src={
+              kycImage
+                ? encodeURIComponent(kycImage)
+                : URL.createObjectURL(file)
+            }
             alt="Uploaded file"
             style={{ width: "100%", height: "60vh" }}
           />
@@ -160,8 +168,23 @@ const VerificationDropZone = ({ element, formik }) => {
           </Grid>
         </Grid>
       )}
+      {kycImage && !file && (
+        <Grid>
+          <Box sx={{ textAlign: "center" }}>
+            <Typography variant="h4" mb={1}>
+              KYC Documnt
+            </Typography>
+            <iframe
+              title="PDF Document"
+              src={kycImage}
+              allowfullscreen
+              style={{ height: "70vh", width: "100%" }}
+            />
+          </Box>
+        </Grid>
+      )}
 
-      {file && (
+      {(file || kycImage) && (
         <div
           style={{ display: "flex", justifyContent: "end", marginTop: "8px" }}
         >

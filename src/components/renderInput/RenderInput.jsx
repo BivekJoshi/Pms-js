@@ -126,7 +126,6 @@ const RenderInput = ({
 
   const getComponentToRender = (element, disableField) => {
     if (!element) return null;
-    // console.log(element, "elem")
     const formVaues = isFieldArray
       ? getIn(formik.values, element.name)
       : formik.values[element.name];
@@ -622,7 +621,7 @@ const RenderInput = ({
         return <DropZoneUploadFile title={element?.title} element={element} />;
       case "verificationDocumentUpload":
         return (
-          <VerificationDropZone title={element?.title} element={element} />
+          <VerificationDropZone title={element?.title} element={element} formik={formik} />
         );
       case "optionalRender":
         return <OptionalRender element={element} formik={formik} />;

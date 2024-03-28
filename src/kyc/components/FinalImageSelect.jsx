@@ -7,6 +7,7 @@ const FinalImageSelect = ({ finalImage, file, handleRemoveData, handleRemoveImag
   const { formik } = finalImage ? usePhotoUploadForm({ finalImage, handleCloseModal }) : usePhotoUploadDragForm({ file, handleCloseModal })
 
   const [hovered, setHovered] = React.useState(false);
+  
   return (
     <div
       style={{
