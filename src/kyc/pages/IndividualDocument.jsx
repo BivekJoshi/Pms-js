@@ -11,6 +11,7 @@ import { DOC_URL } from "../../utility/getBaseUrl";
 import ImageViewModal from "../../components/modal/ImageModal/ImageViewModal";
 import { useNavigate } from "react-router-dom";
 import useKycNavigation from "../hooks/useKycNavigation";
+import { useGetDocumentAll } from "../../hooks/Kyc/DocumentUpload/usePhotoUplaod";
 
 const IndividualDocument = () => {
   const { t } = useTranslation();
